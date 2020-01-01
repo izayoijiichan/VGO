@@ -1,0 +1,16 @@
+{
+    "name": "UniVgo",
+    "references": [
+        "ShaderProperty.Runtime",
+        "UniUnlit",
+        "UniGLTFforUniVgo"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}
