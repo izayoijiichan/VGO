@@ -1,0 +1,19 @@
+{
+    "title": "nodes.extensions.VGO_nodes",
+    "description": "Node extension for VGO.",
+    "type": "object",
+    "properties": {
+        "gameObject": {
+            "$ref": "node.vgo.gameobject.schema.json"
+        },
+        "colliders": {
+            "$ref": "node.vgo.colliders.schema.json"
+        },
+        "rigidbody": {
+            "$ref": "node.vgo.rigidbody.schema.json"
+        },
+        "right": {
+            "$ref": "node.vgo.right.schema.json"
+        }
+    }
+}

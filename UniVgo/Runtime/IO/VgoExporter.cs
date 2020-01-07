@@ -125,6 +125,14 @@ namespace UniVgo
 
             bool existsData = false;
 
+            // vgo.gameObject
+            nodeVgo.gameObject = VgoGameObjectConverter.CreateFrom(srcNode);
+
+            if (nodeVgo.gameObject != null)
+            {
+                existsData = true;
+            }
+
             // vgo.colliders
             if (srcNode.TryGetComponentsEx(out Collider[] colliders))
             {

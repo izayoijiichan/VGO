@@ -53,12 +53,12 @@ namespace UniVgo.Editor
         public override void OnInspectorGUI()
         {
             // Script
-            base.OnInspectorGUI();
+            //base.OnInspectorGUI();
 
             serializedObject.Update();
 
             // Meta
-            EditorGUILayout.LabelField(_MetaProperty.name, EditorStyles.boldLabel);
+            //EditorGUILayout.LabelField(_MetaProperty.name, EditorStyles.boldLabel);
             EditorGUI.BeginDisabledGroup(true);
             SetPropertyFields(_MetaProperty, new string[]
             { 

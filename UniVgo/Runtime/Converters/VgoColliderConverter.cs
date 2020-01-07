@@ -34,6 +34,7 @@ namespace UniVgo
                 return new glTFNode_VGO_Collider()
                 {
                     type = ColliderType.Box,
+                    enabled = boxCollider.enabled,
                     isTrigger = boxCollider.isTrigger,
                     center = boxCollider.center.ReverseZ().ToArray(),
                     size = boxCollider.size.ToArray(),
@@ -47,6 +48,7 @@ namespace UniVgo
                 return new glTFNode_VGO_Collider()
                 {
                     type = ColliderType.Capsule,
+                    enabled = capsuleCollider.enabled,
                     isTrigger = capsuleCollider.isTrigger,
                     center = capsuleCollider.center.ReverseZ().ToArray(),
                     radius = capsuleCollider.radius,
@@ -62,6 +64,7 @@ namespace UniVgo
                 return new glTFNode_VGO_Collider()
                 {
                     type = ColliderType.Sphere,
+                    enabled = sphereCollider.enabled,
                     isTrigger = sphereCollider.isTrigger,
                     center = sphereCollider.center.ReverseZ().ToArray(),
                     radius = sphereCollider.radius,
@@ -99,6 +102,7 @@ namespace UniVgo
 
                 if (vgoCollider.type == ColliderType.Box)
                 {
+                    boxCollider.enabled = vgoCollider.enabled;
                     boxCollider.isTrigger = vgoCollider.isTrigger;
                     boxCollider.center = ConvertToVector3(vgoCollider.center, reverseZ: true);
                     boxCollider.size = ConvertToVector3(vgoCollider.size);
@@ -111,6 +115,7 @@ namespace UniVgo
 
                 if (vgoCollider.type == ColliderType.Capsule)
                 {
+                    capsuleCollider.enabled = vgoCollider.enabled;
                     capsuleCollider.isTrigger = vgoCollider.isTrigger;
                     capsuleCollider.center = ConvertToVector3(vgoCollider.center, reverseZ: true);
                     capsuleCollider.radius = vgoCollider.radius;
@@ -125,6 +130,7 @@ namespace UniVgo
 
                 if (vgoCollider.type == ColliderType.Sphere)
                 {
+                    sphereCollider.enabled = vgoCollider.enabled;
                     sphereCollider.isTrigger = vgoCollider.isTrigger;
                     sphereCollider.center = ConvertToVector3(vgoCollider.center, reverseZ: true);
                     sphereCollider.radius = vgoCollider.radius;

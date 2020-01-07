@@ -69,6 +69,7 @@ namespace UniGLTFforUniVgo
         /// <summary>
         /// Create a new instance of glTF_VGO_Right by specifying glTF_VGO_Right.
         /// </summary>
+        /// <param name="right"></param>
         public glTF_VGO_Right(glTF_VGO_Right right)
         {
             if (right != null)

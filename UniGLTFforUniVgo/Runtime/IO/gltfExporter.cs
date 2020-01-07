@@ -183,7 +183,7 @@ namespace UniGLTFforUniVgo
                 node.children = null;
             }
 
-            if (x.gameObject.activeInHierarchy)
+            //if (x.gameObject.activeInHierarchy)
             {
                 var meshRenderer = x.GetComponent<MeshRenderer>();
                 if (meshRenderer != null)

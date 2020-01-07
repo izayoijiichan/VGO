@@ -1,0 +1,46 @@
+{
+    "title": "node.vgo.rigidbody",
+    "description": "Node rigidbody.",
+    "type": "object",
+    "properties": {
+        "mass": {
+            "description": "The mass of the body. [0.0000001, 1000000000]",
+            "type": "number",
+            "minimum": 0.0000001,
+            "maximum": 1000000000
+        },
+        "drag": {
+            "description": "The linear drag coefficient. [0, infinity]",
+            "type": "number",
+            "minimum": 0
+        },
+        "angularDrag": {
+            "description": "The angular drag coefficient. [0, infinity]",
+            "type": "number",
+            "minimum": 0
+        },
+        "useGravity": {
+            "description": "Controls whether gravity affects this rigidbody.",
+            "type": "boolean"
+        },
+        "isKinematic": {
+            "description": "Controls whether physics affects the rigidbody.",
+            "type": "boolean"
+        },
+        "interpolation": {
+            "description": "Interpolation allows you to smooth out the effect of running physics at a fixed frame rate.",
+            "type": "string",
+            "enum": ["None","Interpolate","Extrapolate"]
+        },
+        "collisionDetectionMode": {
+            "description": "The Rigidbody's collision detection mode.",
+            "type": "string",
+            "enum": ["Discrete","Continuous","ContinuousDynamic","ContinuousSpeculative"]
+        },
+        "constraints": {
+            "description": "The flags to constrain motion of rigidbodies. [2|4|8|16|32|64]",
+            "type": "integer",
+            "maximum": 126
+        }
+    }
+}

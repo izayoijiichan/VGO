@@ -141,7 +141,11 @@ namespace UniGLTFforUniVgo
         public void Process(glTF gltf, IStorage storage)
         {
             ProcessOnAnyThread(gltf, storage);
+#if VRM_0_53
+            ProcessOnMainThreadCoroutine(gltf).CoroutinetoEnd();
+#else
             ProcessOnMainThreadCoroutine(gltf).CoroutineToEnd();
+#endif
         }
 
         public IEnumerator ProcessCoroutine(glTF gltf, IStorage storage)

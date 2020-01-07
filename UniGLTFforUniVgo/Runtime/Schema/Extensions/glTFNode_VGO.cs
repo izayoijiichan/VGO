@@ -15,6 +15,10 @@ namespace UniGLTFforUniVgo
     [JsonObject("nodes.extensions.VGO_nodes")]
     public class glTFNode_VGO
     {
+        /// <summary>GameObject</summary>
+        [JsonProperty("gameObject")]
+        public glTFNode_VGO_GameObject gameObject = null;
+
         /// <summary>Colliders</summary>
         [JsonProperty("colliders")]
         public List<glTFNode_VGO_Collider> colliders = null;

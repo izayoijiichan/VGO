@@ -31,6 +31,11 @@ namespace UniGLTFforUniVgo
         [JsonProperty("type", Required = Required.Always)]
         public ColliderType type = default;
 
+        /// <summary>Enabled</summary>
+        [JsonProperty("enabled", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [DefaultValue(true)]
+        public bool enabled = false;
+
         /// <summary>Is Trigger</summary>
         [JsonProperty("isTrigger")]
         public bool isTrigger = false;

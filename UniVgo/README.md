@@ -26,13 +26,13 @@ As of the start of 2020, we are developing and confirming in `Unity 2019.3` Wind
 
 |package name|owner|Repository|specification version|program version|release date|
 |:---:|:---:|:---:|:---:|:---:|:---:|
-|newtonsoft-json-for-unity|jillejr|GitHub|12.0.1|12.0.101|27 Nov, 2019|
-|UniVGO|IzayoiJiichan|GitHub| VGO 0.1|0.3.0|1 Jan, 2020|
+|newtonsoft-json-for-unity|jillejr|GitHub|12.0.2|12.0.201|4 Jan, 2020|
+|UniVGO|IzayoiJiichan|GitHub| VGO 0.2|0.4.0|8 Jan, 2020|
 
 ___
 ## Install
 
-1. Create a new 3D project in UnityEditor or UnityHub.
+#### 1. Create a new 3D project in UnityEditor or UnityHub.
 ```
     <Project>
         Assets
@@ -40,7 +40,7 @@ ___
         ProjectSettings
 ```
 
-2. Import Newtonsoft.JSON (Json.NET) into the project as a package.
+#### 2. Import Newtonsoft.JSON into the project as a package.
 
 Write the following in `<Project>/Packages/package.json`  
 You need to be careful where you add them.
@@ -56,7 +56,7 @@ You need to be careful where you add them.
   ],
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "jillejr.newtonsoft.json-for-unity": "12.0.101",
+    "jillejr.newtonsoft.json-for-unity": "12.0.201",
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
@@ -64,11 +64,11 @@ You need to be careful where you add them.
 }
 ```
 
-3. Import UniVGO into your project.
+#### 3. Import UniVGO into your project.
 
 Do either A or B.
 
-A) Case managing with `package.json`
+##### A) Case managing with package.json
 
 Write the following in `<Project>/Packages/package.json`
 
@@ -76,8 +76,8 @@ Write the following in `<Project>/Packages/package.json`
 {
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.3.0",
-    "jillejr.newtonsoft.json-for-unity": "12.0.101",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.4.0",
+    "jillejr.newtonsoft.json-for-unity": "12.0.201",
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
@@ -85,7 +85,7 @@ Write the following in `<Project>/Packages/package.json`
 }
 ```
 
-B) Case managing with `Packages` folder
+##### B) Case managing with Packages folder
 
 Download the zip file from the following URL.
 
@@ -97,7 +97,7 @@ Unzip the file and place it in the `Packages` folder.
 ```
   <Project>
     Packages
-      izayoi.univgo@0.3.0-preview
+      izayoi.univgo@0.4.0-preview
         DepthFirstScheduler
         ShaderProperty
         UniGLTFforUniVgo
@@ -123,8 +123,8 @@ Meta information of VGO.
 |definition name|description|type|fixed value|
 |:---|:---|:---:|:---:|
 |Generator Name|The name of the generation tool.|string|UniVGO|
-|Generator Version|The generation tool version.|string|0.3.0|
-|Spec Version|VGO specification version.|string|0.1|
+|Generator Version|The generation tool version.|string|0.4.0|
+|Spec Version|VGO specification version.|string|0.2|
 
 - It is necessary to give one to Root GameObject.
 - There are no user configurable items.
@@ -189,7 +189,7 @@ The order of components is not related to behavior.
 ### Child GameObject
 
 You can place GameObject freely under Root.
-VGO Meta components can be freely assigned.
+VGO Right components can be freely assigned.
 The types are divided into A, B, and C below.
 
 #### A) Stationary object
@@ -240,10 +240,6 @@ Keep the number of objects to be set within the required range.
 Neither the Collider nor the Rigidbody component is assigned to objects that do not require collision detection.
 
 This pattern is also used when the collider assigned to the parent object covers the judgment range.
-
-### Specification of setting
-
-When exporting, inactive GameObjects are output as active. 
 
 ___
 ## Export VGO
@@ -317,6 +313,12 @@ When the package is installed in the project, the script is automatically compil
 - DepthFirstScheduler, ShaderProperty, UniUnlit is a program packed in UniVRM (© vrm-c).
 - When using UniVRM and UniVGO together, it is necessary to delete the duplicate files (DepthFirstScheduler, ShaderProperty, UniUnlit) that were packed when UniVgo was obtained.
   Also, if the error is displayed by UniVgo, please move UniVgo, UniGLTFforUniVgo to the` Assets` folder.
+
+### About GameObject tags
+
+When importing GameObject `tag`, it is necessary to add tag definitions in UnityEditor in advance.
+The same applies when performing runtime loading.
+
 ___
 ## About VGO specifications
 
@@ -333,7 +335,7 @@ Unity Technologies, who is developing Unity, and other related people.
 I would like to take this opportunity to thank you.
 
 ___
-Last updated: 1 January, 2020 
+Last updated: 8 January, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -51,6 +51,7 @@ ___
 
 |定義名|説明|
 |:---|:---|
+|gameObject|ゲームオブジェクト情報|
 |colliders|コライダー情報|
 |rigidbody|剛体情報|
 |right|VGO権利情報|
@@ -69,8 +70,8 @@ ___
 |定義名|説明|型|固定値|
 |:---|:---|:---:|:---:|
 |generatorName|生成ツールの名前です。|string|UniVGO|
-|generatorVersion|生成ツールのバージョンです。|string|0.3.0|
-|specVersion|VGOの仕様バージョンです。|string|0.1|
+|generatorVersion|生成ツールのバージョンです。|string|0.4.0|
+|specVersion|VGOの仕様バージョンです。|string|0.2|
 
 ### vgo.right（権利情報）
 
@@ -85,12 +86,22 @@ ___
 |distributionUrl|配布URLです。|string|URL形式|
 |licenseUrl|ライセンスの記載されたURLです。|string|URL形式|
 
+### node.vgo.gameobject（ゲームオブジェクト）
+
+|定義名|説明|型|設定値|既定値|
+|:---|:---|:---:|:---:|:---:|
+|isActive|ゲームオブジェクトが活性かどうか。|bool|true / false|true|
+|isStatic|ゲームオブジェクトが静的かどうか。|bool|true / false|false|
+|tag|ゲームオブジェクトに付けられたタグ。|string||Untagged|
+|layer|ゲームオブジェクトの位置するレイヤー。|int|[0, 31]|0|
+
 ### node.vgo.collier（コライダー）
 
 |定義名|説明|型|設定値|Box|Capsule|Sphere|
 |:---|:---|:---:|:---:|:---:|:---:|:---:|
 |type|コライダーの種類です。|string|Box / Capsule / Sphere|*|*|*|
-|isTrigger|コライダーがトリガーかどうか。|boolean|true / false|*|*|*|
+|enabled|コライダーが有効かどうか。|bool|true / false|*|*|*|
+|isTrigger|コライダーがトリガーかどうか。|bool|true / false|*|*|*|
 |center|コライダーの中心座標です。（単位はm）|float[3]|[x, y, z]|*|*|*|
 |size|コライダーのサイズです。（単位はm）|float[3]|[x, y, z]|*|-|-|
 |radius|コライダーの半径です。|float|[0, infinity]|-|*|*|
@@ -125,7 +136,7 @@ ___
 ## glTFのJSONの構造例
 
 
-#### glTF.extensions
+### glTF.extensions
 ```json
 JSON{
     "asset": {
@@ -146,16 +157,16 @@ JSON{
         "VGO": {
             "meta": {
                 "generatorName": "UniVGO",
-                "generatorVersion": "0.3.0",
-                "specVersion": "0.1"
+                "generatorVersion": "0.4.0",
+                "specVersion": "0.2"
             },
             "right": {
                 "title": "Test Stage",
-                "author": "IzayoiJiichan",
+                "author": "Izayoi Jiichan",
                 "organization": "Izayoi",
                 "createdDate": "2020-01-01",
-                "updatedDate": "2020-01-01",
-                "version": "1.0",
+                "updatedDate": "2020-01-08",
+                "version": "1.1",
                 "distributionUrl": "https://github.com/izayoijiichan/VGO",
                 "licenseUrl": "https://github.com/izayoijiichan/VGO/blob/master/UniVgo/LICENSE.md"
             }
@@ -165,7 +176,7 @@ JSON{
 }
 ```
 
-#### glTF.nodes.[*].extensions
+### glTF.nodes.[*].extensions
 ```json
 JSON{
     "nodes": [
@@ -177,9 +188,16 @@ JSON{
             "mesh": 0,
             "extensions": {
                 "VGO_nodes": {
+                    "gameObject": {
+                        "isActive": false,
+                        "isStatic": true,
+                        "tag": "Player",
+                        "layer": 2
+                    },
                     "colliders": [
                         {
                             "type": "Capsule",
+                            "enabled": false,
                             "isTrigger": false,
                             "center": [ 0, 0, 0 ],
                             "radius": 0.5,
@@ -206,11 +224,11 @@ JSON{
                     },
                     "right": {
                         "title": "Capsule1",
-                        "author": "IzayoiJiichan",
+                        "author": "Izayoi Jiichan",
                         "organization": "",
                         "createdDate": "2020-01-01",
-                        "updatedDate": "2020-01-01",
-                        "version": "0.1",
+                        "updatedDate": "2020-01-08",
+                        "version": "0.2",
                         "distributionUrl": "",
                         "licenseUrl": ""
                     }
@@ -222,7 +240,7 @@ JSON{
 }
 ```
 
-## glTF.materials.[*].extensions
+### glTF.materials.[*].extensions
 ```json
 JSON{
     "materials": [
@@ -266,7 +284,7 @@ VGOファイルの中身を確認するためのツールです。
 https://github.com/izayoijiichan/vgo.parameter.viewer
 
 ___
-最終更新日：2020年1月1日  
+最終更新日：2020年1月8日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

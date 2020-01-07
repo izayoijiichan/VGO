@@ -32,12 +32,12 @@ namespace UniVgo.Editor
         public override void OnInspectorGUI()
         {
             // Script
-            base.OnInspectorGUI();
+            //base.OnInspectorGUI();
 
             serializedObject.Update();
 
             // Right
-            EditorGUILayout.LabelField(_RightProperty.name, EditorStyles.boldLabel);
+            //EditorGUILayout.LabelField(_RightProperty.name, EditorStyles.boldLabel);
             SetPropertyFields(_RightProperty, new string[]
             {
                 "title",

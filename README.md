@@ -50,6 +50,7 @@ The following extended definitions are added:
 
 |definition name|description|
 |:---|:---|
+|gameObject|GameObject information|
 |colliders|Collider information|
 |rigidbody|Rigid body information|
 |right|VGO rights information|
@@ -68,8 +69,8 @@ ___
 |definition name|description|type|fixed value|
 |:---|:---|:---:|:---:|
 |generatorName|The name of the generation tool.|string|UniVGO|
-|generatorVersion|The generation tool version.|string|0.3.0|
-|specVersion|VGO specification version.|string|0.1|
+|generatorVersion|The generation tool version.|string|0.4.0|
+|specVersion|VGO specification version.|string|0.2|
 
 ### vgo.right
 
@@ -84,12 +85,21 @@ ___
 |distributionUrl|Distribution URL.|string|URL format|
 |licenseUrl|The URL where the license is written.|string|URL format|
 
+### node.vgo.gameobject
+
+|definition name|description|type|setting value|default value|
+|:---|:---|:---:|:---:|:---:|
+|isActive|Whether the GameObject is active.|bool|true / false|true|
+|isStatic|Whether the GameObject is static.|bool|true / false|false|
+|tag|Tag attached to GameGbject.|string||Untagged|
+|layer|The layer on which the GameObject is located.|int|[0, 31]|0|
+
 ### node.vgo.collier
 
 |definition name|description|type|setting value|Box|Capsule|Sphere|
 |:---|:---|:---:|:---:|:---:|:---:|:---:|
 |type|The type of collider.|string|Box / Capsule / Sphere|*|*|*|
-|isTrigger|Whether the collider is a trigger.|boolean|true / false|*|*|*|
+|isTrigger|Whether the collider is a trigger.|bool|true / false|*|*|*|
 |center|The center of the collider.（Unit is m）|float[3]|[x, y, z]|*|*|*|
 |size|The total size of the collider.（Unit is m）|float[3]|[x, y, z]|*|-|-|
 |radius|The radius of the collider.|float|[0, infinity]|-|*|*|
@@ -124,7 +134,7 @@ ___
 ## Example of glTF JSON structure
 
 
-#### glTF.extensions
+### glTF.extensions
 ```json
 JSON{
     "asset": {
@@ -145,16 +155,16 @@ JSON{
         "VGO": {
             "meta": {
                 "generatorName": "UniVGO",
-                "generatorVersion": "0.3.0",
-                "specVersion": "0.1"
+                "generatorVersion": "0.4.0",
+                "specVersion": "0.2"
             },
             "right": {
                 "title": "Test Stage",
                 "author": "Izayoi Jiichan",
                 "organization": "Izayoi",
                 "createdDate": "2020-01-01",
-                "updatedDate": "2020-01-01",
-                "version": "1.0",
+                "updatedDate": "2020-01-08",
+                "version": "1.1",
                 "distributionUrl": "https://github.com/izayoijiichan/VGO",
                 "licenseUrl": "https://github.com/izayoijiichan/VGO/blob/master/UniVgo/LICENSE.md"
             }
@@ -164,7 +174,7 @@ JSON{
 }
 ```
 
-#### glTF.nodes.[*].extensions
+### glTF.nodes.[*].extensions
 ```json
 JSON{
     "nodes": [
@@ -176,9 +186,16 @@ JSON{
             "mesh": 0,
             "extensions": {
                 "VGO_nodes": {
+                    "gameObject": {
+                        "isActive": false,
+                        "isStatic": true,
+                        "tag": "Player",
+                        "layer": 2
+                    },
                     "colliders": [
                         {
                             "type": "Capsule",
+                            "enabled": false,
                             "isTrigger": false,
                             "center": [ 0, 0, 0 ],
                             "radius": 0.5,
@@ -205,11 +222,11 @@ JSON{
                     },
                     "right": {
                         "title": "Capsule1",
-                        "author": "IzayoiJiichan",
+                        "author": "Izayoi Jiichan",
                         "organization": "",
                         "createdDate": "2020-01-01",
-                        "updatedDate": "2020-01-01",
-                        "version": "0.1",
+                        "updatedDate": "2020-01-08",
+                        "version": "0.2",
                         "distributionUrl": "",
                         "licenseUrl": ""
                     }
@@ -221,7 +238,7 @@ JSON{
 }
 ```
 
-#### glTF.materials.[*].extensions
+### glTF.materials.[*].extensions
 ```json
 JSON{
     "materials": [
@@ -265,7 +282,7 @@ It is distributed at the following URL.
 https://github.com/izayoijiichan/vgo.parameter.viewer
 
 ___
-Last updated: 1 January, 2020 
+Last updated: 8 January, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

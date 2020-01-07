@@ -26,15 +26,15 @@ ___
 
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|
 |:---:|:---:|:---:|:---:|:---:|:---:|
-|newtonsoft-json-for-unity|jillejr|GitHub|12.0.1|12.0.101|2019年11月27日|
-|UniVGO|IzayoiJiichan|GitHub| VGO 0.1|0.3.0|2020年1月1日|
+|newtonsoft-json-for-unity|jillejr|GitHub|12.0.2|12.0.201|2020年1月4日|
+|UniVGO|IzayoiJiichan|GitHub| VGO 0.2|0.4.0|2020年1月8日|
 
 ___
 ## インストール
 
 ### インストール手順
 
-1. UnityEditor または UnityHub にて3Dの新規プロジェクトを作成します。
+#### 1. UnityEditor または UnityHub にて3Dの新規プロジェクトを作成します。
 
 ```
     <Project>
@@ -43,7 +43,7 @@ ___
         ProjectSettings
 ```
 
-2. Newtonsoft.JSON (Json.NET) をパッケージとしてプロジェクトに取り込みます。
+#### 2. Newtonsoft.JSON をパッケージとしてプロジェクトに取り込みます。
 
 `<Project>/Packages/package.json` に以下の記述を行います。  
 追加する位置に気を付ける必要があります。
@@ -59,7 +59,7 @@ ___
   ],
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "jillejr.newtonsoft.json-for-unity": "12.0.101",
+    "jillejr.newtonsoft.json-for-unity": "12.0.201",
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
@@ -67,11 +67,11 @@ ___
 }
 ```
 
-3. UniVGO をプロジェクトに取り込みます。
+#### 3. UniVGO をプロジェクトに取り込みます。
 
 AまたはBのいずれかを行ってください。
 
-A) `package.json`にて管理する場合
+##### A) package.json にて管理する場合
 
 `<Project>/Packages/package.json` に以下の記述を行います。  
 
@@ -79,8 +79,8 @@ A) `package.json`にて管理する場合
 {
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.3.0",
-    "jillejr.newtonsoft.json-for-unity": "12.0.101",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.4.0",
+    "jillejr.newtonsoft.json-for-unity": "12.0.201",
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
@@ -88,7 +88,7 @@ A) `package.json`にて管理する場合
 }
 ```
 
-B) `Packages`フォルダーにて管理する場合  
+##### B) Packages フォルダーにて管理する場合  
 
 以下のURLより圧縮ファイルをダウンロードします。  
 
@@ -100,7 +100,7 @@ https://github.com/izayoijiichan/VGO/releases
 ```
   <Project>
     Packages
-      izayoi.univgo@0.3.0-preview
+      izayoi.univgo@0.4.0-preview
         DepthFirstScheduler
         ShaderProperty
         UniGLTFforUniVgo
@@ -126,8 +126,8 @@ VGO のメタ情報です。
 |定義名|説明|型|固定値|
 |:---|:---|:---:|:---:|
 |Generator Name|生成ツールの名前です。|string|UniVGO|
-|Generator Version|生成ツールのバージョンです。|string|0.3.0|
-|Spec Version|VGOの仕様バージョンです。|string|0.1|
+|Generator Version|生成ツールのバージョンです。|string|0.4.0|
+|Spec Version|VGOの仕様バージョンです。|string|0.2|
 
 - Root の GameObject に１つ付与しておく必要があります。  
 - ユーザーが設定可能な項目はありません。
@@ -192,7 +192,7 @@ ___
 ### 子の GameObject
 
 Root の配下には GameObject を自由に配置することができます。  
-VGO Meta コンポーネントは自由に付与可能です。  
+VGO Right コンポーネントは自由に付与可能です。  
 以下、タイプが A か B か C かに分かれます。
 
 #### A) 静止物
@@ -244,10 +244,6 @@ VGO Meta コンポーネントは自由に付与可能です。
 Collider, Rigidbody のどちらのコンポーネントも付与しません。
 
 親のオブジェクトに付与したコライダーが判定の範囲をカバーしている場合もこのパターンになります。
-
-### 設定の仕様
-
-エクスポート時、非活性な GameObject は活性扱いで出力されます。  
 
 ___
 ## VGO の出力（エクスポート）
@@ -319,6 +315,11 @@ ___
 - UniVRM と UniVGO を併用する場合は、UniVgo を取得した際に梱包されていた 重複するファイル（DepthFirstScheduler, ShaderProperty, UniUnlit）を削除する必要があります。
   また、それにより UniVgo にてエラーが表示される場合、UniVgo, UniGLTFforUniVgo を `Assets`フォルダーに移動してください。
 
+### ゲームオブジェクトのタグについて
+
+GameObject の`tag`は、取り込みを行う際、予め UnityEditor にてタグの定義を追加しておく必要があります。
+また、ランタイムロードを行う場合も同様です。
+
 ___
 ## VGO の仕様について
 
@@ -335,7 +336,7 @@ Unityを開発してくださっている Unity Technologies 様、
 この場を借りて御礼申し上げます。
 
 ___
-最終更新日：2020年1月1日  
+最終更新日：2020年1月8日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

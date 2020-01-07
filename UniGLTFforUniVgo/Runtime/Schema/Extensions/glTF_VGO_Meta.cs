@@ -40,6 +40,7 @@ namespace UniGLTFforUniVgo
         /// <summary>
         /// Create a new instance of glTF_VGO_Meta by specifying glTF_VGO_Meta.
         /// </summary>
+        /// <param name="meta"></param>
         public glTF_VGO_Meta(glTF_VGO_Meta meta)
         {
             if (meta != null)

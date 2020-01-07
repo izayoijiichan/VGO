@@ -49,10 +49,13 @@ namespace UniVgo
         /// </summary>
         protected virtual void SetupRootComponent()
         {
-            if (GLTF.extensions.VGO != null)
+            if (GLTF.extensions != null)
             {
-                Root.AddComponent<VgoMeta>(GLTF.extensions.VGO.meta);
-                Root.AddComponent<VgoRight>(GLTF.extensions.VGO.right);
+                if (GLTF.extensions.VGO != null)
+                {
+                    Root.AddComponent<VgoMeta>(GLTF.extensions.VGO.meta);
+                    Root.AddComponent<VgoRight>(GLTF.extensions.VGO.right);
+                }
             }
         }
 
@@ -63,36 +66,38 @@ namespace UniVgo
         /// <param name="gltfNode"></param>
         protected virtual void SetupChildComponent(GameObject go, glTFNode gltfNode)
         {
-            if (gltfNode.extensions == null)
+            if (gltfNode.extensions != null)
             {
-                return;
-            }
+                if (gltfNode.extensions.VGO_nodes != null)
+                {
+                    var nodeVGO = gltfNode.extensions.VGO_nodes;
 
-            if (gltfNode.extensions.VGO_nodes == null)
-            {
-                return;
-            }
+                    // VgoGameObject
+                    if (nodeVGO.gameObject != null)
+                    {
+                        VgoGameObjectConverter.SetGameObjectValue(go, nodeVGO.gameObject);
+                    }
 
-            var nodeVGO = gltfNode.extensions.VGO_nodes;
+                    // Collider[]
+                    if (nodeVGO.colliders != null)
+                    {
+                        var colliders = nodeVGO.colliders;
 
-            // Collider[]
-            if (nodeVGO.colliders != null)
-            {
-                var colliders = nodeVGO.colliders;
+                        colliders.ForEach(vc => go.AddComponent<Collider>(vc));
+                    }
 
-                colliders.ForEach(vc => go.AddComponent<Collider>(vc));
-            }
+                    // Rigidbody
+                    if (nodeVGO.rigidbody != null)
+                    {
+                        go.AddComponent<Rigidbody>(nodeVGO.rigidbody);
+                    }
 
-            // Rigidbody
-            if (nodeVGO.rigidbody != null)
-            {
-                go.AddComponent<Rigidbody>(nodeVGO.rigidbody);
-            }
-
-            // VgoRight
-            if (nodeVGO.right != null)
-            {
-                go.AddComponent<VgoRight>(nodeVGO.right);
+                    // VgoRight
+                    if (nodeVGO.right != null)
+                    {
+                        go.AddComponent<VgoRight>(nodeVGO.right);
+                    }
+                }
             }
         }
     }
