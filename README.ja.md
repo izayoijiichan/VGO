@@ -4,8 +4,8 @@ VGO とは、Collider と Rigidbody の情報を格納可能な Unity 向け3D�
 
 ## 特徴
 - glTF (GLB) 2.0 の拡張フォーマットになります。
-- ノードに Collider, Rigidbody, 権利情報に関する拡張定義を追加しています。  
-- Unity の GameObject の Transform, Rigidbody, Collider, PhysicMaterial, Mesh, Material, Texture を保存することができます。
+- ノードに Collider, Rigidbody, Light, 権利情報に関する拡張定義を追加しています。  
+- Unity の GameObject の Transform, Rigidbody, Collider, PhysicMaterial, Mesh, Material, Texture, Light を保存することができます。
 
 ___
 ## glTFのJSONスキーマ
@@ -54,6 +54,7 @@ ___
 |gameObject|ゲームオブジェクト情報|
 |colliders|コライダー情報|
 |rigidbody|剛体情報|
+|light|ライト情報|
 |right|VGO権利情報|
 
 ### glTF.materials.[*].extensions
@@ -70,8 +71,8 @@ ___
 |定義名|説明|型|固定値|
 |:---|:---|:---:|:---:|
 |generatorName|生成ツールの名前です。|string|UniVGO|
-|generatorVersion|生成ツールのバージョンです。|string|0.4.0|
-|specVersion|VGOの仕様バージョンです。|string|0.2|
+|generatorVersion|生成ツールのバージョンです。|string|0.5.0|
+|specVersion|VGOの仕様バージョンです。|string|0.3|
 
 ### vgo.right（権利情報）
 
@@ -95,12 +96,12 @@ ___
 |tag|ゲームオブジェクトに付けられたタグ。|string||Untagged|
 |layer|ゲームオブジェクトの位置するレイヤー。|int|[0, 31]|0|
 
-### node.vgo.collier（コライダー）
+### node.vgo.collider（コライダー）
 
 |定義名|説明|型|設定値|Box|Capsule|Sphere|
 |:---|:---|:---:|:---:|:---:|:---:|:---:|
-|type|コライダーの種類です。|string|Box / Capsule / Sphere|*|*|*|
 |enabled|コライダーが有効かどうか。|bool|true / false|*|*|*|
+|type|コライダーの種類です。|string|Box / Capsule / Sphere|*|*|*|
 |isTrigger|コライダーがトリガーかどうか。|bool|true / false|*|*|*|
 |center|コライダーの中心座標です。（単位はm）|float[3]|[x, y, z]|*|*|*|
 |size|コライダーのサイズです。（単位はm）|float[3]|[x, y, z]|*|-|-|
@@ -126,11 +127,39 @@ ___
 |mass|物体の質量です。（単位はkg）|float|[0.0000001, 1000000000]|
 |drag|力によって動く際にオブジェクトに影響する空気抵抗の大きさです。|float|[0.0, infinity]|
 |angularDrag|トルクによって回転する際にオブジェクトに影響する空気抵抗の大きさです。|float|[0.0, infinity]|
-|useGravity|オブジェクトが重力の影響を受けるかどうか。|boolean|true / false|
-|isKinematic|物理が剛体に影響を与えるかどうかどうか。|boolean|true / false|
+|useGravity|オブジェクトが重力の影響を受けるかどうか。|bool|true / false|
+|isKinematic|物理が剛体に影響を与えるかどうかどうか。|bool|true / false|
 |interpolation|補完のタイプです。|string|none / interpolate / extrapolate|
 |collisionDetectionMode|衝突の検知のモードです。|string|Discrete / Continuous / ContinuousDynamic / ContinuousSpeculative|
 |constraints|剛体の動きを制限するフラグです。|int|FreesePositionX(2) \| FreesePositionY(4) \| FreesePositionZ(8) \| FreeseRotationX(16) \| FreeseRotationY(32) \| FreeseRotationZ(64)|
+
+### node.vgo.light（ライト）
+
+|定義名|説明|型|設定値|既定値|Spot|Directional|Point|Rectangle|Disc|
+|:---|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|enabled|ライトが有効かどうか。|bool|true / false|true|*|*|*|*|*|
+|type|ライトのタイプ。|string|Spot / Directional / Point / Rectangle / Disc|Spot|*|*|*|*|*|
+|shape|スポットライトの形状。|string|Cone / Pyramid / Box|Cone|*|-|-|-|-|
+|range|光の範囲。|float|[0, infinity]||*|-|*|*|*|
+|spotAngle|ライトのスポットライトコーンの角度（度単位）。|float|[0, infinity]||*|-|-|-|-|
+|areaSize|エリアライトのサイズ。|float[2]|x, y||-|-|-|*|-|
+|areaRadius|エリアライトの半径。|float|[0, infinity]||-|-|-|-|*|
+|color|ライトの色。|float[4]|r, g, b, a||*|*|*|*|*|
+|lightmapBakeType|ライトマップのベイクタイプ。|string|Baked / Realtime / Mixed||*|*|*|*|*|
+|intensity|ライトの輝度。|float|[0, infinity]||*|*|*|*|*|
+|bounceIntensity|バウンス照明の輝度を定義する乗数。|float|[0, infinity]||*|*|*|*|*|
+|shadows|この光が影を落とす方法。|string|None / Hard / Soft|None|*|*|*|*|*|
+|shadowRadius|影の半径。|float|[0, infinity]||*|-|*|-|-|
+|shadowAngle|影の角度。|float|[0, infinity]||-|*|-|-|-|
+|shadowStrength|ライトの影の強さ。|float|[0, infinity]||-|*|*|-|-|
+|shadowResolution|シャドウマップの解像度。|string|FromQualitySettings / Low / Medium / High / VeryHigh|FromQualitySettings|-|*|*|-|-|
+|shadowBias|シャドウマッピング定数バイアス。|float|[0, infinity]||-|*|*|-|-|
+|shadowNormalBias|シャドウマッピング法線ベースのバイアス。|float|[0, infinity]||-|*|*|-|-|
+|shadowNearPlane|シャドウ ニア プレーン。|float|[0, infinity]||-|*|*|-|-|
+|renderMode|レンダー モード。|string|Auto / ForcePixel / ForceVertex|Auto|*|*|*|*|*|
+|cullingMask|カリング マスク。|int|[-1, infinity]|-1 (Everything)|*|*|*|*|*|
+
+Cookie, Flare, Halo は対象外です。
 
 ___
 ## glTFのJSONの構造例
@@ -157,16 +186,16 @@ JSON{
         "VGO": {
             "meta": {
                 "generatorName": "UniVGO",
-                "generatorVersion": "0.4.0",
-                "specVersion": "0.2"
+                "generatorVersion": "0.5.0",
+                "specVersion": "0.3"
             },
             "right": {
                 "title": "Test Stage",
                 "author": "Izayoi Jiichan",
                 "organization": "Izayoi",
                 "createdDate": "2020-01-01",
-                "updatedDate": "2020-01-08",
-                "version": "1.1",
+                "updatedDate": "2020-01-14",
+                "version": "1.2",
                 "distributionUrl": "https://github.com/izayoijiichan/VGO",
                 "licenseUrl": "https://github.com/izayoijiichan/VGO/blob/master/UniVgo/LICENSE.md"
             }
@@ -196,8 +225,8 @@ JSON{
                     },
                     "colliders": [
                         {
-                            "type": "Capsule",
                             "enabled": false,
+                            "type": "Capsule",
                             "isTrigger": false,
                             "center": [ 0, 0, 0 ],
                             "radius": 0.5,
@@ -222,13 +251,36 @@ JSON{
                         "collisionDetectionMode": "Discrete",
                         "constraints": 36
                     },
+                    "light":{
+                        "enabled":true,
+                        "type":"Point",
+                        "shape":"",
+                        "range":1.0,
+                        "spotAngle":0.0,
+                        "areaSize":0.0,
+                        "areaRadius":0.0,
+                        "color":[ 0.122,0.404,0.637,1.0 ],
+                        "lightmapBakeType":"Realtime",
+                        "intensity":1.0,
+                        "bounceIntensity":1.0,
+                        "shadows":"Soft",
+                        "shadowRadius":1.0,
+                        "shadowAngle":0.0,
+                        "shadowStrength":1.0,
+                        "shadowResolution":"Low",
+                        "shadowBias":0.004,
+                        "shadowNormalBias":0.26,
+                        "shadowNearPlane":0.1,
+                        "renderMode":"Auto",
+                        "cullingMask":-1
+                    },
                     "right": {
                         "title": "Capsule1",
                         "author": "Izayoi Jiichan",
                         "organization": "",
                         "createdDate": "2020-01-01",
-                        "updatedDate": "2020-01-08",
-                        "version": "0.2",
+                        "updatedDate": "2020-01-14",
+                        "version": "0.3",
                         "distributionUrl": "",
                         "licenseUrl": ""
                     }
@@ -284,7 +336,7 @@ VGOファイルの中身を確認するためのツールです。
 https://github.com/izayoijiichan/vgo.parameter.viewer
 
 ___
-最終更新日：2020年1月8日  
+最終更新日：2020年1月14日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

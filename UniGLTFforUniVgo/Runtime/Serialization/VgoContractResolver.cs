@@ -8,6 +8,7 @@ namespace UniGLTFforUniVgo
     using Newtonsoft.Json.Serialization;
     using System;
     using UnityEngine;
+    using UnityEngine.Rendering;
 
     /// <summary>
     /// VGO Contract Resolver
@@ -25,6 +26,12 @@ namespace UniGLTFforUniVgo
 
             if ((objectType == typeof(ColliderType)) ||
                 (objectType == typeof(CollisionDetectionMode)) ||
+                (objectType == typeof(LightmapBakeType)) ||
+                (objectType == typeof(LightRenderMode)) ||
+                (objectType == typeof(LightShadowResolution)) ||
+                (objectType == typeof(LightShadows)) ||
+                (objectType == typeof(LightShape)) ||
+                (objectType == typeof(LightType)) ||
                 (objectType == typeof(PhysicMaterialCombine)) ||
                 (objectType == typeof(RigidbodyInterpolation)))
             {

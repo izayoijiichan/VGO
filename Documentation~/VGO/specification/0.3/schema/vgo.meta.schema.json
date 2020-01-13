@@ -1,0 +1,19 @@
+{
+    "title": "vgo.meta",
+    "description": "VGO meta information.",
+    "type": "object",
+    "properties": {
+        "generatorName": {
+            "description": "The VGO generator name.",
+            "type": "string"
+        },
+        "generatorVersion": {
+            "description": "The VGO generator version.",
+            "type": "string"
+        },
+        "specVersion": {
+            "description": "The VGO specification version.",
+            "type": "string"
+        }
+    }
+}

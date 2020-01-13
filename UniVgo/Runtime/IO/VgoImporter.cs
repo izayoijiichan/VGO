@@ -92,6 +92,12 @@ namespace UniVgo
                         go.AddComponent<Rigidbody>(nodeVGO.rigidbody);
                     }
 
+                    // Light
+                    if (nodeVGO.light != null)
+                    {
+                        go.AddComponent<Light>(nodeVGO.light);
+                    }
+
                     // VgoRight
                     if (nodeVGO.right != null)
                     {

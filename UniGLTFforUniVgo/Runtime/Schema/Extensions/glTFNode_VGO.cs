@@ -27,6 +27,10 @@ namespace UniGLTFforUniVgo
         [JsonProperty("rigidbody")]
         public glTFNode_VGO_Rigidbody rigidbody = null;
 
+        /// <summary>Light</summary>
+        [JsonProperty("light")]
+        public glTFNode_VGO_Light light = null;
+
         /// <summary>Right</summary>
         [JsonProperty("right")]
         public glTF_VGO_Right right = null;

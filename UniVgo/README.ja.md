@@ -27,7 +27,7 @@ ___
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|12.0.2|12.0.201|2020年1月4日|
-|UniVGO|IzayoiJiichan|GitHub| VGO 0.2|0.4.0|2020年1月8日|
+|UniVGO|IzayoiJiichan|GitHub| VGO 0.3|0.5.0|2020年1月14日|
 
 ___
 ## インストール
@@ -79,7 +79,7 @@ AまたはBのいずれかを行ってください。
 {
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.4.0",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.5.0",
     "jillejr.newtonsoft.json-for-unity": "12.0.201",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -100,7 +100,7 @@ https://github.com/izayoijiichan/VGO/releases
 ```
   <Project>
     Packages
-      izayoi.univgo@0.4.0-preview
+      izayoi.univgo@0.5.0-preview
         DepthFirstScheduler
         ShaderProperty
         UniGLTFforUniVgo
@@ -126,8 +126,8 @@ VGO のメタ情報です。
 |定義名|説明|型|固定値|
 |:---|:---|:---:|:---:|
 |Generator Name|生成ツールの名前です。|string|UniVGO|
-|Generator Version|生成ツールのバージョンです。|string|0.4.0|
-|Spec Version|VGOの仕様バージョンです。|string|0.2|
+|Generator Version|生成ツールのバージョンです。|string|0.5.0|
+|Spec Version|VGOの仕様バージョンです。|string|0.3|
 
 - Root の GameObject に１つ付与しておく必要があります。  
 - ユーザーが設定可能な項目はありません。
@@ -162,6 +162,13 @@ Box, Capsule, Sphere タイプに対応しています。
 ### Rigidbody
 
 物体を物理特性によって制御するための設定です。  
+１つの GameObject に対し１つまで付与することが可能です。  
+
+詳細は Unity 公式のマニュアルをご覧ください。
+
+### Light
+
+ライトの設定です。  
 １つの GameObject に対し１つまで付与することが可能です。  
 
 詳細は Unity 公式のマニュアルをご覧ください。
@@ -320,6 +327,11 @@ ___
 GameObject の`tag`は、取り込みを行う際、予め UnityEditor にてタグの定義を追加しておく必要があります。
 また、ランタイムロードを行う場合も同様です。
 
+### ライトについて
+
+Cookie, Flare, Halo は対象外です。  
+また、ランタイムロードを行う場合、Realtime 設定のみ描画され、Baked は反映されません。
+
 ___
 ## VGO の仕様について
 
@@ -336,7 +348,7 @@ Unityを開発してくださっている Unity Technologies 様、
 この場を借りて御礼申し上げます。
 
 ___
-最終更新日：2020年1月8日  
+最終更新日：2020年1月14日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

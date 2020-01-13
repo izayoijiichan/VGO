@@ -152,6 +152,14 @@ namespace UniVgo
                 existsData = true;
             }
 
+            // vgo.light
+            if (srcNode.TryGetComponentEx(out Light light))
+            {
+                nodeVgo.light = VgoLightConverter.CreateFrom(light);
+
+                existsData = true;
+            }
+
             // vgo.right
             if (srcNode.TryGetComponentEx(out VgoRight vgoRight))
             {

@@ -13,6 +13,6 @@ namespace UniVgo
         public const string Generator = "UniVGO";
 
         /// <summary>Specification Version</summary>
-        public const string SpecVersion = "0.2";
+        public const string SpecVersion = "0.3";
     }
 }

@@ -27,7 +27,7 @@ As of the start of 2020, we are developing and confirming in `Unity 2019.3` Wind
 |package name|owner|Repository|specification version|program version|release date|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|12.0.2|12.0.201|4 Jan, 2020|
-|UniVGO|IzayoiJiichan|GitHub| VGO 0.2|0.4.0|8 Jan, 2020|
+|UniVGO|IzayoiJiichan|GitHub| VGO 0.3|0.5.0|14 Jan, 2020|
 
 ___
 ## Install
@@ -76,7 +76,7 @@ Write the following in `<Project>/Packages/package.json`
 {
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.4.0",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.5.0",
     "jillejr.newtonsoft.json-for-unity": "12.0.201",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -97,7 +97,7 @@ Unzip the file and place it in the `Packages` folder.
 ```
   <Project>
     Packages
-      izayoi.univgo@0.4.0-preview
+      izayoi.univgo@0.5.0-preview
         DepthFirstScheduler
         ShaderProperty
         UniGLTFforUniVgo
@@ -123,8 +123,8 @@ Meta information of VGO.
 |definition name|description|type|fixed value|
 |:---|:---|:---:|:---:|
 |Generator Name|The name of the generation tool.|string|UniVGO|
-|Generator Version|The generation tool version.|string|0.4.0|
-|Spec Version|VGO specification version.|string|0.2|
+|Generator Version|The generation tool version.|string|0.5.0|
+|Spec Version|VGO specification version.|string|0.3|
 
 - It is necessary to give one to Root GameObject.
 - There are no user configurable items.
@@ -158,7 +158,14 @@ See the official Unity manual for details.
 
 ### Rigidbody
 
-This is a setting for controlling an object by physical characteristics.。  
+This is a setting for controlling an object by physical characteristics.  
+It is possible to add up to one for each GameObject.  
+
+See the official Unity manual for details.
+
+### Light
+
+This is a setting for light.  
 It is possible to add up to one for each GameObject.  
 
 See the official Unity manual for details.
@@ -304,20 +311,25 @@ When the package is installed in the project, the script is automatically compil
 |DepthFirstScheduler|Depth first scheduler|*|*|
 |ShaderProperty.Runtime|Shader property information|*|*|
 |UniGLTFforUniVgo|UniGLTF for UniVGO|*|*|
-|UniUnlit|Unlit shader unitlity|-|-|
-|UniUnlit.Editor|Unlit shader unitlity|-|*|
+|UniUnlit|Unlit shader utility|-|-|
+|UniUnlit.Editor|Unlit shader utility|-|*|
 |UniVgo|VGO main program|*|*|
 |UniVgo.Editor|VGO import / export|-|*|
 
 - For each of UniVgo, and UniVgo.Editor, * is attached to the dependent DLL.
 - DepthFirstScheduler, ShaderProperty, UniUnlit is a program packed in UniVRM (© vrm-c).
 - When using UniVRM and UniVGO together, it is necessary to delete the duplicate files (DepthFirstScheduler, ShaderProperty, UniUnlit) that were packed when UniVgo was obtained.
-  Also, if the error is displayed by UniVgo, please move UniVgo, UniGLTFforUniVgo to the` Assets` folder.
+  Also, if the error is displayed by UniVgo, please move UniVgo, UniGLTFforUniVgo to the `Assets` folder.
 
 ### About GameObject tags
 
 When importing GameObject `tag`, it is necessary to add tag definitions in UnityEditor in advance.
 The same applies when performing runtime loading.
+
+### About light
+
+Cookie, Flare, Halo are not supported.  
+In addition, when performing runtime loading, only the Realtime setting is drawn, and Baked is not reflected.
 
 ___
 ## About VGO specifications
@@ -335,7 +347,7 @@ Unity Technologies, who is developing Unity, and other related people.
 I would like to take this opportunity to thank you.
 
 ___
-Last updated: 8 January, 2020  
+Last updated: 14 January, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -140,6 +140,37 @@ namespace UniVgo
             return rigidbody;
         }
 
+        /// <summary>
+        /// Adds a Light component to the game object.
+        /// </summary>
+        /// <typeparam name="T">The type of the component to add.</typeparam>
+        /// <param name="go"></param>
+        /// <param name="vgoLight"></param>
+        /// <returns>Returns Light component.</returns>
+        /// <remarks>Light is sealed class.</remarks>
+        public static Light AddComponent<T>(this GameObject go, glTFNode_VGO_Light vgoLight)
+            //where T : Light
+        {
+            if (typeof(T) != typeof(Light))
+            {
+                return null;
+            }
+
+            Light light = go.GetComponent<Light>();
+
+            if (light == null)
+            {
+                light = go.AddComponent<Light>();
+            }
+
+            if (vgoLight != null)
+            {
+                VgoLightConverter.SetComponentValue(light, vgoLight);
+            }
+
+            return light;
+        }
+
         #endregion
 
         #region TryGetComponent

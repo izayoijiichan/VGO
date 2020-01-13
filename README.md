@@ -4,8 +4,8 @@ VGO is a 3D data format for Unity that can store Collider and Rigidbody informat
 
 ## Features
 - glTF (GLB) 2.0 extended format.
-- Added extended definitions for Collider, Rigidbody and rights information to nodes.  
-- Unity GameObject Transform, Rigidbody, Collider, PhysicMaterial, Mesh, Material, Texture can be saved.
+- Added extended definitions for Collider, Rigidbody, Light and rights information to nodes.  
+- Unity GameObject Transform, Rigidbody, Collider, PhysicMaterial, Mesh, Material, Texture, Light can be saved.
 ___
 ## JSON schema of glTF
 
@@ -53,6 +53,7 @@ The following extended definitions are added:
 |gameObject|GameObject information|
 |colliders|Collider information|
 |rigidbody|Rigid body information|
+|light|Light information|
 |right|VGO rights information|
 
 ### glTF.materials.[*].extensions
@@ -69,8 +70,8 @@ ___
 |definition name|description|type|fixed value|
 |:---|:---|:---:|:---:|
 |generatorName|The name of the generation tool.|string|UniVGO|
-|generatorVersion|The generation tool version.|string|0.4.0|
-|specVersion|VGO specification version.|string|0.2|
+|generatorVersion|The generation tool version.|string|0.5.0|
+|specVersion|VGO specification version.|string|0.3|
 
 ### vgo.right
 
@@ -94,10 +95,11 @@ ___
 |tag|Tag attached to GameGbject.|string||Untagged|
 |layer|The layer on which the GameObject is located.|int|[0, 31]|0|
 
-### node.vgo.collier
+### node.vgo.collider
 
 |definition name|description|type|setting value|Box|Capsule|Sphere|
 |:---|:---|:---:|:---:|:---:|:---:|:---:|
+|enabled|Whether the collider is enable.|bool|true / false|*|*|*|
 |type|The type of collider.|string|Box / Capsule / Sphere|*|*|*|
 |isTrigger|Whether the collider is a trigger.|bool|true / false|*|*|*|
 |center|The center of the collider.（Unit is m）|float[3]|[x, y, z]|*|*|*|
@@ -124,11 +126,39 @@ ___
 |mass|The mass of the object. (Unit is kg)|float|[0.0000001, 1000000000]|
 |drag|The amount of air resistance that affects an object when it is moved by force.|float|[0.0, infinity]|
 |angularDrag|The amount of air resistance that affects the object when rotating by torque.|float|[0.0, infinity]|
-|useGravity|Whether the object is affected by gravity.|boolean|true / false|
-|isKinematic|Whether physics affects the rigid body.|boolean|true / false|
+|useGravity|Whether the object is affected by gravity.|bool|true / false|
+|isKinematic|Whether physics affects the rigid body.|bool|true / false|
 |interpolation|The type of completion.|string|None / Interpolate / Extrapolate|
 |collisionDetectionMode|Collision detection mode.|string|Discrete / Continuous / ContinuousDynamic / ContinuousSpeculative|
 |constraints|The flags that restricts the movement of the rigid body.|int|FreesePositionX(2) \| FreesePositionY(4) \| FreesePositionZ(8) \| FreeseRotationX(16) \| FreeseRotationY(32) \| FreeseRotationZ(64)|
+
+### node.vgo.light
+
+|definition name|description|type|setting value|default value|Spot|Directional|Point|Rectangle|Disc|
+|:---|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|enabled|Whether the light is enable.|bool|true / false|true|*|*|*|*|*|
+|type|The type of the light.|string|Spot / Directional / Point / Rectangle / Disc|Spot|*|*|*|*|*|
+|shape|This property describes the shape of the spot light.|string|Cone / Pyramid / Box|Cone|*|-|-|-|-|
+|range|The range of the light.|float|[0, infinity]||*|-|*|*|*|
+|spotAngle|The angle of the light's spotlight cone in degrees.|float|[0, infinity]||*|-|-|-|-|
+|areaSize|The size of the area light.|float[2]|x, y||-|-|-|*|-|
+|areaRadius|The radius of the area light|float|[0, infinity]||-|-|-|-|*|
+|color|The color of the light.|float[4]|r, g, b, a||*|*|*|*|*|
+|lightmapBakeType|This property describes what part of a light's contribution can be baked.|string|Baked / Realtime / Mixed||*|*|*|*|*|
+|intensity|The Intensity of a light is multiplied with the Light color.|float|[0, infinity]||*|*|*|*|*|
+|bounceIntensity|The multiplier that defines the strength of the bounce lighting.|float|[0, infinity]||*|*|*|*|*|
+|shadows|How this light casts shadows.|string|None / Hard / Soft|None|*|*|*|*|*|
+|shadowRadius|Controls the amount of artificial softening applied to the edges of shadows cast by the Point or Spot light.|float|[0, infinity]||*|-|*|-|-|
+|shadowAngle|Controls the amount of artificial softening applied to the edges of shadows cast by directional lights.|float|[0, infinity]||-|*|-|-|-|
+|shadowStrength|Strength of light's shadows.|float|[0, infinity]||-|*|*|-|-|
+|shadowResolution|The resolution of the shadow map.|string|FromQualitySettings / Low / Medium / High / VeryHigh|FromQualitySettings|-|*|*|-|-|
+|shadowBias|Shadow mapping constant bias.|float|[0, infinity]||-|*|*|-|-|
+|shadowNormalBias|Shadow mapping normal-based bias.|float|[0, infinity]||-|*|*|-|-|
+|shadowNearPlane|Near plane value to use for shadow frustums.|float|[0, infinity]||-|*|*|-|-|
+|renderMode|How to render the light.|string|Auto / ForcePixel / ForceVertex|Auto|*|*|*|*|*|
+|cullingMask|This is used to light certain objects in the Scene selectively.|int|[-1, infinity]|-1 (Everything)|*|*|*|*|*|
+
+Cookie, Flare, Halo are not supported.
 
 ___
 ## Example of glTF JSON structure
@@ -155,16 +185,16 @@ JSON{
         "VGO": {
             "meta": {
                 "generatorName": "UniVGO",
-                "generatorVersion": "0.4.0",
-                "specVersion": "0.2"
+                "generatorVersion": "0.5.0",
+                "specVersion": "0.3"
             },
             "right": {
                 "title": "Test Stage",
                 "author": "Izayoi Jiichan",
                 "organization": "Izayoi",
                 "createdDate": "2020-01-01",
-                "updatedDate": "2020-01-08",
-                "version": "1.1",
+                "updatedDate": "2020-01-14",
+                "version": "1.2",
                 "distributionUrl": "https://github.com/izayoijiichan/VGO",
                 "licenseUrl": "https://github.com/izayoijiichan/VGO/blob/master/UniVgo/LICENSE.md"
             }
@@ -194,8 +224,8 @@ JSON{
                     },
                     "colliders": [
                         {
-                            "type": "Capsule",
                             "enabled": false,
+                            "type": "Capsule",
                             "isTrigger": false,
                             "center": [ 0, 0, 0 ],
                             "radius": 0.5,
@@ -220,13 +250,36 @@ JSON{
                         "collisionDetectionMode": "Discrete",
                         "constraints": 36
                     },
+                    "light":{
+                        "enabled":true,
+                        "type":"Point",
+                        "shape":"",
+                        "range":1.0,
+                        "spotAngle":0.0,
+                        "areaSize":0.0,
+                        "areaRadius":0.0,
+                        "color":[ 0.122,0.404,0.637,1.0 ],
+                        "lightmapBakeType":"Realtime",
+                        "intensity":1.0,
+                        "bounceIntensity":1.0,
+                        "shadows":"Soft",
+                        "shadowRadius":1.0,
+                        "shadowAngle":0.0,
+                        "shadowStrength":1.0,
+                        "shadowResolution":"Low",
+                        "shadowBias":0.004,
+                        "shadowNormalBias":0.26,
+                        "shadowNearPlane":0.1,
+                        "renderMode":"Auto",
+                        "cullingMask":-1
+                    },
                     "right": {
                         "title": "Capsule1",
                         "author": "Izayoi Jiichan",
                         "organization": "",
                         "createdDate": "2020-01-01",
-                        "updatedDate": "2020-01-08",
-                        "version": "0.2",
+                        "updatedDate": "2020-01-14",
+                        "version": "0.3",
                         "distributionUrl": "",
                         "licenseUrl": ""
                     }
@@ -282,7 +335,7 @@ It is distributed at the following URL.
 https://github.com/izayoijiichan/vgo.parameter.viewer
 
 ___
-Last updated: 8 January, 2020  
+Last updated: 14 January, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

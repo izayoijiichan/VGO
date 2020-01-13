@@ -104,8 +104,8 @@ namespace UniVgo
                 {
                     boxCollider.enabled = vgoCollider.enabled;
                     boxCollider.isTrigger = vgoCollider.isTrigger;
-                    boxCollider.center = ConvertToVector3(vgoCollider.center, reverseZ: true);
-                    boxCollider.size = ConvertToVector3(vgoCollider.size);
+                    boxCollider.center = ArrayConverter.ToVector3(vgoCollider.center, reverseZ: true);
+                    boxCollider.size = ArrayConverter.ToVector3(vgoCollider.size);
                     boxCollider.sharedMaterial = VgoPhysicMaterialConverter.ToPhysicMaterial(vgoCollider.physicMaterial);
                 }
             }
@@ -117,7 +117,7 @@ namespace UniVgo
                 {
                     capsuleCollider.enabled = vgoCollider.enabled;
                     capsuleCollider.isTrigger = vgoCollider.isTrigger;
-                    capsuleCollider.center = ConvertToVector3(vgoCollider.center, reverseZ: true);
+                    capsuleCollider.center = ArrayConverter.ToVector3(vgoCollider.center, reverseZ: true);
                     capsuleCollider.radius = vgoCollider.radius;
                     capsuleCollider.height = vgoCollider.height;
                     capsuleCollider.direction = vgoCollider.direction;
@@ -132,41 +132,11 @@ namespace UniVgo
                 {
                     sphereCollider.enabled = vgoCollider.enabled;
                     sphereCollider.isTrigger = vgoCollider.isTrigger;
-                    sphereCollider.center = ConvertToVector3(vgoCollider.center, reverseZ: true);
+                    sphereCollider.center = ArrayConverter.ToVector3(vgoCollider.center, reverseZ: true);
                     sphereCollider.radius = vgoCollider.radius;
                     sphereCollider.sharedMaterial = VgoPhysicMaterialConverter.ToPhysicMaterial(vgoCollider.physicMaterial);
                 }
             }
-        }
-
-        /// <summary>
-        /// Convert float[3] to Vector3.
-        /// </summary>
-        /// <param name="values"></param>
-        /// <param name="reverseZ"></param>
-        /// <returns></returns>
-        private static Vector3 ConvertToVector3(float[] values, bool reverseZ = false)
-        {
-            if (values == null)
-            {
-                return default;
-            }
-
-            if (values.Length == 3)
-            {
-                Vector3 vecter3 = new Vector3(values[0], values[1], values[2]);
-
-                if (reverseZ)
-                {
-                    return vecter3.ReverseZ();
-                }
-                else
-                {
-                    return vecter3;
-                }
-            }
-
-            return default;
         }
     }
 }
