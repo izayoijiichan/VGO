@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 
 namespace UniGLTFforUniVgo
 {
@@ -21,14 +22,16 @@ namespace UniGLTFforUniVgo
         public glTFMaterialBaseColorTextureInfo baseColorTexture = null;
 
         /// <summary></summary>
-        [JsonProperty("metallicFactor")]
+        [JsonProperty("metallicFactor", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [DefaultValue(-1.0f)]
         //[JsonSchema(Minimum = 0.0, Maximum = 1.0)]
-        public float metallicFactor = 1.0f;
+        public float metallicFactor = -1.0f;
 
         /// <summary></summary>
-        [JsonProperty("roughnessFactor")]
+        [JsonProperty("roughnessFactor", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [DefaultValue(-1.0f)]
         //[JsonSchema(Minimum = 0.0, Maximum = 1.0)]
-        public float roughnessFactor = 1.0f;
+        public float roughnessFactor = -1.0f;
 
         /// <summary></summary>
         [JsonProperty("metallicRoughnessTexture")]

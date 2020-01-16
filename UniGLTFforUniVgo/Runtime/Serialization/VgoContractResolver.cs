@@ -38,6 +38,14 @@ namespace UniGLTFforUniVgo
                 contract.Converter = new StringEnumConverter(new DefaultNamingStrategy(), allowIntegerValues: false);
             }
 
+            if ((objectType == typeof(MToonCullMode)) ||
+                (objectType == typeof(MToonOutlineColorMode)) ||
+                (objectType == typeof(MToonOutlineWidthMode)) ||
+                (objectType == typeof(MToonRenderMode)))
+            {
+                contract.Converter = new StringEnumConverter(new CamelCaseNamingStrategy(), allowIntegerValues: false);
+            }
+
             return contract;
         }
     }

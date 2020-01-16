@@ -17,6 +17,7 @@ namespace UniVgo
         /// </summary>
         public VgoImporter()
         {
+            SetMaterialImporter(new VgoMaterialImporter(this));
         }
 
         /// <summary>

@@ -1,0 +1,8 @@
+{
+    "title": "node.vgo.colliders",
+    "description": "Node colliders.",
+    "type": "array",
+    "items": {
+        "$ref": "node.vgo.collider.schema.json"
+    }
+}

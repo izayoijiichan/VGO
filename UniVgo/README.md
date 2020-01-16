@@ -27,7 +27,7 @@ As of the start of 2020, we are developing and confirming in `Unity 2019.3` Wind
 |package name|owner|Repository|specification version|program version|release date|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|12.0.2|12.0.201|4 Jan, 2020|
-|UniVGO|IzayoiJiichan|GitHub| VGO 0.3|0.5.0|14 Jan, 2020|
+|UniVGO|IzayoiJiichan|GitHub|VGO 0.4|0.6.0|17 Jan, 2020|
 
 ___
 ## Install
@@ -76,7 +76,7 @@ Write the following in `<Project>/Packages/package.json`
 {
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.5.0",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.6.0",
     "jillejr.newtonsoft.json-for-unity": "12.0.201",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -97,8 +97,9 @@ Unzip the file and place it in the `Packages` folder.
 ```
   <Project>
     Packages
-      izayoi.univgo@0.5.0-preview
+      izayoi.univgo@0.6.0-preview
         DepthFirstScheduler
+        MToon
         ShaderProperty
         UniGLTFforUniVgo
         UniUnlit
@@ -123,8 +124,8 @@ Meta information of VGO.
 |definition name|description|type|fixed value|
 |:---|:---|:---:|:---:|
 |Generator Name|The name of the generation tool.|string|UniVGO|
-|Generator Version|The generation tool version.|string|0.5.0|
-|Spec Version|VGO specification version.|string|0.3|
+|Generator Version|The generation tool version.|string|0.6.0|
+|Spec Version|VGO specification version.|string|0.4|
 
 - It is necessary to give one to Root GameObject.
 - There are no user configurable items.
@@ -178,7 +179,12 @@ The supported shaders are as follows.
 |shader name|descriptoin|
 |:---|:---|
 |Standard|Standard shader|
-|UniGLTF/Unlit|Unlit shader|
+|Unlit/Color||
+|Unlit/Texture||
+|Unlit/Transparent||
+|Unlit/Transparent Cutout||
+|UniGLTF/Unlit||
+|VRM/MToon||
 ___
 ## VGO setup
 
@@ -309,16 +315,18 @@ When the package is installed in the project, the script is automatically compil
 |assemply|description|UniVgo|UniVgo.Editor|
 |:---|:---|:---:|:---:|
 |DepthFirstScheduler|Depth first scheduler|*|*|
+|MToon|MToon shader utility|*|*|
+|MToon.Editor|MToon shader utility|-|*|
 |ShaderProperty.Runtime|Shader property information|*|*|
 |UniGLTFforUniVgo|UniGLTF for UniVGO|*|*|
-|UniUnlit|Unlit shader utility|-|-|
+|UniUnlit|Unlit shader utility|*|*|
 |UniUnlit.Editor|Unlit shader utility|-|*|
 |UniVgo|VGO main program|*|*|
 |UniVgo.Editor|VGO import / export|-|*|
 
 - For each of UniVgo, and UniVgo.Editor, * is attached to the dependent DLL.
-- DepthFirstScheduler, ShaderProperty, UniUnlit is a program packed in UniVRM (© vrm-c).
-- When using UniVRM and UniVGO together, it is necessary to delete the duplicate files (DepthFirstScheduler, ShaderProperty, UniUnlit) that were packed when UniVgo was obtained.
+- DepthFirstScheduler, MToon, ShaderProperty, UniUnlit is a program packed in UniVRM (© vrm-c).
+- When using UniVRM and UniVGO together, it is necessary to delete the duplicate files (DepthFirstScheduler, MToon, ShaderProperty, UniUnlit) that were packed when UniVgo was obtained.
   Also, if the error is displayed by UniVgo, please move UniVgo, UniGLTFforUniVgo to the `Assets` folder.
 
 ### About GameObject tags
@@ -340,14 +348,14 @@ ___
 ## Acknowledgment
 
 I would like to express my sincere appreciation to
-Everyone, including KhronosGroup, who published the specifications about glTF,  
+Everyone, including KhronosGroup, who published the specifications about glTF,
 Dear ousttrue for developing and publishing a program about glTF,
 VRM Consortium, Dwango Co., Ltd., who has published and distributed VRM specifications and related programs,
 Unity Technologies, who is developing Unity, and other related people.  
 I would like to take this opportunity to thank you.
 
 ___
-Last updated: 14 January, 2020  
+Last updated: 17 January, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

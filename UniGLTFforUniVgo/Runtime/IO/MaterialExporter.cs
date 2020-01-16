@@ -33,6 +33,18 @@ namespace UniGLTFforUniVgo
             Export_Occlusion(m, textureManager, material);
             Export_Emission(m, textureManager, material);
 
+            if ((material.pbrMetallicRoughness != null) &&
+                (material.pbrMetallicRoughness.baseColorFactor == null) &&
+                (material.pbrMetallicRoughness.baseColorTexture == null) &&
+                (material.pbrMetallicRoughness.metallicFactor == -1.0f) &&
+                (material.pbrMetallicRoughness.roughnessFactor == -1.0f) &&
+                (material.pbrMetallicRoughness.baseColorFactor == null) &&
+                (material.pbrMetallicRoughness.extensions == null) &&
+                (material.pbrMetallicRoughness.extras == null))
+            {
+                material.pbrMetallicRoughness = null;
+            }
+
             return material;
         }
 
@@ -195,48 +207,53 @@ namespace UniGLTFforUniVgo
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="m"></param>
         /// <returns></returns>
-        static glTFMaterial CreateUnlitMaterialDefault()
+        static glTFMaterial CreateUnlitMaterialDefault(Material m)
         {
             return new glTFMaterial
             {
                 pbrMetallicRoughness = new glTFPbrMetallicRoughness
                 {
-                    baseColorFactor = new float[] { 1.0f, 1.0f, 1.0f, 1.0f },
-                    roughnessFactor = 0.9f,
-                    metallicFactor = 0.0f,
+                    //baseColorFactor = new float[] { 1.0f, 1.0f, 1.0f, 1.0f },
+                    //roughnessFactor = 0.9f,
+                    //metallicFactor = 0.0f,
                 },
                 extensions = new glTFMaterial_extensions
                 {
                     KHR_materials_unlit = new glTF_KHR_materials_unlit(),
+                    VGO_materials = new glTF_VGO_materials()
+                    {
+                        shaderName = m.shader.name,
+                    }
                 },
             };
         }
 
         static glTFMaterial Export_UnlitColor(Material m)
         {
-            var material = CreateUnlitMaterialDefault();
+            var material = CreateUnlitMaterialDefault(m);
             material.alphaMode = glTFBlendMode.OPAQUE.ToString();
             return material;
         }
 
         static glTFMaterial Export_UnlitTexture(Material m)
         {
-            var material = CreateUnlitMaterialDefault();
+            var material = CreateUnlitMaterialDefault(m);
             material.alphaMode = glTFBlendMode.OPAQUE.ToString();
             return material;
         }
 
         static glTFMaterial Export_UnlitTransparent(Material m)
         {
-            var material = CreateUnlitMaterialDefault();
+            var material = CreateUnlitMaterialDefault(m);
             material.alphaMode = glTFBlendMode.BLEND.ToString();
             return material;
         }
 
         static glTFMaterial Export_UnlitCutout(Material m)
         {
-            var material = CreateUnlitMaterialDefault();
+            var material = CreateUnlitMaterialDefault(m);
             material.alphaMode = glTFBlendMode.MASK.ToString();
             material.alphaCutoff = m.GetFloat("_Cutoff");
             return material;
@@ -244,7 +261,7 @@ namespace UniGLTFforUniVgo
 
         private glTFMaterial Export_UniUnlit(Material m)
         {
-            var material = CreateUnlitMaterialDefault();
+            var material = CreateUnlitMaterialDefault(m);
 
             var renderMode = UniGLTF.UniUnlit.Utils.GetRenderMode(m);
             if (renderMode == UniUnlitRenderMode.Opaque)
@@ -282,6 +299,13 @@ namespace UniGLTFforUniVgo
             var material = new glTFMaterial
             {
                 pbrMetallicRoughness = new glTFPbrMetallicRoughness(),
+                extensions = new glTFMaterial_extensions
+                {
+                    VGO_materials = new glTF_VGO_materials()
+                    {
+                        shaderName = m.shader.name,
+                    }
+                },
             };
 
             switch (m.GetTag("RenderType", true))

@@ -1,0 +1,35 @@
+{
+    "title": "node.vgo.physicMaterial",
+    "description": "Physic material.",
+    "type": "object",
+    "properties": {
+        "dynamicFriction": {
+            "description": "The friction used when already moving.",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+        },
+        "staticFriction": {
+            "description": "The friction coefficient used when an object is lying on a surface.",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+        },
+        "bounciness": {
+            "description": "How bouncy is the surface?",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+        },
+        "frictionCombine": {
+            "description": "Determines how the friction is combined.",
+            "type": "string",
+            "enum": ["Average","Multiply","Minimum","Maximum"]
+        },
+        "bounceCombine": {
+            "description": "Determines how the bounciness is combined.",
+            "type": "string",
+            "enum": ["Average","Multiply","Minimum","Maximum"]
+        }
+    }
+}

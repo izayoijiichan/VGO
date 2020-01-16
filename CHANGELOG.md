@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.6.0] - 2020-01-17
+- Added `VGO_materials` property to materials extension.
+- Added `VRMC_materials_mtoon` property to materials extension.
+
 ## [0.5.0] - 2020-01-14
 - Added `light` property to VGO_nodes extension.
 

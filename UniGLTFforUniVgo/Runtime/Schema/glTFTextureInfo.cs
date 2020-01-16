@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 
 namespace UniGLTFforUniVgo
 {
@@ -41,9 +42,10 @@ namespace UniGLTFforUniVgo
         public int index = -1;
 
         /// <summary></summary>
-        [JsonProperty("texCoord")]
+        [JsonProperty("texCoord", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [DefaultValue(-1)]
         //[JsonSchema(Minimum = 0)]
-        public int texCoord;
+        public int texCoord = -1;
 
         /// <summary></summary>
         [JsonProperty("extensions")]

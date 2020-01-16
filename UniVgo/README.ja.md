@@ -27,7 +27,7 @@ ___
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|12.0.2|12.0.201|2020年1月4日|
-|UniVGO|IzayoiJiichan|GitHub| VGO 0.3|0.5.0|2020年1月14日|
+|UniVGO|IzayoiJiichan|GitHub|VGO 0.4|0.6.0|2020年1月17日|
 
 ___
 ## インストール
@@ -79,7 +79,7 @@ AまたはBのいずれかを行ってください。
 {
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.5.0",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.6.0",
     "jillejr.newtonsoft.json-for-unity": "12.0.201",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -100,8 +100,9 @@ https://github.com/izayoijiichan/VGO/releases
 ```
   <Project>
     Packages
-      izayoi.univgo@0.5.0-preview
+      izayoi.univgo@0.6.0-preview
         DepthFirstScheduler
+        MToon
         ShaderProperty
         UniGLTFforUniVgo
         UniUnlit
@@ -126,8 +127,8 @@ VGO のメタ情報です。
 |定義名|説明|型|固定値|
 |:---|:---|:---:|:---:|
 |Generator Name|生成ツールの名前です。|string|UniVGO|
-|Generator Version|生成ツールのバージョンです。|string|0.5.0|
-|Spec Version|VGOの仕様バージョンです。|string|0.3|
+|Generator Version|生成ツールのバージョンです。|string|0.6.0|
+|Spec Version|VGOの仕様バージョンです。|string|0.4|
 
 - Root の GameObject に１つ付与しておく必要があります。  
 - ユーザーが設定可能な項目はありません。
@@ -181,7 +182,12 @@ ___
 |シェーダー名|説明|
 |:---|:---|
 |Standard|標準シェーダー|
-|UniGLTF/Unlit|Unlitシェーダー|
+|Unlit/Color||
+|Unlit/Texture||
+|Unlit/Transparent||
+|Unlit/Transparent Cutout||
+|UniGLTF/Unlit||
+|VRM/MToon||
 ___
 ## VGO のセットアップ
 
@@ -310,16 +316,18 @@ ___
 |アセンブリ|説明|UniVgo|UniVgo.Editor|
 |:---|:---|:---:|:---:|
 |DepthFirstScheduler|深さ優先スケジューラー|*|*|
+|MToon|MToon シェーダー ユーティリティー|*|*|
+|MToon.Editor|MToon シェーダー ユーティリティー|-|*|
 |ShaderProperty.Runtime|シェーダーのプロパティー情報|*|*|
 |UniGLTFforUniVgo|UniGLTF（UniVGO用）|*|*|
-|UniUnlit|Unlit シェーダー ユーティリティー|-|-|
+|UniUnlit|Unlit シェーダー ユーティリティー|*|*|
 |UniUnlit.Editor|Unlit シェーダー ユーティリティー|-|*|
 |UniVgo|VGO メインプログラム|*|*|
 |UniVgo.Editor|VGO の入出力|-|*|
 
 - UniVgo, UniVgo.Editor それぞれについて、依存関係にあるDLLに * を付けています。
-- DepthFirstScheduler, ShaderProperty, UniUnlit は UniVRM (©vrm-c) に梱包されているプログラムです。
-- UniVRM と UniVGO を併用する場合は、UniVgo を取得した際に梱包されていた 重複するファイル（DepthFirstScheduler, ShaderProperty, UniUnlit）を削除する必要があります。
+- DepthFirstScheduler, MToon, ShaderProperty, UniUnlit は UniVRM (©vrm-c) に梱包されているプログラムです。
+- UniVRM と UniVGO を併用する場合は、UniVgo を取得した際に梱包されていた 重複するファイル（DepthFirstScheduler, MToon, ShaderProperty, UniUnlit）を削除する必要があります。
   また、それにより UniVgo にてエラーが表示される場合、UniVgo, UniGLTFforUniVgo を `Assets`フォルダーに移動してください。
 
 ### ゲームオブジェクトのタグについて
@@ -348,7 +356,7 @@ Unityを開発してくださっている Unity Technologies 様、
 この場を借りて御礼申し上げます。
 
 ___
-最終更新日：2020年1月14日  
+最終更新日：2020年1月17日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

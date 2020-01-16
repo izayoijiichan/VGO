@@ -15,7 +15,7 @@ namespace UniGLTFforUniVgo
 
     public class MaterialImporter : IMaterialImporter
     {
-        IShaderStore m_shaderStore;
+        protected IShaderStore m_shaderStore;
 
         ImporterContext m_context;
         protected ImporterContext Context
@@ -29,7 +29,7 @@ namespace UniGLTFforUniVgo
             m_context = context;
         }
 
-        private enum BlendMode
+        protected enum BlendMode
         {
             Opaque,
             Cutout,

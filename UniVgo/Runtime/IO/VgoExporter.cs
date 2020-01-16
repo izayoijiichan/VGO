@@ -21,9 +21,11 @@ namespace UniVgo
         {
             get => new string[]
             {
-                glTF_KHR_materials_unlit.ExtensionName,
                 glTF_VGO.ExtensionName,
                 glTFNode_VGO.ExtensionName,
+                glTF_VGO_materials.ExtensionName,
+                glTF_KHR_materials_unlit.ExtensionName,
+                glTF_VRMC_materials_mtoon.ExtensionName,
             };
         }
 
@@ -32,9 +34,11 @@ namespace UniVgo
         {
             get => new string[]
             {
-                glTF_KHR_materials_unlit.ExtensionName,
                 glTF_VGO.ExtensionName,
                 glTFNode_VGO.ExtensionName,
+                glTF_VGO_materials.ExtensionName,
+                glTF_KHR_materials_unlit.ExtensionName,
+                glTF_VRMC_materials_mtoon.ExtensionName,
             };
         }
 
@@ -53,6 +57,15 @@ namespace UniVgo
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override IMaterialExporter CreateMaterialExporter()
+        {
+            return new VgoMaterialExporter();
+        }
 
         /// <summary>
         /// 

@@ -12,7 +12,7 @@ namespace UniGLTFforUniVgo
     {
         readonly string m_defaultShaderName = "Standard";
         Shader m_default;
-        Shader Default
+        protected Shader Default
         {
             get
             {
@@ -25,7 +25,7 @@ namespace UniGLTFforUniVgo
         }
 
         Shader m_vcolor;
-        Shader VColor
+        protected Shader VColor
         {
             get
             {
@@ -35,7 +35,7 @@ namespace UniGLTFforUniVgo
         }
 
         Shader m_uniUnlit;
-        Shader UniUnlit
+        protected Shader UniUnlit
         {
             get
             {
@@ -45,7 +45,7 @@ namespace UniGLTFforUniVgo
         }
 
         Shader m_unlitTexture;
-        Shader UnlitTexture
+        protected Shader UnlitTexture
         {
             get
             {
@@ -55,7 +55,7 @@ namespace UniGLTFforUniVgo
         }
 
         Shader m_unlitColor;
-        Shader UnlitColor
+        protected Shader UnlitColor
         {
             get
             {
@@ -65,7 +65,7 @@ namespace UniGLTFforUniVgo
         }
 
         Shader m_unlitTransparent;
-        Shader UnlitTransparent
+        protected Shader UnlitTransparent
         {
             get
             {
@@ -75,7 +75,7 @@ namespace UniGLTFforUniVgo
         }
 
         Shader m_unlitCutout;
-        Shader UnlitCutout
+        protected Shader UnlitCutout
         {
             get
             {
@@ -104,7 +104,7 @@ namespace UniGLTFforUniVgo
             return true;
         }
 
-        public Shader GetShader(glTFMaterial material)
+        public virtual Shader GetShader(glTFMaterial material)
         {
             if (material == null)
             {

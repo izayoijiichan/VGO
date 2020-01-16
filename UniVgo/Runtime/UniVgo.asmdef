@@ -2,6 +2,7 @@
     "name": "UniVgo",
     "references": [
         "ShaderProperty.Runtime",
+        "MToon",
         "UniUnlit",
         "UniGLTFforUniVgo"
     ],

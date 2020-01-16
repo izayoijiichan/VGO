@@ -1,0 +1,16 @@
+{
+    "title": "materials.extensions",
+    "description": "glTF material extension.",
+    "type": "object",
+    "properties": {
+        "KHR_materials_unlit": {
+            "$ref": "glTF.KHR_materials_unlit.schema.json"
+        },
+        "VGO_materials": {
+            "$ref": "material.vgo.schema.json"
+        },
+        "VRMC_materials_mtoon": {
+            "$ref": "VRMC_materials_mtoon.schema.json"
+        }
+    }
+}
