@@ -247,6 +247,11 @@ namespace UniGLTFforUniVgo
             return new float[] { q.x, q.y, q.z, q.w };
         }
 
+        public static float[] ToArray(this Vector2 v)
+        {
+            return new float[] { v.x, v.y };
+        }
+
         public static float[] ToArray(this Vector3 v)
         {
             return new float[] { v.x, v.y, v.z };

@@ -17,14 +17,14 @@ namespace UniVgo
         /// </summary>
         /// <param name="light"></param>
         /// <returns></returns>
-        public static glTFNode_VGO_Light CreateFrom(Light light)
+        public static VGO_Light CreateFrom(Light light)
         {
             if (light == null)
             {
                 return null;
             }
 
-            var vgoLight = new glTFNode_VGO_Light()
+            var vgoLight = new VGO_Light()
             {
                 enabled = light.enabled,
                 type = light.type,
@@ -66,7 +66,7 @@ namespace UniVgo
                     break;
 #if UNITY_EDITOR
                 case LightType.Rectangle:
-                    vgoLight.areaSize = new float[2] { light.areaSize.x, light.areaSize.y };
+                    vgoLight.areaSize = light.areaSize.ToArray();
                     break;
                 case LightType.Disc:
                     vgoLight.areaRadius = light.areaSize.x;
@@ -126,7 +126,7 @@ namespace UniVgo
         /// </summary>
         /// <param name="light"></param>
         /// <param name="vgoLight"></param>
-        public static void SetComponentValue(Light light, glTFNode_VGO_Light vgoLight)
+        public static void SetComponentValue(Light light, VGO_Light vgoLight)
         {
             if (light == null)
             {

@@ -17,7 +17,7 @@ The main design pattern of this plugin is abstracted from ousttrue's UniGLTF.
 * https://github.com/ousttrue/UniGLTF
 
 ___
-Last updated: 1 January, 2020 
+Last updated: 1 January, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

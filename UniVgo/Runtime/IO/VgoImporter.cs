@@ -12,6 +12,8 @@ namespace UniVgo
     /// </summary>
     public class VgoImporter : ImporterContext
     {
+        #region Constructors
+
         /// <summary>
         /// Create a new instance of VgoImporter.
         /// </summary>
@@ -19,6 +21,10 @@ namespace UniVgo
         {
             SetMaterialImporter(new VgoMaterialImporter(this));
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Called when the model is loaded.
@@ -107,5 +113,7 @@ namespace UniVgo
                 }
             }
         }
+
+        #endregion
     }
 }

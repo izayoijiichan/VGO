@@ -20,7 +20,7 @@ namespace UniVgo
         /// </summary>
         /// <param name="gameObject"></param>
         /// <returns></returns>
-        public static glTFNode_VGO_GameObject CreateFrom(GameObject gameObject)
+        public static VGO_GameObject CreateFrom(GameObject gameObject)
         {
             if (gameObject == null)
             {
@@ -35,7 +35,7 @@ namespace UniVgo
                 return null;
             }
 
-            return new glTFNode_VGO_GameObject()
+            return new VGO_GameObject()
             {
                 isActive = gameObject.activeSelf,
                 isStatic = gameObject.isStatic,
@@ -49,7 +49,7 @@ namespace UniVgo
         /// </summary>
         /// <param name="gameObject"></param>
         /// <param name="vgoGameObject"></param>
-        public static void SetGameObjectValue(GameObject gameObject, glTFNode_VGO_GameObject vgoGameObject)
+        public static void SetGameObjectValue(GameObject gameObject, VGO_GameObject vgoGameObject)
         {
             if (gameObject == null)
             {

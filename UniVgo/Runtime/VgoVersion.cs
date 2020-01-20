@@ -16,9 +16,9 @@ namespace UniVgo
         public const int MINOR = 6;
 
         /// <summary>Patch</summary>
-        public const int PATCH = 0;
+        public const int PATCH = 1;
 
         /// <summary>Version</summary>
-        public const string VERSION = "0.6.0";
+        public const string VERSION = "0.6.1";
     }
 }

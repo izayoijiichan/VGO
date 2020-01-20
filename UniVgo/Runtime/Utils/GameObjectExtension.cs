@@ -81,7 +81,7 @@ namespace UniVgo
         /// <param name="go"></param>
         /// <param name="vgoCollider"></param>
         /// <returns>Returns Collider component if successful, null otherwise.</returns>
-        public static Collider AddComponent<T>(this GameObject go, glTFNode_VGO_Collider vgoCollider)
+        public static Collider AddComponent<T>(this GameObject go, VGO_Collider vgoCollider)
             where T : Collider
         {
             if (vgoCollider == null)
@@ -122,7 +122,7 @@ namespace UniVgo
         /// <param name="go"></param>
         /// <param name="vgoRigidbody"></param>
         /// <returns>Returns Rigidbody component.</returns>
-        public static Rigidbody AddComponent<T>(this GameObject go, glTFNode_VGO_Rigidbody vgoRigidbody)
+        public static Rigidbody AddComponent<T>(this GameObject go, VGO_Rigidbody vgoRigidbody)
             where T : Rigidbody
         {
             Rigidbody rigidbody = go.GetComponent<Rigidbody>();
@@ -148,7 +148,7 @@ namespace UniVgo
         /// <param name="vgoLight"></param>
         /// <returns>Returns Light component.</returns>
         /// <remarks>Light is sealed class.</remarks>
-        public static Light AddComponent<T>(this GameObject go, glTFNode_VGO_Light vgoLight)
+        public static Light AddComponent<T>(this GameObject go, VGO_Light vgoLight)
             //where T : Light
         {
             if (typeof(T) != typeof(Light))

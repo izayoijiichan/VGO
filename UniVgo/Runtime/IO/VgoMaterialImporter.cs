@@ -195,6 +195,10 @@ namespace UniVgo
 
             material.name = CreateMaterialName(i, src);
 
+#if UNITY_EDITOR
+            material.hideFlags = HideFlags.DontUnloadUnusedAsset;
+#endif
+
             MToonDefinition mtoonDefinition = CreateMtoonDefinition(src.extensions.VRMC_materials_mtoon);
 
             MToon.Utils.SetMToonParametersToMaterial(material, mtoonDefinition);
@@ -207,7 +211,7 @@ namespace UniVgo
         /// </summary>
         /// <param name="mtoon"></param>
         /// <returns></returns>
-        protected virtual MToonDefinition CreateMtoonDefinition(glTF_VRMC_materials_mtoon mtoon)
+        protected virtual MToonDefinition CreateMtoonDefinition(VRMC_materials_mtoon mtoon)
         {
             MToonDefinition mtoonDefinition = new MToonDefinition();
 

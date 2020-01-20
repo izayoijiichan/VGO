@@ -118,11 +118,8 @@ namespace UniVgo
             // extensions
             material.extensions = new glTFMaterial_extensions()
             {
-                KHR_materials_unlit = new glTF_KHR_materials_unlit(),
-                VGO_materials = new glTF_VGO_materials()
-                {
-                    shaderName = m.shader.name,
-                }
+                VGO_materials = new VGO_materials(m.shader.name),
+                KHR_materials_unlit = new KHR_materials_unlit(),
             };
 
             return material;
@@ -138,7 +135,7 @@ namespace UniVgo
         {
             MToonDefinition mtoonDefinition = MToon.Utils.GetMToonParametersFromMaterial(m);
 
-            var mtoon = new glTF_VRMC_materials_mtoon()
+            var mtoon = new VRMC_materials_mtoon()
             {
                 // Meta
                 version = mtoonDefinition.Meta.VersionNumber.ToString(),
@@ -292,11 +289,8 @@ namespace UniVgo
             // Extensions
             material.extensions = new glTFMaterial_extensions()
             {
+                VGO_materials = new VGO_materials(m.shader.name),
                 VRMC_materials_mtoon = mtoon,
-                VGO_materials = new glTF_VGO_materials()
-                {
-                    shaderName = m.shader.name,
-                }
             };
 
             return material;

@@ -26,22 +26,29 @@ namespace UniGLTFforUniVgo
 
             if ((objectType == typeof(ColliderType)) ||
                 (objectType == typeof(CollisionDetectionMode)) ||
-                (objectType == typeof(LightmapBakeType)) ||
-                (objectType == typeof(LightRenderMode)) ||
-                (objectType == typeof(LightShadowResolution)) ||
-                (objectType == typeof(LightShadows)) ||
-                (objectType == typeof(LightShape)) ||
-                (objectType == typeof(LightType)) ||
                 (objectType == typeof(PhysicMaterialCombine)) ||
                 (objectType == typeof(RigidbodyInterpolation)))
             {
                 contract.Converter = new StringEnumConverter(new DefaultNamingStrategy(), allowIntegerValues: false);
             }
 
+            // Rendering
+            if ((objectType == typeof(LightmapBakeType)) ||
+                (objectType == typeof(LightRenderMode)) ||
+                (objectType == typeof(LightShadowResolution)) ||
+                (objectType == typeof(LightShadows)) ||
+                (objectType == typeof(LightShape)) ||
+                (objectType == typeof(LightType)))
+            {
+                contract.Converter = new StringEnumConverter(new DefaultNamingStrategy(), allowIntegerValues: false);
+            }
+
+            // Shader Properties (MToon)
             if ((objectType == typeof(MToonCullMode)) ||
                 (objectType == typeof(MToonOutlineColorMode)) ||
                 (objectType == typeof(MToonOutlineWidthMode)) ||
-                (objectType == typeof(MToonRenderMode)))
+                (objectType == typeof(MToonRenderMode))
+            )
             {
                 contract.Converter = new StringEnumConverter(new CamelCaseNamingStrategy(), allowIntegerValues: false);
             }

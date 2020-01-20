@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.6.1] - 2020-01-20
+- Refactored source code
+
 ## [0.6.0] - 2020-01-17
 - Added `VGO_materials` property to materials extension.
 - Added `VRMC_materials_mtoon` property to materials extension.

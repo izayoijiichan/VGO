@@ -104,7 +104,7 @@ namespace UniGLTFforUniVgo
         {
             get
             {
-                yield return glTF_KHR_materials_unlit.ExtensionName;
+                yield return KHR_materials_unlit.ExtensionName;
             }
         }
 

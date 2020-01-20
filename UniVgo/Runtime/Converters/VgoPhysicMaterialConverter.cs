@@ -17,14 +17,14 @@ namespace UniVgo
         /// </summary>
         /// <param name="physicMaterial"></param>
         /// <returns></returns>
-        public static glTFNode_VGO_PhysicMaterial CreateFrom(PhysicMaterial physicMaterial)
+        public static VGO_PhysicMaterial CreateFrom(PhysicMaterial physicMaterial)
         {
             if (physicMaterial == null)
             {
                 return null;
             }
 
-            return new glTFNode_VGO_PhysicMaterial
+            return new VGO_PhysicMaterial
             {
                 dynamicFriction = physicMaterial.dynamicFriction,
                 staticFriction = physicMaterial.staticFriction,
@@ -39,7 +39,7 @@ namespace UniVgo
         /// </summary>
         /// <param name="vgoPhysicMaterial"></param>
         /// <returns>PhysicMaterial</returns>
-        public static PhysicMaterial ToPhysicMaterial(glTFNode_VGO_PhysicMaterial vgoPhysicMaterial)
+        public static PhysicMaterial ToPhysicMaterial(VGO_PhysicMaterial vgoPhysicMaterial)
         {
             if (vgoPhysicMaterial == null)
             {

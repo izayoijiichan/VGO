@@ -22,10 +22,10 @@ namespace UniVgo
             get => new string[]
             {
                 glTF_VGO.ExtensionName,
-                glTFNode_VGO.ExtensionName,
-                glTF_VGO_materials.ExtensionName,
-                glTF_KHR_materials_unlit.ExtensionName,
-                glTF_VRMC_materials_mtoon.ExtensionName,
+                VGO_nodes.ExtensionName,
+                VGO_materials.ExtensionName,
+                KHR_materials_unlit.ExtensionName,
+                VRMC_materials_mtoon.ExtensionName,
             };
         }
 
@@ -35,10 +35,10 @@ namespace UniVgo
             get => new string[]
             {
                 glTF_VGO.ExtensionName,
-                glTFNode_VGO.ExtensionName,
-                glTF_VGO_materials.ExtensionName,
-                glTF_KHR_materials_unlit.ExtensionName,
-                glTF_VRMC_materials_mtoon.ExtensionName,
+                VGO_nodes.ExtensionName,
+                VGO_materials.ExtensionName,
+                KHR_materials_unlit.ExtensionName,
+                VRMC_materials_mtoon.ExtensionName,
             };
         }
 
@@ -134,7 +134,7 @@ namespace UniVgo
         /// <param name="srcNode"></param>
         protected virtual void SetGltfNodeExtensions(glTFNode gltfNode, GameObject srcNode)
         {
-            var nodeVgo = new glTFNode_VGO();
+            var nodeVgo = new VGO_nodes();
 
             bool existsData = false;
 

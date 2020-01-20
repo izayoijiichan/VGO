@@ -221,11 +221,8 @@ namespace UniGLTFforUniVgo
                 },
                 extensions = new glTFMaterial_extensions
                 {
-                    KHR_materials_unlit = new glTF_KHR_materials_unlit(),
-                    VGO_materials = new glTF_VGO_materials()
-                    {
-                        shaderName = m.shader.name,
-                    }
+                    VGO_materials = new VGO_materials(m.shader.name),
+                    KHR_materials_unlit = new KHR_materials_unlit(),
                 },
             };
         }
@@ -301,10 +298,7 @@ namespace UniGLTFforUniVgo
                 pbrMetallicRoughness = new glTFPbrMetallicRoughness(),
                 extensions = new glTFMaterial_extensions
                 {
-                    VGO_materials = new glTF_VGO_materials()
-                    {
-                        shaderName = m.shader.name,
-                    }
+                    VGO_materials = new VGO_materials(m.shader.name),
                 },
             };
 

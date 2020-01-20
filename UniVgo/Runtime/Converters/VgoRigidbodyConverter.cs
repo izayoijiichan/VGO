@@ -17,14 +17,14 @@ namespace UniVgo
         /// </summary>
         /// <param name="rigidbody"></param>
         /// <returns></returns>
-        public static glTFNode_VGO_Rigidbody CreateFrom(Rigidbody rigidbody)
+        public static VGO_Rigidbody CreateFrom(Rigidbody rigidbody)
         {
             if (rigidbody == null)
             {
                 return null;
             }
 
-            return new glTFNode_VGO_Rigidbody()
+            return new VGO_Rigidbody()
             {
                 mass = rigidbody.mass,
                 drag = rigidbody.drag,
@@ -42,7 +42,7 @@ namespace UniVgo
         /// </summary>
         /// <param name="rigidbody"></param>
         /// <param name="vgoRigidbody"></param>
-        public static void SetComponentValue(Rigidbody rigidbody, glTFNode_VGO_Rigidbody vgoRigidbody)
+        public static void SetComponentValue(Rigidbody rigidbody, VGO_Rigidbody vgoRigidbody)
         {
             if (rigidbody == null)
             {

@@ -18,7 +18,7 @@ namespace UniVgo
         /// </summary>
         /// <param name="collider"></param>
         /// <returns></returns>
-        public static glTFNode_VGO_Collider CreateFrom(Collider collider)
+        public static VGO_Collider CreateFrom(Collider collider)
         {
             if (collider == null)
             {
@@ -31,7 +31,7 @@ namespace UniVgo
             {
                 var boxCollider = collider as BoxCollider;
 
-                return new glTFNode_VGO_Collider()
+                return new VGO_Collider()
                 {
                     type = ColliderType.Box,
                     enabled = boxCollider.enabled,
@@ -45,7 +45,7 @@ namespace UniVgo
             {
                 var capsuleCollider = collider as CapsuleCollider;
 
-                return new glTFNode_VGO_Collider()
+                return new VGO_Collider()
                 {
                     type = ColliderType.Capsule,
                     enabled = capsuleCollider.enabled,
@@ -61,7 +61,7 @@ namespace UniVgo
             {
                 var sphereCollider = collider as SphereCollider;
 
-                return new glTFNode_VGO_Collider()
+                return new VGO_Collider()
                 {
                     type = ColliderType.Sphere,
                     enabled = sphereCollider.enabled,
@@ -82,7 +82,7 @@ namespace UniVgo
         /// </summary>
         /// <param name="collider"></param>
         /// <param name="vgoCollider"></param>
-        public static void SetComponentValue(Collider collider, glTFNode_VGO_Collider vgoCollider)
+        public static void SetComponentValue(Collider collider, VGO_Collider vgoCollider)
         {
             if (collider == null)
             {
