@@ -2,13 +2,19 @@
   "name": "izayoi.univgo",
   "displayName": "UniVGO",
   "description": "UniVGO is a package that can handle VGO files in Unity.",
-  "version": "0.6.1-preview",
+  "version": "0.7.0-preview",
   "type": "tool",
   "category": "",
   "keywords": [
-    "unity",
     "glb",
     "glTF",
+    "unity",
+    "collier",
+    "rigidbody",
+    "light",
+    "ParticleSystem",
+    "shader",
+    "mtoon",
     "vgo"
   ],
   "unity": "2018.3",
@@ -25,6 +31,6 @@
     "url": "git+https://github.com/izayoijiichan/VGO.git"
   },
   "dependencies": {
-    "jillejr.newtonsoft.json-for-unity": "12.0.201"
+    "jillejr.newtonsoft.json-for-unity": "12.0.301"
   }
 }

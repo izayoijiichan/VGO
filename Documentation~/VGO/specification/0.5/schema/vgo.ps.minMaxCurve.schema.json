@@ -1,0 +1,48 @@
+{
+    "$id": "vgo.ps.minMaxCurve",
+    "type": "object",
+    "properties": {
+        "mode": {
+            "type": "string",
+            "enum": [
+                "Constant",
+                "Curve",
+                "TwoCurves",
+                "TwoConstants"
+            ]
+        },
+        "constant": {
+            "type": "number"
+        },
+        "constantMin": {
+            "type": "number"
+        },
+        "constantMax": {
+            "type": "number"
+        },
+        "curveMultiplier": {
+            "type": "number"
+        },
+        "curve": {
+            "$id": "vgo.animationCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "curveMin": {
+            "$id": "vgo.animationCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "curveMax": {
+            "$id": "vgo.animationCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        }
+    }
+}

@@ -5,9 +5,11 @@
 namespace UniVgo
 {
     using MToon;
+    using System.Collections.Generic;
     using UniGLTFforUniVgo;
     using UnityEngine;
     using UnityEngine.Rendering;
+    using UniStandardParticle;
 
     /// <summary>
     /// VGO Material Importer
@@ -39,6 +41,10 @@ namespace UniVgo
         {
             if (src.extensions != null)
             {
+                if (src.extensions.VGO_materials_particle != null)
+                {
+                    return CreateParticleMaterial(i, src);
+                }
                 if (src.extensions.KHR_materials_unlit != null)
                 {
                     return CreateUnlitMaterial(i, src, hasVertexColor);
@@ -55,6 +61,71 @@ namespace UniVgo
         #endregion
 
         #region Protected Methods
+
+        /// <summary>
+        /// Create a Particle material.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="src"></param>
+        /// <returns></returns>
+        protected virtual Material CreateParticleMaterial(int i, glTFMaterial src)
+        {
+            var shader = m_shaderStore.GetShader(src);
+
+            Material material = new Material(shader);
+
+            material.name = CreateMaterialName(i, src);
+
+#if UNITY_EDITOR
+            material.hideFlags = HideFlags.DontUnloadUnusedAsset;
+#endif
+
+            ParticleDefinition particleDefinition = CreateParticleDefinition(src.extensions.VGO_materials_particle);
+
+            UniStandardParticle.Utils.SetParticleParametersToMaterial(material, particleDefinition);
+
+            return material;
+        }
+
+        /// <summary>
+        /// Create a Particle definition.
+        /// </summary>
+        /// <param name="vgoParticle"></param>
+        /// <returns></returns>
+        protected virtual ParticleDefinition CreateParticleDefinition(VGO_materials_particle vgoParticle)
+        {
+            ParticleDefinition particleDefinition = new ParticleDefinition()
+            {
+                RenderMode = (UniStandardParticle.BlendMode)vgoParticle.renderMode,
+                ColorMode = (UniStandardParticle.ColorMode)vgoParticle.colorMode,
+                FlipBookMode = (UniStandardParticle.FlipBookMode)vgoParticle.flipBookMode,
+                CullMode = vgoParticle.cullMode,
+                SoftParticlesEnabled = vgoParticle.softParticlesEnabled,
+                SoftParticleFadeParams = ArrayConverter.ToVector4(vgoParticle.softParticleFadeParams),
+                CameraFadingEnabled = vgoParticle.cameraFadingEnabled,
+                CameraFadeParams = ArrayConverter.ToVector4(vgoParticle.cameraFadeParams),
+                DistortionEnabled = vgoParticle.distortionEnabled,
+                GrabTexture = GetTexture(UniStandardParticle.Utils.PropGrabTexture, vgoParticle.grabTextureIndex),
+                DistortionStrengthScaled = vgoParticle.distortionStrengthScaled,
+                DistortionBlend = vgoParticle.distortionBlend,
+                ColorAddSubDiff = ArrayConverter.ToColor(vgoParticle.colorAddSubDiff, gamma: true),
+                MainTex = GetTexture(UniStandardParticle.Utils.PropMainTex, vgoParticle.mainTexIndex),
+                MainTexSt = ArrayConverter.ToVector4(vgoParticle.mainTexSt),
+                Color = ArrayConverter.ToColor(vgoParticle.color, gamma: true),
+                Cutoff = vgoParticle.cutoff,
+                MetallicGlossMap = GetTexture(UniStandardParticle.Utils.PropMetallicGlossMap, vgoParticle.metallicGlossMapIndex),
+                Metallic = vgoParticle.metallic,
+                Glossiness = vgoParticle.glossiness,
+                BumpMap = GetTexture(UniStandardParticle.Utils.PropBumpMap, vgoParticle.bumpMapIndex),
+                BumpScale = vgoParticle.bumpScale,
+                LightingEnabled = vgoParticle.lightingEnabled,
+                EmissionEnabled = vgoParticle.emissionEnabled,
+                EmissionColor = ArrayConverter.ToColor(vgoParticle.emissionColor, gamma: true),
+                EmissionMap = GetTexture(UniStandardParticle.Utils.PropEmissionMap, vgoParticle.emissionMapIndex),
+            };
+
+            return particleDefinition;
+        }
 
         /// <summary>
         /// Create a Unlit material.

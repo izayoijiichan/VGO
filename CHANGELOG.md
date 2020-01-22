@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.7.0] - 2020-01-23
+- Added `VGO_materials_particle` property to materials extension.
+- Added `particleSystem` property to VGO_nodes extension.
+
 ## [0.6.1] - 2020-01-20
 - Refactored source code
 

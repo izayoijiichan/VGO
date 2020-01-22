@@ -26,8 +26,8 @@ As of the start of 2020, we are developing and confirming in `Unity 2019.3` Wind
 
 |package name|owner|Repository|specification version|program version|release date|
 |:---:|:---:|:---:|:---:|:---:|:---:|
-|newtonsoft-json-for-unity|jillejr|GitHub|12.0.2|12.0.201|4 Jan, 2020|
-|UniVGO|IzayoiJiichan|GitHub|VGO 0.4|0.6.0|17 Jan, 2020|
+|newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.301|20 Jan, 2020|
+|UniVGO|IzayoiJiichan|GitHub|VGO 0.5|0.7.0|23 Jan, 2020|
 
 ___
 ## Install
@@ -56,7 +56,7 @@ You need to be careful where you add them.
   ],
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "jillejr.newtonsoft.json-for-unity": "12.0.201",
+    "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
@@ -76,8 +76,8 @@ Write the following in `<Project>/Packages/package.json`
 {
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.6.0",
-    "jillejr.newtonsoft.json-for-unity": "12.0.201",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.7.0",
+    "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
@@ -97,7 +97,7 @@ Unzip the file and place it in the `Packages` folder.
 ```
   <Project>
     Packages
-      izayoi.univgo@0.6.0-preview
+      izayoi.univgo@0.7.0-preview
         DepthFirstScheduler
         MToon
         ShaderProperty
@@ -124,8 +124,8 @@ Meta information of VGO.
 |definition name|description|type|fixed value|
 |:---|:---|:---:|:---:|
 |Generator Name|The name of the generation tool.|string|UniVGO|
-|Generator Version|The generation tool version.|string|0.6.0|
-|Spec Version|VGO specification version.|string|0.4|
+|Generator Version|The generation tool version.|string|0.7.0|
+|Spec Version|VGO specification version.|string|0.5|
 
 - It is necessary to give one to Root GameObject.
 - There are no user configurable items.
@@ -171,6 +171,19 @@ It is possible to add up to one for each GameObject.
 
 See the official Unity manual for details.
 
+In UniVGO, Cookies, Flare and Halo are not supported.  
+In addition, when performing runtime loading, only the Realtime setting is drawn, and Baked is not reflected.
+
+### Particle System
+
+Settings for the particle system.  
+It is possible to add up to one for each GameObject.  
+
+See the official Unity manual for details.
+
+In UniVGO, Collision, Triggers, SubEmitters, TextureSheetAnimation, CustomData modules are not supported.  
+Mesh, Texture, and Sprite modes are also excluded, and only works with Material.
+
 ___
 ## Shader
 
@@ -179,12 +192,15 @@ The supported shaders are as follows.
 |shader name|descriptoin|
 |:---|:---|
 |Standard|Standard shader|
+|Particles/Standard Surface|Particle System dedicated shader|
+|Particles/Standard Unlit|Particle System dedicated Unlit shader|
 |Unlit/Color||
 |Unlit/Texture||
 |Unlit/Transparent||
 |Unlit/Transparent Cutout||
 |UniGLTF/Unlit||
 |VRM/MToon||
+
 ___
 ## VGO setup
 
@@ -292,7 +308,7 @@ The following is a simple sample program.
     }
 ~~~
 
-VgoImporter also supports asynchronous processing using Coroutine and Task.
+VgoImporter also supports asynchronous processing using Coroutine or Task.
 
 ___
 ## Other information
@@ -319,6 +335,7 @@ When the package is installed in the project, the script is automatically compil
 |MToon.Editor|MToon shader utility|-|*|
 |ShaderProperty.Runtime|Shader property information|*|*|
 |UniGLTFforUniVgo|UniGLTF for UniVGO|*|*|
+|UniStandardParticle|Particle shader utility|*|*|
 |UniUnlit|Unlit shader utility|*|*|
 |UniUnlit.Editor|Unlit shader utility|-|*|
 |UniVgo|VGO main program|*|*|
@@ -334,11 +351,6 @@ When the package is installed in the project, the script is automatically compil
 When importing GameObject `tag`, it is necessary to add tag definitions in UnityEditor in advance.
 The same applies when performing runtime loading.
 
-### About light
-
-Cookie, Flare, Halo are not supported.  
-In addition, when performing runtime loading, only the Realtime setting is drawn, and Baked is not reflected.
-
 ___
 ## About VGO specifications
 
@@ -349,13 +361,14 @@ ___
 
 I would like to express my sincere appreciation to
 Everyone, including KhronosGroup, who published the specifications about glTF,
+Dear Santarh for developing and releasing MToon shaders,
 Dear ousttrue for developing and publishing a program about glTF,
 VRM Consortium, Dwango Co., Ltd., who has published and distributed VRM specifications and related programs,
 Unity Technologies, who is developing Unity, and other related people.  
 I would like to take this opportunity to thank you.
 
 ___
-Last updated: 17 January, 2020  
+Last updated: 23 January, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

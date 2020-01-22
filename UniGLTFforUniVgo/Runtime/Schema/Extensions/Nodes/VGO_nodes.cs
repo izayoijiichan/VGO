@@ -31,6 +31,10 @@ namespace UniGLTFforUniVgo
         [JsonProperty("light")]
         public VGO_Light light = null;
 
+        /// <summary>ParticleSystem</summary>
+        [JsonProperty("particleSystem")]
+        public VGO_ParticleSystem particleSystem = null;
+
         /// <summary>Right</summary>
         [JsonProperty("right")]
         public glTF_VGO_Right right = null;

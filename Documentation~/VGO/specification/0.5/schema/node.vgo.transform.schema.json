@@ -1,0 +1,33 @@
+{
+    "$id": "node.vgo.transform",
+    "type": "object",
+    "properties": {
+        "position": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "rotation": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "scale": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "$id": "vgo.ps.externalForcesModule",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "multiplierCurve": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "multiplier": {
+            "type": "number"
+        },
+        "influenceFilter": {
+            "type": "string",
+            "enum": [
+                "LayerMask",
+                "List",
+                "LayerMaskAndList"
+            ]
+        },
+        "influenceMask": {
+            "type": "integer"
+        }
+    }
+}

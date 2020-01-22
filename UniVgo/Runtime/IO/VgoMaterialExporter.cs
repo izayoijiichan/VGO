@@ -7,6 +7,7 @@ namespace UniVgo
     using MToon;
     using UniGLTFforUniVgo;
     using UnityEngine;
+    using UniStandardParticle;
 
     /// <summary>
     /// VGO Material Exporter
@@ -23,12 +24,18 @@ namespace UniVgo
         /// <returns></returns>
         public override glTFMaterial ExportMaterial(Material m, TextureExportManager textureManager)
         {
-            if (m.shader.name == ShaderName.VRM_MToon)
+            switch (m.shader.name)
             {
-                return CreateVrmMtoonMaterial(m, textureManager);
-            }
+                case ShaderName.Particles_Standard_Surface:
+                case ShaderName.Particles_Standard_Unlit:
+                    return CreateParticleMaterial(m, textureManager);
 
-            return base.ExportMaterial(m, textureManager);
+                case ShaderName.VRM_MToon:
+                    return CreateVrmMtoonMaterial(m, textureManager);
+
+                default:
+                    return base.ExportMaterial(m, textureManager);
+            }
         }
 
         #endregion
@@ -59,6 +66,169 @@ namespace UniVgo
                 default:
                     return base.CreateMaterial(m);
             }
+        }
+
+        /// <summary>
+        /// Create a Particle material.
+        /// </summary>
+        /// <param name="m"></param>
+        /// <param name="textureManager"></param>
+        /// <returns></returns>
+        protected virtual glTFMaterial CreateParticleMaterial(Material m, TextureExportManager textureManager)
+        {
+            ParticleDefinition particleDefinition = UniStandardParticle.Utils.GetParticleParametersFromMaterial(m);
+
+            var vgoParticle = new VGO_materials_particle()
+            {
+                renderMode = (ParticleBlendMode)particleDefinition.RenderMode,
+                colorMode = (ParticleColorMode)particleDefinition.ColorMode,
+                flipBookMode = (ParticleFlipBookMode)particleDefinition.FlipBookMode,
+                cullMode = particleDefinition.CullMode,
+                softParticlesEnabled = particleDefinition.SoftParticlesEnabled,
+                softParticleFadeParams = particleDefinition.SoftParticleFadeParams.ToArray(),
+                cameraFadingEnabled = particleDefinition.CameraFadingEnabled,
+                cameraFadeParams = particleDefinition.CameraFadeParams.ToArray(),
+                distortionEnabled = particleDefinition.DistortionEnabled,
+                grabTextureIndex = -1,
+                distortionStrengthScaled = particleDefinition.DistortionStrengthScaled,
+                distortionBlend = particleDefinition.DistortionBlend,
+                colorAddSubDiff = particleDefinition.ColorAddSubDiff.linear.ToArray(),
+                mainTexIndex = -1,
+                mainTexSt = particleDefinition.MainTexSt.ToArray(),
+                color = particleDefinition.Color.linear.ToArray(),
+                cutoff = particleDefinition.Cutoff,
+                metallicGlossMapIndex = -1,
+                metallic = particleDefinition.Metallic,
+                glossiness = particleDefinition.Glossiness,
+                bumpMapIndex = -1,
+                bumpScale = particleDefinition.BumpScale,
+                lightingEnabled = particleDefinition.LightingEnabled,
+                emissionEnabled = particleDefinition.EmissionEnabled,
+                emissionColor = particleDefinition.EmissionColor.linear.ToArray(),
+                emissionMapIndex = -1,
+            };
+
+            // Textures
+            vgoParticle.grabTextureIndex = textureManager.CopyAndGetIndex(particleDefinition.GrabTexture, RenderTextureReadWrite.sRGB);
+            vgoParticle.mainTexIndex = textureManager.CopyAndGetIndex(particleDefinition.MainTex, RenderTextureReadWrite.sRGB);
+            vgoParticle.metallicGlossMapIndex = textureManager.CopyAndGetIndex(particleDefinition.MetallicGlossMap, RenderTextureReadWrite.sRGB);
+            vgoParticle.bumpMapIndex = textureManager.ConvertAndGetIndex(particleDefinition.BumpMap, new NormalConverter());
+            vgoParticle.emissionMapIndex = textureManager.CopyAndGetIndex(particleDefinition.EmissionMap, RenderTextureReadWrite.sRGB);
+
+            var material = new glTFMaterial();
+
+            material.name = m.name;
+
+            // Alpha Mode
+            switch (vgoParticle.renderMode)
+            {
+                case ParticleBlendMode.Opaque:
+                    material.alphaMode = glTFBlendMode.OPAQUE.ToString();
+                    break;
+
+                case ParticleBlendMode.Cutout:
+                    material.alphaMode = glTFBlendMode.MASK.ToString();
+                    break;
+
+                case ParticleBlendMode.Fade:
+                case ParticleBlendMode.Transparent:
+                case ParticleBlendMode.Additive:
+                case ParticleBlendMode.Subtractive:
+                case ParticleBlendMode.Modulate:
+                    material.alphaMode = glTFBlendMode.BLEND.ToString();
+                    break;
+
+                default:
+                    break;
+            }
+
+            // Alpha Cutoff
+            if (vgoParticle.renderMode == ParticleBlendMode.Cutout)
+            {
+                material.alphaCutoff = vgoParticle.cutoff;
+            }
+
+            // Double Sided
+            switch (vgoParticle.cullMode)
+            {
+                case UnityEngine.Rendering.CullMode.Off:
+                    material.doubleSided = true;
+                    break;
+
+                case UnityEngine.Rendering.CullMode.Front:
+                case UnityEngine.Rendering.CullMode.Back:
+                    material.doubleSided = false;
+                    break;
+
+                default:
+                    break;
+            }
+
+            // PBR Metallic Roughness
+            {
+                if (vgoParticle.color != null)
+                {
+                    if (material.pbrMetallicRoughness == null)
+                    {
+                        material.pbrMetallicRoughness = new glTFPbrMetallicRoughness();
+                    }
+
+                    material.pbrMetallicRoughness.baseColorFactor = vgoParticle.color;
+                }
+
+                if (vgoParticle.mainTexIndex != -1)
+                {
+                    if (material.pbrMetallicRoughness == null)
+                    {
+                        material.pbrMetallicRoughness = new glTFPbrMetallicRoughness();
+                    }
+
+                    material.pbrMetallicRoughness.baseColorTexture = new glTFMaterialBaseColorTextureInfo()
+                    {
+                        index = vgoParticle.mainTexIndex,
+                    };
+
+                    //material.pbrMetallicRoughness.metallicFactor = 1.0f;
+                    //material.pbrMetallicRoughness.roughnessFactor = 1.0f;
+                }
+            }
+
+            // Normal Texture
+            if (vgoParticle.bumpMapIndex != -1)
+            {
+                material.normalTexture = new glTFMaterialNormalTextureInfo()
+                {
+                    index = vgoParticle.bumpMapIndex,
+                };
+            }
+
+            // Emissive
+            if (vgoParticle.emissionEnabled)
+            {
+                material.emissiveFactor = vgoParticle.emissionColor;
+
+                if (vgoParticle.emissionMapIndex != -1)
+                {
+                    material.emissiveTexture = new glTFMaterialEmissiveTextureInfo()
+                    {
+                        index = vgoParticle.emissionMapIndex,
+                    };
+                }
+            }
+
+            // extensions
+            material.extensions = new glTFMaterial_extensions()
+            {
+                VGO_materials = new VGO_materials(m.shader.name),
+                VGO_materials_particle = vgoParticle,
+            };
+
+            if (m.shader.name == ShaderName.Particles_Standard_Unlit)
+            {
+                material.extensions.KHR_materials_unlit = new KHR_materials_unlit();
+            }
+
+            return material;
         }
 
         /// <summary>

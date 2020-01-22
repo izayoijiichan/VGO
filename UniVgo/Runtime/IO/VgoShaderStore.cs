@@ -14,6 +14,12 @@ namespace UniVgo
     {
         #region Fields
 
+        /// <summary>Particles/Standard Surface</summary>
+        Shader _ParticlesStandardSurface;
+
+        /// <summary>Particles/Standard Unlit</summary>
+        Shader _ParticlesStandardUnlit;
+
         /// <summary>VRM/UnlitTexture</summary>
         Shader _VrmUnlitTexture;
 
@@ -32,6 +38,32 @@ namespace UniVgo
         #endregion
 
         #region Properties
+
+        /// <summary>Particles/Standard Surface</summary>
+        protected Shader ParticlesStandardSurface
+        {
+            get
+            {
+                if (_ParticlesStandardSurface == null)
+                {
+                    _ParticlesStandardSurface = Shader.Find(ShaderName.Particles_Standard_Surface);
+                }
+                return _ParticlesStandardSurface;
+            }
+        }
+
+        /// <summary>Particles/Standard Unlit</summary>
+        protected Shader ParticlesStandardUnlit
+        {
+            get
+            {
+                if (_ParticlesStandardUnlit == null)
+                {
+                    _ParticlesStandardUnlit = Shader.Find(ShaderName.Particles_Standard_Unlit);
+                }
+                return _ParticlesStandardUnlit;
+            }
+        }
 
         /// <summary>VRM/UnlitTexture</summary>
         protected Shader VrmUnlitTexture
@@ -136,6 +168,12 @@ namespace UniVgo
             {
                 switch (material.extensions.VGO_materials.shaderName)
                 {
+                    case ShaderName.Particles_Standard_Surface:
+                        return ParticlesStandardSurface;
+
+                    case ShaderName.Particles_Standard_Unlit:
+                        return ParticlesStandardUnlit;
+
                     case ShaderName.UniGLTF_StandardVColor:
                         return VColor;
 
@@ -171,6 +209,18 @@ namespace UniVgo
 
                     default:
                         break;
+                }
+            }
+
+            if (material.extensions.VGO_materials_particle != null)
+            {
+                if (material.extensions.KHR_materials_unlit != null)
+                {
+                    return ParticlesStandardUnlit;
+                }
+                else
+                {
+                    return ParticlesStandardSurface;
                 }
             }
 

@@ -1,0 +1,33 @@
+{
+    "$id": "vgo.animationCurve",
+    "type": "object",
+    "properties": {
+        "keys": {
+            "$id": "VGO_Keyframe[]",
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "preWrapMode": {
+            "type": "string",
+            "enum": [
+                "Default",
+                "Once",
+                "Loop",
+                "PingPong",
+                "ClampForever"
+            ]
+        },
+        "postWrapMode": {
+            "type": "string",
+            "enum": [
+                "Default",
+                "Once",
+                "Loop",
+                "PingPong",
+                "ClampForever"
+            ]
+        }
+    }
+}

@@ -10,6 +10,12 @@ namespace UniVgo
     public class ShaderName
     {
         /// <summary></summary>
+        public const string Particles_Standard_Surface = "Particles/Standard Surface";
+
+        /// <summary></summary>
+        public const string Particles_Standard_Unlit = "Particles/Standard Unlit";
+
+        /// <summary></summary>
         public const string UniGLTF_StandardVColor = "UniGLTF/StandardVColor";
 
         /// <summary></summary>

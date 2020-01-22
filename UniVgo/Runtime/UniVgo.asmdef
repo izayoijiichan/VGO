@@ -3,6 +3,7 @@
     "references": [
         "ShaderProperty.Runtime",
         "MToon",
+        "UniStandardParticle",
         "UniUnlit",
         "UniGLTFforUniVgo"
     ],

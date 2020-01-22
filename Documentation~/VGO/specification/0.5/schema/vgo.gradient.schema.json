@@ -1,0 +1,27 @@
+{
+    "$id": "vgo.gradient",
+    "type": "object",
+    "properties": {
+        "colorKeys": {
+            "$id": "VGO_GradientColorKey[]",
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "alphaKeys": {
+            "$id": "VGO_GradientAlphaKey[]",
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "mode": {
+            "type": "string",
+            "enum": [
+                "Blend",
+                "Fixed"
+            ]
+        }
+    }
+}

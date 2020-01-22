@@ -1,0 +1,127 @@
+{
+    "$id": "vgo.ps.velocityOverLifetimeModule",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "x": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "y": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "z": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "xMultiplier": {
+            "type": "number"
+        },
+        "yMultiplier": {
+            "type": "number"
+        },
+        "zMultiplier": {
+            "type": "number"
+        },
+        "space": {
+            "type": "string",
+            "enum": [
+                "Local",
+                "World",
+                "Custom"
+            ]
+        },
+        "orbitalX": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "orbitalY": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "orbitalZ": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "orbitalXMultiplier": {
+            "type": "number"
+        },
+        "orbitalYMultiplier": {
+            "type": "number"
+        },
+        "orbitalZMultiplier": {
+            "type": "number"
+        },
+        "orbitalOffsetX": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "orbitalOffsetY": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "orbitalOffsetZ": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "orbitalOffsetXMultiplier": {
+            "type": "number"
+        },
+        "orbitalOffsetYMultiplier": {
+            "type": "number"
+        },
+        "orbitalOffsetZMultiplier": {
+            "type": "number"
+        },
+        "radial": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "radialMultiplier": {
+            "type": "number"
+        },
+        "speedModifier": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "speedModifierMultiplier": {
+            "type": "number"
+        }
+    }
+}

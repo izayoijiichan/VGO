@@ -1,0 +1,69 @@
+{
+    "$id": "vgo.ps.limitVelocityOverLifetimeModule",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "separateAxes": {
+            "type": "boolean"
+        },
+        "limitX": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "limitY": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "limitZ": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "limitXMultiplier": {
+            "type": "number"
+        },
+        "limitYMultiplier": {
+            "type": "number"
+        },
+        "limitZMultiplier": {
+            "type": "number"
+        },
+        "space": {
+            "type": "string",
+            "enum": [
+                "Local",
+                "World",
+                "Custom"
+            ]
+        },
+        "dampen": {
+            "type": "number"
+        },
+        "drag": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "dragMultiplier": {
+            "type": "number"
+        },
+        "multiplyDragByParticleSize": {
+            "type": "boolean"
+        },
+        "multiplyDragByParticleVelocity": {
+            "type": "boolean"
+        }
+    }
+}

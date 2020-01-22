@@ -26,8 +26,8 @@ ___
 
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|
 |:---:|:---:|:---:|:---:|:---:|:---:|
-|newtonsoft-json-for-unity|jillejr|GitHub|12.0.2|12.0.201|2020年1月4日|
-|UniVGO|IzayoiJiichan|GitHub|VGO 0.4|0.6.0|2020年1月17日|
+|newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.301|2020年1月20日|
+|UniVGO|IzayoiJiichan|GitHub|VGO 0.5|0.7.0|2020年1月23日|
 
 ___
 ## インストール
@@ -59,7 +59,7 @@ ___
   ],
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "jillejr.newtonsoft.json-for-unity": "12.0.201",
+    "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
@@ -79,8 +79,8 @@ AまたはBのいずれかを行ってください。
 {
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.6.0",
-    "jillejr.newtonsoft.json-for-unity": "12.0.201",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.7.0",
+    "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
@@ -100,7 +100,7 @@ https://github.com/izayoijiichan/VGO/releases
 ```
   <Project>
     Packages
-      izayoi.univgo@0.6.0-preview
+      izayoi.univgo@0.7.0-preview
         DepthFirstScheduler
         MToon
         ShaderProperty
@@ -127,8 +127,8 @@ VGO のメタ情報です。
 |定義名|説明|型|固定値|
 |:---|:---|:---:|:---:|
 |Generator Name|生成ツールの名前です。|string|UniVGO|
-|Generator Version|生成ツールのバージョンです。|string|0.6.0|
-|Spec Version|VGOの仕様バージョンです。|string|0.4|
+|Generator Version|生成ツールのバージョンです。|string|0.7.0|
+|Spec Version|VGOの仕様バージョンです。|string|0.5|
 
 - Root の GameObject に１つ付与しておく必要があります。  
 - ユーザーが設定可能な項目はありません。
@@ -174,6 +174,19 @@ Box, Capsule, Sphere タイプに対応しています。
 
 詳細は Unity 公式のマニュアルをご覧ください。
 
+UniVGO では、Cookie, Flare, Halo は対象外です。  
+また、ランタイムロードを行う場合、Realtime 設定のみ描画され、Baked は反映されません。
+
+### Particle System
+
+パーティクル システムの設定です。  
+１つの GameObject に対し１つまで付与することが可能です。  
+
+詳細は Unity 公式のマニュアルをご覧ください。
+
+UniVGO では、Collision, Triggers, SubEmitters, TextureSheetAnimation, CustomData のモジュールは対象外です。  
+また、Mesh, Texture, Sprite モードも対象外となり、Material でのみ動作します。
+
 ___
 ## Shader
 
@@ -182,12 +195,15 @@ ___
 |シェーダー名|説明|
 |:---|:---|
 |Standard|標準シェーダー|
+|Particles/Standard Surface|Particle System 専用シェーダー|
+|Particles/Standard Unlit|Particle System 専用 Unlit シェーダー|
 |Unlit/Color||
 |Unlit/Texture||
 |Unlit/Transparent||
 |Unlit/Transparent Cutout||
 |UniGLTF/Unlit||
 |VRM/MToon||
+
 ___
 ## VGO のセットアップ
 
@@ -295,6 +311,7 @@ ___
         }
     }
 ~~~
+VgoImporter はコルーチンやタスクを使用することでの非同期処理にも対応しています。
 
 ___
 ## その他の情報
@@ -320,7 +337,7 @@ ___
 |MToon.Editor|MToon シェーダー ユーティリティー|-|*|
 |ShaderProperty.Runtime|シェーダーのプロパティー情報|*|*|
 |UniGLTFforUniVgo|UniGLTF（UniVGO用）|*|*|
-|UniUnlit|Unlit シェーダー ユーティリティー|*|*|
+|UniStandardParticle|Particle シェーダー ユーティリティー|*|*|
 |UniUnlit.Editor|Unlit シェーダー ユーティリティー|-|*|
 |UniVgo|VGO メインプログラム|*|*|
 |UniVgo.Editor|VGO の入出力|-|*|
@@ -335,11 +352,6 @@ ___
 GameObject の`tag`は、取り込みを行う際、予め UnityEditor にてタグの定義を追加しておく必要があります。
 また、ランタイムロードを行う場合も同様です。
 
-### ライトについて
-
-Cookie, Flare, Halo は対象外です。  
-また、ランタイムロードを行う場合、Realtime 設定のみ描画され、Baked は反映されません。
-
 ___
 ## VGO の仕様について
 
@@ -350,13 +362,14 @@ ___
 
 glTFに関する仕様を公開してくださっている KhronosGroup 様をはじめとする皆様、  
 glTFに関するプログラムを開発・公開してくださっている ousttrue 様、  
+MToon シェーダーを開発・公開してくださっている Santarh 様、  
 VRMに関する仕様及び関連プログラムを公開・配布してくださっているVRMコンソーシアム様、株式会社ドワンゴ様、  
 Unityを開発してくださっている Unity Technologies 様、  
 その他関連する皆様には心より感謝いたします。  
 この場を借りて御礼申し上げます。
 
 ___
-最終更新日：2020年1月17日  
+最終更新日：2020年1月23日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

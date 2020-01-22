@@ -52,6 +52,36 @@ namespace UniVgo
         }
 
         /// <summary>
+        /// Convert float[4] to Quaternion.
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="reverseZ"></param>
+        /// <returns></returns>
+        public static Quaternion ToQuaternion(float[] values, bool reverseZ = false)
+        {
+            if (values == null)
+            {
+                return default;
+            }
+
+            if (values.Length == 4)
+            {
+                Quaternion quaternion = new Quaternion(values[0], values[1], values[2], values[3]);
+
+                if (reverseZ)
+                {
+                    return quaternion.ReverseZ();
+                }
+                else
+                {
+                    return quaternion;
+                }
+            }
+
+            return default;
+        }
+
+        /// <summary>
         /// Convert float[2] to Vector2.
         /// </summary>
         /// <param name="values"></param>
@@ -95,6 +125,36 @@ namespace UniVgo
                 else
                 {
                     return vecter3;
+                }
+            }
+
+            return default;
+        }
+
+        /// <summary>
+        /// Convert float[4] to Vector4.
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="reverseZ"></param>
+        /// <returns></returns>
+        public static Vector4 ToVector4(float[] values, bool reverseZ = false)
+        {
+            if (values == null)
+            {
+                return default;
+            }
+
+            if (values.Length == 4)
+            {
+                Vector4 vecter4 = new Vector4(values[0], values[1], values[2], values[3]);
+
+                if (reverseZ)
+                {
+                    return vecter4.ReverseZ();
+                }
+                else
+                {
+                    return vecter4;
                 }
             }
 

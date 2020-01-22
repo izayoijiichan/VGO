@@ -1,0 +1,33 @@
+{
+    "$id": "vgo.keyframe",
+    "type": "object",
+    "properties": {
+        "time": {
+            "type": "number"
+        },
+        "value": {
+            "type": "number"
+        },
+        "inTangent": {
+            "type": "number"
+        },
+        "outTangent": {
+            "type": "number"
+        },
+        "inWeight": {
+            "type": "number"
+        },
+        "outWeight": {
+            "type": "number"
+        },
+        "weightedMode": {
+            "type": "string",
+            "enum": [
+                "None",
+                "In",
+                "Out",
+                "Both"
+            ]
+        }
+    }
+}

@@ -24,6 +24,7 @@ namespace UniVgo
                 glTF_VGO.ExtensionName,
                 VGO_nodes.ExtensionName,
                 VGO_materials.ExtensionName,
+                VGO_materials_particle.ExtensionName,
                 KHR_materials_unlit.ExtensionName,
                 VRMC_materials_mtoon.ExtensionName,
             };
@@ -37,10 +38,18 @@ namespace UniVgo
                 glTF_VGO.ExtensionName,
                 VGO_nodes.ExtensionName,
                 VGO_materials.ExtensionName,
+                VGO_materials_particle.ExtensionName,
                 KHR_materials_unlit.ExtensionName,
                 VRMC_materials_mtoon.ExtensionName,
             };
         }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>VGO ParticleSystem exporter.</summary>
+        public virtual VgoParticleSystemExporter VgoParticleSystemExporter { get; protected set; }
 
         #endregion
 
@@ -52,6 +61,7 @@ namespace UniVgo
         /// <param name="gltf"></param>
         public VgoExporter(glTF gltf) : base(gltf)
         {
+            VgoParticleSystemExporter = new VgoParticleSystemExporter();
         }
 
         #endregion
@@ -169,6 +179,15 @@ namespace UniVgo
             if (srcNode.TryGetComponentEx(out Light light))
             {
                 nodeVgo.light = VgoLightConverter.CreateFrom(light);
+
+                existsData = true;
+            }
+
+            // vgo.particleSystem
+            if (srcNode.TryGetComponentEx(out ParticleSystem particleSystem) &&
+                srcNode.TryGetComponentEx(out ParticleSystemRenderer particleSystemRenderer))
+            {
+                nodeVgo.particleSystem = VgoParticleSystemExporter.Create(particleSystem, particleSystemRenderer, glTF);
 
                 existsData = true;
             }

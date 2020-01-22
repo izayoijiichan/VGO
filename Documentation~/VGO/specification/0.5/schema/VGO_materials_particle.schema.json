@@ -1,0 +1,132 @@
+{
+  "VGO_materials_particle": {
+    "title": "VGO_materials_particle",
+    "type": "object",
+    "description": "",
+    "properties": {
+      "renderMode": {
+        "type": "string",
+        "enum": [
+          "Opaque",
+          "Cutout",
+          "Fade",
+          "Transparent",
+          "Additive",
+          "Subtractive",
+          "Modulate"
+        ]
+      },
+      "colorMode": {
+        "type": "string",
+        "enum": [
+          "Multiply",
+          "Additive",
+          "Subtractive",
+          "Overlay",
+          "Color",
+          "Difference"
+        ]
+      },
+      "flipBookMode": {
+        "type": "string",
+        "enum": [
+          "Simple",
+          "Blended"
+        ]
+      },
+      "cullMode": {
+        "title": "CullMode",
+        "type": "string",
+        "enum": [
+          "Off",
+          "Front",
+          "Back"
+        ]
+      },
+      "softParticlesEnabled": {
+        "type": "boolean"
+      },
+      "softParticleFadeParams": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "cameraFadingEnabled": {
+        "type": "boolean"
+      },
+      "cameraFadeParams": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "distortionEnabled": {
+        "type": "boolean"
+      },
+      "grabTextureIndex": {
+        "type": "integer"
+      },
+      "distortionStrengthScaled": {
+        "type": "number"
+      },
+      "distortionBlend": {
+        "type": "number"
+      },
+      "colorAddSubDiff": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "mainTexIndex": {
+        "type": "integer"
+      },
+      "mainTexSt": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "color": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "cutoff": {
+        "type": "number"
+      },
+      "metallicGlossMapIndex": {
+        "type": "integer"
+      },
+      "metallic": {
+        "type": "number"
+      },
+      "glossiness": {
+        "type": "number"
+      },
+      "bumpMapIndex": {
+        "type": "integer"
+      },
+      "bumpScale": {
+        "type": "number"
+      },
+      "lightingEnabled": {
+        "type": "boolean"
+      },
+      "emissionEnabled": {
+        "type": "boolean"
+      },
+      "emissionColor": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "emissionMapIndex": {
+        "type": "integer"
+      }
+    }
+  }
+}

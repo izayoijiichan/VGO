@@ -12,6 +12,13 @@ namespace UniVgo
     /// </summary>
     public class VgoImporter : ImporterContext
     {
+        #region Properties
+
+        /// <summary>VGO ParticleSystem importer.</summary>
+        public virtual VgoParticleSystemImporter VgoParticleSystemImporter { get; protected set; }
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -20,6 +27,7 @@ namespace UniVgo
         public VgoImporter()
         {
             SetMaterialImporter(new VgoMaterialImporter(this));
+            VgoParticleSystemImporter = new VgoParticleSystemImporter();
         }
 
         #endregion
@@ -103,6 +111,12 @@ namespace UniVgo
                     if (nodeVGO.light != null)
                     {
                         go.AddComponent<Light>(nodeVGO.light);
+                    }
+
+                    // ParticleSystem
+                    if (nodeVGO.particleSystem != null)
+                    {
+                        VgoParticleSystemImporter.AddComponent(go, nodeVGO.particleSystem, GetMaterials(), GetTextures());
                     }
 
                     // VgoRight
