@@ -10,6 +10,11 @@ ___
 - シェーダー設定は `Standard`, `Particle`, `Unlit`, `MToon` を保存することができます。
 
 ___
+## 翻訳
+
+[English](https://github.com/izayoijiichan/VGO/blob/master/README.md).
+
+___
 ## 実装
 
 - glTF
@@ -70,7 +75,9 @@ ___
 
 VGOファイルを生成／出力／取り込み／ロードするためのツールです。
 
-UniVGO の [README.ja.md](https://github.com/izayoijiichan/VGO/blob/master/UniVgo/README.ja.md) をご覧ください。
+[インストール方法](https://github.com/izayoijiichan/VGO/blob/master/Documentation~/UniVGO/Installation.ja.md)
+
+[使用方法](https://github.com/izayoijiichan/VGO/blob/master/Documentation~/UniVGO/Usage.ja.md)
 
 ### VGO Parameter Viewer
 
@@ -81,7 +88,7 @@ VGOファイルの中身を確認するためのツールです。
 https://github.com/izayoijiichan/vgo.parameter.viewer
 
 ___
-最終更新日：2020年1月23日  
+最終更新日：2020年2月6日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

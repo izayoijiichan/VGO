@@ -9,6 +9,11 @@ VGO is a 3D data format for Unity that can store Collider and Rigidbody informat
 - Shader settings of `Standard`, `Particle`, `Unlit` and `MToon` can be saved.
 
 ___
+## Translation
+
+[Japanese](https://github.com/izayoijiichan/VGO/blob/master/README.ja.md).
+
+___
 ## Implementation
 
 - glTF
@@ -69,7 +74,11 @@ ___
 
 A tool for creating\/exporting\/importing\/loading VGO file.
 
-Please refer to UniVGO [README.md](https://github.com/izayoijiichan/VGO/blob/master/UniVgo/README.md).
+[README.md](https://github.com/izayoijiichan/VGO/blob/master/UniVgo/README.md)
+
+[Installation.md](https://github.com/izayoijiichan/VGO/blob/master/Documentation~/UniVGO/Installation.md)
+
+[Usage.md](https://github.com/izayoijiichan/VGO/blob/master/Documentation~/UniVGO/Usage.md)
 
 ### VGO Parameter Viewer
 
@@ -80,7 +89,7 @@ It is distributed at the following URL.
 https://github.com/izayoijiichan/vgo.parameter.viewer
 
 ___
-Last updated: 23 January, 2020  
+Last updated: 6 February, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*
