@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.8.0] - 2020-03-15
+- Added `VGO_materials_skybox` property to materials extension.
+- Added `skybox` property to VGO_nodes extension.
+
 ## [0.7.0] - 2020-01-23
 - Added `VGO_materials_particle` property to materials extension.
 - Added `particleSystem` property to VGO_nodes extension.

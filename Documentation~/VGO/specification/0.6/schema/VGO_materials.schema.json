@@ -1,0 +1,11 @@
+{
+    "title": "VGO_materials",
+    "description": "Material VGO.",
+    "type": "object",
+    "properties": {
+        "shaderName": {
+            "description": "The name of the shader.",
+            "type": "string"
+        }
+    }
+}

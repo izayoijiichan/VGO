@@ -12,8 +12,8 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2019.3|
-|2|UniVGO version|0.7.0|
-|3|VGO spec version|0.5|
+|2|UniVGO version|0.8.0|
+|3|VGO spec version|0.6|
 
 ### Supported Unity components
 
@@ -27,6 +27,7 @@ The following Unity components are supported by VGO
 |4|Rigidbody|Child|You can set physics to GameObject and move it|
 |5|Light|Child|You can set the light source for GameObject.|
 |6|Particle System|Child|You can set particles to GameObject.|
+|7|Skybox|Child|You can set skybox to Scene.|
 
 ### Usable shaders
 
@@ -37,14 +38,18 @@ The supported shaders are as follows.
 |1|Standard|Standard shader|
 |2|Particles/Standard Surface|Particle System dedicated shader|
 |3|Particles/Standard Unlit|Particle System dedicated shader|
-|4|Unlit/Color||
-|5|Unlit/Texture||
-|6|Unlit/Transparent||
-|7|Unlit/Transparent Cutout||
-|8|UniGLTF/Unlit||
-|9|VRM/MToon||
+|4|Skybox/6 Sided|Skybox 6 sided shader|
+|5|Skybox/Panoramic|Skybox panoramic shader|
+|6|Skybox/Procedural|Skybox procedural shader|
+|7|Unlit/Color||
+|8|Unlit/Texture||
+|9|Unlit/Transparent||
+|10|Unlit/Transparent Cutout||
+|11|UniGLTF/Unlit||
+|12|VRM/MToon||
 
-Unlit shaders are not affected by light sources. Instead, the processing load is reduced.
+- Unlit shaders are not affected by light sources. Instead, the processing load is reduced.
+- Skybox / Cubemap is not supported.
 
 ___
 ## Create VGO
@@ -115,17 +120,24 @@ If the meta information is old, delete the component once and attach it again.
 Place `GameObject` as a child of" VGO ".  
 You can place them freely.
 
-#### 3-1. Light
+#### 3-1. Skybox
+
+Only one can be placed in a scene.  
+Set Skybox material.  
+The script needs to be processed in order to reflect the setting value in the scene.  
+`Cubemap` is not supported.
+
+#### 3-2. Light
 
 Only `Realtime` settings work, not `Baked`.  
 Also, if you want to include `Directional Light` in VGO, delete or deactivate` Directional Light` which is initially placed in the scene.
 
-#### 3-2. Particle System
+#### 3-3. Particle System
 
 You can set while checking the effect in `Scene View`.  
 Shaders for particles can be used.
 
-#### 3-3. Any other regular object
+#### 3-4. Any other regular object
 
 Normal objects other than `Light` and` Particle System`.  
 It is divided into A, B and C by type.
@@ -309,7 +321,7 @@ You can specify a VGO file for your shop.
 https://izayoi16.wixsite.com/vishop
 
 ___
-Last updated: 6 February, 2020  
+Last updated: 15 March, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

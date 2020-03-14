@@ -1,0 +1,51 @@
+{
+    "title": "node.vgo.collider",
+    "description": "Node collider.",
+    "type": "object",
+    "properties": {
+        "type": {
+            "description": "Type of collider.",
+            "type": "string",
+            "enum": ["Box","Capsule","Sphere"]
+        },
+        "enabled": {
+            "description": "Whether collider is enabled.",
+            "type": "boolean"
+        },
+        "isTrigger": {
+            "description": "Is the collider a trigger?",
+            "type": "boolean"
+        },
+        "center": {
+            "description": "The center of the collider. [x, y, z]",
+            "type": "array",
+            "items": {
+                "type": "number"
+            }
+        },
+        "size": {
+            "description": "The total size of the box. [x, y, z]",
+            "type": "array",
+            "items": {
+                "type": "number"
+            }
+        },
+        "radius": {
+            "description": "The radius of the capsule or sphere, measured in the object's local space.",
+            "type": "number",
+            "minimum": 0
+        },
+        "height": {
+            "description": "The height of the capsule, measured in the object's local space.",
+            "type": "number",
+            "minimum": 0
+        },
+        "direction": {
+            "description": "The direction of the capsule. [0:x, 1:y, 2:z]",
+            "type": "integer"
+        },
+        "physicMaterial": {
+            "$ref": "vgo.physicMaterial.schema.json"
+        }
+    }
+}

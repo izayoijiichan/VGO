@@ -232,6 +232,11 @@ namespace UniGLTFforUniVgo
                 return false;
             }
 
+            if (meshes == null)
+            {
+                return false;
+            }
+
             var hasVertexColor = meshes.SelectMany(x => x.primitives).Any(x => x.material == materialIndex && x.HasVertexColor);
             return hasVertexColor;
         }

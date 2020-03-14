@@ -4,6 +4,7 @@
 // ----------------------------------------------------------------------
 namespace UniVgo
 {
+    using System.Collections.Generic;
     using UniGLTFforUniVgo;
     using UnityEngine;
 
@@ -124,7 +125,54 @@ namespace UniVgo
                     {
                         go.AddComponent<VgoRight>(nodeVGO.right);
                     }
+
+                    // VgoSkybox
+                    if (nodeVGO.skybox != null)
+                    {
+                        var skybox = go.AddComponent<Skybox>();
+
+                        List<Material> materials = GetMaterials() as List<Material>;
+
+                        if (materials != null)
+                        {
+                            int vgoMaterialIndex = nodeVGO.skybox.materialIndex;
+
+                            if ((0 <= vgoMaterialIndex) && (vgoMaterialIndex < materials.Count))
+                            {
+                                skybox.material = materials[vgoMaterialIndex];
+                            }
+                        }
+                    }
                 }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="showMeshes"></param>
+        /// <param name="enableUpdateWhenOffscreen"></param>
+        public override void OnLoadModelAfter(bool showMeshes = false, bool enableUpdateWhenOffscreen = false)
+        {
+            base.OnLoadModelAfter(showMeshes, enableUpdateWhenOffscreen);
+
+            ReflectSkybox();
+        }
+
+        /// <summary>
+        /// Reflect VGO skybox to Camaera skybox.
+        /// </summary>
+        protected virtual void ReflectSkybox()
+        {
+            var vgoSkybox = Root.GetComponentInChildren<Skybox>(includeInactive: false);
+
+            if (vgoSkybox != null)
+            {
+                GameObject mainCameraGameObject = Camera.main.gameObject;
+
+                var cameraSkybox = mainCameraGameObject.GetOrAddComponent<Skybox>();
+
+                cameraSkybox.material = vgoSkybox.material;
             }
         }
 

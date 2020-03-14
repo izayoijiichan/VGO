@@ -22,7 +22,7 @@ As of the start of 2020, we are developing and confirming in `Unity 2019.3` Wind
 |package name|owner|Repository|specification version|program version|release date|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.301|20 Jan, 2020|
-|UniVGO|IzayoiJiichan|GitHub|VGO 0.5|0.7.0|23 Jan, 2020|
+|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|0.8.0|15 Mar, 2020|
 
 ___
 ## Install
@@ -120,11 +120,12 @@ Unzip the file and place it in the `Packages` folder.
 ```
   <Project>
     Packages
-      izayoi.univgo@0.7.0-preview
+      izayoi.univgo@0.8.0-preview
         DepthFirstScheduler
         MToon
         ShaderProperty
         UniGLTFforUniVgo
+        UniSkybox
         UniStandardParticle
         UniUnlit
         UniVgo
@@ -163,6 +164,7 @@ When the package is installed in the project, the script is automatically compil
 |MToon.Editor|MToon shader utility|-|*|
 |ShaderProperty.Runtime|Shader property information|*|*|
 |UniGLTFforUniVgo|UniGLTF for UniVGO|*|*|
+|UniSkybox|Skybox shader utility|*|*|
 |UniStandardParticle|Particle shader utility|*|*|
 |UniUnlit|Unlit shader utility|*|*|
 |UniUnlit.Editor|Unlit shader utility|-|*|
@@ -172,10 +174,10 @@ When the package is installed in the project, the script is automatically compil
 - For each of UniVgo, and UniVgo.Editor, * is attached to the dependent DLL.
 - DepthFirstScheduler, MToon, ShaderProperty, UniUnlit is a program packed in UniVRM (© vrm-c).
 - When using UniVRM and UniVGO together, it is necessary to delete the duplicate files (DepthFirstScheduler, MToon, ShaderProperty, UniUnlit) that were packed when UniVgo was obtained.
-  Also, if the error is displayed by UniVgo, please move UniVgo, UniGLTFforUniVgo to the `Assets` folder.
+  Also, if the error is displayed by UniVgo, please move UniVgo, UniGLTFforUniVgo, UniSkybox, UniStandardParticle to the `Assets` folder.
 
 ___
-Last updated: 6 February, 2020  
+Last updated: 15 March, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

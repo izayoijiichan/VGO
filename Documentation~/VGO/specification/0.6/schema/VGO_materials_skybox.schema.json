@@ -1,0 +1,99 @@
+{
+  "VGO_materials_skybox": {
+    "title": "VGO_materials_skybox",
+    "type": "object",
+    "description": "",
+    "properties": {
+      "sunDisk": {
+        "type": "string",
+        "enum": [
+          "None",
+          "Simple",
+          "HighQuality"
+        ]
+      },
+      "sunSize": {
+        "type": "number"
+      },
+      "sunSizeConvergence": {
+        "type": "integer"
+      },
+      "atmosphereThickness": {
+        "type": "number"
+      },
+      "tint": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "skyTint": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "groundColor": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      },
+      "exposure": {
+        "type": "number"
+      },
+      "rotation": {
+        "type": "integer"
+      },
+      "frontTexIndex": {
+        "type": "integer"
+      },
+      "backTexIndex": {
+        "type": "integer"
+      },
+      "leftTexIndex": {
+        "type": "integer"
+      },
+      "rightTexIndex": {
+        "type": "integer"
+      },
+      "upTexIndex": {
+        "type": "integer"
+      },
+      "downTexIndex": {
+        "type": "integer"
+      },
+      "texIndex": {
+        "type": "integer"
+      },
+      "mainTexIndex": {
+        "type": "integer"
+      },
+      "mapping": {
+        "type": "string",
+        "enum": [
+          "SixFramesLayout",
+          "LatitudeLongitudeLayout"
+        ]
+      },
+      "imageType": {
+        "type": "string",
+        "enum": [
+          "Degrees360",
+          "Degrees180"
+        ]
+      },
+      "mirrorOnBack": {
+        "type": "boolean"
+      },
+      "layout": {
+        "type": "string",
+        "enum": [
+          "None",
+          "SideBySide",
+          "OverUnder"
+        ]
+      }
+    }
+  }
+}

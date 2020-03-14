@@ -23,6 +23,10 @@ namespace UniGLTFforUniVgo
         public VGO_materials_particle VGO_materials_particle = null;
 
         /// <summary></summary>
+        [JsonProperty("VGO_materials_skybox")]
+        public VGO_materials_skybox VGO_materials_skybox = null;
+
+        /// <summary></summary>
         [JsonProperty("KHR_materials_unlit")]
         public KHR_materials_unlit KHR_materials_unlit = null;
 

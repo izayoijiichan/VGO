@@ -39,6 +39,10 @@ namespace UniGLTFforUniVgo
         [JsonProperty("right")]
         public glTF_VGO_Right right = null;
 
+        /// <summary>Skybox</summary>
+        [JsonProperty("skybox")]
+        public VGO_Skybox skybox = null;
+
         /// <summary></summary>
         [JsonIgnore]
         public static string ExtensionName => "VGO_nodes";

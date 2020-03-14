@@ -3,6 +3,7 @@
     "references": [
         "ShaderProperty.Runtime",
         "MToon",
+        "UniSkybox",
         "UniStandardParticle",
         "UniUnlit",
         "UniGLTFforUniVgo"

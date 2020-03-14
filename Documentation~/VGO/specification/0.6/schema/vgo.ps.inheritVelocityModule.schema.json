@@ -1,0 +1,26 @@
+{
+    "$id": "vgo.ps.inheritVelocityModule",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "mode": {
+            "type": "string",
+            "enum": [
+                "Initial",
+                "Current"
+            ]
+        },
+        "curve": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "curveMultiplier": {
+            "type": "number"
+        }
+    }
+}

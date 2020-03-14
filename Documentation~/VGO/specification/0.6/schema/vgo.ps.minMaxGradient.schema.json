@@ -1,0 +1,64 @@
+{
+    "$id": "vgo.ps.minMaxGradient",
+    "type": "object",
+    "properties": {
+        "mode": {
+            "type": "string",
+            "enum": [
+                "Color",
+                "Gradient",
+                "TwoColors",
+                "TwoGradients",
+                "RandomColor"
+            ]
+        },
+        "color": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "colorMin": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "colorMax": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "gradient": {
+            "$id": "vgo.gradient",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "gradientMin": {
+            "$id": "vgo.gradient",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "gradientMax": {
+            "$id": "vgo.gradient",
+            "type": [
+                "object",
+                "null"
+            ]
+        }
+    }
+}

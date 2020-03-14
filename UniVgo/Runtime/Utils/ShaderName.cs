@@ -5,7 +5,7 @@
 namespace UniVgo
 {
     /// <summary>
-    /// 
+    /// Shader Name
     /// </summary>
     public class ShaderName
     {
@@ -14,6 +14,18 @@ namespace UniVgo
 
         /// <summary></summary>
         public const string Particles_Standard_Unlit = "Particles/Standard Unlit";
+
+        /// <summary></summary>
+        public const string Skybox_6_Sided = "Skybox/6 Sided";
+
+        /// <summary></summary>
+        public const string Skybox_Cubemap = "Skybox/Cubemap";
+
+        /// <summary></summary>
+        public const string Skybox_Panoramic = "Skybox/Panoramic";
+
+        /// <summary></summary>
+        public const string Skybox_Procedural = "Skybox/Procedural";
 
         /// <summary></summary>
         public const string UniGLTF_StandardVColor = "UniGLTF/StandardVColor";

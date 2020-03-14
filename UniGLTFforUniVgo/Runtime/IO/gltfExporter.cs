@@ -87,7 +87,7 @@ namespace UniGLTFforUniVgo
         public List<Material> Materials
         {
             get;
-            private set;
+            protected set;
         }
 
         public TextureExportManager TextureManager;
@@ -223,19 +223,20 @@ namespace UniGLTFforUniVgo
                     .ToList();
 
                 #region Materials and Textures
-                Materials = Nodes.SelectMany(x => x.GetSharedMaterials()).Where(x => x != null).Distinct().ToList();
-                var unityTextures = Materials.SelectMany(x => TextureIO.GetTextures(x)).Where(x => x.Texture != null).Distinct().ToList();
+                //Materials = Nodes.SelectMany(x => x.GetSharedMaterials()).Where(x => x != null).Distinct().ToList();
+                //var unityTextures = Materials.SelectMany(x => TextureIO.GetTextures(x)).Where(x => x.Texture != null).Distinct().ToList();
 
-                TextureManager = new TextureExportManager(unityTextures.Select(x => x.Texture));
+                //TextureManager = new TextureExportManager(unityTextures.Select(x => x.Texture));
 
-                var materialExporter = CreateMaterialExporter();
-                gltf.materials = Materials.Select(x => materialExporter.ExportMaterial(x, TextureManager)).ToList();
+                //var materialExporter = CreateMaterialExporter();
+                //gltf.materials = Materials.Select(x => materialExporter.ExportMaterial(x, TextureManager)).ToList();
 
-                for (int i = 0; i < unityTextures.Count; ++i)
-                {
-                    var unityTexture = unityTextures[i];
-                    TextureIO.ExportTexture(gltf, bufferIndex, TextureManager.GetExportTexture(i), unityTexture.TextureType);
-                }
+                //for (int i = 0; i < unityTextures.Count; ++i)
+                //{
+                //    var unityTexture = unityTextures[i];
+                //    TextureIO.ExportTexture(gltf, bufferIndex, TextureManager.GetExportTexture(i), unityTexture.TextureType);
+                //}
+                FromGameObjectMaterialsAndTextures(gltf, go, bufferIndex);
                 #endregion
 
 
@@ -379,6 +380,23 @@ namespace UniGLTFforUniVgo
                         GameObject.DestroyImmediate(tmpParent);
                     }
                 }
+            }
+        }
+
+        protected virtual void FromGameObjectMaterialsAndTextures(glTF gltf, GameObject go, int bufferIndex)
+        {
+            Materials = Nodes.SelectMany(x => x.GetSharedMaterials()).Where(x => x != null).Distinct().ToList();
+            var unityTextures = Materials.SelectMany(x => TextureIO.GetTextures(x)).Where(x => x.Texture != null).Distinct().ToList();
+
+            TextureManager = new TextureExportManager(unityTextures.Select(x => x.Texture));
+
+            var materialExporter = CreateMaterialExporter();
+            gltf.materials = Materials.Select(x => materialExporter.ExportMaterial(x, TextureManager)).ToList();
+
+            for (int i = 0; i < unityTextures.Count; ++i)
+            {
+                var unityTexture = unityTextures[i];
+                TextureIO.ExportTexture(gltf, bufferIndex, TextureManager.GetExportTexture(i), unityTexture.TextureType);
             }
         }
         #endregion

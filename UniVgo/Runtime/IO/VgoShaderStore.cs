@@ -20,6 +20,18 @@ namespace UniVgo
         /// <summary>Particles/Standard Unlit</summary>
         Shader _ParticlesStandardUnlit;
 
+        /// <summary>Skybox/6 Sided</summary>
+        Shader _Skybox6Sided;
+
+        /// <summary>Skybox/Cubemap</summary>
+        Shader _SkyboxCubemap;
+
+        /// <summary>Skybox/Panoramic</summary>
+        Shader _SkyboxPanoramic;
+
+        /// <summary>Skybox/Procedural</summary>
+        Shader _SkyboxProcedural;
+
         /// <summary>VRM/UnlitTexture</summary>
         Shader _VrmUnlitTexture;
 
@@ -62,6 +74,58 @@ namespace UniVgo
                     _ParticlesStandardUnlit = Shader.Find(ShaderName.Particles_Standard_Unlit);
                 }
                 return _ParticlesStandardUnlit;
+            }
+        }
+
+        /// <summary>Skybox/6 Sided</summary>
+        protected Shader Skybox6Sided
+        {
+            get
+            {
+                if (_Skybox6Sided == null)
+                {
+                    _Skybox6Sided = Shader.Find(ShaderName.Skybox_6_Sided);
+                }
+                return _Skybox6Sided;
+            }
+        }
+
+        /// <summary>Skybox/Cubemap</summary>
+        protected Shader SkyboxCubemap
+        {
+            get
+            {
+                if (_SkyboxCubemap == null)
+                {
+                    _SkyboxCubemap = Shader.Find(ShaderName.Skybox_Cubemap);
+                }
+                return _SkyboxCubemap;
+            }
+        }
+
+        /// <summary>Skybox/Panoramic</summary>
+        protected Shader SkyboxPanoramic
+        {
+            get
+            {
+                if (_SkyboxPanoramic == null)
+                {
+                    _SkyboxPanoramic = Shader.Find(ShaderName.Skybox_Panoramic);
+                }
+                return _SkyboxPanoramic;
+            }
+        }
+
+        /// <summary>Skybox/Procedural</summary>
+        protected Shader SkyboxProcedural
+        {
+            get
+            {
+                if (_SkyboxProcedural == null)
+                {
+                    _SkyboxProcedural = Shader.Find(ShaderName.Skybox_Procedural);
+                }
+                return _SkyboxProcedural;
             }
         }
 
@@ -174,6 +238,18 @@ namespace UniVgo
                     case ShaderName.Particles_Standard_Unlit:
                         return ParticlesStandardUnlit;
 
+                    case ShaderName.Skybox_6_Sided:
+                        return Skybox6Sided;
+
+                    case ShaderName.Skybox_Cubemap:
+                        return SkyboxCubemap;
+
+                    case ShaderName.Skybox_Panoramic:
+                        return SkyboxPanoramic;
+
+                    case ShaderName.Skybox_Procedural:
+                        return SkyboxProcedural;
+
                     case ShaderName.UniGLTF_StandardVColor:
                         return VColor;
 
@@ -222,6 +298,11 @@ namespace UniVgo
                 {
                     return ParticlesStandardSurface;
                 }
+            }
+
+            if (material.extensions.VGO_materials_skybox != null)
+            {
+                return SkyboxProcedural;
             }
 
             if (material.extensions.KHR_materials_unlit != null)

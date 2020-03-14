@@ -25,6 +25,7 @@ namespace UniVgo
                 VGO_nodes.ExtensionName,
                 VGO_materials.ExtensionName,
                 VGO_materials_particle.ExtensionName,
+                VGO_materials_skybox.ExtensionName,
                 KHR_materials_unlit.ExtensionName,
                 VRMC_materials_mtoon.ExtensionName,
             };
@@ -39,6 +40,7 @@ namespace UniVgo
                 VGO_nodes.ExtensionName,
                 VGO_materials.ExtensionName,
                 VGO_materials_particle.ExtensionName,
+                VGO_materials_skybox.ExtensionName,
                 KHR_materials_unlit.ExtensionName,
                 VRMC_materials_mtoon.ExtensionName,
             };
@@ -85,6 +87,37 @@ namespace UniVgo
             base.Export();
 
             SetExtensions();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gltf"></param>
+        /// <param name="go"></param>
+        /// <param name="bufferIndex"></param>
+        protected override void FromGameObjectMaterialsAndTextures(glTF gltf, GameObject go, int bufferIndex)
+        {
+            Materials = Nodes.SelectMany(x => x.GetSharedMaterials()).Where(x => x != null).Distinct().ToList();
+
+            var skybox = go.GetComponentInChildren<Skybox>();
+
+            if (skybox != null)
+            {
+                Materials.Add(skybox.material);
+            }
+
+            var unityTextures = Materials.SelectMany(x => TextureIO.GetTextures(x)).Where(x => x.Texture != null).Distinct().ToList();
+
+            TextureManager = new TextureExportManager(unityTextures.Select(x => x.Texture));
+
+            var materialExporter = CreateMaterialExporter();
+            gltf.materials = Materials.Select(x => materialExporter.ExportMaterial(x, TextureManager)).ToList();
+
+            for (int i = 0; i < unityTextures.Count; ++i)
+            {
+                var unityTexture = unityTextures[i];
+                TextureIO.ExportTexture(gltf, bufferIndex, TextureManager.GetExportTexture(i), unityTexture.TextureType);
+            }
         }
 
         /// <summary>
@@ -196,6 +229,14 @@ namespace UniVgo
             if (srcNode.TryGetComponentEx(out VgoRight vgoRight))
             {
                 nodeVgo.right = new glTF_VGO_Right(vgoRight.Right);
+
+                existsData = true;
+            }
+
+            // vgo.skybox
+            if (srcNode.TryGetComponentEx(out Skybox skybox))
+            {
+                nodeVgo.skybox = new VGO_Skybox(skybox, glTF);
 
                 existsData = true;
             }

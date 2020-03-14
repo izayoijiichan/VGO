@@ -1,0 +1,25 @@
+{
+    "title": "node.vgo.gameobject",
+    "description": "Node GameObject.",
+    "type": "object",
+    "properties": {
+        "isActive": {
+            "description": "Whether GameObject is active.",
+            "type": "boolean"
+        },
+        "isStatic": {
+            "description": "Whether GameObject is static.",
+            "type": "boolean"
+        },
+        "tag": {
+            "description": "Tag attached to GameObject.",
+            "type": "string"
+        }
+        "layer": {
+            "description": "Index of the layer where GameObject is located.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 31
+        }
+    }
+}

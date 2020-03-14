@@ -12,8 +12,8 @@ ___
 |No|項目|値|
 |:---:|:---|:---:|
 |1|Unity バージョン|2019.3|
-|2|UniVGO バージョン|0.7.0|
-|3|VGO 仕様バージョン|0.5|
+|2|UniVGO バージョン|0.8.0|
+|3|VGO 仕様バージョン|0.6|
 
 ### 対応 Unity コンポーネント
 
@@ -27,6 +27,7 @@ VGOが対応する Unity コンポーネントは以下の通りです
 |4|Rigidbody|Child|GameObjectに物理特性を設定し、動かすことができるようになります。|
 |5|Light|Child|GameObjectに光源を設定することができます。|
 |6|Particle System|Child|GameObjectにパーティクルを設定することができます。|
+|7|Skybox|Child|シーンにスカイボックスを設定することができます。|
 
 ### 使用可能シェーダー
 
@@ -37,14 +38,18 @@ VGOが対応する Unity コンポーネントは以下の通りです
 |1|Standard|標準シェーダー|
 |2|Particles/Standard Surface|Particle System 専用シェーダー|
 |3|Particles/Standard Unlit|Particle System 専用 Unlit シェーダー|
-|4|Unlit/Color||
-|5|Unlit/Texture||
-|6|Unlit/Transparent||
-|7|Unlit/Transparent Cutout||
-|8|UniGLTF/Unlit||
-|9|VRM/MToon||
+|4|Skybox/6 Sided|Skybox 6面 シェーダー|
+|5|Skybox/Panoramic|Skybox パノラマ シェーダー|
+|6|Skybox/Procedural|Skybox 手続型 シェーダー|
+|7|Unlit/Color||
+|8|Unlit/Texture||
+|9|Unlit/Transparent||
+|10|Unlit/Transparent Cutout||
+|11|UniGLTF/Unlit||
+|12|VRM/MToon||
 
-Unlit系のシェーダーは光源の影響を受けません。その代わり処理負荷が小さくなります。
+- Unlit系のシェーダーは光源の影響を受けません。その代わり処理負荷が小さくなります。
+- Skybox/Cubemap には対応していません。
 
 ___
 ## VGO の作成
@@ -115,17 +120,24 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 「VGO」の子に`GameObject`を配置していきます。  
 自由に配置することができます。  
 
-#### 3-1. Light
+#### 3-1. Skybox
+
+シーン内に1つだけ配置することができます。  
+Skyboxマテリアルを設定します。  
+設定値をシーンに反映するためにはスクリプトに処理が必要です。  
+`Cubemap`はサポートされていません。
+
+#### 3-2. Light
 
 `Realtime`設定のみ機能し、`Baked`は反映されません。  
 また、`Directional Light`をVGOに含める場合、シーン内に初期配置されている`Directional Light`を削除するか非アクティブにしておきます。
 
-#### 3-2. Particle System
+#### 3-3. Particle System
 
 `Scene View`にてエフェクトを確認しながら設定することができます。  
 シェーダーはパーティクル用のシェーダーが使用できます。
 
-#### 3-3. それ以外の通常オブジェクト
+#### 3-4. それ以外の通常オブジェクト
 
 `Light`, `Particle System`以外の通常のオブジェクトです。  
 タイプ別に A か B か C かに分かれます。
@@ -310,7 +322,7 @@ https://vovola.wixsite.com/website
 https://izayoi16.wixsite.com/vishop
 
 ___
-最終更新日：2020年2月6日  
+最終更新日：2020年3月15日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

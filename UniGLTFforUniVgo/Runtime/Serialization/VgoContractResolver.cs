@@ -98,6 +98,16 @@ namespace UniGLTFforUniVgo
                 contract.Converter = new StringEnumConverter(new DefaultNamingStrategy(), allowIntegerValues: false);
             }
 
+            // Shader Properties (Skybox)
+            if ((objectType == typeof(SkyboxImageType)) ||
+                (objectType == typeof(SkyboxLayout)) ||
+                (objectType == typeof(SkyboxMapping)) ||
+                (objectType == typeof(SkyboxSunDisk))
+            )
+            {
+                contract.Converter = new StringEnumConverter(new DefaultNamingStrategy(), allowIntegerValues: false);
+            }
+
             // Shader Properties (MToon)
             if ((objectType == typeof(MToonCullMode)) ||
                 (objectType == typeof(MToonOutlineColorMode)) ||

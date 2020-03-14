@@ -48,6 +48,32 @@
 |emissionColor||float[3]|r, g, b||
 |emissionMapIndex||int|||
 
+### VRMC_materials_skybox
+
+|definition name|description|type|setting value|default value|
+|:---|:---|:---:|:---:|:---:|
+|sunDisk||string|None / Simple / HighQuality|None|
+|sunSize||float|[0.0, 1.0]||
+|sunSizeConvergence||int|[1, 10]||
+|atmosphereThickness||float|[0.0, 5.0]||
+|tint||float[4]|r, g, b, a||
+|skyTint||float[4]|r, g, b, a||
+|groundColor||float[4]|r, g, b, a||
+|exposure||float|[0.0, 8.0]||
+|rotation||int|[0, 360]||
+|frontTexIndex||int|||
+|backTexIndex||int|||
+|leftTexIndex||int|||
+|rightTexIndex||int|||
+|upTexIndex||int|||
+|downTexIndex||int|||
+|texIndex||int|||
+|mainTexIndex||int|||
+|mapping||string|SixFramesLayout / LatitudeLongitudeLayout|SixFramesLayout|
+|imageType||string|Degrees360 / Degrees180|Degrees360|
+|mirrorOnBack||bool|||
+|layout||string|None / SideBySide / OverUnder|None|
+
 ### KHR_materials_unlit
 
 |definition name|description|type|setting value|default value|
@@ -243,12 +269,34 @@ JSON{
                 }
             },
             "extras": {}
+        },
+        {
+            "name":"Skybox6SidedMaterial",
+            "pbrMetallicRoughness":{},
+            "alphaCutoff":0.5,
+            "doubleSided":false,
+            "extensions":{
+                "VGO_materials":{
+                    "shaderName":"Skybox/6 Sided"
+                },
+                "VGO_materials_skybox":{
+                    "tint":[ 0.214,0.214,0.214,0.5 ],
+                    "exposure":1.0,
+                    "rotation":0,
+                    "frontTexIndex":1,
+                    "backTexIndex":2,
+                    "leftTexIndex":3,
+                    "rightTexIndex":4,
+                    "upTexIndex":5,
+                    "downTexIndex":6
+                }
+            }
         }
     ]
 }
 ```
 ___
-Last updated: 23 January, 2020  
+Last updated: 15 March, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

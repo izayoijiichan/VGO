@@ -1,0 +1,29 @@
+{
+    "title": "vgo.ps.emission.module",
+    "description": "Particle System Emission Module.",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "rateOverTime": {
+            "$ref": "vgo.ps.minMaxCurve.schema.json"
+        },
+        "rateOverTimeMultiplier": {
+            "type": "number"
+        },
+        "rateOverDistance": {
+            "$ref": "vgo.ps.minMaxCurve.schema.json"
+        },
+        "rateOverDistanceMultiplier": {
+            "type": "number"
+        },
+        "bursts": {
+            "type": "array",
+                "items": {
+                    "$ref": "vgo.ps.burst.schema.json"
+                }
+            }
+        }
+    }
+}

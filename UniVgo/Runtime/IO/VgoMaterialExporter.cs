@@ -6,8 +6,9 @@ namespace UniVgo
 {
     using MToon;
     using UniGLTFforUniVgo;
-    using UnityEngine;
+    using UniSkybox;
     using UniStandardParticle;
+    using UnityEngine;
 
     /// <summary>
     /// VGO Material Exporter
@@ -29,6 +30,12 @@ namespace UniVgo
                 case ShaderName.Particles_Standard_Surface:
                 case ShaderName.Particles_Standard_Unlit:
                     return CreateParticleMaterial(m, textureManager);
+
+                case ShaderName.Skybox_6_Sided:
+                case ShaderName.Skybox_Cubemap:
+                case ShaderName.Skybox_Panoramic:
+                case ShaderName.Skybox_Procedural:
+                    return CreateSkyboxMaterial(m, textureManager);
 
                 case ShaderName.VRM_MToon:
                     return CreateVrmMtoonMaterial(m, textureManager);
@@ -227,6 +234,110 @@ namespace UniVgo
             {
                 material.extensions.KHR_materials_unlit = new KHR_materials_unlit();
             }
+
+            return material;
+        }
+
+        /// <summary>
+        /// Create a Skybox material.
+        /// </summary>
+        /// <param name="m"></param>
+        /// <param name="textureManager"></param>
+        /// <returns></returns>
+        protected virtual glTFMaterial CreateSkyboxMaterial(Material m, TextureExportManager textureManager)
+        {
+            VGO_materials_skybox vgoSkybox;
+
+            switch (m.shader.name)
+            {
+                case ShaderName.Skybox_6_Sided:
+                    {
+                        Skybox6SidedDefinition skyboxDefinition = UniSkybox.Utils.GetParametersFromMaterial<Skybox6SidedDefinition>(m);
+
+                        vgoSkybox = new VGO_materials_skybox()
+                        {
+                            tint = skyboxDefinition.Tint.linear.ToArray(),
+                            exposure = skyboxDefinition.Exposure,
+                            rotation = skyboxDefinition.Rotation,
+                            frontTexIndex = textureManager.CopyAndGetIndex(skyboxDefinition.FrontTex, RenderTextureReadWrite.sRGB),
+                            backTexIndex = textureManager.CopyAndGetIndex(skyboxDefinition.BackTex, RenderTextureReadWrite.sRGB),
+                            leftTexIndex = textureManager.CopyAndGetIndex(skyboxDefinition.LeftTex, RenderTextureReadWrite.sRGB),
+                            rightTexIndex = textureManager.CopyAndGetIndex(skyboxDefinition.RightTex, RenderTextureReadWrite.sRGB),
+                            upTexIndex = textureManager.CopyAndGetIndex(skyboxDefinition.UpTex, RenderTextureReadWrite.sRGB),
+                            downTexIndex = textureManager.CopyAndGetIndex(skyboxDefinition.DownTex, RenderTextureReadWrite.sRGB),
+                        };
+                    }
+                    break;
+
+                case ShaderName.Skybox_Cubemap:  // @todo Tex (Cubemap)
+                    {
+                        SkyboxCubemapDefinition skyboxDefinition = UniSkybox.Utils.GetParametersFromMaterial<SkyboxCubemapDefinition>(m);
+
+                        vgoSkybox = new VGO_materials_skybox()
+                        {
+                            tint = skyboxDefinition.Tint.linear.ToArray(),
+                            exposure = skyboxDefinition.Exposure,
+                            rotation = skyboxDefinition.Rotation,
+                            texIndex = textureManager.CopyAndGetIndex(skyboxDefinition.Tex, RenderTextureReadWrite.sRGB),
+                        };
+                    }
+                    break;
+
+                case ShaderName.Skybox_Panoramic:
+                    {
+                        SkyboxPanoramicDefinition skyboxDefinition = UniSkybox.Utils.GetParametersFromMaterial<SkyboxPanoramicDefinition>(m);
+
+                        vgoSkybox = new VGO_materials_skybox()
+                        {
+                            tint = skyboxDefinition.Tint.linear.ToArray(),
+                            exposure = skyboxDefinition.Exposure,
+                            rotation = skyboxDefinition.Rotation,
+                            mainTexIndex = textureManager.CopyAndGetIndex(skyboxDefinition.MainTex, RenderTextureReadWrite.sRGB),
+                            mapping = (SkyboxMapping)skyboxDefinition.Mapping,
+                            imageType = (SkyboxImageType)skyboxDefinition.ImageType,
+                            mirrorOnBack = skyboxDefinition.MirrorOnBack,
+                            layout = (SkyboxLayout)skyboxDefinition.Layout,
+                        };
+                    }
+                    break;
+
+                case ShaderName.Skybox_Procedural:
+                    {
+                        SkyboxProceduralDefinition skyboxDefinition = UniSkybox.Utils.GetParametersFromMaterial<SkyboxProceduralDefinition>(m);
+
+                        vgoSkybox = new VGO_materials_skybox()
+                        {
+                            sunDisk = (SkyboxSunDisk)skyboxDefinition.SunDisk,
+                            sunSize = skyboxDefinition.SunSize,
+                            sunSizeConvergence = skyboxDefinition.SunSizeConvergence,
+                            atmosphereThickness = skyboxDefinition.AtmosphereThickness,
+                            skyTint = skyboxDefinition.SkyTint.linear.ToArray(),
+                            groundColor = skyboxDefinition.GroundColor.linear.ToArray(),
+                            exposure = skyboxDefinition.Exposure,
+                        };
+                    }
+                    break;
+
+                default:
+                    throw new UniGLTFNotSupportedException(m.shader.name);
+            }
+
+            var material = new glTFMaterial();
+
+            material.name = m.name;
+
+            // PBR Metallic Roughness
+            if (material.pbrMetallicRoughness == null)
+            {
+                material.pbrMetallicRoughness = new glTFPbrMetallicRoughness();
+            }
+
+            // extensions
+            material.extensions = new glTFMaterial_extensions()
+            {
+                VGO_materials = new VGO_materials(m.shader.name),
+                VGO_materials_skybox = vgoSkybox,
+            };
 
             return material;
         }

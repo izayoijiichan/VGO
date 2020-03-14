@@ -1,0 +1,10 @@
+{
+    "title": "nodes.extensions",
+    "description": "glTF node extension.",
+    "type": "object",
+    "properties": {
+        "VGO_nodes": {
+            "$ref": "VGO_nodes.schema.json"
+        }
+    }
+}

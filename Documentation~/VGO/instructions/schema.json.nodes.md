@@ -18,6 +18,7 @@
 |light|Light information|VGO_Light|
 |particleSystem|Particle System information|VGO_ParticleSystem|
 |right|VGO rights information|VGO_Right|
+|skybox|VGO skybox information|VGO_Skybox|
 
 ### VGO_GameObject
 
@@ -595,6 +596,12 @@ unimplemented
 |:---|:---|:---:|:---:|:---:|
 |alpha||float|||
 |time||float|[0,1]||
+
+### VGO_Skybox
+
+|definition name|description|type|setting value|default value|
+|:---|:---|:---:|:---:|:---:|
+|materialIndex||int|||
 
 ___
 ## Example of glTF JSON structure
@@ -1277,6 +1284,9 @@ JSON{
                             "reflectionProbeUsage":"Off"
                         }
                     },
+                    "skybox":{
+                        "materialIndex":1
+                    },
                     "right": {
                         "title": "Capsule1",
                         "author": "Izayoi Jiichan",
@@ -1295,7 +1305,7 @@ JSON{
 }
 ```
 ___
-Last updated: 23 January, 2020  
+Last updated: 15 March, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

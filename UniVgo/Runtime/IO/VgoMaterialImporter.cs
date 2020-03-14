@@ -5,11 +5,11 @@
 namespace UniVgo
 {
     using MToon;
-    using System.Collections.Generic;
     using UniGLTFforUniVgo;
+    using UniSkybox;
+    using UniStandardParticle;
     using UnityEngine;
     using UnityEngine.Rendering;
-    using UniStandardParticle;
 
     /// <summary>
     /// VGO Material Importer
@@ -44,6 +44,10 @@ namespace UniVgo
                 if (src.extensions.VGO_materials_particle != null)
                 {
                     return CreateParticleMaterial(i, src);
+                }
+                if (src.extensions.VGO_materials_skybox != null)
+                {
+                    return CreateSkyboxMaterial(i, src);
                 }
                 if (src.extensions.KHR_materials_unlit != null)
                 {
@@ -125,6 +129,87 @@ namespace UniVgo
             };
 
             return particleDefinition;
+        }
+
+        /// <summary>
+        /// Create a Skybox material.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="src"></param>
+        /// <returns></returns>
+        protected virtual Material CreateSkyboxMaterial(int i, glTFMaterial src)
+        {
+            var shader = m_shaderStore.GetShader(src);
+
+            Material material = new Material(shader);
+
+            material.name = CreateMaterialName(i, src);
+
+#if UNITY_EDITOR
+            material.hideFlags = HideFlags.DontUnloadUnusedAsset;
+#endif
+
+            VGO_materials_skybox vgoSkybox = src.extensions.VGO_materials_skybox;
+
+            switch (shader.name)
+            {
+                case ShaderName.Skybox_6_Sided:
+                    UniSkybox.Utils.SetParametersToMaterial(material, new Skybox6SidedDefinition()
+                    {
+                        Tint = ArrayConverter.ToColor(vgoSkybox.tint, gamma: true),
+                        Exposure = vgoSkybox.exposure,
+                        Rotation = vgoSkybox.rotation,
+                        FrontTex = GetTexture(UniSkybox.Utils.PropFrontTex, vgoSkybox.frontTexIndex),
+                        BackTex = GetTexture(UniSkybox.Utils.PropBackTex, vgoSkybox.backTexIndex),
+                        LeftTex = GetTexture(UniSkybox.Utils.PropLeftTex, vgoSkybox.leftTexIndex),
+                        RightTex = GetTexture(UniSkybox.Utils.PropRightTex, vgoSkybox.rightTexIndex),
+                        UpTex = GetTexture(UniSkybox.Utils.PropUpTex, vgoSkybox.upTexIndex),
+                        DownTex = GetTexture(UniSkybox.Utils.PropDownTex, vgoSkybox.downTexIndex),
+                    });
+                    break;
+
+                case ShaderName.Skybox_Cubemap:  // @todo Tex (Cubemap)
+                    UniSkybox.Utils.SetParametersToMaterial(material, new SkyboxCubemapDefinition()
+                    {
+                        Tint = ArrayConverter.ToColor(vgoSkybox.tint, gamma: true),
+                        Exposure = vgoSkybox.exposure,
+                        Rotation = vgoSkybox.rotation,
+                        Tex = GetCubemap(UniSkybox.Utils.PropTex, vgoSkybox.texIndex),
+                    });
+                    break;
+
+                case ShaderName.Skybox_Panoramic:
+                    UniSkybox.Utils.SetParametersToMaterial(material, new SkyboxPanoramicDefinition()
+                    {
+                        Tint = ArrayConverter.ToColor(vgoSkybox.tint, gamma: true),
+                        Exposure = vgoSkybox.exposure,
+                        Rotation = vgoSkybox.rotation,
+                        MainTex = GetTexture(UniSkybox.Utils.PropMainTex, vgoSkybox.mainTexIndex),
+                        Mapping = (Mapping)vgoSkybox.mapping,
+                        ImageType = (ImageType)vgoSkybox.imageType,
+                        MirrorOnBack = vgoSkybox.mirrorOnBack,
+                        Layout = (Layout)vgoSkybox.layout,
+                    });
+                    break;
+
+                case ShaderName.Skybox_Procedural:
+                    UniSkybox.Utils.SetParametersToMaterial(material, new SkyboxProceduralDefinition()
+                    {
+                        SunDisk = (SunDisk)vgoSkybox.sunDisk,
+                        SunSize = vgoSkybox.sunSize,
+                        SunSizeConvergence = vgoSkybox.sunSizeConvergence,
+                        AtmosphereThickness = vgoSkybox.atmosphereThickness,
+                        SkyTint = ArrayConverter.ToColor(vgoSkybox.skyTint, gamma: true),
+                        GroundColor = ArrayConverter.ToColor(vgoSkybox.groundColor, gamma: true),
+                        Exposure = vgoSkybox.exposure,
+                    });
+                    break;
+
+                default:
+                    break;
+            }
+
+            return material;
         }
 
         /// <summary>
@@ -420,6 +505,25 @@ namespace UniVgo
             }
 
             return texture2D;
+        }
+
+        /// <summary>
+        /// Get the cubemap.
+        /// </summary>
+        /// <param name="shaderPropertyName"></param>
+        /// <param name="textureIndex"></param>
+        /// <returns></returns>
+        protected virtual Cubemap GetCubemap(string shaderPropertyName, int textureIndex)
+        {
+            Texture2D texture2D = GetTexture(shaderPropertyName, textureIndex);
+
+            if (texture2D == null)
+            {
+                return null;
+            }
+
+            // @todo
+            return null;
         }
     }
 }

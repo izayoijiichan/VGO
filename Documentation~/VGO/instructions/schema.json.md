@@ -10,6 +10,7 @@
 |VGO_nodes|Declaration to use VGO_nodes.|
 |VGO_materials|Declaration to use VGO_materials.|
 |VGO_materials_particle|Declares that Particle shaders can be used for materials.|
+|VGO_materials_skybox|Declares that Skybox shaders can be used for materials.|
 |KHR_materials_unlit|Declares that Unlit shaders can be used for materials.|
 |VRMC_materials_mtoon|Declares that MToon shaders can be used for materials.|
 
@@ -21,6 +22,7 @@
 |VGO_nodes|Requires support for VGO_nodes extension.|
 |VGO_materials|Requires support for VGO_materials extension.|
 |VGO_materials_particle|Requires support for the VGO_materials_particle extension.|
+|VGO_materials_skybox|Requires support for the VGO_materials_skybox extension.|
 |KHR_materials_unlit|Requires support for the KHR_materials_unlit extension.|
 |VRMC_materials_mtoon|Requires support for the VRMC_materials_mtoon extension.|
 
@@ -74,6 +76,7 @@ JSON{
         "VGO_nodes",
         "VGO_materials",
         "VGO_materials_particle",
+        "VGO_materials_skybox",
         "KHR_materials_unlit",
         "VRMC_materials_mtoon"
     ],
@@ -82,6 +85,7 @@ JSON{
         "VGO_nodes",
         "VGO_materials",
         "VGO_materials_particle",
+        "VGO_materials_skybox",
         "KHR_materials_unlit",
         "VRMC_materials_mtoon"
     ],
@@ -89,16 +93,16 @@ JSON{
         "VGO": {
             "meta": {
                 "generatorName": "UniVGO",
-                "generatorVersion": "0.7.0",
-                "specVersion": "0.5"
+                "generatorVersion": "0.8.0",
+                "specVersion": "0.6"
             },
             "right": {
                 "title": "Test Stage",
                 "author": "Izayoi Jiichan",
                 "organization": "Izayoi",
                 "createdDate": "2020-01-01",
-                "updatedDate": "2020-01-23",
-                "version": "1.4",
+                "updatedDate": "2020-03-15",
+                "version": "1.5",
                 "distributionUrl": "https://github.com/izayoijiichan/VGO",
                 "licenseUrl": "https://github.com/izayoijiichan/VGO/blob/master/UniVgo/LICENSE.md"
             }
@@ -108,7 +112,7 @@ JSON{
 }
 ```
 ___
-Last updated: 23 January, 2020  
+Last updated: 15 March, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*
