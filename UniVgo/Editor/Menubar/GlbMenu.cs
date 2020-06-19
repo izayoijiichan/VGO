@@ -1,46 +1,47 @@
 ﻿// ----------------------------------------------------------------------
 // @Namespace : UniVgo.Editor
-// @Class     : VgoMenu
+// @Class     : GlbMenu
 // ----------------------------------------------------------------------
 namespace UniVgo.Editor
 {
     using System.Threading.Tasks;
+    using UniGLTFforUniVgo;
     using UnityEditor;
     using UnityEngine;
 
     /// <summary>
-    /// VGO Menu
+    /// GLB Menu
     /// </summary>
-    public static class VgoMenu
+    public static class GlbMenu
     {
         #region MenuItem
 
         /// <summary>
-        /// Tools > UniVGO > Export
+        /// Tools > UniGLTF > Export
         /// </summary>
-        [MenuItem("Tools/UniVGO/Export", priority = 1021)]
+        [MenuItem("Tools/UniGLTF/Export", priority = 1001)]
         public static void ExportMenu()
         {
-            VgoExportProcessor.ExportVgo();
+            GlbExportProcessor.ExportGlb();
         }
 
         /// <summary>
-        /// Tools > UniVGO > Import
+        /// Tools > UniGLTF > Import
         /// </summary>
         /// <returns></returns>
-        [MenuItem("Tools/UniVGO/Import", priority = 1022)]
-        public static async Task ImportMenu()
+        [MenuItem("Tools/UniGLTF/Import", priority = 1002)]
+        public static void ImportMenu()
         {
-            await VgoImportProcessor.ImportVgo();
+            GlbImportProcessor.ImportGlb();
         }
 
         /// <summary>
-        /// Tools > UniVGO > Version
+        /// Tools > UniGLTF > Version
         /// </summary>
-        [MenuItem("Tools/UniVGO/Version", priority = 1033)]
+        [MenuItem("Tools/UniGLTF/Version", priority = 1013)]
         public static void VersionMenu()
         {
-            Debug.Log("UniVGO version: " + VgoVersion.VERSION);
+            Debug.Log("UniGLTF version: " + UniGLTFVersion.VERSION);
         }
 
         #endregion

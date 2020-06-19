@@ -11,8 +11,8 @@ The contents described in this manual are for the following versions.
 
 |No|item|value|
 |:---:|:---|:---:|
-|1|Unity version|2019.3|
-|2|UniVGO version|0.8.0|
+|1|Unity version|2019.4|
+|2|UniVGO version|0.8.1|
 |3|VGO spec version|0.6|
 
 ### Supported Unity components
@@ -108,8 +108,8 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Generator Name|The name of the generation tool.|UniVGO|
-|2|Generator Version|Version of the generation tool.|0.7.0|
-|3|Spec Version|This is the specification version of VGO.|0.5|
+|2|Generator Version|Version of the generation tool.|0.8.1|
+|3|Spec Version|This is the specification version of VGO.|0.6|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -318,10 +318,10 @@ You can specify a VGO file for your shop.
 
 ![image1](https://github.com/izayoijiichan/vgo/blob/master/Documentation~/UniVGO/Images/820_vishop.jpg)
 
-https://izayoi16.wixsite.com/vishop
+https://vishop.azurewebsites.net
 
 ___
-Last updated: 15 March, 2020  
+Last updated: 20 June, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -12,17 +12,17 @@ ___
 |Unity 2018.4|未確認|未確認|未確認|未確認|未確認|
 |Unity 2019.1|未確認|未確認|未確認|未確認|未確認|
 |Unity 2019.2|未確認|未確認|未確認|未確認|未確認|
-|Unity 2019.3|○|○|○|未確認|未確認|
-|Unity 2020.1a|未確認|未確認|未確認|未確認|未確認|
+|Unity 2019.3|○|○|○|○|未確認|
+|Unity 2019.4|○|○|○|○|未確認|
 
-2020年の開始時点では `Unity 2019.3` の Windows 環境にて開発＆確認を行っています。
+2020年6月の時点では `Unity 2019.4` の Windows 環境にて開発＆確認を行っています。
 
 ### 必要パッケージ
 
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.301|2020年1月20日|
-|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|0.8.0|2020年3月15日|
+|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|0.8.1|2020年6月20日|
 
 ___
 ## インストール
@@ -38,7 +38,7 @@ https://github.com/izayoijiichan/univgo.sample.unity.project
 
 #### 2. Unity のインストール
 
-Unity Hub にて`Unity 2019.3.0f6`をインストールします。
+Unity Hub にて`Unity 2019.4.0f1`をインストールします。
 
 #### 3. プロジェクトを読み込み
 
@@ -99,7 +99,7 @@ AまたはBのいずれかを行ってください。
 {
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.7.0",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.8.1",
     "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -120,7 +120,7 @@ https://github.com/izayoijiichan/VGO/releases
 ```
   <Project>
     Packages
-      izayoi.univgo@0.8.0-preview
+      izayoi.univgo@0.8.1-preview
         DepthFirstScheduler
         MToon
         ShaderProperty
@@ -176,7 +176,7 @@ ___
   また、それにより UniVgo にてエラーが表示される場合、UniVgo, UniGLTFforUniVgo, UniSkybox, UniStandardParticle を `Assets`フォルダーに移動してください。
 
 ___
-最終更新日：2020年3月15日  
+最終更新日：2020年6月20日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -1,8 +1,8 @@
 ﻿// ----------------------------------------------------------------------
 // @Namespace : UniVgo.Editor
-// @Class     : VgoAssetPostprocessor
+// @Class     : GlbAssetPostprocessor
 // ----------------------------------------------------------------------
-#if !VGO_STOP_ASSET_POSTPROCESSOR
+#if !GLB_STOP_ASSET_POSTPROCESSOR
 namespace UniVgo.Editor
 {
     using System;
@@ -11,9 +11,9 @@ namespace UniVgo.Editor
     using UnityEngine;
 
     /// <summary>
-    /// VGO Asset Postprocessor
+    /// GLB Asset Postprocessor
     /// </summary>
-    public class VgoAssetPostprocessor : AssetPostprocessor
+    public class GlbAssetPostprocessor : AssetPostprocessor
     {
         /// <summary>
         /// Called after any number of assets have been imported.
@@ -38,7 +38,7 @@ namespace UniVgo.Editor
                     continue;
                 }
 
-                if (importedAssetPath.Extension == ".vgo")
+                if (importedAssetPath.Extension == ".glb")
                 {
                     UnityPath prefabPath = importedAssetPath.Parent.Child(importedAssetPath.FileNameWithoutExtension + ".prefab");
 
@@ -60,7 +60,7 @@ namespace UniVgo.Editor
                 return;
             }
 
-            var context = new VgoImporter();
+            var context = new ImporterContext();
 
             context.Parse(src);
 

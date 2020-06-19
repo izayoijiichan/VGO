@@ -12,17 +12,17 @@ ___
 |Unity 2018.4|unconfirmed|unconfirmed|unconfirmed|unconfirmed|unconfirmed|
 |Unity 2019.1|unconfirmed|unconfirmed|unconfirmed|unconfirmed|unconfirmed|
 |Unity 2019.2|unconfirmed|unconfirmed|unconfirmed|unconfirmed|unconfirmed|
-|Unity 2019.3|OK|OK|OK|unconfirmed|unconfirmed|
-|Unity 2020.1a|unconfirmed|unconfirmed|unconfirmed|unconfirmed|unconfirmed|
+|Unity 2019.3|OK|OK|OK|OK|unconfirmed|
+|Unity 2019.4|OK|OK|OK|OK|unconfirmed|
 
-As of the start of 2020, we are developing and confirming in `Unity 2019.3` Windows environment.
+As of June of 2020, we are developing and confirming in `Unity 2019.4` Windows environment.
 
 ### Required package
 
 |package name|owner|Repository|specification version|program version|release date|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.301|20 Jan, 2020|
-|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|0.8.0|15 Mar, 2020|
+|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|0.8.1|20 Jun, 2020|
 
 ___
 ## Install
@@ -38,7 +38,7 @@ https://github.com/izayoijiichan/univgo.sample.unity.project
 
 #### 2. Install Unity
 
-Install `Unity 2019.3.0f6` on Unity Hub.
+Install `Unity 2019.4.0f1` on Unity Hub.
 
 #### 3. Load project
 
@@ -99,7 +99,7 @@ Write the following in `<Project>/Packages/package.json`.
 {
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.7.0",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.8.1",
     "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -120,7 +120,7 @@ Unzip the file and place it in the `Packages` folder.
 ```
   <Project>
     Packages
-      izayoi.univgo@0.8.0-preview
+      izayoi.univgo@0.8.1-preview
         DepthFirstScheduler
         MToon
         ShaderProperty
@@ -177,7 +177,7 @@ When the package is installed in the project, the script is automatically compil
   Also, if the error is displayed by UniVgo, please move UniVgo, UniGLTFforUniVgo, UniSkybox, UniStandardParticle to the `Assets` folder.
 
 ___
-Last updated: 15 March, 2020  
+Last updated: 20 June, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

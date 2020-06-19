@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.8.1] - 2020-06-20
+- Added Glb import and export from UniGLTF.
+
 ## [0.8.0] - 2020-03-15
 - Added `VGO_materials_skybox` property to materials extension.
 - Added `skybox` property to VGO_nodes extension.

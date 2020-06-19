@@ -1,27 +1,26 @@
 ﻿// ----------------------------------------------------------------------
 // @Namespace : UniVgo.Editor
-// @Class     : VgoImportProcessor
+// @Class     : GlbImportProcessor
 // ----------------------------------------------------------------------
 namespace UniVgo.Editor
 {
     using System.IO;
-    using System.Threading.Tasks;
     using UniGLTFforUniVgo;
     using UnityEditor;
     using UnityEngine;
 
     /// <summary>
-    /// VGO Import Processor
+    /// GLB Import Processor
     /// </summary>
-    public static class VgoImportProcessor
+    public static class GlbImportProcessor
     {
         /// <summary>
-        /// Import VGO.
+        /// Import GLB.
         /// </summary>
         /// <returns></returns>
-        public static async Task ImportVgo()
+        public static void ImportGlb()
         {
-            string path = EditorUtility.OpenFilePanel(title: "Open File Dialog", directory: "", extension: "vgo");
+            string path = EditorUtility.OpenFilePanel(title: "Open File Dialog", directory: "", extension: "glb");
 
             if (string.IsNullOrEmpty(path))
             {
@@ -33,9 +32,11 @@ namespace UniVgo.Editor
                 //
                 // load into scene
                 //
-                var context = new VgoImporter();
+                var context = new ImporterContext();
 
-                await context.LoadAsync(path, showMeshes: true, enableUpdateWhenOffscreen: true);
+                context.Load(path);
+
+                context.ShowMeshes();
 
                 Selection.activeGameObject = context.Root;
             }
@@ -58,7 +59,7 @@ namespace UniVgo.Editor
                 }
 
                 // import as asset
-                VgoAssetPostprocessor.ImportAsset(path, UnityPath.FromFullpath(assetPath));
+                GlbAssetPostprocessor.ImportAsset(src: path, prefabPath: UnityPath.FromFullpath(assetPath));
             }
         }
     }
