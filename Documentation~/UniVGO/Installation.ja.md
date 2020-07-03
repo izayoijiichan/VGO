@@ -22,7 +22,7 @@ ___
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.301|2020年1月20日|
-|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|0.8.1|2020年6月20日|
+|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|0.8.2|2020年7月4日|
 
 ___
 ## インストール
@@ -85,7 +85,26 @@ Newtonsoft.JSON をパッケージとしてプロジェクトに取り込みま�
 }
 ```
 
-#### 3. UniVGO のインストール
+#### 3. VRMShaders のインストール
+
+VRMShaders をパッケージとしてプロジェクトに取り込みます。  
+`<Project>/Packages/package.json` に以下の記述を行います。  
+追加する位置に気を付ける必要があります。
+
+```json
+{
+  "dependencies": {
+    "com.unity.ugui": "1.0.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.1",
+    "jillejr.newtonsoft.json-for-unity": "12.0.301",
+    "com.unity.modules.ai": "1.0.0",
+    ...
+    "com.unity.modules.xr": "1.0.0"
+  }
+}
+```
+
+#### 4. UniVGO のインストール
 
 UniVGO をプロジェクトに取り込みます。  
 
@@ -99,7 +118,8 @@ AまたはBのいずれかを行ってください。
 {
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.8.1",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.1",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.8.2",
     "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -120,14 +140,11 @@ https://github.com/izayoijiichan/VGO/releases
 ```
   <Project>
     Packages
-      izayoi.univgo@0.8.1-preview
+      izayoi.univgo@0.8.2-preview
         DepthFirstScheduler
-        MToon
-        ShaderProperty
         UniGLTFforUniVgo
         UniSkybox
         UniStandardParticle
-        UniUnlit
         UniVgo
 ```
 
@@ -171,12 +188,13 @@ ___
 |UniVgo.Editor|VGO の入出力|-|*|
 
 - UniVgo, UniVgo.Editor それぞれについて、依存関係にあるDLLに * を付けています。
-- DepthFirstScheduler, MToon, ShaderProperty, UniUnlit は UniVRM (©vrm-c) に梱包されているプログラムです。
-- UniVRM と UniVGO を併用する場合は、UniVgo を取得した際に梱包されていた 重複するファイル（DepthFirstScheduler, MToon, ShaderProperty, UniUnlit）を削除する必要があります。
+- MToon, ShaderProperty, UniUnlit はVRMShaders (©vrm-c) に梱包されているプログラムです。
+- DepthFirstScheduler は UniVRM (©vrm-c) に梱包されているプログラムです。
+- UniVRM と UniVGO を併用する場合は、UniVgo を取得した際に梱包されていた 重複するファイル（DepthFirstScheduler）を削除する必要があります。
   また、それにより UniVgo にてエラーが表示される場合、UniVgo, UniGLTFforUniVgo, UniSkybox, UniStandardParticle を `Assets`フォルダーに移動してください。
 
 ___
-最終更新日：2020年6月20日  
+最終更新日：2020年7月4日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

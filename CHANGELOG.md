@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.8.2] - 2020-07-04
+- Changed to use VRMShaders (com.vrmc.vrmshaders) of UnityPackageManager (UPM).
+
 ## [0.8.1] - 2020-06-20
 - Added Glb import and export from UniGLTF.
 

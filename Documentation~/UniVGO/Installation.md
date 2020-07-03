@@ -22,7 +22,7 @@ As of June of 2020, we are developing and confirming in `Unity 2019.4` Windows e
 |package name|owner|Repository|specification version|program version|release date|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.301|20 Jan, 2020|
-|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|0.8.1|20 Jun, 2020|
+|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|0.8.2|4 Jul, 2020|
 
 ___
 ## Install
@@ -85,6 +85,25 @@ You need to be careful where you add them.
 }
 ```
 
+#### 3. Installation of VRMShaders
+
+Import VRMShaders into your project as a package.  
+Write the following in `<Project>/Packages/package.json`.  
+You need to be careful where you add them.
+
+```json
+{
+  "dependencies": {
+    "com.unity.ugui": "1.0.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.1",
+    "jillejr.newtonsoft.json-for-unity": "12.0.301",
+    "com.unity.modules.ai": "1.0.0",
+    ...
+    "com.unity.modules.xr": "1.0.0"
+  }
+}
+```
+
 #### 3. Installation of UniVGO
 
 Import UniVGO into your project.
@@ -99,7 +118,8 @@ Write the following in `<Project>/Packages/package.json`.
 {
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.8.1",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.1",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.8.2",
     "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -122,12 +142,9 @@ Unzip the file and place it in the `Packages` folder.
     Packages
       izayoi.univgo@0.8.1-preview
         DepthFirstScheduler
-        MToon
-        ShaderProperty
         UniGLTFforUniVgo
         UniSkybox
         UniStandardParticle
-        UniUnlit
         UniVgo
 ```
 
@@ -172,12 +189,13 @@ When the package is installed in the project, the script is automatically compil
 |UniVgo.Editor|VGO import / export|-|*|
 
 - For each of UniVgo, and UniVgo.Editor, * is attached to the dependent DLL.
-- DepthFirstScheduler, MToon, ShaderProperty, UniUnlit is a program packed in UniVRM (© vrm-c).
-- When using UniVRM and UniVGO together, it is necessary to delete the duplicate files (DepthFirstScheduler, MToon, ShaderProperty, UniUnlit) that were packed when UniVgo was obtained.
+- MToon, ShaderProperty, UniUnlit is a program packed in VRMShaders (© vrm-c).
+- DepthFirstScheduler is a program packed in UniVRM (© vrm-c).
+- When using UniVRM and UniVGO together, it is necessary to delete the duplicate files (DepthFirstScheduler) that were packed when UniVgo was obtained.
   Also, if the error is displayed by UniVgo, please move UniVgo, UniGLTFforUniVgo, UniSkybox, UniStandardParticle to the `Assets` folder.
 
 ___
-Last updated: 20 June, 2020  
+Last updated: 4 July, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*
