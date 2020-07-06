@@ -22,7 +22,7 @@ namespace UniVgo
         /// Create a new instance of VgoMaterialImporter with ImporterContext.
         /// </summary>
         /// <param name="context"></param>
-        public VgoMaterialImporter(ImporterContext context) : base(new VgoShaderStore(context), context)
+        public VgoMaterialImporter(ImporterContext context) : base(new VgoShaderStore(context), (int index) => context.GetTexture(index))
         {
         }
 
@@ -281,7 +281,7 @@ namespace UniVgo
                 // texture
                 if (src.pbrMetallicRoughness.baseColorTexture != null)
                 {
-                    var texture = Context.GetTexture(src.pbrMetallicRoughness.baseColorTexture.index);
+                    var texture = GetTextureFunc(src.pbrMetallicRoughness.baseColorTexture.index);
 
                     if (texture != null)
                     {
@@ -490,7 +490,7 @@ namespace UniVgo
         /// <returns></returns>
         protected virtual Texture2D GetTexture(string shaderPropertyName, int textureIndex)
         {
-            TextureItem textureItem = Context.GetTexture(textureIndex);
+            TextureItem textureItem = GetTextureFunc(textureIndex);
 
             if (textureItem == null)
             {

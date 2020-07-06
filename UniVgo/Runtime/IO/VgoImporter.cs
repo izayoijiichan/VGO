@@ -4,6 +4,7 @@
 // ----------------------------------------------------------------------
 namespace UniVgo
 {
+    using System.Collections;
     using System.Collections.Generic;
     using UniGLTFforUniVgo;
     using UnityEngine;
@@ -38,10 +39,12 @@ namespace UniVgo
         /// <summary>
         /// Called when the model is loaded.
         /// </summary>
-        protected override void OnLoadModel()
+        protected override IEnumerator OnLoadModel()
         {
             base.OnLoadModel();
 
+            yield return null;
+            
             SetupComponents();
         }
 

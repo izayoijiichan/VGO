@@ -49,7 +49,7 @@ namespace UniGLTFforUniVgo
 
         /// <summary></summary>
         [JsonProperty("extensions")]
-        public object extensions;
+        public glTFTextureInfo_extensions extensions;
 
         /// <summary></summary>
         [JsonProperty("extras")]

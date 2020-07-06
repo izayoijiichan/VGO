@@ -12,7 +12,7 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2019.4|
-|2|UniVGO version|0.8.1|
+|2|UniVGO version|0.8.3|
 |3|VGO spec version|0.6|
 
 ### Supported Unity components
@@ -108,7 +108,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Generator Name|The name of the generation tool.|UniVGO|
-|2|Generator Version|Version of the generation tool.|0.8.1|
+|2|Generator Version|Version of the generation tool.|0.8.3|
 |3|Spec Version|This is the specification version of VGO.|0.6|
 
 There are no user-configurable items.  
@@ -311,7 +311,7 @@ Multiple play allows multiple people to enter the same room and make calls.
 
 https://vovola.wixsite.com/website
 
-### vishop
+### VISHOP
 
 It is a virtual shopping system.  
 You can specify a VGO file for your shop.
@@ -321,7 +321,7 @@ You can specify a VGO file for your shop.
 https://vishop.azurewebsites.net
 
 ___
-Last updated: 20 June, 2020  
+Last updated: 4 July, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

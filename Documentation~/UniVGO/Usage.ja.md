@@ -12,7 +12,7 @@ ___
 |No|項目|値|
 |:---:|:---|:---:|
 |1|Unity バージョン|2019.4|
-|2|UniVGO バージョン|0.8.1|
+|2|UniVGO バージョン|0.8.3|
 |3|VGO 仕様バージョン|0.6|
 
 ### 対応 Unity コンポーネント
@@ -108,7 +108,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Generator Name|生成ツールの名前です。|UniVGO|
-|2|Generator Version|生成ツールのバージョンです。|0.8.1|
+|2|Generator Version|生成ツールのバージョンです。|0.8.3|
 |3|Spec Version|VGOの仕様バージョンです。|0.6|
 
 ユーザーが設定可能な項目はありません。  
@@ -312,7 +312,7 @@ VR-HMD（ヘッドマウントディスプレイ）が不要な簡易3D バー�
 
 https://vovola.wixsite.com/website
 
-### vishop
+### VISHOP
 
 バーチャルショッピングシステムです。  
 ショップにVGOファイルを指定することができます。
@@ -322,7 +322,7 @@ https://vovola.wixsite.com/website
 https://vishop.azurewebsites.net
 
 ___
-最終更新日：2020年6月20日  
+最終更新日：2020年7月6日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

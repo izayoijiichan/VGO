@@ -22,7 +22,8 @@ As of June of 2020, we are developing and confirming in `Unity 2019.4` Windows e
 |package name|owner|Repository|specification version|program version|release date|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.301|20 Jan, 2020|
-|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|0.8.2|4 Jul, 2020|
+|VRMShaders|vrm-c|GitHub|VRM 0.0|0.56.2|6 Jul, 2020|
+|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|0.8.3|6 Jul, 2020|
 
 ___
 ## Install
@@ -95,7 +96,7 @@ You need to be careful where you add them.
 {
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.1",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.2",
     "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -118,8 +119,8 @@ Write the following in `<Project>/Packages/package.json`.
 {
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.1",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.8.2",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.2",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.8.3",
     "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -140,7 +141,7 @@ Unzip the file and place it in the `Packages` folder.
 ```
   <Project>
     Packages
-      izayoi.univgo@0.8.1-preview
+      izayoi.univgo@0.8.3-preview
         DepthFirstScheduler
         UniGLTFforUniVgo
         UniSkybox
@@ -195,7 +196,7 @@ When the package is installed in the project, the script is automatically compil
   Also, if the error is displayed by UniVgo, please move UniVgo, UniGLTFforUniVgo, UniSkybox, UniStandardParticle to the `Assets` folder.
 
 ___
-Last updated: 4 July, 2020  
+Last updated: 6 July, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.8.3] - 2020-07-06
+- The base of UniGTLF is updated to that of VRM v0.56.2.
+
 ## [0.8.2] - 2020-07-04
 - Changed to use VRMShaders (com.vrmc.vrmshaders) of UnityPackageManager (UPM).
 

@@ -2,7 +2,7 @@
   "name": "izayoi.univgo",
   "displayName": "UniVGO",
   "description": "UniVGO is a package that can handle VGO files in Unity.",
-  "version": "0.8.2-preview",
+  "version": "0.8.3-preview",
   "type": "tool",
   "category": "",
   "keywords": [
@@ -32,7 +32,7 @@
     "url": "git+https://github.com/izayoijiichan/VGO.git"
   },
   "dependencies": {
-    "com.vrmc.vrmshaders": "0.56.1",
+    "com.vrmc.vrmshaders": "0.56.2",
     "jillejr.newtonsoft.json-for-unity": "12.0.301"
   }
 }

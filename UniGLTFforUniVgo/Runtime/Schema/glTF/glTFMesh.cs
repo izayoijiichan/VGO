@@ -31,7 +31,7 @@ namespace UniGLTFforUniVgo
 
         /// <summary></summary>
         [JsonProperty("extras")]
-        public object extras;
+        public glTFMesh_extras extras;
 
         public glTFMesh()
         {

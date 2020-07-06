@@ -25,29 +25,36 @@ namespace UniGLTFforUniVgo
         private static void ExportFromMenu()
         {
             var go = Selection.activeObject as GameObject;
-            var path = EditorUtility.SaveFilePanel(
-                    "Save glb",
-                    "",
-                    go.name + ".glb",
-                    "glb");
-            if (string.IsNullOrEmpty(path))
-            {
-                return;
-            }
 
-            var gltf = new glTF();
-            using (var exporter = new gltfExporter(gltf))
+            if (go.transform.position == Vector3.zero &&
+                go.transform.rotation == Quaternion.identity && 
+                go.transform.localScale == Vector3.one)
             {
-                exporter.Prepare(go);
-                exporter.Export();
-            }
-            var bytes = gltf.ToGlbBytes();
-            File.WriteAllBytes(path, bytes);
+                var path = EditorUtility.SaveFilePanel(
+                    "Save glb", "", go.name + ".glb", "glb");
+                if (string.IsNullOrEmpty(path))
+                {
+                    return;
+                }
 
-            if (path.StartsWithUnityAssetPath())
+                var gltf = new glTF();
+                using (var exporter = new gltfExporter(gltf))
+                {
+                    exporter.Prepare(go);
+                    exporter.Export();
+                }
+                var bytes = gltf.ToGlbBytes();
+                File.WriteAllBytes(path, bytes);
+
+                if (path.StartsWithUnityAssetPath())
+                {
+                    AssetDatabase.ImportAsset(path.ToUnityRelativePath());
+                    AssetDatabase.Refresh();
+                }
+            }
+            else
             {
-                AssetDatabase.ImportAsset(path.ToUnityRelativePath());
-                AssetDatabase.Refresh();
+                EditorUtility.DisplayDialog("Error", "The Root transform should have Default translation, rotation and scale.", "ok");
             }
         }
 #endif
@@ -61,6 +68,12 @@ namespace UniGLTFforUniVgo
         }
 
         public bool ExportOnlyBlendShapePosition
+        {
+            get;
+            set;
+        }
+
+        public bool RemoveVertexColor
         {
             get;
             set;
@@ -105,6 +118,7 @@ namespace UniGLTFforUniVgo
             get
             {
                 yield return KHR_materials_unlit.ExtensionName;
+                yield return KHR_texture_transform.ExtensionName;
             }
         }
 
@@ -114,6 +128,7 @@ namespace UniGLTFforUniVgo
             get
             {
                 yield return KHR_materials_unlit.ExtensionName;
+                yield return KHR_texture_transform.ExtensionName;
             }
         }
 
@@ -151,7 +166,7 @@ namespace UniGLTFforUniVgo
 
         public virtual void Export()
         {
-            FromGameObject(glTF, Copy, UseSparseAccessorForBlendShape);
+            FromGameObject(glTF, Copy, UseSparseAccessorForBlendShape, RemoveVertexColor);
         }
 
         public void Dispose()
@@ -202,7 +217,8 @@ namespace UniGLTFforUniVgo
             return node;
         }
 
-        void FromGameObject(glTF gltf, GameObject go, bool useSparseAccessorForMorphTarget = false)
+        void FromGameObject(glTF gltf, GameObject go, bool useSparseAccessorForMorphTarget = false,
+                            bool removeVertexColor = false)
         {
             var bytesBuffer = new ArrayByteBuffer(new byte[50 * 1024 * 1024]);
             var bufferIndex = gltf.AddBuffer(bytesBuffer);
@@ -262,7 +278,8 @@ namespace UniGLTFforUniVgo
                         return true;
                     })
                     .ToList();
-                MeshExporter.ExportMeshes(gltf, bufferIndex, unityMeshes, Materials, useSparseAccessorForMorphTarget, ExportOnlyBlendShapePosition);
+                MeshExporter.ExportMeshes(gltf, bufferIndex, unityMeshes, Materials, useSparseAccessorForMorphTarget,
+                                          ExportOnlyBlendShapePosition, removeVertexColor);
                 Meshes = unityMeshes.Select(x => x.Mesh).ToList();
                 #endregion
 

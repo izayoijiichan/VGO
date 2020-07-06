@@ -11,7 +11,10 @@ namespace UniGLTFforUniVgo
     public class glTFMaterial
     {
         public string name;
-        public glTFPbrMetallicRoughness pbrMetallicRoughness;
+        public glTFPbrMetallicRoughness pbrMetallicRoughness = new glTFPbrMetallicRoughness
+        {
+            baseColorFactor = new float[] { 1.0f, 1.0f, 1.0f, 1.0f },
+        };
         public glTFMaterialNormalTextureInfo normalTexture = null;
 
         public glTFMaterialOcclusionTextureInfo occlusionTexture = null;
@@ -42,8 +45,8 @@ namespace UniGLTFforUniVgo
         {
             return new glTFTextureInfo[]
             {
-                pbrMetallicRoughness.baseColorTexture,
-                pbrMetallicRoughness.metallicRoughnessTexture,
+                pbrMetallicRoughness?.baseColorTexture,
+                pbrMetallicRoughness?.metallicRoughnessTexture,
                 normalTexture,
                 occlusionTexture,
                 emissiveTexture
