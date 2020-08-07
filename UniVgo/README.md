@@ -6,6 +6,8 @@ UniVGO is a package that allows you to use VGO files in Unity.
 
 - VGO file settings, export, and import can be performed on the screen UI.
 - You can operate VGO files (such as dynamic loading) from Unity scripts.
+- The importable formats are `.vgo`, `.glb`, `.gltf`.
+- The exportable formats are `.vgo`, `.glb`.
 
 ___
 ## Installation
@@ -22,6 +24,15 @@ ___
 [Japanese](https://github.com/izayoijiichan/VGO/blob/master/Documentation~/UniVGO/Usage.ja.md).
 
 ___
+## Dependent packages
+
+- [Newtonsoft.Json]: [12.0.3]
+- [VgoGltf]: [1.0.0](https://github.com/izayoijiichan/vgo.gltf.git)
+- [NewtonGltf]: [1.0.0](https://github.com/izayoijiichan/newton.gltf.git)
+- [NewtonGltf.Vgo.Extensions]: [1.0.0](https://github.com/izayoijiichan/newton.gltf.vgo.extensions.git)
+- [UniShaders]: [1.0.0](https://github.com/izayoijiichan/UniShaders.git)
+
+___
 ## Acknowledgment
 
 I would like to express my sincere appreciation to
@@ -33,7 +44,7 @@ Unity Technologies, who is developing Unity, and other related people.
 I would like to take this opportunity to thank you.
 
 ___
-Last updated: 6 February, 2020  
+Last updated: 7 August, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

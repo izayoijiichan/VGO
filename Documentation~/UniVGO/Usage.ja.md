@@ -12,7 +12,7 @@ ___
 |No|項目|値|
 |:---:|:---|:---:|
 |1|Unity バージョン|2019.4|
-|2|UniVGO バージョン|0.8.3|
+|2|UniVGO バージョン|1.0.0|
 |3|VGO 仕様バージョン|0.6|
 
 ### 対応 Unity コンポーネント
@@ -45,8 +45,9 @@ VGOが対応する Unity コンポーネントは以下の通りです
 |8|Unlit/Texture||
 |9|Unlit/Transparent||
 |10|Unlit/Transparent Cutout||
-|11|UniGLTF/Unlit||
-|12|VRM/MToon||
+|11|UniGLTF/StandardVColor|Vertex Color シェーダー|
+|12|UniGLTF/Unlit||
+|13|VRM/MToon||
 
 - Unlit系のシェーダーは光源の影響を受けません。その代わり処理負荷が小さくなります。
 - Skybox/Cubemap には対応していません。
@@ -222,7 +223,7 @@ ___
 
 A または B のいずれかの方法で出力します。
 
-A)「VGO」を選択し、上部のメニューから `Tools` > `UniVGO` > `Export` を選択します。  
+A)「VGO」を選択し、上部のメニューから `Tools` > `UniVGO` > `Export (VGO)` を選択します。  
 B)「VGO」を選択し、Inspector の`Vgo Meta`の`Export VGO`ボタンを押下します。
 
 エラーがなければ、VGOファイルが指定したフォルダーに出力されます。  
@@ -235,24 +236,30 @@ ___
 
 VGOファイル (.vgo) を準備します。
 
-※プロジェクトの`Assets`に配置した場合は自動的に取込が行われます。
-
-以下は`Assets`に配置しない場合の説明となります。
+VGOファイルがない場合（初回作業時など）には、  
+GLBファイル (.glb) またはGLTFファイル (.gltf) からでも開始できます。
 
 ### 2. 取込
 
-Unity Editor の上部のメニューから `Tools` > `UniVGO` > `Import` を選択します。  
-作業するシーンはどこでも構いません。
+VGO（GLBまたはGLTF）ファイルを `Assets` 配下の任意の場所に配置します。
+
+エラーが発生した場合は、Console にエラー内容が表示されます。  
+エラーが発生していなければ取込は完了しています。
+
+Unity Editor の `Project` ウィンドウ（タブ）から VGOファイルを選択し、`Hierarchy` にドロップすることでオブジェクトを配置できます。
+
+### 3. アセットの抽出
+
+Unity Editor の `Project` ウィンドウ（タブ）から VGOファイルを探し、選択します。  
 
 ![image1](https://github.com/izayoijiichan/vgo/blob/master/Documentation~/UniVGO/Images/620_Import.png)
 
-最初のダイアログでは取り込みたいVGOファイル (.vgo) を選択します。
+`Inspector` ウィンドウ（タブ）に `Vgo Scripted Importer` が表示されます。  
 
-次のダイアログでは取り込み先フォルダーを選択します。  
-取込先はプロジェクトの`Assets`以下のフォルダーを指定する必要があります。
+`Material and Textures` の `Extract` ボタンをクリックすると、  
+テクスチャーとマテリアルの抽出が開始されます。
 
-エラーがなければ、プレファブ ファイル (.prefab) が生成されています。  
-エラーが発生している場合は、Console にエラー内容が表示されます。
+`Apply` ボタンをクリックすることで抽出が確定します。
 
 ___
 ## VGO のランタイムロード
@@ -292,7 +299,7 @@ VGOファイルが読み込まれることを確認します。
         private void Start()
         {
             var importer = new VgoImporter();
-            importer.Load(filePath, true);
+            importer.Load(filePath);
         }
     }
 ~~~
@@ -322,7 +329,7 @@ https://vovola.wixsite.com/website
 https://vishop.azurewebsites.net
 
 ___
-最終更新日：2020年7月6日  
+最終更新日：2020年8月7日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

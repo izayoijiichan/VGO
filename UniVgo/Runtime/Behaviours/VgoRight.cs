@@ -4,7 +4,7 @@
 // ----------------------------------------------------------------------
 namespace UniVgo
 {
-    using UniGLTFforUniVgo;
+    using NewtonGltf;
     using UnityEngine;
 
     /// <summary>
@@ -14,6 +14,6 @@ namespace UniVgo
     public class VgoRight : MonoBehaviour
     {
         /// <summary>glTF VGO Right</summary>
-        public glTF_VGO_Right Right = null;
+        public Gltf_VGO_Right Right = null;
     }
 }

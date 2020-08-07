@@ -4,11 +4,12 @@
 // ----------------------------------------------------------------------
 namespace UniVgo.Editor
 {
+    using NewtonGltf;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using UniGLTFforUniVgo;
     using UniVgo;
+    using VgoGltf;
 
     /// <summary>
     /// VGO Right Validator
@@ -81,7 +82,7 @@ namespace UniVgo.Editor
         /// <returns>Returns true if validation is successful, false otherwise.</returns>
         public static bool Validate(VgoRight vgoRight, out string errorMessage)
         {
-            glTF_VGO_Right right = vgoRight.Right;
+            Gltf_VGO_Right right = vgoRight.Right;
 
             var errorMessages = new[]
             {

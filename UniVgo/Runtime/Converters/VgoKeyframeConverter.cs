@@ -1,10 +1,10 @@
 ﻿// ----------------------------------------------------------------------
-// @Namespace : UniVgo
+// @Namespace : UniVgo.Converters
 // @Class     : VgoKeyframeConverter
 // ----------------------------------------------------------------------
-namespace UniVgo
+namespace UniVgo.Converters
 {
-    using UniGLTFforUniVgo;
+    using NewtonGltf;
     using UnityEngine;
 
     /// <summary>
@@ -27,7 +27,7 @@ namespace UniVgo
                 outTangent = keyframe.outTangent,
                 inWeight = keyframe.inWeight,
                 outWeight = keyframe.outWeight,
-                weightedMode = keyframe.weightedMode,
+                weightedMode = (VgoGltf.WeightedMode)keyframe.weightedMode,
             };
         }
 
@@ -45,7 +45,7 @@ namespace UniVgo
 
             switch (vgoKeyframe.weightedMode)
             {
-                case WeightedMode.None:
+                case VgoGltf.WeightedMode.None:
                     return new Keyframe(
                         time: vgoKeyframe.time,
                         value: vgoKeyframe.value,
@@ -53,9 +53,9 @@ namespace UniVgo
                         outTangent: vgoKeyframe.outTangent
                     );
 
-                case WeightedMode.In:
-                case WeightedMode.Out:
-                case WeightedMode.Both:
+                case VgoGltf.WeightedMode.In:
+                case VgoGltf.WeightedMode.Out:
+                case VgoGltf.WeightedMode.Both:
                     return new Keyframe(
                         time: vgoKeyframe.time,
                         value: vgoKeyframe.value,

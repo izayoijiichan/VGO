@@ -1,10 +1,10 @@
 ﻿// ----------------------------------------------------------------------
-// @Namespace : UniVgo
+// @Namespace : UniVgo.Converters
 // @Class     : VgoPhysicMaterialConverter
 // ----------------------------------------------------------------------
-namespace UniVgo
+namespace UniVgo.Converters
 {
-    using UniGLTFforUniVgo;
+    using NewtonGltf;
     using UnityEngine;
 
     /// <summary>
@@ -29,8 +29,8 @@ namespace UniVgo
                 dynamicFriction = physicMaterial.dynamicFriction,
                 staticFriction = physicMaterial.staticFriction,
                 bounciness = physicMaterial.bounciness,
-                frictionCombine = physicMaterial.frictionCombine,
-                bounceCombine = physicMaterial.bounceCombine,
+                frictionCombine = (VgoGltf.PhysicMaterialCombine)physicMaterial.frictionCombine,
+                bounceCombine = (VgoGltf.PhysicMaterialCombine)physicMaterial.bounceCombine,
             };
         }
 
@@ -51,8 +51,8 @@ namespace UniVgo
                 dynamicFriction = vgoPhysicMaterial.dynamicFriction,
                 staticFriction = vgoPhysicMaterial.staticFriction,
                 bounciness = vgoPhysicMaterial.bounciness,
-                frictionCombine = vgoPhysicMaterial.frictionCombine,
-                bounceCombine = vgoPhysicMaterial.bounceCombine,
+                frictionCombine = (UnityEngine.PhysicMaterialCombine)vgoPhysicMaterial.frictionCombine,
+                bounceCombine = (UnityEngine.PhysicMaterialCombine)vgoPhysicMaterial.bounceCombine,
             };
         }
     }

@@ -1,10 +1,10 @@
 ﻿// ----------------------------------------------------------------------
-// @Namespace : UniVgo
+// @Namespace : UniVgo.Converters
 // @Class     : VgoTransformConverter
 // ----------------------------------------------------------------------
-namespace UniVgo
+namespace UniVgo.Converters
 {
-    using UniGLTFforUniVgo;
+    using NewtonGltf;
     using UnityEngine;
 
     /// <summary>
@@ -26,9 +26,9 @@ namespace UniVgo
 
             var vgoTransform = new VGO_Transform()
             {
-                position = transform.localPosition.ReverseZ().ToArray(),
-                rotation = transform.localRotation.ReverseZ().ToArray(),
-                scale = transform.localScale.ToArray(),
+                position = transform.localPosition.ReverseZ().ToNumericsVector3(),
+                rotation = transform.localRotation.ReverseZ().ToNumericsVector4(),
+                scale = transform.localScale.ToNumericsVector3(),
             };
 
             return vgoTransform;
@@ -52,9 +52,9 @@ namespace UniVgo
                 return;
             }
 
-            transform.localPosition = ArrayConverter.ToVector3(vgoTransform.position, reverseZ: true);
-            transform.localRotation = ArrayConverter.ToQuaternion(vgoTransform.rotation, reverseZ: true);
-            transform.localScale = ArrayConverter.ToVector3(vgoTransform.scale);
+            transform.localPosition = vgoTransform.position.GetValueOrDefault(System.Numerics.Vector3.Zero).ToUnityVector3().ReverseZ();
+            transform.localRotation = vgoTransform.rotation.HasValue ? vgoTransform.rotation.Value.ToUnityQuaternion().ReverseZ() : Quaternion.identity;
+            transform.localScale = vgoTransform.scale.GetValueOrDefault(System.Numerics.Vector3.One).ToUnityVector3();
         }
     }
 }

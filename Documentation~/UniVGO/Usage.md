@@ -12,7 +12,7 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2019.4|
-|2|UniVGO version|0.8.3|
+|2|UniVGO version|1.0.0|
 |3|VGO spec version|0.6|
 
 ### Supported Unity components
@@ -45,8 +45,9 @@ The supported shaders are as follows.
 |8|Unlit/Texture||
 |9|Unlit/Transparent||
 |10|Unlit/Transparent Cutout||
-|11|UniGLTF/Unlit||
-|12|VRM/MToon||
+|11|UniGLTF/StandardVColor|Vertex color shader|
+|12|UniGLTF/Unlit||
+|13|VRM/MToon||
 
 - Unlit shaders are not affected by light sources. Instead, the processing load is reduced.
 - Skybox / Cubemap is not supported.
@@ -221,7 +222,7 @@ When all settings are completed, export the VGO file (.vgo).
 
 Export in either A or B method.
 
-A) From the menu at the top of the Unity Editor, select `Tools` > `UniVGO` > `Export`.
+A) From the menu at the top of the Unity Editor, select `Tools` > `UniVGO` > `Export (VGO)`.
 B) Click `Export VGO` button of VgoMeta component displayed in Inspector.  
 
 If there are no errors, the VGO file will be output to the specified folder.  
@@ -234,24 +235,29 @@ ___
 
 Prepare a VGO file (.vgo).
 
-* If you place it in the project `Assets`, it will be imported automatically.
-
-The following is an explanation when not allocating to `Assets`.
+If you do not have a VGO file (such as during your first work),  
+you can also start with a GLB file (.glb) or GLTF file (.gltf).
 
 ### 2. Import
 
-From the menu at the top of the Unity Editor, select `Tools` > `UniVGO` > `Import`.  
-You can work any scene.
+Place the VGO (GLB or GLTF) file anywhere under `Assets`.
+
+If an error has occurred, the Console will display the details of the error.  
+If there are no errors, the import is complete.
+
+You can place the object by selecting the VGO file from the `Project` window (tab) of the Unity Editor and dropping it on the `Hierarchy`.
+
+### 3. Asset extraction
+
+Locate the VGO file in the Unity Editor's `Project` window (tab) and select it.
 
 ![image1](https://github.com/izayoijiichan/vgo/blob/master/Documentation~/UniVGO/Images/620_Import.png)
 
-In the first dialog, select the VGO file (.vgo) you want to import.
+The `Vgo Scripted Importer` is displayed in the `Inspector` window (tab).
 
-In the next dialog, select the destination folder.  
-It is necessary to specify the folder under `Assets` of Project as the import destination.
+Click the `Extract` button of `Material and Textures` to start extracting textures and materials.
 
-If there are no errors, a prefab file (.prefab) has been generated.  
-If an error has occurred, the Console will display the details of the error.
+The extraction is confirmed by clicking the `Apply` button.
 
 ___
 ## VGO runtime loading
@@ -291,7 +297,7 @@ If you write your own script, write as follows.
         private void Start()
         {
             var importer = new VgoImporter();
-            importer.Load(filePath, true);
+            importer.Load(filePath);
         }
     }
 ~~~
@@ -321,7 +327,7 @@ You can specify a VGO file for your shop.
 https://vishop.azurewebsites.net
 
 ___
-Last updated: 4 July, 2020  
+Last updated: 7 August, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

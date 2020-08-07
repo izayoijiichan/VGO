@@ -1,8 +1,9 @@
 {
     "name": "UniVgo.Editor",
     "references": [
-        "UniJSON",
-        "UniGLTFforUniVgo",
+        "VgoGltf",
+        "NewtonGltf",
+        "NewtonGltf.Vgo.Extensions",
         "UniVgo"
     ],
     "includePlatforms": [

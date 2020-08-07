@@ -1,11 +1,12 @@
 ﻿// ----------------------------------------------------------------------
-// @Namespace : UniVgo
+// @Namespace : UniVgo.Converters
 // @Class     : VgoLightConverter
 // ----------------------------------------------------------------------
-namespace UniVgo
+namespace UniVgo.Converters
 {
-    using UniGLTFforUniVgo;
+    using NewtonGltf;
     using UnityEngine;
+    using VgoGltf;
 
     /// <summary>
     /// VGO Light Converter
@@ -27,28 +28,28 @@ namespace UniVgo
             var vgoLight = new VGO_Light()
             {
                 enabled = light.enabled,
-                type = light.type,
-                color = light.color.linear.ToArray(),
+                type = (VgoGltf.LightType)light.type,
+                color = light.color.linear.ToGltfColor4(),
                 intensity = light.intensity,
                 bounceIntensity = light.bounceIntensity,
-                renderMode = light.renderMode,
+                renderMode = (VgoGltf.LightRenderMode)light.renderMode,
                 cullingMask = light.cullingMask,
             };
 
             // Lightmap Bake Type
 #if UNITY_EDITOR
-            vgoLight.lightmapBakeType = light.lightmapBakeType;
+            vgoLight.lightmapBakeType = (VgoGltf.LightmapBakeType)light.lightmapBakeType;
 #else
             switch (vgoLight.type)
             {
-                case LightType.Spot:
-                case LightType.Directional:
-                case LightType.Point:
-                    vgoLight.lightmapBakeType = LightmapBakeType.Realtime;
+                case VgoGltf.LightType.Spot:
+                case VgoGltf.LightType.Directional:
+                case VgoGltf.LightType.Point:
+                    vgoLight.lightmapBakeType = VgoGltf.LightmapBakeType.Realtime;
                     break;
-                case LightType.Rectangle:
-                case LightType.Disc:
-                    vgoLight.lightmapBakeType = LightmapBakeType.Baked;
+                case VgoGltf.LightType.Rectangle:
+                case VgoGltf.LightType.Disc:
+                    vgoLight.lightmapBakeType = VgoGltf.LightmapBakeType.Baked;
                     break;
                 default:
                     break;
@@ -56,19 +57,19 @@ namespace UniVgo
 #endif
             switch (light.type)
             {
-                case LightType.Spot:
-                    vgoLight.shape = light.shape;
+                case UnityEngine.LightType.Spot:
+                    vgoLight.shape = (VgoGltf.LightShape)light.shape;
                     vgoLight.range = light.range;
                     vgoLight.spotAngle = light.spotAngle;
                     break;
-                case LightType.Point:
+                case UnityEngine.LightType.Point:
                     vgoLight.range = light.range;
                     break;
 #if UNITY_EDITOR
-                case LightType.Rectangle:
-                    vgoLight.areaSize = light.areaSize.ToArray();
+                case UnityEngine.LightType.Rectangle:
+                    vgoLight.areaSize = light.areaSize.ToNumericsVector2();
                     break;
-                case LightType.Disc:
+                case UnityEngine.LightType.Disc:
                     vgoLight.areaRadius = light.areaSize.x;
                     break;
 #endif
@@ -76,22 +77,22 @@ namespace UniVgo
                     break;
             }
 
-            vgoLight.shadows = light.shadows;
+            vgoLight.shadows = (VgoGltf.LightShadows)light.shadows;
 
 #if UNITY_EDITOR
             // Baked Shadows
-            if ((light.lightmapBakeType == LightmapBakeType.Baked) ||
-                (light.lightmapBakeType == LightmapBakeType.Mixed))
+            if ((light.lightmapBakeType == UnityEngine.LightmapBakeType.Baked) ||
+                (light.lightmapBakeType == UnityEngine.LightmapBakeType.Mixed))
             {
-                if (light.shadows == LightShadows.Soft)
+                if (light.shadows == UnityEngine.LightShadows.Soft)
                 {
                     switch (light.type)
                     {
-                        case LightType.Spot:
-                        case LightType.Point:
+                        case UnityEngine.LightType.Spot:
+                        case UnityEngine.LightType.Point:
                             vgoLight.shadowRadius = light.shadowRadius;
                             break;
-                        case LightType.Directional:
+                        case UnityEngine.LightType.Directional:
                             vgoLight.shadowAngle = light.shadowAngle;
                             break;
                         default:
@@ -103,15 +104,15 @@ namespace UniVgo
 
             // Realtime Shadows
 #if UNITY_EDITOR
-            if ((light.lightmapBakeType == LightmapBakeType.Realtime) ||
-                (light.lightmapBakeType == LightmapBakeType.Mixed))
+            if ((light.lightmapBakeType == UnityEngine.LightmapBakeType.Realtime) ||
+                (light.lightmapBakeType == UnityEngine.LightmapBakeType.Mixed))
 #endif
             {
-                if ((light.type == LightType.Directional) ||
-                    (light.type == LightType.Point))
+                if ((light.type == UnityEngine.LightType.Directional) ||
+                    (light.type == UnityEngine.LightType.Point))
                 {
                     vgoLight.shadowStrength = light.shadowStrength;
-                    vgoLight.shadowResolution = light.shadowResolution;
+                    vgoLight.shadowResolution = (LightShadowResolution)light.shadowResolution;
                     vgoLight.shadowBias = light.shadowBias;
                     vgoLight.shadowNormalBias = light.shadowNormalBias;
                     vgoLight.shadowNearPlane = light.shadowNearPlane;
@@ -140,43 +141,43 @@ namespace UniVgo
 
             switch (vgoLight.type)
             {
-                case LightType.Spot:
-                case LightType.Directional:
-                case LightType.Point:
-                case LightType.Rectangle:
-                case LightType.Disc:
+                case VgoGltf.LightType.Spot:
+                case VgoGltf.LightType.Directional:
+                case VgoGltf.LightType.Point:
+                case VgoGltf.LightType.Rectangle:
+                case VgoGltf.LightType.Disc:
                     break;
                 default:
                     return;
             }
 
             light.enabled = vgoLight.enabled;
-            light.type = vgoLight.type;
-            light.color = ArrayConverter.ToColor(vgoLight.color, gamma: true);
+            light.type = (UnityEngine.LightType)vgoLight.type;
+            light.color = vgoLight.color.GetValueOrDefault(Color4.White).ToUnityColor().gamma;
             light.intensity = vgoLight.intensity;
             light.bounceIntensity = vgoLight.bounceIntensity;
-            light.renderMode = vgoLight.renderMode;
+            light.renderMode = (UnityEngine.LightRenderMode)vgoLight.renderMode;
             light.cullingMask = vgoLight.cullingMask;
 
 #if UNITY_EDITOR
-            light.lightmapBakeType = vgoLight.lightmapBakeType;
+            light.lightmapBakeType = (UnityEngine.LightmapBakeType)vgoLight.lightmapBakeType;
 #endif
 
             switch (vgoLight.type)
             {
-                case LightType.Spot:
-                    light.shape = vgoLight.shape;
+                case VgoGltf.LightType.Spot:
+                    light.shape = (UnityEngine.LightShape)vgoLight.shape;
                     light.range = vgoLight.range;
                     light.spotAngle = vgoLight.spotAngle;
                     break;
-                case LightType.Point:
+                case VgoGltf.LightType.Point:
                     light.range = vgoLight.range;
                     break;
 #if UNITY_EDITOR
-                case LightType.Rectangle:
-                    light.areaSize = ArrayConverter.ToVector2(vgoLight.areaSize);
+                case VgoGltf.LightType.Rectangle:
+                    light.areaSize = vgoLight.areaSize.GetValueOrDefault(System.Numerics.Vector2.Zero).ToUnityVector2();
                     break;
-                case LightType.Disc:
+                case VgoGltf.LightType.Disc:
                     light.areaSize = new Vector2(vgoLight.areaRadius, 1.0f);
                     break;
 #endif
@@ -184,22 +185,22 @@ namespace UniVgo
                     break;
             }
 
-            light.shadows = vgoLight.shadows;
+            light.shadows = (UnityEngine.LightShadows)vgoLight.shadows;
 
 #if UNITY_EDITOR
             // Baked Shadows
-            if ((vgoLight.lightmapBakeType == LightmapBakeType.Baked) ||
-                (vgoLight.lightmapBakeType == LightmapBakeType.Mixed))
+            if ((vgoLight.lightmapBakeType == VgoGltf.LightmapBakeType.Baked) ||
+                (vgoLight.lightmapBakeType == VgoGltf.LightmapBakeType.Mixed))
             {
-                if (vgoLight.shadows == LightShadows.Soft)
+                if (vgoLight.shadows == VgoGltf.LightShadows.Soft)
                 {
                     switch (vgoLight.type)
                     {
-                        case LightType.Spot:
-                        case LightType.Point:
+                        case VgoGltf.LightType.Spot:
+                        case VgoGltf.LightType.Point:
                             light.shadowRadius = vgoLight.shadowRadius;
                             break;
-                        case LightType.Directional:
+                        case VgoGltf.LightType.Directional:
                             light.shadowAngle = vgoLight.shadowAngle;
                             break;
                         default:
@@ -209,14 +210,14 @@ namespace UniVgo
             }
 #endif
             // Realtime Shadows
-            if ((vgoLight.lightmapBakeType == LightmapBakeType.Realtime) ||
-                (vgoLight.lightmapBakeType == LightmapBakeType.Mixed))
+            if ((vgoLight.lightmapBakeType == VgoGltf.LightmapBakeType.Realtime) ||
+                (vgoLight.lightmapBakeType == VgoGltf.LightmapBakeType.Mixed))
             {
-                if ((vgoLight.type == LightType.Directional) ||
-                    (vgoLight.type == LightType.Point))
+                if ((vgoLight.type == VgoGltf.LightType.Directional) ||
+                    (vgoLight.type == VgoGltf.LightType.Point))
                 {
                     light.shadowStrength = vgoLight.shadowStrength;
-                    light.shadowResolution = vgoLight.shadowResolution;
+                    light.shadowResolution = (UnityEngine.Rendering.LightShadowResolution)vgoLight.shadowResolution;
                     light.shadowBias = vgoLight.shadowBias;
                     light.shadowNormalBias = vgoLight.shadowNormalBias;
                     light.shadowNearPlane = vgoLight.shadowNearPlane;

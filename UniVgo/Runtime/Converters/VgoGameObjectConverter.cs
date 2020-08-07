@@ -1,10 +1,10 @@
 ﻿// ----------------------------------------------------------------------
-// @Namespace : UniVgo
+// @Namespace : UniVgo.Converters
 // @Class     : VgoGameObjectConverter
 // ----------------------------------------------------------------------
-namespace UniVgo
+namespace UniVgo.Converters
 {
-    using UniGLTFforUniVgo;
+    using NewtonGltf;
     using UnityEngine;
 
     /// <summary>

@@ -14,6 +14,7 @@ ___
 |Unity 2019.2|unconfirmed|unconfirmed|unconfirmed|unconfirmed|unconfirmed|
 |Unity 2019.3|OK|OK|OK|OK|unconfirmed|
 |Unity 2019.4|OK|OK|OK|OK|unconfirmed|
+|Unity 2020.1|OK|unconfirmed|OK|unconfirmed|unconfirmed|
 
 As of June of 2020, we are developing and confirming in `Unity 2019.4` Windows environment.
 
@@ -22,8 +23,12 @@ As of June of 2020, we are developing and confirming in `Unity 2019.4` Windows e
 |package name|owner|Repository|specification version|program version|release date|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.301|20 Jan, 2020|
-|VRMShaders|vrm-c|GitHub|VRM 0.0|0.56.2|6 Jul, 2020|
-|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|0.8.3|6 Jul, 2020|
+|VgoGltf|IzayoiJiichan|GitHub|-|1.0.0|7 Aug, 2020|
+|NewtonGltf|IzayoiJiichan|GitHub|-|1.0.0|7 Aug, 2020|
+|NewtonGltf.Vgo.Extensions|IzayoiJiichan|GitHub|-|1.0.0|7 Aug, 2020|
+|UniShaders|IzayoiJiichan|GitHub|-|1.0.0|5 Aug, 2020|
+|VRMShaders|vrm-c|GitHub|VRM 0.0|0.56.0|3 Jul, 2020|
+|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|1.0.0|7 Aug, 2020|
 
 ___
 ## Install
@@ -63,7 +68,7 @@ Create a new 3D project in Unity Editor or Unity Hub.
 
 #### 2. Installation of Newtonsoft.JSON
 
-Import Newtonsoft.JSON into your project as a package.  
+Import UniVGO and dependent packages into your project.  
 Write the following in `<Project>/Packages/package.json`.  
 You need to be careful where you add them.
 
@@ -78,6 +83,12 @@ You need to be careful where you add them.
   ],
   "dependencies": {
     "com.unity.ugui": "1.0.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.0",
+    "izayoi.newton.gltf": "https://github.com/izayoijiichan/newton.gltf.git#v1.0.0",
+    "izayoi.newton.gltf.vgo.extensions": "https://github.com/izayoijiichan/newton.gltf.vgo.extensions.git#v1.0.0",
+    "izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.0.0",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v1.0.0",
+    "izayoi.vgo.gltf": "https://github.com/izayoijiichan/vgo.gltf.git#v1.0.0",
     "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -86,70 +97,6 @@ You need to be careful where you add them.
 }
 ```
 
-#### 3. Installation of VRMShaders
-
-Import VRMShaders into your project as a package.  
-Write the following in `<Project>/Packages/package.json`.  
-You need to be careful where you add them.
-
-```json
-{
-  "dependencies": {
-    "com.unity.ugui": "1.0.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.2",
-    "jillejr.newtonsoft.json-for-unity": "12.0.301",
-    "com.unity.modules.ai": "1.0.0",
-    ...
-    "com.unity.modules.xr": "1.0.0"
-  }
-}
-```
-
-#### 3. Installation of UniVGO
-
-Import UniVGO into your project.
-
-Import UniVGO into your project.
-
-##### A) Case managing with package.json
-
-Write the following in `<Project>/Packages/package.json`.
-
-```json
-{
-  "dependencies": {
-    "com.unity.ugui": "1.0.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.2",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.8.3",
-    "jillejr.newtonsoft.json-for-unity": "12.0.301",
-    "com.unity.modules.ai": "1.0.0",
-    ...
-    "com.unity.modules.xr": "1.0.0"
-  }
-}
-```
-
-##### B) Case managing with Packages folder
-
-Download the zip file from the following URL. 
-
-UniVGO  
-https://github.com/izayoijiichan/VGO/releases  
-
-Unzip the file and place it in the `Packages` folder.
-
-```
-  <Project>
-    Packages
-      izayoi.univgo@0.8.3-preview
-        DepthFirstScheduler
-        UniGLTFforUniVgo
-        UniSkybox
-        UniStandardParticle
-        UniVgo
-```
-
-You can change the name of the folder.
 
 ### Confirmation of installation completion
 
@@ -180,23 +127,25 @@ When the package is installed in the project, the script is automatically compil
 |DepthFirstScheduler|Depth first scheduler|*|*|
 |MToon|MToon shader utility|*|*|
 |MToon.Editor|MToon shader utility|-|*|
+|NewtonGltf|for Newton.JSON glTF basic schema|*|*|
+|NewtonGltf.Vgo.Extensions|for Newton.JSON glTF.VGO extension schema|*|*|
 |ShaderProperty.Runtime|Shader property information|*|*|
-|UniGLTFforUniVgo|UniGLTF for UniVGO|*|*|
-|UniSkybox|Skybox shader utility|*|*|
-|UniStandardParticle|Particle shader utility|*|*|
+|UniShader.Skybox.Utility|Skybox shader utility|*|*|
+|UniShader.Standard.Particle.Utility|Particle shader utility|*|*|
+|UniShader.Standard.Utility|Standard shader utility|*|*|
 |UniUnlit|Unlit shader utility|*|*|
 |UniUnlit.Editor|Unlit shader utility|-|*|
 |UniVgo|VGO main program|*|*|
 |UniVgo.Editor|VGO import / export|-|*|
+|VgoGltf|glTF basic definition|*|*|
 
 - For each of UniVgo, and UniVgo.Editor, * is attached to the dependent DLL.
-- MToon, ShaderProperty, UniUnlit is a program packed in VRMShaders (© vrm-c).
-- DepthFirstScheduler is a program packed in UniVRM (© vrm-c).
-- When using UniVRM and UniVGO together, it is necessary to delete the duplicate files (DepthFirstScheduler) that were packed when UniVgo was obtained.
-  Also, if the error is displayed by UniVgo, please move UniVgo, UniGLTFforUniVgo, UniSkybox, UniStandardParticle to the `Assets` folder.
+- MToon, ShaderProperty, UniUnlit is a program packed in VRMShaders (©vrm-c).
+- DepthFirstScheduler is a program packed in UniVRM (©vrm-c).
+- When using UniVRM and UniVGO together, it is necessary to delete the duplicate files that were packed when UniVgo was obtained. The shaders in the UniGLTF folder are relevant.
 
 ___
-Last updated: 6 July, 2020  
+Last updated: 7 August, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

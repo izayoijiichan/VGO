@@ -1,19 +1,24 @@
 {
     "name": "UniVgo",
     "references": [
+        "VgoGltf",
+        "NewtonGltf",
+        "NewtonGltf.Vgo.Extensions",
         "ShaderProperty.Runtime",
         "MToon",
-        "UniSkybox",
-        "UniStandardParticle",
         "UniUnlit",
-        "UniGLTFforUniVgo"
+        "UniShader.Skybox.Utility",
+        "UniShader.Standard.Particle.Utility",
+        "UniShader.Standard.Utility"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
-    "precompiledReferences": [],
+    "precompiledReferences": [
+        "Newtonsoft.Json.dll"
+    ],
     "autoReferenced": true,
     "defineConstraints": []
 }

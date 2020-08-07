@@ -1,10 +1,10 @@
 ﻿// ----------------------------------------------------------------------
-// @Namespace : UniVgo
+// @Namespace : UniVgo.Converters
 // @Class     : VgoRigidbodyConverter
 // ----------------------------------------------------------------------
-namespace UniVgo
+namespace UniVgo.Converters
 {
-    using UniGLTFforUniVgo;
+    using NewtonGltf;
     using UnityEngine;
 
     /// <summary>
@@ -31,9 +31,9 @@ namespace UniVgo
                 angularDrag = rigidbody.angularDrag,
                 useGravity = rigidbody.useGravity,
                 isKinematic = rigidbody.isKinematic,
-                interpolation = rigidbody.interpolation,
-                collisionDetectionMode = rigidbody.collisionDetectionMode,
-                constraints = rigidbody.constraints,
+                interpolation = (VgoGltf.RigidbodyInterpolation)rigidbody.interpolation,
+                collisionDetectionMode = (VgoGltf.CollisionDetectionMode)rigidbody.collisionDetectionMode,
+                constraints = (VgoGltf.RigidbodyConstraints)rigidbody.constraints,
             };
         }
 
@@ -59,9 +59,9 @@ namespace UniVgo
             rigidbody.angularDrag = vgoRigidbody.angularDrag;
             rigidbody.useGravity = vgoRigidbody.useGravity;
             rigidbody.isKinematic = vgoRigidbody.isKinematic;
-            rigidbody.interpolation = vgoRigidbody.interpolation;
-            rigidbody.collisionDetectionMode = vgoRigidbody.collisionDetectionMode;
-            rigidbody.constraints = vgoRigidbody.constraints;
+            rigidbody.interpolation = (UnityEngine.RigidbodyInterpolation)vgoRigidbody.interpolation;
+            rigidbody.collisionDetectionMode = (UnityEngine.CollisionDetectionMode)vgoRigidbody.collisionDetectionMode;
+            rigidbody.constraints = (UnityEngine.RigidbodyConstraints)vgoRigidbody.constraints;
         }
     }
 }

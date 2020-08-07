@@ -1,10 +1,10 @@
 ﻿// ----------------------------------------------------------------------
-// @Namespace : UniVgo
+// @Namespace : UniVgo.Converters
 // @Class     : VgoGradientConverter
 // ----------------------------------------------------------------------
-namespace UniVgo
+namespace UniVgo.Converters
 {
-    using UniGLTFforUniVgo;
+    using NewtonGltf;
     using UnityEngine;
 
     /// <summary>
@@ -28,7 +28,7 @@ namespace UniVgo
             {
                 colorKeys = null,
                 alphaKeys = null,
-                mode = gradient.mode,
+                mode = (VgoGltf.GradientMode)gradient.mode,
             };
 
             if (gradient.colorKeys != null)
@@ -39,7 +39,7 @@ namespace UniVgo
                 {
                     vgoGradient.colorKeys[i] = new VGO_GradientColorKey()
                     {
-                        color = gradient.colorKeys[i].color.linear.ToArray(),
+                        color = gradient.colorKeys[i].color.linear.ToGltfColor4(),
                         time = gradient.colorKeys[i].time,
                     };
                 }
@@ -78,7 +78,7 @@ namespace UniVgo
             {
                 //colorKeys = null,
                 //alphaKeys = null,
-                mode = vgoGradient.mode,
+                mode = (UnityEngine.GradientMode)vgoGradient.mode,
             };
 
             if (vgoGradient.colorKeys != null)
@@ -88,7 +88,7 @@ namespace UniVgo
                 for (int i = 0; i < vgoGradient.colorKeys.Length; i++)
                 {
                     colorKeys[i] = new GradientColorKey(
-                        col: ArrayConverter.ToColor(vgoGradient.colorKeys[i].color, gamma: true),
+                        col: vgoGradient.colorKeys[i].color.ToUnityColor().gamma,
                         time: vgoGradient.colorKeys[i].time
                     );
                 }

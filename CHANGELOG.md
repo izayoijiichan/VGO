@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.0.0] - 2020-08-07
+- A complete refactoring of the program has been done.
+- I made the program into a library and separated each as a Unity package.
+  - VgoGltf
+  - NewtonGltf
+  - NewtonGltf.Vgo.Extensions
+  - UniShaders
+
 ## [0.8.3] - 2020-07-06
 - The base of UniGTLF is updated to that of VRM v0.56.2.
 

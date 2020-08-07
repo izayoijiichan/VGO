@@ -75,6 +75,7 @@ namespace UniVgo.Editor
             {
 #if UNITY_EDITOR_WIN
                 VgoExportProcessor.ExportVgo();
+                GUIUtility.ExitGUI();
 #endif
             }
         }

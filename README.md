@@ -6,7 +6,7 @@ VGO is a 3D data format for Unity that can store Collider and Rigidbody informat
 
 - glTF (GLB) 2.0 extended format.
 - Unity `GameObject`, `Transform`, `Rigidbody`, `Collider`, `Mesh`, `Material`, `Texture`, `Light`, `ParticleSystem`  and `Skybox` can be saved.
-- Shader settings of `Standard`, `Particle`, `Skybox`, `Unlit` and `MToon` can be saved.
+- Shader settings of `Standard`, `StandardVColor`, `Particle`, `Skybox`, `Unlit` and `MToon` can be saved.
 
 ___
 ## Translation
@@ -48,6 +48,8 @@ ___
   - scenes
   - skins
   - textures
+    - extensions
+      - KHR_texture_transform
   - extensions
     - VGO
       - meta
@@ -60,6 +62,7 @@ ___
 - glTF JSON Schema: [2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0/schema)
 - VGO JSON Schema: [0.6](https://github.com/izayoijiichan/VGO/tree/master/Documentation~/VGO/specification/0.6/schema)
 - KHR_materials_unlit: [2.0](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_unlit)
+- KHR_texture_transform: [2.0](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_texture_transform)
 - VRMC_materials_mtoon: [1.0](https://github.com/vrm-c/vrm-specification/tree/master/specification/VRMC_materials_mtoon-1.0_draft)
 
 ___
@@ -91,7 +94,7 @@ It is distributed at the following URL.
 https://github.com/izayoijiichan/vgo.parameter.viewer
 
 ___
-Last updated: 15 March, 2020  
+Last updated: 7 August, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

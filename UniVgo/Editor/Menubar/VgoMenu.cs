@@ -4,7 +4,6 @@
 // ----------------------------------------------------------------------
 namespace UniVgo.Editor
 {
-    using System.Threading.Tasks;
     using UnityEditor;
     using UnityEngine;
 
@@ -16,28 +15,27 @@ namespace UniVgo.Editor
         #region MenuItem
 
         /// <summary>
-        /// Tools > UniVGO > Export
+        /// Tools > UniGLTF > Export (GLB)
         /// </summary>
-        [MenuItem("Tools/UniVGO/Export", priority = 1021)]
-        public static void ExportMenu()
+        [MenuItem("Tools/UniVGO/Export (GLB)", priority = 1001)]
+        public static void ExportGlbMenu()
+        {
+            GlbExportProcessor.ExportGlb();
+        }
+
+        /// <summary>
+        /// Tools > UniVGO > Export (VGO)
+        /// </summary>
+        [MenuItem("Tools/UniVGO/Export (VGO)", priority = 1002)]
+        public static void ExportVgoMenu()
         {
             VgoExportProcessor.ExportVgo();
         }
 
         /// <summary>
-        /// Tools > UniVGO > Import
-        /// </summary>
-        /// <returns></returns>
-        [MenuItem("Tools/UniVGO/Import", priority = 1022)]
-        public static async Task ImportMenu()
-        {
-            await VgoImportProcessor.ImportVgo();
-        }
-
-        /// <summary>
         /// Tools > UniVGO > Version
         /// </summary>
-        [MenuItem("Tools/UniVGO/Version", priority = 1033)]
+        [MenuItem("Tools/UniVGO/Version", priority = 1013)]
         public static void VersionMenu()
         {
             Debug.Log("UniVGO version: " + VgoVersion.VERSION);

@@ -1,11 +1,10 @@
 ﻿// ----------------------------------------------------------------------
-// @Namespace : UniVgo
+// @Namespace : UniVgo.Converters
 // @Class     : VgoParticleSystemMinMaxCurveConverter
 // ----------------------------------------------------------------------
-namespace UniVgo
+namespace UniVgo.Converters
 {
-    using UniGLTFforUniVgo;
-    using UnityEngine;
+    using NewtonGltf;
     using static UnityEngine.ParticleSystem;
 
     /// <summary>
@@ -22,34 +21,34 @@ namespace UniVgo
         {
             switch (minMaxCurve.mode)
             {
-                case ParticleSystemCurveMode.Constant:
+                case UnityEngine.ParticleSystemCurveMode.Constant:
                     return new VGO_PS_MinMaxCurve()
                     {
-                        mode = ParticleSystemCurveMode.Constant,
+                        mode = VgoGltf.ParticleSystemCurveMode.Constant,
                         constant = minMaxCurve.constant,
                     };
 
-                case ParticleSystemCurveMode.Curve:
+                case UnityEngine.ParticleSystemCurveMode.Curve:
                     return new VGO_PS_MinMaxCurve()
                     {
-                        mode = ParticleSystemCurveMode.Curve,
+                        mode = VgoGltf.ParticleSystemCurveMode.Curve,
                         curveMultiplier = minMaxCurve.curveMultiplier,
                         curve = VgoAnimationCurveConverter.CreateFrom(minMaxCurve.curve),
                     };
 
-                case ParticleSystemCurveMode.TwoCurves:
+                case UnityEngine.ParticleSystemCurveMode.TwoCurves:
                     return new VGO_PS_MinMaxCurve()
                     {
-                        mode = ParticleSystemCurveMode.TwoCurves,
+                        mode = VgoGltf.ParticleSystemCurveMode.TwoCurves,
                         curveMultiplier = minMaxCurve.curveMultiplier,
                         curveMin = VgoAnimationCurveConverter.CreateFrom(minMaxCurve.curveMin),
                         curveMax = VgoAnimationCurveConverter.CreateFrom(minMaxCurve.curveMax),
                     };
 
-                case ParticleSystemCurveMode.TwoConstants:
+                case UnityEngine.ParticleSystemCurveMode.TwoConstants:
                     return new VGO_PS_MinMaxCurve()
                     {
-                        mode = ParticleSystemCurveMode.TwoConstants,
+                        mode = VgoGltf.ParticleSystemCurveMode.TwoConstants,
                         constantMin = minMaxCurve.constantMin,
                         constantMax = minMaxCurve.constantMax,
                     };
@@ -73,23 +72,23 @@ namespace UniVgo
 
             switch (vgoMinMaxCurve.mode)
             {
-                case ParticleSystemCurveMode.Constant:
+                case VgoGltf.ParticleSystemCurveMode.Constant:
                     return new MinMaxCurve(constant: vgoMinMaxCurve.constant);
 
-                case ParticleSystemCurveMode.Curve:
+                case VgoGltf.ParticleSystemCurveMode.Curve:
                     return new MinMaxCurve(
                         multiplier: vgoMinMaxCurve.curveMultiplier,
                         curve: VgoAnimationCurveConverter.CreateAnimationCurve(vgoMinMaxCurve.curve)
                     );
 
-                case ParticleSystemCurveMode.TwoCurves:
+                case VgoGltf.ParticleSystemCurveMode.TwoCurves:
                     return new MinMaxCurve(
                         multiplier: vgoMinMaxCurve.curveMultiplier,
                         min: VgoAnimationCurveConverter.CreateAnimationCurve(vgoMinMaxCurve.curveMin),
                         max: VgoAnimationCurveConverter.CreateAnimationCurve(vgoMinMaxCurve.curveMax)
                     );
 
-                case ParticleSystemCurveMode.TwoConstants:
+                case VgoGltf.ParticleSystemCurveMode.TwoConstants:
                     return new MinMaxCurve(
                         min: vgoMinMaxCurve.constantMin,
                         max: vgoMinMaxCurve.constantMax

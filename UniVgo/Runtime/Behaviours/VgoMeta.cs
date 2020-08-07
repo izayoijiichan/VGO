@@ -4,7 +4,7 @@
 // ----------------------------------------------------------------------
 namespace UniVgo
 {
-    using UniGLTFforUniVgo;
+    using NewtonGltf;
     using UnityEngine;
 
     /// <summary>
@@ -15,6 +15,6 @@ namespace UniVgo
     public class VgoMeta : MonoBehaviour
     {
         /// <summary>glTF VGO Meta</summary>
-        public glTF_VGO_Meta Meta = null;
+        public Gltf_VGO_Meta Meta = null;
     }
 }

@@ -7,7 +7,7 @@ ___
 
 - glTF (GLB) 2.0 の拡張フォーマットになります。
 - Unity の `GameObject`, `Transform`, `Rigidbody`, `Collider`, `Mesh`, `Material`, `Texture`, `Light`, `ParticleSystem`, `Skybox` を保存することができます。
-- シェーダー設定は `Standard`, `Particle`, `Skybox`, `Unlit`, `MToon` を保存することができます。
+- シェーダー設定は `Standard`, `StandardVColor`, `Particle`, `Skybox`, `Unlit`, `MToon` を保存することができます。
 
 ___
 ## 翻訳
@@ -49,6 +49,8 @@ ___
   - scenes
   - skins
   - textures
+    - extensions
+      - KHR_texture_transform
   - extensions
     - VGO
       - meta
@@ -61,6 +63,7 @@ ___
 - glTF JSON Schema: [2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0/schema)
 - VGO JSON Schema: [0.6](https://github.com/izayoijiichan/VGO/tree/master/Documentation~/VGO/specification/0.6/schema)
 - KHR_materials_unlit: [2.0](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_unlit)
+- KHR_texture_transform: [2.0](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_texture_transform)
 - VRMC_materials_mtoon: [1.0](https://github.com/vrm-c/vrm-specification/tree/master/specification/VRMC_materials_mtoon-1.0_draft)
 
 ___
@@ -90,7 +93,7 @@ VGOファイルの中身を確認するためのツールです。
 https://github.com/izayoijiichan/vgo.parameter.viewer
 
 ___
-最終更新日：2020年3月15日  
+最終更新日：2020年8月7日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

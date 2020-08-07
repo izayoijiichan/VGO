@@ -1,11 +1,11 @@
 ﻿// ----------------------------------------------------------------------
-// @Namespace : UniVgo
+// @Namespace : UniVgo.Converters
 // @Class     : VgoColliderConverter
 // ----------------------------------------------------------------------
-namespace UniVgo
+namespace UniVgo.Converters
 {
+    using NewtonGltf;
     using System;
-    using UniGLTFforUniVgo;
     using UnityEngine;
 
     /// <summary>
@@ -36,8 +36,8 @@ namespace UniVgo
                     type = ColliderType.Box,
                     enabled = boxCollider.enabled,
                     isTrigger = boxCollider.isTrigger,
-                    center = boxCollider.center.ReverseZ().ToArray(),
-                    size = boxCollider.size.ToArray(),
+                    center = boxCollider.center.ReverseZ().ToNumericsVector3(),
+                    size = boxCollider.size.ToNumericsVector3(),
                     physicMaterial = VgoPhysicMaterialConverter.CreateFrom(collider.sharedMaterial),
                 };
             }
@@ -50,7 +50,7 @@ namespace UniVgo
                     type = ColliderType.Capsule,
                     enabled = capsuleCollider.enabled,
                     isTrigger = capsuleCollider.isTrigger,
-                    center = capsuleCollider.center.ReverseZ().ToArray(),
+                    center = capsuleCollider.center.ReverseZ().ToNumericsVector3(),
                     radius = capsuleCollider.radius,
                     height = capsuleCollider.height,
                     direction = capsuleCollider.direction,
@@ -66,7 +66,7 @@ namespace UniVgo
                     type = ColliderType.Sphere,
                     enabled = sphereCollider.enabled,
                     isTrigger = sphereCollider.isTrigger,
-                    center = sphereCollider.center.ReverseZ().ToArray(),
+                    center = sphereCollider.center.ReverseZ().ToNumericsVector3(),
                     radius = sphereCollider.radius,
                     physicMaterial = VgoPhysicMaterialConverter.CreateFrom(collider.sharedMaterial),
                 };
@@ -104,8 +104,8 @@ namespace UniVgo
                 {
                     boxCollider.enabled = vgoCollider.enabled;
                     boxCollider.isTrigger = vgoCollider.isTrigger;
-                    boxCollider.center = ArrayConverter.ToVector3(vgoCollider.center, reverseZ: true);
-                    boxCollider.size = ArrayConverter.ToVector3(vgoCollider.size);
+                    boxCollider.center = vgoCollider.center.GetValueOrDefault(System.Numerics.Vector3.Zero).ToUnityVector3().ReverseZ();
+                    boxCollider.size = vgoCollider.size.GetValueOrDefault(System.Numerics.Vector3.One).ToUnityVector3();
                     boxCollider.sharedMaterial = VgoPhysicMaterialConverter.ToPhysicMaterial(vgoCollider.physicMaterial);
                 }
             }
@@ -117,7 +117,7 @@ namespace UniVgo
                 {
                     capsuleCollider.enabled = vgoCollider.enabled;
                     capsuleCollider.isTrigger = vgoCollider.isTrigger;
-                    capsuleCollider.center = ArrayConverter.ToVector3(vgoCollider.center, reverseZ: true);
+                    capsuleCollider.center = vgoCollider.center.GetValueOrDefault(System.Numerics.Vector3.Zero).ToUnityVector3().ReverseZ();
                     capsuleCollider.radius = vgoCollider.radius;
                     capsuleCollider.height = vgoCollider.height;
                     capsuleCollider.direction = vgoCollider.direction;
@@ -132,7 +132,7 @@ namespace UniVgo
                 {
                     sphereCollider.enabled = vgoCollider.enabled;
                     sphereCollider.isTrigger = vgoCollider.isTrigger;
-                    sphereCollider.center = ArrayConverter.ToVector3(vgoCollider.center, reverseZ: true);
+                    sphereCollider.center = vgoCollider.center.GetValueOrDefault(System.Numerics.Vector3.Zero).ToUnityVector3().ReverseZ();
                     sphereCollider.radius = vgoCollider.radius;
                     sphereCollider.sharedMaterial = VgoPhysicMaterialConverter.ToPhysicMaterial(vgoCollider.physicMaterial);
                 }

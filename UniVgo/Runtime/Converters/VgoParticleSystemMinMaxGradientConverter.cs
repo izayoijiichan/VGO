@@ -1,11 +1,10 @@
 ﻿// ----------------------------------------------------------------------
-// @Namespace : UniVgo
+// @Namespace : UniVgo.Converters
 // @Class     : VgoParticleSystemMinMaxGradientConverter
 // ----------------------------------------------------------------------
-namespace UniVgo
+namespace UniVgo.Converters
 {
-    using UniGLTFforUniVgo;
-    using UnityEngine;
+    using NewtonGltf;
     using static UnityEngine.ParticleSystem;
 
     /// <summary>
@@ -22,43 +21,43 @@ namespace UniVgo
         {
             switch (minMaxGradient.mode)
             {
-                case ParticleSystemGradientMode.Color:
+                case UnityEngine.ParticleSystemGradientMode.Color:
                     return new VGO_PS_MinMaxGradient()
                     {
-                        mode = ParticleSystemGradientMode.Color,
-                        color = minMaxGradient.color.linear.ToArray(),
+                        mode = VgoGltf.ParticleSystemGradientMode.Color,
+                        color = minMaxGradient.color.linear.ToGltfColor4(),
                     };
 
-                case ParticleSystemGradientMode.Gradient:
+                case UnityEngine.ParticleSystemGradientMode.Gradient:
                     return new VGO_PS_MinMaxGradient()
                     {
-                        mode = ParticleSystemGradientMode.Gradient,
+                        mode = VgoGltf.ParticleSystemGradientMode.Gradient,
                         gradient = VgoGradientConverter.CreateFrom(minMaxGradient.gradient),
                     };
 
-                case ParticleSystemGradientMode.TwoColors:
+                case UnityEngine.ParticleSystemGradientMode.TwoColors:
                     return new VGO_PS_MinMaxGradient()
                     {
-                        mode = ParticleSystemGradientMode.TwoColors,
-                        colorMin = minMaxGradient.colorMin.linear.ToArray(),
-                        colorMax = minMaxGradient.colorMax.linear.ToArray(),
+                        mode = VgoGltf.ParticleSystemGradientMode.TwoColors,
+                        colorMin = minMaxGradient.colorMin.linear.ToGltfColor4(),
+                        colorMax = minMaxGradient.colorMax.linear.ToGltfColor4(),
                     };
 
-                case ParticleSystemGradientMode.TwoGradients:
+                case UnityEngine.ParticleSystemGradientMode.TwoGradients:
                     return new VGO_PS_MinMaxGradient()
                     {
-                        mode = ParticleSystemGradientMode.TwoGradients,
+                        mode = VgoGltf.ParticleSystemGradientMode.TwoGradients,
                         gradientMin = VgoGradientConverter.CreateFrom(minMaxGradient.gradientMin),
                         gradientMax = VgoGradientConverter.CreateFrom(minMaxGradient.gradientMax),
                     };
 
-                case ParticleSystemGradientMode.RandomColor:
+                case UnityEngine.ParticleSystemGradientMode.RandomColor:
                     // @notice
                     return new VGO_PS_MinMaxGradient()
                     {
-                        mode = ParticleSystemGradientMode.RandomColor,
-                        colorMin = minMaxGradient.colorMin.linear.ToArray(),
-                        colorMax = minMaxGradient.colorMax.linear.ToArray(),
+                        mode = VgoGltf.ParticleSystemGradientMode.RandomColor,
+                        colorMin = minMaxGradient.colorMin.linear.ToGltfColor4(),
+                        colorMax = minMaxGradient.colorMax.linear.ToGltfColor4(),
                         gradientMin = VgoGradientConverter.CreateFrom(minMaxGradient.gradientMin),
                         gradientMax = VgoGradientConverter.CreateFrom(minMaxGradient.gradientMax),
                     };
@@ -82,35 +81,35 @@ namespace UniVgo
 
             switch (vgoMinMaxGradient.mode)
             {
-                case ParticleSystemGradientMode.Color:
-                    return new MinMaxGradient(color: ArrayConverter.ToColor(vgoMinMaxGradient.color, gamma: true));
+                case VgoGltf.ParticleSystemGradientMode.Color:
+                    return new MinMaxGradient(color: vgoMinMaxGradient.color.ToUnityColor().gamma);
 
-                case ParticleSystemGradientMode.Gradient:
+                case VgoGltf.ParticleSystemGradientMode.Gradient:
                     return new MinMaxGradient(gradient: VgoGradientConverter.CreateGradient(vgoMinMaxGradient.gradient));
 
-                case ParticleSystemGradientMode.TwoColors:
+                case VgoGltf.ParticleSystemGradientMode.TwoColors:
                     return new MinMaxGradient(
-                        min: ArrayConverter.ToColor(vgoMinMaxGradient.colorMin, gamma: true),
-                        max: ArrayConverter.ToColor(vgoMinMaxGradient.colorMax, gamma: true)
+                        min: vgoMinMaxGradient.colorMin.ToUnityColor().gamma,
+                        max: vgoMinMaxGradient.colorMax.ToUnityColor().gamma
                     );
 
-                case ParticleSystemGradientMode.TwoGradients:
+                case VgoGltf.ParticleSystemGradientMode.TwoGradients:
                     return new MinMaxGradient(
                         min: VgoGradientConverter.CreateGradient(vgoMinMaxGradient.gradientMin),
                         max: VgoGradientConverter.CreateGradient(vgoMinMaxGradient.gradientMax)
                     );
 
-                case ParticleSystemGradientMode.RandomColor:
+                case VgoGltf.ParticleSystemGradientMode.RandomColor:
                     // @notice
                     //var minMaxGradient = new MinMaxGradient(
-                    //    min: VgoGradientConverter.CreateGradient(vgoMinMaxGradient.GradientMin),
-                    //    max: VgoGradientConverter.CreateGradient(vgoMinMaxGradient.GradientMax)
+                    //    min: VgoGradientConverter.CreateGradient(vgoMinMaxGradient.gradientMin),
+                    //    max: VgoGradientConverter.CreateGradient(vgoMinMaxGradient.gradientMax)
                     //);
                     var minMaxGradient = new MinMaxGradient(
-                        min: ArrayConverter.ToColor(vgoMinMaxGradient.colorMin, gamma: true),
-                        max: ArrayConverter.ToColor(vgoMinMaxGradient.colorMax, gamma: true)
+                        min: vgoMinMaxGradient.colorMin.ToUnityColor().gamma,
+                        max: vgoMinMaxGradient.colorMax.ToUnityColor().gamma
                     );
-                    minMaxGradient.mode = ParticleSystemGradientMode.RandomColor;
+                    minMaxGradient.mode = UnityEngine.ParticleSystemGradientMode.RandomColor;
                     return minMaxGradient;
 
                 default:

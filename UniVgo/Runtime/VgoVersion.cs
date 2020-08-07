@@ -10,15 +10,15 @@ namespace UniVgo
     public class VgoVersion
     {
         /// <summary>Major</summary>
-        public const int MAJOR = 0;
+        public const int MAJOR = 1;
 
         /// <summary>Minor</summary>
-        public const int MINOR = 8;
+        public const int MINOR = 0;
 
         /// <summary>Patch</summary>
-        public const int PATCH = 3;
+        public const int PATCH = 0;
 
         /// <summary>Version</summary>
-        public const string VERSION = "0.8.3";
+        public const string VERSION = "1.0.0";
     }
 }

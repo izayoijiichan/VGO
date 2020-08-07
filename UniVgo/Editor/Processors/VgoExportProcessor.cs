@@ -5,11 +5,10 @@
 namespace UniVgo.Editor
 {
     using System;
-    using System.IO;
     using System.Linq;
-    using UniGLTFforUniVgo;
     using UnityEditor;
     using UnityEngine;
+    using VgoGltf;
 
     /// <summary>
     /// VGO Export Processor
@@ -44,25 +43,16 @@ namespace UniVgo.Editor
                     return;
                 }
 
-                var gltf = new glTF();
+                GltfStorage gltfStorage;
 
-                using (var exporter = new VgoExporter(gltf))
+                using (var exporter = new VgoExporter())
                 {
-                    exporter.Prepare(root);
-                    exporter.Export();
+                    gltfStorage = exporter.CreateGltfStorage(root);
                 }
 
-                byte[] bytes = gltf.ToGlbBytes();
-
-                File.WriteAllBytes(path, bytes);
+                gltfStorage.ExportGlbFile(path);
 
                 Debug.LogFormat("Export VGO file.\nGameObject: {0}, output: {1}", root.name, path);
-
-                if (path.StartsWithUnityAssetPath())
-                {
-                    AssetDatabase.ImportAsset(path.ToUnityRelativePath());
-                    AssetDatabase.Refresh();
-                }
             }
             catch
             {

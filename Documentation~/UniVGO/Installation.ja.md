@@ -14,16 +14,21 @@ ___
 |Unity 2019.2|未確認|未確認|未確認|未確認|未確認|
 |Unity 2019.3|○|○|○|○|未確認|
 |Unity 2019.4|○|○|○|○|未確認|
+|Unity 2020.1|○|未確認|○|未確認|未確認|
 
-2020年6月の時点では `Unity 2019.4` の Windows 環境にて開発＆確認を行っています。
+2020年8月の時点では `Unity 2019.4` の Windows 環境にて開発＆確認を行っています。
 
 ### 必要パッケージ
 
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|
-|:---:|:---:|:---:|:---:|:---:|:---:|
+|:---|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.301|2020年1月20日|
-|VRMShaders|vrm-c|GitHub|VRM 0.0|0.56.2|2020年7月6日|
-|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|0.8.3|2020年7月6日|
+|VgoGltf|IzayoiJiichan|GitHub|-|1.0.0|2020年8月7日|
+|NewtonGltf|IzayoiJiichan|GitHub|-|1.0.0|2020年8月7日|
+|NewtonGltf.Vgo.Extensions|IzayoiJiichan|GitHub|-|1.0.0|2020年8月7日|
+|UniShaders|IzayoiJiichan|GitHub|-|1.0.0|2020年8月7日|
+|VRMShaders|vrm-c|GitHub|VRM 0.0|0.56.0|2020年7月3日|
+|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|1.0.0|2020年8月7日|
 
 ___
 ## インストール
@@ -61,9 +66,9 @@ Unity Editor または Unity Hub にて3Dの新規プロジェクトを作成し
         ProjectSettings
 ```
 
-#### 2. Newtonsoft.JSON のインストール
+#### 2. 必要パッケージ のインストール
 
-Newtonsoft.JSON をパッケージとしてプロジェクトに取り込みます。  
+UniVGO及び依存パッケージをプロジェクトに取り込みます。  
 `<Project>/Packages/package.json` に以下の記述を行います。  
 追加する位置に気を付ける必要があります。
 
@@ -78,6 +83,12 @@ Newtonsoft.JSON をパッケージとしてプロジェクトに取り込みま�
   ],
   "dependencies": {
     "com.unity.ugui": "1.0.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.0",
+    "izayoi.newton.gltf": "https://github.com/izayoijiichan/newton.gltf.git#v1.0.0",
+    "izayoi.newton.gltf.vgo.extensions": "https://github.com/izayoijiichan/newton.gltf.vgo.extensions.git#v1.0.0",
+    "izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.0.0",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v1.0.0",
+    "izayoi.vgo.gltf": "https://github.com/izayoijiichan/vgo.gltf.git#v1.0.0",
     "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -86,70 +97,6 @@ Newtonsoft.JSON をパッケージとしてプロジェクトに取り込みま�
 }
 ```
 
-#### 3. VRMShaders のインストール
-
-VRMShaders をパッケージとしてプロジェクトに取り込みます。  
-`<Project>/Packages/package.json` に以下の記述を行います。  
-追加する位置に気を付ける必要があります。
-
-```json
-{
-  "dependencies": {
-    "com.unity.ugui": "1.0.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.2",
-    "jillejr.newtonsoft.json-for-unity": "12.0.301",
-    "com.unity.modules.ai": "1.0.0",
-    ...
-    "com.unity.modules.xr": "1.0.0"
-  }
-}
-```
-
-#### 4. UniVGO のインストール
-
-UniVGO をプロジェクトに取り込みます。  
-
-AまたはBのいずれかを行ってください。
-
-##### A) package.json にて管理する場合
-
-`<Project>/Packages/package.json` に以下の記述を行います。  
-
-```json
-{
-  "dependencies": {
-    "com.unity.ugui": "1.0.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.2",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v0.8.3",
-    "jillejr.newtonsoft.json-for-unity": "12.0.301",
-    "com.unity.modules.ai": "1.0.0",
-    ...
-    "com.unity.modules.xr": "1.0.0"
-  }
-}
-```
-
-##### B) Packages フォルダーにて管理する場合  
-
-以下のURLより圧縮ファイルをダウンロードします。  
-
-UniVGO  
-https://github.com/izayoijiichan/VGO/releases  
-
-ファイルを解凍して`Packages`フォルダーに格納します。
-
-```
-  <Project>
-    Packages
-      izayoi.univgo@0.8.3-preview
-        DepthFirstScheduler
-        UniGLTFforUniVgo
-        UniSkybox
-        UniStandardParticle
-        UniVgo
-```
-
-フォルダーの名前は変更しても構いません。
 
 ### インストール完了の確認
 
@@ -176,26 +123,25 @@ ___
 
 |アセンブリ|説明|UniVgo|UniVgo.Editor|
 |:---|:---|:---:|:---:|
-|DepthFirstScheduler|深さ優先スケジューラー|*|*|
 |MToon|MToon シェーダー ユーティリティー|*|*|
 |MToon.Editor|MToon シェーダー ユーティリティー|-|*|
+|NewtonGltf|Newton.JSON用 glTF 基本スキーマ|*|*|
+|NewtonGltf.Vgo.Extensions|Newton.JSON用 glTF.VGO 拡張スキーマ|*|*|
 |ShaderProperty.Runtime|シェーダーのプロパティー情報|*|*|
-|UniGLTFforUniVgo|UniGLTF（UniVGO用）|*|*|
-|UniSkybox|Skybox シェーダー ユーティリティー|*|*|
-|UniStandardParticle|Particle シェーダー ユーティリティー|*|*|
+|UniShader.Skybox.Utility|Skybox シェーダー ユーティリティー|*|*|
+|UniShader.Standard.Particle.Utility|Particle シェーダー ユーティリティー|*|*|
+|UniShader.Standard.Utility|Standard シェーダー ユーティリティー|*|*|
 |UniUnlit|Unlit シェーダー ユーティリティー|*|*|
 |UniUnlit.Editor|Unlit シェーダー ユーティリティー|-|*|
 |UniVgo|VGO メインプログラム|*|*|
-|UniVgo.Editor|VGO の入出力|-|*|
+|UniVgo.Editor|VGO のエディター上での入出力操作|-|*|
+|VgoGltf|glTF 基本定義|*|*|
 
 - UniVgo, UniVgo.Editor それぞれについて、依存関係にあるDLLに * を付けています。
 - MToon, ShaderProperty, UniUnlit はVRMShaders (©vrm-c) に梱包されているプログラムです。
-- DepthFirstScheduler は UniVRM (©vrm-c) に梱包されているプログラムです。
-- UniVRM と UniVGO を併用する場合は、UniVgo を取得した際に梱包されていた 重複するファイル（DepthFirstScheduler）を削除する必要があります。
-  また、それにより UniVgo にてエラーが表示される場合、UniVgo, UniGLTFforUniVgo, UniSkybox, UniStandardParticle を `Assets`フォルダーに移動してください。
-
+- UniVRM と UniVGO を併用する場合は、UniVgo を取得した際に梱包されていた重複するファイルを削除する必要があります。UniGLTFフォルダーにあるシェーダー類が該当します。
 ___
-最終更新日：2020年7月6日  
+最終更新日：2020年8月7日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

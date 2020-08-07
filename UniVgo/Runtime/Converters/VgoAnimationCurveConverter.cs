@@ -1,10 +1,10 @@
 ﻿// ----------------------------------------------------------------------
-// @Namespace : UniVgo
+// @Namespace : UniVgo.Converters
 // @Class     : VgoAnimationCurveConverter
 // ----------------------------------------------------------------------
-namespace UniVgo
+namespace UniVgo.Converters
 {
-    using UniGLTFforUniVgo;
+    using NewtonGltf;
     using UnityEngine;
 
     /// <summary>
@@ -27,8 +27,8 @@ namespace UniVgo
             var vgoAnimationCurve = new VGO_AnimationCurve()
             {
                 keys = null,
-                preWrapMode = animationCurve.preWrapMode,
-                postWrapMode = animationCurve.postWrapMode,
+                preWrapMode = (VgoGltf.WrapMode)animationCurve.preWrapMode,
+                postWrapMode = (VgoGltf.WrapMode)animationCurve.postWrapMode,
             };
 
             if (animationCurve.keys != null)
@@ -59,8 +59,8 @@ namespace UniVgo
             var animationCurve = new AnimationCurve()
             {
                 //keys = null,
-                preWrapMode = vgoAnimationCurve.preWrapMode,
-                postWrapMode = vgoAnimationCurve.postWrapMode,
+                preWrapMode = (UnityEngine.WrapMode)vgoAnimationCurve.preWrapMode,
+                postWrapMode = (UnityEngine.WrapMode)vgoAnimationCurve.postWrapMode,
             };
 
             if (vgoAnimationCurve.keys != null)
