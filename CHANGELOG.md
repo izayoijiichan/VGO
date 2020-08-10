@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.0.1] - 2020-08-10
+- Fixes
+  - Fixed a bug that the file size becomes large with blank data when exporting.
+
 ## [1.0.0] - 2020-08-07
 - A complete refactoring of the program has been done.
 - I made the program into a library and separated each as a Unity package.

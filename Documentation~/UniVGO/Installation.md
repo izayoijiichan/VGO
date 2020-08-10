@@ -23,12 +23,12 @@ As of June of 2020, we are developing and confirming in `Unity 2019.4` Windows e
 |package name|owner|Repository|specification version|program version|release date|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.301|20 Jan, 2020|
-|VgoGltf|IzayoiJiichan|GitHub|-|1.0.0|7 Aug, 2020|
+|VgoGltf|IzayoiJiichan|GitHub|-|1.0.1|10 Aug, 2020|
 |NewtonGltf|IzayoiJiichan|GitHub|-|1.0.0|7 Aug, 2020|
 |NewtonGltf.Vgo.Extensions|IzayoiJiichan|GitHub|-|1.0.0|7 Aug, 2020|
 |UniShaders|IzayoiJiichan|GitHub|-|1.0.0|5 Aug, 2020|
 |VRMShaders|vrm-c|GitHub|VRM 0.0|0.56.0|3 Jul, 2020|
-|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|1.0.0|7 Aug, 2020|
+|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|1.0.1|10 Aug, 2020|
 
 ___
 ## Install
@@ -87,8 +87,8 @@ You need to be careful where you add them.
     "izayoi.newton.gltf": "https://github.com/izayoijiichan/newton.gltf.git#v1.0.0",
     "izayoi.newton.gltf.vgo.extensions": "https://github.com/izayoijiichan/newton.gltf.vgo.extensions.git#v1.0.0",
     "izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.0.0",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v1.0.0",
-    "izayoi.vgo.gltf": "https://github.com/izayoijiichan/vgo.gltf.git#v1.0.0",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v1.0.1",
+    "izayoi.vgo.gltf": "https://github.com/izayoijiichan/vgo.gltf.git#v1.0.1",
     "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -145,7 +145,7 @@ When the package is installed in the project, the script is automatically compil
 - When using UniVRM and UniVGO together, it is necessary to delete the duplicate files that were packed when UniVgo was obtained. The shaders in the UniGLTF folder are relevant.
 
 ___
-Last updated: 7 August, 2020  
+Last updated: 10 August, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

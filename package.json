@@ -2,7 +2,7 @@
   "name": "izayoi.univgo",
   "displayName": "UniVGO",
   "description": "UniVGO is a package that can handle VGO files in Unity.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "tool",
   "category": "",
   "keywords": [
@@ -37,6 +37,6 @@
     "izayoi.newton.gltf": "1.0.0",
     "izayoi.newton.gltf.vgo.extensions": "1.0.0",
     "izayoi.unishaders": "1.0.0",
-    "izayoi.vgo.gltf": "1.0.0"
+    "izayoi.vgo.gltf": "1.0.1"
   }
 }
