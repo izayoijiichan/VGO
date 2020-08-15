@@ -1,0 +1,161 @@
+{
+    "$id": "vgo.ps.renderer",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "renderMode": {
+            "type": "string",
+            "enum": [
+                "Billboard",
+                "Stretch",
+                "HorizontalBillboard",
+                "VerticalBillboard",
+                "Mesh",
+                "None"
+            ]
+        },
+        "cameraVelocityScale": {
+            "type": "number"
+        },
+        "velocityScale": {
+            "type": "number"
+        },
+        "lengthScale": {
+            "type": "number"
+        },
+        "normalDirection": {
+            "type": "number"
+        },
+        "sharedMaterialIndex": {
+            "type": "integer"
+        },
+        "trailMaterialIndex": {
+            "type": "integer"
+        },
+        "sortMode": {
+            "type": "string",
+            "enum": [
+                "None",
+                "Distance",
+                "OldestInFront",
+                "YoungestInFront"
+            ]
+        },
+        "sortingFudge": {
+            "type": "number"
+        },
+        "minParticleSize": {
+            "type": "number"
+        },
+        "maxParticleSize": {
+            "type": "number"
+        },
+        "alignment": {
+            "type": "string",
+            "enum": [
+                "View",
+                "World",
+                "Local",
+                "Facing",
+                "Velocity"
+            ]
+        },
+        "flip": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "allowRoll": {
+            "type": "boolean"
+        },
+        "pivot": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "maskInteraction": {
+            "type": "string",
+            "enum": [
+                "None",
+                "VisibleInsideMask",
+                "VisibleOutsideMask"
+            ]
+        },
+        "enableGPUInstancing": {
+            "type": "boolean"
+        },
+        "shadowCastingMode": {
+            "type": "string",
+            "enum": [
+                "Off",
+                "On",
+                "TwoSided",
+                "ShadowsOnly"
+            ]
+        },
+        "receiveShadows": {
+            "type": "boolean"
+        },
+        "shadowBias": {
+            "type": "number"
+        },
+        "motionVectorGenerationMode": {
+            "type": "string",
+            "enum": [
+                "Camera",
+                "Object",
+                "ForceNoMotion"
+            ]
+        },
+        "forceRenderingOff": {
+            "type": "boolean"
+        },
+        "rendererPriority": {
+            "type": "integer"
+        },
+        "renderingLayerMask": {
+            "type": "integer"
+        },
+        "sortingLayerID": {
+            "type": "integer"
+        },
+        "sortingOrder": {
+            "type": "integer"
+        },
+        "lightProbeUsage": {
+            "type": "string",
+            "enum": [
+                "Off",
+                "BlendProbes",
+                "UseProxyVolume",
+                "CustomProvided"
+            ]
+        },
+        "reflectionProbeUsage": {
+            "type": "string",
+            "enum": [
+                "Off",
+                "BlendProbes",
+                "BlendProbesAndSkybox",
+                "Simple"
+            ]
+        },
+        "probeAnchor": {
+            "$id": "node.vgo.transform",
+            "type": [
+                "object",
+                "null"
+            ]
+        }
+    }
+}

@@ -27,10 +27,10 @@ ___
 ## Dependent packages
 
 - [Newtonsoft.Json]: [12.0.3]
-- [VgoGltf]: [1.0.0](https://github.com/izayoijiichan/vgo.gltf.git)
+- [VgoGltf]: [1.0.2](https://github.com/izayoijiichan/vgo.gltf.git)
 - [NewtonGltf]: [1.0.0](https://github.com/izayoijiichan/newton.gltf.git)
-- [NewtonGltf.Vgo.Extensions]: [1.0.0](https://github.com/izayoijiichan/newton.gltf.vgo.extensions.git)
-- [UniShaders]: [1.0.0](https://github.com/izayoijiichan/UniShaders.git)
+- [NewtonGltf.Vgo.Extensions]: [1.1.0](https://github.com/izayoijiichan/newton.gltf.vgo.extensions.git)
+- [UniShaders]: [1.0.1](https://github.com/izayoijiichan/UniShaders.git)
 
 ___
 ## Acknowledgment
@@ -44,7 +44,7 @@ Unity Technologies, who is developing Unity, and other related people.
 I would like to take this opportunity to thank you.
 
 ___
-Last updated: 7 August, 2020  
+Last updated: 15 August, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

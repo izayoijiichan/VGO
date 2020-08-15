@@ -23,12 +23,12 @@ ___
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|
 |:---|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.301|2020年1月20日|
-|VgoGltf|IzayoiJiichan|GitHub|-|1.0.1|2020年8月10日|
-|NewtonGltf|IzayoiJiichan|GitHub|-|1.0.0|2020年8月7日|
-|NewtonGltf.Vgo.Extensions|IzayoiJiichan|GitHub|-|1.0.0|2020年8月7日|
-|UniShaders|IzayoiJiichan|GitHub|-|1.0.0|2020年8月7日|
 |VRMShaders|vrm-c|GitHub|VRM 0.0|0.56.0|2020年7月3日|
-|UniVGO|IzayoiJiichan|GitHub|VGO 0.6|1.0.1|2020年8月10日|
+|UniShaders|IzayoiJiichan|GitHub|-|1.0.1|2020年8月13日|
+|VgoGltf|IzayoiJiichan|GitHub|-|1.0.2|2020年8月15日|
+|NewtonGltf|IzayoiJiichan|GitHub|-|1.0.0|2020年8月7日|
+|NewtonGltf.Vgo.Extensions|IzayoiJiichan|GitHub|-|1.1.0|2020年8月15日|
+|UniVGO|IzayoiJiichan|GitHub|VGO 1.0|1.1.0|2020年8月15日|
 
 ___
 ## インストール
@@ -85,10 +85,10 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.0",
     "izayoi.newton.gltf": "https://github.com/izayoijiichan/newton.gltf.git#v1.0.0",
-    "izayoi.newton.gltf.vgo.extensions": "https://github.com/izayoijiichan/newton.gltf.vgo.extensions.git#v1.0.0",
-    "izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.0.0",
-    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v1.0.1",
-    "izayoi.vgo.gltf": "https://github.com/izayoijiichan/vgo.gltf.git#v1.0.1",
+    "izayoi.newton.gltf.vgo.extensions": "https://github.com/izayoijiichan/newton.gltf.vgo.extensions.git#v1.1.0",
+    "izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.0.1",
+    "izayoi.univgo": "https://github.com/izayoijiichan/VGO.git#v1.1.0",
+    "izayoi.vgo.gltf": "https://github.com/izayoijiichan/vgo.gltf.git#v1.0.2",
     "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -142,7 +142,7 @@ ___
 - UniVRM と UniVGO を併用する場合は、UniVgo を取得した際に梱包されていた重複するファイルを削除する必要があります。UniGLTFフォルダーにあるシェーダー類が該当します。
 
 ___
-最終更新日：2020年8月10日  
+最終更新日：2020年8月15日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

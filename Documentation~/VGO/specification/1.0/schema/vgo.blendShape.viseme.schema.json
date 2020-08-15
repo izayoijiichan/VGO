@@ -1,0 +1,15 @@
+{
+    "$id": "vgo.blendShape.viseme",
+    "type": "object",
+    "properties": {
+        "type": {
+            "description": "The viseme.",
+            "enum": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ],
+            "type": "integer"
+        },
+        "index": {
+            "description": "The index of the BlendShape.",
+            "type": "integer"
+        }
+    }
+}

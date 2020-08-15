@@ -1,0 +1,12 @@
+{
+    "$id": "vgo.gradient.alphaKey",
+    "type": "object",
+    "properties": {
+        "alpha": {
+            "type": "number"
+        },
+        "time": {
+            "type": "number"
+        }
+    }
+}

@@ -5,6 +5,7 @@
 namespace UniVgo
 {
     using NewtonGltf;
+    using System.Collections.Generic;
     using UnityEngine;
     using UniVgo.Converters;
     using UniVgo.Porters;
@@ -45,8 +46,6 @@ namespace UniVgo
 
             SetupComponents();
 
-            ReflectSkybox();
-
             return modelAsset;
         }
 
@@ -80,6 +79,17 @@ namespace UniVgo
 
                     ModelAsset.Root.AddComponent<VgoMeta>(vgo.meta);
                     ModelAsset.Root.AddComponent<VgoRight>(vgo.right);
+
+                    if (vgo.avatar != null)
+                    {
+                        Animator animator = ModelAsset.Root.AddComponent<Animator>();
+
+                        animator.avatar = VgoAvatarConverter.CreateHumanAvatar(vgo.avatar, ModelAsset.Root, Nodes);
+
+                        CreateAndAddAvatarConfiguration(vgo.avatar);
+
+                        ModelAsset.Avatar = animator.avatar;
+                    }
                 }
             }
         }
@@ -155,24 +165,102 @@ namespace UniVgo
                             }
                         }
                     }
+
+                    // VgoBlendShape
+                    if (nodeVGO.blendShape != null)
+                    {
+                        //go.AddComponent<VgoBlendShape>(nodeVGO.blendShape);
+
+                        AddBlendShapeComponent(go, nodeVGO.blendShape);
+                    }
                 }
             }
         }
 
         /// <summary>
-        /// Reflect VGO skybox to Camaera skybox.
+        /// Create and add avatar configuration.
         /// </summary>
-        protected virtual void ReflectSkybox()
+        /// <param name="vgoHumanAvatar">The VGO human avatar.</param>
+        protected virtual void CreateAndAddAvatarConfiguration(VGO_HumanAvatar vgoHumanAvatar)
+        {
+            var avatarConfiguration = ScriptableObject.CreateInstance<AvatarConfiguration>();
+
+            avatarConfiguration.name = vgoHumanAvatar.name;
+            avatarConfiguration.humanBones = vgoHumanAvatar.humanBones;
+
+            ModelAsset.ScriptableObjectList.Add(avatarConfiguration);
+        }
+
+        /// <summary>
+        /// Attach VGO_BlendShape component to GameObject.
+        /// </summary>
+        /// <param name="go">A game object.</param>
+        /// <param name="gltfVgoBlendShape">A vgo blend shape.</param>
+        protected virtual void AddBlendShapeComponent(GameObject go, VGO_BlendShape gltfVgoBlendShape)
+        {
+            VgoBlendShape vgoBlendShape = go.GetComponent<VgoBlendShape>();
+
+            if (vgoBlendShape == null)
+            {
+                vgoBlendShape = go.AddComponent<VgoBlendShape>();
+            }
+
+            var blendShapeConfiguration = ScriptableObject.CreateInstance<BlendShapeConfiguration>();
+
+            blendShapeConfiguration.name = gltfVgoBlendShape.name;
+            blendShapeConfiguration.kind = gltfVgoBlendShape.kind;
+            blendShapeConfiguration.faceParts = gltfVgoBlendShape.faceParts;
+            blendShapeConfiguration.blinks = gltfVgoBlendShape.blinks;
+            blendShapeConfiguration.visemes = gltfVgoBlendShape.visemes;
+            blendShapeConfiguration.presets = new List<BlendShapePreset>();
+
+            if (gltfVgoBlendShape.presets != null)
+            {
+                foreach (VGO_BlendShapePreset vgoPreset in gltfVgoBlendShape.presets)
+                {
+                    var preset = new BlendShapePreset
+                    {
+                        name = vgoPreset.name,
+                        type = vgoPreset.type,
+                        bindings = new List<BlendShapeBinding>()
+                    };
+
+                    foreach (VGO_BlendShapeBinding vgoBinding in vgoPreset.bindings)
+                    {
+                        var binding = new BlendShapeBinding
+                        {
+                            index = vgoBinding.index,
+                            weight = vgoBinding.weight,
+                        };
+
+                        preset.bindings.Add(binding);
+                    }
+
+                    blendShapeConfiguration.presets.Add(preset);
+                }
+            }
+
+            vgoBlendShape.BlendShapeConfiguration = blendShapeConfiguration;
+
+            ModelAsset.ScriptableObjectList.Add(blendShapeConfiguration);
+        }
+
+        #endregion
+
+        #region Skybox
+
+        /// <summary>
+        /// Reflect VGO skybox to Camera skybox.
+        /// </summary>
+        public virtual void ReflectSkybox(Camera camera)
         {
             var vgoSkybox = ModelAsset.Root.GetComponentInChildren<Skybox>(includeInactive: false);
 
             if (vgoSkybox != null)
             {
-                GameObject mainCameraGameObject = Camera.main.gameObject;
-
-                if (mainCameraGameObject.TryGetComponentEx(out Skybox cameraSkybox) == false)
+                if (camera.gameObject.TryGetComponentEx(out Skybox cameraSkybox) == false)
                 {
-                    cameraSkybox = mainCameraGameObject.AddComponent<Skybox>();
+                    cameraSkybox = camera.gameObject.AddComponent<Skybox>();
                 }
 
                 cameraSkybox.material = vgoSkybox.material;

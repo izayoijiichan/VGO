@@ -1,0 +1,15 @@
+{
+    "$id": "vgo.blendShape.blink",
+    "type": "object",
+    "properties": {
+        "type": {
+            "description": "The type of blink.",
+            "enum": [ 0, 1, 2, 3 ],
+            "type": "integer"
+        },
+        "index": {
+            "description": "The index of the BlendShape.",
+            "type": "integer"
+        }
+    }
+}

@@ -38,14 +38,15 @@
 |:---|:---|:---|
 |meta|VGO meta information|vgo.meta|
 |right|VGO rights information|vgo.right|
+|avatar|The human avatar.|vgo.humanAvatar|
 
 ### vgo.meta
 
 |definition name|description|type|fixed value|
 |:---|:---|:---:|:---:|
 |generatorName|The name of the generation tool.|string|UniVGO|
-|generatorVersion|The generation tool version.|string|0.7.0|
-|specVersion|VGO specification version.|string|0.5|
+|generatorVersion|The generation tool version.|string|1.1.0|
+|specVersion|VGO specification version.|string|1.0|
 
 ### vgo.right
 
@@ -59,6 +60,20 @@
 |version|The version of the work.|string|There is no format specification.|
 |distributionUrl|Distribution URL.|string|URL format|
 |licenseUrl|The URL where the license is written.|string|URL format|
+
+### vgo.humanAvatar
+
+|definition name|description|type|remarks|
+|:---|:---|:---:|:---|
+|name|The name of this human avatar.|string|Required|
+|humanBones|List of the human bone.|VGO_HumanBone[]|Required|
+
+### VGO_HumanBone
+
+|definition name|description|type|remarks|
+|:---|:---|:---:|:---|
+|humanBodyBone|The human body bone.|integer|Required|
+|nodeIndex|The index of the node.|integer|Required|
 
 ___
 ## Example of glTF JSON structure
@@ -78,7 +93,8 @@ JSON{
         "VGO_materials_particle",
         "VGO_materials_skybox",
         "KHR_materials_unlit",
-        "VRMC_materials_mtoon"
+        "VRMC_materials_mtoon",
+        "KHR_texture_transform"
     ],
     "extensionsRequired": [
         "VGO",
@@ -87,24 +103,47 @@ JSON{
         "VGO_materials_particle",
         "VGO_materials_skybox",
         "KHR_materials_unlit",
-        "VRMC_materials_mtoon"
+        "VRMC_materials_mtoon",
+        "KHR_texture_transform"
     ],
     "extensions": {
         "VGO": {
             "meta": {
                 "generatorName": "UniVGO",
-                "generatorVersion": "0.8.0",
-                "specVersion": "0.6"
+                "generatorVersion": "1.1.0",
+                "specVersion": "1.0"
             },
             "right": {
-                "title": "Test Stage",
+                "title": "Avatar1",
                 "author": "Izayoi Jiichan",
                 "organization": "Izayoi",
                 "createdDate": "2020-01-01",
-                "updatedDate": "2020-03-15",
+                "updatedDate": "2020-08-15",
                 "version": "1.5",
                 "distributionUrl": "https://github.com/izayoijiichan/VGO",
                 "licenseUrl": "https://github.com/izayoijiichan/VGO/blob/master/UniVgo/LICENSE.md"
+            },
+            "avatar":{
+                "name":"Avatar1",
+                "humanBones":[
+                    {
+                        "humanBodyBone":0,
+                        "nodeIndex":1
+                    },
+                    {
+                        "humanBodyBone":1,
+                        "nodeIndex":6
+                    },
+                    {
+                        "humanBodyBone":2,
+                        "nodeIndex":21
+                    },
+                    ...
+                    {
+                        "humanBodyBone":53,
+                        "nodeIndex":117
+                    }
+                ]
             }
         }
     },
@@ -112,7 +151,7 @@ JSON{
 }
 ```
 ___
-Last updated: 15 March, 2020  
+Last updated: 15 August, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

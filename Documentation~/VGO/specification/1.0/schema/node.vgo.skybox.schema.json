@@ -1,0 +1,9 @@
+{
+    "title": "node.vgo.skybox",
+    "type": "object",
+    "properties": {
+        "materialIndex": {
+            "type": "integer"
+        }
+    }
+}

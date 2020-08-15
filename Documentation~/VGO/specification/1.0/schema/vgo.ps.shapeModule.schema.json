@@ -1,0 +1,215 @@
+{
+    "$id": "vgo.ps.shapeModule",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "shapeType": {
+            "type": "string",
+            "enum": [
+                "Sphere",
+                "SphereShell",
+                "Hemisphere",
+                "HemisphereShell",
+                "Cone",
+                "Box",
+                "Mesh",
+                "ConeShell",
+                "ConeVolume",
+                "ConeVolumeShell",
+                "Circle",
+                "CircleEdge",
+                "SingleSidedEdge",
+                "MeshRenderer",
+                "SkinnedMeshRenderer",
+                "BoxShell",
+                "BoxEdge",
+                "Donut",
+                "Rectangle",
+                "Sprite",
+                "SpriteRenderer"
+            ]
+        },
+        "angle": {
+            "type": "number"
+        },
+        "radius": {
+            "type": "number"
+        },
+        "donutRadius": {
+            "type": "number"
+        },
+        "radiusMode": {
+            "type": "string",
+            "enum": [
+                "Random",
+                "Loop",
+                "PingPong",
+                "BurstSpread"
+            ]
+        },
+        "radiusSpread": {
+            "type": "number"
+        },
+        "radiusSpeed": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "radiusSpeedMultiplier": {
+            "type": "number"
+        },
+        "radiusThickness": {
+            "type": "number"
+        },
+        "boxThickness": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "arc": {
+            "type": "number"
+        },
+        "arcMode": {
+            "type": "string",
+            "enum": [
+                "Random",
+                "Loop",
+                "PingPong",
+                "BurstSpread"
+            ]
+        },
+        "arcSpread": {
+            "type": "number"
+        },
+        "arcSpeed": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "arcSpeedMultiplier": {
+            "type": "number"
+        },
+        "length": {
+            "type": "number"
+        },
+        "meshShapeType": {
+            "type": "string",
+            "enum": [
+                "Vertex",
+                "Edge",
+                "Triangle"
+            ]
+        },
+        "meshSpawnMode": {
+            "type": "string",
+            "enum": [
+                "Random",
+                "Loop",
+                "PingPong",
+                "BurstSpread"
+            ]
+        },
+        "meshSpawnSpread": {
+            "type": "number"
+        },
+        "meshSpawnSpeed": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "meshSpawnSpeedMultiplier": {
+            "type": "number"
+        },
+        "useMeshMaterialIndex": {
+            "type": "boolean"
+        },
+        "meshMaterialIndex": {
+            "type": "integer"
+        },
+        "useMeshColors": {
+            "type": "boolean"
+        },
+        "normalOffset": {
+            "type": "number"
+        },
+        "textureIndex": {
+            "type": "integer",
+            "default": -1
+        },
+        "textureClipChannel": {
+            "type": "string",
+            "enum": [
+                "Red",
+                "Green",
+                "Blue",
+                "Alpha"
+            ]
+        },
+        "textureClipThreshold": {
+            "type": "number"
+        },
+        "textureColorAffectsParticles": {
+            "type": "boolean"
+        },
+        "textureAlphaAffectsParticles": {
+            "type": "boolean"
+        },
+        "textureBilinearFiltering": {
+            "type": "boolean"
+        },
+        "textureUVChannel": {
+            "type": "integer"
+        },
+        "position": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "rotation": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "scale": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "alignToDirection": {
+            "type": "boolean"
+        },
+        "randomDirectionAmount": {
+            "type": "number"
+        },
+        "sphericalDirectionAmount": {
+            "type": "number"
+        },
+        "randomPositionAmount": {
+            "type": "number"
+        }
+    }
+}

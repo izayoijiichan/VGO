@@ -1,0 +1,50 @@
+{
+    "$id": "vgo.ps.forceOverLifetimeModule",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "x": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "y": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "z": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "xMultiplier": {
+            "type": "number"
+        },
+        "yMultiplier": {
+            "type": "number"
+        },
+        "zMultiplier": {
+            "type": "number"
+        },
+        "space": {
+            "type": "string",
+            "enum": [
+                "Local",
+                "World",
+                "Custom"
+            ]
+        },
+        "randomized": {
+            "type": "boolean"
+        }
+    }
+}

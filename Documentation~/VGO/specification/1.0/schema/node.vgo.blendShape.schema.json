@@ -1,0 +1,55 @@
+{
+    "$id": "node.vgo.blendShape",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The name of this BlendShape.",
+            "type": "string"
+        },
+        "kind": {
+            "description": "The kind of the BlendShape.",
+            "enum": [ 0, 1, 2, 3, 4, 5 ],
+            "type": "integer"
+        },
+        "faceParts": {
+            "description": "List of face parts.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "$ref": "vgo.blendShape.facePart.schema.json"
+            }
+        },
+        "blinks": {
+            "description": "List of blink.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "$ref": "vgo.blendShape.blink.schema.json"
+            }
+        },
+        "visemes": {
+            "description": "Visemes.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "$ref": "vgo.blendShape.viseme.schema.json"
+            }
+        },
+        "presets": {
+            "description": "List of preset.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "$ref": "vgo.blendShape.preset.schema.json"
+            }
+        }
+    }
+}

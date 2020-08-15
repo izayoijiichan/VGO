@@ -11,7 +11,7 @@ namespace UniVgo.Editor
     /// glTF Scripted Importer Editor
     /// </summary>
     [CustomEditor(typeof(GltfScriptedImporter))]
-    public class GltfScriptedImporterEditor : VgoScriptedImporterEditor
+    public class GltfScriptedImporterEditor : GlbScriptedImporterEditor
     {
     }
 }

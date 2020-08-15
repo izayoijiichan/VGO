@@ -47,8 +47,26 @@ namespace UniVgo.Editor
             GUI.enabled = true;
             EditorGUILayout.EndHorizontal();
 
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.PrefixLabel("BlendShapes");
+            GUI.enabled = importer.GetExternalUnityObjects<BlendShapeConfiguration>().Any() == false;
+            if (GUILayout.Button("Extract"))
+            {
+                importer.ExtractBlendShapes();
+                GUIUtility.ExitGUI();
+            }
+            GUI.enabled = !GUI.enabled;
+            if (GUILayout.Button("Clear"))
+            {
+                importer.ClearExtarnalObjects<BlendShapeConfiguration>();
+                GUIUtility.ExitGUI();
+            }
+            GUI.enabled = true;
+            EditorGUILayout.EndHorizontal();
+
             DrawRemapGUI<Material>("Material Remap", importer);
             DrawRemapGUI<Texture2D>("Texture Remap", importer);
+            DrawRemapGUI<BlendShapeConfiguration>("BlendShape Remap", importer);
 
             EditorGUILayout.Space();
 

@@ -1,0 +1,14 @@
+{
+    "$id": "vgo.blendShape.binding",
+    "type": "object",
+    "properties": {
+        "index": {
+            "description": "The index of the BlendShape.",
+            "type": "integer"
+        },
+        "weight": {
+            "description": "The weight for this BlendShape.",
+            "type": "number"
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "title": "vgo",
+    "description": "glTF extension for VGO.",
+    "type": "object",
+    "properties": {
+        "meta": {
+            "$ref": "vgo.meta.schema.json"
+        },
+        "right": {
+            "$ref": "vgo.right.schema.json"
+        },
+        "avatar": {
+            "$ref": "vgo.humanAvatar.schema.json"
+        }
+    }
+}

@@ -1,5 +1,18 @@
 # Change Log
 
+## [1.1.0] - 2020-08-15
+- Features
+  - Unity Humanoid Avatar parameter support.
+  - Added common utility to manipulate blendshape.
+- Adds
+  - Added `avatar` property to gltf.extensions.vgo.
+  - Added `blendShape` property to node.extensions.VGO_nodes.
+- Improvements
+  - Strengthened the check when importing meshes.
+- Changes
+  - VGO extended schema changed the type of EnumString to Enum.
+  - Changed to not automatically reflect skybox to the main camera when loading a model.
+
 ## [1.0.1] - 2020-08-10
 - Fixes
   - Fixed a bug that the file size becomes large with blank data when exporting.

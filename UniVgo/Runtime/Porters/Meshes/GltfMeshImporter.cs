@@ -333,23 +333,7 @@ namespace UniVgo.Porters
                     {
                         if (accessorContainer.tangents.ContainsKey(attributes.TANGENT) == false)
                         {
-                            GltfAccessor tangentAccessor = GltfStorageAdapter.GetAccessor(attributes.TANGENT);
-
-                            Vector4[] tangents;
-
-                            if (tangentAccessor.type == GltfAccessorType.VEC4)
-                            {
-                                tangents = GltfStorageAdapter.GetAccessorArrayData<Vector4>(attributes.TANGENT);
-                            }
-                            //else if (tangentAccessor.type == GltfAccessorType.VEC3)
-                            //{
-                            //}
-                            else
-                            {
-                                throw new NotImplementedException(string.Format("unknown tangentAccessor.type: {0}", tangentAccessor.type));
-                            }
-
-                            accessorContainer.tangents.Add(attributes.TANGENT, tangents);
+                            accessorContainer.tangents.Add(attributes.TANGENT, GltfStorageAdapter.GetAccessorArrayData<Vector4>(attributes.TANGENT));
                         }
                     }
                 }
@@ -359,7 +343,34 @@ namespace UniVgo.Porters
                 {
                     if (accessorContainer.uvs.ContainsKey(attributes.TEXCOORD_0) == false)
                     {
-                        accessorContainer.uvs.Add(attributes.TEXCOORD_0, GltfStorageAdapter.GetAccessorArrayData<Vector2>(attributes.TEXCOORD_0));
+                        GltfAccessor texcoordAccessor = GltfStorageAdapter.GetAccessor(attributes.TEXCOORD_0);
+
+                        if (texcoordAccessor.type != GltfAccessorType.VEC2)
+                        {
+                            throw new FormatException(string.Format("texcoordAccessor.type: {0}", texcoordAccessor.type));
+                        }
+
+                        if (texcoordAccessor.componentType == GltfComponentType.FLOAT)
+                        {
+                            accessorContainer.uvs.Add(attributes.TEXCOORD_0, GltfStorageAdapter.GetAccessorArrayData<Vector2>(attributes.TEXCOORD_0));
+                        }
+                        else if (
+                            (texcoordAccessor.componentType == GltfComponentType.UNSIGNED_BYTE) ||
+                            (texcoordAccessor.componentType == GltfComponentType.UNSIGNED_SHORT))
+                        {
+                            if (texcoordAccessor.normalized)
+                            {
+                                throw new NotImplementedException(string.Format("texcoordAccessor.componentType: {0}", texcoordAccessor.componentType));
+                            }
+                            else
+                            {
+                                throw new FormatException(string.Format("texcoordAccessor.normalized: {0}", texcoordAccessor.normalized));
+                            }
+                        }
+                        else
+                        {
+                            throw new FormatException(string.Format("texcoordAccessor.componentType: {0}", texcoordAccessor.componentType));
+                        }
                     }
                 }
 
@@ -370,28 +381,50 @@ namespace UniVgo.Porters
                     {
                         GltfAccessor colorAccessor = GltfStorageAdapter.GetAccessor(attributes.COLOR_0);
 
-                        Color[] colors;
-
-                        if (colorAccessor.type == GltfAccessorType.VEC4)
+                        if ((colorAccessor.type != GltfAccessorType.VEC3) &&
+                            (colorAccessor.type != GltfAccessorType.VEC4))
                         {
-                            // @notice Vector4(float) = Color4(float) = Color
-                            colors = GltfStorageAdapter.GetAccessorArrayData<Color>(attributes.COLOR_0);
+                            throw new FormatException(string.Format("colorAccessor.type: {0}", colorAccessor.type));
                         }
-                        else if (colorAccessor.type == GltfAccessorType.VEC3)
+
+                        Color[] colors = null;
+
+                        if (colorAccessor.componentType == GltfComponentType.FLOAT)
                         {
-                            // @notice Vector3(float) = Color3(float)
-                            Color3[] color3array = GltfStorageAdapter.GetAccessorArrayData<Color3>(attributes.COLOR_0);
-
-                            colors = new Color[color3array.Length];
-
-                            for (int i = 0; i < color3array.Length; i++)
+                            if (colorAccessor.type == GltfAccessorType.VEC4)
                             {
-                                colors[i] = color3array[i].ToUnityColor();
+                                // @notice Vector4(float) = Color4(float) = Color
+                                colors = GltfStorageAdapter.GetAccessorArrayData<Color>(attributes.COLOR_0);
+                            }
+                            else if (colorAccessor.type == GltfAccessorType.VEC3)
+                            {
+                                // @notice Vector3(float) = Color3(float)
+                                Color3[] color3array = GltfStorageAdapter.GetAccessorArrayData<Color3>(attributes.COLOR_0);
+
+                                colors = new Color[color3array.Length];
+
+                                for (int i = 0; i < color3array.Length; i++)
+                                {
+                                    colors[i] = color3array[i].ToUnityColor();
+                                }
+                            }
+                        }
+                        else if (
+                            (colorAccessor.componentType == GltfComponentType.UNSIGNED_BYTE) ||
+                            (colorAccessor.componentType == GltfComponentType.UNSIGNED_SHORT))
+                        {
+                            if (colorAccessor.normalized)
+                            {
+                                throw new NotImplementedException(string.Format("colorAccessor.componentType: {0}", colorAccessor.componentType));
+                            }
+                            else
+                            {
+                                throw new FormatException(string.Format("colorAccessor.normalized: {0}", colorAccessor.normalized));
                             }
                         }
                         else
                         {
-                            throw new NotImplementedException(string.Format("unknown colorAccessor.type: {0}", colorAccessor.type));
+                            throw new FormatException(string.Format("colorAccessor.componentType: {0}", colorAccessor.componentType));
                         }
 
                         accessorContainer.colors.Add(attributes.COLOR_0, colors);
@@ -405,14 +438,29 @@ namespace UniVgo.Porters
                     {
                         GltfAccessor jointsAccessor = GltfStorageAdapter.GetAccessor(attributes.JOINTS_0);
 
-                        Vector4Ushort[] joints;
-
                         if (jointsAccessor.type != GltfAccessorType.VEC4)
                         {
-                            throw new NotSupportedException(string.Format("jointsAccessor.type: {0}", jointsAccessor.type));
+                            throw new FormatException(string.Format("jointsAccessor.type: {0}", jointsAccessor.type));
                         }
 
-                        if (jointsAccessor.componentType == GltfComponentType.UNSIGNED_SHORT)
+                        Vector4Ushort[] joints;
+
+                        if (jointsAccessor.componentType == GltfComponentType.UNSIGNED_BYTE)
+                        {
+                            Vector4Ubyte[] vec4ubyteArray = GltfStorageAdapter.GetAccessorArrayData<Vector4Ubyte>(attributes.JOINTS_0);
+
+                            joints = new Vector4Ushort[vec4ubyteArray.Length];
+
+                            for (int i = 0; i < vec4ubyteArray.Length; i++)
+                            {
+                                joints[i] = new Vector4Ushort(
+                                    vec4ubyteArray[i].X,
+                                    vec4ubyteArray[i].Y,
+                                    vec4ubyteArray[i].Z,
+                                    vec4ubyteArray[i].W);
+                            }
+                        }
+                        else if (jointsAccessor.componentType == GltfComponentType.UNSIGNED_SHORT)
                         {
                             joints = GltfStorageAdapter.GetAccessorArrayData<Vector4Ushort>(attributes.JOINTS_0);
                         }
@@ -433,7 +481,7 @@ namespace UniVgo.Porters
                         }
                         else
                         {
-                            throw new NotImplementedException(string.Format("unknown jointsAccessor.componentType: {0}", jointsAccessor.componentType));
+                            throw new FormatException(string.Format("jointsAccessor.componentType: {0}", jointsAccessor.componentType));
                         }
 
                         accessorContainer.joints0.Add(attributes.JOINTS_0, joints);
@@ -445,7 +493,38 @@ namespace UniVgo.Porters
                 {
                     if (accessorContainer.weights0.ContainsKey(attributes.WEIGHTS_0) == false)
                     {
-                        accessorContainer.weights0.Add(attributes.WEIGHTS_0, GltfStorageAdapter.GetAccessorArrayData<Vector4>(attributes.WEIGHTS_0));
+                        GltfAccessor weightsAccessor = GltfStorageAdapter.GetAccessor(attributes.WEIGHTS_0);
+
+                        if (weightsAccessor.type != GltfAccessorType.VEC4)
+                        {
+                            throw new FormatException(string.Format("weightsAccessor.type: {0}", weightsAccessor.type));
+                        }
+
+                        Vector4[] weights;
+
+                        if (weightsAccessor.componentType == GltfComponentType.FLOAT)
+                        {
+                            weights = GltfStorageAdapter.GetAccessorArrayData<Vector4>(attributes.WEIGHTS_0);
+                        }
+                        else if (
+                            (weightsAccessor.componentType == GltfComponentType.UNSIGNED_BYTE) ||
+                            (weightsAccessor.componentType == GltfComponentType.UNSIGNED_SHORT))
+                        {
+                            if (weightsAccessor.normalized)
+                            {
+                                throw new NotImplementedException(string.Format("weightsAccessor.componentType: {0}", weightsAccessor.componentType));
+                            }
+                            else
+                            {
+                                throw new FormatException(string.Format("weightsAccessor.normalized: {0}", weightsAccessor.normalized));
+                            }
+                        }
+                        else
+                        {
+                            throw new FormatException(string.Format("weightsAccessor.componentType: {0}", weightsAccessor.componentType));
+                        }
+
+                        accessorContainer.weights0.Add(attributes.WEIGHTS_0, weights);
                     }
                 }
 

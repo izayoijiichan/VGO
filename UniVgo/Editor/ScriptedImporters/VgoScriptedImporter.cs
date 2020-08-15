@@ -18,6 +18,9 @@ namespace UniVgo.Editor
     [ScriptedImporter(1, "vgo")]
     public class VgoScriptedImporter : ScriptedImporter
     {
+        /// <summary>The blend shape directory name.</summary>
+        protected const string BlendShapeDirName = "BlendShapes";
+
         /// <summary>The material directory name.</summary>
         protected const string MaterialDirectoryName = "Materials";
 
@@ -73,6 +76,36 @@ namespace UniVgo.Editor
                     foreach (MeshAsset meshAsset in modelAsset.MeshAssetList)
                     {
                         ctx.AddObjectToAsset(meshAsset.Mesh.name, meshAsset.Mesh);
+                    }
+
+                    // ScriptableObject
+
+                    // avatar
+                    if (modelAsset.Avatar != null)
+                    {
+                        ctx.AddObjectToAsset("avatar", modelAsset.Avatar);
+                    }
+
+                    // BlendShape
+                    {
+                        var external = GetExternalUnityObjects<BlendShapeConfiguration>().FirstOrDefault();
+                        if (external.Value != null)
+                        {
+                            //
+                        }
+                        else
+                        {
+                            var blendShapeConfigurationList = modelAsset.ScriptableObjectList
+                                .Where(x => x.GetType() == typeof(BlendShapeConfiguration))
+                                .Select(x => x as BlendShapeConfiguration)
+                                .ToList();
+
+                            foreach (BlendShapeConfiguration blendShapeConfiguration in blendShapeConfigurationList)
+                            {
+                                blendShapeConfiguration.name = blendShapeConfiguration.kind + "BlendShapeConfiguration";
+                                ctx.AddObjectToAsset(blendShapeConfiguration.name, blendShapeConfiguration);
+                            }
+                        }
                     }
 
                     // Root
@@ -224,6 +257,23 @@ namespace UniVgo.Editor
                     ExtractMaterials();
                 }
             };
+        }
+
+        public void ExtractBlendShapes()
+        {
+            ExtractAssets<BlendShapeConfiguration>(BlendShapeDirName, ".asset");
+
+            var blendShapeConfiguration = GetExternalUnityObjects<BlendShapeConfiguration>().FirstOrDefault();
+
+            string blendShapeConfigurationPath = AssetDatabase.GetAssetPath(blendShapeConfiguration.Value);
+
+            if (string.IsNullOrEmpty(blendShapeConfigurationPath) == false)
+            {
+                EditorUtility.SetDirty(blendShapeConfiguration.Value);
+                AssetDatabase.WriteImportSettingsIfDirty(blendShapeConfigurationPath);
+            }
+
+            AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
         public virtual void ClearExtarnalObjects()

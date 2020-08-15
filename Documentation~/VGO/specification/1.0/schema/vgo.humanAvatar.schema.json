@@ -1,0 +1,21 @@
+{
+    "title": "vgo.humanAvatar",
+    "description": "Human avatar.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The name of this human avatar.",
+            "type": "string"
+        },
+        "humanBones": {
+            "description": "List of the human bone.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "$ref": "vgo.humanBone.schema.json"
+            }
+        }
+    }
+}

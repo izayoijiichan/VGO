@@ -12,8 +12,8 @@ ___
 |No|項目|値|
 |:---:|:---|:---:|
 |1|Unity バージョン|2019.4|
-|2|UniVGO バージョン|1.0.0|
-|3|VGO 仕様バージョン|0.6|
+|2|UniVGO バージョン|1.1.0|
+|3|VGO 仕様バージョン|1.0|
 
 ### 対応 Unity コンポーネント
 
@@ -23,11 +23,12 @@ VGOが対応する Unity コンポーネントは以下の通りです
 |:---:|:---|:---|:---|
 |1|Vgo Meta|Root|VGO情報を管理するためのものです。|
 |2|Vgo Right|Root / Child|VGOに権利情報を付与することができます。|
-|3|Collider|Child|GameObjectに衝突判定を設定することができます。|
-|4|Rigidbody|Child|GameObjectに物理特性を設定し、動かすことができるようになります。|
-|5|Light|Child|GameObjectに光源を設定することができます。|
-|6|Particle System|Child|GameObjectにパーティクルを設定することができます。|
-|7|Skybox|Child|シーンにスカイボックスを設定することができます。|
+|3|Animator|Root|GameObjectに Human Avatar を設定することができます。|
+|4|Collider|Child|GameObjectに衝突判定を設定することができます。|
+|5|Rigidbody|Child|GameObjectに物理特性を設定し、動かすことができるようになります。|
+|6|Light|Child|GameObjectに光源を設定することができます。|
+|7|Particle System|Child|GameObjectにパーティクルを設定することができます。|
+|8|Skybox|Child|シーンにスカイボックスを設定することができます。|
 
 ### 使用可能シェーダー
 
@@ -53,7 +54,98 @@ VGOが対応する Unity コンポーネントは以下の通りです
 - Skybox/Cubemap には対応していません。
 
 ___
-## VGO の作成
+## VGO の作成（人型アバターの場合）
+
+### 1. シーンの読み込み
+
+UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を読み込みます。  
+それ以外の新規で作成する場合は任意のシーンで作業します。
+
+
+### 2. モデルの設定
+
+`Animator` コンポーネントの `Avatar` に `Human Avatar` が設定されたモデルを使用します。
+
+【GameObject】
+
+|No|コンポーネント|説明|
+|:---:|:---|:---|
+|1|(Name)|任意の名前を設定します。|
+|2|Transform|初期値である必要があります。|
+|3|Vgo Right|自由に設定します。|
+|4|Vgo Meta|付与するだけでOKです。|
+
+コンポーネントの順序は動作に関係ありません。
+
+【Transform】
+
+|No|項目|値|
+|:---:|:---|:---|
+|1|Position|X: 0, Y: 0, Z: 0|
+|2|Rotation|X: 0, Y: 0, Z: 0|
+|3|Scale|X: 1, Y: 1, Z: 1|
+
+【Animator】
+
+|No|項目|値|
+|:---:|:---|:---|
+|1|Avatar|(Human Avatar)|
+
+【Vgo Right】
+
+|No|項目|説明|備考|
+|:---:|:---|:---|:---|
+|1|Title|作品の名前です。|必須|
+|2|Author|クリエイターの名前です。|必須|
+|3|Organization|クリエイターの所属する組織です。||
+|4|Created Date|作品の作成日です。|形式の規定はありません。|
+|5|Updated Date|作品の更新日です。|形式の規定はありません。|
+|6|Version|作品のバージョンです。|形式の規定はありません。|
+|7|Distribution Url|配布URLです。||
+|8|License Url|ライセンスの記載されたURLです。||
+
+【Vgo Meta】
+
+|No|項目|説明|値|
+|:---:|:---|:---|:---:|
+|1|Generator Name|生成ツールの名前です。|UniVGO|
+|2|Generator Version|生成ツールのバージョンです。|1.1.0|
+|3|Spec Version|VGOの仕様バージョンです。|1.0|
+
+ユーザーが設定可能な項目はありません。  
+メタ情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
+
+
+### 3. BlendShape
+
+必要があれば顔の BlendShape の設定を行います。  
+（UniVGOを使用したアプリがこの設定を参照することがあります）
+
+`Hierarchy` タブにて 顔の GameObject を選択します。
+
+`Skinned Mesh Renderer` コンポーネントが `BlendShapes` のパラメーターを持っていることを確認します。
+
+`Vgo BlendShape` コンポーネントを新しく付与します。
+
+次に `Project` タブ上で右クリックをし、  
+`Create > VGO > BlendShapeConfiguration` で設定ファイルを作成します。
+
+【Vgo BlendShape】
+
+|No|項目|説明|備考|
+|:---:|:---|:---|:---|
+|1|Kind|BlendShapeの種類です。`Face`を選択します。|必須|
+|2|Face Parts|BlendShapeが顔のどのパーツであるか関連付けます。|任意|
+|3|Blinks|瞬きの際に使用する BlendShape を登録します。|任意|
+|4|Visemes|口形素を関連付けます。母音のみでもOKです。|任意|
+|5|Presets|プリセットを登録します。|任意|
+
+BlendShape の index は 一番上を 0 として順にカウントします。
+
+設定が終わりましたら、`Vgo BlendShape` コンポーネントの `BlendShapeConfiguration` に設定ファイルを設定します。
+
+___
+## VGO の作成（人型アバター以外）
 
 ### 1. シーンの読み込み
 
@@ -109,8 +201,8 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Generator Name|生成ツールの名前です。|UniVGO|
-|2|Generator Version|生成ツールのバージョンです。|0.8.3|
-|3|Spec Version|VGOの仕様バージョンです。|0.6|
+|2|Generator Version|生成ツールのバージョンです。|1.1.0|
+|3|Spec Version|VGOの仕様バージョンです。|1.0|
 
 ユーザーが設定可能な項目はありません。  
 メタ情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -236,6 +328,18 @@ ___
 
 VGOファイル (.vgo) を準備します。
 
+### 1-1. VGOファイルがない場合（人型アバター）
+
+UniVGOを使用しての初期インポートはできません。
+
+Unityが Humanoid のインポートをサポートしているファイル フォーマットのファイル（.fbx, .dae, .3ds, .dxf, .obj, .blender, .max, etc..）を準備する必要があります。
+
+そのファイルを Unity の機能を使ってインポートします。
+
+この際、Rig を正しく設定しておく必要があります。
+
+### 1-2. VGOファイルがない場合（人型アバター以外）
+
 VGOファイルがない場合（初回作業時など）には、  
 GLBファイル (.glb) またはGLTFファイル (.gltf) からでも開始できます。
 
@@ -299,7 +403,10 @@ VGOファイルが読み込まれることを確認します。
         private void Start()
         {
             var importer = new VgoImporter();
+
             importer.Load(filePath);
+
+            importer.ReflectSkybox(Camera.main);
         }
     }
 ~~~
@@ -329,7 +436,7 @@ https://vovola.wixsite.com/website
 https://vishop.azurewebsites.net
 
 ___
-最終更新日：2020年8月7日  
+最終更新日：2020年8月15日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -1,0 +1,25 @@
+{
+    "$id": "vgo.blendShape.preset",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The name of preset.",
+            "type": "string"
+        },
+        "type": {
+            "description": "The type of preset.",
+            "enum": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ],
+            "type": "integer"
+        },
+        "bindings": {
+            "description": "List of binding.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "$ref": "vgo.blendShape.binding.schema.json"
+            }
+        }
+    }
+}

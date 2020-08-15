@@ -6,6 +6,7 @@ namespace UniVgo
 {
     using NewtonGltf;
     using NewtonGltf.Serialization;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -92,6 +93,18 @@ namespace UniVgo
                 }
             }
 
+            // vgo.avatar
+            if (ModelAsset.Root.TryGetComponentEx(out Animator animator))
+            {
+                if (animator.avatar != null)
+                {
+                    if (animator.avatar.isHuman && animator.avatar.isValid)
+                    {
+                        vgo.avatar = VgoAvatarConverter.CreateVgoHumanAvatar(animator, ModelAsset.Root.name, Nodes);
+                    }
+                }
+            }
+
             if (Gltf.extensions == null)
             {
                 Gltf.extensions = new GltfExtensions();
@@ -161,8 +174,6 @@ namespace UniVgo
                 nodeVgo.particleSystem = _ParticleSystemExporter.Create(particleSystem, particleSystemRenderer, GltfStorageAdapter, _ExporterTexture);
 
                 existsData = true;
-
-                //_UsedVgoParticleSystem = true;
             }
 
             // vgo.right
@@ -184,8 +195,14 @@ namespace UniVgo
                 };
 
                 existsData = true;
+            }
 
-                //_UsedVgoSkybox = true;
+            // vgo.blendShape
+            if (srcNode.TryGetComponentEx(out VgoBlendShape vgoBlendShape))
+            {
+                nodeVgo.blendShape = VgoBlendShapeConverter.CreateFrom(vgoBlendShape.BlendShapeConfiguration);
+
+                existsData = true;
             }
 
             if (existsData)

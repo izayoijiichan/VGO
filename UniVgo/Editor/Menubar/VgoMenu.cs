@@ -35,7 +35,7 @@ namespace UniVgo.Editor
         /// <summary>
         /// Tools > UniVGO > Version
         /// </summary>
-        [MenuItem("Tools/UniVGO/Version", priority = 1013)]
+        [MenuItem("Tools/UniVGO/Version", priority = 1031)]
         public static void VersionMenu()
         {
             Debug.Log("UniVGO version: " + VgoVersion.VERSION);

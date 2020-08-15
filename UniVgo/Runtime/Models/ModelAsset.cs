@@ -41,6 +41,12 @@ namespace UniVgo
         /// <summary>List of material info.</summary>
         public List<MaterialInfo> MaterialInfoList = null;
 
+        /// <summary>List of scriptable object.</summary>
+        public List<ScriptableObject> ScriptableObjectList = new List<ScriptableObject>();
+
+        /// <summary>The avatar.</summary>
+        public Avatar Avatar = null;
+
         #endregion
 
         #region Fields (Export)
@@ -122,9 +128,19 @@ namespace UniVgo
                 GameObject.Destroy(Root);
             }
 
+            if (Avatar != null)
+            {
+                UnityEngine.Object.Destroy(Avatar);
+            }
+
             foreach (UnityEngine.Object obj in ObjectsForSubAsset())
             {
                 UnityEngine.Object.DestroyImmediate(obj, true);
+            }
+
+            foreach (ScriptableObject sObj in ScriptableObjectList)
+            {
+                ScriptableObject.DestroyImmediate(sObj);
             }
         }
 
@@ -165,6 +181,14 @@ namespace UniVgo
                     if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(Root)))
                     {
                         UnityEngine.Object.DestroyImmediate(Root);
+                    }
+                }
+
+                if (Avatar != null)
+                {
+                    if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(Avatar)))
+                    {
+                        UnityEngine.Object.DestroyImmediate(Avatar);
                     }
                 }
 
@@ -234,6 +258,16 @@ namespace UniVgo
                     }
                 }
 
+                if (ScriptableObjectList != null)
+                {
+                    foreach (ScriptableObject sObj in ScriptableObjectList)
+                    {
+                        if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(sObj)))
+                        {
+                            UnityEngine.Object.DestroyImmediate(sObj);
+                        }
+                    }
+                }
             }
         }
 #endif

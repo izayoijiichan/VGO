@@ -6,7 +6,7 @@ ___
 ## 特徴
 
 - glTF (GLB) 2.0 の拡張フォーマットになります。
-- Unity の `GameObject`, `Transform`, `Rigidbody`, `Collider`, `Mesh`, `Material`, `Texture`, `Light`, `ParticleSystem`, `Skybox` を保存することができます。
+- Unity の `GameObject`, `Transform`, `Rigidbody`, `Collider`, `Mesh`, `Material`, `Texture`, `Light`, `ParticleSystem`, `Skybox`, `Human Avatar` を保存することができます。
 - シェーダー設定は `Standard`, `StandardVColor`, `Particle`, `Skybox`, `Unlit`, `MToon` を保存することができます。
 
 ___
@@ -40,6 +40,7 @@ ___
         - colliders
           - collider
         - rigidbody
+        - blendShape
         - light
         - particleSystem
         - right
@@ -55,13 +56,14 @@ ___
     - VGO
       - meta
       - right
+      - avatar
   - extras
 
 ___
 ## 仕様
 
 - glTF JSON Schema: [2.0](https://github.com/KhronosGroup/glTF/tree/master/specification/2.0/schema)
-- VGO JSON Schema: [0.6](https://github.com/izayoijiichan/VGO/tree/master/Documentation~/VGO/specification/0.6/schema)
+- VGO JSON Schema: [1.0](https://github.com/izayoijiichan/VGO/tree/master/Documentation~/VGO/specification/1.0/schema)
 - KHR_materials_unlit: [2.0](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_unlit)
 - KHR_texture_transform: [2.0](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_texture_transform)
 - VRMC_materials_mtoon: [1.0](https://github.com/vrm-c/vrm-specification/tree/master/specification/VRMC_materials_mtoon-1.0_draft)
@@ -93,7 +95,7 @@ VGOファイルの中身を確認するためのツールです。
 https://github.com/izayoijiichan/vgo.parameter.viewer
 
 ___
-最終更新日：2020年8月7日  
+最終更新日：2020年8月15日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

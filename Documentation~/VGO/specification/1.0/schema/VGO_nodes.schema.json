@@ -1,0 +1,31 @@
+{
+    "title": "VGO_nodes",
+    "description": "Node extension for VGO.",
+    "type": "object",
+    "properties": {
+        "gameObject": {
+            "$ref": "node.vgo.gameobject.schema.json"
+        },
+        "colliders": {
+            "$ref": "node.vgo.colliders.schema.json"
+        },
+        "rigidbody": {
+            "$ref": "node.vgo.rigidbody.schema.json"
+        },
+        "blendShape": {
+            "$ref": "node.vgo.blendShape.schema.json"
+        },
+        "light": {
+            "$ref": "node.vgo.light.schema.json"
+        },
+        "particleSystem": {
+            "$ref": "node.vgo.particlesystem.schema.json"
+        },
+        "right": {
+            "$ref": "vgo.right.schema.json"
+        },
+        "skybox": {
+            "$ref": "node.vgo.skybox.schema.json"
+        }
+    }
+}

@@ -66,6 +66,53 @@
 |collisionDetectionMode|Collision detection mode.|string|Discrete / Continuous / ContinuousDynamic / ContinuousSpeculative|Discrete|
 |constraints|The flags that restricts the movement of the rigid body.|int|FreesePositionX(2) \| FreesePositionY(4) \| FreesePositionZ(8) \| FreeseRotationX(16) \| FreeseRotationY(32) \| FreeseRotationZ(64)|0|
 
+### VGO_BlendShape
+
+|definition name|description|type|setting value|default value|
+|:---|:---|:---:|:---:|:---:|
+|name|The name of this BlendShape.|string|||
+|kind|The kind of the BlendShape.|integer|VgoBlendShapeKind||
+|faceParts|List of .|VGO_BlendShapeFacePart[]|||
+|blinks|List of blink.|VGO_BlendShapeBlink[]|||
+|visemes|Visemes.|VGO_BlendShapeViseme[]|||
+|presets|List of preset.|VGO_BlendShapePreset[]|||
+
+### VGO_BlendShapeFacePart
+
+|definition name|description|type|setting value|default value|
+|:---|:---|:---:|:---:|:---:|
+|index|The index of the BlendShape.|integer|||
+|type|The type of the BlendShape.|integer|VgoBlendShapeFacePartsType||
+
+### VGO_BlendShapeBlink
+
+|definition name|description|type|setting value|default value|
+|:---|:---|:---:|:---:|:---:|
+|type|The type of blink.|integer|VgoBlendShapeBlinkType||
+|index|The index of the BlendShape.|integer|||
+
+### VGO_BlendShapeViseme
+
+|definition name|description|type|setting value|default value|
+|:---|:---|:---:|:---:|:---:|
+|type|The viseme.|integer|VgoBlendShapeViseme||
+|index|The index of the BlendShape.|integer|||
+
+### VGO_BlendShapePreset
+
+|definition name|description|type|setting value|default value|
+|:---|:---|:---:|:---:|:---:|
+|name|The name of preset.|string|||
+|type|The viseme.|integer|VgoBlendShapePresetType||
+|bindings|List of binding.|VGO_BlendShapeBinding[]|||
+
+### VGO_BlendShapeBinding
+
+|definition name|description|type|setting value|default value|
+|:---|:---|:---:|:---:|:---:|
+|index|The index of the BlendShape.|integer|||
+|weight|The weight for this BlendShape.|number|[0.0, 100.0]||
+
 ### VGO_Light
 
 |definition name|description|type|setting value|default value|Spot|Directional|Point|Rectangle|Disc|
@@ -651,6 +698,112 @@ JSON{
                         "interpolation": "None",
                         "collisionDetectionMode": "Discrete",
                         "constraints": 36
+                    },
+                    "blendShape": {
+                        "name": "FaceBlendShapeConfiguration",
+                        "kind": 1,
+                        "faceParts": [
+                            {
+                                "index": 0,
+                                "type": 50
+                            },
+                            {
+                                "index": 1,
+                                "type": 50
+                            }
+                        ],
+                        "blinks": [
+                            {
+                                "type": 2,
+                                "index": 0
+                            },
+                            {
+                                "type": 3,
+                                "index": 1
+                            }
+                        ],
+                        "visemes": [
+                            {
+                                "type": 0,
+                                "index": 16
+                            },
+                            {
+                                "type": 1,
+                                "index": 14
+                            },
+                            {
+                                "type": 2,
+                                "index": 8
+                            },
+                            {
+                                "type": 3,
+                                "index": 18
+                            },
+                            {
+                                "type": 4,
+                                "index": 6
+                            },
+                            {
+                                "type": 5,
+                                "index": 10
+                            },
+                            {
+                                "type": 6,
+                                "index": 5
+                            },
+                            {
+                                "type": 7,
+                                "index": 17
+                            },
+                            {
+                                "type": 8,
+                                "index": 11
+                            },
+                            {
+                                "type": 9,
+                                "index": 15
+                            },
+                            {
+                                "type": 10,
+                                "index": 4
+                            },
+                            {
+                                "type": 11,
+                                "index": 7
+                            },
+                            {
+                                "type": 12,
+                                "index": 9
+                            },
+                            {
+                                "type": 13,
+                                "index": 12
+                            },
+                            {
+                                "type": 14,
+                                "index": 13
+                            }
+                        ],
+                        "presets": [
+                            {
+                                "name": "Joy",
+                                "type": 2,
+                                "bindings": [
+                                    {
+                                        "index": 24,
+                                        "weight": 100.0
+                                    },
+                                    {
+                                        "index": 36,
+                                        "weight": 100.0
+                                    },
+                                    {
+                                        "index": 44,
+                                        "weight": 100.0
+                                    }
+                                ]
+                            }
+                        ]
                     },
                     "light":{
                         "enabled":true,
@@ -1305,7 +1458,7 @@ JSON{
 }
 ```
 ___
-Last updated: 15 March, 2020  
+Last updated: 15 August, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

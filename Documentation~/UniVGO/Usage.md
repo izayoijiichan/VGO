@@ -12,8 +12,8 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2019.4|
-|2|UniVGO version|1.0.0|
-|3|VGO spec version|0.6|
+|2|UniVGO version|1.1.0|
+|3|VGO spec version|1.0|
 
 ### Supported Unity components
 
@@ -23,11 +23,12 @@ The following Unity components are supported by VGO
 |:---:|:---|:---|:---|
 |1|Vgo Meta|Root|It is for managing VGO information.|
 |2|Vgo Right|Root / Child|You can add rights information to VGO.|
-|3|Collider|Child|You can set collision judgment for GameObject.|
-|4|Rigidbody|Child|You can set physics to GameObject and move it|
-|5|Light|Child|You can set the light source for GameObject.|
-|6|Particle System|Child|You can set particles to GameObject.|
-|7|Skybox|Child|You can set skybox to Scene.|
+|3|Animator|Root|You can set Human Avatar in GameObject.|
+|4|Collider|Child|You can set collision judgment for GameObject.|
+|5|Rigidbody|Child|You can set physics to GameObject and move it|
+|6|Light|Child|You can set the light source for GameObject.|
+|7|Particle System|Child|You can set particles to GameObject.|
+|8|Skybox|Child|You can set skybox to Scene.|
 
 ### Usable shaders
 
@@ -53,7 +54,97 @@ The supported shaders are as follows.
 - Skybox / Cubemap is not supported.
 
 ___
-## Create VGO
+## Create VGO (for humanoid avatar)
+
+### 1. Load scene
+
+If you use the UniVGO sample project, load `ExportScene`.  
+If you want to create a new one, work on any scene.
+
+
+### 2. setting a model
+
+Use a model with `Human Avatar` set in the `Avatar` of the `Animator` component.
+
+[GameObject]
+
+|No|component|description|
+|:---:|:---|:---|
+|1|(Name)|Set any name.|
+|2|Transform|Must be the initial value.|
+|3|Vgo Right|Set freely.|
+|4|Vgo Meta|It is OK just to attach.|
+
+The order of the components does not matter.
+
+[Transform]
+
+|No|item|value|
+|:---:|:---|:---|
+|1|Position|X: 0, Y: 0, Z: 0|
+|2|Rotation|X: 0, Y: 0, Z: 0|
+|3|Scale|X: 1, Y: 1, Z: 1|
+
+[Animator]
+
+|No|€–Ú|’l|
+|:---:|:---|:---|
+|1|Avatar|(Human Avatar)|
+
+[Vgo Right]
+
+|No|item|description|remarks|
+|:---:|:---|:---|:---|
+|1|Title|The name of the work.|Required|
+|2|Author|The name of the creator.|Required|
+|3|Organization|The organization to which the creator belongs.||
+|4|Created Date|The creation date of the work.|There is no format specification.|
+|5|Updated Date|Update date of the work.|There is no format specification.|
+|6|Version|Version of the work.|There is no format specification.|
+|7|Distribution Url|Distribution URL.||
+|8|License Url|The URL where the license is described.||
+
+[Vgo Meta]
+
+|No|item|description|value|
+|:---:|:---|:---|:---:|
+|1|Generator Name|The name of the generation tool.|UniVGO|
+|2|Generator Version|Version of the generation tool.|1.1.0|
+|3|Spec Version|This is the specification version of VGO.|1.0|
+
+There are no user-configurable items.  
+If the meta information is old, delete the component once and attach it again.
+
+### 3. BlendShape
+
+If necessary, set the BlendShape of the face.  
+(Apps using UniVGO may refer to this setting)
+
+Select the GameObject of the face in the `Hierarchy` tab.
+
+Make sure the `Skinned Mesh Renderer` component has a parameter of `BlendShapes`.
+
+Attath a new `Vgo BlendShape` component.
+
+Then right-click on the `Project` tab,  
+Create a configuration file with `Create > VGO > BlendShapeConfiguration`.
+
+[Vgo BlendShape]
+
+|No|item|description|remarks|
+|:---:|:---|:---|:---|
+|1|Kind|The kind of BlendShape. Select `Face`.|Required|
+|2|Face Parts|Associate which part of the face the BlendShape is.|Option|
+|3|Blinks|Register the BlendShape to use when blinking.|Option|
+|4|Visemes|Associate the viseme. Only vowels are OK.|Option|
+|5|Presets|Register the preset.|Option|
+
+BlendShape's index is counted from 0 at the top.
+
+After setting, set the configuration file in `BlendShapeConfiguration` of the `Vgo BlendShape` component.
+
+___
+## Create VGO (other than humanoid avatar)
 
 ### 1. Load scene
 
@@ -109,8 +200,8 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Generator Name|The name of the generation tool.|UniVGO|
-|2|Generator Version|Version of the generation tool.|0.8.3|
-|3|Spec Version|This is the specification version of VGO.|0.6|
+|2|Generator Version|Version of the generation tool.|1.1.0|
+|3|Spec Version|This is the specification version of VGO.|1.0|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -235,6 +326,18 @@ ___
 
 Prepare a VGO file (.vgo).
 
+### 1-1. If there is no VGO file (humanoid avatar)
+
+Initial import using UniVGO is not possible.
+
+You need to prepare a file of a file format (.fbx, .dae, .3ds, .dxf, .obj, .blender, .max, etc..) that Unity supports Humanoid import.
+
+Import the file using Unity's functionality.
+
+At this time, Rig must be set correctly.
+
+### 1-2. If there is no VGO file (other than humanoid avatar)
+
 If you do not have a VGO file (such as during your first work),  
 you can also start with a GLB file (.glb) or GLTF file (.gltf).
 
@@ -297,7 +400,10 @@ If you write your own script, write as follows.
         private void Start()
         {
             var importer = new VgoImporter();
+
             importer.Load(filePath);
+
+            importer.ReflectSkybox(Camera.main);
         }
     }
 ~~~
@@ -327,7 +433,7 @@ You can specify a VGO file for your shop.
 https://vishop.azurewebsites.net
 
 ___
-Last updated: 7 August, 2020  
+Last updated: 15 August, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

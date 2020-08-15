@@ -1,0 +1,129 @@
+{
+    "$id": "vgo.ps.noiseModule",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "separateAxes": {
+            "type": "boolean"
+        },
+        "strengthX": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "strengthY": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "strengthZ": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "strengthXMultiplier": {
+            "type": "number"
+        },
+        "strengthYMultiplier": {
+            "type": "number"
+        },
+        "strengthZMultiplier": {
+            "type": "number"
+        },
+        "frequency": {
+            "type": "number"
+        },
+        "scrollSpeed": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "scrollSpeedMultiplier": {
+            "type": "number"
+        },
+        "damping": {
+            "type": "boolean"
+        },
+        "octaveCount": {
+            "type": "integer"
+        },
+        "octaveMultiplier": {
+            "type": "number"
+        },
+        "octaveScale": {
+            "type": "number"
+        },
+        "quality": {
+            "type": "string",
+            "enum": [
+                "Low",
+                "Medium",
+                "High"
+            ]
+        },
+        "remapEnabled": {
+            "type": "boolean"
+        },
+        "remapX": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "remapY": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "remapZ": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "remapXMultiplier": {
+            "type": "number"
+        },
+        "remapYMultiplier": {
+            "type": "number"
+        },
+        "remapZMultiplier": {
+            "type": "number"
+        },
+        "positionAmount": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "rotationAmount": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "sizeAmount": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        }
+    }
+}
