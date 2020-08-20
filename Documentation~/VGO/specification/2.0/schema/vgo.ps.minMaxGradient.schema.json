@@ -1,0 +1,83 @@
+{
+    "$id": "vgo.ps.minMaxGradient",
+    "type": "object",
+    "properties": {
+        "mode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Color",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Gradient",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "TwoColors",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "TwoGradients",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "RandomColor",
+                    "type": "integer"
+                }
+            ]
+        },
+        "color": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "colorMin": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "colorMax": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "gradient": {
+            "$id": "vgo.gradient",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "gradientMin": {
+            "$id": "vgo.gradient",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "gradientMax": {
+            "$id": "vgo.gradient",
+            "type": [
+                "object",
+                "null"
+            ]
+        }
+    }
+}

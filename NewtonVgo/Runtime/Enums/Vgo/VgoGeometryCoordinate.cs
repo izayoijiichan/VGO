@@ -1,0 +1,17 @@
+﻿// ----------------------------------------------------------------------
+// @Namespace : NewtonVgo
+// @Enum      : VgoGeometryCoordinate
+// ----------------------------------------------------------------------
+namespace NewtonVgo
+{
+    /// <summary>The type of the geometry coodinates.</summary>
+    public enum VgoGeometryCoordinate : byte
+    {
+        /// <summary></summary>
+        None = 0,
+        /// <summary>right-handed</summary>
+        RightHanded = 1,
+        /// <summary>left-handed</summary>
+        LeftHanded = 2,
+    }
+}

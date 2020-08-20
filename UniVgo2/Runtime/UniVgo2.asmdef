@@ -1,0 +1,26 @@
+{
+    "name": "UniVgo2",
+    "references": [
+        "NewtonVgo",
+        "ShaderProperty.Runtime",
+        "MToon",
+        "UniUnlit",
+        "UniShader.Skybox.Utility",
+        "UniShader.Standard.Particle.Utility",
+        "UniShader.Standard.Utility"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [
+        "Newtonsoft.Json.dll",
+        "System.Buffers.dll",
+        "System.Memory.dll",
+        "System.Numerics.Vectors.dll",
+        "System.Runtime.CompilerServices.Unsafe.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

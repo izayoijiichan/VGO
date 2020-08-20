@@ -1,0 +1,71 @@
+{
+    "$id": "vgo.animationCurve",
+    "type": "object",
+    "properties": {
+        "keys": {
+            "$id": "VGO_Keyframe[]",
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "preWrapMode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Default",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Once",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Loop",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "Loop",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 8 ],
+                    "description": "PingPong",
+                    "type": "ClampForever"
+                }
+            ]
+        },
+        "postWrapMode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Default",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Once",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Loop",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "Loop",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 8 ],
+                    "description": "PingPong",
+                    "type": "ClampForever"
+                }
+            ]
+        }
+    }
+}

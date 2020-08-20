@@ -1,0 +1,242 @@
+{
+    "title": "Texture",
+    "description": "A texture.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The user-defined name of this object.",
+            "type": "string"
+        },
+        "source": {
+            "description": "The index of the accessor that contains the image.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "dimensionType": {
+            "description": "Dimensionality type of the texture.",
+            "anyOf": [
+                {
+                    "enum": [ -1 ],
+                    "description": "Unknown",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 0 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Any",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Tex2D",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "Tex3D",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "Cube",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5 ],
+                    "description": "Tex2DArray",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 6 ],
+                    "description": "CubeArray",
+                    "type": "integer"
+                }
+            ],
+            "default": 2
+        },
+        "mapType": {
+            "description": "The texture type.",
+            "anyOf": [
+                {
+                    "enum": [ -1 ],
+                    "description": "Unknown",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 0 ],
+                    "description": "Default",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "NormalMap",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "HeightMap",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "OcclusionMap",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "EmissionMap",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5 ],
+                    "description": "MetallicRoughnessMap",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 6 ],
+                    "description": "SpecularGlossinessMap",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 7 ],
+                    "description": "CubeMap",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        },
+        "colorSpace": {
+            "description": "Image color space.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "sRGB",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Linear",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        },
+        "mimeType": {
+            "description": "The image's MIME type.",
+            "type": "string"
+        },
+        "filterMode": {
+            "description": "Filtering mode of the texture.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Point",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Bilinear",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Trilinear",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        },
+        "wrapMode": {
+            "description": "Texture coordinate wrapping mode.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Repeat",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Clamp",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Mirror",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "MirrorOnce",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        },
+        "wrapModeU": {
+            "description": "Texture U coordinate wrapping mode.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Repeat",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Clamp",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Mirror",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "MirrorOnce",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        },
+        "wrapModeV": {
+            "description": "Texture V coordinate wrapping mode.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Repeat",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Clamp",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Mirror",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "MirrorOnce",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        },
+        "metallicRoughness": {
+            "description": "The metallic-roughness of the material.",
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0,
+        },
+        "extensions": { }
+    },
+    "required": [
+        "resourceAccessor"
+    ]
+}

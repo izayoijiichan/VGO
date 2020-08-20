@@ -1,0 +1,42 @@
+{
+    "$id": "vgo.ps.rotationOverLifetimeModule",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "separateAxes": {
+            "type": "boolean"
+        },
+        "x": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "y": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "z": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "xMultiplier": {
+            "type": "number"
+        },
+        "yMultiplier": {
+            "type": "number"
+        },
+        "zMultiplier": {
+            "type": "number"
+        }
+    }
+}

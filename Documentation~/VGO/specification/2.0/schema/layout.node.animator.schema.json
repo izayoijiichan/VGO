@@ -1,0 +1,68 @@
+{
+    "title": "animator",
+    "description": "The animator.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The name of the object.",
+            "type": "string"
+        },
+        "enabled": {
+            "type": "boolean",
+            "default": true
+        },
+        "humanAvatar": {
+            "description": "The current human avatar.",
+            "$ref": "vgo.humanAvatar.schema.json"
+        },
+        "applyRootMotion": {
+            "description": "Should root motion be applied?",
+            "type": "boolean",
+            "default": false
+        },
+        "updateMode": {
+            "description": "Specifies the update mode of the Animator.",
+            "type": "integer",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Normal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "AnimatePhysics",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "UnscaledTime",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        },
+        "cullingMode": {
+            "description": "Controls culling of this Animator component.",
+            "type": "integer",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "AlwaysAnimate",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "CullUpdateTransforms",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "CullCompletely",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        }
+    }
+}

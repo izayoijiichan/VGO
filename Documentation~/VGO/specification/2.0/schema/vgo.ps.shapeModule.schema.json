@@ -1,0 +1,369 @@
+{
+    "$id": "vgo.ps.shapeModule",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "shapeType": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Sphere",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "SphereShell",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Hemisphere",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "HemisphereShell",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "Cone",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5 ],
+                    "description": "Box",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 6 ],
+                    "description": "Mesh",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 7 ],
+                    "description": "ConeShell",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 8 ],
+                    "description": "ConeVolume",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 9 ],
+                    "description": "ConeVolumeShell",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 10 ],
+                    "description": "Circle",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 11 ],
+                    "description": "CircleEdge",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 12 ],
+                    "description": "SingleSidedEdge",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 13 ],
+                    "description": "MeshRenderer",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 14 ],
+                    "description": "SkinnedMeshRenderer",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 15 ],
+                    "description": "BoxShell",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 16 ],
+                    "description": "BoxEdge",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 17 ],
+                    "description": "Donut",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 18 ],
+                    "description": "Rectangle",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 19 ],
+                    "description": "Sprite",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 20 ],
+                    "description": "SpriteRenderer",
+                    "type": "integer"
+                }
+            ]
+        },
+        "angle": {
+            "type": "number"
+        },
+        "radius": {
+            "type": "number"
+        },
+        "donutRadius": {
+            "type": "number"
+        },
+        "radiusMode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Random",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Loop",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "PingPong",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "BurstSpread",
+                    "type": "integer"
+                }
+            ]
+        },
+        "radiusSpread": {
+            "type": "number"
+        },
+        "radiusSpeed": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "radiusSpeedMultiplier": {
+            "type": "number"
+        },
+        "radiusThickness": {
+            "type": "number"
+        },
+        "boxThickness": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "arc": {
+            "type": "number"
+        },
+        "arcMode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Random",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Loop",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "PingPong",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "BurstSpread",
+                    "type": "integer"
+                }
+            ]
+        },
+        "arcSpread": {
+            "type": "number"
+        },
+        "arcSpeed": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "arcSpeedMultiplier": {
+            "type": "number"
+        },
+        "length": {
+            "type": "number"
+        },
+        "meshShapeType": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Vertex",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Edge",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Triangle",
+                    "type": "integer"
+                }
+            ]
+        },
+        "meshSpawnMode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Random",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Loop",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "PingPong",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "BurstSpread",
+                    "type": "integer"
+                }
+            ]
+        },
+        "meshSpawnSpread": {
+            "type": "number"
+        },
+        "meshSpawnSpeed": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "meshSpawnSpeedMultiplier": {
+            "type": "number"
+        },
+        "useMeshMaterialIndex": {
+            "type": "boolean"
+        },
+        "meshMaterialIndex": {
+            "type": "integer"
+        },
+        "useMeshColors": {
+            "type": "boolean"
+        },
+        "normalOffset": {
+            "type": "number"
+        },
+        "textureIndex": {
+            "type": "integer",
+            "default": -1
+        },
+        "textureClipChannel": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Red",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Green",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Blue",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "Alpha",
+                    "type": "integer"
+                }
+            ]
+        },
+        "textureClipThreshold": {
+            "type": "number"
+        },
+        "textureColorAffectsParticles": {
+            "type": "boolean"
+        },
+        "textureAlphaAffectsParticles": {
+            "type": "boolean"
+        },
+        "textureBilinearFiltering": {
+            "type": "boolean"
+        },
+        "textureUVChannel": {
+            "type": "integer"
+        },
+        "position": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "rotation": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "scale": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "alignToDirection": {
+            "type": "boolean"
+        },
+        "randomDirectionAmount": {
+            "type": "number"
+        },
+        "sphericalDirectionAmount": {
+            "type": "number"
+        },
+        "randomPositionAmount": {
+            "type": "number"
+        }
+    }
+}

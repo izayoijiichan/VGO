@@ -1,0 +1,88 @@
+{
+    "title": "node",
+    "description": "A Node.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The user-defined name of this object.",
+            "type": "string"
+        },
+        "isRoot": {
+            "description": "Whether GameObject is root.",
+            "type": "boolean",
+            "default": false
+        },
+        "isActive": {
+            "description": "Whether GameObject is active.",
+            "type": "boolean",
+            "default": true
+        },
+        "isStatic": {
+            "description": "Whether GameObject is static.",
+            "type": "boolean",
+            "default": false
+        },
+        "tag": {
+            "description": "Tag attached to GameObject.",
+            "type": "string"
+        },
+        "layer": {
+            "description": "Index of the layer where GameObject is located.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 31,
+            "default": 0
+        },
+        "animator": {
+            "$ref": "layout.node.animator.schema.json"
+        },
+        "rigidbody": {
+            "$ref": "layout.node.rigidbody.schema.json"
+        },
+        "colliders": {
+            "description": "List of collider.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "$ref": "layout.node.colliders.schema.json"
+            }
+        },
+        "skybox": {
+            "$ref": "vgo.skybox.schema.json"
+        },
+        "light": {
+            "$ref": "vgo.light.schema.json"
+        },
+        "right": {
+            "$ref": "assetInfo.right.schema.json"
+        },
+        "particle": {
+            "description": "The index of the particle.",
+            "type": "integer"
+        },
+        "mesh": {
+            "description": "The index of the mesh in this node.",
+            "type": "integer"
+        },
+        "skin": {
+            "description": "The index of the skin referenced by this node.",
+            "type": "integer"
+        },
+        "children": {
+            "description": "The indices of this node's children.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "integer"
+            }
+        },
+        "extensions": {
+            "description": "Dictionary object with extension-specific objects.",
+            "type": "object"
+        }
+    }
+}
