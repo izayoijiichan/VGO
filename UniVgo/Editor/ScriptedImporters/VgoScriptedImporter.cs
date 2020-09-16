@@ -2,6 +2,7 @@
 // @Namespace : UniVgo.Editor
 // @Class     : VgoScriptedImporter
 // ----------------------------------------------------------------------
+#if !VGO_1_DISABLE_SCRIPTED_IMPORTER
 namespace UniVgo.Editor
 {
     using System;
@@ -15,7 +16,11 @@ namespace UniVgo.Editor
     /// <summary>
     /// VGO Scripted Importer
     /// </summary>
+#if VGO_FILE_EXTENSION_1
+    [ScriptedImporter(1, "vgo1")]
+#else
     [ScriptedImporter(1, "vgo")]
+#endif
     public class VgoScriptedImporter : ScriptedImporter
     {
         /// <summary>The blend shape directory name.</summary>
@@ -95,15 +100,22 @@ namespace UniVgo.Editor
                         }
                         else
                         {
-                            var blendShapeConfigurationList = modelAsset.ScriptableObjectList
-                                .Where(x => x.GetType() == typeof(BlendShapeConfiguration))
-                                .Select(x => x as BlendShapeConfiguration)
-                                .ToList();
-
-                            foreach (BlendShapeConfiguration blendShapeConfiguration in blendShapeConfigurationList)
+                            if (modelAsset.ScriptableObjectList != null)
                             {
-                                blendShapeConfiguration.name = blendShapeConfiguration.kind + "BlendShapeConfiguration";
-                                ctx.AddObjectToAsset(blendShapeConfiguration.name, blendShapeConfiguration);
+                                var blendShapeConfigurationList = modelAsset.ScriptableObjectList
+                                    .Where(x => x != null)
+                                    .Where(x => x.GetType() == typeof(BlendShapeConfiguration))
+                                    .Select(x => x as BlendShapeConfiguration)
+                                    .ToList();
+
+                                if (blendShapeConfigurationList != null)
+                                {
+                                    foreach (BlendShapeConfiguration blendShapeConfiguration in blendShapeConfigurationList)
+                                    {
+                                        blendShapeConfiguration.name = blendShapeConfiguration.kind + "BlendShapeConfiguration";
+                                        ctx.AddObjectToAsset(blendShapeConfiguration.name, blendShapeConfiguration);
+                                    }
+                                }
                             }
                         }
                     }
@@ -369,3 +381,4 @@ namespace UniVgo.Editor
         }
     }
 }
+#endif

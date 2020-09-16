@@ -14,6 +14,11 @@ ___
 [Japanese](https://github.com/izayoijiichan/VGO/blob/master/README.ja.md).
 
 ___
+## New Version
+
+[VGO2](https://github.com/izayoijiichan/VGO2/blob/master/README.md).
+
+___
 ## Implementation
 
 - glTF
@@ -96,7 +101,7 @@ It is distributed at the following URL.
 https://github.com/izayoijiichan/vgo.parameter.viewer
 
 ___
-Last updated: 15 August, 2020  
+Last updated: 17 September, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -15,6 +15,11 @@ ___
 [English](https://github.com/izayoijiichan/VGO/blob/master/README.md).
 
 ___
+## 新バージョン
+
+[VGO2](https://github.com/izayoijiichan/VGO2/blob/master/README.ja.md).
+
+___
 ## 実装
 
 - glTF
@@ -95,7 +100,7 @@ VGOファイルの中身を確認するためのツールです。
 https://github.com/izayoijiichan/vgo.parameter.viewer
 
 ___
-最終更新日：2020年8月15日  
+最終更新日：2020年9月17日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.1.1] - 2020-09-17
+- Fixed
+  - Fixed a bug that importing vgo files that do not use blendshape fails.
+- Add
+  - Added Script Define Symbols for use with version 2.0.
+    VGO_1_DISABLE_SCRIPTED_IMPORTER and VGO_FILE_EXTENSION_1
+
 ## [1.1.0] - 2020-08-15
 - Features
   - Unity Humanoid Avatar parameter support.
