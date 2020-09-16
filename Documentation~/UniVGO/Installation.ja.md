@@ -13,9 +13,9 @@ ___
 |Unity 2019.2|未確認|未確認|未確認|未確認|未確認|
 |Unity 2019.3|未確認|未確認|未確認|未確認|未確認|
 |Unity 2019.4|○|○|○|○|未確認|
-|Unity 2020.1|未確認|未確認|未確認|未確認|未確認|
+|Unity 2020.1|○|○|○|○|未確認|
 
-2020年8月の時点では `Unity 2019.4` の `Windows` `.NET Standard 2.0` 環境にて開発＆確認を行っています。
+2020年9月の時点では `Unity 2020.1` の `Windows` `.NET Standard 2.0` 環境にて開発＆確認を行っています。
 
 
 ### 必要パッケージ
@@ -29,7 +29,7 @@ ___
 |newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.301|2020年1月20日|
 |VRMShaders|vrm-c|GitHub||0.56.0|2020年7月3日|
 |UniShaders|IzayoiJiichan|GitHub||1.0.1|2020年8月13日|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.0|2.0.0|2020年8月20日|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.0|2.0.1|2020年9月17日|
 
 ___
 ## インストール
@@ -45,7 +45,7 @@ https://github.com/izayoijiichan/univgo2.sample.unity.project
 
 #### 2. Unity のインストール
 
-Unity Hub にて`Unity 2019.4.0f1`をインストールします。
+Unity Hub にて`Unity 2019.4.10f1`をインストールします。
 
 #### 3. プロジェクトを読み込み
 
@@ -91,7 +91,7 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.0",
     "izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.0.1",
-    "izayoi.univgo2": "https://github.com/izayoijiichan/VGO2.git#v2.0.0",
+    "izayoi.univgo2": "https://github.com/izayoijiichan/VGO2.git#v2.0.1",
     "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -158,10 +158,43 @@ ___
 
 - UniVgo2, UniVgo2.Editor それぞれについて、依存関係にあるDLLに * を付けています。
 - MToon, ShaderProperty, UniUnlit はVRMShaders (©vrm-c) に梱包されているプログラムです。
-- UniVGO (ver1) と UniVGO2 を併用する場合は、UniVgo (ver1) UniGLTFフォルダーとUniVgo (ver1) のEditorフォルダーを削除する必要があります。どちらも`.vgo`という拡張子であるため競合が発生します。
-- UniVRM と UniVGO を併用する場合は、UniVgo を取得した際に梱包されていた重複するファイルを削除する必要があります。UniGLTFフォルダーにあるシェーダー類が該当します。
+
+### UniVGO version 1.0 と version 2.0 の併用方法
+
+Unity Editor に UniVGO と UniVGO2 のパッケージを両方同時にインストールするには  
+大きく２つのエラーを回避する必要があります。
+
+- 1. 重複シェーダー
+
+どちらかの`UniGLTF`フォルダーを削除します。
+
+- 2. Scripted Importer
+
+`VgoScriptedImporter`がどちらも`.vgo`という拡張子を処理しようとするため、そのままでは競合によりエラーが発生します。
+
+UniVGO (v1.1.1以降) と UniVGO2 (v2.0.1以降) では  
+Script Define Symbols に定義を追加することで、処理を変更しエラーを回避することができます。
+
+|Script Define Symbols|説明|
+|:---|:---|
+|VGO_FILE_EXTENSION_1|version 1 の ファイル拡張子を`.vgo1`として判定するよう変更します。|
+|VGO_FILE_EXTENSION_2|version 2 の ファイル拡張子を`.vgo2`として判定するよう変更します。|
+|VGO_1_DISABLE_SCRIPTED_IMPORTER|version 1 の Scripted Importer を無効にします。|
+|VGO_2_DISABLE_SCRIPTED_IMPORTER|version 2 の Scripted Importer を無効にします。|
+
+用途に応じて定義を追加・削除してください。
+
+設定がすぐに反映されない場合には Unity Editor の再起動してください。
+
+###  UniVRM と UniVGO の併用方法
+
+Unity Editor に UniVRM と UniVGO2 のパッケージを両方同時にインストールするには  
+UniVgo を取得した際に梱包されていた重複するファイルを削除する必要があります。
+
+UniGLTFフォルダーにあるシェーダー類が該当します。
+
 ___
-最終更新日：2020年8月20日  
+最終更新日：2020年9月17日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

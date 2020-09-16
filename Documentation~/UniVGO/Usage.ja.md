@@ -195,13 +195,12 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |7|Distribution Url|配布URLです。||
 |8|License Url|ライセンスの記載されたURLです。||
 
-【Vgo Meta】
+【Vgo Generator】
 
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Generator Name|生成ツールの名前です。|UniVGO|
-|2|Generator Version|生成ツールのバージョンです。|1.1.0|
-|3|Spec Version|VGOの仕様バージョンです。|1.0|
+|2|Generator Version|生成ツールのバージョンです。|2.0.0|
 
 ユーザーが設定可能な項目はありません。  
 メタ情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -444,7 +443,7 @@ https://vovola.wixsite.com/website
 https://vishop.azurewebsites.net
 
 ___
-最終更新日：2020年8月20日  
+最終更新日：2020年9月17日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*
