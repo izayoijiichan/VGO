@@ -1,0 +1,25 @@
+{
+    "$id": "vgo.ps.colorBySpeedModule",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "color": {
+            "$id": "vgo.ps.minMaxGradient",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "range": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        }
+    }
+}

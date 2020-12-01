@@ -35,6 +35,7 @@ ___
 |newtonsoft-json-for-unity|jillejr|GitHub|[link](https://github.com/jilleJr/Newtonsoft.Json-for-Unity)|
 |com.vrmc.vrmshaders|vrm-c|GitHub|[link](https://github.com/vrm-c/UniVRM/tree/master/Assets/VRMShaders)|
 |izayoi.unishaders|IzayoiJiichan|GitHub|[link](https://github.com/izayoijiichan/UniShaders.git)|
+|izayoi.vgospringbone|IzayoiJiichan|GitHub|[link](https://github.com/izayoijiichan/VgoSpringBone.git)|
 
 See the `Installation` for the version etc. for the combination.
 

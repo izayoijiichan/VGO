@@ -1,0 +1,15 @@
+{
+    "$id": "vgo.gradient.colorKey",
+    "type": "object",
+    "properties": {
+        "color": {
+            "type": "array",
+            "items": {
+                "type": "number"
+            }
+        },
+        "time": {
+            "type": "number"
+        }
+    }
+}

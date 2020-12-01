@@ -15,7 +15,7 @@ ___
 |Unity 2019.4|OK|OK|OK|OK|unconfirmed|
 |Unity 2020.1|OK|OK|OK|OK|unconfirmed|
 
-As of September of 2020, we are developing and confirming in `Unity 2020.1` `Windows` `.NET Standard 2.0` environment.
+As of December of 2020, we are developing and confirming in `Unity 2020.1` `Windows` `.NET Standard 2.0` environment.
 
 ### Required package
 
@@ -28,7 +28,8 @@ As of September of 2020, we are developing and confirming in `Unity 2020.1` `Win
 |newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.301|20 Jan, 2020|
 |VRMShaders|vrm-c|GitHub|VRM 0.0|0.56.0|3 Jul, 2020|
 |UniShaders|IzayoiJiichan|GitHub|-|1.0.1|13 Aug, 2020|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.0|2.0.1|17 Sep, 2020|
+|VgoSpringBone|IzayoiJiichan|GitHub|-|1.0.0|1 Dec, 2020|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.1|2.1.0|1 Dec, 2020|
 
 ___
 ## Install
@@ -91,6 +92,7 @@ You need to be careful where you add them.
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.0",
     "izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.0.1",
     "izayoi.univgo2": "https://github.com/izayoijiichan/VGO2.git#v2.0.1",
+    "izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.0.0",
     "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -152,6 +154,7 @@ When the package is installed in the project, the script is automatically compil
 |UniUnlit.Editor|Unlit shader utility|-|*|
 |UniVgo2|VGO2 main program|*|*|
 |UniVgo2.Editor|VGO2 import / export|-|*|
+|VgoSpringBone|VGO Spring Bone|*|*|
 
 - For each of UniVgo2, and UniVgo2.Editor, * is attached to the dependent DLL.
 - MToon, ShaderProperty, UniUnlit is a program packed in VRMShaders (©vrm-c).
@@ -190,7 +193,7 @@ To install both UniVRM and UniVGO2 packages in the Unity Editor at the same time
 This applies to shaders in the UniGLTF folder.
 
 ___
-Last updated: 17 September, 2020  
+Last updated: 1 December, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

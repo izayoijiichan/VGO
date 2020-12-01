@@ -141,6 +141,8 @@ namespace UniVgo2
             ModelAsset.MaterialList = CreateUnityMaterialList();
             ModelAsset.SkinList = CreateUnitySkinList();
             ModelAsset.ParticleSystemList = CreateUnityParticleSystemList();
+            ModelAsset.VgoSpringBoneGroupList = CreateUnityVgoSpringBoneGroupList();
+            ModelAsset.VgoSpringBoneColliderGroupList = CreateUnityVgoSpringBoneColliderGroupList();
             CreateMeshAndMeshAssetList();
 
             // Materials & Textures
@@ -157,6 +159,8 @@ namespace UniVgo2
 
             // Nodes (include Root)
             CreateVgoNodes();
+
+            CreateSpringBoneInfo();
 
             SetVgoAssetInfo();
 
@@ -240,6 +244,61 @@ namespace UniVgo2
             }
 
             return materialList;
+        }
+
+        /// <summary>
+        /// Create list of unity VgoSpringBoneGroup.
+        /// </summary>
+        /// <returns>list of unity VgoSpringBoneGroup.</returns>
+        protected virtual List<VgoSpringBone.VgoSpringBoneGroup> CreateUnityVgoSpringBoneGroupList()
+        {
+            if (Nodes == null)
+            {
+                throw new Exception();
+            }
+
+            var componentList = new List<VgoSpringBone.VgoSpringBoneGroup>();
+
+            for (int index = 0; index < Nodes.Count; index++)
+            {
+                GameObject node = Nodes[index].gameObject;
+
+                if (node.TryGetComponentsEx(out VgoSpringBone.VgoSpringBoneGroup[] components))
+                {
+                    foreach (var component in components)
+                    {
+                        componentList.Add(component);
+                    }
+                }
+            }
+
+            return componentList;
+        }
+
+        /// <summary>
+        /// Create list of unity VgoSpringBoneColliderGroup.
+        /// </summary>
+        /// <returns>list of unity VgoSpringBoneColliderGroup.</returns>
+        protected virtual List<VgoSpringBone.VgoSpringBoneColliderGroup> CreateUnityVgoSpringBoneColliderGroupList()
+        {
+            if (Nodes == null)
+            {
+                throw new Exception();
+            }
+
+            var componentList = new List<VgoSpringBone.VgoSpringBoneColliderGroup>();
+
+            for (int index = 0; index < Nodes.Count; index++)
+            {
+                GameObject node = Nodes[index].gameObject;
+
+                if (node.TryGetComponentEx(out VgoSpringBone.VgoSpringBoneColliderGroup component))
+                {
+                    componentList.Add(component);
+                }
+            }
+
+            return componentList;
         }
 
         #endregion
@@ -717,10 +776,27 @@ namespace UniVgo2
                 vgoNode.skin = skins.IndexOf(skinnedMeshRenderer);
             }
 
+            // SpringBone
+            if (gameObject.TryGetComponentsEx(out VgoSpringBone.VgoSpringBoneGroup[] vgoSpringBoneGroups))
+            {
+                vgoNode.springBoneGroups = new List<int>(vgoSpringBoneGroups.Length);
+
+                foreach (var group in vgoSpringBoneGroups)
+                {
+                    vgoNode.springBoneGroups.Add(ModelAsset.VgoSpringBoneGroupList.IndexOf(group));
+                }
+            }
+
+            // SpringBoneCollider
+            if (gameObject.TryGetComponentEx(out VgoSpringBone.VgoSpringBoneColliderGroup vgoSpringBoneColliderGroup))
+            {
+                vgoNode.springBoneColliderGroup = ModelAsset.VgoSpringBoneColliderGroupList.IndexOf(vgoSpringBoneColliderGroup);
+            }
+
             // Children
             if (gameObject.transform.childCount > 0)
             {
-                vgoNode.children = new List<int>();
+                vgoNode.children = new List<int>(gameObject.transform.childCount);
 
                 foreach (Transform child in gameObject.transform)
                 {
@@ -813,6 +889,105 @@ namespace UniVgo2
                 else
                 {
                     throw new Exception($"ParticleSystem[{index}] ParticleSystemRenderer component is not found.");
+                }
+            }
+        }
+
+        #endregion
+
+        #region layout.springBoneInfo
+
+        /// <summary>
+        /// Create layout.springBoneInfo.
+        /// </summary>
+        protected virtual void CreateSpringBoneInfo()
+        {
+            if ((ModelAsset.VgoSpringBoneGroupList == null) &&
+                (ModelAsset.VgoSpringBoneColliderGroupList == null))
+            {
+                return;
+            }
+
+            Layout.springBoneInfo = new VgoSpringBoneInfo();
+
+            // springBoneInfo.springBoneGroups
+            if (ModelAsset.VgoSpringBoneGroupList != null)
+            {
+                Layout.springBoneInfo.springBoneGroups = new List<VgoSpringBoneGroup>(ModelAsset.VgoSpringBoneGroupList.Count);
+
+                foreach (var component in ModelAsset.VgoSpringBoneGroupList)
+                {
+                    var boneGroup = new VgoSpringBoneGroup
+                    {
+                        comment = component.comment,
+                        dragForce = component.dragForce,
+                        stiffnessForce = component.stiffnessForce,
+                        gravityDirection = component.gravityDirection.ToNumericsVector3(),
+                        gravityPower = component.gravityPower,
+                        hitRadius = component.hitRadius,
+                        drawGizmo = component.drawGizmo,
+                        gizmoColor = component.gizmoColor.ToVgoColor3(),
+                    };
+
+                    // boneGroup.rootBones
+                    if ((component.rootBones != null) && (component.rootBones.Length > 0))
+                    {
+                        boneGroup.rootBones = new int[component.rootBones.Length];
+
+                        for (int index = 0; index < component.rootBones.Length; index++)
+                        {
+                            boneGroup.rootBones[index] = Nodes.IndexOf(component.rootBones[index].transform);
+                        }
+                    }
+
+                    // boneGroup.colliderGroups
+                    if ((component.colliderGroups != null) &&
+                        (component.colliderGroups.Length > 0) &&
+                        (ModelAsset.VgoSpringBoneColliderGroupList != null))
+                    {
+                        boneGroup.colliderGroups = new int[component.colliderGroups.Length];
+
+                        for (int index = 0; index < component.colliderGroups.Length; index++)
+                        {
+                            boneGroup.colliderGroups[index] = ModelAsset.VgoSpringBoneColliderGroupList.IndexOf(component.colliderGroups[index]);
+                        }
+                    }
+
+                    Layout.springBoneInfo.springBoneGroups.Add(boneGroup);
+                }
+            }
+
+            // springBoneInfo.colliderGroups
+            if (ModelAsset.VgoSpringBoneColliderGroupList != null)
+            {
+                Layout.springBoneInfo.colliderGroups = new List<VgoSpringBoneColliderGroup>(ModelAsset.VgoSpringBoneColliderGroupList.Count);
+
+                foreach (var component in ModelAsset.VgoSpringBoneColliderGroupList)
+                {
+                    var colliderGroup = new VgoSpringBoneColliderGroup
+                    {
+                        gizmoColor = component.gizmoColor.ToVgoColor3(),
+                    };
+
+                    // colliderGroup.colliders
+                    if ((component.colliders != null) && (component.colliders.Length > 0))
+                    {
+                        colliderGroup.colliders = new VgoSpringBoneCollider[component.colliders.Length];
+
+                        for (int index = 0; index < component.colliders.Length; index++)
+                        {
+                            var collider = component.colliders[index];
+
+                            colliderGroup.colliders[index] = new VgoSpringBoneCollider
+                            {
+                                colliderType = (VgoSpringBoneColliderType)collider.colliderType,
+                                offset = collider.offset.ToNumericsVector3(),
+                                radius = collider.radius,
+                            };
+                        }
+                    }
+
+                    Layout.springBoneInfo.colliderGroups.Add(colliderGroup);
                 }
             }
         }

@@ -136,6 +136,9 @@ namespace UniVgo2
             // UnityEngine.Mesh
             ModelAsset.MeshAssetList = CreateMeshAssets();
 
+            // UnityEngine.VgoSpringBoneColliderGroup
+            ModelAsset.SpringBoneColliderGroupArray = CreateSpringBoneColliderGroupArray();
+
             // UnityEngine.GameObejct
             Nodes = CreateNodes();
 
@@ -328,6 +331,25 @@ namespace UniVgo2
 
         #endregion
 
+        #region Spring Bone
+
+        protected virtual VgoSpringBone.VgoSpringBoneColliderGroup[] CreateSpringBoneColliderGroupArray()
+        {
+            if (ModelAsset.Layout.springBoneInfo.colliderGroups == null)
+            {
+                return null;
+            }
+
+            if (ModelAsset.Layout.springBoneInfo.colliderGroups.Count == 0)
+            {
+                return null;
+            }
+
+            return new VgoSpringBone.VgoSpringBoneColliderGroup[ModelAsset.Layout.springBoneInfo.colliderGroups.Count];
+        }
+
+        #endregion
+
         #region Node
 
         /// <summary>
@@ -431,6 +453,12 @@ namespace UniVgo2
                 SetupNode(nodeIndex);
             }
 
+            // UnigyEngine.VgoSpringBone
+            for (int nodeIndex = 0; nodeIndex < Layout.nodes.Count; nodeIndex++)
+            {
+                SetupNodeSpringBone(nodeIndex);
+            }
+
             // UnityEngine.Renderer
             for (int nodeIndex = 0; nodeIndex < Layout.nodes.Count; nodeIndex++)
             {
@@ -444,7 +472,7 @@ namespace UniVgo2
         /// <summary>
         /// Setup a node.
         /// </summary>
-        /// <param name="nodeIndex">The index of gltf.node.</param>
+        /// <param name="nodeIndex">The index of layout.nodes.</param>
         protected virtual void SetupNode(int nodeIndex)
         {
             // GameObject
@@ -573,6 +601,108 @@ namespace UniVgo2
                 if (Layout.particles.TryGetValue(vgoNode.particle, out VgoParticleSystem vgoParticleSystem))
                 {
                     _ParticleSystemImporter.AddComponent(go, vgoParticleSystem, _StorageAdapter, ModelAsset.MaterialList, ModelAsset.Texture2dList);
+                }
+            }
+
+            // SpringBoneCollider
+            if ((vgoNode.springBoneColliderGroup != -1) && (Layout.springBoneInfo.colliderGroups != null))
+            {
+                if (Layout.springBoneInfo.colliderGroups.TryGetValue(vgoNode.springBoneColliderGroup, out VgoSpringBoneColliderGroup layoutSpringBoneColliderGroup))
+                {
+                    var component = go.AddComponent<VgoSpringBone.VgoSpringBoneColliderGroup>();
+
+                    if ((layoutSpringBoneColliderGroup.colliders != null) && (layoutSpringBoneColliderGroup.colliders.Length > 0))
+                    {
+                        component.colliders = new VgoSpringBone.SpringBoneCollider[layoutSpringBoneColliderGroup.colliders.Length];
+
+                        for (int index = 0; index < layoutSpringBoneColliderGroup.colliders.Length; index++)
+                        {
+                            VgoSpringBoneCollider layoutCollider = layoutSpringBoneColliderGroup.colliders[index];
+
+                            component.colliders[index] = new VgoSpringBone.SpringBoneCollider
+                            {
+                                colliderType = (VgoSpringBone.SpringBoneColliderType)layoutCollider.colliderType,
+                                offset = layoutCollider.offset.ToUnityVector3(),
+                                radius = layoutCollider.radius.GetValueOrDefault(0.0f),
+                            };
+                        }
+                    }
+
+                    component.gizmoColor = layoutSpringBoneColliderGroup.gizmoColor.ToUnityColor();
+
+                    ModelAsset.SpringBoneColliderGroupArray[vgoNode.springBoneColliderGroup] = component;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Setup a node spring bone.
+        /// </summary>
+        /// <param name="nodeIndex">The index of layout.nodes.</param>
+        protected virtual void SetupNodeSpringBone(int nodeIndex)
+        {
+            if (Layout.springBoneInfo?.springBoneGroups == null)
+            {
+                return;
+            }
+
+            GameObject go = Nodes[nodeIndex].gameObject;
+
+            VgoNode vgoNode = Layout.nodes[nodeIndex];
+
+            if (vgoNode.springBoneGroups == null)
+            {
+                return;
+            }
+
+            foreach (var groupIndex in vgoNode.springBoneGroups)
+            {
+                if (Layout.springBoneInfo.springBoneGroups.TryGetValue(groupIndex, out VgoSpringBoneGroup layoutSpringBoneGroup) == false)
+                {
+                    continue;
+                }
+
+                var component = go.AddComponent<VgoSpringBone.VgoSpringBoneGroup>();
+
+                component.comment = layoutSpringBoneGroup.comment;
+                component.dragForce = layoutSpringBoneGroup.dragForce.SafeValue(0.0f, 1.0f, 0.0f);
+                component.stiffnessForce = layoutSpringBoneGroup.stiffnessForce.SafeValue(0.0f, 4.0f, 1.0f);
+                component.gravityDirection = layoutSpringBoneGroup.gravityDirection.ToUnityVector3();
+                component.gravityPower = layoutSpringBoneGroup.gravityPower.SafeValue(0.0f, 2.0f, 1.0f);
+                component.hitRadius = layoutSpringBoneGroup.hitRadius.SafeValue(0.0f, 0.5f, 0.1f);
+                component.drawGizmo = layoutSpringBoneGroup.drawGizmo;
+                component.gizmoColor = layoutSpringBoneGroup.gizmoColor.ToUnityColor();
+
+                // rootBones
+                if ((layoutSpringBoneGroup.rootBones != null) && (layoutSpringBoneGroup.rootBones.Length > 0))
+                {
+                    component.rootBones = new Transform[layoutSpringBoneGroup.rootBones.Length];
+
+                    for (int index = 0; index < layoutSpringBoneGroup.rootBones.Length; index++)
+                    {
+                        if (Nodes.TryGetValue(layoutSpringBoneGroup.rootBones[index], out Transform rootBoneNode))
+                        {
+                            component.rootBones[index] = rootBoneNode;
+                        }
+                    }
+                }
+
+                // colliderGroups
+                if ((layoutSpringBoneGroup.colliderGroups != null) &&
+                    (layoutSpringBoneGroup.colliderGroups.Length > 0) &&
+                    (ModelAsset.SpringBoneColliderGroupArray != null))
+                {
+                    component.colliderGroups = new VgoSpringBone.VgoSpringBoneColliderGroup[layoutSpringBoneGroup.colliderGroups.Length];
+
+                    for (int index = 0; index < layoutSpringBoneGroup.colliderGroups.Length; index++)
+                    {
+                        if ((0 <= layoutSpringBoneGroup.colliderGroups[index]) && (layoutSpringBoneGroup.colliderGroups[index] < ModelAsset.SpringBoneColliderGroupArray.Length))
+                        {
+                            var colliderGroup = ModelAsset.SpringBoneColliderGroupArray[layoutSpringBoneGroup.colliderGroups[index]];
+
+                            component.colliderGroups[index] = colliderGroup;
+                        }
+                    }
                 }
             }
         }

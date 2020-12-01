@@ -1,0 +1,24 @@
+{
+    "title": "vgo.springBoneColliderGroup",
+    "description": "VGO spring bone collider group.",
+    "type": "object",
+    "properties": {
+        "colliders": {
+            "description": "An array of the srping bone collider.",
+            "type": "array",
+            "items": {
+                "$ref": "vgo.springBoneCollider.schema.json"
+            }
+        },
+        "gizmoColor": {
+            "description": "The Gizmo color.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        }
+    }
+}

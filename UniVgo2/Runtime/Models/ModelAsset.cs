@@ -39,6 +39,9 @@ namespace UniVgo2
         /// <summary>List of scriptable object.</summary>
         public List<ScriptableObject> ScriptableObjectList = new List<ScriptableObject>();
 
+        /// <summary>Array of spring bone collider group.</summary>
+        public VgoSpringBone.VgoSpringBoneColliderGroup[] SpringBoneColliderGroupArray = null;
+
         /// <summary>The avatar.</summary>
         public Avatar Avatar = null;
 
@@ -60,6 +63,12 @@ namespace UniVgo2
 
         /// <summary>List of unity particle system.</summary>
         public List<ParticleSystem> ParticleSystemList = null;
+
+        /// <summary>List of unity VgoSpringBoneGroup.</summary>
+        public List<VgoSpringBone.VgoSpringBoneGroup> VgoSpringBoneGroupList = null;
+
+        /// <summary>List of unity VgoSpringBoneColliderGroup.</summary>
+        public List<VgoSpringBone.VgoSpringBoneColliderGroup> VgoSpringBoneColliderGroupList = null;
 
         #endregion
 
@@ -154,6 +163,7 @@ namespace UniVgo2
             foreach (var x in MaterialList) { yield return x; }
             foreach (var x in MeshAssetList) { yield return x.Mesh; }
             foreach (var x in Texture2dList) { yield return x; }
+            foreach (var x in SpringBoneColliderGroupArray) { yield return x; }
 
             if (MeshList != null)
             {
@@ -170,6 +180,14 @@ namespace UniVgo2
             if (ParticleSystemList != null)
             {
                 foreach (var x in ParticleSystemList) { yield return x; }
+            }
+            if (VgoSpringBoneGroupList != null)
+            {
+                foreach (var x in VgoSpringBoneGroupList) { yield return x; }
+            }
+            if (VgoSpringBoneColliderGroupList != null)
+            {
+                foreach (var x in VgoSpringBoneColliderGroupList) { yield return x; }
             }
         }
 
@@ -204,6 +222,17 @@ namespace UniVgo2
                         if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(texture)))
                         {
                             UnityEngine.Object.DestroyImmediate(texture);
+                        }
+                    }
+                }
+
+                if (SpringBoneColliderGroupArray != null)
+                {
+                    foreach (var springBoneColliderGroup in SpringBoneColliderGroupArray)
+                    {
+                        if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(springBoneColliderGroup)))
+                        {
+                            UnityEngine.Object.DestroyImmediate(springBoneColliderGroup);
                         }
                     }
                 }
@@ -270,6 +299,28 @@ namespace UniVgo2
                         if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(particleSystem)))
                         {
                             UnityEngine.Object.DestroyImmediate(particleSystem);
+                        }
+                    }
+                }
+
+                if (VgoSpringBoneGroupList != null)
+                {
+                    foreach (var vgoSpringBoneGroup in VgoSpringBoneGroupList)
+                    {
+                        if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(vgoSpringBoneGroup)))
+                        {
+                            UnityEngine.Object.DestroyImmediate(vgoSpringBoneGroup);
+                        }
+                    }
+                }
+
+                if (VgoSpringBoneColliderGroupList != null)
+                {
+                    foreach (var vgoSpringBoneColliderGroup in VgoSpringBoneColliderGroupList)
+                    {
+                        if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(vgoSpringBoneColliderGroup)))
+                        {
+                            UnityEngine.Object.DestroyImmediate(vgoSpringBoneColliderGroup);
                         }
                     }
                 }

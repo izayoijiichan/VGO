@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.1.0] - 2020-12-01
+
+- Features
+  - Updated the specification version of VGO to `2.1`.
+  - VGO SpringBone is now available.
+
 ## [2.0.1] - 2020-09-17
 
 - Fixed

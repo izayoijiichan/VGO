@@ -40,6 +40,10 @@ namespace NewtonVgo
         [JsonProperty("particles")]
         public List<VgoParticleSystem> particles = null;
 
+        /// <summary>The spring bone info.</summary>
+        [JsonProperty("springBoneInfo")]
+        public VgoSpringBoneInfo springBoneInfo = null;
+
         /// <summary>Dictionary object with extension-specific objects.</summary>
         [JsonProperty("extensions")]
         public VgoExtensions extensions = null;

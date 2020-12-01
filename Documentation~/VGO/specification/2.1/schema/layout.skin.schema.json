@@ -1,0 +1,27 @@
+{
+    "title": "Skin",
+    "description": "Joints and matrices defining a skin.",
+    "type": "object",
+    "properties": {
+        "inverseBindMatrices": {
+            "description": "The index of the accessor containing the floating-point 4x4 inverse-bind matrices.",
+            "type": "integer"
+        },
+        "skeleton": {
+            "description": "The index of the node used as a skeleton root.",
+            "type": "integer"
+        },
+        "joints": {
+            "description": "Indices of skeleton nodes, used as joints in this skin.",
+            "type": "array",
+            "items": {
+                "type": "integer"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+        }
+    },
+    "required": [
+        "joints"
+    ]
+}

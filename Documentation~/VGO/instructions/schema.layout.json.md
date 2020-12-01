@@ -14,6 +14,7 @@ The vgo layout.
 |materials|List of materials.|layout.material[]|||
 |textures|List of textures.|layout.texture[]|||
 |particles|List of particles.|layout.particle[]|||
+|springBoneInfo|The spring bone info.|vgo.springBoneInfo|||
 |extensions|The extensions.|object|||
 
 #### layout.node
@@ -37,6 +38,8 @@ A node in the node hierarchy.
 |particle|The index of the particle.|int||||
 |mesh|The index of the mesh in this node.|int||||
 |skin|The index of the skin referenced by this node.|int||||
+|springBoneGroups|The indices of the spring bone groups referenced by this node.|int[]||||
+|springBoneColliderGroup|The index of the spring bone collider group referenced by this node.|int||||
 |children|The indices of this node's children.|int[]||||
 
 #### node.animator

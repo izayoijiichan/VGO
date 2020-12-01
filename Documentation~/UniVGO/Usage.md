@@ -12,8 +12,8 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2019.4|
-|2|UniVGO version|2.0.0|
-|3|VGO spec version|2.0|
+|2|UniVGO version|2.1.0|
+|3|VGO spec version|2.1|
 
 ### Supported Unity components
 
@@ -29,6 +29,8 @@ The following Unity components are supported by VGO
 |6|Light|Child|You can set the light source for GameObject.|
 |7|Particle System|Child|You can set particles to GameObject.|
 |8|Skybox|Child|You can set skybox to Scene.|
+|9|Vgo Spring Bone Group|Child|You will be able to set the spring bone (swaying object).|
+|10|Vgo Spring Bone Collider Group|Child|You can set the collider for the spring bone.|
 
 ### Usable shaders
 
@@ -110,7 +112,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.0.0|
+|2|Version|Version of the generation tool.|2.1.0|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -142,6 +144,53 @@ Create a configuration file with `Create > VGO2 > BlendShapeConfiguration`.
 BlendShape's index is counted from 0 at the top.
 
 After setting, set the configuration file in `BlendShapeConfiguration` of the `Vgo BlendShape` component.
+
+### 4. SpringBone
+
+Set up SpringBone if necessary.
+
+On the `Hierarchy` tab, select any child (other than Root) GameObject.  
+(Here we name the GameObject `SpringBoneManager`.)
+
+Attach a new `Vgo Spring Bone Group` component to `SpringBoneManager`.  
+(If you use multiple groups, attach more components.)
+
+[Vgo Spring Bone Group]
+
+|No|item|description|required|select value|default value|
+|:---:|:---|:---|:---:|:---:|:---:|
+|1|Comment|A name to identify this group as a user.|option|||
+|2|Drag Force|The larger the value, the less likely it is to swing.|required|[0.0 - 1.0]|0.2|
+|3|Stiffness Force|The higher the value, the easier it is to return to the original state.|required|[0.0 - 4.0]|1.0|
+|4|Gravity Direction|The direction of gravity.|required||x: 0.0, y: -1.0, z: 0.0|
+|5|Gravity Power|The magnitude of gravity.|required|[0.0 - 2.0]|0.2|
+|6|Root Bones|Specify the game object at the base of the bone you want to swing.<br>By specifying multiple root bones, the settings can be grouped together.|required|||
+|7|Hit Radius|The radius of the sphere that determines the collision of each bone.|required|[0.0 - 0.5]|0.02|
+|8|Collider Groups|This is a group of colliders detected by this spring bone group.|option|||
+|9|Draw Gizmo|The Editor draws the Spring Bone when it draws the Gizmo.|required|true / false|false|
+|10|Gizmo Color|The drawing color of Spring Bone.|required||yellow|
+
+If necessary, make additional settings for SpringBoneCollider.
+
+Select the GameObject where you want to place the collider.  
+(For hair, head, etc.)
+
+Attach a new `Vgo Spring Bone Collider Group` component to the GameObject.
+
+[Vgo Spring Bone Collider Group]
+
+|No|item|description|required|select value|default value|
+|:---:|:---|:---|:---:|:---:|:---:|
+|1|Colliders|Set the spring bone collider.|required|||
+|2|Gizmo Color|The drawing color of the spring bone collider.|required||magenta|
+
+[Vgo Spring Bone Collider]
+
+|No|item|description|required|select value|default value|
+|:---:|:---|:---|:---:|:---:|:---:|
+|1|Collider Type|The type of collider.|required|Sphere|Sphere|
+|2|Offset|Relative to the GameObject.|required||x: 0.0, y: 0.0, z: 0.0|
+|3|Radius|The radius of the sphere.|required|[0.0 - 1.0]|0.0|
 
 ___
 ## Create VGO (other than humanoid avatar)
@@ -200,7 +249,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.0.0|
+|2|Version|Version of the generation tool.|2.1.0|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -439,7 +488,7 @@ You can specify a VGO file for your shop.
 https://vishop.azurewebsites.net
 
 ___
-Last updated: 20 August, 2020  
+Last updated: 1 December, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

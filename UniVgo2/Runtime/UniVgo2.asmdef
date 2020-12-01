@@ -2,6 +2,7 @@
     "name": "UniVgo2",
     "references": [
         "NewtonVgo",
+        "VgoSpringBone",
         "ShaderProperty.Runtime",
         "MToon",
         "UniUnlit",

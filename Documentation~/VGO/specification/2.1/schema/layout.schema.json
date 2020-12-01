@@ -1,0 +1,57 @@
+{
+    "title": "layout",
+    "description": "The layout of VGO.",
+    "type": "object",
+    "properties": {
+        "nodes": {
+            "description": "An array of nodes.",
+            "type": "array",
+            "items": {
+                "$ref": "layout.node.schema.json"
+            }
+        },
+        "skins": {
+            "description": "An array of skins.",
+            "type": "array",
+            "items": {
+                "$ref": "layout.skin.schema.json"
+            }
+        },
+        "meshes": {
+            "description": "An array of meshes.",
+            "type": "array",
+            "items": {
+                "$ref": "layout.mesh.schema.json"
+            }
+        },
+        "materials": {
+            "description": "An array of materials.",
+            "type": "array",
+            "items": {
+                "$ref": "layout.material.schema.json"
+            }
+        },
+        "textures": {
+            "type": "array",
+            "description": "An array of textures.",
+            "items": {
+                "$ref": "layout.texture.schema.json"
+            },
+            "minItems": 1
+        },
+        "particles": {
+            "description": "An array of particles.",
+            "type": "array",
+            "items": {
+                "$ref": "vgo.particleSystem.schema.json"
+            }
+        },
+        "springBoneInfo": {
+            "$ref": "vgo.springBoneInfo.schema.json"
+        },
+        "extensions": { },
+    },
+    "required": [
+        "nodes"
+    ]
+}

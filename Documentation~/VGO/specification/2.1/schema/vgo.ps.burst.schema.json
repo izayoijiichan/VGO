@@ -1,0 +1,25 @@
+{
+    "$id": "vgo.ps.burst",
+    "type": "object",
+    "properties": {
+        "time": {
+            "type": "number"
+        },
+        "count": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ],
+        },
+        "cycleCount": {
+            "type": "integer"
+        },
+        "repeatInterval": {
+            "type": "number"
+        },
+        "probability": {
+            "type": "number"
+        }
+    }
+}

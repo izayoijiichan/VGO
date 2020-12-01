@@ -1,0 +1,110 @@
+{
+    "title": "Blend Shape Preset",
+    "description": "A blend shape preset.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The name of preset.",
+            "type": "string"
+        },
+        "type": {
+            "description": "The type of preset.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Custom",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Neutral",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Joy",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "Angry",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "Sorrow",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5 ],
+                    "description": "Fun",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 6 ],
+                    "description": "Confuse",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 7 ],
+                    "description": "Nervous",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 8 ],
+                    "description": "Sleepy",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 9 ],
+                    "description": "Surprise",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 10 ],
+                    "description": "WinkL",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 11 ],
+                    "description": "WinkR",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 12 ],
+                    "description": "Preset_12",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 13 ],
+                    "description": "Preset_13",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 14 ],
+                    "description": "Preset_14",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 15 ],
+                    "description": "Preset_15",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        },
+        "bindings": {
+            "description": "List of binding.",
+            "type": [
+                "array"
+            ],
+            "items": {
+                "$ref": "layout.mesh.blendshape.binding.schema.json"
+            }
+        },
+    },
+    "required": [
+        "type",
+        "bindings"
+    ]
+}

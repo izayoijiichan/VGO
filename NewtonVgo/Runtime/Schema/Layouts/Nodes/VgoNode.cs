@@ -84,6 +84,15 @@ namespace NewtonVgo
         [DefaultValue(-1)]
         public int skin = -1;
 
+        /// <summary>The indices of the spring bone groups referenced by this node.</summary>
+        [JsonProperty("springBoneGroups")]
+        public List<int> springBoneGroups = null;
+
+        /// <summary>The index of the spring bone collider group referenced by this node.</summary>
+        [JsonProperty("springBoneColliderGroup", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [DefaultValue(-1)]
+        public int springBoneColliderGroup = -1;
+
         /// <summary>The indices of this node's children.</summary>
         [JsonProperty("children")]
         public List<int> children = null;

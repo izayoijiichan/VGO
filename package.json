@@ -2,7 +2,7 @@
   "name": "izayoi.univgo2",
   "displayName": "UniVGO 2",
   "description": "UniVGO 2 is a package that can handle VGO files in Unity.",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "type": "tool",
   "category": "",
   "keywords": [
@@ -12,6 +12,7 @@
     "collider",
     "mesh",
     "skin",
+    "springBone",
     "material",
     "light",
     "particle",
@@ -29,8 +30,9 @@
   },
   "dependencies": {
     "com.vrmc.vrmshaders": "0.56.0",
-    "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "izayoi.unishaders": "1.0.0",
+    "izayoi.vgospringbone": "1.0.0",
+    "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "org.nuget.system.memory": "4.5.0"
   }
 }

@@ -1,0 +1,75 @@
+{
+    "title": "vgo.particleSystem",
+    "type": "object",
+    "properties": {
+        "main": {
+            "$ref": "vgo.ps.main.module.json"
+        },
+        "emission": {
+            "$ref": "vgo.ps.emission.module.json"
+        },
+        "shape": {
+            "$ref": "vgo.ps.shape.module.json"
+        },
+        "velocityOverLifetime": {
+            "$ref": "vgo.ps.velocityOverLifetime.module.json"
+        },
+        "limitVelocityOverLifetime": {
+            "$ref": "vgo.ps.limitVelocityOverLifetime.module.json"
+        },
+        "inheritVelocity": {
+            "$ref": "vgo.ps.inheritVelocity.module.json"
+        },
+        "forceOverLifetime": {
+            "$ref": "vgo.ps.forceOverLifetime.module.json"
+        },
+        "colorOverLifetime": {
+            "$ref": "vgo.ps.colorOverLifetime.module.json"
+        },
+        "colorBySpeed": {
+            "$ref": "vgo.ps.colorBySpeed.module.json"
+        },
+        "sizeOverLifetime": {
+            "$ref": "vgo.ps.sizeOverLifetime.module.json"
+        },
+        "sizeBySpeed": {
+            "$ref": "vgo.ps.sizeBySpeed.module.json"
+        },
+        "rotationOverLifetime": {
+            "$ref": "vgo.ps.rotationOverLifetime.module.json"
+        },
+        "rotationBySpeed": {
+            "$ref": "vgo.ps.rotationBySpeed.module.json"
+        },
+        "externalForces": {
+            "$ref": "vgo.ps.externalForces.module.json"
+        },
+        "noise": {
+            "$ref": "vgo.ps.noise.module.json"
+        },
+        "collision": {
+            "$ref": "vgo.ps.collision.module.json"
+        },
+        "trigger": {
+            "$ref": "vgo.ps.trigger.module.json"
+        },
+        "subEmitters": {
+            "$ref": "vgo.ps.subEmitters.module.json"
+        },
+        "textureSheetAnimation": {
+            "$ref": "vgo.ps.textureSheetAnimation.module.json"
+        },
+        "lights": {
+            "$ref": "vgo.ps.lights.module.json"
+        },
+        "trails": {
+            "$ref": "vgo.ps.trails.module.json"
+        },
+        "customData": {
+            "$ref": "vgo.ps.customData.module.json"
+        },
+        "renderer": {
+            "$ref": "vgo.ps.renderer.module.json"
+        }
+    }
+}

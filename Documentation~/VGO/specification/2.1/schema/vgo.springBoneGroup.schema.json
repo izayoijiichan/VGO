@@ -1,0 +1,78 @@
+{
+    "title": "vgo.springBoneGroup",
+    "description": "VGO spring bone group.",
+    "type": "object",
+    "properties": {
+        "comment": {
+            "description": "Comments on this component.",
+            "type": "string"
+        },
+        "dragForce": {
+            "description": "The drag force.",
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.0
+        },
+        "stiffnessForce": {
+            "description": "The stiffness force.",
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 4.0,
+            "default": 1.0
+        },
+        "gravityDirection": {
+            "description": "Direction of gravity.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "gravityPower": {
+            "description": "",
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 2.0,
+            "default": 1.0
+        },
+        "rootBones": {
+            "description": "The indices of the root bone nodes.",
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "hitRadius": {
+            "description": "",
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 0.5,
+            "default": 0.1
+        },
+        "colliderGroups": {
+            "description": "The indices of the collider groups.",
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "drawGizmo": {
+            "description": "Whether to draw Gizmo.",
+            "type": "boolean",
+            "default": false
+        },
+        "gizmoColor": {
+            "description": "The Gizmo color.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        }
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "title": "vgo.springBoneCollider",
+    "description": "VGO spring bone collider.",
+    "type": "object",
+    "properties": {
+        "colliderType": {
+            "description": "The type of the spring bone collider.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Sphere",
+                    "type": "integer"
+                }
+            ]
+        },
+        "offset": {
+            "description": "The offset position from the game object.",
+            "type": "array",
+            "items": {
+                "type": "number"
+            }
+        },
+        "radius": {
+            "description": "The radius of the collider.",
+            "type": [
+                "number",
+                "null"
+            ]
+        }
+    }
+}
