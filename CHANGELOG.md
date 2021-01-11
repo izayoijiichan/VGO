@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.1.1] - 2021-01-12
+
+- Features
+  - Added `Unity 2020.2` to the supported Unity versions.
+- Fixed
+  - Fixed a bug that caused an error on models that do not use VGO SpringBone.
+
 ## [2.1.0] - 2020-12-01
 
 - Features

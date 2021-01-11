@@ -335,6 +335,11 @@ namespace UniVgo2
 
         protected virtual VgoSpringBone.VgoSpringBoneColliderGroup[] CreateSpringBoneColliderGroupArray()
         {
+            if (ModelAsset.Layout.springBoneInfo == null)
+            {
+                return null;
+            }
+
             if (ModelAsset.Layout.springBoneInfo.colliderGroups == null)
             {
                 return null;

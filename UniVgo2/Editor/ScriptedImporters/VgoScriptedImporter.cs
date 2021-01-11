@@ -11,7 +11,11 @@ namespace UniVgo2.Editor
     using System.IO;
     using System.Linq;
     using UnityEditor;
+#if UNITY_2020_2_OR_NEWER
+    using UnityEditor.AssetImporters;
+#else
     using UnityEditor.Experimental.AssetImporters;
+#endif
     using UnityEngine;
 
     /// <summary>

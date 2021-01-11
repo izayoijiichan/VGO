@@ -14,8 +14,9 @@ ___
 |Unity 2019.3|unconfirmed|unconfirmed|unconfirmed|unconfirmed|unconfirmed|
 |Unity 2019.4|OK|OK|OK|OK|unconfirmed|
 |Unity 2020.1|OK|OK|OK|OK|unconfirmed|
+|Unity 2020.2|OK|OK|OK|unconfirmed|unconfirmed|
 
-As of December of 2020, we are developing and confirming in `Unity 2020.1` `Windows` `.NET Standard 2.0` environment.
+As of January of 2021, we are developing and confirming in `Unity 2020.2` `Windows` `.NET Standard 2.0` environment.
 
 ### Required package
 
@@ -29,7 +30,7 @@ As of December of 2020, we are developing and confirming in `Unity 2020.1` `Wind
 |VRMShaders|vrm-c|GitHub|VRM 0.0|0.56.0|3 Jul, 2020|
 |UniShaders|IzayoiJiichan|GitHub|-|1.0.1|13 Aug, 2020|
 |VgoSpringBone|IzayoiJiichan|GitHub|-|1.0.0|1 Dec, 2020|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.1|2.1.0|1 Dec, 2020|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.1|2.1.1|12 Jan, 2021|
 
 ___
 ## Install
@@ -91,7 +92,7 @@ You need to be careful where you add them.
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.0",
     "izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.0.1",
-    "izayoi.univgo2": "https://github.com/izayoijiichan/VGO2.git#v2.0.1",
+    "izayoi.univgo2": "https://github.com/izayoijiichan/VGO2.git#v2.1.1",
     "izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.0.0",
     "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
@@ -165,11 +166,11 @@ When the package is installed in the project, the script is automatically compil
 
 To install both UniVGO and UniVGO2 packages in Unity Editor at the same time, you need to avoid two major errors.
 
-- 1. Duplicate shader
+1. Duplicate shader
 
 Delete either `UniGLTF` folder.
 
-- 2. Scripted Importer
+2. Scripted Importer
 
 Both `VgoScriptedImporter`s try to handle the extension` .vgo`, so the conflict will result in an error.
 
@@ -193,7 +194,7 @@ To install both UniVRM and UniVGO2 packages in the Unity Editor at the same time
 This applies to shaders in the UniGLTF folder.
 
 ___
-Last updated: 1 December, 2020  
+Last updated: 12 January, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*
