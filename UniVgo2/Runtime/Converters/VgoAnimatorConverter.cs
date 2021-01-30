@@ -5,9 +5,6 @@
 namespace UniVgo2.Converters
 {
     using NewtonVgo;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using UnityEngine;
 
     /// <summary>
@@ -39,8 +36,6 @@ namespace UniVgo2.Converters
 
             return vgoAnimator;
         }
-
-
 
         /// <summary>
         /// Set Animator parameter.

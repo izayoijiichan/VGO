@@ -627,7 +627,7 @@ namespace UniVgo2
                             component.colliders[index] = new VgoSpringBone.SpringBoneCollider
                             {
                                 colliderType = (VgoSpringBone.SpringBoneColliderType)layoutCollider.colliderType,
-                                offset = layoutCollider.offset.ToUnityVector3(),
+                                offset = layoutCollider.offset.ToUnityVector3(_StorageAdapter.GeometryCoordinate),
                                 radius = layoutCollider.radius.GetValueOrDefault(0.0f),
                             };
                         }
@@ -672,7 +672,7 @@ namespace UniVgo2
                 component.comment = layoutSpringBoneGroup.comment;
                 component.dragForce = layoutSpringBoneGroup.dragForce.SafeValue(0.0f, 1.0f, 0.0f);
                 component.stiffnessForce = layoutSpringBoneGroup.stiffnessForce.SafeValue(0.0f, 4.0f, 1.0f);
-                component.gravityDirection = layoutSpringBoneGroup.gravityDirection.ToUnityVector3();
+                component.gravityDirection = layoutSpringBoneGroup.gravityDirection.ToUnityVector3(_StorageAdapter.GeometryCoordinate);
                 component.gravityPower = layoutSpringBoneGroup.gravityPower.SafeValue(0.0f, 2.0f, 1.0f);
                 component.hitRadius = layoutSpringBoneGroup.hitRadius.SafeValue(0.0f, 0.5f, 0.1f);
                 component.drawGizmo = layoutSpringBoneGroup.drawGizmo;

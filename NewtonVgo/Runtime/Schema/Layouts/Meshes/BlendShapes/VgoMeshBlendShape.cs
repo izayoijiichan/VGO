@@ -9,7 +9,7 @@ namespace NewtonVgo
     using System.ComponentModel;
 
     /// <summary>
-    /// A mesh blned shape.
+    /// A mesh blend shape.
     /// </summary>
     [Serializable]
     [JsonObject("mesh.blendShape")]

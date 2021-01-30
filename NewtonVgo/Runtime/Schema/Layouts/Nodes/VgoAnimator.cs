@@ -23,7 +23,7 @@ namespace NewtonVgo
         [JsonProperty("enabled", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [DefaultValue(true)]
         public bool enabled = false;
-        
+
         ///// <summary>The runtime representation of AnimatorController that controls the Animator.</summary>
         //[JsonProperty("controller")]
         //public VgoRuntimeAnimatorController controller;

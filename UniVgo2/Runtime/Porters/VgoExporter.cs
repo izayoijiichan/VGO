@@ -902,8 +902,8 @@ namespace UniVgo2
         /// </summary>
         protected virtual void CreateSpringBoneInfo()
         {
-            if ((ModelAsset.VgoSpringBoneGroupList == null) &&
-                (ModelAsset.VgoSpringBoneColliderGroupList == null))
+            if (((ModelAsset.VgoSpringBoneGroupList == null) || ModelAsset.VgoSpringBoneGroupList.Any() == false) &&
+                ((ModelAsset.VgoSpringBoneColliderGroupList == null) || ModelAsset.VgoSpringBoneColliderGroupList.Any() == false))
             {
                 return;
             }
@@ -911,7 +911,8 @@ namespace UniVgo2
             Layout.springBoneInfo = new VgoSpringBoneInfo();
 
             // springBoneInfo.springBoneGroups
-            if (ModelAsset.VgoSpringBoneGroupList != null)
+            if (ModelAsset.VgoSpringBoneGroupList != null &&
+                ModelAsset.VgoSpringBoneGroupList.Any())
             {
                 Layout.springBoneInfo.springBoneGroups = new List<VgoSpringBoneGroup>(ModelAsset.VgoSpringBoneGroupList.Count);
 
@@ -922,7 +923,7 @@ namespace UniVgo2
                         comment = component.comment,
                         dragForce = component.dragForce,
                         stiffnessForce = component.stiffnessForce,
-                        gravityDirection = component.gravityDirection.ToNumericsVector3(),
+                        gravityDirection = component.gravityDirection.ToNumericsVector3(StorageAdapter.GeometryCoordinate),
                         gravityPower = component.gravityPower,
                         hitRadius = component.hitRadius,
                         drawGizmo = component.drawGizmo,
@@ -958,7 +959,8 @@ namespace UniVgo2
             }
 
             // springBoneInfo.colliderGroups
-            if (ModelAsset.VgoSpringBoneColliderGroupList != null)
+            if (ModelAsset.VgoSpringBoneColliderGroupList != null &&
+                ModelAsset.VgoSpringBoneColliderGroupList.Any())
             {
                 Layout.springBoneInfo.colliderGroups = new List<VgoSpringBoneColliderGroup>(ModelAsset.VgoSpringBoneColliderGroupList.Count);
 
@@ -981,7 +983,7 @@ namespace UniVgo2
                             colliderGroup.colliders[index] = new VgoSpringBoneCollider
                             {
                                 colliderType = (VgoSpringBoneColliderType)collider.colliderType,
-                                offset = collider.offset.ToNumericsVector3(),
+                                offset = collider.offset.ToNumericsVector3(StorageAdapter.GeometryCoordinate),
                                 radius = collider.radius,
                             };
                         }

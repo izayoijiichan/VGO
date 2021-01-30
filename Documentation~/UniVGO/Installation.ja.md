@@ -14,7 +14,7 @@ ___
 |Unity 2019.3|未確認|未確認|未確認|未確認|未確認|
 |Unity 2019.4|○|○|○|○|未確認|
 |Unity 2020.1|○|○|○|○|未確認|
-|Unity 2020.2|○|○|○|未確認|未確認|
+|Unity 2020.2|○|○|○|○|未確認|
 
 2021年1月の時点では `Unity 2020.2` の `Windows` `.NET Standard 2.0` 環境にて開発＆確認を行っています。
 
@@ -31,7 +31,7 @@ ___
 |VRMShaders|vrm-c|GitHub||0.56.0|2020年7月3日|
 |UniShaders|IzayoiJiichan|GitHub||1.0.1|2020年8月13日|
 |VgoSpringBone|IzayoiJiichan|GitHub||1.0.0|2020年12月1日|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.1|2.1.1|2021年1月12日|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.1|2.1.2|2021年1月31日|
 
 ___
 ## インストール
@@ -47,7 +47,7 @@ https://github.com/izayoijiichan/univgo2.sample.unity.project
 
 #### 2. Unity のインストール
 
-Unity Hub にて`Unity 2019.4.17f1`をインストールします。
+Unity Hub にて`Unity 2019.4.18f1`をインストールします。
 
 #### 3. プロジェクトを読み込み
 
@@ -93,7 +93,7 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.0",
     "izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.0.1",
-    "izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.1.1",
+    "izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.1.2",
     "izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.0.0",
     "jillejr.newtonsoft.json-for-unity": "12.0.301",
     "com.unity.modules.ai": "1.0.0",
@@ -198,7 +198,7 @@ UniVgo を取得した際に梱包されていた重複するファイルを削�
 UniGLTFフォルダーにあるシェーダー類が該当します。
 
 ___
-最終更新日：2021年1月12日  
+最終更新日：2021年1月31日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

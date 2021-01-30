@@ -6,9 +6,10 @@ namespace NewtonVgo
 {
     using Newtonsoft.Json;
     using System;
+    using System.ComponentModel;
 
     /// <summary>
-    /// VGO AnimationCurve
+    /// VGO Animation Curve
     /// </summary>
     [Serializable]
     [JsonObject("animationCurve")]
@@ -19,11 +20,13 @@ namespace NewtonVgo
         public VgoKeyframe[] keys = null;
 
         /// <summary>The behaviour of the animation before the first keyframe.</summary>
-        [JsonProperty("preWrapMode")]
-        public WrapMode preWrapMode;
+        [JsonProperty("preWrapMode", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [DefaultValue(WrapMode.Default)]
+        public WrapMode preWrapMode = WrapMode.Default;
 
         /// <summary>The behaviour of the animation after the last keyframe.</summary>
-        [JsonProperty("postWrapMode")]
-        public WrapMode postWrapMode;
+        [JsonProperty("postWrapMode", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [DefaultValue(WrapMode.Default)]
+        public WrapMode postWrapMode = WrapMode.Default;
     }
 }

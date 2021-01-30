@@ -11,57 +11,95 @@ namespace UniVgo2
     {
         #region UnityEngine -> System.Numerics
 
-        public static System.Numerics.Vector2 ToNumericsVector2(this UnityEngine.Vector2 v)
+        public static System.Numerics.Vector2 ToNumericsVector2(this UnityEngine.Vector2 unityVector)
         {
-            return new System.Numerics.Vector2(v.x, v.y);
+            return new System.Numerics.Vector2(
+                unityVector.x,
+                unityVector.y
+            );
         }
 
-        public static System.Numerics.Vector3 ToNumericsVector3(this UnityEngine.Vector3 v)
+        public static System.Numerics.Vector3 ToNumericsVector3(this UnityEngine.Vector3 unityVector)
         {
-            return new System.Numerics.Vector3(v.x, v.y, v.z);
+            return new System.Numerics.Vector3(
+                unityVector.x,
+                unityVector.y,
+                unityVector.z
+            );
         }
 
-        public static System.Numerics.Vector4 ToNumericsVector4(this UnityEngine.Vector4 v)
+        public static System.Numerics.Vector3 ToNumericsVector3(this UnityEngine.Vector3 unityVector, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
         {
-            return new System.Numerics.Vector4(v.x, v.y, v.z, v.w);
+            if (geometryCoordinate == NewtonVgo.VgoGeometryCoordinate.RightHanded)
+            {
+                return unityVector.ReverseZ().ToNumericsVector3();
+            }
+            else
+            {
+                return unityVector.ToNumericsVector3();
+            }
         }
 
-        public static System.Numerics.Quaternion ToNumericsQuaternion(this UnityEngine.Quaternion q)
+        public static System.Numerics.Vector4 ToNumericsVector4(this UnityEngine.Vector4 unityVector)
         {
-            return new System.Numerics.Quaternion(q.x, q.y, q.z, q.w);
+            return new System.Numerics.Vector4(unityVector.x, unityVector.y, unityVector.z, unityVector.w);
         }
 
-        public static System.Numerics.Matrix4x4 ToNumericsMatrix(this UnityEngine.Matrix4x4 m)
+        public static System.Numerics.Vector4 ToNumericsVector4(this UnityEngine.Vector4 unityVector, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
+        {
+            if (geometryCoordinate == NewtonVgo.VgoGeometryCoordinate.RightHanded)
+            {
+                return unityVector.ReverseZ().ToNumericsVector4();
+            }
+            else
+            {
+                return unityVector.ToNumericsVector4();
+            }
+        }
+
+        public static System.Numerics.Quaternion ToNumericsQuaternion(this UnityEngine.Quaternion unityQuaternion)
+        {
+            return new System.Numerics.Quaternion(
+                unityQuaternion.x,
+                unityQuaternion.y,
+                unityQuaternion.z,
+                unityQuaternion.w
+            );
+        }
+
+        public static System.Numerics.Quaternion ToNumericsQuaternion(this UnityEngine.Quaternion unityQuaternion, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
+        {
+            if (geometryCoordinate == NewtonVgo.VgoGeometryCoordinate.RightHanded)
+            {
+                return unityQuaternion.ReverseZ().ToNumericsQuaternion();
+            }
+            else
+            {
+                return unityQuaternion.ToNumericsQuaternion();
+            }
+        }
+
+        public static System.Numerics.Matrix4x4 ToNumericsMatrix(this UnityEngine.Matrix4x4 unityMatrix)
         {
             return new System.Numerics.Matrix4x4()
             {
-                M11 = m.m00,
-                M12 = m.m10,
-                M13 = m.m20,
-                M14 = m.m30,
-                M21 = m.m01,
-                M22 = m.m11,
-                M23 = m.m21,
-                M24 = m.m31,
-                M31 = m.m02,
-                M32 = m.m12,
-                M33 = m.m22,
-                M34 = m.m32,
-                M41 = m.m03,
-                M42 = m.m13,
-                M43 = m.m23,
-                M44 = m.m33,
+                M11 = unityMatrix.m00,
+                M12 = unityMatrix.m10,
+                M13 = unityMatrix.m20,
+                M14 = unityMatrix.m30,
+                M21 = unityMatrix.m01,
+                M22 = unityMatrix.m11,
+                M23 = unityMatrix.m21,
+                M24 = unityMatrix.m31,
+                M31 = unityMatrix.m02,
+                M32 = unityMatrix.m12,
+                M33 = unityMatrix.m22,
+                M34 = unityMatrix.m32,
+                M41 = unityMatrix.m03,
+                M42 = unityMatrix.m13,
+                M43 = unityMatrix.m23,
+                M44 = unityMatrix.m33,
             };
-        }
-
-        public static NewtonVgo.Color3 ToVgoColor3(this UnityEngine.Color c)
-        {
-            return new NewtonVgo.Color3(c.r, c.g, c.b);
-        }
-
-        public static NewtonVgo.Color4 ToVgoColor4(this UnityEngine.Color c)
-        {
-            return new NewtonVgo.Color4(c.r, c.g, c.b, c.a);
         }
 
         public static System.Numerics.Vector3? ToNullableNumericsVector3(this UnityEngine.Vector3 unityVector, UnityEngine.Vector3 defaultValue)
@@ -82,13 +120,9 @@ namespace UniVgo2
             {
                 return null;
             }
-            else if (geometryCoordinate == NewtonVgo.VgoGeometryCoordinate.RightHanded)
-            {
-                return unityVector.ReverseZ().ToNumericsVector3();
-            }
             else
             {
-                return unityVector.ToNumericsVector3();
+                return unityVector.ToNumericsVector3(geometryCoordinate);
             }
         }
 
@@ -98,13 +132,9 @@ namespace UniVgo2
             {
                 return null;
             }
-            else if (geometryCoordinate == NewtonVgo.VgoGeometryCoordinate.RightHanded)
-            {
-                return unityQuaternion.ReverseZ().ToNumericsQuaternion();
-            }
             else
             {
-                return unityQuaternion.ToNumericsQuaternion();
+                return unityQuaternion.ToNumericsQuaternion(geometryCoordinate);
             }
         }
 
@@ -112,107 +142,136 @@ namespace UniVgo2
 
         #region System.Numerics -> UnityEngine
 
-        public static UnityEngine.Vector2 ToUnityVector2(this System.Numerics.Vector2 v)
+        public static UnityEngine.Vector2 ToUnityVector2(this System.Numerics.Vector2 numericsVector)
         {
-            return new UnityEngine.Vector2(v.X, v.Y);
+            return new UnityEngine.Vector2(
+                numericsVector.X,
+                numericsVector.Y
+            );
         }
 
-        public static UnityEngine.Vector3 ToUnityVector3(this System.Numerics.Vector3 v)
+        public static UnityEngine.Vector3 ToUnityVector3(this System.Numerics.Vector3 numericsVector)
         {
-            return new UnityEngine.Vector3(v.X, v.Y, v.Z);
+            return new UnityEngine.Vector3(
+                numericsVector.X,
+                numericsVector.Y,
+                numericsVector.Z
+            );
         }
 
-        public static UnityEngine.Vector4 ToUnityVector4(this System.Numerics.Vector4 v)
+        public static UnityEngine.Vector3 ToUnityVector3(this System.Numerics.Vector3 numericsVector, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
         {
-            return new UnityEngine.Vector4(v.X, v.Y, v.Z, v.W);
+            if (geometryCoordinate == NewtonVgo.VgoGeometryCoordinate.RightHanded)
+            {
+                return numericsVector.ToUnityVector3().ReverseZ();
+            }
+            else
+            {
+                return numericsVector.ToUnityVector3();
+            }
         }
 
-        public static UnityEngine.Quaternion ToUnityQuaternion(this System.Numerics.Quaternion q)
+        public static UnityEngine.Vector3 ToUnityVector3(this System.Numerics.Vector3? numericsVector, UnityEngine.Vector3 defaultValue)
         {
-            return new UnityEngine.Quaternion(q.X, q.Y, q.Z, q.W);
+            if (numericsVector.HasValue)
+            {
+                return numericsVector.Value.ToUnityVector3();
+            }
+            else
+            {
+                return defaultValue;
+            }
         }
 
-        public static UnityEngine.Matrix4x4 ToUnityMatrix(this System.Numerics.Matrix4x4 m)
+        public static UnityEngine.Vector3 ToUnityVector3(this System.Numerics.Vector3? numericsVector, UnityEngine.Vector3 defaultValue, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
+        {
+            if (numericsVector.HasValue)
+            {
+                return numericsVector.Value.ToUnityVector3(geometryCoordinate);
+            }
+            else
+            {
+                return defaultValue;
+            }
+        }
+
+        public static UnityEngine.Vector4 ToUnityVector4(this System.Numerics.Vector4 numericsVector)
+        {
+            return new UnityEngine.Vector4(
+                numericsVector.X,
+                numericsVector.Y,
+                numericsVector.Z,
+                numericsVector.W
+            );
+        }
+
+        public static UnityEngine.Vector4 ToUnityVector4(this System.Numerics.Vector4 numericsVector, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
+        {
+            if (geometryCoordinate == NewtonVgo.VgoGeometryCoordinate.RightHanded)
+            {
+                return numericsVector.ToUnityVector4().ReverseZ();
+            }
+            else
+            {
+                return numericsVector.ToUnityVector4();
+            }
+        }
+
+        public static UnityEngine.Quaternion ToUnityQuaternion(this System.Numerics.Quaternion numericsQuaternion)
+        {
+            return new UnityEngine.Quaternion(
+                numericsQuaternion.X,
+                numericsQuaternion.Y,
+                numericsQuaternion.Z,
+                numericsQuaternion.W
+            );
+        }
+
+        public static UnityEngine.Quaternion ToUnityQuaternion(this System.Numerics.Quaternion numericsQuaternion, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
+        {
+            if (geometryCoordinate == NewtonVgo.VgoGeometryCoordinate.RightHanded)
+            {
+                return numericsQuaternion.ToUnityQuaternion().ReverseZ();
+            }
+            else
+            {
+                return numericsQuaternion.ToUnityQuaternion();
+            }
+        }
+
+        public static UnityEngine.Quaternion ToUnityQuaternion(this System.Numerics.Quaternion? numericsQuaternion, UnityEngine.Quaternion defaultValue, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
+        {
+            if (numericsQuaternion.HasValue)
+            {
+                return numericsQuaternion.Value.ToUnityQuaternion(geometryCoordinate);
+            }
+            else
+            {
+                return defaultValue;
+            }
+        }
+
+        public static UnityEngine.Matrix4x4 ToUnityMatrix(this System.Numerics.Matrix4x4 numericsMatrix)
         {
             return new UnityEngine.Matrix4x4()
             {
-                m00 = m.M11,
-                m01 = m.M21,
-                m02 = m.M31,
-                m03 = m.M41,
-                m10 = m.M12,
-                m11 = m.M22,
-                m12 = m.M32,
-                m13 = m.M42,
-                m20 = m.M13,
-                m21 = m.M23,
-                m22 = m.M33,
-                m23 = m.M43,
-                m30 = m.M14,
-                m31 = m.M24,
-                m32 = m.M34,
-                m33 = m.M44,
+                m00 = numericsMatrix.M11,
+                m01 = numericsMatrix.M21,
+                m02 = numericsMatrix.M31,
+                m03 = numericsMatrix.M41,
+                m10 = numericsMatrix.M12,
+                m11 = numericsMatrix.M22,
+                m12 = numericsMatrix.M32,
+                m13 = numericsMatrix.M42,
+                m20 = numericsMatrix.M13,
+                m21 = numericsMatrix.M23,
+                m22 = numericsMatrix.M33,
+                m23 = numericsMatrix.M43,
+                m30 = numericsMatrix.M14,
+                m31 = numericsMatrix.M24,
+                m32 = numericsMatrix.M34,
+                m33 = numericsMatrix.M44,
             };
-        }
-
-        public static UnityEngine.Color ToUnityColor(this NewtonVgo.Color3 c)
-        {
-            return new UnityEngine.Color(c.R, c.G, c.B, 1.0f);
-        }
-
-        public static UnityEngine.Color ToUnityColor(this NewtonVgo.Color4 c)
-        {
-            return new UnityEngine.Color(c.R, c.G, c.B, c.A);
-        }
-
-        public static UnityEngine.Vector3 ToUnityVector3(this System.Numerics.Vector3? v, UnityEngine.Vector3 defaultValue)
-        {
-            if (v.HasValue)
-            {
-                return v.Value.ToUnityVector3();
-            }
-            else
-            {
-                return defaultValue;
-            }
-        }
-
-        public static UnityEngine.Vector3 ToUnityVector3(this System.Numerics.Vector3? v, UnityEngine.Vector3 defaultValue, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
-        {
-            if (v.HasValue)
-            {
-                if (geometryCoordinate == NewtonVgo.VgoGeometryCoordinate.RightHanded)
-                {
-                    return v.Value.ToUnityVector3().ReverseZ();
-                }
-                else
-                {
-                    return v.Value.ToUnityVector3();
-                }
-            }
-            else
-            {
-                return defaultValue;
-            }
-        }
-
-        public static UnityEngine.Quaternion ToUnityQuaternion(this System.Numerics.Quaternion? q, UnityEngine.Quaternion defaultValue, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
-        {
-            if (q.HasValue)
-            {
-                if (geometryCoordinate == NewtonVgo.VgoGeometryCoordinate.RightHanded)
-                {
-                    return q.Value.ToUnityQuaternion().ReverseZ();
-                }
-                else
-                {
-                    return q.Value.ToUnityQuaternion();
-                }
-            }
-            else
-            {
-                return defaultValue;
-            }
         }
 
         #endregion

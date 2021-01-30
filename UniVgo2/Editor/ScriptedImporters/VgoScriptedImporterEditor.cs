@@ -32,6 +32,40 @@ namespace UniVgo2.Editor
             EditorGUILayout.LabelField("Extract settings");
 
             EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.PrefixLabel("Avatar");
+            GUI.enabled = (importer.GetExternalUnityObjects<Avatar>().Any() == false);
+            if (GUILayout.Button("Extract"))
+            {
+                importer.ExtractAvatars();
+                GUIUtility.ExitGUI();
+            }
+            GUI.enabled = !GUI.enabled;
+            if (GUILayout.Button("Clear"))
+            {
+                importer.ClearExtarnalObjects<Avatar>();
+                GUIUtility.ExitGUI();
+            }
+            GUI.enabled = true;
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.PrefixLabel("BlendShapes");
+            GUI.enabled = (importer.GetExternalUnityObjects<BlendShapeConfiguration>().Any() == false);
+            if (GUILayout.Button("Extract"))
+            {
+                importer.ExtractBlendShapes();
+                GUIUtility.ExitGUI();
+            }
+            GUI.enabled = !GUI.enabled;
+            if (GUILayout.Button("Clear"))
+            {
+                importer.ClearExtarnalObjects<BlendShapeConfiguration>();
+                GUIUtility.ExitGUI();
+            }
+            GUI.enabled = true;
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel("Materials and Textures");
             GUI.enabled =
                 (importer.GetExternalUnityObjects<Texture2D>().Any() == false) ||
@@ -51,6 +85,8 @@ namespace UniVgo2.Editor
             GUI.enabled = true;
             EditorGUILayout.EndHorizontal();
 
+            DrawRemapGUI<Avatar>("Avatar Remap", importer);
+            DrawRemapGUI<BlendShapeConfiguration>("Blendshape Remap", importer);
             DrawRemapGUI<Material>("Material Remap", importer);
             DrawRemapGUI<Texture2D>("Texture Remap", importer);
 

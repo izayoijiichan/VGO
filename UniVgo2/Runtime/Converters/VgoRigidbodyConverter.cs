@@ -13,7 +13,7 @@ namespace UniVgo2.Converters
     public class VgoRigidbodyConverter
     {
         /// <summary>
-        /// Create glTF_VGO_Rigidbody from Rigidbody.
+        /// Create VgoRigidbody from Rigidbody.
         /// </summary>
         /// <param name="rigidbody"></param>
         /// <returns></returns>

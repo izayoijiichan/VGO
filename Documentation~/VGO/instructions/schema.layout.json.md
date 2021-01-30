@@ -247,7 +247,7 @@ A dictionary object, where each key corresponds to mesh attribute semantic and e
 
 #### mesh.blendshape
 
-A mesh blned shape.
+A mesh blend shape.
 
 |definition name|description|type|required|setting value|default value|
 |:---|:---|:---:|:---:|:---|:---:|
@@ -431,7 +431,7 @@ A texture.
 |name|The user-defined name of this object.|string|true|||
 |source|The index of the accessor that contains the image.|int||||
 |dimensionType|Dimensionality type of the texture.|enum||-1: Unknown<br>0: None<br>1: Any<br>2: Tex2D<br>3: Tex3D<br>4: Cube<br>5: Tex2DArray<br>6: CubeArray|0|
-|mapType|The texture type.|enum||-1: Unknown<br>0: Default<br>1: NormalMap<br>2: HeightMap<br>3: OcclusionMap<br>4: EmissionMap<br>5: MetallicRoughnessMap<br>6: SpecularGlossinessMap<br>7: CubeMap|0|
+|mapType|The texture map type.|enum||-1: Unknown<br>0: Default<br>1: NormalMap<br>2: HeightMap<br>3: OcclusionMap<br>4: EmissionMap<br>5: MetallicRoughnessMap<br>6: SpecularGlossinessMap<br>7: CubeMap|0|
 |colorSpace|Image color space.|enum||0: sRGB<br>1: Linear|0|
 |mimeType|The image's MIME type.|string||image/jpeg<br>image/png||
 |filterMode|Filtering mode of the texture.|enum||0: Point<br>1: Bilinear<br>2: Trilinear|0|
@@ -463,7 +463,7 @@ A texture.
 }
 ```
 ___
-Last updated: 20 August, 2020  
+Last updated: 31 January, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

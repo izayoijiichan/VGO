@@ -192,6 +192,12 @@ GameObject に `Vgo Spring Bone Collider Group` コンポーネントを新し�
 |2|Offset|GameObject からの相対位置です。|必須||x: 0.0, y: 0.0, z: 0.0|
 |3|Radius|球の半径です。|必須|[0.0 - 1.0]|0.0|
 
+#### 5. Particle System
+
+必要があれば ParticleSystem の設定を行います。  
+`Scene View`にてエフェクトを確認しながら設定することができます。  
+シェーダーはパーティクル用のシェーダーが使用できます。
+
 ___
 ## VGO の作成（人型アバター以外）
 
@@ -468,31 +474,45 @@ VGOファイルが読み込まれることを確認します。
 ~~~
 
 ___
+## VGOが利用できるサービス
+
+### VGO Hub
+
+VGOファイルをアップロードし管理することができるサービスです。
+
+自分がアップロードしたVGO（アバターやワールド）や  
+他人が利用可能に設定しているVGO（アバターやワールド）を  
+連携アプリで使用することができます。
+
+https://vgohub.azurewebsites.net
+
+___
 ## VGOが使用できるアプリ
 
 現在２つのアプリが対応しています。
 
+### VISHOP
+
+バーチャルショッピングシステムです。  
+アバターやショップにVGOファイルを指定することができます。  
+VGO Hub と連携したアプリです。
+
+![image1](https://github.com/izayoijiichan/vgo2/blob/master/Documentation~/UniVGO/Images/820_vishop.jpg)
+
+https://vishop.azurewebsites.net
+
 ### VOVOLA
 
 VR-HMD（ヘッドマウントディスプレイ）が不要な簡易3D バーチャルYouTuber アプリです。  
-ルームにVGOファイルを指定することができます。  
+プレイヤーやルームにVGOファイルを指定することができます。  
 マルチプレイでは複数人が同じルームに入り通話をすることができます。
 
 ![image1](https://github.com/izayoijiichan/vgo2/blob/master/Documentation~/UniVGO/Images/810_vovola.jpg)
 
 https://vovola.wixsite.com/website
 
-### VISHOP
-
-バーチャルショッピングシステムです。  
-ショップにVGOファイルを指定することができます。
-
-![image1](https://github.com/izayoijiichan/vgo2/blob/master/Documentation~/UniVGO/Images/820_vishop.jpg)
-
-https://vishop.azurewebsites.net
-
 ___
-最終更新日：2020年12月1日  
+最終更新日：2021年1月31日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

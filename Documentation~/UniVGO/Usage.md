@@ -192,6 +192,12 @@ Attach a new `Vgo Spring Bone Collider Group` component to the GameObject.
 |2|Offset|Relative to the GameObject.|required||x: 0.0, y: 0.0, z: 0.0|
 |3|Radius|The radius of the sphere.|required|[0.0 - 1.0]|0.0|
 
+#### 5. Particle System
+
+Set the ParticleSystem if necessary.  
+You can set it while checking the effect in `Scene View`.  
+Shaders for particles can be used as shaders.
+
 ___
 ## Create VGO (other than humanoid avatar)
 
@@ -462,33 +468,45 @@ If you write your own script, write as follows.
         }
     }
 ~~~
+___
+## Services that can use VGO
+
+### VGO Hub
+
+A service that allows you to upload and manage VGO files.
+
+You can use the VGO (avatar or world) that you uploaded  
+or the VGO (avatar or world) that others have set to be available in the linked app.
+
+https://vgohub.azurewebsites.net
 
 ___
 ## Apps that can use VGO
 
 Currently two applications are supported.
 
+### VISHOP
+
+It is a virtual shopping system.  
+You can specify a VGO file for the player and shop.  
+It is an application linked with VGO Hub.
+
+![image1](https://github.com/izayoijiichan/vgo/blob/master/Documentation~/UniVGO/Images/820_vishop.jpg)
+
+https://vishop.azurewebsites.net
+
 ### VOVOLA
 
 It is a simple 3D virtual YouTuber application that does not require VR-HMD (head mounted display).  
-You can specify a VGO file for a room.  
+You can specify a VGO file for the player and room.  
 Multiple play allows multiple people to enter the same room and make calls.
 
 ![image1](https://github.com/izayoijiichan/vgo/blob/master/Documentation~/UniVGO/Images/810_vovola.jpg)
 
 https://vovola.wixsite.com/website
 
-### VISHOP
-
-It is a virtual shopping system.  
-You can specify a VGO file for your shop.
-
-![image1](https://github.com/izayoijiichan/vgo/blob/master/Documentation~/UniVGO/Images/820_vishop.jpg)
-
-https://vishop.azurewebsites.net
-
 ___
-Last updated: 1 December, 2020  
+Last updated: 31 January, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

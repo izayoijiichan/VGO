@@ -3,6 +3,7 @@
     "type": "object",
     "properties": {
         "keys": {
+            "description": "All keys defined in the animation curve.",
             "$id": "VGO_Keyframe[]",
             "type": [
                 "array",
@@ -10,6 +11,7 @@
             ]
         },
         "preWrapMode": {
+            "description": "The behaviour of the animation before the first keyframe.",
             "anyOf": [
                 {
                     "enum": [ 0 ],
@@ -36,9 +38,11 @@
                     "description": "PingPong",
                     "type": "ClampForever"
                 }
-            ]
+            ],
+            "default": 0
         },
         "postWrapMode": {
+            "description": "The behaviour of the animation after the last keyframe.",
             "anyOf": [
                 {
                     "enum": [ 0 ],
@@ -65,7 +69,8 @@
                     "description": "PingPong",
                     "type": "ClampForever"
                 }
-            ]
+            ],
+            "default": 0
         }
     }
 }

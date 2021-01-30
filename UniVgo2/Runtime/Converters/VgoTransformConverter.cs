@@ -8,7 +8,7 @@ namespace UniVgo2.Converters
     using UnityEngine;
 
     /// <summary>
-    /// VGO Gradient Converter
+    /// VGO Transform Converter
     /// </summary>
     public class VgoTransformConverter
     {

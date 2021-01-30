@@ -19,7 +19,7 @@ namespace NewtonVgo
         /// <summary>The user-defined name of this object.</summary>
         [JsonProperty("name")]
         public string name;
-        
+
         /// <summary>The shader name.</summary>
         [JsonProperty("shaderName")]
         public string shaderName;

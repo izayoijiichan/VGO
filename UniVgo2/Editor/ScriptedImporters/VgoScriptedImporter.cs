@@ -28,14 +28,20 @@ namespace UniVgo2.Editor
 #endif
     public class VgoScriptedImporter : ScriptedImporter
     {
+        /// <summary>The avatar directory name.</summary>
+        protected readonly string AvatarDirectoryName = "Avatars";
+
         /// <summary>The blend shape directory name.</summary>
-        protected const string BlendShapeDirName = "BlendShapes";
-        
+        protected readonly string BlendShapeDirectoryName = "BlendShapes";
+
         /// <summary>The material directory name.</summary>
-        protected const string MaterialDirectoryName = "Materials";
+        protected readonly string MaterialDirectoryName = "Materials";
+
+        /// <summary>The mesh directory name.</summary>
+        protected readonly string MeshDirectoryName = "Meshes";
 
         /// <summary>The texture directory name.</summary>
-        protected const string TextureDirectoryName = "Textures";
+        protected readonly string TextureDirectoryName = "Textures";
 
         /// <summary>
         /// This method must by overriden by the derived class and is called by the Asset pipeline to import files.
@@ -50,81 +56,109 @@ namespace UniVgo2.Editor
             {
                 ModelAsset modelAsset = LoadModel(ctx.assetPath);
                 {
-                    // Texture
-                    Dictionary<string, Texture2D> externalTextures = GetExternalUnityObjects<Texture2D>();
-
-                    foreach (Texture2D texture in modelAsset.Texture2dList)
+                    // Avatar
+                    if (modelAsset.Avatar != null)
                     {
-                        if (texture == null)
-                        {
-                            continue;
-                        }
+                        var externalObjects = GetExternalUnityObjects<Avatar>();
 
-                        if (externalTextures.ContainsValue(texture) == false)
+                        if (externalObjects.ContainsValue(modelAsset.Avatar) == false)
                         {
-                            ctx.AddObjectToAsset(texture.name, texture);
+                            ctx.AddObjectToAsset(modelAsset.Avatar.name ?? "avatar", modelAsset.Avatar);
                         }
                     }
 
                     // Material
-                    Dictionary<string, Material> externalMaterials = GetExternalUnityObjects<Material>();
-
-                    foreach (Material material in modelAsset.MaterialList)
+                    if (modelAsset.MaterialList != null)
                     {
-                        if (material == null)
-                        {
-                            continue;
-                        }
+                        Dictionary<string, Material> externalObjects = GetExternalUnityObjects<Material>();
 
-                        if (externalMaterials.ContainsValue(material) == false)
+                        foreach (Material material in modelAsset.MaterialList)
                         {
+                            if (material == null)
+                            {
+                                continue;
+                            }
+
+                            if (externalObjects.ContainsValue(material))
+                            {
+                                continue;
+                            }
+
                             ctx.AddObjectToAsset(material.name, material);
                         }
                     }
 
                     // Mesh
-                    foreach (MeshAsset meshAsset in modelAsset.MeshAssetList)
+                    if (modelAsset.MeshAssetList != null)
                     {
-                        ctx.AddObjectToAsset(meshAsset.Mesh.name, meshAsset.Mesh);
+                        Dictionary<string, Mesh> externalObjects = GetExternalUnityObjects<Mesh>();
+
+                        foreach (MeshAsset meshAsset in modelAsset.MeshAssetList)
+                        {
+                            if (meshAsset?.Mesh == null)
+                            {
+                                continue;
+                            }
+
+                            if (externalObjects.ContainsValue(meshAsset.Mesh))
+                            {
+                                continue;
+                            }
+
+                            ctx.AddObjectToAsset(meshAsset.Mesh.name, meshAsset.Mesh);
+                        }
+                    }
+
+                    // Texture
+                    if (modelAsset.Texture2dList != null)
+                    {
+                        Dictionary<string, Texture2D> externalObjects = GetExternalUnityObjects<Texture2D>();
+
+                        foreach (Texture2D texture in modelAsset.Texture2dList)
+                        {
+                            if (texture == null)
+                            {
+                                continue;
+                            }
+
+                            if (externalObjects.ContainsValue(texture))
+                            {
+                                continue;
+                            }
+
+                            ctx.AddObjectToAsset(texture.name, texture);
+                        }
                     }
 
                     // ScriptableObject
-
-                    // avatar
-                    if (modelAsset.Avatar != null)
+                    if (modelAsset.ScriptableObjectList != null)
                     {
-                        ctx.AddObjectToAsset("avatar", modelAsset.Avatar);
-                    }
+                        // BlendShape
+                        var blendShapeConfigurationList = modelAsset.ScriptableObjectList
+                            .Where(x => x != null)
+                            .Where(x => x.GetType() == typeof(BlendShapeConfiguration))
+                            .Select(x => x as BlendShapeConfiguration)
+                            .ToList();
 
-                    // BlendShape
-                    {
-                        var external = GetExternalUnityObjects<BlendShapeConfiguration>().FirstOrDefault();
-                        if (external.Value != null)
+                        var externals = GetExternalUnityObjects<BlendShapeConfiguration>();
+
+                        foreach (BlendShapeConfiguration blendShapeConfiguration in blendShapeConfigurationList)
                         {
-                            //
-                        }
-                        else
-                        {
-                            if (modelAsset.ScriptableObjectList != null)
+                            if (blendShapeConfiguration == null)
                             {
-                                var blendShapeConfigurationList = modelAsset.ScriptableObjectList
-                                    .Where(x => x != null)
-                                    .Where(x => x.GetType() == typeof(BlendShapeConfiguration))
-                                    .Select(x => x as BlendShapeConfiguration)
-                                    .ToList();
-
-                                if (blendShapeConfigurationList != null)
-                                {
-                                    foreach (BlendShapeConfiguration blendShapeConfiguration in blendShapeConfigurationList)
-                                    {
-                                        blendShapeConfiguration.name = blendShapeConfiguration.kind + "BlendShapeConfiguration";
-                                        ctx.AddObjectToAsset(blendShapeConfiguration.name, blendShapeConfiguration);
-                                    }
-                                }
+                                continue;
                             }
+
+                            if (externals.ContainsValue(blendShapeConfiguration))
+                            {
+                                continue;
+                            }
+
+                            blendShapeConfiguration.name = blendShapeConfiguration.kind + "BlendShapeConfiguration";
+                            ctx.AddObjectToAsset(blendShapeConfiguration.name, blendShapeConfiguration);
                         }
                     }
-                    
+
                     // Root
                     ctx.AddObjectToAsset(modelAsset.Root.name, modelAsset.Root);
                     ctx.SetMainObject(modelAsset.Root);
@@ -164,24 +198,94 @@ namespace UniVgo2.Editor
             return modelAsset;
         }
 
-        public virtual void ExtractTexturesAndMaterials()
+        /// <summary>
+        /// Extract avatars.
+        /// </summary>
+        public void ExtractAvatars()
         {
-            ExtractTextures(TextureDirectoryName, (path) => { return ExtractModel(path); }, continueMaterial: true);
+            ExtractAssets<Avatar>(AvatarDirectoryName, ".asset");
+
+            Dictionary<string, Avatar> externalObjects = GetExternalUnityObjects<Avatar>();
+
+            foreach ((_, Avatar avatar) in externalObjects)
+            {
+                string assetPath = AssetDatabase.GetAssetPath(avatar);
+
+                if (string.IsNullOrEmpty(assetPath) == false)
+                {
+                    EditorUtility.SetDirty(avatar);
+                    AssetDatabase.WriteImportSettingsIfDirty(assetPath);
+                }
+            }
+
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
-        public virtual void ExtractTextures()
+        /// <summary>
+        /// Extract blendshapes.
+        /// </summary>
+        public void ExtractBlendShapes()
         {
-            ExtractTextures(TextureDirectoryName, (path) => { return ExtractModel(path); });
+            ExtractAssets<BlendShapeConfiguration>(BlendShapeDirectoryName, ".asset");
+
+            Dictionary<string, BlendShapeConfiguration> externalObjects = GetExternalUnityObjects<BlendShapeConfiguration>();
+
+            foreach ((_, BlendShapeConfiguration blendShapeConfiguration) in externalObjects)
+            {
+                string assetPath = AssetDatabase.GetAssetPath(blendShapeConfiguration);
+
+                if (string.IsNullOrEmpty(assetPath) == false)
+                {
+                    EditorUtility.SetDirty(blendShapeConfiguration);
+                    AssetDatabase.WriteImportSettingsIfDirty(assetPath);
+                }
+            }
+
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
+        /// <summary>
+        /// Extract materials.
+        /// </summary>
         public virtual void ExtractMaterials()
         {
             ExtractAssets<Material>(MaterialDirectoryName, ".mat");
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
+        /// <summary>
+        /// Extract meshes.
+        /// </summary>
+        public void ExtractMeshes()
+        {
+            ExtractAssets<Mesh>(MeshDirectoryName, ".mesh");
+            AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
+        }
+
+        /// <summary>
+        /// Extract textures and materials.
+        /// </summary>
+        public virtual void ExtractTexturesAndMaterials()
+        {
+            ExtractTextures(TextureDirectoryName, (path) => { return ExtractModel(path); }, continueMaterial: true);
+            AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
+        }
+
+        /// <summary>
+        /// Extract textures.
+        /// </summary>
+        public virtual void ExtractTextures()
+        {
+            ExtractTextures(TextureDirectoryName, (path) => { return ExtractModel(path); });
+            AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
+        }
+
+        /// <summary>
+        /// Extract textures.
+        /// </summary>
+        /// <param name="dirName"></param>
+        /// <param name="ExtractModel"></param>
+        /// <param name="continueMaterial"></param>
         public virtual void ExtractTextures(string dirName, Func<string, ModelAsset> ExtractModel, bool continueMaterial = false)
         {
             if (string.IsNullOrEmpty(assetPath))
@@ -197,7 +301,7 @@ namespace UniVgo2.Editor
                 dirName
                 );
 
-            SafeCreateDirectory(path);
+            CreateDirectoryIfNotExists(path);
 
             Dictionary<VgoTexture, string> targetPaths = new Dictionary<VgoTexture, string>();
 
@@ -245,11 +349,9 @@ namespace UniVgo2.Editor
 
             EditorApplication.delayCall += () =>
             {
-                foreach (var targetPath in targetPaths)
+                foreach ((VgoTexture vgoTexture, string targetPath) in targetPaths)
                 {
-                    VgoTexture vgoTexture = targetPath.Key;
-
-                    TextureImporter targetTextureImporter = AssetImporter.GetAtPath(targetPath.Value) as TextureImporter;
+                    TextureImporter targetTextureImporter = AssetImporter.GetAtPath(targetPath) as TextureImporter;
 
                     targetTextureImporter.sRGBTexture = (vgoTexture.colorSpace == VgoColorSpaceType.Srgb);
 
@@ -260,7 +362,7 @@ namespace UniVgo2.Editor
 
                     targetTextureImporter.SaveAndReimport();
 
-                    UnityEngine.Object externalObject = AssetDatabase.LoadAssetAtPath(targetPath.Value, typeof(Texture2D));
+                    UnityEngine.Object externalObject = AssetDatabase.LoadAssetAtPath<Texture2D>(targetPath);
 
                     AddRemap(new AssetImporter.SourceAssetIdentifier(typeof(Texture2D), vgoTexture.name), externalObject);
                 }
@@ -275,23 +377,9 @@ namespace UniVgo2.Editor
             };
         }
 
-        public void ExtractBlendShapes()
-        {
-            ExtractAssets<BlendShapeConfiguration>(BlendShapeDirName, ".asset");
-
-            var blendShapeConfiguration = GetExternalUnityObjects<BlendShapeConfiguration>().FirstOrDefault();
-
-            string blendShapeConfigurationPath = AssetDatabase.GetAssetPath(blendShapeConfiguration.Value);
-
-            if (string.IsNullOrEmpty(blendShapeConfigurationPath) == false)
-            {
-                EditorUtility.SetDirty(blendShapeConfiguration.Value);
-                AssetDatabase.WriteImportSettingsIfDirty(blendShapeConfigurationPath);
-            }
-
-            AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
-        }
-
+        /// <summary>
+        /// Clear external objects.
+        /// </summary>
         public virtual void ClearExtarnalObjects()
         {
             foreach (var extarnalObject in GetExternalObjectMap())
@@ -302,6 +390,10 @@ namespace UniVgo2.Editor
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
+        /// <summary>
+        /// Clear external objects.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         public virtual void ClearExtarnalObjects<T>() where T : UnityEngine.Object
         {
             foreach (var extarnalObject in GetExternalObjectMap().Where(x => x.Key.type == typeof(T)))
@@ -312,6 +404,12 @@ namespace UniVgo2.Editor
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
+        /// <summary>
+        /// Extract assets.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dirName"></param>
+        /// <param name="extension"></param>
         public virtual void ExtractAssets<T>(string dirName, string extension) where T : UnityEngine.Object
         {
             if (string.IsNullOrEmpty(assetPath))
@@ -327,7 +425,7 @@ namespace UniVgo2.Editor
                 dirName
                 );
 
-            SafeCreateDirectory(path);
+            CreateDirectoryIfNotExists(path);
 
             foreach (T asset in subAssets)
             {
@@ -335,6 +433,12 @@ namespace UniVgo2.Editor
             }
         }
 
+        /// <summary>
+        /// Extract from asset.
+        /// </summary>
+        /// <param name="subAsset"></param>
+        /// <param name="destinationPath"></param>
+        /// <param name="isForceUpdate"></param>
         protected virtual void ExtractFromAsset(UnityEngine.Object subAsset, string destinationPath, bool isForceUpdate)
         {
             string assetPath = AssetDatabase.GetAssetPath(subAsset);
@@ -354,11 +458,23 @@ namespace UniVgo2.Editor
             }
         }
 
+        /// <summary>
+        /// Gets the external unity objects.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public virtual Dictionary<string, T> GetExternalUnityObjects<T>() where T : UnityEngine.Object
         {
-            return GetExternalObjectMap().Where(x => x.Key.type == typeof(T)).ToDictionary(x => x.Key.name, x => (T)x.Value);
+            return GetExternalObjectMap()
+                .Where(x => x.Key.type == typeof(T))
+                .ToDictionary(x => x.Key.name, x => x.Value as T);
         }
 
+        /// <summary>
+        /// Set a external unity object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public virtual void SetExternalUnityObject<T>(SourceAssetIdentifier sourceAssetIdentifier, T obj) where T : UnityEngine.Object
         {
             AddRemap(sourceAssetIdentifier, obj);
@@ -366,6 +482,12 @@ namespace UniVgo2.Editor
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
+        /// <summary>
+        /// Gets the sub assets.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="assetPath"></param>
+        /// <returns></returns>
         protected virtual IEnumerable<T> GetSubAssets<T>(string assetPath) where T : UnityEngine.Object
         {
             return AssetDatabase
@@ -375,13 +497,21 @@ namespace UniVgo2.Editor
                 .Select(x => x as T);
         }
 
-        protected virtual DirectoryInfo SafeCreateDirectory(string path)
+        /// <summary>
+        /// Create a directory if it does not exist.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        protected virtual DirectoryInfo CreateDirectoryIfNotExists(string path)
         {
-            if (Directory.Exists(path))
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+
+            if (directoryInfo.Exists == false)
             {
-                return null;
+                directoryInfo.Create();
             }
-            return Directory.CreateDirectory(path);
+
+            return directoryInfo;
         }
     }
 }
