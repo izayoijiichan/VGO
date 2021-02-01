@@ -1,0 +1,140 @@
+{
+    "title": "vgo.ps.main.module",
+    "description": "Particle System Main Module.",
+    "type": "object",
+    "properties": {
+        "duration": {
+            "type": "number"
+        },
+        "loop": {
+            "type": "boolean"
+        },
+        "prewarm": {
+            "type": "boolean"
+        },
+        "startDelay": {
+            "$ref": "vgo.ps.minMaxCurve.schema.json"
+        },
+        "startDelayMultiplier": {
+            "type": "number"
+        },
+        "startLifetime": {
+            "$ref": "vgo.ps.minMaxCurve.schema.json"
+        },
+        "startLifetimeMultiplier": {
+            "type": "number"
+        },
+        "startSpeed": {
+            "$ref": "vgo.ps.minMaxCurve.schema.json"
+        },
+        "startSpeedMultiplier": {
+            "type": "number"
+        },
+        "startSize3D": {
+            "type": "boolean"
+        },
+        "startSize": {
+            "$ref": "vgo.ps.minMaxCurve.schema.json"
+        },
+        "startSizeX": {
+            "$ref": "vgo.ps.minMaxCurve.schema.json"
+        },
+        "startSizeY": {
+            "$ref": "vgo.ps.minMaxCurve.schema.json"
+        },
+        "startSizeZ": {
+            "$ref": "vgo.ps.minMaxCurve.schema.json"
+        },
+        "startSizeMultiplier": {
+            "type": "number"
+        },
+        "startSizeXMultiplier": {
+            "type": "number"
+        },
+        "startSizeYMultiplier": {
+            "type": "number"
+        },
+        "startSizeZMultiplier": {
+            "type": "number"
+        },
+        "startRotation3D": {
+            "type": "boolean"
+        },
+        "startRotation": {
+            "$ref": "vgo.ps.minMaxCurve.schema.json"
+        },
+        "startRotationX": {
+            "$ref": "vgo.ps.minMaxCurve.schema.json"
+        },
+        "startRotationY": {
+            "$ref": "vgo.ps.minMaxCurve.schema.json"
+        },
+        "startRotationZ": {
+            "$ref": "vgo.ps.minMaxCurve.schema.json"
+        },
+        "startRotationMultiplier": {
+            "type": "number"
+        },
+        "startRotationXMultiplier": {
+            "type": "number"
+        },
+        "startRotationYMultiplier": {
+            "type": "number"
+        },
+        "startRotationZMultiplier": {
+            "type": "number"
+        },
+        "flipRotation": {
+            "type": "number"
+        },
+        "startColor": {
+            "$ref": "vgo.ps.minMaxGradient.schema.json"
+        },
+        "gravityModifier": {
+            "$ref": "vgo.ps.minMaxCurve.schema.json"
+        },
+        "gravityModifierMultiplier": {
+            "type": "number"
+        },
+        "simulationSpace": {
+            "type": "string",
+            "enum": ["Local","World","Custom"]
+        },
+        "useUnscaledTime": {
+            "type": "boolean"
+        },
+        "scalingMode": {
+            "type": "string",
+            "enum": ["Hierarchy","Local","Shape"]
+        },
+        "playOnAwake": {
+            "type": "boolean"
+        },
+        "emitterVelocityMode": {
+            "type": "string",
+            "enum": ["Transform","Rigidbody"]
+        },
+        "maxParticles": {
+            "type": "integer"
+        },
+        "stopAction": {
+            "type": "string",
+            "enum": ["None","Disable","Destroy","Callback"]
+        },
+        "cullingMode": {
+            "type": "string",
+            "enum": ["Automatic","PauseAndCatchup","Pause","AlwaysSimulate"]
+        },
+        "ringBufferMode": {
+            "type": "string",
+            "enum": ["Disabled","PauseUntilReplaced","LoopUntilReplaced"]
+        },
+        "ringBufferLoopRange": {
+            "type": "array",
+                "items": {
+                    "type": "number"
+                }
+            }
+        }
+    }
+}

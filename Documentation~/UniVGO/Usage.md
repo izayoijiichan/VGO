@@ -12,8 +12,8 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2019.4|
-|2|UniVGO version|2.1.0|
-|3|VGO spec version|2.1|
+|2|UniVGO version|2.2.0|
+|3|VGO spec version|2.2|
 
 ### Supported Unity components
 
@@ -24,13 +24,14 @@ The following Unity components are supported by VGO
 |1|Vgo Meta|Root|It is for managing VGO information.|
 |2|Vgo Right|Root / Child|You can add rights information to VGO.|
 |3|Animator|Root|You can set Human Avatar in GameObject.|
-|4|Collider|Child|You can set collision judgment for GameObject.|
-|5|Rigidbody|Child|You can set physics to GameObject and move it|
-|6|Light|Child|You can set the light source for GameObject.|
-|7|Particle System|Child|You can set particles to GameObject.|
-|8|Skybox|Child|You can set skybox to Scene.|
-|9|Vgo Spring Bone Group|Child|You will be able to set the spring bone (swaying object).|
-|10|Vgo Spring Bone Collider Group|Child|You can set the collider for the spring bone.|
+|4|Animattion|Child|You can set animation in GameObject.|
+|5|Collider|Child|You can set collision judgment for GameObject.|
+|6|Rigidbody|Child|You can set physics to GameObject and move it|
+|7|Light|Child|You can set the light source for GameObject.|
+|8|Particle System|Child|You can set particles to GameObject.|
+|9|Skybox|Child|You can set skybox to Scene.|
+|10|Vgo Spring Bone Group|Child|You will be able to set the spring bone (swaying object).|
+|11|Vgo Spring Bone Collider Group|Child|You can set the collider for the spring bone.|
 
 ### Usable shaders
 
@@ -112,7 +113,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.1.0|
+|2|Version|Version of the generation tool.|2.2.0|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -198,6 +199,11 @@ Set the ParticleSystem if necessary.
 You can set it while checking the effect in `Scene View`.  
 Shaders for particles can be used as shaders.
 
+#### 6. Remarks
+
+Animation is not available for avatars (Deprecated).  
+The reason is that the avatar moves in position.
+
 ___
 ## Create VGO (other than humanoid avatar)
 
@@ -255,7 +261,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.1.0|
+|2|Version|Version of the generation tool.|2.2.0|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -283,7 +289,13 @@ Also, if you want to include `Directional Light` in VGO, delete or deactivate` D
 You can set while checking the effect in `Scene View`.  
 Shaders for particles can be used.
 
-#### 3-4. Any other regular object
+#### 3-4. Animation
+
+You can set animations for GameObjects.  
+Animation clip must be created with legacy animation.
+After setting, check that the animation works in `Scene View` or` Game View`.
+
+#### 3-5. Any other regular object
 
 Normal objects other than `Light` and` Particle System`.  
 It is divided into A, B and C by type.
@@ -506,7 +518,7 @@ Multiple play allows multiple people to enter the same room and make calls.
 https://vovola.wixsite.com/website
 
 ___
-Last updated: 31 January, 2021  
+Last updated: 1 February, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -23,6 +23,9 @@ namespace UniVgo2
         /// <summary>The game object of root.</summary>
         public GameObject Root = null;
 
+        /// <summary>List of unity animation clip.</summary>
+        public List<AnimationClip> AnimationClipList = null;
+
         /// <summary>List of unity material.</summary>
         public List<Material> MaterialList = null;
 
@@ -51,6 +54,9 @@ namespace UniVgo2
         #endregion
 
         #region Fields (Export)
+
+        /// <summary>List of unity animation.</summary>
+        public List<Animation> AnimationList = null;
 
         /// <summary>List of unity mesh.</summary>
         public List<Mesh> MeshList = null;
@@ -165,6 +171,14 @@ namespace UniVgo2
             foreach (var x in Texture2dList) { yield return x; }
             foreach (var x in SpringBoneColliderGroupArray) { yield return x; }
 
+            if (AnimationList != null)
+            {
+                foreach (var x in AnimationList) { yield return x; }
+            }
+            if (AnimationClipList != null)
+            {
+                foreach (var x in AnimationClipList) { yield return x; }
+            }
             if (MeshList != null)
             {
                 foreach (var x in MeshList) { yield return x; }
@@ -233,6 +247,28 @@ namespace UniVgo2
                         if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(springBoneColliderGroup)))
                         {
                             UnityEngine.Object.DestroyImmediate(springBoneColliderGroup);
+                        }
+                    }
+                }
+
+                if (AnimationList != null)
+                {
+                    foreach (Animation animation in AnimationList)
+                    {
+                        if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(animation)))
+                        {
+                            UnityEngine.Object.DestroyImmediate(animation);
+                        }
+                    }
+                }
+
+                if (AnimationClipList != null)
+                {
+                    foreach (AnimationClip animationClip in AnimationClipList)
+                    {
+                        if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(animationClip)))
+                        {
+                            UnityEngine.Object.DestroyImmediate(animationClip);
                         }
                     }
                 }

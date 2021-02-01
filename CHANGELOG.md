@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.2.0] - 2021-02-01
+
+- Features
+  - Updated the specification version of VGO to `2.2`.
+  - Animation is now available (Unity legacy animation).
+
 ## [2.1.2] - 2021-01-31
 
 - Improvements

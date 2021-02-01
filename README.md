@@ -6,7 +6,7 @@ VGO version 2.0 is a new type of 3D data format.
 
 - A proprietary format developed from VGO 1.0.
 - You can save basic information of 3D model such as `Node`, `Transform`, `Rigidbody`, `Collider`, `Mesh`, `BlendShape`, `Material`, `Texture`.
-- You can also save the information of `Human Avatar`, `SpringBone`, `Light`, `ParticleSystem`, `Skybox` for use in Unity.
+- You can also save the information of `Human Avatar`, `SpringBone`, `Animation`, `Light`, `ParticleSystem`, `Skybox` for use in Unity.
 - You can also save the information of `BlendShapePreset` for use in the application.
 - The file format uses IFF chunk as the base.
 - Use `JSON`, `BSON`, `Binary` as internal data.
@@ -57,6 +57,7 @@ VGO version 2.0 is a new type of 3D data format.
   - nodes
     - animator
       - humanAvatar
+    - animation
     - rigidbody
     - colliders
       - collider
@@ -67,6 +68,7 @@ VGO version 2.0 is a new type of 3D data format.
   - meshes
   - materials
   - textures
+  - animationClips
   - particles
   - springBoneInfo
   - extensions
@@ -75,13 +77,14 @@ VGO version 2.0 is a new type of 3D data format.
 
 - [Asset Info](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/VGO/instructions/schema.assetInfo.json.md)
 - [Layout](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/VGO/instructions/schema.layout.json.md)
+- [Layout (animation)](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/VGO/instructions/schema.layout.animation.json.md)
 - [Layout (particle)](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/VGO/instructions/schema.layout.particle.json.md)
 - [Layout (spring bone)](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/VGO/instructions/schema.layout.springBoneInfo.json.md)
 - [Resource](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/VGO/instructions/schema.resource.json.md)
 
 ## JSON specification
 
-- VGO JSON Schema: [2.1](https://github.com/izayoijiichan/VGO2/tree/master/Documentation~/VGO/specification/2.1/schema)
+- VGO JSON Schema: [2.2](https://github.com/izayoijiichan/VGO2/tree/master/Documentation~/VGO/specification/2.2/schema)
 
 ## Tools
 
@@ -100,7 +103,7 @@ You can easily export a VGO file with the click of a button.
 [Usage.md](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/UniVGO/Usage.md)
 
 ___
-Last updated: 1 December, 2020  
+Last updated: 1 February, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

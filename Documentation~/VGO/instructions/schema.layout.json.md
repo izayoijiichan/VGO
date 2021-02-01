@@ -13,6 +13,7 @@ The vgo layout.
 |meshes|List of meshes.|layout.mesh[]|||
 |materials|List of materials.|layout.material[]|||
 |textures|List of textures.|layout.texture[]|||
+|animationClips|List of animation clips.|vgo.animationClip[]|||
 |particles|List of particles.|layout.particle[]|||
 |springBoneInfo|The spring bone info.|vgo.springBoneInfo|||
 |extensions|The extensions.|object|||
@@ -30,6 +31,7 @@ A node in the node hierarchy.
 |tag|Tag attached to GameGbject.|string|||Untagged|
 |layer|The layer on which the GameObject is located.|int||[0, 31]|0|
 |animator||node.animator||||
+|animation||vgo.animation||||
 |rigidbody||node.rigidbody||||
 |colliders||node.collider[]||||
 |skybox||vgo.skybox||||
@@ -463,7 +465,7 @@ A texture.
 }
 ```
 ___
-Last updated: 31 January, 2021  
+Last updated: 1 February, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

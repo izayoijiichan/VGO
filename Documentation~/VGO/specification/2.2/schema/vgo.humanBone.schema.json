@@ -1,0 +1,296 @@
+{
+    "title": "vgo.humanBone",
+    "description": "The human bone.",
+    "type": "object",
+    "properties": {
+        "humanBodyBone": {
+            "description": "The human body bone.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Hips",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "LeftUpperLeg",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "RightUpperLeg",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "LeftLowerLeg",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "RightLowerLeg",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5 ],
+                    "description": "LeftFoot",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 6 ],
+                    "description": "RightFoot",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 7 ],
+                    "description": "Spine",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 8 ],
+                    "description": "Chest",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 9 ],
+                    "description": "Neck",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 10 ],
+                    "description": "Head",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 11 ],
+                    "description": "LeftShoulder",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 12 ],
+                    "description": "RightShoulder",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 13 ],
+                    "description": "LeftUpperArm",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 14 ],
+                    "description": "RightUpperArm",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 15 ],
+                    "description": "LeftLowerArm",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 16 ],
+                    "description": "RightLowerArm",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 17 ],
+                    "description": "LeftHand",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 18 ],
+                    "description": "RightHand",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 19 ],
+                    "description": "LeftToes",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 20 ],
+                    "description": "RightToes",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 21 ],
+                    "description": "LeftEye",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 22 ],
+                    "description": "RightEye",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 23 ],
+                    "description": "Jaw",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 24 ],
+                    "description": "LeftThumbProximal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 25 ],
+                    "description": "LeftThumbIntermediate",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 26 ],
+                    "description": "LeftThumbDistal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 27 ],
+                    "description": "LeftIndexProximal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 28 ],
+                    "description": "LeftIndexIntermediate",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 29 ],
+                    "description": "LeftIndexDistal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 30 ],
+                    "description": "LeftMiddleProximal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 31 ],
+                    "description": "LeftMiddleIntermediate",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 32 ],
+                    "description": "LeftMiddleDistal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 33 ],
+                    "description": "LeftRingProximal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 34 ],
+                    "description": "LeftRingIntermediate",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 35 ],
+                    "description": "LeftRingDistal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 36 ],
+                    "description": "LeftLittleProximal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 37 ],
+                    "description": "LeftLittleIntermediate",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 38 ],
+                    "description": "LeftLittleDistal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 39 ],
+                    "description": "RightThumbProximal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 40 ],
+                    "description": "RightThumbIntermediate",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 41 ],
+                    "description": "RightThumbDistal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 42 ],
+                    "description": "RightIndexProximal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 43 ],
+                    "description": "RightIndexIntermediate",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 44 ],
+                    "description": "RightIndexDistal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 45 ],
+                    "description": "RightMiddleProximal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 46 ],
+                    "description": "RightMiddleIntermediate",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 47 ],
+                    "description": "RightMiddleDistal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 48 ],
+                    "description": "RightRingProximal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 49 ],
+                    "description": "RightRingIntermediate",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 50 ],
+                    "description": "RightRingDistal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 51 ],
+                    "description": "RightLittleProximal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 52 ],
+                    "description": "RightLittleIntermediate",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 53 ],
+                    "description": "RightLittleDistal",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 54 ],
+                    "description": "UpperChest",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 55 ],
+                    "description": "LastBone",
+                    "type": "integer"
+                }
+            ]        
+        },
+        "nodeIndex": {
+            "description": "The index of the node.",
+            "type": "integer"
+        }
+    }
+}

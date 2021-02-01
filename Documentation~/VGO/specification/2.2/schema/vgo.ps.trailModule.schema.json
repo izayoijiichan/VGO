@@ -1,0 +1,117 @@
+{
+    "$id": "vgo.ps.trailModule",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "mode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "PerParticle",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Ribbon",
+                    "type": "integer"
+                }
+            ]
+        },
+        "ratio": {
+            "type": "number"
+        },
+        "lifetime": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "lifetimeMultiplier": {
+            "type": "number"
+        },
+        "minVertexDistance": {
+            "type": "number"
+        },
+        "worldSpace": {
+            "type": "boolean"
+        },
+        "dieWithParticles": {
+            "type": "boolean"
+        },
+        "ribbonCount": {
+            "type": "integer"
+        },
+        "splitSubEmitterRibbons": {
+            "type": "boolean"
+        },
+        "attachRibbonsToTransform": {
+            "type": "boolean"
+        },
+        "textureMode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Stretch",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Tile",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "DistributePerSegment",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "RepeatPerSegment",
+                    "type": "integer"
+                }
+            ]
+        },
+        "sizeAffectsWidth": {
+            "type": "boolean"
+        },
+        "sizeAffectsLifetime": {
+            "type": "boolean"
+        },
+        "useMeinheritParticleColorshColors": {
+            "type": "boolean"
+        },
+        "colorOverLifetime": {
+            "$id": "vgo.ps.minMaxGradient",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "widthOverTrail": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "widthOverTrailMultiplier": {
+            "type": "number"
+        },
+        "colorOverTrail": {
+            "$id": "vgo.ps.minMaxGradient",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "generateLightingData": {
+            "type": "boolean"
+        },
+        "shadowBias": {
+            "type": "number"
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "$id": "vgo.animationCurveBinding",
+    "type": "object",
+    "properties": {
+        "type": {
+            "description": "The type of the property to be animated.",
+            "type": "string"
+        },
+        "propertyName": {
+            "description": "The name of the property to be animated.",
+            "type": "string"
+        },
+        "animationCurve": {
+            "description": "The animation curve.",
+            "$ref": "vgo.animationCurve.schema.json"
+        }
+    }
+}

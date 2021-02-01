@@ -1,0 +1,26 @@
+{
+    "title": "assetInfo",
+    "description": "Metadata about the VGO asset.",
+    "type": "object",
+    "properties": {
+        "generator": {
+            "$ref": "assetInfo.generatorInfo.schema.json"
+        },
+        "right": {
+            "$ref": "assetInfo.right.schema.json"
+        },
+        "extensions": {
+            "description": "Dictionary object with extension-specific objects.",
+            "type": "object"
+        },
+        "extensionsUsed": {
+            "type": "array",
+            "description": "Names of extensions used somewhere in this asset (include layout).",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true,
+            "minItems": 1
+        }
+    }
+}

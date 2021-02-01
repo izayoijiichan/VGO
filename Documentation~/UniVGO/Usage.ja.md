@@ -12,8 +12,8 @@ ___
 |No|項目|値|
 |:---:|:---|:---:|
 |1|Unity バージョン|2019.4|
-|2|UniVGO バージョン|2.1.0|
-|3|VGO 仕様バージョン|2.1|
+|2|UniVGO バージョン|2.2.0|
+|3|VGO 仕様バージョン|2.2|
 
 ### 対応 Unity コンポーネント
 
@@ -24,13 +24,14 @@ VGOが対応する Unity コンポーネントは以下の通りです
 |1|Vgo Generator|Root|VGO情報を管理するためのものです。|
 |2|Vgo Right|Root / Child|VGOに権利情報を付与することができます。|
 |3|Animator|Root|GameObjectに Human Avatar を設定することができます。|
-|4|Collider|Child|GameObjectに衝突判定を設定することができます。|
-|5|Rigidbody|Child|GameObjectに物理特性を設定し、動かすことができるようになります。|
-|6|Light|Child|GameObjectに光源を設定することができます。|
-|7|Particle System|Child|GameObjectにパーティクルを設定することができます。|
-|8|Skybox|Child|シーンにスカイボックスを設定することができます。|
-|9|Vgo Spring Bone Group|Child|スプリング ボーン（揺れもの）の設定ができるようになります。|
-|10|Vgo Spring Bone Collider Group|Child|スプリング ボーンに対するコライダーを設定することができます。|
+|4|Animation|Child|GameObjectにアニメーションを設定することができます。|
+|5|Collider|Child|GameObjectに衝突判定を設定することができます。|
+|6|Rigidbody|Child|GameObjectに物理特性を設定し、動かすことができるようになります。|
+|7|Light|Child|GameObjectに光源を設定することができます。|
+|8|Particle System|Child|GameObjectにパーティクルを設定することができます。|
+|9|Skybox|Child|シーンにスカイボックスを設定することができます。|
+|10|Vgo Spring Bone Group|Child|スプリング ボーン（揺れもの）の設定ができるようになります。|
+|11|Vgo Spring Bone Collider Group|Child|スプリング ボーンに対するコライダーを設定することができます。|
 
 ### 使用可能シェーダー
 
@@ -112,7 +113,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Name|生成ツールの名前です。|UniVGO|
-|2|Version|生成ツールのバージョンです。|2.1.0|
+|2|Version|生成ツールのバージョンです。|2.2.0|
 
 ユーザーが設定可能な項目はありません。  
 ジェネレーター情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -198,6 +199,11 @@ GameObject に `Vgo Spring Bone Collider Group` コンポーネントを新し�
 `Scene View`にてエフェクトを確認しながら設定することができます。  
 シェーダーはパーティクル用のシェーダーが使用できます。
 
+#### 6. 備考
+
+アバターでは Animation は使用できません（非推奨です）。  
+理由はアバターは位置が動くためです。
+
 ___
 ## VGO の作成（人型アバター以外）
 
@@ -255,7 +261,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Generator Name|生成ツールの名前です。|UniVGO|
-|2|Generator Version|生成ツールのバージョンです。|2.1.0|
+|2|Generator Version|生成ツールのバージョンです。|2.2.0|
 
 ユーザーが設定可能な項目はありません。  
 メタ情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -283,7 +289,13 @@ Skyboxマテリアルを設定します。
 `Scene View`にてエフェクトを確認しながら設定することができます。  
 シェーダーはパーティクル用のシェーダーが使用できます。
 
-#### 3-4. それ以外の通常オブジェクト
+#### 3-4. Animation
+
+ゲームオブジェクトにアニメーションを設定することができます。  
+アニメーションクリップはレガシー アニメーションで作成する必要があります。  
+設定後に`Scene View`または`Game View`にてにてアニメーションが動作することを確認してください。
+
+#### 3-5. それ以外の通常オブジェクト
 
 `Light`, `Particle System`以外の通常のオブジェクトです。  
 タイプ別に A か B か C かに分かれます。
@@ -512,7 +524,7 @@ VR-HMD（ヘッドマウントディスプレイ）が不要な簡易3D バー�
 https://vovola.wixsite.com/website
 
 ___
-最終更新日：2021年1月31日  
+最終更新日：2021年2月1日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

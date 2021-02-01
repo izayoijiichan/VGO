@@ -2,7 +2,7 @@
   "name": "izayoi.univgo2",
   "displayName": "UniVGO 2",
   "description": "UniVGO 2 is a package that can handle VGO files in Unity.",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "type": "tool",
   "category": "",
   "keywords": [
@@ -14,6 +14,7 @@
     "skin",
     "springBone",
     "material",
+    "animation",
     "light",
     "particle",
     "skybox",

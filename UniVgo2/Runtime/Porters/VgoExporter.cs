@@ -137,6 +137,8 @@ namespace UniVgo2
             Nodes = ModelAsset.Root.transform.Traverse().ToList();
 
             // Prepare
+            ModelAsset.AnimationList = CreateUnityAnimationList();
+            ModelAsset.AnimationClipList = CreateUnityAnimationClipList();
             ModelAsset.RendererList = CreateUnityRendererList();
             ModelAsset.MaterialList = CreateUnityMaterialList();
             ModelAsset.SkinList = CreateUnitySkinList();
@@ -153,6 +155,8 @@ namespace UniVgo2
 
             CreateVgoMeshes();
             CreateVgoSkins();
+
+            CreateVgoAnimationClips();
 
             // ParticleSystems & Textures
             CreateVgoParticlesAndExportTextures();
@@ -172,6 +176,58 @@ namespace UniVgo2
         #endregion
 
         #region Prepare
+
+        /// <summary>
+        /// Create list of unity animation.
+        /// </summary>
+        /// <returns>list of unity animation.</returns>
+        protected virtual List<Animation> CreateUnityAnimationList()
+        {
+            if (Nodes == null)
+            {
+                throw new Exception();
+            }
+
+            var animationList = new List<Animation>();
+
+            for (int index = 0; index < Nodes.Count; index++)
+            {
+                GameObject node = Nodes[index].gameObject;
+
+                if (node.TryGetComponentEx(out Animation animation))
+                {
+                    animationList.Add(animation);
+                }
+            }
+
+            return animationList;
+        }
+
+        /// <summary>
+        /// Create list of unity animation clip.
+        /// </summary>
+        /// <returns>list of unity animation clip.</returns>
+        protected virtual List<AnimationClip> CreateUnityAnimationClipList()
+        {
+            if (ModelAsset.AnimationList == null)
+            {
+                throw new Exception();
+            }
+
+            var animationClipList = new List<AnimationClip>();
+
+            for (int index = 0; index < ModelAsset.AnimationList.Count; index++)
+            {
+                Animation animation = ModelAsset.AnimationList[index];
+
+                if (animationClipList.FirstOrDefault(x => x.GetInstanceID() == animation.clip.GetInstanceID()) == null)
+                {
+                    animationClipList.Add(animation.clip);
+                }
+            }
+
+            return animationClipList;
+        }
 
         /// <summary>
         /// Create list of unity renderer.
@@ -713,6 +769,12 @@ namespace UniVgo2
                 }
             }
 
+            // Animation
+            if (gameObject.TryGetComponentEx(out Animation animation))
+            {
+                vgoNode.animation = VgoAnimationConverter.CreateFrom(animation, ModelAsset.AnimationClipList, StorageAdapter.GeometryCoordinate);
+            }
+
             // Rigidbody
             if (gameObject.TryGetComponentEx(out Rigidbody rigidbody))
             {
@@ -835,6 +897,39 @@ namespace UniVgo2
             }
 
             StorageAdapter.AddAccessorWithoutSparse(matrixes, VgoResourceAccessorDataType.Matrix4Float, VgoResourceAccessorKind.NodeTransform);
+        }
+
+        #endregion
+
+        #region layout.animationClips
+
+        /// <summary>
+        /// Create layout.animationClips.
+        /// </summary>
+        protected virtual void CreateVgoAnimationClips()
+        {
+            if (ModelAsset.AnimationClipList == null)
+            {
+                throw new Exception();
+            }
+
+            if (ModelAsset.AnimationClipList.Any())
+            {
+                Layout.animationClips = new List<VgoAnimationClip>(ModelAsset.AnimationClipList.Count);
+
+                for (int animationClipIndex = 0; animationClipIndex < ModelAsset.AnimationClipList.Count; animationClipIndex++)
+                {
+                    AnimationClip animationClip = ModelAsset.AnimationClipList[animationClipIndex];
+
+                    VgoAnimationClip vgoAnimationClip = VgoAnimationClipConverter.CreateFrom(animationClip, StorageAdapter.GeometryCoordinate);
+
+                    Layout.animationClips.Add(vgoAnimationClip);
+                }
+            }
+            else
+            {
+                Layout.animationClips = new List<VgoAnimationClip>();
+            }
         }
 
         #endregion

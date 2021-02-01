@@ -8,7 +8,7 @@ namespace UniVgo2.Converters
     using UnityEngine;
 
     /// <summary>
-    /// VGO AnimationCurve Converter
+    /// VGO Animation Curve Converter
     /// </summary>
     public class VgoAnimationCurveConverter
     {

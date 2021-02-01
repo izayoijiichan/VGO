@@ -36,7 +36,11 @@ namespace NewtonVgo
         [JsonProperty("textures")]
         public List<VgoTexture> textures = null;
 
-        /// <summary>List of particles</summary>
+        /// <summary>List of animation clips.</summary>
+        [JsonProperty("animationClips")]
+        public List<VgoAnimationClip> animationClips = null;
+
+        /// <summary>List of particles.</summary>
         [JsonProperty("particles")]
         public List<VgoParticleSystem> particles = null;
 

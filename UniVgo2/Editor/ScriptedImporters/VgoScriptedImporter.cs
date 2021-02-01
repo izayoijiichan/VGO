@@ -28,6 +28,9 @@ namespace UniVgo2.Editor
 #endif
     public class VgoScriptedImporter : ScriptedImporter
     {
+        /// <summary>The animation directory name.</summary>
+        protected readonly string AnimationDirectoryName = "Animations";
+
         /// <summary>The avatar directory name.</summary>
         protected readonly string AvatarDirectoryName = "Avatars";
 
@@ -56,6 +59,27 @@ namespace UniVgo2.Editor
             {
                 ModelAsset modelAsset = LoadModel(ctx.assetPath);
                 {
+                    // Animation
+                    if (modelAsset.AnimationClipList != null)
+                    {
+                        Dictionary<string, AnimationClip> externalObjects = GetExternalUnityObjects<AnimationClip>();
+
+                        foreach (AnimationClip animationClip in modelAsset.AnimationClipList)
+                        {
+                            if (animationClip == null)
+                            {
+                                continue;
+                            }
+
+                            if (externalObjects.ContainsValue(animationClip))
+                            {
+                                continue;
+                            }
+
+                            ctx.AddObjectToAsset(animationClip.name, animationClip);
+                        }
+                    }
+
                     // Avatar
                     if (modelAsset.Avatar != null)
                     {
@@ -196,6 +220,29 @@ namespace UniVgo2.Editor
             ModelAsset modelAsset = importer.Extract(filePath);
 
             return modelAsset;
+        }
+
+        /// <summary>
+        /// Extract animation clips.
+        /// </summary>
+        public virtual void ExtractAnimationClips()
+        {
+            ExtractAssets<AnimationClip>(AnimationDirectoryName, ".anim");
+
+            Dictionary<string, AnimationClip> externalObjects = GetExternalUnityObjects<AnimationClip>();
+
+            foreach ((_, AnimationClip animationClip) in externalObjects)
+            {
+                string assetPath = AssetDatabase.GetAssetPath(animationClip);
+
+                if (string.IsNullOrEmpty(assetPath) == false)
+                {
+                    EditorUtility.SetDirty(animationClip);
+                    AssetDatabase.WriteImportSettingsIfDirty(assetPath);
+                }
+            }
+
+            AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
         /// <summary>

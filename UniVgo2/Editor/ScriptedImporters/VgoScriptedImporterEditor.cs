@@ -32,6 +32,23 @@ namespace UniVgo2.Editor
             EditorGUILayout.LabelField("Extract settings");
 
             EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.PrefixLabel("Animations");
+            GUI.enabled = (importer.GetExternalUnityObjects<AnimationClip>().Any() == false);
+            if (GUILayout.Button("Extract"))
+            {
+                importer.ExtractAnimationClips();
+                GUIUtility.ExitGUI();
+            }
+            GUI.enabled = !GUI.enabled;
+            if (GUILayout.Button("Clear"))
+            {
+                importer.ClearExtarnalObjects<AnimationClip>();
+                GUIUtility.ExitGUI();
+            }
+            GUI.enabled = true;
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel("Avatar");
             GUI.enabled = (importer.GetExternalUnityObjects<Avatar>().Any() == false);
             if (GUILayout.Button("Extract"))

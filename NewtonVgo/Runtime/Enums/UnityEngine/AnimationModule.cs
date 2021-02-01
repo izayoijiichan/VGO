@@ -4,6 +4,19 @@
 // ----------------------------------------------------------------------
 namespace NewtonVgo
 {
+    /// <summary>This enum controlls culling of Animation component.</summary>
+    public enum AnimationCullingType
+    {
+        /// <summary>Animation culling is disabled - object is animated even when offscreen.</summary>
+        AlwaysAnimate = 0,
+        /// <summary>Animation is disabled when renderers are not visible.</summary>
+        BasedOnRenderers = 1,
+        /// <summary></summary>
+        BasedOnClipBounds = 2,
+        /// <summary></summary>
+        BasedOnUserBounds = 3
+    }
+
     /// <summary>Culling mode for the Animator.</summary>
     public enum AnimatorCullingMode
     {

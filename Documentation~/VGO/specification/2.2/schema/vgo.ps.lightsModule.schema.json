@@ -1,0 +1,54 @@
+{
+    "$id": "vgo.ps.lightsModule",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "ratio": {
+            "type": "number"
+        },
+        "useRandomDistribution": {
+            "type": "boolean"
+        },
+        "light": {
+            "$id": "node.vgo.light",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "useParticleColor": {
+            "type": "boolean"
+        },
+        "sizeAffectsRange": {
+            "type": "boolean"
+        },
+        "alphaAffectsIntensity": {
+            "type": "boolean"
+        },
+        "range": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "rangeMultiplier": {
+            "type": "number"
+        },
+        "intensity": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "intensityMultiplier": {
+            "type": "number"
+        },
+        "maxLights": {
+            "type": "integer"
+        }
+    }
+}

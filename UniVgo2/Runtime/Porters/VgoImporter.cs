@@ -136,6 +136,9 @@ namespace UniVgo2
             // UnityEngine.Mesh
             ModelAsset.MeshAssetList = CreateMeshAssets();
 
+            // UnityEngine.AnimationClip
+            ModelAsset.AnimationClipList = CreateAnimationClipAssets();
+
             // UnityEngine.VgoSpringBoneColliderGroup
             ModelAsset.SpringBoneColliderGroupArray = CreateSpringBoneColliderGroupArray();
 
@@ -533,6 +536,28 @@ namespace UniVgo2
                 }
             }
 
+            // Animation
+            if (vgoNode.animation != null)
+            {
+                Animation animation = go.AddComponent<Animation>();
+
+                try
+                {
+                    VgoAnimationConverter.SetComponentValue(animation, vgoNode.animation, ModelAsset.AnimationClipList, _Storage.GeometryCoordinate);
+
+                    if (animation.enabled &&
+                        animation.playAutomatically &&
+                        animation.isPlaying == false)
+                    {
+                        animation.Play();
+                    }
+                }
+                catch
+                {
+                    //
+                }
+            }
+
             // Rigidbody
             if (vgoNode.rigidbody != null)
             {
@@ -853,6 +878,35 @@ namespace UniVgo2
             {
                 skinnedMeshRenderer.rootBone = Nodes[skin.skeleton];
             }
+        }
+
+        #endregion
+
+        #region Animation
+
+        /// <summary>
+        /// Create animation clip assets.
+        /// </summary>
+        /// <returns>List of unity animation clip.</returns>
+        protected List<AnimationClip> CreateAnimationClipAssets()
+        {
+            var animationClipList = new List<AnimationClip>();
+
+            if ((Layout.animationClips == null) || (Layout.animationClips.Any() == false))
+            {
+                return animationClipList;
+            }
+
+            for (int animationClipIndex = 0; animationClipIndex < Layout.animationClips.Count; animationClipIndex++)
+            {
+                VgoAnimationClip vgoAnimationClip = Layout.animationClips[animationClipIndex];
+
+                AnimationClip animationClip = VgoAnimationClipConverter.CreateAnimationClip(vgoAnimationClip, _Storage.GeometryCoordinate);
+
+                animationClipList.Add(animationClip);
+            }
+
+            return animationClipList;
         }
 
         #endregion

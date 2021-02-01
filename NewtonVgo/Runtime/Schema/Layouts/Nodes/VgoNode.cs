@@ -49,6 +49,10 @@ namespace NewtonVgo
         [JsonProperty("animator")]
         public VgoAnimator animator = null;
 
+        /// <summary>The animation</summary>
+        [JsonProperty("animation")]
+        public VgoAnimation animation = null;
+
         /// <summary>The rigidbody.</summary>
         [JsonProperty("rigidbody")]
         public VgoRigidbody rigidbody = null;
