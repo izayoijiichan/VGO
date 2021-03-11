@@ -218,10 +218,12 @@ namespace UniVgo2.Porters
             }
 
             // UVs
-            meshContext.uv0s = ReadUV(attributes.TEXCOORD_0, positionsCount);
-            meshContext.uv1s = ReadUV(attributes.TEXCOORD_1, positionsCount);
-            meshContext.uv2s = ReadUV(attributes.TEXCOORD_2, positionsCount);
-            meshContext.uv3s = ReadUV(attributes.TEXCOORD_3, positionsCount);
+            {
+                meshContext.uv0s = ReadUV(attributes.TEXCOORD_0, positionsCount);
+                meshContext.uv1s = ReadUV(attributes.TEXCOORD_1, -1);
+                meshContext.uv2s = ReadUV(attributes.TEXCOORD_2, -1);
+                meshContext.uv3s = ReadUV(attributes.TEXCOORD_3, -1);
+            }
 
             // Colors
             if (attributes.COLOR_0 != -1)
@@ -308,7 +310,14 @@ namespace UniVgo2.Porters
 
             if (texcoord == -1)
             {
-                uvs = new Vector2[positionsCount];
+                if (positionsCount >= 0)
+                {
+                    uvs = new Vector2[positionsCount];
+                }
+                else
+                {
+                    uvs = null;
+                }
             }
             else
             {

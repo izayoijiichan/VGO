@@ -1,5 +1,10 @@
 # Change Log
 
+## [2.2.1] - 2021-03-12
+
+- Fixes
+  - Fixed a bug where mesh UV1, UV2 and UV3 were not set correctly when importing.
+
 ## [2.2.0] - 2021-02-01
 
 - Features
