@@ -12,16 +12,16 @@ UniVGO2 is a package that allows you to use VGO files in Unity.
 ___
 ## Installation
 
-[English](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/UniVGO/Installation.md).
+[English](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Installation.md).
 
-[Japanese](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/UniVGO/Installation.ja.md).
+[Japanese](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Installation.ja.md).
 
 ___
 ## Usage
 
-[English](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/UniVGO/Usage.md).
+[English](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Usage.md).
 
-[Japanese](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/UniVGO/Usage.ja.md).
+[Japanese](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Usage.ja.md).
 
 ___
 ## Dependent packages
@@ -55,7 +55,7 @@ and other related people.
 I would like to take this opportunity to thank you.
 
 ___
-Last updated: 20 August, 2020  
+Last updated: 18 March, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

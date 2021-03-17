@@ -12,7 +12,7 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2019.4|
-|2|UniVGO version|2.2.0|
+|2|UniVGO version|2.3.0|
 |3|VGO spec version|2.2|
 
 ### Supported Unity components
@@ -218,11 +218,11 @@ If you want to create a new one, work on any scene.
 Create a `GameObject` for VGO in the scene.  
 The name is arbitrary, but here it is "VGO".
 
-![image1](https://github.com/izayoijiichan/vgo/blob/master/Documentation~/UniVGO/Images/421_Hierarchy_VGO.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/421_Hierarchy_VGO.png)
 
 I will make the settings for "VGO".
 
-![image1](https://github.com/izayoijiichan/vgo/blob/master/Documentation~/UniVGO/Images/422_Inspector_VGO.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/422_Inspector_VGO.png)
 
 [GameObject]
 
@@ -321,9 +321,9 @@ Basically, this is set.
 
 The following is an example of setting the floor.
 
-![image1](https://github.com/izayoijiichan/vgo/blob/master/Documentation~/UniVGO/Images/431_Hierarchy_Floor.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/431_Hierarchy_Floor.png)
 
-![image1](https://github.com/izayoijiichan/vgo/blob/master/Documentation~/UniVGO/Images/432_Inspector_Floor.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/432_Inspector_Floor.png)
 
 The size of the floor is free, but it is better to adjust the thickness of the collider to be 0.3m or more.  
 If the object is not thick, it may penetrate the floor when the object falls at high speed.
@@ -375,7 +375,7 @@ ___
 
 When all settings are completed, export the VGO file (.vgo).
 
-![image1](https://github.com/izayoijiichan/vgo2/blob/master/Documentation~/UniVGO/Images/501_Export.png)
+![image1](https://github.com/izayoijiichan/vgo2/blob/main/Documentation~/UniVGO/Images/501_Export.png)
 
 Select the GameObject you want to output in Hierarchy.
 
@@ -427,7 +427,7 @@ You can place the object by selecting the VGO file from the `Project` window (ta
 
 Locate the VGO file in the Unity Editor's `Project` window (tab) and select it.
 
-![image1](https://github.com/izayoijiichan/vgo/blob/master/Documentation~/UniVGO/Images/620_Import.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/620_Import.png)
 
 The `Vgo Scripted Importer` is displayed in the `Inspector` window (tab).
 
@@ -442,7 +442,7 @@ ___
 
 Load "LoadScene" when using the UniVGO sample project.
 
-![image1](https://github.com/izayoijiichan/vgo/blob/master/Documentation~/UniVGO/Images/710_Load.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/710_Load.png)
 
 
 ### 2. File settings
@@ -450,9 +450,9 @@ Load "LoadScene" when using the UniVGO sample project.
 Select the `VgoLoader` game object in" Hierarchy ",  
 In "Inspector", enter the full path of the VGO file you want to load at runtime in `Local File Path`.
 
-![image1](https://github.com/izayoijiichan/vgo/blob/master/Documentation~/UniVGO/Images/721_Hierarchy.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/721_Hierarchy.png)
 
-![image1](https://github.com/izayoijiichan/vgo/blob/master/Documentation~/UniVGO/Images/722_Inspector.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/722_Inspector.png)
 
 ### 3. Run game
 
@@ -503,7 +503,7 @@ It is a virtual shopping system.
 You can specify a VGO file for the player and shop.  
 It is an application linked with VGO Hub.
 
-![image1](https://github.com/izayoijiichan/vgo/blob/master/Documentation~/UniVGO/Images/820_vishop.jpg)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/820_vishop.jpg)
 
 https://vishop.azurewebsites.net
 
@@ -513,12 +513,12 @@ It is a simple 3D virtual YouTuber application that does not require VR-HMD (hea
 You can specify a VGO file for the player and room.  
 Multiple play allows multiple people to enter the same room and make calls.
 
-![image1](https://github.com/izayoijiichan/vgo/blob/master/Documentation~/UniVGO/Images/810_vovola.jpg)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/810_vovola.jpg)
 
 https://vovola.wixsite.com/website
 
 ___
-Last updated: 1 February, 2021  
+Last updated: 18 March, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -17,7 +17,7 @@ ___
 |Unity 2020.2|OK|OK|OK|OK|unconfirmed|
 |Unity 2020.3|OK|unconfirmed|unconfirmed|unconfirmed|unconfirmed|
 
-As of February of 2021, we are developing and confirming in `Unity 2020.2` `Windows` `.NET Standard 2.0` environment.
+As of March of 2021, we are developing and confirming in `Unity 2020.3` `Windows` `.NET Standard 2.0` environment.
 
 ### Required package
 
@@ -27,11 +27,11 @@ As of February of 2021, we are developing and confirming in `Unity 2020.2` `Wind
 |org.nuget.system.memory|Microsoft|NuGet||4.5.0|29 May, 2018|
 |org.nuget.system.numerics.vectors|Microsoft|NuGet||4.4.0|11 Aug, 2017|
 |org.nuget.system.runtime.compilerservices.unsafe|Microsoft|NuGet||4.5.0|29 May, 2018|
-|newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.301|20 Jan, 2020|
-|VRMShaders|vrm-c|GitHub|VRM 0.0|0.56.0|3 Jul, 2020|
-|UniShaders|IzayoiJiichan|GitHub|-|1.0.1|13 Aug, 2020|
-|VgoSpringBone|IzayoiJiichan|GitHub|-|1.0.0|1 Dec, 2020|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.2|2.2.1|12 Mar, 2021|
+|newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.302|20 Feb, 2021|
+|VRMShaders|vrm-c|GitHub|VRM 0.0|0.62.0|17 Nov, 2020|
+|UniShaders|IzayoiJiichan|GitHub|-|1.1.0|18 Mar, 2021|
+|VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.0|18 Mar, 2021|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.2|2.3.0|18 Mar, 2021|
 
 ___
 ## Install
@@ -47,7 +47,7 @@ https://github.com/izayoijiichan/univgo2.sample.unity.project
 
 #### 2. Install Unity
 
-Install `Unity 2019.4.22f1` on Unity Hub.
+Install `Unity 2020.3.0f1` on Unity Hub.
 
 #### 3. Load project
 
@@ -90,12 +90,12 @@ You need to be careful where you add them.
     }
   ],
   "dependencies": {
+    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.1.0",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.3.0",
+    "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.0",
     "com.unity.ugui": "1.0.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.56.0",
-    "izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.0.1",
-    "izayoi.univgo2": "https://github.com/izayoijiichan/VGO2.git#v2.2.1",
-    "izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.0.0",
-    "jillejr.newtonsoft.json-for-unity": "12.0.301",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.62.0",
+    "jillejr.newtonsoft.json-for-unity": "12.0.302",
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
@@ -195,7 +195,7 @@ To install both UniVRM and UniVGO2 packages in the Unity Editor at the same time
 This applies to shaders in the UniGLTF folder.
 
 ___
-Last updated: 12 March, 2021  
+Last updated: 18 March, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

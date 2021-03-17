@@ -21,7 +21,7 @@ ___
 
 ## 翻訳
 
-[English](https://github.com/izayoijiichan/VGO2/blob/master/README.md).
+[English](https://github.com/izayoijiichan/VGO2/blob/main/README.md).
 
 ## ファイル拡張子
 
@@ -44,7 +44,7 @@ ___
 |REXX|Resource|リソースを保持します。|
 |CXXX|Crypt|暗号情報を保持します。|
 
-[チャンク詳細](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/VGO/instructions/chunk.md)
+[チャンク詳細](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/chunk.md)
 
 ## データ スキーマ
 
@@ -76,16 +76,16 @@ ___
 
 ## データ スキーマの説明
 
-- [アセット情報](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/VGO/instructions/schema.assetInfo.json.md)
-- [レイアウト](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/VGO/instructions/schema.layout.json.md)
-- [レイアウト（アニメーション）](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/VGO/instructions/schema.layout.animation.json.md)
-- [レイアウト（パーティクル）](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/VGO/instructions/schema.layout.particle.json.md)
-- [レイアウト（スプリングボーン）](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/VGO/instructions/schema.layout.springBoneInfo.json.md)
-- [リソース](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/VGO/instructions/schema.resource.json.md)
+- [アセット情報](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.assetInfo.json.md)
+- [レイアウト](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.json.md)
+- [レイアウト（アニメーション）](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.animation.json.md)
+- [レイアウト（パーティクル）](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.particle.json.md)
+- [レイアウト（スプリングボーン）](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.springBoneInfo.json.md)
+- [リソース](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.resource.json.md)
 
 ## JSON 仕様
 
-- VGO JSON Schema: [2.2](https://github.com/izayoijiichan/VGO2/tree/master/Documentation~/VGO/specification/2.2/schema)
+- VGO JSON Schema: [2.2](https://github.com/izayoijiichan/VGO2/tree/main/Documentation~/VGO/specification/2.2/schema)
 
 ## ツール
 
@@ -95,14 +95,14 @@ VGOファイルを生成／出力／取り込み／ロードするためのツ�
 
 ボタンをクリックするだけで簡単にVGOファイルを出力できます。
 
-![image1](https://github.com/izayoijiichan/vgo2/blob/master/Documentation~/UniVGO/Images/500_Export.png)
+![image1](https://github.com/izayoijiichan/vgo2/blob/main/Documentation~/UniVGO/Images/500_Export.png)
 
-[インストール方法](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/UniVGO/Installation.ja.md)
+[インストール方法](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Installation.ja.md)
 
-[使用方法](https://github.com/izayoijiichan/VGO2/blob/master/Documentation~/UniVGO/Usage.ja.md)
+[使用方法](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Usage.ja.md)
 
 ___
-最終更新日：2021年2月1日  
+最終更新日：2021年3月18日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -1,5 +1,10 @@
 # Change Log
 
+## [2.3.0] - 2021-03-18
+
+- Changes
+  - Changed the package name from `izayoi.univgo2` to `com.izayoi.univgo2`.
+
 ## [2.2.1] - 2021-03-12
 
 - Fixes
