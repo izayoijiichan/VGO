@@ -1,0 +1,16 @@
+{
+    "$id": "vgo.ps.colorOverLifetimeModule",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "color": {
+            "$id": "vgo.ps.minMaxGradient",
+            "type": [
+                "object",
+                "null"
+            ]
+        }
+    }
+}

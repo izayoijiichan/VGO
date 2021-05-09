@@ -1,0 +1,22 @@
+{
+    "title": "Blend Shape Binding",
+    "description": "A blend shape binding for preset.",
+    "type": "object",
+    "properties": {
+        "index": {
+            "description": "The index of the BlendShape.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "weight": {
+            "weight": "The weight for this BlendShape.",
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 100.0,
+            "default": 0.0
+        }
+    },
+    "required": [
+        "index"
+    ]
+}

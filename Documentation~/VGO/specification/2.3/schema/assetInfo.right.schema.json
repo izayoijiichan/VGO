@@ -1,0 +1,39 @@
+{
+    "title": "vgo.right",
+    "description": "Rights information.",
+    "type": "object",
+    "properties": {
+        "title": {
+            "description": "The name of the model.",
+            "type": "string"
+        },
+        "author": {
+            "description": "The name of the model creator.",
+            "type": "string"
+        },
+        "organization": {
+            "description": "Organization to which the creator belongs.",
+            "type": "string"
+        },
+        "createdDate": {
+            "description": "The date this model was created.",
+            "type": "string"
+        },
+        "updatedDate": {
+            "description": "The date this model was updated.",
+            "type": "string"
+        },
+        "version": {
+            "description": "The version of this model.",
+            "type": "string"
+        },
+        "distributionUrl": {
+            "description": "Distribution URL for this model.",
+            "type": "string"
+        },
+        "licenseUrl": {
+            "description": "URL that describes the license for this model.",
+            "type": "string"
+        }
+    }
+}

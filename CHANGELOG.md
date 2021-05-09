@@ -1,5 +1,14 @@
 # Change Log
 
+## [2.3.1] - 2021-05-10
+
+- Features
+  - Updated the specification version of VGO to `2.3`.
+- Changes
+  - Added `name` and `enabled` properties to `springBoneGroup` in layout schema.
+- Fixes
+  - Fixed a bug that even if `VgoSpringBoneGroup` is disabled and export, it will be import in the enabled state.
+
 ## [2.3.0] - 2021-03-18
 
 - Changes

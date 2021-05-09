@@ -1,0 +1,83 @@
+{
+    "title": "Mesh",
+    "description": "A set of primitives to be rendered.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The name of this mesh.",
+            "type": "string"
+        },
+        "attributes": {
+            "description": "A dictionary mapping attributes.",
+            "type": "object",
+            "minProperties": 1
+        },
+        "subMeshes": {
+            "description": "The index of the accessor that contains the sub-mesh indices.",
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "materials": {
+            "description": "The index list of the material to apply to this primitive when rendering.",
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "blendShapeKind": {
+            "description": "The kind of the blend shape.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Face",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Face_2",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "Kind_3",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "Kind_4",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5 ],
+                    "description": "Kind_5",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        },
+        "blendShapes": {
+            "description": "List of the blend shape.",
+            "type": "array",
+            "items": {
+            "$ref": "layout.mesh.blendshape.schema.json"
+            }
+        },
+        "blendShapePesets": {
+            "description": "List of the blend shape preset.",
+            "type": "array",
+            "items": {
+            "$ref": "layout.mesh.blendshape.preset.schema.json"
+            }
+        }
+    },
+    "required": [
+        "attributes"
+    ]
+}

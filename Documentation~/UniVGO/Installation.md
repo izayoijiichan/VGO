@@ -15,9 +15,10 @@ ___
 |Unity 2019.4|OK|OK|OK|OK|unconfirmed|
 |Unity 2020.1|OK|OK|OK|OK|unconfirmed|
 |Unity 2020.2|OK|OK|OK|OK|unconfirmed|
-|Unity 2020.3|OK|unconfirmed|unconfirmed|unconfirmed|unconfirmed|
+|Unity 2020.3|OK|OK|OK|OK|unconfirmed|
+|Unity 2021.1|OK|OK|OK|OK|unconfirmed|
 
-As of March of 2021, we are developing and confirming in `Unity 2020.3` `Windows` `.NET Standard 2.0` environment.
+As of May of 2021, we are developing and confirming in `Unity 2021.1` `Windows` `.NET Standard 2.0` environment.
 
 ### Required package
 
@@ -27,11 +28,11 @@ As of March of 2021, we are developing and confirming in `Unity 2020.3` `Windows
 |org.nuget.system.memory|Microsoft|NuGet||4.5.0|29 May, 2018|
 |org.nuget.system.numerics.vectors|Microsoft|NuGet||4.4.0|11 Aug, 2017|
 |org.nuget.system.runtime.compilerservices.unsafe|Microsoft|NuGet||4.5.0|29 May, 2018|
-|newtonsoft-json-for-unity|jillejr|GitHub|12.0.3|12.0.302|20 Feb, 2021|
+|newtonsoft-json-for-unity|jillejr|GitHub|13.0.1|13.0.102|25 Mar, 2021|
 |VRMShaders|vrm-c|GitHub|VRM 0.0|0.62.0|17 Nov, 2020|
 |UniShaders|IzayoiJiichan|GitHub|-|1.1.0|18 Mar, 2021|
 |VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.0|18 Mar, 2021|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.2|2.3.0|18 Mar, 2021|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.3|2.3.1|10 May, 2021|
 
 ___
 ## Install
@@ -47,7 +48,7 @@ https://github.com/izayoijiichan/univgo2.sample.unity.project
 
 #### 2. Install Unity
 
-Install `Unity 2020.3.0f1` on Unity Hub.
+Install `Unity 2021.1.0f1` on Unity Hub.
 
 #### 3. Load project
 
@@ -91,32 +92,21 @@ You need to be careful where you add them.
   ],
   "dependencies": {
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.1.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.3.0",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.3.1",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.0",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.62.0",
-    "jillejr.newtonsoft.json-for-unity": "12.0.302",
+    "jillejr.newtonsoft.json-for-unity": "13.0.102",
+    "org.nuget.system.buffers": "4.4.0",
+    "org.nuget.system.memory": "4.5.0",
+    "org.nuget.system.numerics.vectors": "4.4.0",
+    "org.nuget.system.runtime.compilerservices.unsafe": "4.5.0",
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
   }
 }
 ```
-At this point you will see a compilation error in the UnityEditor console.
-
-#### 3. Additional installation of required packages
-
-Use the package manager to install additional required packages.
-
-Click `[Window]`> `[Package Manager]` on the menu bar of Unity Editor.
-
-![image1](https://github.com/izayoijiichan/vgo2/blob/master/Documentation~/UniVGO/Images/201_PackageManager.png)
-
-In the `Package Manager`, select `My Repositries`.
-
-Select `System.Memory (NuGet)` and install `4.5.0`.
-
-`System.Buffers`, `System.Numerics.Vectors`, `System.Runtime.CompilerServices.Unsage` are automatically installed.
 
 ### Confirmation of installation completion
 
@@ -134,6 +124,41 @@ Possible causes of the error are as follows.
 - `asmdef` settings have been changed
 - `asmdef.meta` settings have been changed
 - The `.meta` guid of the component has changed
+- `System.Buffers.dll`, `System.Memory.dll`, `System.Numerics.Vectors.dll`, `System.Runtime.CompilerServices.Unsage.dll` is duplicated.
+
+### Error avoidance method
+
+If you encounter an error related to duplication of `System.Buffers.dll`,` System.Memory.dll`, `System.Numerics.Vectors.dll`,` System.Runtime.CompilerServices.Unsage.dll`, You can avoid the error in a way.
+
+Download the UniVgo2 source code from GitHub and place it in the `Packages` folder of your Unity project.
+
+Open UniVgo2's `package.json` and edit it.
+
+Delete the description of `org.nuget.system.memory`.
+
+```diff
+{
+  "name": "com.izayoi.univgo2",
+  ...
+  "dependencies": {
+    "com.izayoi.unishaders": "1.1.0",
+    "com.izayoi.vgospringbone": "1.1.0",
+    "com.vrmc.vrmshaders": "0.62.0",
+-   "jillejr.newtonsoft.json-for-unity": "13.0.102",
+-   "org.nuget.system.memory": "4.5.0"
++   "jillejr.newtonsoft.json-for-unity": "13.0.102"
+  }
+}
+```
+
+Open PackageManager from UnityEditor and delete the following libraries.
+
+- org.nuget.system.buffers
+- org.nuget.system.memory
+- org.nuget.system.numerics.vectors
+- org.nuget.system.runtime.compilerservices.unsafe
+
+This will eliminate the duplication.
 
 ___
 ## Other information
@@ -194,8 +219,10 @@ To install both UniVRM and UniVGO2 packages in the Unity Editor at the same time
 
 This applies to shaders in the UniGLTF folder.
 
+UniVRM version 0.66.0 is recommended.
+
 ___
-Last updated: 18 March, 2021  
+Last updated: 10 May, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

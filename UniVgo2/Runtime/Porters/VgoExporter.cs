@@ -1015,6 +1015,8 @@ namespace UniVgo2
                 {
                     var boneGroup = new VgoSpringBoneGroup
                     {
+                        name = component.name,
+                        enabled = component.enabled,
                         comment = component.comment,
                         dragForce = component.dragForce,
                         stiffnessForce = component.stiffnessForce,

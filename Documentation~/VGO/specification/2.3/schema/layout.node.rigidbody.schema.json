@@ -1,0 +1,89 @@
+{
+    "title": "node.rigidbody",
+    "description": "Node rigidbody.",
+    "type": "object",
+    "properties": {
+        "mass": {
+            "description": "The mass of the body. [0.0000001, 1000000000]",
+            "type": "number",
+            "minimum": 0.0000001,
+            "maximum": 1000000000
+        },
+        "drag": {
+            "description": "The linear drag coefficient. [0, infinity]",
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+        },
+        "angularDrag": {
+            "description": "The angular drag coefficient. [0, infinity]",
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+        },
+        "useGravity": {
+            "description": "Controls whether gravity affects this rigidbody.",
+            "type": "boolean",
+            "default": true
+        },
+        "isKinematic": {
+            "description": "Controls whether physics affects the rigidbody.",
+            "type": "boolean",
+            "default": false
+        },
+        "interpolation": {
+            "description": "Interpolation allows you to smooth out the effect of running physics at a fixed frame rate.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Interpolate",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Extrapolate",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        },
+        "collisionDetectionMode": {
+            "description": "The Rigidbody's collision detection mode.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Discrete",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Continuous",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "ContinuousDynamic",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "ContinuousSpeculative",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        },
+        "constraints": {
+            "description": "The flags to constrain motion of rigidbodies. [2|4|8|16|32|64]",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 126,
+            "default": 0
+        }
+    }
+}

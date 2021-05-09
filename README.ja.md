@@ -85,7 +85,7 @@ ___
 
 ## JSON 仕様
 
-- VGO JSON Schema: [2.2](https://github.com/izayoijiichan/VGO2/tree/main/Documentation~/VGO/specification/2.2/schema)
+- VGO JSON Schema: [2.3](https://github.com/izayoijiichan/VGO2/tree/main/Documentation~/VGO/specification/2.3/schema)
 
 ## ツール
 
@@ -102,7 +102,7 @@ VGOファイルを生成／出力／取り込み／ロードするためのツ�
 [使用方法](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Usage.ja.md)
 
 ___
-最終更新日：2021年3月18日  
+最終更新日：2021年5月10日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

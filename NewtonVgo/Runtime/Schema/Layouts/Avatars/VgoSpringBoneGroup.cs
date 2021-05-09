@@ -15,6 +15,15 @@ namespace NewtonVgo
     [Serializable]
     public class VgoSpringBoneGroup
     {
+        /// <summary>The name of the object.</summary>
+        [JsonProperty("name", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public string name;
+
+        /// <summary>Whether this component is enabled.</summary>
+        [JsonProperty("enabled", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [DefaultValue(true)]
+        public bool enabled = false;
+
         /// <summary>Comments on this component.</summary>
         [JsonProperty("comment")]
         public string comment;

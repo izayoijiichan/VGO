@@ -17,8 +17,10 @@ A spring bone group.
 
 |definition name|description|type|required|setting value|default value|
 |:---|:---|:---|:---:|:---:|:---:|
-|comment|TComments on this component.|string||||
-|dragForce|The drag force.|float||[0.0, 1.0]|0.0|
+|name|The name of the object.|string||||
+|enabled|Whether this component is enabled.|bool||true / false|true|
+|comment|Comments on this component.|string||||
+|dragForce|The drag force.|float||[0.0, 1.0]|0.4|
 |stiffnessForce|The stiffness force.|float||[0.0, 4.0]|1.0|
 |gravityDirection|Direction of gravity.|float[3]||x, y, z|0, 0, 0|
 |gravityPower||float||[0.0, 2.0]|1.0|
@@ -53,6 +55,8 @@ A spring bone collider group.
     "springBoneInfo": {
         "springBoneGroups": [
             {
+                "name": "neck",
+                "enabled": true,
                 "comment": "スカーフ",
                 "dragForce": 0.4,
                 "stiffnessForce": 1.1,
@@ -71,6 +75,8 @@ A spring bone collider group.
                 "gizmoColor": [ 1, 0.92, 0.016 ]
             },
             {
+                "name": "shoulder",
+                "enabled": true,
                 "comment": "マント",
                 "dragForce": 0.4,
                 "stiffnessForce": 0.1,
@@ -144,7 +150,7 @@ A spring bone collider group.
 }
 ```
 ___
-Last updated: 1 December, 2020  
+Last updated: 10 May, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

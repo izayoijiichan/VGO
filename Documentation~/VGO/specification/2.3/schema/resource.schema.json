@@ -1,0 +1,22 @@
+{
+    "title": "Resource",
+    "description": "A resource.",
+    "type": "object",
+    "properties": {
+        "uri": {
+            "description": "The uri of the buffer.",
+            "type": "string",
+            "format": "uriref"
+        },
+        "byteLength": {
+            "description": "The length of the resource in bytes.",
+            "type": "integer",
+            "minimum": 1
+        },
+        "extensions": { }
+    },
+    "required": [
+        "uri",
+        "byteLength"
+    ]
+}

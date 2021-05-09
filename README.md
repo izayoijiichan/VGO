@@ -84,7 +84,7 @@ VGO version 2.0 is a new type of 3D data format.
 
 ## JSON specification
 
-- VGO JSON Schema: [2.2](https://github.com/izayoijiichan/VGO2/tree/main/Documentation~/VGO/specification/2.2/schema)
+- VGO JSON Schema: [2.3](https://github.com/izayoijiichan/VGO2/tree/main/Documentation~/VGO/specification/2.3/schema)
 
 ## Tools
 
@@ -101,7 +101,7 @@ You can easily export a VGO file with the click of a button.
 [Usage.md](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Usage.md)
 
 ___
-Last updated: 18 March, 2021  
+Last updated: 10 May, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

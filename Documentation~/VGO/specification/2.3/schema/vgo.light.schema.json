@@ -1,0 +1,229 @@
+{
+    "title": "vgo.light",
+    "description": "Light.",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "description": "Whether the light is enable.",
+            "type": "boolean",
+        },
+        "type": {
+            "description": "The type of the light.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Spot",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Directional",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Point",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "Area (Rectangle)",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "Area (Disc)",
+                    "type": "integer"
+                }
+            ]
+        },
+        "shape": {
+            "description": "This property describes the shape of the spot light.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Cone",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Pyramid",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Box",
+                    "type": "integer"
+                }
+            ]
+        },
+        "range": {
+            "description": "The range of the light.",
+            "type": "number",
+            "minimum": 0
+        },
+        "spotAngle": {
+            "description": "The angle of the light's spotlight cone in degrees.",
+            "type": "number",
+            "minimum": 0
+        },
+        "areaSize": {
+            "description": "The size of the area light. [x, y]",
+            "type": "array",
+            "items": {
+                "type": "number"
+            }
+        },
+        "areaRadius": {
+            "description": "The radius of the area light.",
+            "type": "number",
+            "minimum": 0
+        },
+        "color": {
+            "description": "The color of the light. [r, g, b, a]",
+            "type": "array",
+            "items": {
+                "type": "number"
+            }
+        },
+        "lightmapBakeType": {
+            "description": "This property describes what part of a light's contribution can be baked.",
+            "anyOf": [
+                {
+                    "enum": [ 1 ],
+                    "description": "Mixed",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Baked",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "Realtime",
+                    "type": "integer"
+                }
+            ]
+        },
+        "intensity": {
+            "description": "The Intensity of a light is multiplied with the Light color.",
+            "type": "number",
+            "minimum": 0
+        },
+        "bounceIntensity": {
+            "description": "The multiplier that defines the strength of the bounce lighting.",
+            "type": "number",
+            "minimum": 0
+        },
+        "shadows": {
+            "description": "How this light casts shadows.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Hard",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Soft",
+                    "type": "integer"
+                }
+            ]
+        },
+        "shadowRadius": {
+            "type": "number",
+            "minimum": 0
+        },
+        "shadowAngle": {
+            "description": "Controls the amount of artificial softening applied to the edges of shadows cast by directional lights.",
+            "type": "number",
+            "minimum": 0
+        },
+        "shadowStrength": {
+            "description": "Strength of light's shadows.",
+            "type": "number",
+            "minimum": 0
+        },
+        "shadowResolution": {
+            "description": "The resolution of the shadow map.",
+            "anyOf": [
+                {
+                    "enum": [ -1 ],
+                    "description": "FromQualitySettings",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 0 ],
+                    "description": "Low",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Medium",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Medium",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "High",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "VeryHigh",
+                    "type": "integer"
+                }
+            ]
+        },
+        "shadowBias": {
+            "description": "Shadow mapping constant bias.",
+            "type": "number",
+            "minimum": 0
+        },
+        "shadowNormalBias": {
+            "description": "Shadow mapping normal-based bias.",
+            "type": "number",
+            "minimum": 0
+        },
+        "shadowNearPlane": {
+            "description": "Near plane value to use for shadow frustums.",
+            "type": "number",
+            "minimum": 0
+        },
+        "renderMode": {
+            "description": "How to render the light.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Auto",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "ForcePixel",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "ForceVertex",
+                    "type": "integer"
+                }
+            ]
+        },
+        "cullingMask": {
+            "description": "This is used to light certain objects in the Scene selectively.",
+            "type": "integer",
+            "minimum": -1
+        }
+    }
+}

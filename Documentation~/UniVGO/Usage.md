@@ -11,9 +11,9 @@ The contents described in this manual are for the following versions.
 
 |No|item|value|
 |:---:|:---|:---:|
-|1|Unity version|2019.4|
-|2|UniVGO version|2.3.0|
-|3|VGO spec version|2.2|
+|1|Unity version|2021.1|
+|2|UniVGO version|2.3.1|
+|3|VGO spec version|2.3|
 
 ### Supported Unity components
 
@@ -21,7 +21,7 @@ The following Unity components are supported by VGO
 
 |No|item|place|details|
 |:---:|:---|:---|:---|
-|1|Vgo Meta|Root|It is for managing VGO information.|
+|1|Vgo Generator|Root|It is for managing VGO information.|
 |2|Vgo Right|Root / Child|You can add rights information to VGO.|
 |3|Animator|Root|You can set Human Avatar in GameObject.|
 |4|Animattion|Child|You can set animation in GameObject.|
@@ -77,7 +77,7 @@ Use a model with `Human Avatar` set in the `Avatar` of the `Animator` component.
 |2|Transform|Must be the initial value.|
 |3|Animator|Attach it.|
 |4|Vgo Right|Set freely.|
-|5|Vgo Meta|It is OK just to attach.|
+|5|Vgo Generator|It is OK just to attach.|
 
 The order of the components does not matter.
 
@@ -113,7 +113,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.2.0|
+|2|Version|Version of the generation tool.|2.3.1|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -161,7 +161,7 @@ Attach a new `Vgo Spring Bone Group` component to `SpringBoneManager`.
 |No|item|description|required|select value|default value|
 |:---:|:---|:---|:---:|:---:|:---:|
 |1|Comment|A name to identify this group as a user.|option|||
-|2|Drag Force|The larger the value, the less likely it is to swing.|required|[0.0 - 1.0]|0.2|
+|2|Drag Force|The larger the value, the less likely it is to swing.|required|[0.0 - 1.0]|0.4|
 |3|Stiffness Force|The higher the value, the easier it is to return to the original state.|required|[0.0 - 4.0]|1.0|
 |4|Gravity Direction|The direction of gravity.|required||x: 0.0, y: -1.0, z: 0.0|
 |5|Gravity Power|The magnitude of gravity.|required|[0.0 - 2.0]|0.2|
@@ -231,7 +231,7 @@ I will make the settings for "VGO".
 |1|(Name)|Set any name.|
 |2|Transform|Must be the initial value.|
 |3|Vgo Right|Set freely.|
-|4|Vgo Meta|It is OK just to attach.|
+|4|Vgo Generator|It is OK just to attach.|
 
 The order of the components does not matter.
 
@@ -261,7 +261,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.2.0|
+|2|Version|Version of the generation tool.|2.3.1|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -518,7 +518,7 @@ Multiple play allows multiple people to enter the same room and make calls.
 https://vovola.wixsite.com/website
 
 ___
-Last updated: 18 March, 2021  
+Last updated: 10 May, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

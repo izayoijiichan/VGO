@@ -1,0 +1,95 @@
+{
+    "title": "Crypt v0",
+    "description": "Cryptography version 0.",
+    "type": "object",
+    "properties": {
+        "algorithms": {
+            "description": "The algorithms.",
+            "anyOf": [
+                {
+                    "enum": [ "AES" ]
+                },
+                {
+                    "enum": [ "Base64" ]
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "key": {
+            "description": "The base64 encoded key.",
+            "type": "string"
+        },
+        "iv": {
+            "description": "The base64 encoded initialization vector.",
+            "type": "string"
+        },
+        "cipherMode": {
+            "description": "The mode for operation of the symmetric algorithm.",
+            "anyOf": [
+                {
+                    "enum": [ 1 ],
+                    "description": "CBC",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "ECB",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "OFB",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "CFB",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5 ],
+                    "description": "CTS",
+                    "type": "integer"
+                },
+                {
+                    "type": "integer"
+                }
+            ]
+        },
+        "paddingMode": {
+            "description": "The padding mode used in the symmetric algorithm.",
+            "anyOf": [
+                {
+                    "enum": [ 1 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "PKCS7",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "Zeros",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "ANSIX923",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 6 ],
+                    "description": "ISO10126",
+                    "type": "integer"
+                },
+                {
+                    "type": "integer"
+                }
+            ]
+        }
+    }
+}

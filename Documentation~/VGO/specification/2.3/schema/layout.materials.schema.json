@@ -1,0 +1,57 @@
+{
+    "title": "vgo.materials",
+    "description": "Material VGO.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The user-defined name of this object.",
+            "type": "string"
+        },
+        "shaderName": {
+            "description": "The name of the shader.",
+            "type": "string"
+        },
+        "renderQueue": {
+            "description": "The render queue.",
+            "type": "integer"
+        },
+        "isUnlit": {
+            "description": "Whether this material is unlit.",
+            "type": "boolean"
+        },
+        "intProperties": {
+            "type": "object"
+        },
+        "floatProperties": {
+            "type": "object"
+        },
+        "colorProperties": {
+            "type": "object"
+        },
+        "vectorProperties": {
+            "type": "object"
+        },
+        "matrixProperties": {
+            "type": "object"
+        },
+        "textureOffsetProperties": {
+            "type": "object"
+        },
+        "textureScaleProperties": {
+            "type": "object"
+        },
+        "textureIndexProperties": {
+            "type": "object"
+        },
+        "keywordMap": {
+            "type": "object"
+        },
+        "tagMap": {
+            "type": "object"
+        },
+        "extensions": {
+            "description": "Dictionary object with extension-specific objects.",
+            "type": "object"
+        },
+    }
+}

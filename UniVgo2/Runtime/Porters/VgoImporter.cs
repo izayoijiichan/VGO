@@ -694,6 +694,9 @@ namespace UniVgo2
 
                 var component = go.AddComponent<VgoSpringBone.VgoSpringBoneGroup>();
 
+                // @notice component.name indicates gameObject.name
+                //component.name = string.IsNullOrEmpty(layoutSpringBoneGroup.name) ? go.name : layoutSpringBoneGroup.name;
+                component.enabled = layoutSpringBoneGroup.enabled;
                 component.comment = layoutSpringBoneGroup.comment;
                 component.dragForce = layoutSpringBoneGroup.dragForce.SafeValue(0.0f, 1.0f, 0.0f);
                 component.stiffnessForce = layoutSpringBoneGroup.stiffnessForce.SafeValue(0.0f, 4.0f, 1.0f);
