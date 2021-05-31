@@ -1,5 +1,10 @@
 # Change Log
 
+## [2.3.2] - 2021-06-01
+
+- Fixes
+  - Fixed a bug that an error may occur when importing or loading VgoSpringBone.
+
 ## [2.3.1] - 2021-05-10
 
 - Features

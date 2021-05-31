@@ -18,7 +18,7 @@ ___
 |Unity 2020.3|OK|OK|OK|OK|unconfirmed|
 |Unity 2021.1|OK|OK|OK|OK|unconfirmed|
 
-As of May of 2021, we are developing and confirming in `Unity 2021.1` `Windows` `.NET Standard 2.0` environment.
+As of June of 2021, we are developing and confirming in `Unity 2021.1` `Windows` `.NET Standard 2.0` environment.
 
 ### Required package
 
@@ -31,8 +31,8 @@ As of May of 2021, we are developing and confirming in `Unity 2021.1` `Windows` 
 |newtonsoft-json-for-unity|jillejr|GitHub|13.0.1|13.0.102|25 Mar, 2021|
 |VRMShaders|vrm-c|GitHub|VRM 0.0|0.62.0|17 Nov, 2020|
 |UniShaders|IzayoiJiichan|GitHub|-|1.1.0|18 Mar, 2021|
-|VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.0|18 Mar, 2021|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.3|2.3.1|10 May, 2021|
+|VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.1|1 June, 2021|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.3|2.3.2|1 June, 2021|
 
 ___
 ## Install
@@ -92,8 +92,8 @@ You need to be careful where you add them.
   ],
   "dependencies": {
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.1.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.3.1",
-    "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.0",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.3.2",
+    "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.62.0",
     "jillejr.newtonsoft.json-for-unity": "13.0.102",
@@ -142,7 +142,7 @@ Delete the description of `org.nuget.system.memory`.
   ...
   "dependencies": {
     "com.izayoi.unishaders": "1.1.0",
-    "com.izayoi.vgospringbone": "1.1.0",
+    "com.izayoi.vgospringbone": "1.1.1",
     "com.vrmc.vrmshaders": "0.62.0",
 -   "jillejr.newtonsoft.json-for-unity": "13.0.102",
 -   "org.nuget.system.memory": "4.5.0"
@@ -222,7 +222,7 @@ This applies to shaders in the UniGLTF folder.
 UniVRM version 0.66.0 is recommended.
 
 ___
-Last updated: 10 May, 2021  
+Last updated: 1 June, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

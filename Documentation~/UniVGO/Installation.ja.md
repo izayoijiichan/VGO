@@ -18,7 +18,7 @@ ___
 |Unity 2020.3|○|○|○|○|未確認|
 |Unity 2021.1|○|○|○|○|未確認|
 
-2021年5月の時点では `Unity 2021.1` の `Windows` `.NET Standard 2.0` 環境にて開発＆確認を行っています。
+2021年6月の時点では `Unity 2021.1` の `Windows` `.NET Standard 2.0` 環境にて開発＆確認を行っています。
 
 
 ### 必要パッケージ
@@ -32,8 +32,8 @@ ___
 |newtonsoft-json-for-unity|jillejr|GitHub|13.0.1|13.0.102|2021年3月25日|
 |VRMShaders|vrm-c|GitHub||0.62.0|2020年11月17日|
 |UniShaders|IzayoiJiichan|GitHub||1.1.0|2021年3月18日|
-|VgoSpringBone|IzayoiJiichan|GitHub||1.1.0|2021年3月18日|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.2|2.3.1|2021年5月10日|
+|VgoSpringBone|IzayoiJiichan|GitHub||1.1.1|2021年6月1日|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.2|2.3.2|2021年6月1日|
 
 ___
 ## インストール
@@ -93,8 +93,8 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
   ],
   "dependencies": {
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.1.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.3.1",
-    "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.0",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.3.2",
+    "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.62.0",
     "jillejr.newtonsoft.json-for-unity": "13.0.102",
@@ -144,7 +144,7 @@ UniVgo2 の `package.json` を開き編集します。
   ...
   "dependencies": {
     "com.izayoi.unishaders": "1.1.0",
-    "com.izayoi.vgospringbone": "1.1.0",
+    "com.izayoi.vgospringbone": "1.1.1",
     "com.vrmc.vrmshaders": "0.62.0",
 -   "jillejr.newtonsoft.json-for-unity": "13.0.102",
 -   "org.nuget.system.memory": "4.5.0"
@@ -225,7 +225,7 @@ UniGLTFフォルダーにあるシェーダー類が該当します。
 UniVRMのバージョンは0.66.0を推奨します。
 
 ___
-最終更新日：2021年5月10日  
+最終更新日：2021年6月1日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*
