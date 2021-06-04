@@ -1,5 +1,18 @@
 # Change Log
 
+## [2.4.0] - 2021-06-05
+
+- Features
+  - Updated the specification version of VGO to `2.4`.
+  - Cloth is now available.
+  - It is not compatible with `2.3` or earlier due to changes in the configuration of collider and light.
+- Changes
+  - Added `clothes`, `colliders` and `lights` properties to `layout` schema.
+  - Added `cloth` properties to `node` schema.
+  - Changed the type of `colliders` property from an array of `vgo.collider` to an array of `int` in `node` schema.
+  - Changed the type of `light` property from `vgo.light` to `int` in `node` schema.
+  - Added `enabled` properties to `vgo.skybox` schema.
+
 ## [2.3.2] - 2021-06-01
 
 - Fixes

@@ -7,7 +7,7 @@ ___
 
 - VGO 1.0 から発展させた独自のフォーマットです。
 - `Node`, `Transform`, `Rigidbody`, `Collider`, `Mesh`, `BlendShape`, `Material`, `Texture` といった3Dモデルの基本情報を保存することができます。
-- Unityでの使用を意識して `Human Avatar`, `SpringBone`, `Animation`, `Light`, `ParticleSystem`, `Skybox` の情報も保存することができます。
+- Unityでの使用を意識して `Human Avatar`, `SpringBone`, `Animation`, `Cloth`, `Light`, `ParticleSystem`, `Skybox` の情報も保存することができます。
 - アプリケーションでの使用を意識して `BlendShapePreset` の情報も保存することができます。
 - ファイルフォーマットはベースにIFFチャンクを採用しています。
 - 内部データとして `JSON`, `BSON`, `Binary` を使用します。
@@ -70,6 +70,9 @@ ___
   - materials
   - textures
   - animationClips
+  - colliders
+  - clothes
+  - lights
   - particles
   - springBoneInfo
   - extensions
@@ -79,13 +82,14 @@ ___
 - [アセット情報](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.assetInfo.json.md)
 - [レイアウト](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.json.md)
 - [レイアウト（アニメーション）](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.animation.json.md)
+- [レイアウト（クロース）](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.cloth.json.md)
 - [レイアウト（パーティクル）](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.particle.json.md)
 - [レイアウト（スプリングボーン）](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.springBoneInfo.json.md)
 - [リソース](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.resource.json.md)
 
 ## JSON 仕様
 
-- VGO JSON Schema: [2.3](https://github.com/izayoijiichan/VGO2/tree/main/Documentation~/VGO/specification/2.3/schema)
+- VGO JSON Schema: [2.4](https://github.com/izayoijiichan/VGO2/tree/main/Documentation~/VGO/specification/2.4/schema)
 
 ## ツール
 
@@ -102,7 +106,7 @@ VGOファイルを生成／出力／取り込み／ロードするためのツ�
 [使用方法](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Usage.ja.md)
 
 ___
-最終更新日：2021年5月10日  
+最終更新日：2021年6月5日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

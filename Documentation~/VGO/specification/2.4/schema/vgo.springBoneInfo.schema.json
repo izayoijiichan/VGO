@@ -1,0 +1,21 @@
+{
+    "title": "vgo.springBoneInfo",
+    "description": "VGO spring bone information.",
+    "type": "object",
+    "properties": {
+        "springBoneGroups": {
+            "description": "List of spring bone groups.",
+            "type": "array",
+            "items": {
+                "$ref": "vgo.springBoneGroup.schema.json"
+            }
+        },
+        "colliderGroups": {
+            "description": "List of spring bone collider groups.",
+            "type": "array",
+            "items": {
+                "$ref": "vgo.springBoneColliderGroup.schema.json"
+            }
+        }
+    }
+}

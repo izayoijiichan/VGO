@@ -1,0 +1,285 @@
+{
+    "$id": "vgo.ps.renderer",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "renderMode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Billboard",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Stretch",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "HorizontalBillboard",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "VerticalBillboard",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "Mesh",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5 ],
+                    "description": "None",
+                    "type": "integer"
+                }
+            ]
+        },
+        "cameraVelocityScale": {
+            "type": "number"
+        },
+        "velocityScale": {
+            "type": "number"
+        },
+        "lengthScale": {
+            "type": "number"
+        },
+        "normalDirection": {
+            "type": "number"
+        },
+        "sharedMaterialIndex": {
+            "type": "integer"
+        },
+        "trailMaterialIndex": {
+            "type": "integer"
+        },
+        "sortMode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Distance",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "OldestInFront",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "YoungestInFront",
+                    "type": "integer"
+                }
+            ]
+        },
+        "sortingFudge": {
+            "type": "number"
+        },
+        "minParticleSize": {
+            "type": "number"
+        },
+        "maxParticleSize": {
+            "type": "number"
+        },
+        "alignment": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "View",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "World",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Local",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "Facing",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "Velocity",
+                    "type": "integer"
+                }
+            ]
+        },
+        "flip": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "allowRoll": {
+            "type": "boolean"
+        },
+        "pivot": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "maskInteraction": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "VisibleInsideMask",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "VisibleOutsideMask",
+                    "type": "integer"
+                }
+            ]
+        },
+        "enableGPUInstancing": {
+            "type": "boolean"
+        },
+        "shadowCastingMode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Off",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "On",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "TwoSided",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "ShadowsOnly",
+                    "type": "integer"
+                }
+            ]
+        },
+        "receiveShadows": {
+            "type": "boolean"
+        },
+        "shadowBias": {
+            "type": "number"
+        },
+        "motionVectorGenerationMode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Camera",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Object",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "ForceNoMotion",
+                    "type": "integer"
+                }
+            ]
+        },
+        "forceRenderingOff": {
+            "type": "boolean"
+        },
+        "rendererPriority": {
+            "type": "integer"
+        },
+        "renderingLayerMask": {
+            "type": "integer"
+        },
+        "sortingLayerID": {
+            "type": "integer"
+        },
+        "sortingOrder": {
+            "type": "integer"
+        },
+        "lightProbeUsage": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Off",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "BlendProbes",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "UseProxyVolume",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "CustomProvided",
+                    "type": "integer"
+                }
+            ]
+        },
+        "reflectionProbeUsage": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Off",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "BlendProbes",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "BlendProbesAndSkybox",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "Simple",
+                    "type": "integer"
+                }
+            ]
+        },
+        "probeAnchor": {
+            "$id": "node.vgo.transform",
+            "type": [
+                "object",
+                "null"
+            ]
+        }
+    }
+}

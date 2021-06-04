@@ -12,8 +12,8 @@ ___
 |No|項目|値|
 |:---:|:---|:---:|
 |1|Unity バージョン|2021.1|
-|2|UniVGO バージョン|2.3.1|
-|3|VGO 仕様バージョン|2.3|
+|2|UniVGO バージョン|2.4.0|
+|3|VGO 仕様バージョン|2.4|
 
 ### 対応 Unity コンポーネント
 
@@ -32,6 +32,7 @@ VGOが対応する Unity コンポーネントは以下の通りです
 |9|Skybox|Child|シーンにスカイボックスを設定することができます。|
 |10|Vgo Spring Bone Group|Child|スプリング ボーン（揺れもの）の設定ができるようになります。|
 |11|Vgo Spring Bone Collider Group|Child|スプリング ボーンに対するコライダーを設定することができます。|
+|12|Cloth|Child|GameObjectにクロース（衣服の揺れもの）を設定することができます。|
 
 ### 使用可能シェーダー
 
@@ -193,13 +194,17 @@ GameObject に `Vgo Spring Bone Collider Group` コンポーネントを新し�
 |2|Offset|GameObject からの相対位置です。|必須||x: 0.0, y: 0.0, z: 0.0|
 |3|Radius|球の半径です。|必須|[0.0 - 1.0]|0.0|
 
-#### 5. Particle System
+#### 5. Cloth
+
+必要があれば Cloth の設定を行います。  
+
+#### 6. Particle System
 
 必要があれば ParticleSystem の設定を行います。  
 `Scene View`にてエフェクトを確認しながら設定することができます。  
 シェーダーはパーティクル用のシェーダーが使用できます。
 
-#### 6. 備考
+#### 7. 備考
 
 アバターでは Animation は使用できません（非推奨です）。  
 理由はアバターは位置が動くためです。
@@ -524,7 +529,7 @@ VR-HMD（ヘッドマウントディスプレイ）が不要な簡易3D バー�
 https://vovola.wixsite.com/website
 
 ___
-最終更新日：2021年5月10日  
+最終更新日：2021年6月5日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -12,10 +12,15 @@ namespace NewtonVgo
     /// VGO Skybox
     /// </summary>
     [Serializable]
-    [JsonObject("node.skybox")]
+    [JsonObject("vgo.skybox")]
     public class VgoSkybox
     {
-        /// <summary>Material Index</summary>
+        /// <summary>Whether the skybox is enable.</summary>
+        [JsonProperty("enabled", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [DefaultValue(true)]
+        public bool enabled = false;
+
+        /// <summary>The index of the material.</summary>
         [JsonProperty("materialIndex", DefaultValueHandling = DefaultValueHandling.Ignore)]
         [DefaultValue(-1)]
         public int materialIndex = -1;

@@ -1,0 +1,315 @@
+{
+    "title": "Resource Accessor",
+    "description": "An accessor of the resource.",
+    "type": "object",
+    "properties": {
+        "kind": {
+            "description": "The kind of the resource accessor.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "ImageData",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "NodeTransform",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "MeshData",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "SkinData",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5 ],
+                    "description": "ClothCoefficients",
+                    "type": "integer"
+                }
+            ]
+        },
+        "byteOffset": {
+            "description": "The offset relative to the start of the resource in bytes.",
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+        },
+        "byteLength": {
+            "description": "The total byte length of this attribute.",
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+        },
+        "byteStride": {
+            "description": "The stride, in bytes.",
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+        },
+        "dataType": {
+            "description": "The data type of this attribute.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 16 ],
+                    "description": "UnsignedByte",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 17 ],
+                    "description": "SignedByte",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 32 ],
+                    "description": "UnsignedShort",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 33 ],
+                    "description": "Short",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 48 ],
+                    "description": "UnsignedInt",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 49 ],
+                    "description": "SignedInt",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 80 ],
+                    "description": "Float",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4657 ],
+                    "description": "Vector2Int32",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4688 ],
+                    "description": "Vector2Float",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4913 ],
+                    "description": "Vector3Int32",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4944 ],
+                    "description": "Vector3Float",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5136 ],
+                    "description": "Vector4UInt8",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5152 ],
+                    "description": "Vector4UInt16",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5168 ],
+                    "description": "Vector4UInt32",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5169 ],
+                    "description": "Vector4Int32",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5200 ],
+                    "description": "Vector4Float",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 9296 ],
+                    "description": "Matrix4Float",
+                    "type": "integer"
+                }
+            ]
+        },
+        "count": {
+            "description": "The number of attributes referenced by this accessor.",
+            "type": "integer",
+            "minimum": 1,
+        },
+        "sparseType": {
+            "description": "The type of the sparse.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "General",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Powerful",
+                    "type": "integer"
+                }
+            ]
+        },
+        "sparseCount": {
+            "description": "Number of entries stored in the sparse array.",
+            "type": "integer",
+            "minimum": 0,
+        },
+        "sparseIndexDataType": {
+            "description": "The indices data type.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 16 ],
+                    "description": "UnsignedByte",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 32 ],
+                    "description": "UnsignedShort",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 48 ],
+                    "description": "UnsignedInt",
+                    "type": "integer"
+                }
+            ]
+        },
+        "sparseValueDataType": {
+            "description": "The values data type.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 16 ],
+                    "description": "UnsignedByte",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 17 ],
+                    "description": "SignedByte",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 32 ],
+                    "description": "UnsignedShort",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 33 ],
+                    "description": "Short",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 48 ],
+                    "description": "UnsignedInt",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 49 ],
+                    "description": "SignedInt",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 80 ],
+                    "description": "Float",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4657 ],
+                    "description": "Vector2Int32",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4688 ],
+                    "description": "Vector2Float",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4913 ],
+                    "description": "Vector3Int32",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4944 ],
+                    "description": "Vector3Float",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5136 ],
+                    "description": "Vector4UInt8",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5152 ],
+                    "description": "Vector4UInt16",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5168 ],
+                    "description": "Vector4UInt32",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5169 ],
+                    "description": "Vector4Int32",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5200 ],
+                    "description": "Vector4Float",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 9296 ],
+                    "description": "Matrix4Float",
+                    "type": "integer"
+                }
+            ]
+        },
+        "sparseValueByteOffset": {
+            "description": "The relative offset for this accessor of sparse value.",
+            "type": "integer",
+            "minimum": 0,
+        },
+    },
+    "required": [
+        "byteOffset",
+        "dataType",
+        "count"
+    ]
+}

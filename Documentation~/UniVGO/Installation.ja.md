@@ -33,7 +33,7 @@ ___
 |VRMShaders|vrm-c|GitHub||0.62.0|2020年11月17日|
 |UniShaders|IzayoiJiichan|GitHub||1.1.0|2021年3月18日|
 |VgoSpringBone|IzayoiJiichan|GitHub||1.1.1|2021年6月1日|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.2|2.3.2|2021年6月1日|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.0|2021年6月5日|
 
 ___
 ## インストール
@@ -93,7 +93,7 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
   ],
   "dependencies": {
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.1.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.3.2",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.0",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.62.0",
@@ -225,7 +225,7 @@ UniGLTFフォルダーにあるシェーダー類が該当します。
 UniVRMのバージョンは0.66.0を推奨します。
 
 ___
-最終更新日：2021年6月1日  
+最終更新日：2021年6月5日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

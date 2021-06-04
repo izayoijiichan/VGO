@@ -475,6 +475,14 @@ namespace UniVgo2
                     AttachMesh(nodeIndex, ShowMesh, UpdateWhenOffscreen);
                 }
             }
+
+            ModelAsset.ColliderList = CreateUnityColliderList();
+
+            // UnigyEngine.Cloth
+            for (int nodeIndex = 0; nodeIndex < Layout.nodes.Count; nodeIndex++)
+            {
+                SetupNodeCloth(nodeIndex);
+            }
         }
 
         /// <summary>
@@ -567,10 +575,17 @@ namespace UniVgo2
             }
 
             // Colliders
-            if (vgoNode.colliders != null)
+            if ((vgoNode.colliders != null) && (Layout.colliders != null))
             {
-                foreach (VgoCollider vgoCollider in vgoNode.colliders)
+                foreach (int colliderIndex in vgoNode.colliders)
                 {
+                    VgoCollider vgoCollider = Layout.colliders.GetValueOrDefault(colliderIndex);
+
+                    if (vgoCollider is null)
+                    {
+                        continue;
+                    }
+
                     Collider collider;
 
                     switch (vgoCollider.type)
@@ -589,48 +604,6 @@ namespace UniVgo2
                     }
 
                     VgoColliderConverter.SetComponentValue(collider, vgoCollider, _Storage.GeometryCoordinate);
-                }
-            }
-
-            // Skybox
-            if (vgoNode.skybox != null)
-            {
-                var skybox = go.AddComponent<Skybox>();
-
-                if (ModelAsset.MaterialList != null)
-                {
-                    if (ModelAsset.MaterialList.TryGetValue(vgoNode.skybox.materialIndex, out Material skyboxMaterial))
-                    {
-                        skybox.material = skyboxMaterial;
-                    }
-                }
-            }
-
-            // Light
-            if (vgoNode.light != null)
-            {
-                Light light = go.AddComponent<Light>();
-
-                VgoLightConverter.SetComponentValue(light, vgoNode.light);
-            }
-
-            // Right
-            if (vgoNode.right != null)
-            {
-                VgoRight vgoRightComponent = go.AddComponent<VgoRight>();
-
-                if (vgoRightComponent != null)
-                {
-                    vgoRightComponent.Right = new NewtonVgo.VgoRight(vgoNode.right);
-                }
-            }
-
-            // ParticleSystem
-            if (vgoNode.particle != -1)
-            {
-                if (Layout.particles.TryGetValue(vgoNode.particle, out VgoParticleSystem vgoParticleSystem))
-                {
-                    _ParticleSystemImporter.AddComponent(go, vgoParticleSystem, _StorageAdapter, ModelAsset.MaterialList, ModelAsset.Texture2dList);
                 }
             }
 
@@ -661,6 +634,53 @@ namespace UniVgo2
                     component.gizmoColor = layoutSpringBoneColliderGroup.gizmoColor.ToUnityColor();
 
                     ModelAsset.SpringBoneColliderGroupArray[vgoNode.springBoneColliderGroup] = component;
+                }
+            }
+
+            // Light
+            if ((vgoNode.light != -1) && (Layout.lights != null))
+            {
+                if (Layout.lights.TryGetValue(vgoNode.light, out VgoLight vgoLight))
+                {
+                    Light light = go.AddComponent<Light>();
+
+                    VgoLightConverter.SetComponentValue(light, vgoLight);
+                }
+            }
+
+            // ParticleSystem
+            if ((vgoNode.particle != -1) && (Layout.particles != null))
+            {
+                if (Layout.particles.TryGetValue(vgoNode.particle, out VgoParticleSystem vgoParticleSystem))
+                {
+                    _ParticleSystemImporter.AddComponent(go, vgoParticleSystem, _StorageAdapter, ModelAsset.MaterialList, ModelAsset.Texture2dList);
+                }
+            }
+
+            // Skybox
+            if (vgoNode.skybox != null)
+            {
+                var skybox = go.AddComponent<Skybox>();
+
+                skybox.enabled = vgoNode.skybox.enabled;
+
+                if (ModelAsset.MaterialList != null)
+                {
+                    if (ModelAsset.MaterialList.TryGetValue(vgoNode.skybox.materialIndex, out Material skyboxMaterial))
+                    {
+                        skybox.material = skyboxMaterial;
+                    }
+                }
+            }
+
+            // Right
+            if (vgoNode.right != null)
+            {
+                VgoRight vgoRightComponent = go.AddComponent<VgoRight>();
+
+                if (vgoRightComponent != null)
+                {
+                    vgoRightComponent.Right = new NewtonVgo.VgoRight(vgoNode.right);
                 }
             }
         }
@@ -738,6 +758,72 @@ namespace UniVgo2
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Setup a node cloth.
+        /// </summary>
+        /// <param name="nodeIndex">The index of layout.nodes.</param>
+        protected virtual void SetupNodeCloth(int nodeIndex)
+        {
+            if (Layout.clothes == null)
+            {
+                return;
+            }
+
+            GameObject go = Nodes[nodeIndex].gameObject;
+
+            VgoNode vgoNode = Layout.nodes[nodeIndex];
+
+            if (vgoNode.cloth == -1)
+            {
+                return;
+            }
+
+            VgoCloth vgoCloth = Layout.clothes.GetValueOrDefault(vgoNode.cloth);
+
+            if (vgoCloth == null)
+            {
+                return;
+            }
+
+            Cloth cloth = go.AddComponent<Cloth>();
+
+            VgoClothConverter.SetComponentValue(cloth, vgoCloth, _Storage.GeometryCoordinate, ModelAsset.ColliderList, _StorageAdapter);
+        }
+
+        /// <summary>
+        /// Create list of unity collider.
+        /// </summary>
+        /// <returns>list of unity collider.</returns>
+        /// <remarks>
+        /// VgoExporter.CreateUnityColliderList is same logic.
+        /// </remarks>
+        protected virtual List<Collider> CreateUnityColliderList()
+        {
+            if (Nodes == null)
+            {
+                throw new Exception();
+            }
+
+            var colliderList = new List<Collider>();
+
+            for (int index = 0; index < Nodes.Count; index++)
+            {
+                GameObject node = Nodes[index].gameObject;
+
+                if (node.TryGetComponentEx(out Collider collider))
+                {
+                    if ((collider is BoxCollider) ||
+                        (collider is CapsuleCollider) ||
+                        (collider is SphereCollider))
+                    {
+                        colliderList.Add(collider);
+                    }
+                }
+            }
+
+            return colliderList;
         }
 
         #endregion

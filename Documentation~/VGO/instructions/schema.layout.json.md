@@ -14,6 +14,9 @@ The vgo layout.
 |materials|List of materials.|layout.material[]|||
 |textures|List of textures.|layout.texture[]|||
 |animationClips|List of animation clips.|vgo.animationClip[]|||
+|colliders|List of colliders.|vgo.node.collider[]|||
+|clothes|List of clothes.|vgo.cloth[]|||
+|lights|List of lights.|vgo.light[]|||
 |particles|List of particles.|layout.particle[]|||
 |springBoneInfo|The spring bone info.|vgo.springBoneInfo|||
 |extensions|The extensions.|object|||
@@ -30,19 +33,66 @@ A node in the node hierarchy.
 |isStatic|Whether the GameObject is static.|bool||true / false|false|
 |tag|Tag attached to GameGbject.|string|||Untagged|
 |layer|The layer on which the GameObject is located.|int||[0, 31]|0|
-|animator||node.animator||||
-|animation||vgo.animation||||
-|rigidbody||node.rigidbody||||
-|colliders||node.collider[]||||
-|skybox||vgo.skybox||||
-|light||vgo.light||||
-|right||vgo.right||||
-|particle|The index of the particle.|int||||
-|mesh|The index of the mesh in this node.|int||||
-|skin|The index of the skin referenced by this node.|int||||
+|animator|The animator.|node.animator||||
+|animation|The animation.|vgo.animation||||
+|rigidbody|The rigidbody.|node.rigidbody||||
+|colliders|The indices of the collider referenced by this node.|int[]||||
+|mesh|The index of the mesh referenced by this node.|int|||-1|
+|skin|The index of the skin referenced by this node.|int|||-1|
 |springBoneGroups|The indices of the spring bone groups referenced by this node.|int[]||||
-|springBoneColliderGroup|The index of the spring bone collider group referenced by this node.|int||||
+|springBoneColliderGroup|The index of the spring bone collider group referenced by this node.|int|||-1|
+|cloth|The index of the cloth referenced by this node.|int|||-1|
+|light|The light.|int|||-1|
+|particle|The index of the particle referenced by this node.|int|||-1|
+|skybox|The skybox.|vgo.skybox||||
+|right|The right.|vgo.right||||
 |children|The indices of this node's children.|int[]||||
+
+#### JSON example (layout.nodes)
+
+```json
+{
+    "nodes": [
+        {
+            "name": "Node1",
+            "isRoot": true,
+            "tag": "Player",
+            "animator": {
+                "humanAvatar": {
+                    "name": "",
+                    "humanBones": []
+                }
+            },
+            "children": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ]
+        },
+        {
+            "name": "Node2",
+            "layer": 1,
+            "rigidbody": {
+                "mass": 1,
+                "drag": 0,
+                "angularDrag": 0.05,
+                "useGravity": true,
+                "isKinematic": false,
+                "interpolation": 0,
+                "collisionDetectionMode": 0,
+                "constraints": 0
+            },
+            "colliders": [
+                0,
+                1
+            ],
+            "mesh": 0
+        }
+    ]
+}
+```
 
 #### node.animator
 
@@ -107,99 +157,29 @@ A node in the node hierarchy.
 |frictionCombine|The type of friction handling between colliding objects.|enum||0: Average<br>1: Multiply<br>2: Minimum<br>3: Maximum|0|
 |bounceCombine|Processing type for bounce between colliding objects.|enum||0: Average<br>1: Multiply<br>2: Minimum<br>3: Maximum|0|
 
-#### vgo.skybox
-
-|definition name|description|type|required|setting value|default value|
-|:---|:---|:---:|:---:|:---:|:---:|
-|materialIndex|The index of the material.|int||||
-
-#### vgo.light
-
-|definition name|description|type|required|setting value|default value|Spot|Directional|Point|Rectangle|Disc|
-|:---|:---|:---:|:---:|:---|:---:|:---:|:---:|:---:|:---:|:---:|
-|enabled|Whether the light is enable.|bool||true / false|true|*|*|*|*|*|
-|type|The type of the light.|enum||0: Spot<br>1: Directional<br>2: Point<br>3: Rectangle<br>4: Disc|0|*|*|*|*|*|
-|shape|This property describes the shape of the spot light.|enum||0: Cone<br>1: Pyramid<br>2: Box|0|*|-|-|-|-|
-|range|The range of the light.|float||[0, infinity]||*|-|*|*|*|
-|spotAngle|The angle of the light's spotlight cone in degrees.|float||[0, infinity]||*|-|-|-|-|
-|areaSize|The size of the area light.|float[2]||x, y||-|-|-|*|-|
-|areaRadius|The radius of the area light|float||[0, infinity]||-|-|-|-|*|
-|color|The color of the light.|float[4]||r, g, b, a||*|*|*|*|*|
-|lightmapBakeType|This property describes what part of a light's contribution can be baked.|enum||1: Mixed<br>2: Baked<br>4: Realtime||*|*|*|*|*|
-|intensity|The Intensity of a light is multiplied with the Light color.|float||[0, infinity]||*|*|*|*|*|
-|bounceIntensity|The multiplier that defines the strength of the bounce lighting.|float||[0, infinity]||*|*|*|*|*|
-|shadows|How this light casts shadows.|enum||0: None<br>1: Hard<br>2: Soft|0|*|*|*|*|*|
-|shadowRadius|Controls the amount of artificial softening applied to the edges of shadows cast by the Point or Spot light.|float||[0, infinity]||*|-|*|-|-|
-|shadowAngle|Controls the amount of artificial softening applied to the edges of shadows cast by directional lights.|float||[0, infinity]||-|*|-|-|-|
-|shadowStrength|Strength of light's shadows.|float||[0, infinity]||-|*|*|-|-|
-|shadowResolution|The resolution of the shadow map.|enum||-1: FromQualitySettings<br>0: Low<br>1: Medium<br>2: High<br>3: VeryHigh|-1|-|*|*|-|-|
-|shadowBias|Shadow mapping constant bias.|float||[0, infinity]||-|*|*|-|-|
-|shadowNormalBias|Shadow mapping normal-based bias.|float||[0, infinity]||-|*|*|-|-|
-|shadowNearPlane|Near plane value to use for shadow frustums.|float||[0, infinity]||-|*|*|-|-|
-|renderMode|How to render the light.|enum||0: Auto<br>1: ForcePixel<br>2: ForceVertex|0|*|*|*|*|*|
-|cullingMask|This is used to light certain objects in the Scene selectively.|int||[-1, infinity]|-1 (Everything)|*|*|*|*|*|
-
-Cookie, Flare, Halo are not supported.
-
-
-#### JSON example (layout.nodes)
+#### JSON example (layout.colliders)
 
 ```json
 {
-    "nodes": [
+    "colliders": [
         {
-            "name": "Node1",
-            "isRoot": true,
-            "tag": "Player",
-            "animator": {
-                "humanAvatar": {
-                    "name": "",
-                    "humanBones": []
-                }
-            },
-            "children": [
-                1,
-                2,
-                3,
-                4,
-                5
-            ]
+            "type": 0,
+            "center": [ 0, 0, 0 ],
+            "size": [ 1, 1, 1 ]
         },
         {
-            "name": "Node2",
-            "layer": 1,
-            "rigidbody": {
-                "mass": 1,
-                "drag": 0,
-                "angularDrag": 0.05,
-                "useGravity": true,
-                "isKinematic": false,
-                "interpolation": 0,
-                "collisionDetectionMode": 0,
-                "constraints": 0
-            },
-            "colliders": [
-                {
-                    "type": 0,
-                    "center": [ 0, 0, 0 ],
-                    "size": [ 1, 1, 1 ]
-                },
-                {
-                    "enabled": false,
-                    "type": 1,
-                    "radius": 0.49999997,
-                    "height": 1,
-                    "direction": 1,
-                    "physicMaterial": {
-                        "dynamicFriction": 0.6,
-                        "staticFriction": 0.6,
-                        "bounciness": 0,
-                        "frictionCombine": 0,
-                        "bounceCombine": 0
-                    }
-                }
-            ],
-            "mesh": 0
+            "enabled": false,
+            "type": 1,
+            "radius": 0.5,
+            "height": 1,
+            "direction": 1,
+            "physicMaterial": {
+                "dynamicFriction": 0.6,
+                "staticFriction": 0.6,
+                "bounciness": 0,
+                "frictionCombine": 0,
+                "bounceCombine": 0
+            }
         }
     ]
 }
@@ -464,8 +444,44 @@ A texture.
     ]
 }
 ```
+
+#### vgo.light
+
+|definition name|description|type|required|setting value|default value|Spot|Directional|Point|Rectangle|Disc|
+|:---|:---|:---:|:---:|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+|enabled|Whether the light is enable.|bool||true / false|true|*|*|*|*|*|
+|type|The type of the light.|enum||0: Spot<br>1: Directional<br>2: Point<br>3: Rectangle<br>4: Disc|0|*|*|*|*|*|
+|shape|This property describes the shape of the spot light.|enum||0: Cone<br>1: Pyramid<br>2: Box|0|*|-|-|-|-|
+|range|The range of the light.|float||[0, infinity]||*|-|*|*|*|
+|spotAngle|The angle of the light's spotlight cone in degrees.|float||[0, infinity]||*|-|-|-|-|
+|areaSize|The size of the area light.|float[2]||x, y||-|-|-|*|-|
+|areaRadius|The radius of the area light|float||[0, infinity]||-|-|-|-|*|
+|color|The color of the light.|float[4]||r, g, b, a||*|*|*|*|*|
+|lightmapBakeType|This property describes what part of a light's contribution can be baked.|enum||1: Mixed<br>2: Baked<br>4: Realtime||*|*|*|*|*|
+|intensity|The Intensity of a light is multiplied with the Light color.|float||[0, infinity]||*|*|*|*|*|
+|bounceIntensity|The multiplier that defines the strength of the bounce lighting.|float||[0, infinity]||*|*|*|*|*|
+|shadows|How this light casts shadows.|enum||0: None<br>1: Hard<br>2: Soft|0|*|*|*|*|*|
+|shadowRadius|Controls the amount of artificial softening applied to the edges of shadows cast by the Point or Spot light.|float||[0, infinity]||*|-|*|-|-|
+|shadowAngle|Controls the amount of artificial softening applied to the edges of shadows cast by directional lights.|float||[0, infinity]||-|*|-|-|-|
+|shadowStrength|Strength of light's shadows.|float||[0, infinity]||-|*|*|-|-|
+|shadowResolution|The resolution of the shadow map.|enum||-1: FromQualitySettings<br>0: Low<br>1: Medium<br>2: High<br>3: VeryHigh|-1|-|*|*|-|-|
+|shadowBias|Shadow mapping constant bias.|float||[0, infinity]||-|*|*|-|-|
+|shadowNormalBias|Shadow mapping normal-based bias.|float||[0, infinity]||-|*|*|-|-|
+|shadowNearPlane|Near plane value to use for shadow frustums.|float||[0, infinity]||-|*|*|-|-|
+|renderMode|How to render the light.|enum||0: Auto<br>1: ForcePixel<br>2: ForceVertex|0|*|*|*|*|*|
+|cullingMask|This is used to light certain objects in the Scene selectively.|int||[-1, infinity]|-1 (Everything)|*|*|*|*|*|
+
+Cookie, Flare, Halo are not supported.
+
+#### vgo.skybox
+
+|definition name|description|type|required|setting value|default value|
+|:---|:---|:---:|:---:|:---:|:---:|
+|enabled|Whether the skybox is enable.|bool||true / false|true|
+|materialIndex|The index of the material.|int||||
+
 ___
-Last updated: 1 February, 2021  
+Last updated: 5 June, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

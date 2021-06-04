@@ -139,9 +139,12 @@ namespace UniVgo2
             // Prepare
             ModelAsset.AnimationList = CreateUnityAnimationList();
             ModelAsset.AnimationClipList = CreateUnityAnimationClipList();
+            ModelAsset.ClothList = CreateUnityClothList();
+            ModelAsset.ColliderList = CreateUnityColliderList();
             ModelAsset.RendererList = CreateUnityRendererList();
             ModelAsset.MaterialList = CreateUnityMaterialList();
             ModelAsset.SkinList = CreateUnitySkinList();
+            ModelAsset.LightList = CreateUnityLightList();
             ModelAsset.ParticleSystemList = CreateUnityParticleSystemList();
             ModelAsset.VgoSpringBoneGroupList = CreateUnityVgoSpringBoneGroupList();
             ModelAsset.VgoSpringBoneColliderGroupList = CreateUnityVgoSpringBoneColliderGroupList();
@@ -157,6 +160,12 @@ namespace UniVgo2
             CreateVgoSkins();
 
             CreateVgoAnimationClips();
+
+            CreateVgoColliders();
+
+            CreateVgoClothes();
+
+            CreateVgoLights();
 
             // ParticleSystems & Textures
             CreateVgoParticlesAndExportTextures();
@@ -227,6 +236,92 @@ namespace UniVgo2
             }
 
             return animationClipList;
+        }
+
+        /// <summary>
+        /// Create list of unity cloth.
+        /// </summary>
+        /// <returns>list of unity collider.</returns>
+        protected virtual List<Cloth> CreateUnityClothList()
+        {
+            if (Nodes == null)
+            {
+                throw new Exception();
+            }
+
+            var clothList = new List<Cloth>();
+
+            for (int index = 0; index < Nodes.Count; index++)
+            {
+                GameObject node = Nodes[index].gameObject;
+
+                if (node.TryGetComponentEx(out Cloth cloth))
+                {
+                    clothList.Add(cloth);
+                }
+            }
+
+            return clothList;
+        }
+
+        /// <summary>
+        /// Create list of unity collider.
+        /// </summary>
+        /// <returns>list of unity collider.</returns>
+        protected virtual List<Collider> CreateUnityColliderList()
+        {
+            if (Nodes == null)
+            {
+                throw new Exception();
+            }
+
+            var colliderList = new List<Collider>();
+
+            for (int index = 0; index < Nodes.Count; index++)
+            {
+                GameObject node = Nodes[index].gameObject;
+
+                if (node.TryGetComponentsEx(out Collider[] colliders))
+                {
+                    foreach (Collider collider in colliders)
+                    {
+                        if ((collider is BoxCollider) ||
+                            (collider is CapsuleCollider) ||
+                            (collider is SphereCollider))
+                        {
+                            colliderList.Add(collider);
+                        }
+                    }
+                }
+            }
+
+            return colliderList;
+        }
+
+        /// <summary>
+        /// Create list of unity light.
+        /// </summary>
+        /// <returns>list of unity light.</returns>
+        protected virtual List<Light> CreateUnityLightList()
+        {
+            if (Nodes == null)
+            {
+                throw new Exception();
+            }
+
+            var lightList = new List<Light>();
+
+            for (int index = 0; index < Nodes.Count; index++)
+            {
+                GameObject node = Nodes[index].gameObject;
+
+                if (node.TryGetComponentEx(out Light light))
+                {
+                    lightList.Add(light);
+                }
+            }
+
+            return lightList;
         }
 
         /// <summary>
@@ -381,6 +476,42 @@ namespace UniVgo2
                 {
                     StorageAdapter.AssetInfo.right = vgoRight.Right;
                 }
+            }
+        }
+
+        #endregion
+
+        #region layout.colliders
+
+        /// <summary>
+        /// Create layout.colliders.
+        /// </summary>
+        protected virtual void CreateVgoColliders()
+        {
+            if (ModelAsset.ColliderList == null)
+            {
+                throw new Exception();
+            }
+
+            if (ModelAsset.ColliderList.Any() == false)
+            {
+                return;
+            }
+
+            Layout.colliders = new List<VgoCollider>(ModelAsset.ColliderList.Count);
+
+            for (int colliderIndex = 0; colliderIndex < ModelAsset.ColliderList.Count; colliderIndex++)
+            {
+                Collider collider = ModelAsset.ColliderList[colliderIndex];
+
+                VgoCollider vgoCollider = VgoColliderConverter.CreateFrom(collider, StorageAdapter.GeometryCoordinate);
+
+                if (vgoCollider is null)
+                {
+                    Debug.LogErrorFormat("Collider create error. {0}", collider.name);
+                }
+
+                Layout.colliders.Add(vgoCollider);
             }
         }
 
@@ -785,44 +916,9 @@ namespace UniVgo2
             if (gameObject.TryGetComponentsEx(out Collider[] colliders))
             {
                 vgoNode.colliders = colliders
-                    .Select(collider => VgoColliderConverter.CreateFrom(collider, StorageAdapter.GeometryCoordinate))
-                    .Where(vc => vc != null)
+                    .Select(collider => ModelAsset.ColliderList.IndexOf(collider))
+                    .Where(index => index != -1)
                     .ToList();
-            }
-
-            // Skybox
-            if (gameObject.TryGetComponentEx(out Skybox skybox))
-            {
-                VgoMaterial skyboxMaterial = Layout.materials.Where(m => m.name == skybox.material.name).FirstOrDefault();
-
-                vgoNode.skybox = new VgoSkybox
-                {
-                    materialIndex = (skyboxMaterial == null) ? -1 : Layout.materials.IndexOf(skyboxMaterial)
-                };
-            }
-
-            // Light
-            if (gameObject.TryGetComponentEx(out Light light))
-            {
-                vgoNode.light = VgoLightConverter.CreateFrom(light);
-            }
-
-            // Right
-            if (nodeIndex != 0)
-            {
-                if (gameObject.TryGetComponentEx(out VgoRight vgoRight))
-                {
-                    if (vgoRight.Right != null)
-                    {
-                        vgoNode.right = vgoRight.Right;
-                    }
-                }
-            }
-
-            // ParticleSystem
-            if (gameObject.TryGetComponentEx(out ParticleSystem particleSystem))
-            {
-                vgoNode.particle = ModelAsset.ParticleSystemList.IndexOf(particleSystem);
             }
 
             // Mesh
@@ -853,6 +949,48 @@ namespace UniVgo2
             if (gameObject.TryGetComponentEx(out VgoSpringBone.VgoSpringBoneColliderGroup vgoSpringBoneColliderGroup))
             {
                 vgoNode.springBoneColliderGroup = ModelAsset.VgoSpringBoneColliderGroupList.IndexOf(vgoSpringBoneColliderGroup);
+            }
+
+            // Cloth
+            if (gameObject.TryGetComponentEx(out Cloth cloth))
+            {
+                vgoNode.cloth = ModelAsset.ClothList.IndexOf(cloth);
+            }
+
+            // Light
+            if (gameObject.TryGetComponentEx(out Light light))
+            {
+                vgoNode.light = ModelAsset.LightList.IndexOf(light);
+            }
+
+            // ParticleSystem
+            if (gameObject.TryGetComponentEx(out ParticleSystem particleSystem))
+            {
+                vgoNode.particle = ModelAsset.ParticleSystemList.IndexOf(particleSystem);
+            }
+
+            // Skybox
+            if (gameObject.TryGetComponentEx(out Skybox skybox))
+            {
+                VgoMaterial skyboxMaterial = Layout.materials.Where(m => m.name == skybox.material.name).FirstOrDefault();
+
+                vgoNode.skybox = new VgoSkybox
+                {
+                    enabled = skybox.enabled,
+                    materialIndex = (skyboxMaterial == null) ? -1 : Layout.materials.IndexOf(skyboxMaterial)
+                };
+            }
+
+            // Right
+            if (nodeIndex != 0)
+            {
+                if (gameObject.TryGetComponentEx(out VgoRight vgoRight))
+                {
+                    if (vgoRight.Right != null)
+                    {
+                        vgoNode.right = vgoRight.Right;
+                    }
+                }
             }
 
             // Children
@@ -929,6 +1067,68 @@ namespace UniVgo2
             else
             {
                 Layout.animationClips = new List<VgoAnimationClip>();
+            }
+        }
+
+        #endregion
+
+        #region layout.clothes
+
+        /// <summary>
+        /// Create layout.clothes.
+        /// </summary>
+        protected virtual void CreateVgoClothes()
+        {
+            if (ModelAsset.ClothList == null)
+            {
+                throw new Exception();
+            }
+
+            if (ModelAsset.ClothList.Any() == false)
+            {
+                return;
+            }
+
+            Layout.clothes = new List<VgoCloth>(ModelAsset.ClothList.Count);
+
+            for (int clothIndex = 0; clothIndex < ModelAsset.ClothList.Count; clothIndex++)
+            {
+                Cloth cloth = ModelAsset.ClothList[clothIndex];
+
+                VgoCloth vgoCloth = VgoClothConverter.CreateFrom(cloth, StorageAdapter.GeometryCoordinate, ModelAsset.ColliderList, StorageAdapter);
+
+                Layout.clothes.Add(vgoCloth);
+            }
+        }
+
+        #endregion
+
+        #region layout.clothes
+
+        /// <summary>
+        /// Create layout.lights.
+        /// </summary>
+        protected virtual void CreateVgoLights()
+        {
+            if (ModelAsset.LightList == null)
+            {
+                throw new Exception();
+            }
+
+            if (ModelAsset.LightList.Any() == false)
+            {
+                return;
+            }
+
+            Layout.lights = new List<VgoLight>(ModelAsset.LightList.Count);
+
+            for (int lightIndex = 0; lightIndex < ModelAsset.LightList.Count; lightIndex++)
+            {
+                Light light = ModelAsset.LightList[lightIndex];
+
+                VgoLight vgoLight = VgoLightConverter.CreateFrom(light);
+
+                Layout.lights.Add(vgoLight);
             }
         }
 

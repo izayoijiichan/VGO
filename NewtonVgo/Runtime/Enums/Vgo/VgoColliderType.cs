@@ -7,11 +7,11 @@ namespace NewtonVgo
     /// <summary>The type of the collider.</summary>
     public enum VgoColliderType
     {
-        /// <summary>Box Collier</summary>
+        /// <summary>Box Collider</summary>
         Box = 0,
-        /// <summary>Capsule Collier</summary>
+        /// <summary>Capsule Collider</summary>
         Capsule = 1,
-        /// <summary>Sphere Collier</summary>
+        /// <summary>Sphere Collider</summary>
         Sphere = 2,
     }
 }

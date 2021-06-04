@@ -17,5 +17,7 @@ namespace NewtonVgo
         MeshData,
         /// <summary>The skin data.</summary>
         SkinData,
+        /// <summary>The cloth coefficients data.</summary>
+        ClothCoefficients,
     };
 }

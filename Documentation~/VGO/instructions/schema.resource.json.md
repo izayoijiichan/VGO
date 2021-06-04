@@ -21,7 +21,7 @@ An accessor of the resource.
 
 |definition name|description|type|required|setting value|default value|
 |:---|:---|:---|:---:|:---|:---:|
-|kind|The kind of the resource accessor.|enum||0: None<br>1: ImageData<br>2: NodeTransform<br>3: MeshData<br>4: SkinData|0|
+|kind|The kind of the resource accessor.|enum||0: None<br>1: ImageData<br>2: NodeTransform<br>3: MeshData<br>4: SkinData<br>5: ClothCoefficients|0|
 |byteOffset|The offset relative to the start of the resource in bytes.|int|true|||
 |byteLength|The total byte length of this attribute.|int|||0|
 |byteStride|The stride, in bytes.|int|||0|
@@ -147,7 +147,7 @@ Unlike in the case of `General`, sparseCount can be greater than accessorCount.
 ]
 ```
 ___
-Last updated: 20 August, 2020  
+Last updated: 5 June, 2020  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

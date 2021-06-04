@@ -27,7 +27,7 @@ namespace NewtonVgo
         public const byte SpecMajorVersion = 2;
 
         /// <summary>The spec minor version.</summary>
-        public const byte SpecMinorVersion = 3;
+        public const byte SpecMinorVersion = 4;
 
         #endregion
 

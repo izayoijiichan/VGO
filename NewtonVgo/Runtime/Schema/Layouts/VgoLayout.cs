@@ -40,6 +40,18 @@ namespace NewtonVgo
         [JsonProperty("animationClips")]
         public List<VgoAnimationClip> animationClips = null;
 
+        /// <summary>List of colliders.</summary>
+        [JsonProperty("colliders")]
+        public List<VgoCollider> colliders = null;
+
+        /// <summary>List of clothes.</summary>
+        [JsonProperty("clothes")]
+        public List<VgoCloth> clothes = null;
+
+        /// <summary>List of lights.</summary>
+        [JsonProperty("lights")]
+        public List<VgoLight> lights = null;
+
         /// <summary>List of particles.</summary>
         [JsonProperty("particles")]
         public List<VgoParticleSystem> particles = null;

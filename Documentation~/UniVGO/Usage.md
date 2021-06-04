@@ -12,8 +12,8 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2021.1|
-|2|UniVGO version|2.3.1|
-|3|VGO spec version|2.3|
+|2|UniVGO version|2.4.0|
+|3|VGO spec version|2.4|
 
 ### Supported Unity components
 
@@ -32,6 +32,7 @@ The following Unity components are supported by VGO
 |9|Skybox|Child|You can set skybox to Scene.|
 |10|Vgo Spring Bone Group|Child|You will be able to set the spring bone (swaying object).|
 |11|Vgo Spring Bone Collider Group|Child|You can set the collider for the spring bone.|
+|12|Cloth|Child|You can set cloth for GameObject.|
 
 ### Usable shaders
 
@@ -193,13 +194,17 @@ Attach a new `Vgo Spring Bone Collider Group` component to the GameObject.
 |2|Offset|Relative to the GameObject.|required||x: 0.0, y: 0.0, z: 0.0|
 |3|Radius|The radius of the sphere.|required|[0.0 - 1.0]|0.0|
 
-#### 5. Particle System
+#### 5. Cloth
+
+Set the Cloth if necessary.  
+
+#### 6. Particle System
 
 Set the ParticleSystem if necessary.  
 You can set it while checking the effect in `Scene View`.  
 Shaders for particles can be used as shaders.
 
-#### 6. Remarks
+#### 7. Remarks
 
 Animation is not available for avatars (Deprecated).  
 The reason is that the avatar moves in position.
@@ -518,7 +523,7 @@ Multiple play allows multiple people to enter the same room and make calls.
 https://vovola.wixsite.com/website
 
 ___
-Last updated: 10 May, 2021  
+Last updated: 5 June, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

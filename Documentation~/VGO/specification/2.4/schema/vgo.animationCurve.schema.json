@@ -1,0 +1,76 @@
+{
+    "$id": "vgo.animationCurve",
+    "type": "object",
+    "properties": {
+        "keys": {
+            "description": "All keys defined in the animation curve.",
+            "$id": "VGO_Keyframe[]",
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "preWrapMode": {
+            "description": "The behaviour of the animation before the first keyframe.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Default",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Once",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Loop",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "Loop",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 8 ],
+                    "description": "PingPong",
+                    "type": "ClampForever"
+                }
+            ],
+            "default": 0
+        },
+        "postWrapMode": {
+            "description": "The behaviour of the animation after the last keyframe.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Default",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Once",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Loop",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "Loop",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 8 ],
+                    "description": "PingPong",
+                    "type": "ClampForever"
+                }
+            ],
+            "default": 0
+        }
+    }
+}

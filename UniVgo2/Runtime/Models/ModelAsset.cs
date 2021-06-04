@@ -26,6 +26,9 @@ namespace UniVgo2
         /// <summary>List of unity animation clip.</summary>
         public List<AnimationClip> AnimationClipList = null;
 
+        /// <summary>List of unity collider.</summary>
+        public List<Collider> ColliderList = null;
+
         /// <summary>List of unity material.</summary>
         public List<Material> MaterialList = null;
 
@@ -58,6 +61,9 @@ namespace UniVgo2
         /// <summary>List of unity animation.</summary>
         public List<Animation> AnimationList = null;
 
+        /// <summary>List of unity cloth.</summary>
+        public List<Cloth> ClothList = null;
+
         /// <summary>List of unity mesh.</summary>
         public List<Mesh> MeshList = null;
 
@@ -66,6 +72,9 @@ namespace UniVgo2
 
         /// <summary>List of unity skinned mesh renderer.</summary>
         public List<SkinnedMeshRenderer> SkinList = null;
+
+        /// <summary>List of unity light.</summary>
+        public List<Light> LightList = null;
 
         /// <summary>List of unity particle system.</summary>
         public List<ParticleSystem> ParticleSystemList = null;
@@ -141,22 +150,50 @@ namespace UniVgo2
 
             if (Root != null)
             {
-                GameObject.Destroy(Root);
+                try
+                {
+                    GameObject.Destroy(Root);
+                }
+                catch
+                {
+                    //
+                }
             }
 
             if (Avatar != null)
             {
-                UnityEngine.Object.Destroy(Avatar);
+                try
+                {
+                    UnityEngine.Object.Destroy(Avatar);
+                }
+                catch
+                {
+                    //
+                }
             }
 
             foreach (UnityEngine.Object obj in ObjectsForSubAsset())
             {
-                UnityEngine.Object.DestroyImmediate(obj, true);
+                try
+                {
+                    UnityEngine.Object.DestroyImmediate(obj, true);
+                }
+                catch
+                {
+                    //
+                }
             }
 
             foreach (ScriptableObject sObj in ScriptableObjectList)
             {
-                ScriptableObject.DestroyImmediate(sObj);
+                try
+                {
+                    ScriptableObject.DestroyImmediate(sObj);
+                }
+                catch
+                {
+                    //
+                }
             }
         }
 
@@ -166,11 +203,6 @@ namespace UniVgo2
         /// <returns></returns>
         protected virtual IEnumerable<UnityEngine.Object> ObjectsForSubAsset()
         {
-            foreach (var x in MaterialList) { yield return x; }
-            foreach (var x in MeshAssetList) { yield return x.Mesh; }
-            foreach (var x in Texture2dList) { yield return x; }
-            foreach (var x in SpringBoneColliderGroupArray) { yield return x; }
-
             if (AnimationList != null)
             {
                 foreach (var x in AnimationList) { yield return x; }
@@ -179,9 +211,25 @@ namespace UniVgo2
             {
                 foreach (var x in AnimationClipList) { yield return x; }
             }
+            if (ClothList != null)
+            {
+                foreach (var x in ClothList) { yield return x; }
+            }
+            if (ColliderList != null)
+            {
+                foreach (var x in ColliderList) { yield return x; }
+            }
+            if (MaterialList != null)
+            {
+                foreach (var x in MaterialList) { yield return x; }
+            }
             if (MeshList != null)
             {
                 foreach (var x in MeshList) { yield return x; }
+            }
+            if (MeshAssetList != null)
+            {
+                foreach (var x in MeshAssetList) { yield return x.Mesh; }
             }
             if (RendererList != null)
             {
@@ -191,9 +239,21 @@ namespace UniVgo2
             {
                 foreach (var x in SkinList) { yield return x; }
             }
+            if (LightList != null)
+            {
+                foreach (var x in LightList) { yield return x; }
+            }
             if (ParticleSystemList != null)
             {
                 foreach (var x in ParticleSystemList) { yield return x; }
+            }
+            if (Texture2dList != null)
+            {
+                foreach (var x in Texture2dList) { yield return x; }
+            }
+            if (SpringBoneColliderGroupArray != null)
+            {
+                foreach (var x in SpringBoneColliderGroupArray) { yield return x; }
             }
             if (VgoSpringBoneGroupList != null)
             {
@@ -229,28 +289,6 @@ namespace UniVgo2
                     }
                 }
 
-                if (Texture2dList != null)
-                {
-                    foreach (Texture2D texture in Texture2dList)
-                    {
-                        if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(texture)))
-                        {
-                            UnityEngine.Object.DestroyImmediate(texture);
-                        }
-                    }
-                }
-
-                if (SpringBoneColliderGroupArray != null)
-                {
-                    foreach (var springBoneColliderGroup in SpringBoneColliderGroupArray)
-                    {
-                        if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(springBoneColliderGroup)))
-                        {
-                            UnityEngine.Object.DestroyImmediate(springBoneColliderGroup);
-                        }
-                    }
-                }
-
                 if (AnimationList != null)
                 {
                     foreach (Animation animation in AnimationList)
@@ -273,6 +311,28 @@ namespace UniVgo2
                     }
                 }
 
+                if (ClothList != null)
+                {
+                    foreach (Cloth cloth in ClothList)
+                    {
+                        if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(cloth)))
+                        {
+                            UnityEngine.Object.DestroyImmediate(cloth);
+                        }
+                    }
+                }
+
+                if (ColliderList != null)
+                {
+                    foreach (Collider collider in ColliderList)
+                    {
+                        if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(collider)))
+                        {
+                            UnityEngine.Object.DestroyImmediate(collider);
+                        }
+                    }
+                }
+
                 if (MaterialList != null)
                 {
                     foreach (Material material in MaterialList)
@@ -284,17 +344,6 @@ namespace UniVgo2
                     }
                 }
 
-                if (MeshAssetList != null)
-                {
-                    foreach (MeshAsset meshAsset in MeshAssetList)
-                    {
-                        if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(meshAsset.Mesh)))
-                        {
-                            UnityEngine.Object.DestroyImmediate(meshAsset.Mesh);
-                        }
-                    }
-                }
-
                 if (MeshList != null)
                 {
                     foreach (Mesh mesh in MeshList)
@@ -302,6 +351,17 @@ namespace UniVgo2
                         if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(mesh)))
                         {
                             UnityEngine.Object.DestroyImmediate(mesh);
+                        }
+                    }
+                }
+
+                if (MeshAssetList != null)
+                {
+                    foreach (MeshAsset meshAsset in MeshAssetList)
+                    {
+                        if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(meshAsset.Mesh)))
+                        {
+                            UnityEngine.Object.DestroyImmediate(meshAsset.Mesh);
                         }
                     }
                 }
@@ -328,6 +388,17 @@ namespace UniVgo2
                     }
                 }
 
+                if (LightList != null)
+                {
+                    foreach (Light light in LightList)
+                    {
+                        if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(light)))
+                        {
+                            UnityEngine.Object.DestroyImmediate(light);
+                        }
+                    }
+                }
+
                 if (ParticleSystemList != null)
                 {
                     foreach (ParticleSystem particleSystem in ParticleSystemList)
@@ -335,6 +406,28 @@ namespace UniVgo2
                         if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(particleSystem)))
                         {
                             UnityEngine.Object.DestroyImmediate(particleSystem);
+                        }
+                    }
+                }
+
+                if (Texture2dList != null)
+                {
+                    foreach (Texture2D texture in Texture2dList)
+                    {
+                        if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(texture)))
+                        {
+                            UnityEngine.Object.DestroyImmediate(texture);
+                        }
+                    }
+                }
+
+                if (SpringBoneColliderGroupArray != null)
+                {
+                    foreach (var springBoneColliderGroup in SpringBoneColliderGroupArray)
+                    {
+                        if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(springBoneColliderGroup)))
+                        {
+                            UnityEngine.Object.DestroyImmediate(springBoneColliderGroup);
                         }
                     }
                 }

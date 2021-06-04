@@ -49,7 +49,7 @@ namespace NewtonVgo
         [JsonProperty("animator")]
         public VgoAnimator animator = null;
 
-        /// <summary>The animation</summary>
+        /// <summary>The animation.</summary>
         [JsonProperty("animation")]
         public VgoAnimation animation = null;
 
@@ -57,28 +57,11 @@ namespace NewtonVgo
         [JsonProperty("rigidbody")]
         public VgoRigidbody rigidbody = null;
 
-        /// <summary>The colliders.</summary>
+        /// <summary>The indices of the collider referenced by this node.</summary>
         [JsonProperty("colliders")]
-        public List<VgoCollider> colliders = null;
+        public List<int> colliders = null;
 
-        /// <summary>The skybox.</summary>
-        [JsonProperty("skybox")]
-        public VgoSkybox skybox = null;
-
-        /// <summary>The light.</summary>
-        [JsonProperty("light")]
-        public VgoLight light = null;
-
-        /// <summary>The right.</summary>
-        [JsonProperty("right")]
-        public VgoRight right = null;
-
-        /// <summary>The index of the particle.</summary>
-        [JsonProperty("particle", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [DefaultValue(-1)]
-        public int particle = -1;
-
-        /// <summary>The index of the mesh in this node.</summary>
+        /// <summary>The index of the mesh referenced by this node.</summary>
         [JsonProperty("mesh", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [DefaultValue(-1)]
         public int mesh = -1;
@@ -96,6 +79,29 @@ namespace NewtonVgo
         [JsonProperty("springBoneColliderGroup", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [DefaultValue(-1)]
         public int springBoneColliderGroup = -1;
+
+        /// <summary>The index of the cloth referenced by this node.</summary>
+        [JsonProperty("cloth", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [DefaultValue(-1)]
+        public int cloth = -1;
+
+        /// <summary>The index of the light referenced by this node.</summary>
+        [JsonProperty("light", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [DefaultValue(-1)]
+        public int light = -1;
+
+        /// <summary>The index of the particle referenced by this node.</summary>
+        [JsonProperty("particle", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [DefaultValue(-1)]
+        public int particle = -1;
+
+        /// <summary>The skybox.</summary>
+        [JsonProperty("skybox")]
+        public VgoSkybox skybox = null;
+
+        /// <summary>The right.</summary>
+        [JsonProperty("right")]
+        public VgoRight right = null;
 
         /// <summary>The indices of this node's children.</summary>
         [JsonProperty("children")]

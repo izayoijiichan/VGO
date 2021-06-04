@@ -1,0 +1,151 @@
+{
+    "$id": "vgo.cloth",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The name of the object.",
+            "type": "string"
+        },
+        "enabled": {
+            "description": "Whether this component is enabled.",
+            "type": "boolean",
+            "default": true
+        },
+        "damping": {
+            "description": "Damp cloth motion.",
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.0
+        },
+        "useGravity": {
+            "description": "Should gravity affect the cloth simulation?",
+            "type": "boolean",
+            "default": true
+        },
+        "friction": {
+            "description": "The friction of the cloth when colliding with the character.",
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.0
+        },
+        "collisionMassScale": {
+            "description": "How much to increase mass of colliding particles.",
+            "type": "number",
+            "minimum": 0.0,
+            "default": 0.0
+        },
+        "enableContinuousCollision": {
+            "description": "Enable continuous collision to improve collision stability.",
+            "type": "boolean",
+            "default": true
+        },
+        "useVirtualParticles": {
+            "description": "Add one virtual particle per triangle to improve collision stability.",
+            "type": "number",
+            "minimum": 0.0,
+            "default": 0.0
+        },
+        "worldVelocityScale": {
+            "description": "How much world-space movement of the character will affect cloth vertices.",
+            "type": "number",
+            "default": 0.0
+        },
+        "worldAccelerationScale": {
+            "description": "How much world-space acceleration of the character will affect cloth vertices.",
+            "type": "number",
+            "default": 0.0
+        },
+        "clothSolverFrequency": {
+            "description": "Number of cloth solver iterations per second.",
+            "type": "number",
+            "minimum": 1.0,
+            "default": 1.0
+        },
+        "useTethers": {
+            "description": "Use Tether Anchors.",
+            "type": "boolean",
+            "default": true
+        },
+        "stiffnessFrequency": {
+            "description": "Sets the stiffness frequency parameter.",
+            "type": "number",
+            "default": 0.0
+        },
+        "selfCollisionDistance": {
+            "description": "Minimum distance at which two cloth particles repel each other.",
+            "type": "number",
+            "default": 0.0
+        },
+        "selfCollisionStiffness": {
+            "description": "Self-collision stiffness defines how strong the separating impulse should be for colliding particles.",
+            "type": "number",
+            "default": 0.0
+        },
+        "randomAcceleration": {
+            "description": "A random, external acceleration applied to the cloth.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "externalAcceleration": {
+            "description": "A constant, external acceleration applied to the cloth.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "stretchingStiffness": {
+            "description": "Stretching stiffness of the cloth.",
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.0
+        },
+        "bendingStiffness": {
+            "description": "Bending stiffness of the cloth.",
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.0
+        },
+        "sleepThreshold": {
+            "description": "Cloth's sleep threshold.",
+            "type": "number",
+            "minimum": 0.0,
+            "default": 0.0
+        },
+        "sphereColliders": {
+            "description": "An array of ClothSphereColliderPairs which this Cloth instance should collide with.",
+            "$id": "VgoClothSphereColliderPair[]",
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "capsuleColliders": {
+            "description": "An array of CapsuleColliders which this Cloth instance should collide with.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "integer"
+            }
+        },
+        "coefficients": {
+            "description": "The resource accessor index of the cloth skinning coefficients used to set up how the cloth interacts with the skinned mesh.",
+            "type": "integer",
+            "minimum": -1,
+            "default": -1
+        }
+    }
+}
