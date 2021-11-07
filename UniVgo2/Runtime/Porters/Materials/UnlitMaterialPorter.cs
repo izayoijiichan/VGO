@@ -8,7 +8,7 @@ namespace UniVgo2.Porters
     using UnityEngine;
 
     /// <summary>
-    /// Unlit Material Importer
+    /// Unlit Material Porter
     /// </summary>
     public class UnlitMaterialPorter : MaterialPorterBase
     {
@@ -45,7 +45,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="material">A unlit material.</param>
         /// <returns>vgo material</returns>
-        public override VgoMaterial CreateGltfMaterial(Material material)
+        public override VgoMaterial CreateVgoMaterial(Material material)
         {
             VgoMaterial vgoMaterial = new VgoMaterial()
             {

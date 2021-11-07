@@ -1,5 +1,13 @@
 # Change Log
 
+## [2.4.1] - 2021-11-08
+
+- Fixes
+  - Fixed a bug that could cause an error when importing if sparse was applied to the mesh resource accessor.
+  - Fixed a bug that could cause an error when importing a mesh blend shape.
+  - Fixed a bug where material normal maps were not imported correctly.
+  - Fixed the character code of the file to `Shift_JIS` to `UTF-8`.
+
 ## [2.4.0] - 2021-06-05
 
 - Features

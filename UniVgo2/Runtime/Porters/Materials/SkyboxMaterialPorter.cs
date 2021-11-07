@@ -10,7 +10,7 @@ namespace UniVgo2.Porters
     using UnityEngine;
 
     /// <summary>
-    /// Skybox Material Importer
+    /// Skybox Material Porter
     /// </summary>
     public class SkyboxMaterialPorter : MaterialPorterBase
     {
@@ -30,7 +30,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="material">A skybox material.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateGltfMaterial(Material material)
+        public override VgoMaterial CreateVgoMaterial(Material material)
         {
             var vgoMaterial = new VgoMaterial
             {

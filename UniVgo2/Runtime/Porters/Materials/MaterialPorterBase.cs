@@ -45,7 +45,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="material">A unity material.</param>
         /// <returns>A vgo material.</returns>
-        public abstract VgoMaterial CreateGltfMaterial(Material material);
+        public abstract VgoMaterial CreateVgoMaterial(Material material);
 
         #endregion
 

@@ -52,7 +52,7 @@ namespace UniVgo2.Porters
 
             materialPorter.ExportTexture = ExportTexture;
 
-            VgoMaterial vgoMaterial = materialPorter.CreateGltfMaterial(material);
+            VgoMaterial vgoMaterial = materialPorter.CreateVgoMaterial(material);
 
             return vgoMaterial;
         }

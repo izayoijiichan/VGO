@@ -271,6 +271,10 @@ namespace NewtonVgo
                     {
                         restoreBytes = RestoreArraySegmentFromSparse<float, Vector4>(accessor);
                     }
+                    else
+                    {
+                        throw new Exception($"SparseValueDataType: {accessor.dataType}");
+                    }
                 }
                 else
                 {
@@ -331,9 +335,11 @@ namespace NewtonVgo
 
             if (accessor.sparseIndexDataType == VgoResourceAccessorDataType.UnsignedByte)
             {
+                Span<byte> indexTypedSpan = indexByteArray.AsSpan();
+
                 for (int sparseIndex = 0; sparseIndex < accessor.sparseCount; sparseIndex++)
                 {
-                    restoreTypedSpan[restoreByteArray[sparseIndex]] = valueTypedSpan[sparseIndex];
+                    restoreTypedSpan[indexTypedSpan[sparseIndex]] = valueTypedSpan[sparseIndex];
                 }
             }
             else if (accessor.sparseIndexDataType == VgoResourceAccessorDataType.UnsignedShort)

@@ -686,7 +686,7 @@ namespace UniVgo2.Porters
 
                 foreach (BlendShape blendShape in meshContext.blendShapes)
                 {
-                    if (blendShape.positions.Length > 0)
+                    if (blendShape.positions?.Length > 0)
                     {
                         if (blendShape.positions.Length == mesh.vertexCount)
                         {

@@ -42,7 +42,7 @@ A node in the node hierarchy.
 |springBoneGroups|The indices of the spring bone groups referenced by this node.|int[]||||
 |springBoneColliderGroup|The index of the spring bone collider group referenced by this node.|int|||-1|
 |cloth|The index of the cloth referenced by this node.|int|||-1|
-|light|The light.|int|||-1|
+|light|The index of the light referenced by this node.|int|||-1|
 |particle|The index of the particle referenced by this node.|int|||-1|
 |skybox|The skybox.|vgo.skybox||||
 |right|The right.|vgo.right||||

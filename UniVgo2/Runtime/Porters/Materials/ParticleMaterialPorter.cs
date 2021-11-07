@@ -10,7 +10,7 @@ namespace UniVgo2.Porters
     using UnityEngine;
 
     /// <summary>
-    /// Particle Material Importer
+    /// Particle Material Porter
     /// </summary>
     public class ParticleMaterialPorter : MaterialPorterBase
     {
@@ -30,7 +30,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="material">A particle material.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateGltfMaterial(Material material)
+        public override VgoMaterial CreateVgoMaterial(Material material)
         {
             //ParticleDefinition particleDefinition = UniParticleShader.Utils.GetParametersFromMaterial(material);
 

@@ -9,7 +9,7 @@ namespace UniVgo2.Porters
     using UnityEngine;
 
     /// <summary>
-    /// Standard Material Importer
+    /// Standard Material Porter
     /// </summary>
     public class StandardMaterialPorter : MaterialPorterBase
     {
@@ -25,11 +25,11 @@ namespace UniVgo2.Porters
         #region Public Methods (Export)
 
         /// <summary>
-        /// Create a glTF material.
+        /// Create a vgo material.
         /// </summary>
         /// <param name="material">A standard material.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateGltfMaterial(Material material)
+        public override VgoMaterial CreateVgoMaterial(Material material)
         {
             //StandardDefinition definition = UniStandardShader.Utils.GetParametersFromMaterial(material);
 

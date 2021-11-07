@@ -10,7 +10,7 @@ namespace UniVgo2.Porters
     using UnityEngine;
 
     /// <summary>
-    /// MToon Material Importer
+    /// MToon Material Porter
     /// </summary>
     public class MtoonMaterialPorter : MaterialPorterBase
     {
@@ -26,11 +26,11 @@ namespace UniVgo2.Porters
         #region Public Methods (Export)
 
         /// <summary>
-        /// Create a glTF material.
+        /// Create a vgo material.
         /// </summary>
         /// <param name="material">A MToon material.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateGltfMaterial(Material material)
+        public override VgoMaterial CreateVgoMaterial(Material material)
         {
             //MToonDefinition definition = MToon.Utils.GetMToonParametersFromMaterial(material);
 

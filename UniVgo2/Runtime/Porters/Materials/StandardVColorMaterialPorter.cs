@@ -8,7 +8,7 @@ namespace UniVgo2.Porters
     using UnityEngine;
 
     /// <summary>
-    /// StandardVColor Material Importer
+    /// StandardVColor Material Porter
     /// </summary>
     public class StandardVColorMaterialPorter : MaterialPorterBase
     {
@@ -28,7 +28,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="material">A standard material.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateGltfMaterial(Material material)
+        public override VgoMaterial CreateVgoMaterial(Material material)
         {
             VgoMaterial vgoMaterial = new VgoMaterial()
             {

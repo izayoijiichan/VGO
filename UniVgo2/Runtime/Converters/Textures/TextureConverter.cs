@@ -1,4 +1,4 @@
-// ----------------------------------------------------------------------
+﻿// ----------------------------------------------------------------------
 // @Namespace : UniVgo2.Converters
 // @Class     : TextureConverter
 // ----------------------------------------------------------------------
@@ -23,7 +23,11 @@ namespace UniVgo2.Converters
         {
             if (textureMapType == VgoTextureMapType.NormalMap)
             {
-                return new NormalMapConverter().GetImportTexture(source);
+                //return new NormalMapConverter().GetImportTexture(source);
+
+                // @notice no conversion.
+                // Unity's normal map is same with glTF's.
+                return CopyTexture2d(source, VgoColorSpaceType.Linear, converter: null);
             }
             else if (textureMapType == VgoTextureMapType.MetallicRoughnessMap)
             {
