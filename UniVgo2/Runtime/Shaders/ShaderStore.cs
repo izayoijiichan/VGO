@@ -17,6 +17,15 @@ namespace UniVgo2
         /// <summary>Standard</summary>
         protected Shader _Standard;
 
+        /// <summary>HDRP/Eye</summary>
+        protected Shader _HDRPEye;
+
+        /// <summary>HDRP/Hair</summary>
+        protected Shader _HDRPHair;
+
+        /// <summary>HDRP/Lit</summary>
+        protected Shader _HDRPLit;
+
         /// <summary>Particles/Standard Surface</summary>
         protected Shader _ParticlesStandardSurface;
 
@@ -82,6 +91,45 @@ namespace UniVgo2
                     _Standard = Shader.Find(ShaderName.Standard);
                 }
                 return _Standard;
+            }
+        }
+
+        /// <summary>HDRP/Eye</summary>
+        protected Shader HDRPEye
+        {
+            get
+            {
+                if (_HDRPEye == null)
+                {
+                    _HDRPEye = Shader.Find(ShaderName.HDRP_Eye);
+                }
+                return _HDRPEye;
+            }
+        }
+
+        /// <summary>HDRP/Hair</summary>
+        protected Shader HDRPHair
+        {
+            get
+            {
+                if (_HDRPHair == null)
+                {
+                    _HDRPHair = Shader.Find(ShaderName.HDRP_Hair);
+                }
+                return _HDRPHair;
+            }
+        }
+
+        /// <summary>HDRP/Lit</summary>
+        protected Shader HDRPLit
+        {
+            get
+            {
+                if (_HDRPLit == null)
+                {
+                    _HDRPLit = Shader.Find(ShaderName.HDRP_Lit);
+                }
+                return _HDRPLit;
             }
         }
 
@@ -326,6 +374,15 @@ namespace UniVgo2
             {
                 case ShaderName.Standard:
                     return Standard;
+
+                case ShaderName.HDRP_Eye:
+                    return HDRPEye;
+
+                case ShaderName.HDRP_Hair:
+                    return HDRPHair;
+
+                case ShaderName.HDRP_Lit:
+                    return HDRPLit;
 
                 case ShaderName.Particles_Standard_Surface:
                     return ParticlesStandardSurface;

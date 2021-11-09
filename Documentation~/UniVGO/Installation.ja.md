@@ -9,8 +9,6 @@ ___
 
 |バージョン|Win (Editor)|Win (Mono)|Win (IL2CPP)|Android (IL2CPP)|iOS|
 |:---|:---:|:---:|:---:|:---:|:---:|
-|Unity 2019.1|未確認|未確認|未確認|未確認|未確認|
-|Unity 2019.2|未確認|未確認|未確認|未確認|未確認|
 |Unity 2019.3|未確認|未確認|未確認|未確認|未確認|
 |Unity 2019.4|○|○|○|○|未確認|
 |Unity 2020.1|○|○|○|○|未確認|
@@ -25,15 +23,16 @@ ___
 
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|
 |:---|:---:|:---:|:---:|:---:|:---:|
+|com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||11.0.0|2021年3月18日|
 |org.nuget.system.buffers|Microsoft|NuGet||4.4.0|2017年8月11日|
 |org.nuget.system.memory|Microsoft|NuGet||4.5.0|2018年5月29日|
 |org.nuget.system.numerics.vectors|Microsoft|NuGet||4.4.0|2017年8月11日|
 |org.nuget.system.runtime.compilerservices.unsafe|Microsoft|NuGet||4.5.0|2018年5月29日|
 |newtonsoft-json-for-unity|jillejr|GitHub|13.0.1|13.0.102|2021年3月25日|
 |VRMShaders|vrm-c|GitHub||0.62.0|2020年11月17日|
-|UniShaders|IzayoiJiichan|GitHub||1.1.0|2021年3月18日|
+|UniShaders|IzayoiJiichan|GitHub||1.2.0|2021年11月10日|
 |VgoSpringBone|IzayoiJiichan|GitHub||1.1.1|2021年6月1日|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.1|2021年11月8日|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.2|2021年11月10日|
 
 ___
 ## インストール
@@ -45,7 +44,11 @@ ___
 
 UniVGO のサンプルプロジェクトをダウンロードします。
 
+- HDRPを使用しない場合
 https://github.com/izayoijiichan/univgo2.sample.unity.project
+
+- HDRPを使用する場合
+https://github.com/izayoijiichan/univgo2.sample.hdrp.unity.project
 
 #### 2. Unity のインストール
 
@@ -92,9 +95,10 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
     }
   ],
   "dependencies": {
-    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.1.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.1",
+    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.2.0",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.2",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
+    "com.unity.render-pipelines.high-definition": "11.0.0",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.62.0",
     "jillejr.newtonsoft.json-for-unity": "13.0.102",
@@ -108,6 +112,8 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
   }
 }
 ```
+
+HDRPを使用しない場合、"com.unity.render-pipelines.high-definition" の行を削除してください。
 
 ### インストール完了の確認
 
@@ -143,7 +149,7 @@ UniVgo2 の `package.json` を開き編集します。
   "name": "com.izayoi.univgo2",
   ...
   "dependencies": {
-    "com.izayoi.unishaders": "1.1.0",
+    "com.izayoi.unishaders": "1.2.0",
     "com.izayoi.vgospringbone": "1.1.1",
     "com.vrmc.vrmshaders": "0.62.0",
 -   "jillejr.newtonsoft.json-for-unity": "13.0.102",
@@ -176,6 +182,7 @@ ___
 |MToon.Editor|MToon シェーダー ユーティリティー|-|*|
 |NewtonVgo|Newton.JSON向け VGOプログラム|*|*|
 |ShaderProperty.Runtime|シェーダーのプロパティー情報|*|*|
+|UniShader.Hdrp.Utility|HDRP シェーダー ユーティリティー|*|*|
 |UniShader.Skybox.Utility|Skybox シェーダー ユーティリティー|*|*|
 |UniShader.Standard.Particle.Utility|Particle シェーダー ユーティリティー|*|*|
 |UniShader.Standard.Utility|Standard シェーダー ユーティリティー|*|*|
@@ -225,7 +232,7 @@ UniGLTFフォルダーにあるシェーダー類が該当します。
 UniVRMのバージョンは0.66.0を推奨します。
 
 ___
-最終更新日：2021年11月8日  
+最終更新日：2021年11月10日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

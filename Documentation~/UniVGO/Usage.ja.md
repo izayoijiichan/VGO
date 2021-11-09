@@ -12,7 +12,7 @@ ___
 |No|項目|値|
 |:---:|:---|:---:|
 |1|Unity バージョン|2021.1|
-|2|UniVGO バージョン|2.4.0|
+|2|UniVGO バージョン|2.4.2|
 |3|VGO 仕様バージョン|2.4|
 
 ### 対応 Unity コンポーネント
@@ -41,18 +41,21 @@ VGOが対応する Unity コンポーネントは以下の通りです
 |No|シェーダー名|備考|
 |:---:|:---|:---|
 |1|Standard|標準シェーダー|
-|2|Particles/Standard Surface|Particle System 専用シェーダー|
-|3|Particles/Standard Unlit|Particle System 専用 Unlit シェーダー|
-|4|Skybox/6 Sided|Skybox 6面 シェーダー|
-|5|Skybox/Panoramic|Skybox パノラマ シェーダー|
-|6|Skybox/Procedural|Skybox 手続型 シェーダー|
-|7|Unlit/Color||
-|8|Unlit/Texture||
-|9|Unlit/Transparent||
-|10|Unlit/Transparent Cutout||
-|11|UniGLTF/StandardVColor|Vertex Color シェーダー|
-|12|UniGLTF/Unlit||
-|13|VRM/MToon||
+|2|HDRP/Eye|HD レンダーパイプライン Eye シェーダー|
+|3|HDRP/Hair|HD レンダーパイプライン Hair シェーダー|
+|4|HDRP/Lit|HD レンダーパイプライン Lit シェーダー|
+|5|Particles/Standard Surface|Particle System 専用シェーダー|
+|6|Particles/Standard Unlit|Particle System 専用 Unlit シェーダー|
+|7|Skybox/6 Sided|Skybox 6面 シェーダー|
+|8|Skybox/Panoramic|Skybox パノラマ シェーダー|
+|9|Skybox/Procedural|Skybox 手続型 シェーダー|
+|10|Unlit/Color||
+|11|Unlit/Texture||
+|12|Unlit/Transparent||
+|13|Unlit/Transparent Cutout||
+|14|UniGLTF/StandardVColor|Vertex Color シェーダー|
+|15|UniGLTF/Unlit||
+|16|VRM/MToon||
 
 - Unlit系のシェーダーは光源の影響を受けません。その代わり処理負荷が小さくなります。
 - Skybox/Cubemap には対応していません。
@@ -114,7 +117,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Name|生成ツールの名前です。|UniVGO|
-|2|Version|生成ツールのバージョンです。|2.3.1|
+|2|Version|生成ツールのバージョンです。|2.4.2|
 
 ユーザーが設定可能な項目はありません。  
 ジェネレーター情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -266,7 +269,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Generator Name|生成ツールの名前です。|UniVGO|
-|2|Generator Version|生成ツールのバージョンです。|2.3.1|
+|2|Generator Version|生成ツールのバージョンです。|2.4.2|
 
 ユーザーが設定可能な項目はありません。  
 メタ情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -529,7 +532,7 @@ VR-HMD（ヘッドマウントディスプレイ）が不要な簡易3D バー�
 https://vovola.wixsite.com/website
 
 ___
-最終更新日：2021年6月5日  
+最終更新日：2021年11月10日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -9,6 +9,7 @@ namespace UniVgo2.Porters
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
+    using UnityEngine.Rendering;
 
     /// <summary>
     /// Basic Material Porter
@@ -52,12 +53,104 @@ namespace UniVgo2.Porters
         #region Protected Methods (Export)
 
         /// <summary>
-        /// 
+        /// Export the properties.
         /// </summary>
-        /// <param name="vgoMaterial"></param>
-        /// <param name="material"></param>
-        /// <param name="propertyName"></param>
-        /// <param name="type"></param>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="material">A unity material.</param>
+        /// <param name="excludeColor">Whether to exclude properties of type color.</param>
+        /// <param name="excludeVector">Whether to exclude properties of type vector.</param>
+        /// <returns></returns>
+        protected virtual bool ExportProperties(VgoMaterial vgoMaterial, Material material, bool excludeColor = false, bool excludeVector = false)
+        {
+            bool isSuccess = true;
+
+            int propertyCount = material.shader.GetPropertyCount();
+
+            for (int propertyIndex = 0; propertyIndex < propertyCount; propertyIndex++)
+            {
+                if (ExportProperty(vgoMaterial, material, propertyIndex, excludeColor, excludeVector) == false)
+                {
+                    isSuccess = false;
+                }
+            }
+
+            return isSuccess;
+        }
+
+        /// <summary>
+        /// Export a property.
+        /// </summary>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="material">A unity material.</param>
+        /// <param name="propertyIndex">Index of the property.</param>
+        /// <param name="excludeColor">Whether to exclude property of type color.</param>
+        /// <param name="excludeVector">Whether to exclude property of type vector.</param>
+        /// <returns></returns>
+        protected virtual bool ExportProperty(VgoMaterial vgoMaterial, Material material, int propertyIndex, bool excludeColor = false, bool excludeVector = false)
+        {
+            string propertyName = material.shader.GetPropertyName(propertyIndex);
+
+            ShaderPropertyType propertyType = material.shader.GetPropertyType(propertyIndex);
+
+            switch (propertyType)
+            {
+                case ShaderPropertyType.Color:
+                    if (excludeColor == false)
+                    {
+                        if (vgoMaterial.colorProperties == null)
+                        {
+                            vgoMaterial.colorProperties = new Dictionary<string, float[]>();
+                        }
+                        vgoMaterial.colorProperties.Add(propertyName, material.GetColor(propertyName).linear.ToArray4());
+                    }
+                    break;
+
+                case ShaderPropertyType.Vector:
+                    if (excludeVector == false)
+                    {
+                        if (vgoMaterial.vectorProperties == null)
+                        {
+                            vgoMaterial.vectorProperties = new Dictionary<string, float[]>();
+                        }
+                        vgoMaterial.vectorProperties.Add(propertyName, material.GetVector(propertyName).ToArray());
+                    }
+                    break;
+
+                case ShaderPropertyType.Float:
+                case ShaderPropertyType.Range:
+                    if (vgoMaterial.floatProperties == null)
+                    {
+                        vgoMaterial.floatProperties = new Dictionary<string, float>();
+                    }
+                    vgoMaterial.floatProperties.Add(propertyName, material.GetFloat(propertyName));
+                    break;
+
+                case ShaderPropertyType.Texture:
+                    //throw new NotSupportedException($"{nameof(propertyName)}: {propertyName}, {nameof(ShaderPropertyType)}: {propertyType} ");
+                    return true;
+
+                case ShaderPropertyType.Int:
+                    if (vgoMaterial.intProperties == null)
+                    {
+                        vgoMaterial.intProperties = new Dictionary<string, int>();
+                    }
+                    vgoMaterial.intProperties.Add(propertyName, material.GetInt(propertyName));
+                    break;
+
+                default:
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Export a property.
+        /// </summary>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="material">A unity material.</param>
+        /// <param name="propertyName">A property name.</param>
+        /// <param name="type">The type of property.</param>
         /// <returns></returns>
         protected virtual bool ExportProperty(VgoMaterial vgoMaterial, Material material, string propertyName, VgoMaterialPropertyType type)
         {
@@ -151,11 +244,34 @@ namespace UniVgo2.Porters
         }
 
         /// <summary>
-        /// 
+        /// Export keywords.
         /// </summary>
-        /// <param name="vgoMaterial"></param>
-        /// <param name="material"></param>
-        /// <param name="keyword"></param>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="material">A unity material.</param>
+        /// <returns></returns>
+        protected virtual bool ExportKeywords(VgoMaterial vgoMaterial, Material material)
+        {
+            bool isSuccess = true;
+
+            string[] keywords = material.shaderKeywords;
+
+            foreach (string keyword in keywords)
+            {
+                if (ExportKeyword(vgoMaterial, material, keyword) == false)
+                {
+                    isSuccess = false;
+                }
+            }
+
+            return isSuccess;
+        }
+
+        /// <summary>
+        /// Export keyword.
+        /// </summary>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="material">A unity material.</param>
+        /// <param name="keyword">keyword.</param>
         /// <returns></returns>
         protected virtual bool ExportKeyword(VgoMaterial vgoMaterial, Material material, string keyword)
         {
@@ -177,13 +293,16 @@ namespace UniVgo2.Porters
         }
 
         /// <summary>
-        /// 
+        /// Export tag.
         /// </summary>
-        /// <param name="vgoMaterial"></param>
-        /// <param name="material"></param>
-        /// <param name="tagName"></param>
-        /// <param name="searchFallbacks"></param>
-        /// <param name="defaultValue"></param>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="material">A unity material.</param>
+        /// <param name="tagName">A tag name.</param>
+        /// <param name="searchFallbacks">
+        /// If searchFallbacks is true then this function will look for tag in all subshaders and all fallbacks.
+        /// If seachFallbacks is false then only the currently used subshader will be queried for the tag.
+        /// </param>
+        /// <param name="defaultValue">If the material's shader does not define the tag, defaultValue is returned.</param>
         /// <returns></returns>
         protected virtual bool ExportTag(VgoMaterial vgoMaterial, Material material, string tagName, bool searchFallbacks = false, string defaultValue = null)
         {
@@ -200,14 +319,14 @@ namespace UniVgo2.Porters
         }
 
         /// <summary>
-        /// 
+        /// Export a texture type property.
         /// </summary>
-        /// <param name="vgoMaterial"></param>
-        /// <param name="material"></param>
-        /// <param name="propertyName"></param>
-        /// <param name="textureMapType"></param>
-        /// <param name="colorSpace"></param>
-        /// <param name="metallicSmoothness"></param>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="material">A unity material.</param>
+        /// <param name="propertyName">A property name.</param>
+        /// <param name="textureMapType">Type of the texture map.</param>
+        /// <param name="colorSpace">The color space.</param>
+        /// <param name="metallicSmoothness">The metallic smoothness.</param>
         /// <returns></returns>
         public virtual bool ExportTextureProperty(VgoMaterial vgoMaterial, Material material, string propertyName, VgoTextureMapType textureMapType = VgoTextureMapType.Default, VgoColorSpaceType colorSpace = VgoColorSpaceType.Srgb, float metallicSmoothness = -1.0f)
         {
@@ -244,11 +363,11 @@ namespace UniVgo2.Porters
         }
 
         /// <summary>
-        /// 
+        /// Export a texture offset.
         /// </summary>
-        /// <param name="vgoMaterial"></param>
-        /// <param name="material"></param>
-        /// <param name="propertyName"></param>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="material">A unity material.</param>
+        /// <param name="propertyName">A property name.</param>
         /// <returns></returns>
         public virtual bool ExportTextureOffset(VgoMaterial vgoMaterial, Material material, string propertyName)
         {
@@ -272,11 +391,11 @@ namespace UniVgo2.Porters
         }
 
         /// <summary>
-        /// 
+        /// Export a texture scale.
         /// </summary>
-        /// <param name="vgoMaterial"></param>
-        /// <param name="material"></param>
-        /// <param name="propertyName"></param>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="material">A unity material.</param>
+        /// <param name="propertyName">A property name.</param>
         /// <returns></returns>
         public virtual bool ExportTextureScale(VgoMaterial vgoMaterial, Material material, string propertyName)
         {
@@ -600,6 +719,25 @@ namespace UniVgo2.Porters
             }
 
             return material;
+        }
+
+        /// <summary>
+        /// Gets a list of property names.
+        /// </summary>
+        /// <param name="material">A unity material.</param>
+        /// <returns>List of the property name.</returns>
+        protected List<string> GetPropertyNameList(Material material)
+        {
+            int propertyCount = material.shader.GetPropertyCount();
+
+            var propertyNameList = new List<string>(propertyCount);
+
+            for (int propertyIndex = 0; propertyIndex < propertyCount; propertyIndex++)
+            {
+                propertyNameList.Add(material.shader.GetPropertyName(propertyIndex));
+            }
+
+            return propertyNameList;
         }
 
         #endregion

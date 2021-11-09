@@ -13,6 +13,22 @@ namespace UniVgo2.Porters
     {
         #region Fields & Properties
 
+        /// <summary>HDRP Material Porter</summary>
+        protected HdrpMaterialPorter _HdrpMaterialPorter;
+
+        /// <summary>HDRP Material Porter</summary>
+        protected HdrpMaterialPorter HdrpMaterialPorter
+        {
+            get
+            {
+                if (_HdrpMaterialPorter == null)
+                {
+                    _HdrpMaterialPorter = new HdrpMaterialPorter();
+                }
+                return _HdrpMaterialPorter;
+            }
+        }
+
         /// <summary>MToon Material Porter</summary>
         protected MtoonMaterialPorter _MtoonMaterialPorter;
 
@@ -187,6 +203,10 @@ namespace UniVgo2.Porters
             {
                 case ShaderName.Standard:
                     return StandardMaterialPorter;
+                case ShaderName.HDRP_Eye:
+                case ShaderName.HDRP_Hair:
+                case ShaderName.HDRP_Lit:
+                    return HdrpMaterialPorter;
                 case ShaderName.Particles_Standard_Surface:
                 case ShaderName.Particles_Standard_Unlit:
                     return ParticleMaterialPorter;

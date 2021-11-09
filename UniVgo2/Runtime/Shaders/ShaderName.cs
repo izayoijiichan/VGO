@@ -12,6 +12,15 @@ namespace UniVgo2
         /// <summary>Standard</summary>
         public const string Standard = "Standard";
 
+        /// <summary>HDRP/Eye</summary>
+        public const string HDRP_Eye = "HDRP/Eye";
+
+        /// <summary>HDRP/Hair</summary>
+        public const string HDRP_Hair = "HDRP/Hair";
+        
+        /// <summary>HDRP/Lit</summary>
+        public const string HDRP_Lit = "HDRP/Lit";
+
         /// <summary>Particles/Standard Surface</summary>
         public const string Particles_Standard_Surface = "Particles/Standard Surface";
 

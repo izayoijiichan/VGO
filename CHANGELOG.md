@@ -1,5 +1,13 @@
 # Change Log
 
+## [2.4.2] - 2021-11-10
+
+- Features
+  - Unity HDRP (High Definition Render Pipeline) shaders (Lit, Hair, Eye) will be available.
+- Changes
+  - The minimum version of unity is now `2019.3`.
+  - Updated the version of `com.izayoi.unishaders` to `1.2.0`.
+
 ## [2.4.1] - 2021-11-08
 
 - Fixes

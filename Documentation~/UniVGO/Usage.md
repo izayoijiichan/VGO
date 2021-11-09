@@ -12,7 +12,7 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2021.1|
-|2|UniVGO version|2.4.0|
+|2|UniVGO version|2.4.2|
 |3|VGO spec version|2.4|
 
 ### Supported Unity components
@@ -41,18 +41,21 @@ The supported shaders are as follows.
 |No|shader name|descriptoin|
 |:---:|:---|:---|
 |1|Standard|Standard shader|
-|2|Particles/Standard Surface|Particle System dedicated shader|
-|3|Particles/Standard Unlit|Particle System dedicated shader|
-|4|Skybox/6 Sided|Skybox 6 sided shader|
-|5|Skybox/Panoramic|Skybox panoramic shader|
-|6|Skybox/Procedural|Skybox procedural shader|
-|7|Unlit/Color||
-|8|Unlit/Texture||
-|9|Unlit/Transparent||
-|10|Unlit/Transparent Cutout||
-|11|UniGLTF/StandardVColor|Vertex color shader|
-|12|UniGLTF/Unlit||
-|13|VRM/MToon||
+|2|HDRP/Eye|HD Render Pipeline Eye shader|
+|3|HDRP/Hair|HD Render Pipeline Hair shader|
+|4|HDRP/Lit|HD Render Pipeline Lit shader|
+|5|Particles/Standard Surface|Particle System dedicated shader|
+|6|Particles/Standard Unlit|Particle System dedicated shader|
+|7|Skybox/6 Sided|Skybox 6 sided shader|
+|8|Skybox/Panoramic|Skybox panoramic shader|
+|9|Skybox/Procedural|Skybox procedural shader|
+|10|Unlit/Color||
+|11|Unlit/Texture||
+|12|Unlit/Transparent||
+|13|Unlit/Transparent Cutout||
+|14|UniGLTF/StandardVColor|Vertex color shader|
+|15|UniGLTF/Unlit||
+|16|VRM/MToon||
 
 - Unlit shaders are not affected by light sources. Instead, the processing load is reduced.
 - Skybox / Cubemap is not supported.
@@ -114,7 +117,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.3.1|
+|2|Version|Version of the generation tool.|2.4.2|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -266,7 +269,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.3.1|
+|2|Version|Version of the generation tool.|2.4.2|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -523,7 +526,7 @@ Multiple play allows multiple people to enter the same room and make calls.
 https://vovola.wixsite.com/website
 
 ___
-Last updated: 5 June, 2021  
+Last updated: 10 November, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

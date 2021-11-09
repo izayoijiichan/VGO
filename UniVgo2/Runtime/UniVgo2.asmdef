@@ -6,6 +6,7 @@
         "ShaderProperty.Runtime",
         "MToon",
         "UniUnlit",
+        "UniShader.HDRP.Utility",
         "UniShader.Skybox.Utility",
         "UniShader.Standard.Particle.Utility",
         "UniShader.Standard.Utility"
