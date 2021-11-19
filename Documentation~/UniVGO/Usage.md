@@ -11,8 +11,8 @@ The contents described in this manual are for the following versions.
 
 |No|item|value|
 |:---:|:---|:---:|
-|1|Unity version|2021.1|
-|2|UniVGO version|2.4.2|
+|1|Unity version|2021.2|
+|2|UniVGO version|2.4.3|
 |3|VGO spec version|2.4|
 
 ### Supported Unity components
@@ -526,7 +526,7 @@ Multiple play allows multiple people to enter the same room and make calls.
 https://vovola.wixsite.com/website
 
 ___
-Last updated: 10 November, 2021  
+Last updated: 20 November, 2021  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

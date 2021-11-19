@@ -2,7 +2,7 @@
   "name": "com.izayoi.univgo2",
   "displayName": "UniVGO 2",
   "description": "UniVGO 2 is a package that can handle VGO files in Unity.",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "type": "tool",
   "category": "",
   "keywords": [
@@ -21,7 +21,7 @@
     "unity",
     "vgo"
   ],
-  "unity": "2019.3",
+  "unity": "2021.2",
   "author": {
     "name" : "Izayoi Jiichan"
   },
@@ -33,7 +33,6 @@
     "com.izayoi.unishaders": "1.2.0",
     "com.izayoi.vgospringbone": "1.1.1",
     "com.vrmc.vrmshaders": "0.62.0",
-    "jillejr.newtonsoft.json-for-unity": "13.0.102",
-    "org.nuget.system.memory": "4.5.0"
+    "jillejr.newtonsoft.json-for-unity": "13.0.102"
   }
 }

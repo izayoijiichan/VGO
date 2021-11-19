@@ -11,8 +11,8 @@ ___
 
 |No|項目|値|
 |:---:|:---|:---:|
-|1|Unity バージョン|2021.1|
-|2|UniVGO バージョン|2.4.2|
+|1|Unity バージョン|2021.2|
+|2|UniVGO バージョン|2.4.3|
 |3|VGO 仕様バージョン|2.4|
 
 ### 対応 Unity コンポーネント
@@ -532,7 +532,7 @@ VR-HMD（ヘッドマウントディスプレイ）が不要な簡易3D バー�
 https://vovola.wixsite.com/website
 
 ___
-最終更新日：2021年11月10日  
+最終更新日：2021年11月20日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

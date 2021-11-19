@@ -9,30 +9,21 @@ ___
 
 |バージョン|Win (Editor)|Win (Mono)|Win (IL2CPP)|Android (IL2CPP)|iOS|
 |:---|:---:|:---:|:---:|:---:|:---:|
-|Unity 2019.3|未確認|未確認|未確認|未確認|未確認|
-|Unity 2019.4|○|○|○|○|未確認|
-|Unity 2020.1|○|○|○|○|未確認|
-|Unity 2020.2|○|○|○|○|未確認|
-|Unity 2020.3|○|○|○|○|未確認|
-|Unity 2021.1|○|○|○|○|未確認|
+|Unity 2021.2|○|○|○|○|未確認|
 
-2021年11月の時点では `Unity 2021.1` の `Windows` `.NET Standard 2.0` 環境にて開発＆確認を行っています。
-
+2021年11月の時点では `Unity 2021.2` の `Windows` `.NET Standard 2.1` 環境にて開発＆確認を行っています。  
+`Unity 2021.1`以前のバージョンを使用する場合は、`UniVGO 2.4.2`を使用してください。
 
 ### 必要パッケージ
 
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|
 |:---|:---:|:---:|:---:|:---:|:---:|
 |com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||11.0.0|2021年3月18日|
-|org.nuget.system.buffers|Microsoft|NuGet||4.4.0|2017年8月11日|
-|org.nuget.system.memory|Microsoft|NuGet||4.5.0|2018年5月29日|
-|org.nuget.system.numerics.vectors|Microsoft|NuGet||4.4.0|2017年8月11日|
-|org.nuget.system.runtime.compilerservices.unsafe|Microsoft|NuGet||4.5.0|2018年5月29日|
 |newtonsoft-json-for-unity|jillejr|GitHub|13.0.1|13.0.102|2021年3月25日|
 |VRMShaders|vrm-c|GitHub||0.62.0|2020年11月17日|
 |UniShaders|IzayoiJiichan|GitHub||1.2.0|2021年11月10日|
 |VgoSpringBone|IzayoiJiichan|GitHub||1.1.1|2021年6月1日|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.2|2021年11月10日|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.3|2021年11月20日|
 
 ___
 ## インストール
@@ -45,14 +36,14 @@ ___
 UniVGO のサンプルプロジェクトをダウンロードします。
 
 - HDRPを使用しない場合
-https://github.com/izayoijiichan/univgo2.sample.unity.project
+https://github.com/izayoijiichan/univgo2.sample.unity2021.2.project
 
 - HDRPを使用する場合
-https://github.com/izayoijiichan/univgo2.sample.hdrp.unity.project
+https://github.com/izayoijiichan/univgo2.sample.hdrp.unity2021.2.project
 
 #### 2. Unity のインストール
 
-Unity Hub にて`Unity 2021.1.0f1`をインストールします。
+Unity Hub にて`Unity 2021.2.0f1`をインストールします。
 
 #### 3. プロジェクトを読み込み
 
@@ -84,11 +75,6 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
 {
   "scopedRegistries": [
     {
-      "name": "Unity NuGet",
-      "url": "https://unitynuget-registry.azurewebsites.net",
-      "scopes": ["org.nuget"]
-    },
-    {
       "name": "Packages from jillejr",
       "url": "https://npm.cloudsmith.io/jillejr/newtonsoft-json-for-unity/",
       "scopes": ["jillejr"]
@@ -96,16 +82,12 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
   ],
   "dependencies": {
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.2.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.2",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.3",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.render-pipelines.high-definition": "11.0.0",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.62.0",
     "jillejr.newtonsoft.json-for-unity": "13.0.102",
-    "org.nuget.system.buffers": "4.4.0",
-    "org.nuget.system.memory": "4.5.0",
-    "org.nuget.system.numerics.vectors": "4.4.0",
-    "org.nuget.system.runtime.compilerservices.unsafe": "4.5.0",
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
@@ -132,41 +114,6 @@ HDRPを使用しない場合、"com.unity.render-pipelines.high-definition" の�
 - `asmdef.meta` の設定が変更されている
 - コンポーネントの `.meta` の guid が変更されている
 - `System.Buffers.dll`, `System.Memory.dll`, `System.Numerics.Vectors.dll`, `System.Runtime.CompilerServices.Unsage.dll` が重複して配置されている
-
-### エラー回避方法
-
-`System.Buffers.dll`, `System.Memory.dll`, `System.Numerics.Vectors.dll`, `System.Runtime.CompilerServices.Unsage.dll` の重複に関連するエラーが発生した場合、  
-以下の方法でエラーを回避できます。
-
-UniVgo2 のソースコードを GitHub よりダウンロードし、Unity プロジェクトの `Packages` フォルダーに配置します。
-
-UniVgo2 の `package.json` を開き編集します。
-
-`org.nuget.system.memory` の記述を削除します。
-
-```diff
-{
-  "name": "com.izayoi.univgo2",
-  ...
-  "dependencies": {
-    "com.izayoi.unishaders": "1.2.0",
-    "com.izayoi.vgospringbone": "1.1.1",
-    "com.vrmc.vrmshaders": "0.62.0",
--   "jillejr.newtonsoft.json-for-unity": "13.0.102",
--   "org.nuget.system.memory": "4.5.0"
-+   "jillejr.newtonsoft.json-for-unity": "13.0.102"
-  }
-}
-```
-
-UnityEditor から PackageManager を開き、以下のライブラリーを削除します。
-
-- org.nuget.system.buffers
-- org.nuget.system.memory
-- org.nuget.system.numerics.vectors
-- org.nuget.system.runtime.compilerservices.unsafe
-
-これで重複がなくなります。
 
 ___
 ## その他の情報
@@ -232,7 +179,7 @@ UniGLTFフォルダーにあるシェーダー類が該当します。
 UniVRMのバージョンは0.66.0を推奨します。
 
 ___
-最終更新日：2021年11月10日  
+最終更新日：2021年11月20日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

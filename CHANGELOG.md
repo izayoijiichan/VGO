@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.4.3] - 2021-11-20
+
+- Changes
+  - The minimum version of unity is now `2021.2`.
+    If you want to use the version from Unity `2019.3` to` 2021.1`, please use the version of UniVGO `2.4.1` or `2.4.2`.
+
 ## [2.4.2] - 2021-11-10
 
 - Features
