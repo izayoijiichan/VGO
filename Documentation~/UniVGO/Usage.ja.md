@@ -12,7 +12,7 @@ ___
 |No|項目|値|
 |:---:|:---|:---:|
 |1|Unity バージョン|2021.2|
-|2|UniVGO バージョン|2.4.3|
+|2|UniVGO バージョン|2.4.4|
 |3|VGO 仕様バージョン|2.4|
 
 ### 対応 Unity コンポーネント
@@ -32,7 +32,7 @@ VGOが対応する Unity コンポーネントは以下の通りです
 |9|Skybox|Child|シーンにスカイボックスを設定することができます。|
 |10|Vgo Spring Bone Group|Child|スプリング ボーン（揺れもの）の設定ができるようになります。|
 |11|Vgo Spring Bone Collider Group|Child|スプリング ボーンに対するコライダーを設定することができます。|
-|12|Cloth|Child|GameObjectにクロース（衣服の揺れもの）を設定することができます。|
+|12|Cloth|Child|GameObjectにクロス（衣服の揺れもの）を設定することができます。|
 
 ### 使用可能シェーダー
 
@@ -117,7 +117,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Name|生成ツールの名前です。|UniVGO|
-|2|Version|生成ツールのバージョンです。|2.4.2|
+|2|Version|生成ツールのバージョンです。|2.4.4|
 
 ユーザーが設定可能な項目はありません。  
 ジェネレーター情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -269,7 +269,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Generator Name|生成ツールの名前です。|UniVGO|
-|2|Generator Version|生成ツールのバージョンです。|2.4.2|
+|2|Generator Version|生成ツールのバージョンです。|2.4.4|
 
 ユーザーが設定可能な項目はありません。  
 メタ情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -532,7 +532,7 @@ VR-HMD（ヘッドマウントディスプレイ）が不要な簡易3D バー�
 https://vovola.wixsite.com/website
 
 ___
-最終更新日：2021年11月20日  
+最終更新日：2021年12月3日  
 編集者：十六夜おじいちゃん
 
-*Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*
+*Copyright (C) 2020-2021 Izayoi Jiichan. All Rights Reserved.*

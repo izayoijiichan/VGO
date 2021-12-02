@@ -1,5 +1,18 @@
 # Change Log
 
+## [2.4.4] - 2021-12-03
+
+- Fixes
+  - Fixed a bug where blend shape meshes could not be exported correctly.
+- Changes
+  - The minimum version of unity is now `2019.4`.
+    The `package.json` settings are for Unity `2021.2`.
+    If you want to use the version from Unity `2019.4` to` 2021.1`, please append the following packages or dlls.
+    - `org.nuget.system.buffers`: `4.4.0` (System.Buffers.dll)
+    - `org.nuget.system.memory`: `4.5.0` (System.Memory.dll)
+    - `org.nuget.system.numerics.vectors`: `4.4.0` (System.Numerics.Vectors.dll)
+    - `org.nuget.system.runtime.compilerservices.unsafe`: `4.5.0` (System.Runtime.CompilerServices.Unsafe.dll)
+
 ## [2.4.3] - 2021-11-20
 
 - Changes

@@ -514,6 +514,24 @@ namespace UniVgo2.Porters
                         .Select(index => vertexes[index])
                         .ToArray();
 
+                    //List<int> sparseIndexList = new List<int>(sparseCount);
+                    //List<Vector3> sparseValueList = new List<Vector3>(sparseCount);
+
+                    //for (int vertexIndex = 0; vertexIndex < vertexes.Length; vertexIndex++)
+                    //{
+                    //    if (vertexes[vertexIndex] != Vector3.zero)
+                    //    {
+                    //        sparseIndexList.Add(vertexIndex);
+                    //        sparseValueList.Add(vertexes[vertexIndex]);
+                    //    }
+                    //}
+
+                    //if ((sparseIndexList.Count != sparseCount) ||
+                    //    (sparseValueList.Count != sparseCount))
+                    //{
+                    //    throw new Exception($"{sparseCount}, {sparseIndexList.Count}, {sparseValueList.Count}");
+                    //}
+
                     accessorIndex = StorageAdapter.AddAccessorWithSparse(VgoResourceAccessorSparseType.General, sparseIndices, sparseValues,
                         sparseValueDataType: VgoResourceAccessorDataType.Vector3Float,
                         accessorDataType: VgoResourceAccessorDataType.Vector3Float,
@@ -537,6 +555,24 @@ namespace UniVgo2.Porters
                             sparseIndex++;
                         }
                     }
+
+                    //List<int> sparseIndexList = new List<int>(sparseCount);
+                    //List<float> sparseValueList = new List<float>(sparseCount);
+
+                    //for (int spanIndex = 0; spanIndex < vertexFloatSpan.Length; spanIndex++)
+                    //{
+                    //    if (vertexFloatSpan[spanIndex] != 0.0f)
+                    //    {
+                    //        sparseIndexList.Add(spanIndex);
+                    //        sparseValueList.Add(vertexFloatSpan[spanIndex]);
+                    //    }
+                    //}
+
+                    //if ((sparseIndexList.Count != sparseCount) ||
+                    //    (sparseValueList.Count != sparseCount))
+                    //{
+                    //    throw new Exception($"{sparseCount}, {sparseIndexList.Count}, {sparseValueList.Count}");
+                    //}
 
                     accessorIndex = StorageAdapter.AddAccessorWithSparse(VgoResourceAccessorSparseType.Powerful, sparseIndices, sparseValues,
                         sparseValueDataType: VgoResourceAccessorDataType.Float,
@@ -573,7 +609,7 @@ namespace UniVgo2.Porters
             int nonSparseDataSize = 12 * vertexes.Length;
 
             int generalSparseCount = 0;
-            int generalSparseDataSize = 0;
+            int generalSparseDataSize = int.MaxValue;
 
             // General Sparse
             {
@@ -590,7 +626,7 @@ namespace UniVgo2.Porters
             }
 
             int powerfulSparseCount = 0;
-            int powerfulSparseDataSize = 0;
+            int powerfulSparseDataSize = int.MaxValue;
 
             // Powerful Sparse
             {
@@ -618,7 +654,10 @@ namespace UniVgo2.Porters
             {
                 return false;
             }
-            else if ((powerfulSparseCount == 0) || (generalSparseDataSize <= powerfulSparseDataSize))
+            else if (
+                (generalSparseCount > 0) &&
+                (generalSparseDataSize <= nonSparseDataSize) &&
+                (generalSparseDataSize <= powerfulSparseDataSize))
             {
                 float compressionRatio = (float)generalSparseDataSize / (float)nonSparseDataSize;
 
@@ -630,7 +669,10 @@ namespace UniVgo2.Porters
                     return true;
                 }
             }
-            else if ((generalSparseCount == 0) || (powerfulSparseDataSize <= generalSparseDataSize))
+            else if (
+                (powerfulSparseCount > 0) &&
+                (powerfulSparseDataSize <= nonSparseDataSize) &&
+                (powerfulSparseDataSize <= generalSparseDataSize))
             {
                 float compressionRatio = (float)powerfulSparseDataSize / (float)nonSparseDataSize;
 

@@ -220,6 +220,11 @@ namespace NewtonVgo
                     throw new FormatException($"accessor.sparseCount: {accessor.sparseCount}, accessor.count: {accessor.count}");
                 }
 
+                if (accessor.dataType != accessor.sparseValueDataType)
+                {
+                    throw new FormatException($"accessorDataType: {accessor.dataType} != SparseValueDataType: {accessor.sparseValueDataType}");
+                }
+
                 if (accessor.dataType == VgoResourceAccessorDataType.UnsignedInt)
                 {
                     restoreBytes = RestoreArraySegmentFromSparse<uint>(accessor);
@@ -313,29 +318,51 @@ namespace NewtonVgo
             where TValue : struct
             where TData : struct
         {
-            ArraySegment<byte> indexByteArray = Resource.GetBytes().Slice(
+            int dataByteSize = accessor.dataType.ByteSize();
+
+            int marshalDataByteSize = Marshal.SizeOf<TData>();
+
+            if (dataByteSize != marshalDataByteSize)
+            {
+                throw new FormatException($"accessorDataTypeByteSize: {dataByteSize} != marshalDataByteSize: {marshalDataByteSize}");
+            }
+
+            int totalDataSize = dataByteSize * accessor.count;
+
+            int totalSparseIndexSize = accessor.sparseIndexDataType.ByteSize() * accessor.sparseCount;
+            int totalSparseValueSize = accessor.sparseValueDataType.ByteSize() * accessor.sparseCount;
+
+            if (totalSparseIndexSize != accessor.sparseValueOffset)
+            {
+                throw new FormatException($"totalSparseIndexSize: {totalSparseIndexSize} != sparseValueOffset: {accessor.sparseValueOffset}");
+            }
+
+            if (totalSparseIndexSize + totalSparseValueSize != accessor.byteLength)
+            {
+                throw new FormatException($"totalSparseIndexSize + totalSparseValueSize: {totalSparseIndexSize + totalSparseValueSize} != accessor.byteLength: {accessor.byteLength}");
+            }
+
+            ArraySegment<byte> indexByteArraySegment = Resource.GetBytes().Slice(
                 offset: accessor.byteOffset,
-                count: accessor.sparseIndexDataType.ByteSize() * accessor.sparseCount
+                count: totalSparseIndexSize
             );
 
-            ArraySegment<byte> valueByteArray = Resource.GetBytes().Slice(
+            ArraySegment<byte> valueByteArraySegment = Resource.GetBytes().Slice(
                 offset: accessor.byteOffset + accessor.sparseValueOffset,
-                count: accessor.dataType.ByteSize() * accessor.sparseCount
+                count: totalSparseValueSize
             );
 
-            int dataByteSize = Marshal.SizeOf<TData>();
-
-            byte[] restoreByteArray = new byte[dataByteSize * accessor.count];
+            byte[] restoreByteArray = new byte[totalDataSize];
 
             var restoreByteArraySegment = new ArraySegment<byte>(restoreByteArray);
 
-            Span<TValue> restoreTypedSpan = MemoryMarshal.Cast<byte, TValue>(restoreByteArray.AsSpan());
+            Span<TValue> restoreTypedSpan = MemoryMarshal.Cast<byte, TValue>(restoreByteArraySegment.AsSpan());
 
-            Span<TValue> valueTypedSpan = MemoryMarshal.Cast<byte, TValue>(valueByteArray.AsSpan());
+            Span<TValue> valueTypedSpan = MemoryMarshal.Cast<byte, TValue>(valueByteArraySegment.AsSpan());
 
             if (accessor.sparseIndexDataType == VgoResourceAccessorDataType.UnsignedByte)
             {
-                Span<byte> indexTypedSpan = indexByteArray.AsSpan();
+                Span<byte> indexTypedSpan = indexByteArraySegment.AsSpan();
 
                 for (int sparseIndex = 0; sparseIndex < accessor.sparseCount; sparseIndex++)
                 {
@@ -344,7 +371,7 @@ namespace NewtonVgo
             }
             else if (accessor.sparseIndexDataType == VgoResourceAccessorDataType.UnsignedShort)
             {
-                Span<ushort> indexTypedSpan = MemoryMarshal.Cast<byte, ushort>(indexByteArray.AsSpan());
+                Span<ushort> indexTypedSpan = MemoryMarshal.Cast<byte, ushort>(indexByteArraySegment.AsSpan());
 
                 for (int sparseIndex = 0; sparseIndex < accessor.sparseCount; sparseIndex++)
                 {
@@ -353,7 +380,7 @@ namespace NewtonVgo
             }
             else if (accessor.sparseIndexDataType == VgoResourceAccessorDataType.UnsignedInt)
             {
-                Span<uint> indexTypedSpan = MemoryMarshal.Cast<byte, uint>(indexByteArray.AsSpan());
+                Span<uint> indexTypedSpan = MemoryMarshal.Cast<byte, uint>(indexByteArraySegment.AsSpan());
 
                 for (int sparseIndex = 0; sparseIndex < accessor.sparseCount; sparseIndex++)
                 {
@@ -430,7 +457,7 @@ namespace NewtonVgo
         /// <param name="accessorCount">The number of attributes referenced by this accessor.</param>
         /// <param name="kind">The kind of the accessor.</param>
         /// <returns>The index of the accessor.</returns>
-        public int AddAccessorWithSparse<TValue>(VgoResourceAccessorSparseType sparseType, int[] sparseIndices, TValue[] sparseValues, VgoResourceAccessorDataType sparseValueDataType, VgoResourceAccessorDataType accessorDataType, int accessorCount, VgoResourceAccessorKind kind)
+        public int AddAccessorWithSparse<TValue>(VgoResourceAccessorSparseType sparseType, in int[] sparseIndices, in TValue[] sparseValues, VgoResourceAccessorDataType sparseValueDataType, VgoResourceAccessorDataType accessorDataType, int accessorCount, VgoResourceAccessorKind kind)
             where TValue : struct
         {
             if (accessorCount == 0)
@@ -459,7 +486,9 @@ namespace NewtonVgo
 
             VgoResourceAccessorDataType sparseIndexDataType;
 
-            if (sparseIndices.Length <= byte.MaxValue)
+            int maxIndex = sparseIndices.Max();
+
+            if (maxIndex <= byte.MaxValue)
             {
                 byte[] byteSparseIndices = sparseIndices.Select(x => (byte)x).ToArray();
 
@@ -467,7 +496,7 @@ namespace NewtonVgo
 
                 sparseIndexDataType = VgoResourceAccessorDataType.UnsignedByte;
             }
-            else if (sparseIndices.Length <= ushort.MaxValue)
+            else if (maxIndex <= ushort.MaxValue)
             {
                 ushort[] ushortSparseIndices = sparseIndices.Select(x => (ushort)x).ToArray();
 
@@ -485,6 +514,11 @@ namespace NewtonVgo
             }
 
             int sparseValuesByteLength = Resource.Append(new ArraySegment<TValue>(sparseValues), stride: 0);
+
+            if ((Resource.Length - byteOffset) != (sparseIndicesByteLength + sparseValuesByteLength))
+            {
+                throw new Exception($"byteLength: {Resource.Length - byteOffset} != {sparseIndicesByteLength + sparseValuesByteLength}");
+            }
 
             VgoResourceAccessor accessor = new VgoResourceAccessor
             {

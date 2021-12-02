@@ -9,21 +9,41 @@ ___
 
 |version|Win (Editor)|Win (Mono)|Win (IL2CPP)|Android (IL2CPP)|iOS|
 |:---|:---:|:---:|:---:|:---:|:---:|
+|Unity 2019.4|OK|OK|OK|OK|unconfirmed|
+|Unity 2020.1|OK|OK|OK|OK|unconfirmed|
+|Unity 2020.2|OK|OK|OK|OK|unconfirmed|
+|Unity 2020.3|OK|OK|OK|OK|unconfirmed|
+|Unity 2021.1|OK|OK|OK|OK|unconfirmed|
 |Unity 2021.2|OK|OK|OK|OK|unconfirmed|
 
-As of November of 2021, we are developing and confirming in `Unity 2021.2` `Windows` `.NET Standard 2.1` environment.  
-If you want to use `Unity 2021.1` or earlier, please use `UniVGO 2.4.2`.
+As of December of 2021, we are developing and confirming in `Unity 2021.2` `Windows` `.NET Standard 2.1` environment.
 
 ### Required package
 
+#### Common (required regardless of which Unity version you use)
+
 |package name|owner|Repository|specification version|program version|release date|
 |:---|:---:|:---:|:---:|:---:|:---:|
-|com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||11.0.0|18 Mar, 2021|
 |newtonsoft-json-for-unity|jillejr|GitHub|13.0.1|13.0.102|25 Mar, 2021|
 |VRMShaders|vrm-c|GitHub|VRM 0.0|0.62.0|17 Nov, 2020|
 |UniShaders|IzayoiJiichan|GitHub|-|1.2.0|10 Nov, 2021|
 |VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.1|1 June, 2021|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.3|20 Nov, 2021|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.4|3 Dec, 2021|
+
+#### Added (when using Unity 2021.1 or lower version)
+
+|package name|owner|Repository|specification version|program version|release date|
+|:---|:---:|:---:|:---:|:---:|:---:|
+|org.nuget.system.buffers|Microsoft|NuGet||4.4.0|11 Aug, 2017|
+|org.nuget.system.memory|Microsoft|NuGet||4.5.0|29 May, 2018|
+|org.nuget.system.numerics.vectors|Microsoft|NuGet||4.4.0|11 Aug, 2017|
+|org.nuget.system.runtime.compilerservices.unsafe|Microsoft|NuGet||4.5.0|29 May, 2018|
+
+#### Add (when used in HDRP projects)
+
+|package name|owner|Repository|specification version|program version|release date|
+|:---|:---:|:---:|:---:|:---:|:---:|
+|com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||11.0.0|18 Mar, 2021|
 
 ___
 ## Install
@@ -35,15 +55,26 @@ ___
 
 Download the UniVGO sample project.
 
-- When not using HDRP
+
+- Unity 2021.1.0f1
+
+https://github.com/izayoijiichan/univgo2.sample.unity2021.1.project
+
+- Unity 2021.1.0f1 and HDRP project
+
+https://github.com/izayoijiichan/univgo2.sample.unity2021.1.hdrp.project
+
+- Unity 2021.2.0f1
+
 https://github.com/izayoijiichan/univgo2.sample.unity2021.2.project
 
-- When using HDRP
+- Unity 2021.2.0f1 and HDRP project
+
 https://github.com/izayoijiichan/univgo2.sample.unity2021.2.hdrp.project
 
-#### 2. Install Unity
+#### 2. Install Unity Editor
 
-Install `Unity 2021.2.0f1` on Unity Hub.
+Install Unity Editor `2021.2.0f1` or `2021.2.0f1` on Unity Hub.
 
 #### 3. Load project
 
@@ -71,6 +102,43 @@ Import UniVGO and dependent packages into your project.
 Write the following in `<Project>/Packages/package.json`.  
 You need to be careful where you add them.
 
+- Unity 2021.1.0f1
+
+```json
+{
+  "scopedRegistries": [
+    {
+      "name": "Unity NuGet",
+      "url": "https://unitynuget-registry.azurewebsites.net",
+      "scopes": ["org.nuget"]
+    },
+    {
+      "name": "Packages from jillejr",
+      "url": "https://npm.cloudsmith.io/jillejr/newtonsoft-json-for-unity/",
+      "scopes": ["jillejr"]
+    }
+  ],
+  "dependencies": {
+    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.2.0",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.4",
+    "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
+    "com.unity.render-pipelines.high-definition": "11.0.0",
+    "com.unity.ugui": "1.0.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.62.0",
+    "jillejr.newtonsoft.json-for-unity": "13.0.102",
+    "org.nuget.system.buffers": "4.4.0",
+    "org.nuget.system.memory": "4.5.0",
+    "org.nuget.system.numerics.vectors": "4.4.0",
+    "org.nuget.system.runtime.compilerservices.unsafe": "4.5.0",
+    "com.unity.modules.ai": "1.0.0",
+    ...
+    "com.unity.modules.xr": "1.0.0"
+  }
+}
+```
+
+- Unity 2021.2.0f1
+
 ```json
 {
   "scopedRegistries": [
@@ -82,7 +150,7 @@ You need to be careful where you add them.
   ],
   "dependencies": {
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.2.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.3",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.4",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.render-pipelines.high-definition": "11.0.0",
     "com.unity.ugui": "1.0.0",
@@ -95,7 +163,19 @@ You need to be careful where you add them.
 }
 ```
 
-If you don't want to use HDRP, delete the line "com.unity.render-pipelines.high-definition".
+If you want to use HDRP, append the line "com.unity.render-pipelines.high-definition".
+
+
+```json
+{
+  "dependencies": {
+    ...
+    "com.unity.render-pipelines.high-definition": "11.0.0",
+    "com.unity.ugui": "1.0.0",
+    ...
+  }
+}
+```
 
 ### Confirmation of installation completion
 
@@ -178,7 +258,7 @@ This applies to shaders in the UniGLTF folder.
 UniVRM version 0.66.0 is recommended.
 
 ___
-Last updated: 20 Nov, 2021  
+Last updated: 3 Dec, 2021  
 Editor: Izayoi Jiichan
 
-*Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*
+*Copyright (C) 2020-2021 Izayoi Jiichan. All Rights Reserved.*

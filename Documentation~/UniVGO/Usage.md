@@ -12,7 +12,7 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2021.2|
-|2|UniVGO version|2.4.3|
+|2|UniVGO version|2.4.4|
 |3|VGO spec version|2.4|
 
 ### Supported Unity components
@@ -117,7 +117,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.4.2|
+|2|Version|Version of the generation tool.|2.4.4|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -269,7 +269,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.4.2|
+|2|Version|Version of the generation tool.|2.4.4|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -526,7 +526,7 @@ Multiple play allows multiple people to enter the same room and make calls.
 https://vovola.wixsite.com/website
 
 ___
-Last updated: 20 November, 2021  
+Last updated: 3 December, 2021  
 Editor: Izayoi Jiichan
 
-*Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*
+*Copyright (C) 2020-2021 Izayoi Jiichan. All Rights Reserved.*
