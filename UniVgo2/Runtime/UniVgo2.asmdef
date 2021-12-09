@@ -5,7 +5,7 @@
         "VgoSpringBone",
         "ShaderProperty.Runtime",
         "MToon",
-        "UniUnlit",
+        "VRMShaders.GLTF.UniUnlit.Runtime",
         "UniShader.HDRP.Utility",
         "UniShader.Skybox.Utility",
         "UniShader.Standard.Particle.Utility",

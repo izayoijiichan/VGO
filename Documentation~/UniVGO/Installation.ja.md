@@ -25,10 +25,10 @@ ___
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|
 |:---|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|13.0.1|13.0.102|2021年3月25日|
-|VRMShaders|vrm-c|GitHub||0.62.0|2020年11月17日|
+|VRMShaders|vrm-c|GitHub||0.72.0|2021年4月13日|
 |UniShaders|IzayoiJiichan|GitHub||1.2.0|2021年11月10日|
 |VgoSpringBone|IzayoiJiichan|GitHub||1.1.1|2021年6月1日|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.4|2021年12月3日|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.5|2021年12月10日|
 
 #### 追加（Unity 2021.1 以下のバージョンを使用する場合）
 
@@ -55,26 +55,16 @@ ___
 
 次のサンプルプロジェクトのいずれかをダウンロードします。
 
-- Unity 2021.1.0f1
-
-https://github.com/izayoijiichan/univgo2.sample.unity2021.1.project
-
-- Unity 2021.1.0f1 and HDRP project
-
-https://github.com/izayoijiichan/univgo2.sample.unity2021.1.hdrp.project
-
-- Unity 2021.2.0f1
-
-https://github.com/izayoijiichan/univgo2.sample.unity2021.2.project
-
-- Unity 2021.2.0f1 and HDRP project
-
-https://github.com/izayoijiichan/univgo2.sample.unity2021.2.hdrp.project
-
+- [Unity 2021.1.28f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.project)【推奨】
+- [Unity 2021.1.28f1 and HDRP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.hdrp.project)
+- [Unity 2021.2.0f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.2.project)
+- [Unity 2021.2.0f1 and HDRP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.2.hdrp.project)
 
 #### 2. Unity Editor のインストール
 
-Unity Hub にて Unity Editor `2021.1.0f1`または`2021.2.0f1`をインストールします。
+Unity Hub にて Unity Editor `2021.1.28f1`または`2021.2.0f1`をインストールします。
+
+探しているバージョンが Unity Hub に表示されない場合は、[Unity ダウンロード アーカイブ](https://unity3d.com/jp/get-unity/download/archive) 経由でインストールしてください。
 
 #### 3. プロジェクトを読み込み
 
@@ -96,13 +86,27 @@ Unity Editor または Unity Hub にて3Dの新規プロジェクトを作成し
         ProjectSettings
 ```
 
-#### 2. 必要パッケージ のインストール
+#### 2. Define シンボルの追加
+
+`Projcet Settings` > `Player` > `Other Settings` > `Script Compilation` > `Scripting Define Symbols`
+
+使用する VRMShaders (com.vrmc.vrmshaders) のバージョンに合わせて、Define シンボルを追加します。
+
+- VRMShaders 0.72.0 ～ 0.84.0 を使用する場合
+
+`VRMC_VRMSHADERS_0_72_OR_NEWER`
+
+- VRMShaders 0.85.0 以上を使用する場合
+
+`VRMC_VRMSHADERS_0_85_OR_NEWER`
+
+#### 3. 必要パッケージ のインストール
 
 UniVGO及び依存パッケージをプロジェクトに取り込みます。  
 `<Project>/Packages/package.json` に以下の記述を行います。  
 追加する位置に気を付ける必要があります。
 
-- Unity 2021.1.0f1
+- Unity 2021.1.28f1
 
 ```json
 {
@@ -120,10 +124,10 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
   ],
   "dependencies": {
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.2.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.4",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.5",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.ugui": "1.0.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.62.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
     "jillejr.newtonsoft.json-for-unity": "13.0.102",
     "org.nuget.system.buffers": "4.4.0",
     "org.nuget.system.memory": "4.5.0",
@@ -149,10 +153,10 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
   ],
   "dependencies": {
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.2.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.4",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.5",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.ugui": "1.0.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.62.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
     "jillejr.newtonsoft.json-for-unity": "13.0.102",
     "com.unity.modules.ai": "1.0.0",
     ...
@@ -210,14 +214,15 @@ ___
 |UniShader.Skybox.Utility|Skybox シェーダー ユーティリティー|*|*|
 |UniShader.Standard.Particle.Utility|Particle シェーダー ユーティリティー|*|*|
 |UniShader.Standard.Utility|Standard シェーダー ユーティリティー|*|*|
-|UniUnlit|Unlit シェーダー ユーティリティー|*|*|
-|UniUnlit.Editor|Unlit シェーダー ユーティリティー|-|*|
 |UniVgo2|VGO2 メインプログラム|*|*|
 |UniVgo2.Editor|VGO2 のエディター上での入出力操作|-|*|
 |VgoSpringBone|VGO Spring Bone|*|*|
+|VRMShaders.GLTF.IO.Editor||-|*|
+|VRMShaders.GLTF.IO.Runtime||*|*|
+|VRMShaders.GLTF.UniUnlit.Editor|Unlit シェーダー ユーティリティー|-|*|
+|VRMShaders.GLTF.UniUnlit.Runtime|Unlit シェーダー ユーティリティー|*|*|
 
 - UniVgo2, UniVgo2.Editor それぞれについて、依存関係にあるDLLに * を付けています。
-- MToon, ShaderProperty, UniUnlit はVRMShaders (©vrm-c) に梱包されているプログラムです。
 
 ### UniVGO version 1.0 と version 2.0 の併用方法
 
@@ -233,9 +238,9 @@ Unity Editor に UniVGO と UniVGO2 のパッケージを両方同時にイン�
 `VgoScriptedImporter`がどちらも`.vgo`という拡張子を処理しようとするため、そのままでは競合によりエラーが発生します。
 
 UniVGO (v1.1.1以降) と UniVGO2 (v2.0.1以降) では  
-Script Define Symbols に定義を追加することで、処理を変更しエラーを回避することができます。
+Scripting Define Symbols に定義を追加することで、処理を変更しエラーを回避することができます。
 
-|Script Define Symbols|説明|
+|Scripting Define Symbols|説明|
 |:---|:---|
 |VGO_FILE_EXTENSION_1|version 1 の ファイル拡張子を`.vgo1`として判定するよう変更します。|
 |VGO_FILE_EXTENSION_2|version 2 の ファイル拡張子を`.vgo2`として判定するよう変更します。|
@@ -246,17 +251,107 @@ Script Define Symbols に定義を追加することで、処理を変更しエ�
 
 設定がすぐに反映されない場合には Unity Editor の再起動してください。
 
-###  UniVRM と UniVGO の併用方法
+### UniVRM と UniVGO の併用方法
 
-Unity Editor に UniVRM と UniVGO2 のパッケージを両方同時にインストールするには  
-UniVgo を取得した際に梱包されていた重複するファイルを削除する必要があります。
+バージョンの組み合わせは以下の通りです。
 
-UniGLTFフォルダーにあるシェーダー類が該当します。
+UniVRM|UniVGO|Result|
+|:---:|:---:|:---:|
+|0.66.0|2.4.4|○|
+|0.68.2|2.4.4|○|
+|0.70.0|2.4.4|○|
+|0.71.0|2.4.4|○|
+|0.72.0|2.4.5|○|
+|0.73.0|2.4.5|○|
+|0.74.0|2.4.5|○|
+|0.75.0|2.4.5|○|
+|0.76.0|2.4.5|(○)|
+|0.77.0|2.4.5|(○)|
+|0.78.0|2.4.5|(○)|
+|0.79.0|2.4.5|(○)|
+|0.80.0|2.4.5|(○)|
+|0.81.0|2.4.5|○|
+|0.82.0|2.4.5|○|
+|0.83.0|2.4.5|○|
+|0.84.0|2.4.5|○|
+|0.85.0|2.4.5|○|
+|0.86.0|2.4.5|○|
+|0.87.0|2.4.5|○|
+|0.88.0|2.4.5|○|
+|0.89.0|2.4.5|○|
+|0.90.0|2.4.5|○|
 
-UniVRMのバージョンは0.66.0を推奨します。
+Unity 2020.2 以上を使用する場合、0.76.0 から 0.80.0 ではコンパイルエラーが発生しますので非推奨です。
+
+- UniVRM 0.66.0 ～ 0.71.0 を使用する場合
+
+UniVGO 2.4.4 を使用してください。
+
+`<Project>/Packages/package.json` に以下の記述を行います。  
+
+```json
+{
+  "dependencies": {
+    ...
+    "com.vrmc.unigltf": "https://github.com/vrm-c/UniVRM.git?path=/Assets/UniGLTF#v0.66.0",
+    "com.vrmc.univrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM#v0.66.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.66.0",
+    ...
+  }
+}
+```
+
+- UniVRM 0.72.0 ～ 0.80.0 を使用する場合
+
+`<Project>/Packages/package.json` に以下の記述を行います。  
+
+```json
+{
+  "dependencies": {
+    ...
+    "com.vrmc.unigltf": "https://github.com/vrm-c/UniVRM.git?path=/Assets/UniGLTF#v0.72.0",
+    "com.vrmc.univrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM#v0.72.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
+    ...
+  }
+}
+```
+
+- UniVRM 0.81.0 ～ 0.90.0 を使用する場合
+
+`<Project>/Packages/package.json` に以下の記述を行います。  
+
+```json
+{
+  "dependencies": {
+    ...
+    "com.vrmc.gltf": "https://github.com/vrm-c/UniVRM.git?path=/Assets/UniGLTF#v0.81.0",
+    "com.vrmc.univrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM#v0.81.0",
+    "com.vrmc.vrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM#v0.81.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.81.0",
+    ...
+  }
+}
+```
+
+使用する VRMShaders (com.vrmc.vrmshaders) のバージョンに合わせて、Define シンボルを修正します。
+
+`Projcet Settings` > `Player` > `Other Settings` > `Script Compilation` > `Scripting Define Symbols`
+
+- VRMShaders 0.72.0 ～ 0.84.0 を使用する場合
+
+`VRMC_VRMSHADERS_0_72_OR_NEWER`
+
+- VRMShaders 0.85.0 以上を使用する場合
+
+`VRMC_VRMSHADERS_0_85_OR_NEWER`
+
+### セットアップ済みサンプルプロジェクト
+
+[Unity 2021.1.28f1 UniVGO + UniVRM](https://github.com/izayoijiichan/univgo2.univrm.sample.unity2021.1.project)
 
 ___
-最終更新日：2021年12月3日  
+最終更新日：2021年12月10日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020-2021 Izayoi Jiichan. All Rights Reserved.*

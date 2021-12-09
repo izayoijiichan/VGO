@@ -7,6 +7,14 @@ namespace UniVgo2.Porters
     using NewtonVgo;
     using UnityEngine;
 
+#if VRMC_VRMSHADERS_0_85_OR_NEWER
+    using UniGLTF.UniUnlit;
+#elif VRMC_VRMSHADERS_0_72_OR_NEWER
+    using UniUnlitUtil = UniGLTF.UniUnlit.Utils;
+#else
+    using UniUnlitUtil = UniGLTF.UniUnlit.Utils;
+#endif
+
     /// <summary>
     /// Unlit Material Porter
     /// </summary>
@@ -56,26 +64,26 @@ namespace UniVgo2.Porters
             };
 
             // Properties
-            ExportProperty(vgoMaterial, material, UniGLTF.UniUnlit.Utils.PropNameColor, VgoMaterialPropertyType.Color4);
-            ExportProperty(vgoMaterial, material, UniGLTF.UniUnlit.Utils.PropNameCutoff, VgoMaterialPropertyType.Float);
-            ExportProperty(vgoMaterial, material, UniGLTF.UniUnlit.Utils.PropNameCullMode, VgoMaterialPropertyType.Int);
-            ExportProperty(vgoMaterial, material, UniGLTF.UniUnlit.Utils.PropNameBlendMode, VgoMaterialPropertyType.Int);
-            ExportProperty(vgoMaterial, material, UniGLTF.UniUnlit.Utils.PropNameVColBlendMode, VgoMaterialPropertyType.Int);
+            ExportProperty(vgoMaterial, material, UniUnlitUtil.PropNameColor, VgoMaterialPropertyType.Color4);
+            ExportProperty(vgoMaterial, material, UniUnlitUtil.PropNameCutoff, VgoMaterialPropertyType.Float);
+            ExportProperty(vgoMaterial, material, UniUnlitUtil.PropNameCullMode, VgoMaterialPropertyType.Int);
+            ExportProperty(vgoMaterial, material, UniUnlitUtil.PropNameBlendMode, VgoMaterialPropertyType.Int);
+            ExportProperty(vgoMaterial, material, UniUnlitUtil.PropNameVColBlendMode, VgoMaterialPropertyType.Int);
 
-            ExportProperty(vgoMaterial, material, UniGLTF.UniUnlit.Utils.PropNameSrcBlend, VgoMaterialPropertyType.Int);
-            ExportProperty(vgoMaterial, material, UniGLTF.UniUnlit.Utils.PropNameDstBlend, VgoMaterialPropertyType.Int);
-            ExportProperty(vgoMaterial, material, UniGLTF.UniUnlit.Utils.PropNameZWrite, VgoMaterialPropertyType.Int);
+            ExportProperty(vgoMaterial, material, UniUnlitUtil.PropNameSrcBlend, VgoMaterialPropertyType.Int);
+            ExportProperty(vgoMaterial, material, UniUnlitUtil.PropNameDstBlend, VgoMaterialPropertyType.Int);
+            ExportProperty(vgoMaterial, material, UniUnlitUtil.PropNameZWrite, VgoMaterialPropertyType.Int);
 
             // Textures
-            ExportTextureProperty(vgoMaterial, material, UniGLTF.UniUnlit.Utils.PropNameMainTex, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoMaterial, material, UniUnlitUtil.PropNameMainTex, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
 
             // Tags
-            ExportTag(vgoMaterial, material, UniGLTF.UniUnlit.Utils.TagRenderTypeKey);
+            ExportTag(vgoMaterial, material, UniUnlitUtil.TagRenderTypeKey);
 
             // Keywords
-            ExportKeyword(vgoMaterial, material, UniGLTF.UniUnlit.Utils.KeywordAlphaTestOn);
-            ExportKeyword(vgoMaterial, material, UniGLTF.UniUnlit.Utils.KeywordAlphaBlendOn);
-            ExportKeyword(vgoMaterial, material, UniGLTF.UniUnlit.Utils.KeywordVertexColMul);
+            ExportKeyword(vgoMaterial, material, UniUnlitUtil.KeywordAlphaTestOn);
+            ExportKeyword(vgoMaterial, material, UniUnlitUtil.KeywordAlphaBlendOn);
+            ExportKeyword(vgoMaterial, material, UniUnlitUtil.KeywordVertexColMul);
 
             return vgoMaterial;
         }
@@ -96,45 +104,45 @@ namespace UniVgo2.Porters
 
         //    if (material.shader.name == ShaderName.UniGLTF_UniUnlit)
         //    {
-        //        UniGLTF.UniUnlit.Utils.ValidateProperties(material, true);
+        //        UniUnlitUtil.ValidateProperties(material, true);
 
         //        return material;
         //    }
 
-        //    if (vgoMaterial.tagMap.ContainsKey(UniGLTF.UniUnlit.Utils.TagRenderTypeKey))
+        //    if (vgoMaterial.tagMap.ContainsKey(UniUnlitUtil.TagRenderTypeKey))
         //    {
-        //        string renderType = vgoMaterial.tagMap[UniGLTF.UniUnlit.Utils.TagRenderTypeKey];
+        //        string renderType = vgoMaterial.tagMap[UniUnlitUtil.TagRenderTypeKey];
 
         //        switch (renderType)
         //        {
-        //            case UniGLTF.UniUnlit.Utils.TagRenderTypeValueTransparent:
-        //                material.SetInt(UniGLTF.UniUnlit.Utils.PropNameBlendMode, (int)BlendMode.Fade);
-        //                material.SetInt(UniGLTF.UniUnlit.Utils.PropNameSrcBlend, (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        //                material.SetInt(UniGLTF.UniUnlit.Utils.PropNameDstBlend, (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        //                material.SetInt(UniGLTF.UniUnlit.Utils.PropNameZWrite, 0);
-        //                material.DisableKeyword(UniGLTF.UniUnlit.Utils.KeywordAlphaTestOn);
-        //                material.EnableKeyword(UniGLTF.UniUnlit.Utils.KeywordAlphaBlendOn);
+        //            case UniUnlitUtil.TagRenderTypeValueTransparent:
+        //                material.SetInt(UniUnlitUtil.PropNameBlendMode, (int)BlendMode.Fade);
+        //                material.SetInt(UniUnlitUtil.PropNameSrcBlend, (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        //                material.SetInt(UniUnlitUtil.PropNameDstBlend, (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        //                material.SetInt(UniUnlitUtil.PropNameZWrite, 0);
+        //                material.DisableKeyword(UniUnlitUtil.KeywordAlphaTestOn);
+        //                material.EnableKeyword(UniUnlitUtil.KeywordAlphaBlendOn);
         //                material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
         //                break;
 
-        //            case UniGLTF.UniUnlit.Utils.TagRenderTypeValueTransparentCutout:
-        //                material.SetInt(UniGLTF.UniUnlit.Utils.PropNameBlendMode, (int)BlendMode.Cutout);
-        //                material.SetInt(UniGLTF.UniUnlit.Utils.PropNameSrcBlend, (int)UnityEngine.Rendering.BlendMode.One);
-        //                material.SetInt(UniGLTF.UniUnlit.Utils.PropNameDstBlend, (int)UnityEngine.Rendering.BlendMode.Zero);
-        //                material.SetInt(UniGLTF.UniUnlit.Utils.PropNameZWrite, 1);
-        //                material.EnableKeyword(UniGLTF.UniUnlit.Utils.KeywordAlphaTestOn);
-        //                material.DisableKeyword(UniGLTF.UniUnlit.Utils.KeywordAlphaBlendOn);
+        //            case UniUnlitUtil.TagRenderTypeValueTransparentCutout:
+        //                material.SetInt(UniUnlitUtil.PropNameBlendMode, (int)BlendMode.Cutout);
+        //                material.SetInt(UniUnlitUtil.PropNameSrcBlend, (int)UnityEngine.Rendering.BlendMode.One);
+        //                material.SetInt(UniUnlitUtil.PropNameDstBlend, (int)UnityEngine.Rendering.BlendMode.Zero);
+        //                material.SetInt(UniUnlitUtil.PropNameZWrite, 1);
+        //                material.EnableKeyword(UniUnlitUtil.KeywordAlphaTestOn);
+        //                material.DisableKeyword(UniUnlitUtil.KeywordAlphaBlendOn);
         //                material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
         //                break;
 
-        //            case UniGLTF.UniUnlit.Utils.TagRenderTypeValueOpaque:
+        //            case UniUnlitUtil.TagRenderTypeValueOpaque:
         //            default:
-        //                material.SetInt(UniGLTF.UniUnlit.Utils.PropNameBlendMode, (int)BlendMode.Opaque);
-        //                material.SetInt(UniGLTF.UniUnlit.Utils.PropNameSrcBlend, (int)UnityEngine.Rendering.BlendMode.One);
-        //                material.SetInt(UniGLTF.UniUnlit.Utils.PropNameDstBlend, (int)UnityEngine.Rendering.BlendMode.Zero);
-        //                material.SetInt(UniGLTF.UniUnlit.Utils.PropNameZWrite, 1);
-        //                material.DisableKeyword(UniGLTF.UniUnlit.Utils.KeywordAlphaTestOn);
-        //                material.DisableKeyword(UniGLTF.UniUnlit.Utils.KeywordAlphaBlendOn);
+        //                material.SetInt(UniUnlitUtil.PropNameBlendMode, (int)BlendMode.Opaque);
+        //                material.SetInt(UniUnlitUtil.PropNameSrcBlend, (int)UnityEngine.Rendering.BlendMode.One);
+        //                material.SetInt(UniUnlitUtil.PropNameDstBlend, (int)UnityEngine.Rendering.BlendMode.Zero);
+        //                material.SetInt(UniUnlitUtil.PropNameZWrite, 1);
+        //                material.DisableKeyword(UniUnlitUtil.KeywordAlphaTestOn);
+        //                material.DisableKeyword(UniUnlitUtil.KeywordAlphaBlendOn);
         //                material.renderQueue = -1;
         //                break;
         //        }

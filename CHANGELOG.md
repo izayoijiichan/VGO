@@ -1,5 +1,10 @@
 # Change Log
 
+## [2.4.5] - 2021-12-10
+
+- Changes
+  - The minimum version of `com.vrmc.vrmshaders` is now `0.72.0`.
+
 ## [2.4.4] - 2021-12-03
 
 - Fixes
