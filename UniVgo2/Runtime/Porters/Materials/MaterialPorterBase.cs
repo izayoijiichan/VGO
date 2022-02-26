@@ -335,6 +335,11 @@ namespace UniVgo2.Porters
                 return false;
             }
 
+            if (material.HasTexture(propertyName) == false)
+            {
+                return false;
+            }
+
             Texture texture = material.GetTexture(propertyName);
 
             if (texture == null)

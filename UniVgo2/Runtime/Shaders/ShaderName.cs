@@ -57,6 +57,9 @@ namespace UniVgo2
         /// <summary>UniGLTF/UniUnlit</summary>
         public const string UniGLTF_UniUnlit = "UniGLTF/UniUnlit";
 
+        /// <summary>Universal Render Pipeline/Lit</summary>
+        public const string URP_Lit = "Universal Render Pipeline/Lit";
+
         /// <summary>VRM/UnlitTexture</summary>
         public const string VRM_UnlitTexture = "VRM/UnlitTexture";
 

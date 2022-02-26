@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.4.6] - 2022-02-27
+
+- Features
+  - Unity URP (Universal Render Pipeline) shaders (Lit) will be available.
+- Changes
+  - Updated the version of `com.izayoi.unishaders` to `1.3.0`.
+
 ## [2.4.5] - 2021-12-10
 
 - Changes

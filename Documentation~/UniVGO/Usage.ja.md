@@ -12,7 +12,7 @@ ___
 |No|項目|値|
 |:---:|:---|:---:|
 |1|Unity バージョン|2021.2|
-|2|UniVGO バージョン|2.4.4|
+|2|UniVGO バージョン|2.4.6|
 |3|VGO 仕様バージョン|2.4|
 
 ### 対応 Unity コンポーネント
@@ -55,7 +55,8 @@ VGOが対応する Unity コンポーネントは以下の通りです
 |13|Unlit/Transparent Cutout||
 |14|UniGLTF/StandardVColor|Vertex Color シェーダー|
 |15|UniGLTF/Unlit||
-|16|VRM/MToon||
+|16|Universal Render Pipeline/Lit|ユニバーサル レンダーパイプライン Lit シェーダー|
+|17|VRM/MToon||
 
 - Unlit系のシェーダーは光源の影響を受けません。その代わり処理負荷が小さくなります。
 - Skybox/Cubemap には対応していません。
@@ -117,7 +118,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Name|生成ツールの名前です。|UniVGO|
-|2|Version|生成ツールのバージョンです。|2.4.4|
+|2|Version|生成ツールのバージョンです。|2.4.6|
 
 ユーザーが設定可能な項目はありません。  
 ジェネレーター情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -269,7 +270,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Generator Name|生成ツールの名前です。|UniVGO|
-|2|Generator Version|生成ツールのバージョンです。|2.4.4|
+|2|Generator Version|生成ツールのバージョンです。|2.4.6|
 
 ユーザーが設定可能な項目はありません。  
 メタ情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -532,7 +533,7 @@ VR-HMD（ヘッドマウントディスプレイ）が不要な簡易3D バー�
 https://vovola.wixsite.com/website
 
 ___
-最終更新日：2021年12月3日  
+最終更新日：2022年2月27日  
 編集者：十六夜おじいちゃん
 
-*Copyright (C) 2020-2021 Izayoi Jiichan. All Rights Reserved.*
+*Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*

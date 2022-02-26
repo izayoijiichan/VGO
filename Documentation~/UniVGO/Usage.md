@@ -12,7 +12,7 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2021.2|
-|2|UniVGO version|2.4.4|
+|2|UniVGO version|2.4.6|
 |3|VGO spec version|2.4|
 
 ### Supported Unity components
@@ -55,7 +55,8 @@ The supported shaders are as follows.
 |13|Unlit/Transparent Cutout||
 |14|UniGLTF/StandardVColor|Vertex color shader|
 |15|UniGLTF/Unlit||
-|16|VRM/MToon||
+|16|Universal Render Pipeline/Lit|Universal Render Pipeline Lit shader|
+|17|VRM/MToon||
 
 - Unlit shaders are not affected by light sources. Instead, the processing load is reduced.
 - Skybox / Cubemap is not supported.
@@ -117,7 +118,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.4.4|
+|2|Version|Version of the generation tool.|2.4.6|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -269,7 +270,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.4.4|
+|2|Version|Version of the generation tool.|2.4.6|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -526,7 +527,7 @@ Multiple play allows multiple people to enter the same room and make calls.
 https://vovola.wixsite.com/website
 
 ___
-Last updated: 3 December, 2021  
+Last updated: 27 February, 2022  
 Editor: Izayoi Jiichan
 
-*Copyright (C) 2020-2021 Izayoi Jiichan. All Rights Reserved.*
+*Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*

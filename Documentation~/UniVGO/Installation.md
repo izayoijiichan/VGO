@@ -16,7 +16,7 @@ ___
 |Unity 2021.1|OK|OK|OK|OK|unconfirmed|
 |Unity 2021.2|OK|OK|OK|OK|unconfirmed|
 
-As of December of 2021, we are developing and confirming in `Unity 2021.2` `Windows` `.NET Standard 2.1` environment.
+As of February of 2022, we are developing and confirming in `Unity 2021.2` `Windows` `.NET Standard 2.1` environment.
 
 ### Required package
 
@@ -26,9 +26,9 @@ As of December of 2021, we are developing and confirming in `Unity 2021.2` `Wind
 |:---|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|13.0.1|13.0.102|25 Mar, 2021|
 |VRMShaders|vrm-c|GitHub|VRM 0.0|0.72.0|13 Apr, 2020|
-|UniShaders|IzayoiJiichan|GitHub|-|1.2.0|10 Nov, 2021|
+|UniShaders|IzayoiJiichan|GitHub|-|1.3.0|27 Feb, 2022|
 |VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.1|1 June, 2021|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.5|10 Dec, 2021|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.6|27 Feb, 2022|
 
 #### Added (when using Unity 2021.1 or lower version)
 
@@ -43,22 +43,29 @@ As of December of 2021, we are developing and confirming in `Unity 2021.2` `Wind
 
 |package name|owner|Repository|specification version|program version|release date|
 |:---|:---:|:---:|:---:|:---:|:---:|
-|com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||11.0.0|18 Mar, 2021|
+|com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||11.0.0|26 Oct, 2021|
+
+#### Add (when used in URP projects)
+
+|package name|owner|Repository|specification version|program version|release date|
+|:---|:---:|:---:|:---:|:---:|:---:|
+|com.unity.render-pipelines.universal|Unity Technologies|Unity Registry||11.0.0|26 Oct, 2021|
 
 ___
 ## Install
 
 ### Installation procedure (Case using the sample project)
 
-
 #### 1. Download sample project
 
 Download the UniVGO sample project.
 
-- [Unity 2021.1.28f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.project) (recommented)
+- [Unity 2021.1.28f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.project)
 - [Unity 2021.1.28f1 and HDRP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.hdrp.project)
+- [Unity 2021.1.28f1 and URP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.urp.project)
 - [Unity 2021.2.0f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.2.project)
 - [Unity 2021.2.0f1 and HDRP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.2.hdrp.project)
+- [Unity 2021.2.0f1 and URP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.2.urp.project)
 
 #### 2. Install Unity Editor
 
@@ -73,7 +80,6 @@ The specified folder is the project folder.
 
 
 ### Installation procedure (Case you create your own project)
-
 
 #### 1. Creating a new project
 
@@ -123,10 +129,9 @@ You need to be careful where you add them.
     }
   ],
   "dependencies": {
-    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.2.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.5",
+    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.3.0",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.6",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
-    "com.unity.render-pipelines.high-definition": "11.0.0",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
     "jillejr.newtonsoft.json-for-unity": "13.0.102",
@@ -153,10 +158,9 @@ You need to be careful where you add them.
     }
   ],
   "dependencies": {
-    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.2.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.5",
+    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.3.0",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.6",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
-    "com.unity.render-pipelines.high-definition": "11.0.0",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
     "jillejr.newtonsoft.json-for-unity": "13.0.102",
@@ -169,12 +173,24 @@ You need to be careful where you add them.
 
 If you want to use HDRP, append the line "com.unity.render-pipelines.high-definition".
 
-
 ```json
 {
   "dependencies": {
     ...
     "com.unity.render-pipelines.high-definition": "11.0.0",
+    "com.unity.ugui": "1.0.0",
+    ...
+  }
+}
+```
+
+If you want to use URP, append the line "com.unity.render-pipelines.universal".
+
+```json
+{
+  "dependencies": {
+    ...
+    "com.unity.render-pipelines.universal": "11.0.0",
     "com.unity.ugui": "1.0.0",
     ...
   }
@@ -202,7 +218,6 @@ Possible causes of the error are as follows.
 ___
 ## Other information
 
-
 ### About libraries (assemblies)
 
 When the package is installed in the project, the script is automatically compiled and the following DLL is generated.
@@ -217,6 +232,7 @@ When the package is installed in the project, the script is automatically compil
 |UniShader.Skybox.Utility|Skybox shader utility|*|*|
 |UniShader.Standard.Particle.Utility|Particle shader utility|*|*|
 |UniShader.Standard.Utility|Standard shader utility|*|*|
+|UniShader.Urp.Utility|URP shader utility|*|*|
 |UniVgo2|VGO2 main program|*|*|
 |UniVgo2.Editor|VGO2 import / export|-|*|
 |VgoSpringBone|VGO Spring Bone|*|*|
@@ -237,7 +253,7 @@ Delete either `UniGLTF` folder.
 
 2. Scripted Importer
 
-Both `VgoScriptedImporter`s try to handle the extension` .vgo`, so the conflict will result in an error.
+Both `VgoScriptedImporter`s try to handle the extension `.vgo`, so the conflict will result in an error.
 
 In UniVGO (v1.1.1 and later) and UniVGO2 (v2.0.1 and later), you can change the process and avoid errors by adding definitions to Scripting Define Symbols.
 
@@ -252,7 +268,7 @@ Add / delete definitions according to the purpose.
 
 If the settings do not take effect immediately, restart Unity Editor.
 
-###  How to use UniVRM and UniVGO together
+### How to use UniVRM and UniVGO together
 
 The version combinations are as follows.
 
@@ -352,7 +368,7 @@ Modify the define symbol to match the version of VRMShaders (com.vrmc.vrmshaders
 [Unity 2021.1.28f1 UniVGO + UniVRM](https://github.com/izayoijiichan/univgo2.univrm.sample.unity2021.1.project)
 
 ___
-Last updated: 10 Dec, 2021  
+Last updated: 27 Feb, 2022  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020-2021 Izayoi Jiichan. All Rights Reserved.*

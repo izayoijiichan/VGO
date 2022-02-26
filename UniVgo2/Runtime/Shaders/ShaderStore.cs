@@ -62,6 +62,9 @@ namespace UniVgo2
         /// <summary>UniGLTF/StandardVColor</summary>
         protected Shader _UniGLTFStandardVColor;
 
+        /// <summary>Universal Render Pipeline/Lit</summary>
+        protected Shader _UrpLit;
+
         /// <summary>VRM/UnlitTexture</summary>
         protected Shader _VrmUnlitTexture;
 
@@ -289,6 +292,19 @@ namespace UniVgo2
             }
         }
 
+        /// <summary>Universal Render Pipeline/Lit</summary>
+        protected Shader UrpLit
+        {
+            get
+            {
+                if (_UrpLit == null)
+                {
+                    _UrpLit = Shader.Find(ShaderName.URP_Lit);
+                }
+                return _UrpLit;
+            }
+        }
+
         /// <summary>VRM/UnlitTexture</summary>
         protected Shader VrmUnlitTexture
         {
@@ -419,6 +435,9 @@ namespace UniVgo2
 
                 case ShaderName.UniGLTF_StandardVColor:
                     return UniGLTFStandardVColor;
+
+                case ShaderName.URP_Lit:
+                    return UrpLit;
 
                 case ShaderName.VRM_UnlitTexture:
                     return VrmUnlitTexture;

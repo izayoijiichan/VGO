@@ -125,6 +125,22 @@ namespace UniVgo2.Porters
             }
         }
 
+        /// <summary>URP Material Porter</summary>
+        protected UrpMaterialPorter _UrpMaterialPorter;
+
+        /// <summary>URP Material Porter</summary>
+        protected UrpMaterialPorter UrpMaterialPorter
+        {
+            get
+            {
+                if (_UrpMaterialPorter == null)
+                {
+                    _UrpMaterialPorter = new UrpMaterialPorter();
+                }
+                return _UrpMaterialPorter;
+            }
+        }
+
         #endregion
 
         #region Public Methods (VgoMaterial)
@@ -223,6 +239,8 @@ namespace UniVgo2.Porters
                     return UnlitMaterialPorter;
                 case ShaderName.UniGLTF_StandardVColor:
                     return StandardVColorMaterialPorter;
+                case ShaderName.URP_Lit:
+                    return UrpMaterialPorter;
                 case ShaderName.VRM_UnlitTexture:
                 case ShaderName.VRM_UnlitTransparent:
                 case ShaderName.VRM_UnlitCutout:

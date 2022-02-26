@@ -16,7 +16,7 @@ ___
 |Unity 2021.1|○|○|○|○|未確認|
 |Unity 2021.2|○|○|○|○|未確認|
 
-2021年12月の時点では `Unity 2021.2` の `Windows` `.NET Standard 2.1` 環境にて開発＆確認を行っています。
+2022年2月の時点では `Unity 2021.2` の `Windows` `.NET Standard 2.1` 環境にて開発＆確認を行っています。
 
 ### 必要パッケージ
 
@@ -26,9 +26,9 @@ ___
 |:---|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|13.0.1|13.0.102|2021年3月25日|
 |VRMShaders|vrm-c|GitHub||0.72.0|2021年4月13日|
-|UniShaders|IzayoiJiichan|GitHub||1.2.0|2021年11月10日|
+|UniShaders|IzayoiJiichan|GitHub||1.3.0|2021年2月27日|
 |VgoSpringBone|IzayoiJiichan|GitHub||1.1.1|2021年6月1日|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.5|2021年12月10日|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.6|2022年2月27日|
 
 #### 追加（Unity 2021.1 以下のバージョンを使用する場合）
 
@@ -43,22 +43,29 @@ ___
 
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|
 |:---|:---:|:---:|:---:|:---:|:---:|
-|com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||11.0.0|2021年3月18日|
+|com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||11.0.0|2021年10月26日|
+
+#### 追加（URP のプロジェクトで使用する場合）
+
+|パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|
+|:---|:---:|:---:|:---:|:---:|:---:|
+|com.unity.render-pipelines.universal|Unity Technologies|Unity Registry||11.0.0|2021年10月26日|
 
 ___
 ## インストール
 
 ### インストール手順（サンプルプロジェクトを使用する場合）
 
-
 #### 1. サンプルプロジェクトのダウンロード
 
 次のサンプルプロジェクトのいずれかをダウンロードします。
 
-- [Unity 2021.1.28f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.project)【推奨】
+- [Unity 2021.1.28f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.project)
 - [Unity 2021.1.28f1 and HDRP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.hdrp.project)
+- [Unity 2021.1.28f1 and URP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.urp.project)
 - [Unity 2021.2.0f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.2.project)
 - [Unity 2021.2.0f1 and HDRP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.2.hdrp.project)
+- [Unity 2021.2.0f1 and URP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.2.urp.project)
 
 #### 2. Unity Editor のインストール
 
@@ -73,7 +80,6 @@ Unity Hub にて、1でダウンロードしたサンプルプロジェクトを
 
 
 ### インストール手順（自分でプロジェクトを作成する場合）
-
 
 #### 1. 新規プロジェクトの作成
 
@@ -123,8 +129,8 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
     }
   ],
   "dependencies": {
-    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.2.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.5",
+    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.3.0",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.6",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
@@ -152,8 +158,8 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
     }
   ],
   "dependencies": {
-    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.2.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.5",
+    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.3.0",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.6",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
@@ -172,6 +178,19 @@ HDRPを使用する場合、"com.unity.render-pipelines.high-definition" の行�
   "dependencies": {
     ...
     "com.unity.render-pipelines.high-definition": "11.0.0",
+    "com.unity.ugui": "1.0.0",
+    ...
+  }
+}
+```
+
+URPを使用する場合、"com.unity.render-pipelines.universal" の行を追加してください。
+
+```json
+{
+  "dependencies": {
+    ...
+    "com.unity.render-pipelines.universal": "11.0.0",
     "com.unity.ugui": "1.0.0",
     ...
   }
@@ -214,6 +233,7 @@ ___
 |UniShader.Skybox.Utility|Skybox シェーダー ユーティリティー|*|*|
 |UniShader.Standard.Particle.Utility|Particle シェーダー ユーティリティー|*|*|
 |UniShader.Standard.Utility|Standard シェーダー ユーティリティー|*|*|
+|UniShader.Urp.Utility|URP シェーダー ユーティリティー|*|*|
 |UniVgo2|VGO2 メインプログラム|*|*|
 |UniVgo2.Editor|VGO2 のエディター上での入出力操作|-|*|
 |VgoSpringBone|VGO Spring Bone|*|*|
@@ -351,7 +371,7 @@ UniVGO 2.4.4 を使用してください。
 [Unity 2021.1.28f1 UniVGO + UniVRM](https://github.com/izayoijiichan/univgo2.univrm.sample.unity2021.1.project)
 
 ___
-最終更新日：2021年12月10日  
+最終更新日：2022年2月27日  
 編集者：十六夜おじいちゃん
 
-*Copyright (C) 2020-2021 Izayoi Jiichan. All Rights Reserved.*
+*Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*
