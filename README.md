@@ -105,7 +105,7 @@ You can easily export a VGO file with the click of a button.
 [Usage.md](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Usage.md)
 
 ___
-Last updated: 5 June, 2021  
+Last updated: 16 May, 2021  
 Editor: Izayoi Jiichan
 
-*Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*
+*Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*

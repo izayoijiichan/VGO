@@ -15,8 +15,9 @@ ___
 |Unity 2020.3|○|○|○|○|未確認|
 |Unity 2021.1|○|○|○|○|未確認|
 |Unity 2021.2|○|○|○|○|未確認|
+|Unity 2021.3|○|○|○|○|未確認|
 
-2022年2月の時点では `Unity 2021.2` の `Windows` `.NET Standard 2.1` 環境にて開発＆確認を行っています。
+2022年5月の時点では `Unity 2021.3` の `Windows` `.NET Standard 2.1` 環境にて開発＆確認を行っています。
 
 ### 必要パッケージ
 
@@ -26,9 +27,9 @@ ___
 |:---|:---:|:---:|:---:|:---:|:---:|
 |newtonsoft-json-for-unity|jillejr|GitHub|13.0.1|13.0.102|2021年3月25日|
 |VRMShaders|vrm-c|GitHub||0.72.0|2021年4月13日|
-|UniShaders|IzayoiJiichan|GitHub||1.3.0|2021年2月27日|
+|UniShaders|IzayoiJiichan|GitHub||1.3.0|2022年2月27日|
 |VgoSpringBone|IzayoiJiichan|GitHub||1.1.1|2021年6月1日|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.6|2022年2月27日|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.7|2022年5月16日|
 
 #### 追加（Unity 2021.1 以下のバージョンを使用する場合）
 
@@ -69,7 +70,7 @@ ___
 
 #### 2. Unity Editor のインストール
 
-Unity Hub にて Unity Editor `2021.1.28f1`または`2021.2.0f1`をインストールします。
+Unity Hub にて Unity Editor `2021.1.28f1`、`2021.2.0f1`、`2021.3.0f1` のいずれかをインストールします。
 
 探しているバージョンが Unity Hub に表示されない場合は、[Unity ダウンロード アーカイブ](https://unity3d.com/jp/get-unity/download/archive) 経由でインストールしてください。
 
@@ -130,7 +131,7 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
   ],
   "dependencies": {
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.3.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.6",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.7",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
@@ -146,7 +147,7 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
 }
 ```
 
-- Unity 2021.2.0f1
+- Unity 2021.2.0f1 以上
 
 ```json
 {
@@ -159,7 +160,7 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
   ],
   "dependencies": {
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.3.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.6",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.7",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
@@ -371,7 +372,7 @@ UniVGO 2.4.4 を使用してください。
 [Unity 2021.1.28f1 UniVGO + UniVRM](https://github.com/izayoijiichan/univgo2.univrm.sample.unity2021.1.project)
 
 ___
-最終更新日：2022年2月27日  
+最終更新日：2022年5月16日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*

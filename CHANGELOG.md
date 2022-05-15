@@ -1,5 +1,10 @@
 # Change Log
 
+## [2.4.7] - 2022-05-16
+
+- Fixes
+  - Fixed script errors in Unity `2020.3` and lower versions.
+
 ## [2.4.6] - 2022-02-27
 
 - Features

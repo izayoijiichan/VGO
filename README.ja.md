@@ -106,7 +106,7 @@ VGOファイルを生成／出力／取り込み／ロードするためのツ�
 [使用方法](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Usage.ja.md)
 
 ___
-最終更新日：2021年6月5日  
+最終更新日：2022年5月16日  
 編集者：十六夜おじいちゃん
 
-*Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*
+*Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*

@@ -15,8 +15,9 @@ ___
 |Unity 2020.3|OK|OK|OK|OK|unconfirmed|
 |Unity 2021.1|OK|OK|OK|OK|unconfirmed|
 |Unity 2021.2|OK|OK|OK|OK|unconfirmed|
+|Unity 2021.3|OK|OK|OK|OK|unconfirmed|
 
-As of February of 2022, we are developing and confirming in `Unity 2021.2` `Windows` `.NET Standard 2.1` environment.
+As of May of 2022, we are developing and confirming in `Unity 2021.3` `Windows` `.NET Standard 2.1` environment.
 
 ### Required package
 
@@ -28,7 +29,7 @@ As of February of 2022, we are developing and confirming in `Unity 2021.2` `Wind
 |VRMShaders|vrm-c|GitHub|VRM 0.0|0.72.0|13 Apr, 2020|
 |UniShaders|IzayoiJiichan|GitHub|-|1.3.0|27 Feb, 2022|
 |VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.1|1 June, 2021|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.6|27 Feb, 2022|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.7|16 May, 2022|
 
 #### Added (when using Unity 2021.1 or lower version)
 
@@ -69,7 +70,7 @@ Download the UniVGO sample project.
 
 #### 2. Install Unity Editor
 
-Install Unity Editor `2021.1.28f1` or `2021.2.0f1` on Unity Hub.
+Install Unity Editor `2021.1.28f1`,` 2021.2.0f1`, or` 2021.3.0f1` on Unity Hub.
 
 If you don't see the version you're looking for in Unity Hub, install it via the [Unity Download Archive](https://unity3d.com/jp/get-unity/download/archive).
 
@@ -130,7 +131,7 @@ You need to be careful where you add them.
   ],
   "dependencies": {
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.3.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.6",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.7",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
@@ -146,7 +147,7 @@ You need to be careful where you add them.
 }
 ```
 
-- Unity 2021.2.0f1
+- Unity 2021.2.0f1 or heigher
 
 ```json
 {
@@ -159,7 +160,7 @@ You need to be careful where you add them.
   ],
   "dependencies": {
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.3.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.6",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.7",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
@@ -368,7 +369,7 @@ Modify the define symbol to match the version of VRMShaders (com.vrmc.vrmshaders
 [Unity 2021.1.28f1 UniVGO + UniVRM](https://github.com/izayoijiichan/univgo2.univrm.sample.unity2021.1.project)
 
 ___
-Last updated: 27 Feb, 2022  
+Last updated: 16 May, 2022  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020-2021 Izayoi Jiichan. All Rights Reserved.*
