@@ -16,8 +16,9 @@ ___
 |Unity 2021.1|OK|OK|OK|OK|unconfirmed|
 |Unity 2021.2|OK|OK|OK|OK|unconfirmed|
 |Unity 2021.3|OK|OK|OK|OK|unconfirmed|
+|Unity 2022.1|OK|OK|unconfirmed|unconfirmed|unconfirmed|
 
-As of May of 2022, we are developing and confirming in `Unity 2021.3` `Windows` `.NET Standard 2.1` environment.
+As of May of 2022, we are developing and confirming in `Unity 2022.1` `Windows` `.NET Standard 2.1` environment.
 
 ### Required package
 
@@ -25,7 +26,7 @@ As of May of 2022, we are developing and confirming in `Unity 2021.3` `Windows` 
 
 |package name|owner|Repository|specification version|program version|release date|
 |:---|:---:|:---:|:---:|:---:|:---:|
-|newtonsoft-json-for-unity|jillejr|GitHub|13.0.1|13.0.102|25 Mar, 2021|
+|com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|-|3.0.2|29 Mar, 2022|
 |VRMShaders|vrm-c|GitHub|VRM 0.0|0.72.0|13 Apr, 2020|
 |UniShaders|IzayoiJiichan|GitHub|-|1.3.0|27 Feb, 2022|
 |VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.1|1 June, 2021|
@@ -122,20 +123,15 @@ You need to be careful where you add them.
       "name": "Unity NuGet",
       "url": "https://unitynuget-registry.azurewebsites.net",
       "scopes": ["org.nuget"]
-    },
-    {
-      "name": "Packages from jillejr",
-      "url": "https://npm.cloudsmith.io/jillejr/newtonsoft-json-for-unity/",
-      "scopes": ["jillejr"]
     }
   ],
   "dependencies": {
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.3.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.7",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.8",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
+    "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
-    "jillejr.newtonsoft.json-for-unity": "13.0.102",
     "org.nuget.system.buffers": "4.4.0",
     "org.nuget.system.memory": "4.5.0",
     "org.nuget.system.numerics.vectors": "4.4.0",
@@ -147,24 +143,17 @@ You need to be careful where you add them.
 }
 ```
 
-- Unity 2021.2.0f1 or heigher
+- Unity 2021.2.0f1 or heigher (2021.3, 2022.1)
 
 ```json
 {
-  "scopedRegistries": [
-    {
-      "name": "Packages from jillejr",
-      "url": "https://npm.cloudsmith.io/jillejr/newtonsoft-json-for-unity/",
-      "scopes": ["jillejr"]
-    }
-  ],
   "dependencies": {
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.3.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.7",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.8",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
+    "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
-    "jillejr.newtonsoft.json-for-unity": "13.0.102",
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
@@ -215,6 +204,7 @@ Possible causes of the error are as follows.
 - `asmdef.meta` settings have been changed
 - The `.meta` guid of the component has changed
 - `System.Buffers.dll`, `System.Memory.dll`, `System.Numerics.Vectors.dll`, `System.Runtime.CompilerServices.Unsage.dll` is duplicated.
+- `NewtonSoft.Json.dll` is duplicated.
 
 ___
 ## Other information
@@ -369,7 +359,7 @@ Modify the define symbol to match the version of VRMShaders (com.vrmc.vrmshaders
 [Unity 2021.1.28f1 UniVGO + UniVRM](https://github.com/izayoijiichan/univgo2.univrm.sample.unity2021.1.project)
 
 ___
-Last updated: 16 May, 2022  
+Last updated: 18 May, 2022  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020-2021 Izayoi Jiichan. All Rights Reserved.*

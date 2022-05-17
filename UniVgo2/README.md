@@ -32,7 +32,7 @@ ___
 |org.nuget.system.memory|Microsoft|NuGet|[link](https://www.nuget.org/packages/System.Memory/)|
 |org.nuget.system.numerics.vectors|Microsoft|NuGet|[link](https://www.nuget.org/packages/System.Numerics.Vectors/)|
 |org.nuget.system.runtime.compilerservices.unsafe|Microsoft|NuGet|[link](https://www.nuget.org/packages/System.Runtime.CompilerServices.Unsafe/)|
-|newtonsoft-json-for-unity|jillejr|GitHub|[link](https://github.com/jilleJr/Newtonsoft.Json-for-Unity)|
+|com.unity.nuget.newtonsoft-json|Unity Technologies|NuGet|[link](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.0)|
 |com.vrmc.vrmshaders|vrm-c|GitHub|[link](https://github.com/vrm-c/UniVRM/tree/master/Assets/VRMShaders)|
 |izayoi.unishaders|IzayoiJiichan|GitHub|[link](https://github.com/izayoijiichan/UniShaders.git)|
 |izayoi.vgospringbone|IzayoiJiichan|GitHub|[link](https://github.com/izayoijiichan/VgoSpringBone.git)|
@@ -44,7 +44,6 @@ ___
 
 I would like to express my sincere appreciation to Everyone, including  
 Dear Newtonsoft for developing and releasing Newtonsoft.Json,  
-Dear jillejr for developing and releasing Newtonsoft.Json for Unity,  
 Dear ousttrue for developing and publishing UniGLTF shaders,  
 Dear Santarh for developing and releasing MToon shaders,  
 VRM Consortium, for developing and publishing a program about VRM shaders,  
@@ -55,7 +54,7 @@ and other related people.
 I would like to take this opportunity to thank you.
 
 ___
-Last updated: 18 March, 2021  
+Last updated: 18 May, 2022  
 Editor: Izayoi Jiichan
 
-*Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*
+*Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*

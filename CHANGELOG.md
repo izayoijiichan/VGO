@@ -1,5 +1,10 @@
 # Change Log
 
+## [2.4.8] - 2022-05-18
+
+- Changes
+  - Changed the library of NewtonSoft.JSON from `jillejr.newtonsoft.json-for-unity` to `com.unity.nuget.newtonsoft-json`.
+
 ## [2.4.7] - 2022-05-16
 
 - Fixes
