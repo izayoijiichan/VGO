@@ -51,7 +51,7 @@ namespace UniVgo2
         /// <summary>Unlit/Transparent</summary>
         public const string Unlit_Transparent = "Unlit/Transparent";
 
-        /// <summary>Unlit/Transparent Cutou</summary>
+        /// <summary>Unlit/Transparent Cutout</summary>
         public const string Unlit_Transparent_Cutout = "Unlit/Transparent Cutout";
 
         /// <summary>UniGLTF/UniUnlit</summary>
@@ -60,19 +60,25 @@ namespace UniVgo2
         /// <summary>Universal Render Pipeline/Lit</summary>
         public const string URP_Lit = "Universal Render Pipeline/Lit";
 
+        /// <summary>Universal Render Pipeline/Simple Lit</summary>
+        public const string URP_SimpleLit = "Universal Render Pipeline/Simple Lit";
+
+        /// <summary>Universal Render Pipeline/Unlit</summary>
+        public const string URP_Unlit = "Universal Render Pipeline/Unlit";
+
         /// <summary>VRM/UnlitTexture</summary>
         public const string VRM_UnlitTexture = "VRM/UnlitTexture";
 
         /// <summary>VRM/UnlitTransparent</summary>
         public const string VRM_UnlitTransparent = "VRM/UnlitTransparent";
 
-        /// <summary></summary>
+        /// <summary>VRM/UnlitCutout</summary>
         public const string VRM_UnlitCutout = "VRM/UnlitCutout";
 
-        /// <summary></summary>
+        /// <summary>VRM/UnlitTransparentZWrite</summary>
         public const string VRM_UnlitTransparentZWrite = "VRM/UnlitTransparentZWrite";
 
-        /// <summary></summary>
+        /// <summary>VRM/MToon</summary>
         public const string VRM_MToon = "VRM/MToon";
     }
 }

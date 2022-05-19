@@ -8,12 +8,20 @@ namespace UniVgo2.Porters
     using System;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.Rendering;
 
     /// <summary>
     /// VGO Material Porter
     /// </summary>
     public class VgoMaterialPorter : IMaterialExporter, IMaterialImporter
     {
+        #region Fields
+
+        /// <summary>Type of render pipeline.</summary>
+        protected RenderPipelineType? _RenderPipelineType;
+
+        #endregion
+
         #region Properties
 
         /// <summary>The material porter store.</summary>
@@ -26,6 +34,19 @@ namespace UniVgo2.Porters
         /// <summary>The shader store.</summary>
         /// <remarks>for Import</remarks>
         public IShaderStore ShaderStore { get; set; }
+
+        /// <summary>Type of render pipeline.</summary>
+        public RenderPipelineType RenderPipelineType
+        {
+            get
+            {
+                if (_RenderPipelineType == null)
+                {
+                    _RenderPipelineType = GetRenderPipelineType();
+                }
+                return (RenderPipelineType)_RenderPipelineType;
+            }
+        }
 
         #endregion
 
@@ -48,7 +69,7 @@ namespace UniVgo2.Porters
                 throw new Exception();
             }
 
-            IMaterialPorter materialPorter = MaterialPorterStore.GetPorterOrStandard(material.shader.name);
+            IMaterialPorter materialPorter = MaterialPorterStore.GetPorterOrStandard(material.shader.name, RenderPipelineType);
 
             materialPorter.ExportTexture = ExportTexture;
 
@@ -79,9 +100,9 @@ namespace UniVgo2.Porters
                 throw new Exception();
             }
 
-            Shader shader = ShaderStore.GetShaderOrStandard(vgoMaterial);
+            Shader shader = ShaderStore.GetShaderOrStandard(vgoMaterial, RenderPipelineType);
 
-            IMaterialPorter materialPorter = MaterialPorterStore.GetPorterOrStandard(vgoMaterial);
+            IMaterialPorter materialPorter = MaterialPorterStore.GetPorterOrStandard(vgoMaterial, RenderPipelineType);
 
             materialPorter.AllTexture2dList = texture2dList;
 
@@ -92,6 +113,38 @@ namespace UniVgo2.Porters
 #endif
 
             return material;
+        }
+
+        #endregion
+
+        #region Protected Methods
+
+        /// <summary>
+        /// Get type of render pipeline.
+        /// </summary>
+        /// <returns>Type of render pipeline.</returns>
+        protected virtual RenderPipelineType GetRenderPipelineType()
+        {
+            RenderPipelineAsset renderPipelineAsset = GraphicsSettings.renderPipelineAsset;
+
+            if (renderPipelineAsset == null)
+            {
+                return RenderPipelineType.BRP;
+            }
+            else if (string.IsNullOrEmpty(renderPipelineAsset.name))
+            {
+                return RenderPipelineType.BRP;
+            }
+            else if (renderPipelineAsset.name.StartsWith("UniversalRP-"))
+            {
+                return RenderPipelineType.URP;
+            }
+            else if (renderPipelineAsset.name.StartsWith("HDRP "))
+            {
+                return RenderPipelineType.HDRP;
+            }
+
+            return RenderPipelineType.BRP;
         }
 
         #endregion

@@ -168,10 +168,10 @@ namespace UniVgo2.Porters
             }
 
             // @notice
-            if (vgoMaterial.isUnlit)
-            {
-                return UnlitMaterialPorter;
-            }
+            //if (vgoMaterial.isUnlit)
+            //{
+            //    return UnlitMaterialPorter;
+            //}
 
             // @notice
             //if (vgoMaterial.HasVertexColor)
@@ -186,14 +186,33 @@ namespace UniVgo2.Porters
         /// Get a porter or standard.
         /// </summary>
         /// <param name="vgoMaterial">The vgo material.</param>
+        /// <param name="renderPipelineType">Type of render pipeline.</param>
         /// <returns>A material porter instanse.</returns>
-        public virtual IMaterialPorter GetPorterOrStandard(VgoMaterial vgoMaterial)
+        public virtual IMaterialPorter GetPorterOrStandard(VgoMaterial vgoMaterial, RenderPipelineType renderPipelineType)
         {
             IMaterialPorter porter = GetPorterOrDefault(vgoMaterial);
 
             if (porter == default)
             {
-                porter = StandardMaterialPorter;
+                if (renderPipelineType == RenderPipelineType.URP)
+                {
+                    porter = UrpMaterialPorter;
+                }
+                else if (renderPipelineType == RenderPipelineType.HDRP)
+                {
+                    porter = HdrpMaterialPorter;
+                }
+                else  // BRP
+                {
+                    if (vgoMaterial.isUnlit)
+                    {
+                        porter = UnlitMaterialPorter;
+                    }
+                    else
+                    {
+                        porter = StandardMaterialPorter;
+                    }
+                }
             }
 
             return porter;
@@ -240,6 +259,8 @@ namespace UniVgo2.Porters
                 case ShaderName.UniGLTF_StandardVColor:
                     return StandardVColorMaterialPorter;
                 case ShaderName.URP_Lit:
+                case ShaderName.URP_SimpleLit:
+                case ShaderName.URP_Unlit:
                     return UrpMaterialPorter;
                 case ShaderName.VRM_UnlitTexture:
                 case ShaderName.VRM_UnlitTransparent:
@@ -257,14 +278,26 @@ namespace UniVgo2.Porters
         /// Get a porter or standard.
         /// </summary>
         /// <param name="shaderName">The shader name.</param>
+        /// <param name="renderPipelineType">Type of render pipeline.</param>
         /// <returns>A material porter instanse.</returns>
-        public virtual IMaterialPorter GetPorterOrStandard(string shaderName)
+        public virtual IMaterialPorter GetPorterOrStandard(string shaderName, RenderPipelineType renderPipelineType)
         {
             IMaterialPorter porter = GetPorterOrDefault(shaderName);
 
             if (porter == default)
             {
-                porter = StandardMaterialPorter;
+                if (renderPipelineType == RenderPipelineType.URP)
+                {
+                    porter = UrpMaterialPorter;
+                }
+                else if (renderPipelineType == RenderPipelineType.HDRP)
+                {
+                    porter = HdrpMaterialPorter;
+                }
+                else  // BRP
+                {
+                    porter = StandardMaterialPorter;
+                }
             }
 
             return porter;

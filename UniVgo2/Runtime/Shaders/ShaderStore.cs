@@ -65,6 +65,12 @@ namespace UniVgo2
         /// <summary>Universal Render Pipeline/Lit</summary>
         protected Shader _UrpLit;
 
+        /// <summary>Universal Render Pipeline/Simple Lit</summary>
+        protected Shader _UrpSimpleLit;
+
+        /// <summary>Universal Render Pipeline/Unlit</summary>
+        protected Shader _UrpUnlit;
+
         /// <summary>VRM/UnlitTexture</summary>
         protected Shader _VrmUnlitTexture;
 
@@ -305,6 +311,32 @@ namespace UniVgo2
             }
         }
 
+        /// <summary>Universal Render Pipeline/Simple Lit</summary>
+        protected Shader UrpSimpleLit
+        {
+            get
+            {
+                if (_UrpSimpleLit == null)
+                {
+                    _UrpSimpleLit = Shader.Find(ShaderName.URP_SimpleLit);
+                }
+                return _UrpSimpleLit;
+            }
+        }
+
+        /// <summary>Universal Render Pipeline/Unlit</summary>
+        protected Shader UrpUnlit
+        {
+            get
+            {
+                if (_UrpUnlit == null)
+                {
+                    _UrpUnlit = Shader.Find(ShaderName.URP_Unlit);
+                }
+                return _UrpUnlit;
+            }
+        }
+
         /// <summary>VRM/UnlitTexture</summary>
         protected Shader VrmUnlitTexture
         {
@@ -439,6 +471,12 @@ namespace UniVgo2
                 case ShaderName.URP_Lit:
                     return UrpLit;
 
+                case ShaderName.URP_SimpleLit:
+                    return UrpSimpleLit;
+
+                case ShaderName.URP_Unlit:
+                    return UrpUnlit;
+
                 case ShaderName.VRM_UnlitTexture:
                     return VrmUnlitTexture;
 
@@ -482,10 +520,10 @@ namespace UniVgo2
             }
 
             //// @notice
-            if (vgoMaterial.isUnlit)
-            {
-                return UniGLTFUniUnlit;
-            }
+            //if (vgoMaterial.isUnlit)
+            //{
+            //    return UniGLTFUniUnlit;
+            //}
 
             //// @notice
             //if (vgoMaterial.HasVertexColor)
@@ -500,14 +538,49 @@ namespace UniVgo2
         /// Get a shader or standard.
         /// </summary>
         /// <param name="vgoMaterial">The vgo material.</param>
+        /// <param name="renderPipelineType">Type of render pipeline.</param>
         /// <returns>A shader instanse.</returns>
-        public virtual Shader GetShaderOrStandard(VgoMaterial vgoMaterial)
+        public virtual Shader GetShaderOrStandard(VgoMaterial vgoMaterial, RenderPipelineType renderPipelineType)
         {
             Shader shader = GetShaderOrDefault(vgoMaterial);
 
             if (shader == default)
             {
-                shader = Standard;
+                if (renderPipelineType == RenderPipelineType.URP)
+                {
+                    if (vgoMaterial.isUnlit)
+                    {
+                        shader = UrpUnlit;
+                    }
+                    else
+                    {
+                        shader = UrpLit;
+                    }
+                }
+                else if (renderPipelineType == RenderPipelineType.HDRP)
+                {
+                    if (vgoMaterial.isUnlit)
+                    {
+                        // @notice
+                        shader = HDRPLit;
+                    }
+                    else
+                    {
+                        shader = HDRPLit;
+                    }
+                }
+                else  // BRP
+                {
+                    if (vgoMaterial.isUnlit)
+                    {
+                        // @notice
+                        shader = UniGLTFUniUnlit;
+                    }
+                    else
+                    {
+                        shader = Standard;
+                    }
+                }
             }
 
             return shader;

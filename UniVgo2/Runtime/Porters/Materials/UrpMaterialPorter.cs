@@ -36,6 +36,10 @@ namespace UniVgo2.Porters
             {
                 case ShaderName.URP_Lit:
                     return CreateVgoMaterialFromUrpLit(material);
+                case ShaderName.URP_SimpleLit:
+                    return CreateVgoMaterialFromUrpSimpleLit(material);
+                case ShaderName.URP_Unlit:
+                    return CreateVgoMaterialFromUrpUnlit(material);
                 default:
                     throw new NotSupportedException(material.shader.name);
             }
@@ -79,11 +83,82 @@ namespace UniVgo2.Porters
             // @notice Metallic Occlusion Map (Occlusion -> Metallic)
             ExportTextureProperty(vgoMaterial, material, Property.OcclusionMap, VgoTextureMapType.OcclusionMap, VgoColorSpaceType.Linear);
             ExportTextureProperty(vgoMaterial, material, Property.MetallicGlossMap, VgoTextureMapType.MetallicRoughnessMap, VgoColorSpaceType.Linear, smoothness);
-            ExportTextureProperty(vgoMaterial, material, Property.SpecGlossMap, VgoTextureMapType.MetallicRoughnessMap, VgoColorSpaceType.Linear, smoothness);
+            ExportTextureProperty(vgoMaterial, material, Property.SpecGlossMap, VgoTextureMapType.SpecularGlossinessMap, VgoColorSpaceType.Linear, smoothness);
 
             ExportTextureProperty(vgoMaterial, material, Property.DetailMask, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
             ExportTextureProperty(vgoMaterial, material, Property.DetailAlbedoMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
             ExportTextureProperty(vgoMaterial, material, Property.DetailNormalMap, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
+
+            ExportKeywords(vgoMaterial, material);
+
+            return vgoMaterial;
+        }
+
+        /// <summary>
+        /// Create a vgo material from a URP/Simple Lit material.
+        /// </summary>
+        /// <param name="material">A URP/Simple Lit material.</param>
+        /// <returns>A vgo material.</returns>
+        protected VgoMaterial CreateVgoMaterialFromUrpSimpleLit(Material material)
+        {
+            UrpSimpleLitDefinition definition = UniUrpShader.Utils.GetParametersFromMaterial<UrpSimpleLitDefinition>(material);
+
+            var vgoMaterial = new VgoMaterial()
+            {
+                name = material.name,
+                shaderName = material.shader.name,
+                renderQueue = material.renderQueue,
+                isUnlit = false,
+            };
+
+            ExportProperties(vgoMaterial, material);
+
+            float smoothness = -1.0f;
+
+            if (material.HasProperty(Property.Smoothness))
+            {
+                smoothness = material.GetFloat(Property.Smoothness);
+            }
+            //else if (material.HasProperty(Property.SmoothnessSource))
+            //{
+            //    smoothness = material.GetFloat(Property.SmoothnessSource);
+            //}
+            else
+            {
+                Debug.LogWarning($"{material.shader.name} does not have {Property.Smoothness} property.");
+            }
+
+            ExportTextureProperty(vgoMaterial, material, Property.BaseMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoMaterial, material, Property.BumpMap, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
+            ExportTextureProperty(vgoMaterial, material, Property.EmissionMap, VgoTextureMapType.EmissionMap, VgoColorSpaceType.Srgb);
+
+            ExportTextureProperty(vgoMaterial, material, Property.SpecGlossMap, VgoTextureMapType.SpecularGlossinessMap, VgoColorSpaceType.Linear, smoothness);
+
+            ExportKeywords(vgoMaterial, material);
+
+            return vgoMaterial;
+        }
+
+        /// <summary>
+        /// Create a vgo material from a URP/Unlit material.
+        /// </summary>
+        /// <param name="material">A URP/Unlit material.</param>
+        /// <returns>A vgo material.</returns>
+        protected VgoMaterial CreateVgoMaterialFromUrpUnlit(Material material)
+        {
+            UrpUnlitDefinition definition = UniUrpShader.Utils.GetParametersFromMaterial<UrpUnlitDefinition>(material);
+
+            var vgoMaterial = new VgoMaterial()
+            {
+                name = material.name,
+                shaderName = material.shader.name,
+                renderQueue = material.renderQueue,
+                isUnlit = true,
+            };
+
+            ExportProperties(vgoMaterial, material);
+
+            ExportTextureProperty(vgoMaterial, material, Property.BaseMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
 
             ExportKeywords(vgoMaterial, material);
 
@@ -105,6 +180,10 @@ namespace UniVgo2.Porters
             switch (vgoMaterial.shaderName)
             {
                 case ShaderName.URP_Lit:
+                    break;
+                case ShaderName.URP_SimpleLit:
+                    break;
+                case ShaderName.URP_Unlit:
                     break;
                 default:
                     throw new NotSupportedException(vgoMaterial.shaderName);

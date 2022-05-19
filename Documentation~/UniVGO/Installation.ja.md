@@ -3,6 +3,7 @@
 Unity Editor に UniVGO をインストールするためのマニュアルです。
 
 ___
+
 ## システム要件
 
 ### Unity のバージョン
@@ -28,9 +29,9 @@ ___
 |:---|:---:|:---:|:---:|:---:|:---:|
 |com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|-|3.0.2|2022年3月29日|
 |VRMShaders|vrm-c|GitHub||0.72.0|2021年4月13日|
-|UniShaders|IzayoiJiichan|GitHub||1.3.0|2022年2月27日|
+|UniShaders|IzayoiJiichan|GitHub||1.4.0|2022年5月20日|
 |VgoSpringBone|IzayoiJiichan|GitHub||1.1.1|2021年6月1日|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.8|2022年5月18日|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.9|2022年5月20日|
 
 #### 追加（Unity 2021.1 以下のバージョンを使用する場合）
 
@@ -54,6 +55,7 @@ ___
 |com.unity.render-pipelines.universal|Unity Technologies|Unity Registry||11.0.0|2021年10月26日|
 
 ___
+
 ## インストール
 
 ### インストール手順（サンプルプロジェクトを使用する場合）
@@ -65,9 +67,9 @@ ___
 - [Unity 2021.1.28f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.project)
 - [Unity 2021.1.28f1 and HDRP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.hdrp.project)
 - [Unity 2021.1.28f1 and URP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.urp.project)
-- [Unity 2021.2.0f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.2.project)
-- [Unity 2021.2.0f1 and HDRP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.2.hdrp.project)
-- [Unity 2021.2.0f1 and URP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.2.urp.project)
+- [Unity 2021.3.0f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.3.project)
+- [Unity 2021.3.0f1 and HDRP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.3.hdrp.project)
+- [Unity 2021.3.0f1 and URP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.3.urp.project)
 
 #### 2. Unity Editor のインストール
 
@@ -79,7 +81,6 @@ Unity Hub にて Unity Editor `2021.1.28f1`、`2021.2.0f1`、`2021.3.0f1`、`202
 
 Unity Hub にて、1でダウンロードしたサンプルプロジェクトをリストに追加します。  
 指定するフォルダーはプロジェクトフォルダーです。
-
 
 ### インストール手順（自分でプロジェクトを作成する場合）
 
@@ -114,7 +115,7 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
 `<Project>/Packages/package.json` に以下の記述を行います。  
 追加する位置に気を付ける必要があります。
 
-- Unity 2021.1.28f1
+- Unity 2021.1.28f1 以下
 
 ```json
 {
@@ -126,8 +127,8 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
     }
   ],
   "dependencies": {
-    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.3.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.8",
+    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.9",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
@@ -148,8 +149,8 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
 ```json
 {
   "dependencies": {
-    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.3.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.8",
+    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.9",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
@@ -207,6 +208,7 @@ URPを使用する場合、"com.unity.render-pipelines.universal" の行を追�
 - `NewtonSoft.Json.dll` が重複して配置されている
 
 ___
+
 ## その他の情報
 
 ### ライブラリー（アセンブリ）について
@@ -359,10 +361,11 @@ UniVGO 2.4.4 を使用してください。
 
 ### セットアップ済みサンプルプロジェクト
 
-[Unity 2021.1.28f1 UniVGO + UniVRM](https://github.com/izayoijiichan/univgo2.univrm.sample.unity2021.1.project)
+- [Unity 2021.1.28f1 UniVGO + UniVRM](https://github.com/izayoijiichan/univgo2.univrm.sample.unity2021.1.project)
+- [Unity 2021.3.0f1 UniVGO + UniVRM](https://github.com/izayoijiichan/univgo2.univrm.sample.unity2021.3.project)
 
 ___
-最終更新日：2022年5月18日  
+最終更新日：2022年5月20日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*

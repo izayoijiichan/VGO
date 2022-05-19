@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.4.9] - 2022-05-20
+
+- Features
+  - Unity URP (Universal Render Pipeline) shaders (Simple Lit, Unlit) will be available.
+- Changes
+  - Updated the version of `com.izayoi.unishaders` to `1.4.0`.
+
 ## [2.4.8] - 2022-05-18
 
 - Changes

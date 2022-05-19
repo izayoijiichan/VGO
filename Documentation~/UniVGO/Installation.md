@@ -3,6 +3,7 @@
 Manual for installing UniVGO in Unity Editor.
 
 ___
+
 ## System requirements
 
 ### Unity version
@@ -28,9 +29,9 @@ As of May of 2022, we are developing and confirming in `Unity 2022.1` `Windows` 
 |:---|:---:|:---:|:---:|:---:|:---:|
 |com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|-|3.0.2|29 Mar, 2022|
 |VRMShaders|vrm-c|GitHub|VRM 0.0|0.72.0|13 Apr, 2020|
-|UniShaders|IzayoiJiichan|GitHub|-|1.3.0|27 Feb, 2022|
+|UniShaders|IzayoiJiichan|GitHub|-|1.4.0|20 May, 2022|
 |VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.1|1 June, 2021|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.7|16 May, 2022|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.9|20 May, 2022|
 
 #### Added (when using Unity 2021.1 or lower version)
 
@@ -54,6 +55,7 @@ As of May of 2022, we are developing and confirming in `Unity 2022.1` `Windows` 
 |com.unity.render-pipelines.universal|Unity Technologies|Unity Registry||11.0.0|26 Oct, 2021|
 
 ___
+
 ## Install
 
 ### Installation procedure (Case using the sample project)
@@ -65,13 +67,13 @@ Download the UniVGO sample project.
 - [Unity 2021.1.28f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.project)
 - [Unity 2021.1.28f1 and HDRP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.hdrp.project)
 - [Unity 2021.1.28f1 and URP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.urp.project)
-- [Unity 2021.2.0f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.2.project)
-- [Unity 2021.2.0f1 and HDRP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.2.hdrp.project)
-- [Unity 2021.2.0f1 and URP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.2.urp.project)
+- [Unity 2021.3.0f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.3.project)
+- [Unity 2021.3.0f1 and HDRP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.3.hdrp.project)
+- [Unity 2021.3.0f1 and URP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.3.urp.project)
 
 #### 2. Install Unity Editor
 
-Install Unity Editor `2021.1.28f1`,` 2021.2.0f1`, or` 2021.3.0f1` on Unity Hub.
+Install Unity Editor `2021.1.28f1`, `2021.2.0f1`, or `2021.3.0f1` on Unity Hub.
 
 If you don't see the version you're looking for in Unity Hub, install it via the [Unity Download Archive](https://unity3d.com/jp/get-unity/download/archive).
 
@@ -79,7 +81,6 @@ If you don't see the version you're looking for in Unity Hub, install it via the
 
 At the Unity Hub, add the sample project downloaded in step 1 to the list.  
 The specified folder is the project folder.
-
 
 ### Installation procedure (Case you create your own project)
 
@@ -114,7 +115,7 @@ Import UniVGO and dependent packages into your project.
 Write the following in `<Project>/Packages/package.json`.  
 You need to be careful where you add them.
 
-- Unity 2021.1.28f1
+- Unity 2021.1.28f1 or lower
 
 ```json
 {
@@ -126,8 +127,8 @@ You need to be careful where you add them.
     }
   ],
   "dependencies": {
-    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.3.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.8",
+    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.9",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
@@ -148,8 +149,8 @@ You need to be careful where you add them.
 ```json
 {
   "dependencies": {
-    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.3.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.8",
+    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.9",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
@@ -207,6 +208,7 @@ Possible causes of the error are as follows.
 - `NewtonSoft.Json.dll` is duplicated.
 
 ___
+
 ## Other information
 
 ### About libraries (assemblies)
@@ -356,10 +358,11 @@ Modify the define symbol to match the version of VRMShaders (com.vrmc.vrmshaders
 
 ### Pre-set up sample project
 
-[Unity 2021.1.28f1 UniVGO + UniVRM](https://github.com/izayoijiichan/univgo2.univrm.sample.unity2021.1.project)
+- [Unity 2021.1.28f1 UniVGO + UniVRM](https://github.com/izayoijiichan/univgo2.univrm.sample.unity2021.1.project)
+- [Unity 2021.3.0f1 UniVGO + UniVRM](https://github.com/izayoijiichan/univgo2.univrm.sample.unity2021.3.project)
 
 ___
-Last updated: 18 May, 2022  
+Last updated: 20 May, 2022  
 Editor: Izayoi Jiichan
 
-*Copyright (C) 2020-2021 Izayoi Jiichan. All Rights Reserved.*
+*Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*

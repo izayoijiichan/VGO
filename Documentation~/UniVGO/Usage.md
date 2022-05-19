@@ -3,6 +3,7 @@
 How to use UniVGO.
 
 ___
+
 ## Basic matters
 
 ### Version
@@ -12,7 +13,7 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2022.1|
-|2|UniVGO version|2.4.8|
+|2|UniVGO version|2.4.9|
 |3|VGO spec version|2.4|
 
 ### Supported Unity components
@@ -56,19 +57,21 @@ The supported shaders are as follows.
 |14|UniGLTF/StandardVColor|Vertex color shader|
 |15|UniGLTF/Unlit||
 |16|Universal Render Pipeline/Lit|Universal Render Pipeline Lit shader|
-|17|VRM/MToon||
+|17|Universal Render Pipeline/Simple Lit|Universal Render Pipeline Simple Lit shader|
+|18|Universal Render Pipeline/Unlit|Universal Render Pipeline Unlit shader|
+|19|VRM/MToon||
 
 - Unlit shaders are not affected by light sources. Instead, the processing load is reduced.
 - Skybox / Cubemap is not supported.
 
 ___
+
 ## Create VGO (for humanoid avatar)
 
 ### 1. Load scene
 
 If you use the UniVGO sample project, load `ExportScene`.  
 If you want to create a new one, work on any scene.
-
 
 ### 2. setting a model
 
@@ -118,7 +121,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.4.8|
+|2|Version|Version of the generation tool.|2.4.9|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -214,13 +217,13 @@ Animation is not available for avatars (Deprecated).
 The reason is that the avatar moves in position.
 
 ___
+
 ## Create VGO (other than humanoid avatar)
 
 ### 1. Load scene
 
 If you use the UniVGO sample project, load `ExportScene`.  
 If you want to create a new one, work on any scene.
-
 
 ### 2. Creating and setting Root
 
@@ -270,11 +273,10 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.4.8|
+|2|Version|Version of the generation tool.|2.4.9|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
-
 
 ### 3. Creation and setting of Child
 
@@ -291,7 +293,7 @@ The script needs to be processed in order to reflect the setting value in the sc
 #### 3-2. Light
 
 Only `Realtime` settings work, not `Baked`.  
-Also, if you want to include `Directional Light` in VGO, delete or deactivate` Directional Light` which is initially placed in the scene.
+Also, if you want to include `Directional Light` in VGO, delete or deactivate `Directional Light` which is initially placed in the scene.
 
 #### 3-3. Particle System
 
@@ -302,11 +304,11 @@ Shaders for particles can be used.
 
 You can set animations for GameObjects.  
 Animation clip must be created with legacy animation.
-After setting, check that the animation works in `Scene View` or` Game View`.
+After setting, check that the animation works in `Scene View` or `Game View`.
 
 #### 3-5. Any other regular object
 
-Normal objects other than `Light` and` Particle System`.  
+Normal objects other than `Light` and `Particle System`.  
 It is divided into A, B and C by type.
 
 ##### A) Stationary object
@@ -380,6 +382,7 @@ Neither the Collider nor the Rigidbody component is assigned to objects that do 
 This pattern is also used when the collider assigned to the parent object covers the judgment range.
 
 ___
+
 ## VGO export
 
 When all settings are completed, export the VGO file (.vgo).
@@ -407,6 +410,7 @@ If there are no errors, the VGO file will be output to the specified folder.
 If an error has occurred, the Console will display the details of the error.
 
 ___
+
 ## VGO Import
 
 ### 1. A Preparation of VGO file
@@ -445,6 +449,7 @@ Click the `Extract` button of `Material and Textures` to start extracting textur
 The extraction is confirmed by clicking the `Apply` button.
 
 ___
+
 ## VGO runtime loading
 
 ### 1. Load scene
@@ -452,7 +457,6 @@ ___
 Load "LoadScene" when using the UniVGO sample project.
 
 ![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/710_Load.png)
-
 
 ### 2. File settings
 
@@ -489,7 +493,9 @@ If you write your own script, write as follows.
         }
     }
 ~~~
+
 ___
+
 ## Services that can use VGO
 
 ### VGO Hub
@@ -502,6 +508,7 @@ or the VGO (avatar or world) that others have set to be available in the linked 
 https://vgohub.azurewebsites.net
 
 ___
+
 ## Apps that can use VGO
 
 Currently two applications are supported.
