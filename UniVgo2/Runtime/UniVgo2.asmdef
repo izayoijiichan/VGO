@@ -4,6 +4,7 @@
         "NewtonVgo",
         "VgoSpringBone",
         "ShaderProperty.Runtime",
+        "LilToonShader.Utility",
         "MToon",
         "VRMShaders.GLTF.UniUnlit.Runtime",
         "UniShader.HDRP.Utility",

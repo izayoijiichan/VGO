@@ -19,7 +19,7 @@ ___
 |Unity 2021.3|○|○|○|○|未確認|
 |Unity 2022.1|○|○|○|未確認|未確認|
 
-2022年5月の時点では `Unity 2022.1` の `Windows` `.NET Standard 2.1` 環境にて開発＆確認を行っています。
+2022年7月の時点では `Unity 2022.1` の `Windows` `.NET Standard 2.1` 環境にて開発＆確認を行っています。
 
 ### 必要パッケージ
 
@@ -29,9 +29,10 @@ ___
 |:---|:---:|:---:|:---:|:---:|:---:|
 |com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|-|3.0.2|2022年3月29日|
 |VRMShaders|vrm-c|GitHub||0.72.0|2021年4月13日|
+|LilToonShader.Utility|IzayoiJiichan|GitHub||1.0.0|2022年7月11日|
 |UniShaders|IzayoiJiichan|GitHub||1.4.0|2022年5月20日|
 |VgoSpringBone|IzayoiJiichan|GitHub||1.1.1|2021年6月1日|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.9|2022年5月20日|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.10|2022年7月11日|
 
 #### 追加（Unity 2021.1 以下のバージョンを使用する場合）
 
@@ -64,12 +65,14 @@ ___
 
 次のサンプルプロジェクトのいずれかをダウンロードします。
 
-- [Unity 2021.1.28f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.project)
-- [Unity 2021.1.28f1 and HDRP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.hdrp.project)
-- [Unity 2021.1.28f1 and URP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.urp.project)
-- [Unity 2021.3.0f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.3.project)
-- [Unity 2021.3.0f1 and HDRP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.3.hdrp.project)
-- [Unity 2021.3.0f1 and URP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.3.urp.project)
+|unity version|rendering pipeline|link|
+|:--|:--:|:--:|
+|2021.1.28f1|BRP|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.1.brp)|
+|2021.1.28f1|URP|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.1.urp)|
+|2021.1.28f1|HDRP|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.1.hdrp)|
+|2021.3.0f1|BRP|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.brp)|
+|2021.3.0f1|URP|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.urp)|
+|2021.3.0f1|HDRP|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.hdrp)|
 
 #### 2. Unity Editor のインストール
 
@@ -109,6 +112,16 @@ Unity Editor または Unity Hub にて3Dの新規プロジェクトを作成し
 
 `VRMC_VRMSHADERS_0_85_OR_NEWER`
 
+使用する lilToon (jp.lilxyzw.liltoon) のバージョンに合わせて、Define シンボルを追加します。
+
+- lilToon 1.2.12 を使用する場合
+
+`LILTOON_1_2_12_OR_OLDER`
+
+- lilToon 1.3.0 以上を使用する場合
+
+`LILTOON_1_3_0_OR_NEWER` （必須ではない）
+
 #### 3. 必要パッケージ のインストール
 
 UniVGO及び依存パッケージをプロジェクトに取り込みます。  
@@ -127,6 +140,7 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
     }
   ],
   "dependencies": {
+    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.0",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
     "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.9",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
@@ -149,6 +163,7 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
 ```json
 {
   "dependencies": {
+    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.0",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
     "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.9",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
@@ -158,6 +173,19 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
+  }
+}
+```
+
+URPを使用する場合、"com.unity.render-pipelines.universal" の行を追加してください。
+
+```json
+{
+  "dependencies": {
+    ...
+    "com.unity.render-pipelines.universal": "11.0.0",
+    "com.unity.ugui": "1.0.0",
+    ...
   }
 }
 ```
@@ -175,14 +203,14 @@ HDRPを使用する場合、"com.unity.render-pipelines.high-definition" の行�
 }
 ```
 
-URPを使用する場合、"com.unity.render-pipelines.universal" の行を追加してください。
+lilToonを使用する場合、"jp.lilxyzw.liltoon" の行を追加してください。
 
 ```json
 {
   "dependencies": {
     ...
-    "com.unity.render-pipelines.universal": "11.0.0",
-    "com.unity.ugui": "1.0.0",
+    "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.3.1",
+    "com.unity.modules.ai": "1.0.0",
     ...
   }
 }
@@ -218,6 +246,8 @@ ___
 
 |アセンブリ|説明|UniVgo2|UniVgo2.Editor|
 |:---|:---|:---:|:---:|
+|lilToon.Editor|lilToon シェーダー ユーティリティー|-|*|
+|LilToonShader.Utility|lilToon シェーダー ユーティリティー|*|*|
 |MToon|MToon シェーダー ユーティリティー|*|*|
 |MToon.Editor|MToon シェーダー ユーティリティー|-|*|
 |NewtonVgo|Newton.JSON向け VGOプログラム|*|*|
@@ -361,11 +391,13 @@ UniVGO 2.4.4 を使用してください。
 
 ### セットアップ済みサンプルプロジェクト
 
-- [Unity 2021.1.28f1 UniVGO + UniVRM](https://github.com/izayoijiichan/univgo2.univrm.sample.unity2021.1.project)
-- [Unity 2021.3.0f1 UniVGO + UniVRM](https://github.com/izayoijiichan/univgo2.univrm.sample.unity2021.3.project)
+|unity version|rendering pipeline|package|link|
+|:--|:--:|:--:|:--:|
+|2021.1.28f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.1.brp.univrm)|
+|2021.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.brp.univrm)|
 
 ___
-最終更新日：2022年5月20日  
+最終更新日：2022年7月11日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*

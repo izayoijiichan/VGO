@@ -29,6 +29,22 @@ namespace UniVgo2.Porters
             }
         }
 
+        /// <summary>lilToon Material Porter</summary>
+        protected LilToonMaterialPorter _LilToonMaterialPorter;
+
+        /// <summary>lilToon Material Porter</summary>
+        protected LilToonMaterialPorter LilToonMaterialPorter
+        {
+            get
+            {
+                if (_LilToonMaterialPorter == null)
+                {
+                    _LilToonMaterialPorter = new LilToonMaterialPorter();
+                }
+                return _LilToonMaterialPorter;
+            }
+        }
+
         /// <summary>MToon Material Porter</summary>
         protected MtoonMaterialPorter _MtoonMaterialPorter;
 
@@ -238,37 +254,111 @@ namespace UniVgo2.Porters
             {
                 case ShaderName.Standard:
                     return StandardMaterialPorter;
-                case ShaderName.HDRP_Eye:
-                case ShaderName.HDRP_Hair:
-                case ShaderName.HDRP_Lit:
-                    return HdrpMaterialPorter;
+
                 case ShaderName.Particles_Standard_Surface:
                 case ShaderName.Particles_Standard_Unlit:
                     return ParticleMaterialPorter;
+
                 case ShaderName.Skybox_6_Sided:
                 case ShaderName.Skybox_Cubemap:
                 case ShaderName.Skybox_Panoramic:
                 case ShaderName.Skybox_Procedural:
                     return SkyboxMaterialPorter;
+
                 case ShaderName.Unlit_Color:
                 case ShaderName.Unlit_Texture:
                 case ShaderName.Unlit_Transparent:
                 case ShaderName.Unlit_Transparent_Cutout:
                 case ShaderName.UniGLTF_UniUnlit:
                     return UnlitMaterialPorter;
+
                 case ShaderName.UniGLTF_StandardVColor:
                     return StandardVColorMaterialPorter;
-                case ShaderName.URP_Lit:
-                case ShaderName.URP_SimpleLit:
-                case ShaderName.URP_Unlit:
-                    return UrpMaterialPorter;
+
                 case ShaderName.VRM_UnlitTexture:
                 case ShaderName.VRM_UnlitTransparent:
                 case ShaderName.VRM_UnlitCutout:
                 case ShaderName.VRM_UnlitTransparentZWrite:
                     return UnlitMaterialPorter;
+
                 case ShaderName.VRM_MToon:
                     return MtoonMaterialPorter;
+
+                case ShaderName.URP_Lit:
+                case ShaderName.URP_SimpleLit:
+                case ShaderName.URP_Unlit:
+                    return UrpMaterialPorter;
+
+                case ShaderName.HDRP_Eye:
+                case ShaderName.HDRP_Hair:
+                case ShaderName.HDRP_Lit:
+                    return HdrpMaterialPorter;
+
+                case ShaderName.Lil_LilToon:
+                case ShaderName.Lil_LilToonOutline:
+                case ShaderName.Lil_LilToonOutlineOnly:
+                case ShaderName.Lil_LilToonOutlineOnlyCutout:
+                case ShaderName.Lil_LilToonOutlineOnlyTransparent:
+                case ShaderName.Lil_LilToonCutout:
+                case ShaderName.Lil_LilToonCutoutOutline:
+                case ShaderName.Lil_LilToonTransparent:
+                case ShaderName.Lil_LilToonTransparentOutline:
+                case ShaderName.Lil_LilToonOnePassTransparent:
+                case ShaderName.Lil_LilToonOnePassTransparentOutline:
+                case ShaderName.Lil_LilToonTwoPassTransparent:
+                case ShaderName.Lil_LilToonTwoPassTransparentOutline:
+                case ShaderName.Lil_LilToonOverlay:
+                case ShaderName.Lil_LilToonOverlayOnePass:
+                case ShaderName.Lil_LilToonRefraction:
+                case ShaderName.Lil_LilToonRefractionBlur:
+                case ShaderName.Lil_LilToonFur:
+                case ShaderName.Lil_LilToonFurCutout:
+                case ShaderName.Lil_LilToonFurTwoPass:
+                case ShaderName.Lil_LilToonFurOnly:
+                case ShaderName.Lil_LilToonFurOnlyCutout:
+                case ShaderName.Lil_LilToonFurOnlyTwoPass:
+                case ShaderName.Lil_LilToonGem:
+                case ShaderName.Lil_LilToonTessellation:
+                case ShaderName.Lil_LilToonTessellationOutline:
+                case ShaderName.Lil_LilToonTessellationCutout:
+                case ShaderName.Lil_LilToonTessellationCutoutOutline:
+                case ShaderName.Lil_LilToonTessellationTransparent:
+                case ShaderName.Lil_LilToonTessellationTransparentOutline:
+                case ShaderName.Lil_LilToonTessellationOnePassTransparent:
+                case ShaderName.Lil_LilToonTessellationOnePassTransparentOutline:
+                case ShaderName.Lil_LilToonTessellationTwoPassTransparent:
+                case ShaderName.Lil_LilToonTessellationTwoPassTransparentOutline:
+                case ShaderName.Lil_LilToonLite:
+                case ShaderName.Lil_LilToonLiteOutline:
+                case ShaderName.Lil_LilToonLiteCutout:
+                case ShaderName.Lil_LilToonLiteCutoutOutline:
+                case ShaderName.Lil_LilToonLiteTransparent:
+                case ShaderName.Lil_LilToonLiteTransparentOutline:
+                case ShaderName.Lil_LilToonLiteOnePassTransparent:
+                case ShaderName.Lil_LilToonLiteOnePassTransparentOutline:
+                case ShaderName.Lil_LilToonLiteTwoPassTransparent:
+                case ShaderName.Lil_LilToonLiteTwoPassTransparentOutline:
+                case ShaderName.Lil_LilToonLiteOverlay:
+                case ShaderName.Lil_LilToonLiteOverlayOnePass:
+                case ShaderName.Lil_LilToonMulti:
+                case ShaderName.Lil_LilToonMultiOutline:
+                case ShaderName.Lil_LilToonMultiRefraction:
+                case ShaderName.Lil_LilToonMultiFur:
+                case ShaderName.Lil_LilToonMultiGem:
+                case ShaderName.Lil_LilToonFakeShadow:
+                case ShaderName.Lil_LilToonOtherBaker:
+                case ShaderName.Lil_LilToonPassDummy:
+                case ShaderName.Lil_LilToonPassOpaque:
+                case ShaderName.Lil_LilToonPassCutout:
+                case ShaderName.Lil_LilToonPassTransparent:
+                case ShaderName.Lil_LilToonPassTessOpaque:
+                case ShaderName.Lil_LilToonPassTessCutout:
+                case ShaderName.Lil_LilToonPassTessTransparent:
+                case ShaderName.Lil_LilToonPassLiteOpaque:
+                case ShaderName.Lil_LilToonPassLiteCutout:
+                case ShaderName.Lil_LilToonPassLiteTransparent:
+                    return LilToonMaterialPorter;
+
                 default:
                     return default;
             }

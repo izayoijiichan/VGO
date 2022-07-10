@@ -13,7 +13,7 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2022.1|
-|2|UniVGO version|2.4.9|
+|2|UniVGO version|2.4.10|
 |3|VGO spec version|2.4|
 
 ### Supported Unity components
@@ -39,27 +39,28 @@ The following Unity components are supported by VGO
 
 The supported shaders are as follows.
 
-|No|shader name|descriptoin|
-|:---:|:---|:---|
-|1|Standard|Standard shader|
-|2|HDRP/Eye|HD Render Pipeline Eye shader|
-|3|HDRP/Hair|HD Render Pipeline Hair shader|
-|4|HDRP/Lit|HD Render Pipeline Lit shader|
-|5|Particles/Standard Surface|Particle System dedicated shader|
-|6|Particles/Standard Unlit|Particle System dedicated shader|
-|7|Skybox/6 Sided|Skybox 6 sided shader|
-|8|Skybox/Panoramic|Skybox panoramic shader|
-|9|Skybox/Procedural|Skybox procedural shader|
-|10|Unlit/Color||
-|11|Unlit/Texture||
-|12|Unlit/Transparent||
-|13|Unlit/Transparent Cutout||
-|14|UniGLTF/StandardVColor|Vertex color shader|
-|15|UniGLTF/Unlit||
-|16|Universal Render Pipeline/Lit|Universal Render Pipeline Lit shader|
-|17|Universal Render Pipeline/Simple Lit|Universal Render Pipeline Simple Lit shader|
-|18|Universal Render Pipeline/Unlit|Universal Render Pipeline Unlit shader|
-|19|VRM/MToon||
+|No|render pipeline|shader name|descriptoin|
+|:---:|:---:|:---|:---|
+|1|BRP|Standard|Built-in Standard shader|
+|2|BRP|Particles/Standard Surface|Particle System dedicated shader|
+|3|BRP|Particles/Standard Unlit|Particle System dedicated unlit shader|
+|4|BRP|Skybox/6 Sided|Skybox 6 sided shader|
+|5|BRP|Skybox/Panoramic|Skybox panoramic shader|
+|6|BRP|Skybox/Procedural|Skybox procedural shader|
+|7|BRP|Unlit/Color||
+|8|BRP|Unlit/Texture||
+|9|BRP|Unlit/Transparent||
+|10|BRP|Unlit/Transparent Cutout||
+|11|BRP|UniGLTF/StandardVColor|Vertex Color shader|
+|12|BRP|UniGLTF/Unlit||
+|13|BRP|VRM/MToon||
+|14|URP|Universal Render Pipeline/Lit|Universal Render Pipeline Lit shader|
+|15|URP|Universal Render Pipeline/Simple Lit|Universal Render Pipeline Simple Lit shader|
+|16|URP|Universal Render Pipeline/Unlit|Universal Render Pipeline Unlit shader|
+|17|HDRP|HDRP/Lit|HD Render Pipeline Lit shader|
+|18|HDRP|HDRP/Eye|HD Render Pipeline Eye shader|
+|19|HDRP|HDRP/Hair|HD Render Pipeline Hair shader|
+|20|BRP/URP/HDRP|lilToon|lilToon shader|
 
 - Unlit shaders are not affected by light sources. Instead, the processing load is reduced.
 - Skybox / Cubemap is not supported.
@@ -121,7 +122,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.4.9|
+|2|Version|Version of the generation tool.|2.4.10|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -273,7 +274,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.4.9|
+|2|Version|Version of the generation tool.|2.4.10|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -534,7 +535,7 @@ Multiple play allows multiple people to enter the same room and make calls.
 https://vovola.wixsite.com/website
 
 ___
-Last updated: 18 May, 2022  
+Last updated: 11 July, 2022  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*

@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.4.10] - 2022-07-11
+
+- Features
+  - lilToon Shader will be available.
+- Adds
+  - Add `com.izayoi.liltoon.shader.utility` package.
+
 ## [2.4.9] - 2022-05-20
 
 - Features

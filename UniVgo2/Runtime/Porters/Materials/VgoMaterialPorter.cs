@@ -135,11 +135,15 @@ namespace UniVgo2.Porters
             {
                 return RenderPipelineType.BRP;
             }
-            else if (renderPipelineAsset.name.StartsWith("UniversalRP-"))
+            else if (
+                renderPipelineAsset.name.StartsWith("UniversalRP-") ||
+                renderPipelineAsset.name.StartsWith("Universal"))
             {
                 return RenderPipelineType.URP;
             }
-            else if (renderPipelineAsset.name.StartsWith("HDRP "))
+            else if (
+                renderPipelineAsset.name.StartsWith("HDRP") ||
+                renderPipelineAsset.name.StartsWith("HDRenderPipeline"))
             {
                 return RenderPipelineType.HDRP;
             }

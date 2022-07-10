@@ -34,8 +34,9 @@ ___
 |org.nuget.system.runtime.compilerservices.unsafe|Microsoft|NuGet|[link](https://www.nuget.org/packages/System.Runtime.CompilerServices.Unsafe/)|
 |com.unity.nuget.newtonsoft-json|Unity Technologies|NuGet|[link](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.0)|
 |com.vrmc.vrmshaders|vrm-c|GitHub|[link](https://github.com/vrm-c/UniVRM/tree/master/Assets/VRMShaders)|
-|izayoi.unishaders|IzayoiJiichan|GitHub|[link](https://github.com/izayoijiichan/UniShaders.git)|
-|izayoi.vgospringbone|IzayoiJiichan|GitHub|[link](https://github.com/izayoijiichan/VgoSpringBone.git)|
+|com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub|[link](https://github.com/izayoijiichan/lilToonShaderUtility.git)|
+|com.izayoi.unishaders|IzayoiJiichan|GitHub|[link](https://github.com/izayoijiichan/UniShaders.git)|
+|com.izayoi.vgospringbone|IzayoiJiichan|GitHub|[link](https://github.com/izayoijiichan/VgoSpringBone.git)|
 
 See the `Installation` for the version etc. for the combination.
 
@@ -54,7 +55,7 @@ and other related people.
 I would like to take this opportunity to thank you.
 
 ___
-Last updated: 18 May, 2022  
+Last updated: 11 July, 2022  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*

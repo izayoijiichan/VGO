@@ -19,7 +19,7 @@ ___
 |Unity 2021.3|OK|OK|OK|OK|unconfirmed|
 |Unity 2022.1|OK|OK|unconfirmed|unconfirmed|unconfirmed|
 
-As of May of 2022, we are developing and confirming in `Unity 2022.1` `Windows` `.NET Standard 2.1` environment.
+As of July of 2022, we are developing and confirming in `Unity 2022.1` `Windows` `.NET Standard 2.1` environment.
 
 ### Required package
 
@@ -29,9 +29,10 @@ As of May of 2022, we are developing and confirming in `Unity 2022.1` `Windows` 
 |:---|:---:|:---:|:---:|:---:|:---:|
 |com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|-|3.0.2|29 Mar, 2022|
 |VRMShaders|vrm-c|GitHub|VRM 0.0|0.72.0|13 Apr, 2020|
+|LilToonShader.Utility|IzayoiJiichan|GitHub||1.0.0|11 July, 2022|
 |UniShaders|IzayoiJiichan|GitHub|-|1.4.0|20 May, 2022|
 |VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.1|1 June, 2021|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.9|20 May, 2022|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.10|11 July, 2022|
 
 #### Added (when using Unity 2021.1 or lower version)
 
@@ -64,12 +65,14 @@ ___
 
 Download the UniVGO sample project.
 
-- [Unity 2021.1.28f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.project)
-- [Unity 2021.1.28f1 and HDRP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.hdrp.project)
-- [Unity 2021.1.28f1 and URP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.1.urp.project)
-- [Unity 2021.3.0f1](https://github.com/izayoijiichan/univgo2.sample.unity2021.3.project)
-- [Unity 2021.3.0f1 and HDRP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.3.hdrp.project)
-- [Unity 2021.3.0f1 and URP project](https://github.com/izayoijiichan/univgo2.sample.unity2021.3.urp.project)
+|unity version|rendering pipeline|link|
+|:--|:--:|:--:|
+|2021.1.28f1|BRP|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.1.brp)|
+|2021.1.28f1|URP|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.1.urp)|
+|2021.1.28f1|HDRP|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.1.hdrp)|
+|2021.3.0f1|BRP|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.brp)|
+|2021.3.0f1|URP|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.urp)|
+|2021.3.0f1|HDRP|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.hdrp)|
 
 #### 2. Install Unity Editor
 
@@ -109,7 +112,17 @@ Add the Define symbol to match the version of VRMShaders (com.vrmc.vrmshaders) y
 
 `VRMC_VRMSHADERS_0_85_OR_NEWER`
 
-#### 3. Installation of Newtonsoft.JSON
+Add the Define symbol to match the version of lilToon (jp.lilxyzw.liltoon) you are using.
+
+- When using lilToon 1.2.12
+
+`LILTOON_1_2_12_OR_OLDER`
+
+- When using lilToon 1.3.0 or higher
+
+`LILTOON_1_3_0_OR_NEWER` (not required)
+
+#### 3. Installation of required packages
 
 Import UniVGO and dependent packages into your project.  
 Write the following in `<Project>/Packages/package.json`.  
@@ -127,6 +140,7 @@ You need to be careful where you add them.
     }
   ],
   "dependencies": {
+    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.0",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
     "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.9",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
@@ -149,6 +163,7 @@ You need to be careful where you add them.
 ```json
 {
   "dependencies": {
+    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.0",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
     "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.9",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
@@ -158,6 +173,19 @@ You need to be careful where you add them.
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
+  }
+}
+```
+
+If you want to use URP, append the line "com.unity.render-pipelines.universal".
+
+```json
+{
+  "dependencies": {
+    ...
+    "com.unity.render-pipelines.universal": "11.0.0",
+    "com.unity.ugui": "1.0.0",
+    ...
   }
 }
 ```
@@ -175,14 +203,14 @@ If you want to use HDRP, append the line "com.unity.render-pipelines.high-defini
 }
 ```
 
-If you want to use URP, append the line "com.unity.render-pipelines.universal".
+If you want to use lilToon, append the line "jp.lilxyzw.liltoon".
 
 ```json
 {
   "dependencies": {
     ...
-    "com.unity.render-pipelines.universal": "11.0.0",
-    "com.unity.ugui": "1.0.0",
+    "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.3.1",
+    "com.unity.modules.ai": "1.0.0",
     ...
   }
 }
@@ -217,6 +245,8 @@ When the package is installed in the project, the script is automatically compil
 
 |assemply|description|UniVgo|UniVgo.Editor|
 |:---|:---|:---:|:---:|
+|lilToon.Editor|lilToon shader utility|-|*|
+|LilToonShader.Utility|lilToon shader utility|*|*|
 |MToon|MToon shader utility|*|*|
 |MToon.Editor|MToon shader utility|-|*|
 |NewtonVgo|for Newton.JSON vgo program|*|*|
@@ -358,11 +388,13 @@ Modify the define symbol to match the version of VRMShaders (com.vrmc.vrmshaders
 
 ### Pre-set up sample project
 
-- [Unity 2021.1.28f1 UniVGO + UniVRM](https://github.com/izayoijiichan/univgo2.univrm.sample.unity2021.1.project)
-- [Unity 2021.3.0f1 UniVGO + UniVRM](https://github.com/izayoijiichan/univgo2.univrm.sample.unity2021.3.project)
+|unity version|rendering pipeline|package|link|
+|:--|:--:|:--:|:--:|
+|2021.1.28f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.1.brp.univrm)|
+|2021.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.brp.univrm)|
 
 ___
-Last updated: 20 May, 2022  
+Last updated: 11 July, 2022  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*
