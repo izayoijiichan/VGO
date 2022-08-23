@@ -10,7 +10,7 @@ namespace UniVgo2.Porters
     /// <summary>
     /// StandardVColor Material Porter
     /// </summary>
-    public class StandardVColorMaterialPorter : MaterialPorterBase
+    public class StandardVColorMaterialPorter : AbstractMaterialPorterBase
     {
         #region Constructors
 
@@ -27,8 +27,9 @@ namespace UniVgo2.Porters
         /// Create a vgo material.
         /// </summary>
         /// <param name="material">A standard material.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateVgoMaterial(Material material)
+        public override VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
         {
             VgoMaterial vgoMaterial = new VgoMaterial()
             {
@@ -41,7 +42,7 @@ namespace UniVgo2.Porters
             ExportProperty(vgoMaterial, material, UniStandardShader.Property.Color, VgoMaterialPropertyType.Color4);
 
             // Main Texture
-            ExportTextureProperty(vgoMaterial, material, UniStandardShader.Property.MainTex, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, UniStandardShader.Property.MainTex, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
 
             // Metallic Gloss
             ExportProperty(vgoMaterial, material, UniStandardShader.Property.Metallic, VgoMaterialPropertyType.Float);

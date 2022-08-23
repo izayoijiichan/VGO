@@ -14,46 +14,30 @@ namespace UniVgo2.Porters
     /// <summary>
     /// VGO Mesh Exporter
     /// </summary>
-    public class VgoMeshExporter
+    public class VgoMeshExporter : IVgoMeshExporter
     {
         #region Fields
 
-        /// <summary>Whether export tangents.</summary>
-        /// <remarks>setting</remarks>
-        protected bool _ExportTangents = false;
-
-        /// <summary>Whether remove vertex color.</summary>
-        /// <remarks>setting</remarks>
-        protected bool _RemoveVertexColor = false;
-
-        /// <summary>Whether enable accessor sparse for sub mesh.</summary>
-        /// <remarks>setting</remarks>
-        protected bool _EnableSparseForSubMesh = true;
-
-        /// <summary>The threshold to apply sparse for sub mesh.</summary>
-        /// <remarks>setting</remarks>
-        protected float _SparseThresholdForSubMesh = 0.8f;
-
-        /// <summary>Whether enable accessor sparse for morph target.</summary>
-        /// <remarks>setting</remarks>
-        protected bool _EnableSparseForMorphTarget = true;
-
-        /// <summary>The threshold to apply sparse for morph target.</summary>
-        /// <remarks>setting</remarks>
-        protected float _SparseThresholdForMorphTarget = 0.8f;
+        /// <summary>The mesh exporter option.</summary>
+        protected readonly MeshExporterOption _Option;
 
         #endregion
 
-        #region Properties
+        #region Constructors
 
-        /// <summary>The VGO storage adapter.</summary>
-        public VgoStorageAdapter StorageAdapter { get; set; }
+        /// <summary>
+        /// Create a new instance of VgoMeshExporter.
+        /// </summary>
+        public VgoMeshExporter() : this(new MeshExporterOption()) { }
 
-        /// <summary>List of unity mesh.</summary>
-        public List<MeshAsset> UnityMeshList { get; protected set; }
-
-        /// <summary>List of unity material.</summary>
-        public List<Material> UnityMaterialList { get; protected set; }
+        /// <summary>
+        /// Create a new instance of VgoMeshExporter with option.
+        /// </summary>
+        /// <param name="option">The mesh exporter option.</param>
+        public VgoMeshExporter(MeshExporterOption option)
+        {
+            _Option = option;
+        }
 
         #endregion
 
@@ -62,25 +46,33 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Export meshes.
         /// </summary>
-        /// <param name="unityMeshList">List of unity mesh.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
+        /// <param name="unityMeshAssetList">List of unity mesh asset.</param>
         /// <param name="unityMaterialList">List of unity material.</param>
-        public virtual void ExportMeshes(List<MeshAsset> unityMeshList, List<Material> unityMaterialList)
+        public virtual void ExportMeshes(IVgoStorage vgoStorage, IList<MeshAsset> unityMeshAssetList, IList<Material> unityMaterialList)
         {
-            if (StorageAdapter == null)
+            if (vgoStorage == null)
             {
-                throw new Exception();
+                throw new ArgumentNullException(nameof(vgoStorage));
             }
 
-            UnityMaterialList = unityMaterialList ?? throw new ArgumentNullException();
-            UnityMeshList = unityMeshList ?? throw new ArgumentNullException();
-
-            StorageAdapter.Layout.meshes = new List<VgoMesh>(UnityMeshList.Count);
-
-            for (int meshIndex = 0; meshIndex < UnityMeshList.Count; meshIndex++)
+            if (unityMeshAssetList == null)
             {
-                VgoMesh vgoMesh = CreateVgoMesh(UnityMeshList[meshIndex]);
+                throw new ArgumentNullException(nameof(unityMeshAssetList));
+            }
 
-                StorageAdapter.Layout.meshes.Add(vgoMesh);
+            if (unityMaterialList == null)
+            {
+                throw new ArgumentNullException(nameof(unityMaterialList));
+            }
+
+            vgoStorage.Layout.meshes = new List<VgoMesh>(unityMeshAssetList.Count);
+
+            for (int meshIndex = 0; meshIndex < unityMeshAssetList.Count; meshIndex++)
+            {
+                VgoMesh vgoMesh = CreateVgoMesh(vgoStorage, unityMeshAssetList[meshIndex], unityMaterialList);
+
+                vgoStorage.Layout.meshes.Add(vgoMesh);
             }
         }
 
@@ -91,19 +83,20 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Create a vgo mesh.
         /// </summary>
-        /// <param name="meshAsset">The mesh asset.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
+        /// <param name="meshAsset">A mesh asset.</param>
+        /// <param name="unityMaterialList">List of unity material.</param>
         /// <returns>A vgo mesh.</returns>
-        protected virtual VgoMesh CreateVgoMesh(MeshAsset meshAsset)
+        protected virtual VgoMesh CreateVgoMesh(IVgoStorage vgoStorage, MeshAsset meshAsset, IList<Material> unityMaterialList)
         {
             Mesh mesh = meshAsset.Mesh;
-            Renderer renderer = meshAsset.Renderer;
-            Material[] materials = renderer.sharedMaterials;
+
             BlendShapeConfiguration blendShapeConfig = meshAsset.BlendShapeConfiguration;
 
             VgoMesh vgoMesh = new VgoMesh(mesh.name);
 
             // Attribetes
-            vgoMesh.attributes = CreatePrimitiveAttributes(mesh);
+            vgoMesh.attributes = CreatePrimitiveAttributes(vgoStorage, mesh);
 
             // SubMeshes
             if (mesh.subMeshCount > 0)
@@ -114,20 +107,26 @@ namespace UniVgo2.Porters
                 {
                     int[] meshIndices = mesh.GetIndices(subMeshIndex);
 
-                    int indicesAccessorIndex = AddAccessorForSubMesh(meshIndices);
+                    int indicesAccessorIndex = AddAccessorForSubMesh(vgoStorage, meshIndices);
 
                     vgoMesh.subMeshes.Add(indicesAccessorIndex);
 
-                    int materialIndex = UnityMaterialList.IndexOf(materials[subMeshIndex]);
-
-                    if (materialIndex >= 0)
+                    // Materials
+                    if ((unityMaterialList != null) &&
+                        (meshAsset.Renderer != null) &&
+                        (meshAsset.Renderer.sharedMaterial != null))
                     {
-                        if (vgoMesh.materials == null)
-                        {
-                            vgoMesh.materials = new List<int>();
-                        }
+                        int materialIndex = unityMaterialList.IndexOf(meshAsset.Renderer.sharedMaterials[subMeshIndex]);
 
-                        vgoMesh.materials.Add(materialIndex);
+                        if (materialIndex >= 0)
+                        {
+                            if (vgoMesh.materials == null)
+                            {
+                                vgoMesh.materials = new List<int>();
+                            }
+
+                            vgoMesh.materials.Add(materialIndex);
+                        }
                     }
                 }
             }
@@ -141,7 +140,7 @@ namespace UniVgo2.Porters
                 {
                     string blendShapeName = mesh.GetBlendShapeName(shapeIndex);
 
-                    VgoMeshPrimitiveAttributes attributes = CreateBlendShapeAttributes(mesh, shapeIndex);
+                    VgoMeshPrimitiveAttributes attributes = CreateBlendShapeAttributes(vgoStorage, mesh, shapeIndex);
 
                     VgoMeshBlendShape vgoMeshBlendShape = new VgoMeshBlendShape
                     {
@@ -193,9 +192,10 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Create a vgo mesh primitive attributes.
         /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="mesh">A unity mesh.</param>
         /// <returns>A vgo mesh primitive attributes.</returns>
-        protected virtual VgoMeshPrimitiveAttributes CreatePrimitiveAttributes(Mesh mesh)
+        protected virtual VgoMeshPrimitiveAttributes CreatePrimitiveAttributes(IVgoStorage vgoStorage, Mesh mesh)
         {
             var attributes = new VgoMeshPrimitiveAttributes();
 
@@ -204,7 +204,7 @@ namespace UniVgo2.Porters
             {
                 Vector3[] positions;
 
-                if (StorageAdapter.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
+                if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                 {
                     positions = mesh.vertices.Select(x => x.ReverseZ()).ToArray();
                 }
@@ -215,7 +215,7 @@ namespace UniVgo2.Porters
 
                 //CalculateVector3MinAndMax(positions, out float[] min, out float[] max);
 
-                int accessorIndex = StorageAdapter.AddAccessorWithoutSparse(positions, VgoResourceAccessorDataType.Vector3Float, VgoResourceAccessorKind.MeshData);
+                int accessorIndex = vgoStorage.AddAccessorWithoutSparse(positions, VgoResourceAccessorDataType.Vector3Float, VgoResourceAccessorKind.MeshData);
 
                 attributes.Add(VertexKey.Position, accessorIndex);
             }
@@ -225,7 +225,7 @@ namespace UniVgo2.Porters
             {
                 Vector3[] normals;
 
-                if (StorageAdapter.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
+                if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                 {
                     normals = mesh.normals.Select(x => x.normalized.ReverseZ()).ToArray();
                 }
@@ -234,19 +234,19 @@ namespace UniVgo2.Porters
                     normals = mesh.normals.Select(x => x.normalized).ToArray();
                 }
 
-                int accessorIndex = StorageAdapter.AddAccessorWithoutSparse(normals, VgoResourceAccessorDataType.Vector3Float, VgoResourceAccessorKind.MeshData);
+                int accessorIndex = vgoStorage.AddAccessorWithoutSparse(normals, VgoResourceAccessorDataType.Vector3Float, VgoResourceAccessorKind.MeshData);
 
                 attributes.Add(VertexKey.Normal, accessorIndex);
             }
 
             // Tangents
-            if (_ExportTangents)
+            if (_Option.ExportTangents)
             {
                 if (mesh.tangents.Length > 0)
                 {
                     Vector4[] tangents;
 
-                    if (StorageAdapter.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
+                    if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                     {
                         tangents = mesh.tangents.Select(x => x.ReverseZ()).ToArray();
                     }
@@ -255,7 +255,7 @@ namespace UniVgo2.Porters
                         tangents = mesh.tangents;
                     }
 
-                    int accessorIndex = StorageAdapter.AddAccessorWithoutSparse(tangents, VgoResourceAccessorDataType.Vector4Float, VgoResourceAccessorKind.MeshData);
+                    int accessorIndex = vgoStorage.AddAccessorWithoutSparse(tangents, VgoResourceAccessorDataType.Vector4Float, VgoResourceAccessorKind.MeshData);
 
                     attributes.Add(VertexKey.Tangent, accessorIndex);
                 }
@@ -263,24 +263,24 @@ namespace UniVgo2.Porters
 
             // UVs
             {
-                SetUV(attributes, VertexKey.TexCoord0, mesh.uv);
-                SetUV(attributes, VertexKey.TexCoord1, mesh.uv2);
-                SetUV(attributes, VertexKey.TexCoord2, mesh.uv3);
-                SetUV(attributes, VertexKey.TexCoord3, mesh.uv4);
+                SetUV(vgoStorage, attributes, VertexKey.TexCoord0, mesh.uv);
+                SetUV(vgoStorage, attributes, VertexKey.TexCoord1, mesh.uv2);
+                SetUV(vgoStorage, attributes, VertexKey.TexCoord2, mesh.uv3);
+                SetUV(vgoStorage, attributes, VertexKey.TexCoord3, mesh.uv4);
             }
 
             // Colors
-            if (_RemoveVertexColor == false)
+            if (_Option.RemoveVertexColor == false)
             {
                 //if (mesh.colors.Length > 0)
                 //{
-                //    int accessorIndex = StorageAdapter.AddAccessorWithoutSparse(mesh.colors, VgoResourceAccessorDataType.Vector4Float, VgoResourceAccessorKind.MeshData);
+                //    int accessorIndex = vgoStorage.AddAccessorWithoutSparse(mesh.colors, VgoResourceAccessorDataType.Vector4Float, VgoResourceAccessorKind.MeshData);
 
                 //    attributes.Add(VertexKey.Color0, accessorIndex);
                 //}
                 if (mesh.colors32.Length > 0)
                 {
-                    int accessorIndex = StorageAdapter.AddAccessorWithoutSparse(mesh.colors, VgoResourceAccessorDataType.Vector4UInt8, VgoResourceAccessorKind.MeshData);
+                    int accessorIndex = vgoStorage.AddAccessorWithoutSparse(mesh.colors, VgoResourceAccessorDataType.Vector4UInt8, VgoResourceAccessorKind.MeshData);
 
                     attributes.Add(VertexKey.Color0, accessorIndex);
                 }
@@ -291,7 +291,7 @@ namespace UniVgo2.Porters
             {
                 Vector4Ushort[] joints = mesh.boneWeights.Select(x => new Vector4Ushort((ushort)x.boneIndex0, (ushort)x.boneIndex1, (ushort)x.boneIndex2, (ushort)x.boneIndex3)).ToArray();
 
-                int accessorIndex = StorageAdapter.AddAccessorWithoutSparse(joints, VgoResourceAccessorDataType.Vector4UInt16, VgoResourceAccessorKind.MeshData);
+                int accessorIndex = vgoStorage.AddAccessorWithoutSparse(joints, VgoResourceAccessorDataType.Vector4UInt16, VgoResourceAccessorKind.MeshData);
 
                 attributes.Add(VertexKey.Joints0, accessorIndex);
             }
@@ -301,7 +301,7 @@ namespace UniVgo2.Porters
             {
                 Vector4[] weights = mesh.boneWeights.Select(x => new Vector4(x.weight0, x.weight1, x.weight2, x.weight3)).ToArray();
 
-                int accessorIndex = StorageAdapter.AddAccessorWithoutSparse(weights, VgoResourceAccessorDataType.Vector4Float, VgoResourceAccessorKind.MeshData);
+                int accessorIndex = vgoStorage.AddAccessorWithoutSparse(weights, VgoResourceAccessorDataType.Vector4Float, VgoResourceAccessorKind.MeshData);
 
                 attributes.Add(VertexKey.Weights0, accessorIndex);
             }
@@ -312,16 +312,17 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Sets UV.
         /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="attributes">The primitive attributes.</param>
         /// <param name="texcoordKey">The Texture coord key.</param>
         /// <param name="uvs">An array of UV.</param>
-        protected void SetUV(VgoMeshPrimitiveAttributes attributes, string texcoordKey, Vector2[] uvs)
+        protected void SetUV(IVgoStorage vgoStorage, VgoMeshPrimitiveAttributes attributes, string texcoordKey, Vector2[] uvs)
         {
             if ((uvs != null) && uvs.Any())
             {
                 Vector2[] exportUvs;
 
-                if (StorageAdapter.UVCoordinate == VgoUVCoordinate.TopLeft)
+                if (vgoStorage.UVCoordinate == VgoUVCoordinate.TopLeft)
                 {
                     exportUvs = uvs.Select(x => x.ReverseUV()).ToArray();
                 }
@@ -330,7 +331,7 @@ namespace UniVgo2.Porters
                     exportUvs = uvs;
                 }
 
-                int accessorIndex = StorageAdapter.AddAccessorWithoutSparse(exportUvs, VgoResourceAccessorDataType.Vector2Float, VgoResourceAccessorKind.MeshData);
+                int accessorIndex = vgoStorage.AddAccessorWithoutSparse(exportUvs, VgoResourceAccessorDataType.Vector2Float, VgoResourceAccessorKind.MeshData);
 
                 attributes.Add(texcoordKey, accessorIndex);
             }
@@ -343,9 +344,10 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Add a accessor for sub mesh.
         /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="meshIndices">The mesh indices.</param>
         /// <returns>The index of accessor.</returns>
-        protected virtual int AddAccessorForSubMesh(int[] meshIndices)
+        protected virtual int AddAccessorForSubMesh(IVgoStorage vgoStorage, int[] meshIndices)
         {
             int accessorIndex = -1;
 
@@ -353,7 +355,7 @@ namespace UniVgo2.Porters
 
             int[] _meshIndices;
 
-            if (StorageAdapter.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
+            if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
             {
                 _meshIndices = meshIndices.FlipTriangle();
             }
@@ -362,7 +364,7 @@ namespace UniVgo2.Porters
                 _meshIndices = meshIndices;
             }
 
-            if (_EnableSparseForSubMesh && JudgeSparseForSubMesh(meshIndices))
+            if (_Option.EnableSparseForSubMesh && JudgeSparseForSubMesh(meshIndices))
             {
                 int[] sparseIndices = Enumerable.Range(0, meshIndices.Length)
                     .Where(i => _meshIndices[i] != 0)
@@ -372,7 +374,7 @@ namespace UniVgo2.Porters
                     .Select(index => (uint)_meshIndices[index])
                     .ToArray();
 
-                accessorIndex = StorageAdapter.AddAccessorWithSparse(VgoResourceAccessorSparseType.General, sparseIndices, sparseValues,
+                accessorIndex = vgoStorage.AddAccessorWithSparse(VgoResourceAccessorSparseType.General, sparseIndices, sparseValues,
                     sparseValueDataType: VgoResourceAccessorDataType.UnsignedInt,
                     accessorDataType: VgoResourceAccessorDataType.UnsignedInt,
                     accessorCount: meshIndices.Length, kind);
@@ -383,7 +385,7 @@ namespace UniVgo2.Porters
                     .Select(x => (uint)x)
                     .ToArray();
 
-                accessorIndex = StorageAdapter.AddAccessorWithoutSparse(indices, VgoResourceAccessorDataType.UnsignedInt, kind);
+                accessorIndex = vgoStorage.AddAccessorWithoutSparse(indices, VgoResourceAccessorDataType.UnsignedInt, kind);
             }
 
             return accessorIndex;
@@ -414,7 +416,7 @@ namespace UniVgo2.Porters
 
                 float compressionRatio = (float)sparseDataSize / (float)nonSparseDataSize;
 
-                if (compressionRatio < _SparseThresholdForSubMesh)
+                if (compressionRatio < _Option.SparseThresholdForSubMesh)
                 {
                     return true;
                 }
@@ -430,10 +432,11 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Creat a blend shape attributes.
         /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="mesh">A unity mesh.</param>
         /// <param name="blendShapeIndex">The index of blend shape.</param>
         /// <returns>A vgo blend shape attributes.</returns>
-        protected virtual VgoMeshPrimitiveAttributes CreateBlendShapeAttributes(Mesh mesh, int blendShapeIndex)
+        protected virtual VgoMeshPrimitiveAttributes CreateBlendShapeAttributes(IVgoStorage vgoStorage, Mesh mesh, int blendShapeIndex)
         {
             int frameIndex = mesh.GetBlendShapeFrameCount(blendShapeIndex) - 1;
 
@@ -445,7 +448,7 @@ namespace UniVgo2.Porters
 
             bool usePosition = positions.Length > 0;
             bool useNormal = usePosition && (normals.Length == positions.Length);
-            bool useTangent = usePosition && (tangents.Length == positions.Length) && _ExportTangents;
+            bool useTangent = usePosition && (tangents.Length == positions.Length) && _Option.ExportTangents;
 
             int positionAccessorIndex = -1;
             int normalAccessorIndex = -1;
@@ -453,32 +456,32 @@ namespace UniVgo2.Porters
 
             if (usePosition)
             {
-                if (StorageAdapter.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
+                if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                 {
                     positions = positions.Select(x => x.ReverseZ()).ToArray();
                 }
 
-                positionAccessorIndex = AddAccessorForBlendShape(positions);
+                positionAccessorIndex = AddAccessorForBlendShape(vgoStorage, positions);
             }
 
             if (useNormal)
             {
-                if (StorageAdapter.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
+                if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                 {
                     normals = normals.Select(x => x.ReverseZ()).ToArray();
                 }
 
-                normalAccessorIndex = AddAccessorForBlendShape(normals);
+                normalAccessorIndex = AddAccessorForBlendShape(vgoStorage, normals);
             }
 
             if (useTangent)
             {
-                if (StorageAdapter.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
+                if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                 {
                     tangents = tangents.Select(x => x.ReverseZ()).ToArray();
                 }
 
-                tangentAccessorIndex = AddAccessorForBlendShape(tangents);
+                tangentAccessorIndex = AddAccessorForBlendShape(vgoStorage, tangents);
             }
 
             var attributes = new VgoMeshPrimitiveAttributes
@@ -494,15 +497,16 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Add a accessor for morph target.
         /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="vertexes">An array of vertex.</param>
         /// <returns>The index of accessor.</returns>
-        protected virtual int AddAccessorForBlendShape(Vector3[] vertexes)
+        protected virtual int AddAccessorForBlendShape(IVgoStorage vgoStorage, Vector3[] vertexes)
         {
             int accessorIndex = -1;
 
             var kind = VgoResourceAccessorKind.MeshData;
 
-            if (_EnableSparseForMorphTarget && JudgeSparseForBlendShape(vertexes, out VgoResourceAccessorSparseType sparseType, out int sparseCount))
+            if (_Option.EnableSparseForMorphTarget && JudgeSparseForBlendShape(vertexes, out VgoResourceAccessorSparseType sparseType, out int sparseCount))
             {
                 if (sparseType == VgoResourceAccessorSparseType.General)
                 {
@@ -532,7 +536,7 @@ namespace UniVgo2.Porters
                     //    throw new Exception($"{sparseCount}, {sparseIndexList.Count}, {sparseValueList.Count}");
                     //}
 
-                    accessorIndex = StorageAdapter.AddAccessorWithSparse(VgoResourceAccessorSparseType.General, sparseIndices, sparseValues,
+                    accessorIndex = vgoStorage.AddAccessorWithSparse(VgoResourceAccessorSparseType.General, sparseIndices, sparseValues,
                         sparseValueDataType: VgoResourceAccessorDataType.Vector3Float,
                         accessorDataType: VgoResourceAccessorDataType.Vector3Float,
                         accessorCount: vertexes.Length, kind);
@@ -574,7 +578,7 @@ namespace UniVgo2.Porters
                     //    throw new Exception($"{sparseCount}, {sparseIndexList.Count}, {sparseValueList.Count}");
                     //}
 
-                    accessorIndex = StorageAdapter.AddAccessorWithSparse(VgoResourceAccessorSparseType.Powerful, sparseIndices, sparseValues,
+                    accessorIndex = vgoStorage.AddAccessorWithSparse(VgoResourceAccessorSparseType.Powerful, sparseIndices, sparseValues,
                         sparseValueDataType: VgoResourceAccessorDataType.Float,
                         accessorDataType: VgoResourceAccessorDataType.Vector3Float,
                         accessorCount: vertexes.Length, kind);
@@ -586,7 +590,7 @@ namespace UniVgo2.Porters
             }
             else
             {
-               accessorIndex = StorageAdapter.AddAccessorWithoutSparse(vertexes, VgoResourceAccessorDataType.Vector3Float, kind);
+               accessorIndex = vgoStorage.AddAccessorWithoutSparse(vertexes, VgoResourceAccessorDataType.Vector3Float, kind);
             }
 
             return accessorIndex;
@@ -661,7 +665,7 @@ namespace UniVgo2.Porters
             {
                 float compressionRatio = (float)generalSparseDataSize / (float)nonSparseDataSize;
 
-                if (compressionRatio < _SparseThresholdForMorphTarget)
+                if (compressionRatio < _Option.SparseThresholdForMorphTarget)
                 {
                     sparseType = VgoResourceAccessorSparseType.General;
                     sparseCount = generalSparseCount;
@@ -676,7 +680,7 @@ namespace UniVgo2.Porters
             {
                 float compressionRatio = (float)powerfulSparseDataSize / (float)nonSparseDataSize;
 
-                if (compressionRatio < _SparseThresholdForMorphTarget)
+                if (compressionRatio < _Option.SparseThresholdForMorphTarget)
                 {
                     sparseType = VgoResourceAccessorSparseType.Powerful;
                     sparseCount = powerfulSparseCount;

@@ -22,7 +22,7 @@ namespace UniVgo2.Converters
         /// <param name="nodeName"></param>
         /// <param name="nodes"></param>
         /// <returns></returns>
-        public static VgoHumanAvatar CreateVgoAvatar(Animator animator, string nodeName, List<Transform> nodes)
+        public static VgoHumanAvatar CreateVgoAvatar(Animator animator, string nodeName, IList<Transform> nodes)
         {
             if (animator.avatar is null)
             {

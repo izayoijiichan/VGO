@@ -9,6 +9,7 @@ namespace UniVgo2
     /// <summary>
     /// VGO Right
     /// </summary>
+    [AddComponentMenu("Vgo/Vgo Right")]
     [DisallowMultipleComponent]
     public class VgoRight : MonoBehaviour
     {

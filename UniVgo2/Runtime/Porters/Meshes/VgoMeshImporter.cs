@@ -13,26 +13,30 @@ namespace UniVgo2.Porters
     /// <summary>
     /// VGO Mesh Importer
     /// </summary>
-    public class VgoMeshImporter
+    public class VgoMeshImporter : IVgoMeshImporter
     {
         #region Fields
 
-        /// <summary>Whether import tangents.</summary>
-        /// <remarks>setting</remarks>
-        protected bool _ImportTangents = false;
+        /// <summary>The mesh importer option.</summary>
+        protected readonly MeshImporterOption _Option;
 
         #endregion
 
-        #region Properties
+        #region Constructors
 
-        /// <summary>The VGO storage adapter.</summary>
-        public VgoStorageAdapter StorageAdapter { get; set; }
+        /// <summary>
+        /// Create a new instance of VgoMeshImporter.
+        /// </summary>
+        public VgoMeshImporter() : this(new MeshImporterOption()) { }
 
-        /// <summary>List of unity material.</summary>
-        public List<Material> UnityMaterialList { get; set; }
-
-        /// <summary>List of scriptable object.</summary>
-        public List<ScriptableObject> ScriptableObjectList { get; set; }
+        /// <summary>
+        /// Create a new instance of VgoMeshImporter with option.
+        /// </summary>
+        /// <param name="option"></param>
+        public VgoMeshImporter(MeshImporterOption option)
+        {
+            _Option = option;
+        }
 
         #endregion
 
@@ -41,32 +45,40 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Create a mesh asset.
         /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="meshIndex">The index of vgo mesh.</param>
+        /// <param name="scriptableObjectList">List of scriptable object.</param>
+        /// <param name="unityMaterialList">List of unity material.</param>
         /// <returns>A mesh asset.</returns>
-        public virtual MeshAsset CreateMeshAsset(int meshIndex)
+        public virtual MeshAsset CreateMeshAsset(IVgoStorage vgoStorage, int meshIndex, IList<ScriptableObject> scriptableObjectList, IList<Material> unityMaterialList)
         {
-            if (StorageAdapter == null)
+            if (vgoStorage == null)
             {
-                throw new Exception();
+                throw new ArgumentNullException(nameof(vgoStorage));
             }
 
-            if (UnityMaterialList == null)
+            if (scriptableObjectList == null)
             {
-                throw new Exception();
+                throw new ArgumentNullException(nameof(scriptableObjectList));
             }
 
-            MeshContext meshContext = ReadMesh(meshIndex, out BlendShapeConfiguration blendShapeConfig);
+            if (unityMaterialList == null)
+            {
+                throw new ArgumentNullException(nameof(unityMaterialList));
+            }
+
+            MeshContext meshContext = ReadMesh(vgoStorage, meshIndex, out BlendShapeConfiguration blendShapeConfig);
 
             Mesh mesh = BuildMesh(meshContext);
 
             MeshAsset meshAsset = new MeshAsset
             {
                 Mesh = mesh,
-                Materials = meshContext.materialIndices.Select(x => UnityMaterialList[x]).ToArray(),
+                Materials = meshContext.materialIndices.Select(x => unityMaterialList[x]).ToArray(),
                 BlendShapeConfiguration = blendShapeConfig,
             };
 
-            ScriptableObjectList.Add(blendShapeConfig);
+            scriptableObjectList.Add(blendShapeConfig);
 
             return meshAsset;
         }
@@ -78,28 +90,34 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Read a mesh.
         /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="meshIndex">The index of vgo mesh.</param>
         /// <param name="blendShapeConfig">A blend shape configuration.</param>
         /// <returns>A mesh context.</returns>
-        protected virtual MeshContext ReadMesh(int meshIndex, out BlendShapeConfiguration blendShapeConfig)
+        protected virtual MeshContext ReadMesh(IVgoStorage vgoStorage, int meshIndex, out BlendShapeConfiguration blendShapeConfig)
         {
-            VgoMesh vgoMesh = StorageAdapter.Layout.meshes[meshIndex];
+            VgoMesh vgoMesh = vgoStorage.Layout.meshes[meshIndex];
 
             string meshName = (string.IsNullOrEmpty(vgoMesh.name) == false) ? vgoMesh.name : string.Format($"mesh_{meshIndex}");
 
             var meshContext = new MeshContext(meshName);
 
             // Attributes
-            SetPrimitiveAttributes(meshContext, vgoMesh.attributes, out int positionsCount);
+            SetPrimitiveAttributes(vgoStorage, meshContext, vgoMesh.attributes, out int positionsCount);
 
             // SubMeshes
-            meshContext.subMeshes = CreateSubMeshes(vgoMesh.subMeshes, positionsCount);
+            meshContext.subMeshes = CreateSubMeshes(vgoStorage, vgoMesh.subMeshes, positionsCount);
 
             // Materials
             meshContext.materialIndices = vgoMesh.materials;
 
+            if (meshContext.materialIndices.Any() == false)
+            {
+                meshContext.materialIndices.Add(0);
+            }
+
             // BlendShapes
-            meshContext.blendShapes = CreateBlendShapes(vgoMesh.blendShapes, out blendShapeConfig);
+            meshContext.blendShapes = CreateBlendShapes(vgoStorage, vgoMesh.blendShapes, out blendShapeConfig);
 
             // BlendShapeConfiguration
             if ((vgoMesh.blendShapeKind != VgoBlendShapeKind.None) ||
@@ -134,19 +152,20 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Set primitives.
         /// </summary>
-        /// <param name="meshContext">The mesh context.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
+        /// <param name="meshContext">A mesh context.</param>
         /// <param name="attributes">The mesh primitive attributes.</param>
         /// <param name="positionsCount">The count of positions.</param>
-        protected virtual void SetPrimitiveAttributes(MeshContext meshContext, VgoMeshPrimitiveAttributes attributes, out int positionsCount)
+        protected virtual void SetPrimitiveAttributes(IVgoStorage vgoStorage, MeshContext meshContext, VgoMeshPrimitiveAttributes attributes, out int positionsCount)
         {
             positionsCount = 0;
 
             // Positions
             if (attributes.POSITION != -1)
             {
-                Vector3[] positions = StorageAdapter.GetAccessorArrayData<Vector3>(attributes.POSITION);
+                Vector3[] positions = vgoStorage.GetAccessorArrayData<Vector3>(attributes.POSITION);
 
-                if (StorageAdapter.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
+                if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                 {
                     meshContext.positions = new Vector3[positions.Length];
 
@@ -166,9 +185,9 @@ namespace UniVgo2.Porters
             // Normals
             if (attributes.NORMAL != -1)
             {
-                Vector3[] normals = StorageAdapter.GetAccessorArrayData<Vector3>(attributes.NORMAL);
+                Vector3[] normals = vgoStorage.GetAccessorArrayData<Vector3>(attributes.NORMAL);
 
-                if (StorageAdapter.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
+                if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                 {
                     meshContext.normals = new Vector3[normals.Length];
 
@@ -184,24 +203,24 @@ namespace UniVgo2.Porters
             }
 
             // Tangents
-            if (_ImportTangents)
+            if (_Option.ImportTangents)
             {
                 if (attributes.TANGENT != -1)
                 {
-                    VgoResourceAccessor tangentAccessor = StorageAdapter.GetAccessor(attributes.TANGENT);
+                    VgoResourceAccessor tangentAccessor = vgoStorage.GetAccessor(attributes.TANGENT);
 
                     Vector4[] tangents;
 
                     if (tangentAccessor.dataType == VgoResourceAccessorDataType.Vector4Float)
                     {
-                        tangents = StorageAdapter.GetAccessorArrayData<Vector4>(attributes.TANGENT);
+                        tangents = vgoStorage.GetAccessorArrayData<Vector4>(attributes.TANGENT);
                     }
                     else
                     {
                         throw new NotImplementedException(string.Format("unknown tangentAccessor.type: {0}", tangentAccessor.dataType));
                     }
 
-                    if (StorageAdapter.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
+                    if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                     {
                         meshContext.tangents = new Vector4[tangents.Length];
 
@@ -219,28 +238,28 @@ namespace UniVgo2.Porters
 
             // UVs
             {
-                meshContext.uv0s = ReadUV(attributes.TEXCOORD_0, positionsCount);
-                meshContext.uv1s = ReadUV(attributes.TEXCOORD_1, -1);
-                meshContext.uv2s = ReadUV(attributes.TEXCOORD_2, -1);
-                meshContext.uv3s = ReadUV(attributes.TEXCOORD_3, -1);
+                meshContext.uv0s = ReadUV(vgoStorage, attributes.TEXCOORD_0, positionsCount);
+                meshContext.uv1s = ReadUV(vgoStorage, attributes.TEXCOORD_1, -1);
+                meshContext.uv2s = ReadUV(vgoStorage, attributes.TEXCOORD_2, -1);
+                meshContext.uv3s = ReadUV(vgoStorage, attributes.TEXCOORD_3, -1);
             }
 
             // Colors
             if (attributes.COLOR_0 != -1)
             {
-                VgoResourceAccessor colorAccessor = StorageAdapter.GetAccessor(attributes.COLOR_0);
+                VgoResourceAccessor colorAccessor = vgoStorage.GetAccessor(attributes.COLOR_0);
 
                 if (colorAccessor.dataType == VgoResourceAccessorDataType.Vector4UInt8)
                 {
                     // @notice Vector4(byte) = Color32
-                    Color32[] colors = StorageAdapter.GetAccessorArrayData<Color32>(attributes.COLOR_0);
+                    Color32[] colors = vgoStorage.GetAccessorArrayData<Color32>(attributes.COLOR_0);
 
                     meshContext.color32s = colors;
                 }
                 else if (colorAccessor.dataType == VgoResourceAccessorDataType.Vector4Float)
                 {
                     // @notice Vector4(float) = Color
-                    Color[] colors = StorageAdapter.GetAccessorArrayData<Color>(attributes.COLOR_0);
+                    Color[] colors = vgoStorage.GetAccessorArrayData<Color>(attributes.COLOR_0);
 
                     meshContext.colors = colors;
                 }
@@ -254,13 +273,13 @@ namespace UniVgo2.Porters
             if ((attributes.JOINTS_0 != -1) && (attributes.WEIGHTS_0 != -1))
             {
                 // Joints
-                VgoResourceAccessor jointsAccessor = StorageAdapter.GetAccessor(attributes.JOINTS_0);
+                VgoResourceAccessor jointsAccessor = vgoStorage.GetAccessor(attributes.JOINTS_0);
 
                 Vector4Ushort[] joints;
 
                 if (jointsAccessor.dataType == VgoResourceAccessorDataType.Vector4UInt8)
                 {
-                    ReadOnlySpan<Vector4Ubyte> vec4byteSpan = StorageAdapter.GetAccessorSpan<Vector4Ubyte>(attributes.JOINTS_0);
+                    ReadOnlySpan<Vector4Ubyte> vec4byteSpan = vgoStorage.GetAccessorSpan<Vector4Ubyte>(attributes.JOINTS_0);
 
                     joints = new Vector4Ushort[vec4byteSpan.Length];
 
@@ -275,7 +294,7 @@ namespace UniVgo2.Porters
                 }
                 else if (jointsAccessor.dataType == VgoResourceAccessorDataType.Vector4UInt16)
                 {
-                    joints = StorageAdapter.GetAccessorArrayData<Vector4Ushort>(attributes.JOINTS_0);
+                    joints = vgoStorage.GetAccessorArrayData<Vector4Ushort>(attributes.JOINTS_0);
                 }
                 else
                 {
@@ -283,7 +302,7 @@ namespace UniVgo2.Porters
                 }
 
                 // Weights
-                Vector4[] weights = StorageAdapter.GetAccessorArrayData<Vector4>(attributes.WEIGHTS_0);
+                Vector4[] weights = vgoStorage.GetAccessorArrayData<Vector4>(attributes.WEIGHTS_0);
 
                 // BoneWeights
                 if (joints.Length == weights.Length)
@@ -301,10 +320,11 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Read UV.
         /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="texcoord">The accessor index of texture coord.</param>
         /// <param name="positionsCount">The positions count.</param>
         /// <returns>An array of UV.</returns>
-        protected virtual Vector2[] ReadUV(int texcoord, int positionsCount)
+        protected virtual Vector2[] ReadUV(IVgoStorage vgoStorage, int texcoord, int positionsCount)
         {
             Vector2[] uvs;
 
@@ -321,9 +341,9 @@ namespace UniVgo2.Porters
             }
             else
             {
-                Vector2[] resourceUvs = StorageAdapter.GetAccessorArrayData<Vector2>(texcoord);
+                Vector2[] resourceUvs = vgoStorage.GetAccessorArrayData<Vector2>(texcoord);
 
-                if (StorageAdapter.UVCoordinate == VgoUVCoordinate.TopLeft)
+                if (vgoStorage.UVCoordinate == VgoUVCoordinate.TopLeft)
                 {
                     uvs = new Vector2[resourceUvs.Length];
 
@@ -348,10 +368,11 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Create sub meshes.
         /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="vgoSubMeshes">The vgo subMesh accessor indices.</param>
         /// <param name="positionsLength"></param>
         /// <returns>List of blend shape.</returns>
-        protected virtual List<int[]> CreateSubMeshes(List<int> vgoSubMeshes, int positionsLength)
+        protected virtual List<int[]> CreateSubMeshes(IVgoStorage vgoStorage, List<int> vgoSubMeshes, int positionsLength)
         {
             if ((vgoSubMeshes == null) || (vgoSubMeshes.Any() == false))
             {
@@ -368,9 +389,9 @@ namespace UniVgo2.Porters
                 }
                 else
                 {
-                    int[] indices = GetSubMeshIndices(vgoSubMeshes[subMeshIndex]);
+                    int[] indices = GetSubMeshIndices(vgoStorage, vgoSubMeshes[subMeshIndex]);
 
-                    if (StorageAdapter.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
+                    if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                     {
                         indices = indices.FlipTriangle();
                     }
@@ -385,20 +406,21 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Get submesh indices.
         /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="accessorIndex">The index of accessor.</param>
         /// <returns>The indices.</returns>
-        protected virtual int[] GetSubMeshIndices(int accessorIndex)
+        protected virtual int[] GetSubMeshIndices(IVgoStorage vgoStorage, int accessorIndex)
         {
-            VgoResourceAccessor accessor = StorageAdapter.GetAccessor(accessorIndex);
+            VgoResourceAccessor accessor = vgoStorage.GetAccessor(accessorIndex);
 
             int[] indices;
 
             switch (accessor.dataType)
             {
                 case VgoResourceAccessorDataType.UnsignedByte:
-                    //indices = VgoStorageAdapter.GetAccessorArrayData<byte>(accessorIndex).Select(x => (int)x);
+                    //indices = vgoStorage.GetAccessorArrayData<byte>(accessorIndex).Select(x => (int)x);
                     {
-                        ReadOnlySpan<byte> indexSpan = StorageAdapter.GetAccessorSpan<byte>(accessorIndex);
+                        ReadOnlySpan<byte> indexSpan = vgoStorage.GetAccessorSpan<byte>(accessorIndex);
 
                         indices = new int[indexSpan.Length];
 
@@ -410,9 +432,9 @@ namespace UniVgo2.Porters
                     break;
 
                 case VgoResourceAccessorDataType.UnsignedShort:
-                    //indices = VgoStorageAdapter.GetAccessorArrayData<ushort>(accessorIndex).Select(x => (int)x);
+                    //indices = vgoStorage.GetAccessorArrayData<ushort>(accessorIndex).Select(x => (int)x);
                     {
-                        ReadOnlySpan<ushort> indexSpan = StorageAdapter.GetAccessorSpan<ushort>(accessorIndex);
+                        ReadOnlySpan<ushort> indexSpan = vgoStorage.GetAccessorSpan<ushort>(accessorIndex);
 
                         indices = new int[indexSpan.Length];
 
@@ -424,9 +446,9 @@ namespace UniVgo2.Porters
                     break;
 
                 case VgoResourceAccessorDataType.UnsignedInt:
-                    //indices = VgoStorageAdapter.GetAccessorArrayData<uint>(accessorIndex).Select(x => (int)x);
+                    //indices = vgoStorage.GetAccessorArrayData<uint>(accessorIndex).Select(x => (int)x);
                     {
-                        ReadOnlySpan<uint> indexSpan = StorageAdapter.GetAccessorSpan<uint>(accessorIndex);
+                        ReadOnlySpan<uint> indexSpan = vgoStorage.GetAccessorSpan<uint>(accessorIndex);
 
                         indices = new int[indexSpan.Length];
 
@@ -451,10 +473,11 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Create blend shapes.
         /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="vgoBlendShapes">List of vgo blend shape.</param>
         /// <param name="blendShapeConfig">A blend shape configuration.</param>
         /// <returns>List of blend shape.</returns>
-        protected virtual List<BlendShape> CreateBlendShapes(List<VgoMeshBlendShape> vgoBlendShapes, out BlendShapeConfiguration blendShapeConfig)
+        protected virtual List<BlendShapeContext> CreateBlendShapes(IVgoStorage vgoStorage, List<VgoMeshBlendShape> vgoBlendShapes, out BlendShapeConfiguration blendShapeConfig)
         {
             if ((vgoBlendShapes == null) || (vgoBlendShapes.Any() == false))
             {
@@ -465,7 +488,7 @@ namespace UniVgo2.Porters
 
             blendShapeConfig = ScriptableObject.CreateInstance<BlendShapeConfiguration>();
 
-            List<BlendShape> blendShapes = new List<BlendShape>(vgoBlendShapes.Count);
+            List<BlendShapeContext> blendShapes = new List<BlendShapeContext>(vgoBlendShapes.Count);
 
             for (int shapeIndex = 0; shapeIndex < vgoBlendShapes.Count; shapeIndex++)
             {
@@ -473,15 +496,15 @@ namespace UniVgo2.Porters
 
                 string name = (string.IsNullOrEmpty(vgoBlendShape.name) == false) ? vgoBlendShape.name : shapeIndex.ToString();
 
-                BlendShape blendShape = new BlendShape(name);
+                BlendShapeContext blendShape = new BlendShapeContext(name);
 
                 VgoMeshPrimitiveAttributes attributes = vgoBlendShape.attributes;
 
                 if (attributes.POSITION != -1)
                 {
-                    Vector3[] positions = StorageAdapter.GetAccessorArrayData<Vector3>(attributes.POSITION);
+                    Vector3[] positions = vgoStorage.GetAccessorArrayData<Vector3>(attributes.POSITION);
 
-                    if (StorageAdapter.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
+                    if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                     {
                         blendShape.positions = new Vector3[positions.Length];
 
@@ -498,9 +521,9 @@ namespace UniVgo2.Porters
 
                 if (attributes.NORMAL != -1)
                 {
-                    Vector3[] normals = StorageAdapter.GetAccessorArrayData<Vector3>(attributes.NORMAL);
+                    Vector3[] normals = vgoStorage.GetAccessorArrayData<Vector3>(attributes.NORMAL);
 
-                    if (StorageAdapter.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
+                    if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                     {
                         blendShape.normals = new Vector3[normals.Length];
 
@@ -517,9 +540,9 @@ namespace UniVgo2.Porters
 
                 if (attributes.TANGENT != -1)
                 {
-                    Vector3[] tangents = StorageAdapter.GetAccessorArrayData<Vector3>(attributes.TANGENT);
+                    Vector3[] tangents = vgoStorage.GetAccessorArrayData<Vector3>(attributes.TANGENT);
 
-                    if (StorageAdapter.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
+                    if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                     {
                         blendShape.tangents = new Vector3[tangents.Length];
 
@@ -580,15 +603,10 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Build a unity mesh.
         /// </summary>
-        /// <param name="meshContext">The mesh context.</param>
+        /// <param name="meshContext">A mesh context.</param>
         /// <returns>A unity mesh.</returns>
         protected virtual Mesh BuildMesh(MeshContext meshContext)
         {
-            if (meshContext.materialIndices.Any() == false)
-            {
-                meshContext.materialIndices.Add(0);
-            }
-
             Mesh mesh = new Mesh
             {
                 name = meshContext.name
@@ -615,7 +633,7 @@ namespace UniVgo2.Porters
             // Tangents
             bool recalculateTangents = true;
 
-            if (_ImportTangents)
+            if (_Option.ImportTangents)
             {
                 if ((meshContext.tangents != null) && meshContext.tangents.Any())
                 {
@@ -684,7 +702,7 @@ namespace UniVgo2.Porters
             {
                 Vector3[] emptyVertices = null;
 
-                foreach (BlendShape blendShape in meshContext.blendShapes)
+                foreach (BlendShapeContext blendShape in meshContext.blendShapes)
                 {
                     if (blendShape.positions?.Length > 0)
                     {

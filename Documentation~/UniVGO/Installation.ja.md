@@ -19,7 +19,7 @@ ___
 |Unity 2021.3|○|○|○|○|未確認|
 |Unity 2022.1|○|○|○|未確認|未確認|
 
-2022年7月の時点では `Unity 2022.1` の `Windows` `.NET Standard 2.1` 環境にて開発＆確認を行っています。
+2022年8月の時点では `Unity 2022.1` の `Windows` `.NET Standard 2.1` 環境にて開発＆確認を行っています。
 
 ### 必要パッケージ
 
@@ -28,11 +28,11 @@ ___
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|
 |:---|:---:|:---:|:---:|:---:|:---:|
 |com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|-|3.0.2|2022年3月29日|
-|VRMShaders|vrm-c|GitHub||0.72.0|2021年4月13日|
-|LilToonShader.Utility|IzayoiJiichan|GitHub||1.0.0|2022年7月11日|
+|VRMShaders|vrm-c|GitHub||0.85.0|2021年9月30日|
+|LilToonShader.Utility|IzayoiJiichan|GitHub||1.0.1|2022年8月21日|
 |UniShaders|IzayoiJiichan|GitHub||1.4.0|2022年5月20日|
-|VgoSpringBone|IzayoiJiichan|GitHub||1.1.1|2021年6月1日|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.10|2022年7月11日|
+|VgoSpringBone|IzayoiJiichan|GitHub||1.1.2|2022年8月24日|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.11|2022年8月24日|
 
 #### 追加（Unity 2021.1 以下のバージョンを使用する場合）
 
@@ -41,7 +41,6 @@ ___
 |org.nuget.system.buffers|Microsoft|NuGet||4.4.0|2017年8月11日|
 |org.nuget.system.memory|Microsoft|NuGet||4.5.0|2018年5月29日|
 |org.nuget.system.numerics.vectors|Microsoft|NuGet||4.4.0|2017年8月11日|
-|org.nuget.system.runtime.compilerservices.unsafe|Microsoft|NuGet||4.5.0|2018年5月29日|
 
 #### 追加（HDRP のプロジェクトで使用する場合）
 
@@ -140,17 +139,16 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
     }
   ],
   "dependencies": {
-    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.0",
+    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.1",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.9",
-    "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.11",
+    "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.85.0",
     "org.nuget.system.buffers": "4.4.0",
     "org.nuget.system.memory": "4.5.0",
     "org.nuget.system.numerics.vectors": "4.4.0",
-    "org.nuget.system.runtime.compilerservices.unsafe": "4.5.0",
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
@@ -163,13 +161,13 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
 ```json
 {
   "dependencies": {
-    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.0",
+    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.1",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.9",
-    "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.11",
+    "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.85.0",
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
@@ -232,7 +230,7 @@ lilToonを使用する場合、"jp.lilxyzw.liltoon" の行を追加してくだ�
 - `asmdef` の設定が変更されている
 - `asmdef.meta` の設定が変更されている
 - コンポーネントの `.meta` の guid が変更されている
-- `System.Buffers.dll`, `System.Memory.dll`, `System.Numerics.Vectors.dll`, `System.Runtime.CompilerServices.Unsage.dll` が重複して配置されている
+- `System.Buffers.dll`, `System.Memory.dll`, `System.Numerics.Vectors.dll` が重複して配置されている
 - `NewtonSoft.Json.dll` が重複して配置されている
 
 ___
@@ -246,10 +244,10 @@ ___
 
 |アセンブリ|説明|UniVgo2|UniVgo2.Editor|
 |:---|:---|:---:|:---:|
-|lilToon.Editor|lilToon シェーダー ユーティリティー|-|*|
+|lilToon.Editor|lilToon シェーダー ユーティリティー|-|-|
 |LilToonShader.Utility|lilToon シェーダー ユーティリティー|*|*|
 |MToon|MToon シェーダー ユーティリティー|*|*|
-|MToon.Editor|MToon シェーダー ユーティリティー|-|*|
+|MToon.Editor|MToon シェーダー ユーティリティー|-|-|
 |NewtonVgo|Newton.JSON向け VGOプログラム|*|*|
 |ShaderProperty.Runtime|シェーダーのプロパティー情報|*|*|
 |UniShader.Hdrp.Utility|HDRP シェーダー ユーティリティー|*|*|
@@ -260,9 +258,9 @@ ___
 |UniVgo2|VGO2 メインプログラム|*|*|
 |UniVgo2.Editor|VGO2 のエディター上での入出力操作|-|*|
 |VgoSpringBone|VGO Spring Bone|*|*|
-|VRMShaders.GLTF.IO.Editor||-|*|
+|VRMShaders.GLTF.IO.Editor||-|-|
 |VRMShaders.GLTF.IO.Runtime||*|*|
-|VRMShaders.GLTF.UniUnlit.Editor|Unlit シェーダー ユーティリティー|-|*|
+|VRMShaders.GLTF.UniUnlit.Editor|Unlit シェーダー ユーティリティー|-|-|
 |VRMShaders.GLTF.UniUnlit.Runtime|Unlit シェーダー ユーティリティー|*|*|
 
 - UniVgo2, UniVgo2.Editor それぞれについて、依存関係にあるDLLに * を付けています。
@@ -298,31 +296,42 @@ Scripting Define Symbols に定義を追加することで、処理を変更し�
 
 バージョンの組み合わせは以下の通りです。
 
-UniVRM|UniVGO|Result|
-|:---:|:---:|:---:|
-|0.66.0|2.4.4|○|
-|0.68.2|2.4.4|○|
-|0.70.0|2.4.4|○|
-|0.71.0|2.4.4|○|
-|0.72.0|2.4.5|○|
-|0.73.0|2.4.5|○|
-|0.74.0|2.4.5|○|
-|0.75.0|2.4.5|○|
-|0.76.0|2.4.5|(○)|
-|0.77.0|2.4.5|(○)|
-|0.78.0|2.4.5|(○)|
-|0.79.0|2.4.5|(○)|
-|0.80.0|2.4.5|(○)|
-|0.81.0|2.4.5|○|
-|0.82.0|2.4.5|○|
-|0.83.0|2.4.5|○|
-|0.84.0|2.4.5|○|
-|0.85.0|2.4.5|○|
-|0.86.0|2.4.5|○|
-|0.87.0|2.4.5|○|
-|0.88.0|2.4.5|○|
-|0.89.0|2.4.5|○|
-|0.90.0|2.4.5|○|
+|UniVRM|min UniVGO|min Unity|Result|
+|:---:|:---:|:---:|:---:|
+|0.66.0|2.4.4|2019.4|○|
+|0.68.2|2.4.4|2019.4|○|
+|0.70.0|2.4.4|2019.4|○|
+|0.71.0|2.4.4|2019.4|○|
+|0.72.0|2.4.5|2019.4|○|
+|0.73.0|2.4.5|2019.4|○|
+|0.74.0|2.4.5|2019.4|○|
+|0.75.0|2.4.5|2019.4|○|
+|0.76.0|2.4.5|2019.4|(○)|
+|0.77.0|2.4.5|2019.4|(○)|
+|0.78.0|2.4.5|2019.4|(○)|
+|0.79.0|2.4.5|2019.4|(○)|
+|0.80.0|2.4.5|2019.4|(○)|
+|0.81.0|2.4.5|2019.4|○|
+|0.82.0|2.4.5|2019.4|○|
+|0.83.0|2.4.5|2019.4|○|
+|0.84.0|2.4.5|2019.4|○|
+|0.85.0|2.4.5|2019.4|○|
+|0.86.0|2.4.5|2019.4|○|
+|0.87.0|2.4.5|2019.4|○|
+|0.88.0|2.4.5|2019.4|○|
+|0.89.0|2.4.5|2019.4|○|
+|0.90.0|2.4.5|2019.4|○|
+|0.91.0|2.4.5|2019.4|○|
+|0.92.0|2.4.5|2019.4|○|
+|0.93.0|2.4.5|2019.4|○|
+|0.94.0|2.4.5|2019.4|○|
+|0.95.1|2.4.5|2019.4|○|
+|0.96.2|2.4.5|2019.4|○|
+|0.97.0|2.4.5|2019.4|○|
+|0.98.0|2.4.5|2019.4|○|
+|0.99.4|2.4.5|2019.4|○|
+|0.100.0|2.4.5|2020.3|○|
+|0.101.0|2.4.5|2020.3|○|
 
 Unity 2020.2 以上を使用する場合、0.76.0 から 0.80.0 ではコンパイルエラーが発生しますので非推奨です。
 
@@ -397,7 +406,7 @@ UniVGO 2.4.4 を使用してください。
 |2021.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.brp.univrm)|
 
 ___
-最終更新日：2022年7月11日  
+最終更新日：2022年8月24日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*

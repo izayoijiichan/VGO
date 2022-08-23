@@ -19,7 +19,7 @@ ___
 |Unity 2021.3|OK|OK|OK|OK|unconfirmed|
 |Unity 2022.1|OK|OK|unconfirmed|unconfirmed|unconfirmed|
 
-As of July of 2022, we are developing and confirming in `Unity 2022.1` `Windows` `.NET Standard 2.1` environment.
+As of August of 2022, we are developing and confirming in `Unity 2022.1` `Windows` `.NET Standard 2.1` environment.
 
 ### Required package
 
@@ -29,10 +29,10 @@ As of July of 2022, we are developing and confirming in `Unity 2022.1` `Windows`
 |:---|:---:|:---:|:---:|:---:|:---:|
 |com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|-|3.0.2|29 Mar, 2022|
 |VRMShaders|vrm-c|GitHub|VRM 0.0|0.72.0|13 Apr, 2020|
-|LilToonShader.Utility|IzayoiJiichan|GitHub||1.0.0|11 July, 2022|
+|LilToonShader.Utility|IzayoiJiichan|GitHub||1.0.1|21 Aug, 2022|
 |UniShaders|IzayoiJiichan|GitHub|-|1.4.0|20 May, 2022|
-|VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.1|1 June, 2021|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.10|11 July, 2022|
+|VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.2|24 Aug, 2022|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.11|24 Aug, 2022|
 
 #### Added (when using Unity 2021.1 or lower version)
 
@@ -41,7 +41,6 @@ As of July of 2022, we are developing and confirming in `Unity 2022.1` `Windows`
 |org.nuget.system.buffers|Microsoft|NuGet||4.4.0|11 Aug, 2017|
 |org.nuget.system.memory|Microsoft|NuGet||4.5.0|29 May, 2018|
 |org.nuget.system.numerics.vectors|Microsoft|NuGet||4.4.0|11 Aug, 2017|
-|org.nuget.system.runtime.compilerservices.unsafe|Microsoft|NuGet||4.5.0|29 May, 2018|
 
 #### Add (when used in HDRP projects)
 
@@ -76,7 +75,7 @@ Download the UniVGO sample project.
 
 #### 2. Install Unity Editor
 
-Install Unity Editor `2021.1.28f1`, `2021.2.0f1`, or `2021.3.0f1` on Unity Hub.
+Install Unity Editor `2021.1.28f1`, `2021.2.0f1`, `2021.3.0f1`, or `2022.1.0f1` on Unity Hub.
 
 If you don't see the version you're looking for in Unity Hub, install it via the [Unity Download Archive](https://unity3d.com/jp/get-unity/download/archive).
 
@@ -140,17 +139,16 @@ You need to be careful where you add them.
     }
   ],
   "dependencies": {
-    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.0",
+    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.1",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.9",
-    "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.11",
+    "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.85.0",
     "org.nuget.system.buffers": "4.4.0",
     "org.nuget.system.memory": "4.5.0",
     "org.nuget.system.numerics.vectors": "4.4.0",
-    "org.nuget.system.runtime.compilerservices.unsafe": "4.5.0",
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
@@ -163,13 +161,13 @@ You need to be careful where you add them.
 ```json
 {
   "dependencies": {
-    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.0",
+    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.1",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.9",
-    "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.1",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.11",
+    "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.85.0",
     "com.unity.modules.ai": "1.0.0",
     ...
     "com.unity.modules.xr": "1.0.0"
@@ -245,7 +243,7 @@ When the package is installed in the project, the script is automatically compil
 
 |assemply|description|UniVgo|UniVgo.Editor|
 |:---|:---|:---:|:---:|
-|lilToon.Editor|lilToon shader utility|-|*|
+|lilToon.Editor|lilToon shader utility|-|-|
 |LilToonShader.Utility|lilToon shader utility|*|*|
 |MToon|MToon shader utility|*|*|
 |MToon.Editor|MToon shader utility|-|*|
@@ -259,9 +257,9 @@ When the package is installed in the project, the script is automatically compil
 |UniVgo2|VGO2 main program|*|*|
 |UniVgo2.Editor|VGO2 import / export|-|*|
 |VgoSpringBone|VGO Spring Bone|*|*|
-|VRMShaders.GLTF.IO.Editor||-|*|
+|VRMShaders.GLTF.IO.Editor||-|-|
 |VRMShaders.GLTF.IO.Runtime||*|*|
-|VRMShaders.GLTF.UniUnlit.Editor|Unlit shader utility|-|*|
+|VRMShaders.GLTF.UniUnlit.Editor|Unlit shader utility|-|-|
 |VRMShaders.GLTF.UniUnlit.Runtime|Unlit shader utility|*|*|
 
 - For each of UniVgo2, and UniVgo2.Editor, * is attached to the dependent DLL.
@@ -295,31 +293,42 @@ If the settings do not take effect immediately, restart Unity Editor.
 
 The version combinations are as follows.
 
-UniVRM|UniVGO|Result|
-|:---:|:---:|:---:|
-|0.66.0|2.4.4|OK|
-|0.68.2|2.4.4|OK|
-|0.70.0|2.4.4|OK|
-|0.71.0|2.4.4|OK|
-|0.72.0|2.4.5|OK|
-|0.73.0|2.4.5|OK|
-|0.74.0|2.4.5|OK|
-|0.75.0|2.4.5|OK|
-|0.76.0|2.4.5|(OK)|
-|0.77.0|2.4.5|(OK)|
-|0.78.0|2.4.5|(OK)|
-|0.79.0|2.4.5|(OK)|
-|0.80.0|2.4.5|(OK)|
-|0.81.0|2.4.5|OK|
-|0.82.0|2.4.5|OK|
-|0.83.0|2.4.5|OK|
-|0.84.0|2.4.5|OK|
-|0.85.0|2.4.5|OK|
-|0.86.0|2.4.5|OK|
-|0.87.0|2.4.5|OK|
-|0.88.0|2.4.5|OK|
-|0.89.0|2.4.5|OK|
-|0.90.0|2.4.5|OK|
+|UniVRM|min UniVGO|min Unity|Result|
+|:---:|:---:|:---:|:---:|
+|0.66.0|2.4.4|2019.4|OK|
+|0.68.2|2.4.4|2019.4|OK|
+|0.70.0|2.4.4|2019.4|OK|
+|0.71.0|2.4.4|2019.4|OK|
+|0.72.0|2.4.5|2019.4|OK|
+|0.73.0|2.4.5|2019.4|OK|
+|0.74.0|2.4.5|2019.4|OK|
+|0.75.0|2.4.5|2019.4|OK|
+|0.76.0|2.4.5|2019.4|(OK)|
+|0.77.0|2.4.5|2019.4|(OK)|
+|0.78.0|2.4.5|2019.4|(OK)|
+|0.79.0|2.4.5|2019.4|(OK)|
+|0.80.0|2.4.5|2019.4|(OK)|
+|0.81.0|2.4.5|2019.4|OK|
+|0.82.0|2.4.5|2019.4|OK|
+|0.83.0|2.4.5|2019.4|OK|
+|0.84.0|2.4.5|2019.4|OK|
+|0.85.0|2.4.5|2019.4|OK|
+|0.86.0|2.4.5|2019.4|OK|
+|0.87.0|2.4.5|2019.4|OK|
+|0.88.0|2.4.5|2019.4|OK|
+|0.89.0|2.4.5|2019.4|OK|
+|0.90.0|2.4.5|2019.4|OK|
+|0.91.0|2.4.5|2019.4|OK|
+|0.92.0|2.4.5|2019.4|OK|
+|0.93.0|2.4.5|2019.4|OK|
+|0.94.0|2.4.5|2019.4|OK|
+|0.95.1|2.4.5|2019.4|OK|
+|0.96.2|2.4.5|2019.4|OK|
+|0.97.0|2.4.5|2019.4|OK|
+|0.98.0|2.4.5|2019.4|OK|
+|0.99.4|2.4.5|2019.4|OK|
+|0.100.0|2.4.5|2020.3|OK|
+|0.101.0|2.4.5|2020.3|OK|
 
 When using Unity 2020.2 or higher, 0.76.0 to 0.80.0 will cause compilation errors and is not recommended.
 
@@ -394,7 +403,7 @@ Modify the define symbol to match the version of VRMShaders (com.vrmc.vrmshaders
 |2021.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.brp.univrm)|
 
 ___
-Last updated: 11 July, 2022  
+Last updated: 24 August, 2022  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*

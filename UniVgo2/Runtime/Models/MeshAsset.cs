@@ -11,17 +11,22 @@ namespace UniVgo2
     /// </summary>
     public class MeshAsset
     {
-        /// <summary></summary>
+        /// <summary>A mesh.</summary>
         public Mesh Mesh;
 
-        /// <summary></summary>
+        /// <summary>An array of materials.</summary>
+        /// <remarks>
+        /// for Import.
+        /// </remarks>
         public Material[] Materials;
 
-        /// <summary></summary>
-        /// <remarks>MeshRenderer or SkinnedMeshRenderer</remarks>
+        /// <summary>A renderer.</summary>
+        /// <remarks>
+        /// for Export.
+        /// </remarks>
         public Renderer Renderer;
 
-        /// <summary></summary>
+        /// <summary>A blend shape configuration.</summary>
         public BlendShapeConfiguration BlendShapeConfiguration;
     }
 }

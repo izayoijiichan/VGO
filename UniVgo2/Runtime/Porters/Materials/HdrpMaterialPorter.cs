@@ -6,13 +6,14 @@ namespace UniVgo2.Porters
 {
     using NewtonVgo;
     using System;
+    using System.Collections.Generic;
     using UniHdrpShader;
     using UnityEngine;
 
     /// <summary>
     /// HDRP Material Porter
     /// </summary>
-    public class HdrpMaterialPorter : MaterialPorterBase
+    public class HdrpMaterialPorter : AbstractMaterialPorterBase
     {
         #region Constructors
 
@@ -29,19 +30,20 @@ namespace UniVgo2.Porters
         /// Create a vgo material.
         /// </summary>
         /// <param name="material">A HDRP material.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateVgoMaterial(Material material)
+        public override VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
         {
             switch (material.shader.name)
             {
                 case ShaderName.HDRP_Eye:
-                    return CreateVgoMaterialFromHdrpEye(material);
+                    return CreateVgoMaterialFromHdrpEye(material, vgoStorage);
 
                 case ShaderName.HDRP_Hair:
-                    return CreateVgoMaterialFromHdrpHair(material);
+                    return CreateVgoMaterialFromHdrpHair(material, vgoStorage);
 
                 case ShaderName.HDRP_Lit:
-                    return CreateVgoMaterialFromHdrpLit(material);
+                    return CreateVgoMaterialFromHdrpLit(material, vgoStorage);
 
                 default:
                     throw new NotSupportedException(material.shader.name);
@@ -52,8 +54,9 @@ namespace UniVgo2.Porters
         /// Create a vgo material from a HDRP/Eye material.
         /// </summary>
         /// <param name="material">A HDRP/Eye material.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        protected VgoMaterial CreateVgoMaterialFromHdrpEye(Material material)
+        protected VgoMaterial CreateVgoMaterialFromHdrpEye(Material material, IVgoStorage vgoStorage)
         {
             //HdrpEyeDefinition definition = UniHdrpShader.Utils.GetParametersFromMaterial<HdrpEyeDefinition>(material);
 
@@ -67,10 +70,10 @@ namespace UniVgo2.Porters
 
             ExportProperties(vgoMaterial, material);
 
-            ExportTextureProperty(vgoMaterial, material, Property.Texture2D_5F873FC1, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.Texture2D_B9F5688C, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
-            ExportTextureProperty(vgoMaterial, material, Property.Texture2D_D8BF6575, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.Texture2D_4DB28C10, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.Texture2D_5F873FC1, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.Texture2D_B9F5688C, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.Texture2D_D8BF6575, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.Texture2D_4DB28C10, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
 
             ExportKeywords(vgoMaterial, material);
 
@@ -81,8 +84,9 @@ namespace UniVgo2.Porters
         /// Create a vgo material from a HDRP/Hair material.
         /// </summary>
         /// <param name="material">A HDRP/Hair material.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        protected VgoMaterial CreateVgoMaterialFromHdrpHair(Material material)
+        protected VgoMaterial CreateVgoMaterialFromHdrpHair(Material material, IVgoStorage vgoStorage)
         {
             //HdrpHairDefinition definition = UniHdrpShader.Utils.GetParametersFromMaterial<HdrpHairDefinition>(material);
 
@@ -96,10 +100,10 @@ namespace UniVgo2.Porters
 
             ExportProperties(vgoMaterial, material);
 
-            ExportTextureProperty(vgoMaterial, material, Property.BaseColorMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.NormalMap, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
-            ExportTextureProperty(vgoMaterial, material, Property.MaskMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.SmoothnessMask, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.BaseColorMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.NormalMap, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.MaskMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.SmoothnessMask, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
 
             ExportKeywords(vgoMaterial, material);
 
@@ -110,8 +114,9 @@ namespace UniVgo2.Porters
         /// Create a vgo material from a HDRP/Lit material.
         /// </summary>
         /// <param name="material">A HDRP/Lit material.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        protected VgoMaterial CreateVgoMaterialFromHdrpLit(Material material)
+        protected VgoMaterial CreateVgoMaterialFromHdrpLit(Material material, IVgoStorage vgoStorage)
         {
             //HdrpLitDefinition definition = UniHdrpShader.Utils.GetParametersFromMaterial<HdrpLitDefinition>(material);
 
@@ -125,25 +130,25 @@ namespace UniVgo2.Porters
 
             ExportProperties(vgoMaterial, material);
 
-            ExportTextureProperty(vgoMaterial, material, Property.BaseColorMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.MaskMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.NormalMap, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
-            ExportTextureProperty(vgoMaterial, material, Property.NormalMapOS, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
-            ExportTextureProperty(vgoMaterial, material, Property.HeightMap, VgoTextureMapType.HeightMap, VgoColorSpaceType.Linear);
-            ExportTextureProperty(vgoMaterial, material, Property.DetailMap, VgoTextureMapType.Default, VgoColorSpaceType.Linear);
-            ExportTextureProperty(vgoMaterial, material, Property.TangentMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.TangentMapOS, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.AnisotropyMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.SubsurfaceMaskMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.ThicknessMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.IridescenceThicknessMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.IridescenceMaskMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.CoatMaskMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.SpecularColorMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.EmissiveColorMap, VgoTextureMapType.EmissionMap, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.DistortionVectorMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.TransmittanceColorMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.MainTex, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.BaseColorMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.MaskMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.NormalMap, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.NormalMapOS, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.HeightMap, VgoTextureMapType.HeightMap, VgoColorSpaceType.Linear);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.DetailMap, VgoTextureMapType.Default, VgoColorSpaceType.Linear);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.TangentMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.TangentMapOS, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.AnisotropyMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.SubsurfaceMaskMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.ThicknessMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.IridescenceThicknessMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.IridescenceMaskMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.CoatMaskMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.SpecularColorMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.EmissiveColorMap, VgoTextureMapType.EmissionMap, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.DistortionVectorMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.TransmittanceColorMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.MainTex, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
 
             ExportKeywords(vgoMaterial, material);
 
@@ -159,8 +164,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A HDRP shader.</param>
+        /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A HDRP material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader)
+        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D> allTexture2dList)
         {
             switch (vgoMaterial.shaderName)
             {
@@ -174,7 +180,7 @@ namespace UniVgo2.Porters
                     throw new NotSupportedException(vgoMaterial.shaderName);
             }
 
-            Material material = base.CreateMaterialAsset(vgoMaterial, shader);
+            Material material = base.CreateMaterialAsset(vgoMaterial, shader, allTexture2dList);
 
             SurfaceType? surfaceType = null;
             BlendMode? blendMode = null;

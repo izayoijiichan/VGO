@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.4.11] - 2022-08-24
+
+- Improvements
+  - Refactoring of the program was done.
+  - Improved menu display in editor.
+
 ## [2.4.10] - 2022-07-11
 
 - Features

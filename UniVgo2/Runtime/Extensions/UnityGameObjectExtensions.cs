@@ -40,7 +40,7 @@ namespace UniVgo2
         /// <param name="go"></param>
         /// <param name="component">The output argument that will contain the component or null.</param>
         /// <returns>Returns true if the component is found, false otherwise.</returns>
-        public static bool TryGetComponentEx<T>(this GameObject go, out T component)
+        public static bool TryGetComponentEx<T>(this GameObject go, out T component) where T : Component
         {
 #if UNITY_2019_2_OR_NEWER
             return go.TryGetComponent(out component);
@@ -58,7 +58,7 @@ namespace UniVgo2
         /// <param name="go"></param>
         /// <param name="components">The output argument that will contain the components or null.</param>
         /// <returns>Returns true if the components is found, false otherwise.</returns>
-        public static bool TryGetComponentsEx<T>(this GameObject go, out T[] components)
+        public static bool TryGetComponentsEx<T>(this GameObject go, out T[] components) where T : Component
         {
             components = go.GetComponents<T>();
 

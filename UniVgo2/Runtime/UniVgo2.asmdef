@@ -2,16 +2,16 @@
     "name": "UniVgo2",
     "references": [
         "NewtonVgo",
-        "VgoSpringBone",
-        "ShaderProperty.Runtime",
         "LilToonShader.Utility",
-        "MToon",
-        "VRMShaders.GLTF.UniUnlit.Runtime",
-        "UniShader.HDRP.Utility",
-        "UniShader.Skybox.Utility",
-        "UniShader.Standard.Particle.Utility",
         "UniShader.Standard.Utility",
-        "UniShader.URP.Utility"
+        "UniShader.Standard.Particle.Utility",
+        "UniShader.Skybox.Utility",
+        "UniShader.URP.Utility",
+        "UniShader.HDRP.Utility",
+        "MToon",
+        "ShaderProperty.Runtime",
+        "VRMShaders.GLTF.UniUnlit.Runtime",
+        "VgoSpringBone"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
@@ -22,8 +22,7 @@
         "Newtonsoft.Json.dll",
         "System.Buffers.dll",
         "System.Memory.dll",
-        "System.Numerics.Vectors.dll",
-        "System.Runtime.CompilerServices.Unsafe.dll"
+        "System.Numerics.Vectors.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": []

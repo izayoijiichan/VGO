@@ -1,15 +1,15 @@
 ﻿// ----------------------------------------------------------------------
 // @Namespace : UniVgo2
-// @Class     : BlendShape
+// @Class     : BlendShapeContext
 // ----------------------------------------------------------------------
 namespace UniVgo2
 {
     using UnityEngine;
 
     /// <summary>
-    /// Blend Shape
+    /// Blend Shape Context
     /// </summary>
-    public class BlendShape
+    public class BlendShapeContext
     {
         /// <summary></summary>
         public string name;
@@ -27,7 +27,7 @@ namespace UniVgo2
         /// Create a new instance of BlendShape with name.
         /// </summary>
         /// <param name="name"></param>
-        public BlendShape(string name)
+        public BlendShapeContext(string name)
         {
             this.name = name;
         }

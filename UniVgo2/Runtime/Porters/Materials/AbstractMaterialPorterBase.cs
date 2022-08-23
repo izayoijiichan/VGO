@@ -1,6 +1,6 @@
 ﻿// ----------------------------------------------------------------------
 // @Namespace : UniVgo2.Porters
-// @Class     : MaterialPorterBase
+// @Class     : AbstractMaterialPorterBase
 // ----------------------------------------------------------------------
 namespace UniVgo2.Porters
 {
@@ -12,16 +12,16 @@ namespace UniVgo2.Porters
     using UnityEngine.Rendering;
 
     /// <summary>
-    /// Basic Material Porter
+    /// Abstract Basic Material Porter
     /// </summary>
-    public abstract class MaterialPorterBase : IMaterialPorter
+    public abstract class AbstractMaterialPorterBase : IMaterialPorter
     {
         #region Constructors
 
         /// <summary>
-        /// Create a new instance of MaterialPorterBase.
+        /// Create a new instance of AbstractMaterialPorterBase.
         /// </summary>
-        public MaterialPorterBase()
+        public AbstractMaterialPorterBase()
         {
         }
 
@@ -33,10 +33,6 @@ namespace UniVgo2.Porters
         /// <remarks>for Export</remarks>
         public ExportTextureDelegate ExportTexture { get; set; }
 
-        /// <summary>List of all texture 2D.</summary>
-        /// <remarks>for Import</remarks>
-        public List<Texture2D> AllTexture2dList { get; set; }
-
         #endregion
 
         #region Public Methods (Export)
@@ -45,8 +41,9 @@ namespace UniVgo2.Porters
         /// Create a vgo material.
         /// </summary>
         /// <param name="material">A unity material.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public abstract VgoMaterial CreateVgoMaterial(Material material);
+        public abstract VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage);
 
         #endregion
 
@@ -323,6 +320,7 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Export a texture type property.
         /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="material">A unity material.</param>
         /// <param name="propertyName">A property name.</param>
@@ -330,7 +328,7 @@ namespace UniVgo2.Porters
         /// <param name="colorSpace">The color space.</param>
         /// <param name="metallicSmoothness">The metallic smoothness.</param>
         /// <returns></returns>
-        public virtual bool ExportTextureProperty(VgoMaterial vgoMaterial, Material material, string propertyName, VgoTextureMapType textureMapType = VgoTextureMapType.Default, VgoColorSpaceType colorSpace = VgoColorSpaceType.Srgb, float metallicSmoothness = -1.0f)
+        public virtual bool ExportTextureProperty(IVgoStorage vgoStorage, VgoMaterial vgoMaterial, Material material, string propertyName, VgoTextureMapType textureMapType = VgoTextureMapType.Default, VgoColorSpaceType colorSpace = VgoColorSpaceType.Srgb, float metallicSmoothness = -1.0f)
         {
             if (material.HasProperty(propertyName) == false)
             {
@@ -351,7 +349,7 @@ namespace UniVgo2.Porters
                 return false;
             }
 
-            int textureIndex = ExportTexture(material, texture, textureMapType, colorSpace, metallicSmoothness);
+            int textureIndex = ExportTexture(vgoStorage, material, texture, textureMapType, colorSpace, metallicSmoothness);
 
             if (textureIndex == -1)
             {
@@ -431,20 +429,14 @@ namespace UniVgo2.Porters
 
         #region Public Methods (Import)
 
-        ///// <summary>
-        ///// Set material texture info list.
-        ///// </summary>
-        ///// <param name="materialInfo">A material info.</param>
-        ///// <param name="allTextureInfoList">List of all texture info.</param>
-        //public abstract void SetMaterialTextureInfoList(MaterialInfo materialInfo, List<TextureInfo> allTextureInfoList);
-
         /// <summary>
         /// Create a unity material.
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A shader.</param>
+        /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A unity material.</returns>
-        public virtual Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader)
+        public virtual Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D> allTexture2dList)
         {
             if (vgoMaterial == null)
             {
@@ -619,14 +611,14 @@ namespace UniVgo2.Porters
                     {
                         try
                         {
-                            //if (AllTexture2dList.TryGetValue(textureIndex, out Texture2D texture))
+                            //if (allTexture2dList.TryGetValue(textureIndex, out Texture2D texture))
                             //{
                             //    material.SetTexture(propertyName, texture);
                             //}
 
-                            if (textureIndex.IsInRangeOf(AllTexture2dList))
+                            if (textureIndex.IsInRangeOf(allTexture2dList))
                             {
-                                material.SetTexture(propertyName, AllTexture2dList[textureIndex]);
+                                material.SetTexture(propertyName, allTexture2dList[textureIndex]);
                             }
                         }
                         catch

@@ -5,56 +5,25 @@
 namespace NewtonVgo
 {
     using NewtonVgo;
-    using NewtonVgo.Buffers;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Numerics;
     using System.Runtime.InteropServices;
 
+#if false
     /// <summary>
     /// VGO Storage Adapter
     /// </summary>
     public class VgoStorageAdapter
     {
-        #region Constructors
+    }
+#endif
 
-        /// <summary>
-        /// Create a new instance of VgoStorageAdapter.
-        /// </summary>
-        /// <param name="storage"></param>
-        public VgoStorageAdapter(VgoStorage storage)
-        {
-            Storage = storage;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>The storage.</summary>
-        public VgoStorage Storage { get; }
-
-        /// <summary>The type of the geometry coodinates.</summary>
-        public VgoGeometryCoordinate GeometryCoordinate => Storage.GeometryCoordinate;
-
-        /// <summary>The type of the UV coodinates.</summary>
-        public VgoUVCoordinate UVCoordinate => Storage.UVCoordinate;
-
-        /// <summary>The asset info.</summary>
-        public VgoAssetInfo AssetInfo { get => Storage.AssetInfo; set => Storage.AssetInfo = value; }
-
-        /// <summary>The layout.</summary>
-        public VgoLayout Layout => Storage.Layout;
-
-        /// <summary>List of the resource accessor.</summary>
-        public List<VgoResourceAccessor> ResourceAccessors => Storage.ResourceAccessors;
-
-        /// <summary>The resource.</summary>
-        protected IByteBuffer Resource => Storage.Resource;
-
-        #endregion
-
+    /// <summary>
+    /// VGO Storage
+    /// </summary>
+    public partial class VgoStorage
+    {
         #region Accessor
 
         /// <summary>

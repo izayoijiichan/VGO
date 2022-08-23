@@ -1,6 +1,6 @@
 ﻿// ----------------------------------------------------------------------
 // @Namespace : UniVgo2.Porters
-// @Class     : IMaterialImporter
+// @Class     : IVgoMaterialImporter
 // ----------------------------------------------------------------------
 namespace UniVgo2.Porters
 {
@@ -9,9 +9,9 @@ namespace UniVgo2.Porters
     using UnityEngine;
 
     /// <summary>
-    /// Material Importer Interface
+    /// VGO Material Importer Interface
     /// </summary>
-    public interface IMaterialImporter
+    public interface IVgoMaterialImporter
     {
         #region Properties
 

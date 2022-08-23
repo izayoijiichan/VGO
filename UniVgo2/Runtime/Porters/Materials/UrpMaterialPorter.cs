@@ -8,11 +8,12 @@ namespace UniVgo2.Porters
     using System;
     using UniUrpShader;
     using UnityEngine;
+    using System.Collections.Generic;
 
     /// <summary>
     /// URP Material Porter
     /// </summary>
-    public class UrpMaterialPorter : MaterialPorterBase
+    public class UrpMaterialPorter : AbstractMaterialPorterBase
     {
         #region Constructors
 
@@ -29,17 +30,18 @@ namespace UniVgo2.Porters
         /// Create a vgo material.
         /// </summary>
         /// <param name="material">A URP material.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateVgoMaterial(Material material)
+        public override VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
         {
             switch (material.shader.name)
             {
                 case ShaderName.URP_Lit:
-                    return CreateVgoMaterialFromUrpLit(material);
+                    return CreateVgoMaterialFromUrpLit(material, vgoStorage);
                 case ShaderName.URP_SimpleLit:
-                    return CreateVgoMaterialFromUrpSimpleLit(material);
+                    return CreateVgoMaterialFromUrpSimpleLit(material, vgoStorage);
                 case ShaderName.URP_Unlit:
-                    return CreateVgoMaterialFromUrpUnlit(material);
+                    return CreateVgoMaterialFromUrpUnlit(material, vgoStorage);
                 default:
                     throw new NotSupportedException(material.shader.name);
             }
@@ -49,8 +51,9 @@ namespace UniVgo2.Porters
         /// Create a vgo material from a URP/Lit material.
         /// </summary>
         /// <param name="material">A URP/Lit material.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        protected VgoMaterial CreateVgoMaterialFromUrpLit(Material material)
+        protected VgoMaterial CreateVgoMaterialFromUrpLit(Material material, IVgoStorage vgoStorage)
         {
             //UrpLitDefinition definition = UniUrpShader.Utils.GetParametersFromMaterial<UrpLitDefinition>(material);
 
@@ -75,19 +78,19 @@ namespace UniVgo2.Porters
                 Debug.LogWarning($"{material.shader.name} does not have {Property.Smoothness} property.");
             }
 
-            ExportTextureProperty(vgoMaterial, material, Property.BaseMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.BumpMap, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
-            ExportTextureProperty(vgoMaterial, material, Property.ParallaxMap, VgoTextureMapType.HeightMap, VgoColorSpaceType.Linear);
-            ExportTextureProperty(vgoMaterial, material, Property.EmissionMap, VgoTextureMapType.EmissionMap, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.BaseMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.BumpMap, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.ParallaxMap, VgoTextureMapType.HeightMap, VgoColorSpaceType.Linear);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.EmissionMap, VgoTextureMapType.EmissionMap, VgoColorSpaceType.Srgb);
 
             // @notice Metallic Occlusion Map (Occlusion -> Metallic)
-            ExportTextureProperty(vgoMaterial, material, Property.OcclusionMap, VgoTextureMapType.OcclusionMap, VgoColorSpaceType.Linear);
-            ExportTextureProperty(vgoMaterial, material, Property.MetallicGlossMap, VgoTextureMapType.MetallicRoughnessMap, VgoColorSpaceType.Linear, smoothness);
-            ExportTextureProperty(vgoMaterial, material, Property.SpecGlossMap, VgoTextureMapType.SpecularGlossinessMap, VgoColorSpaceType.Linear, smoothness);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.OcclusionMap, VgoTextureMapType.OcclusionMap, VgoColorSpaceType.Linear);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.MetallicGlossMap, VgoTextureMapType.MetallicRoughnessMap, VgoColorSpaceType.Linear, smoothness);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.SpecGlossMap, VgoTextureMapType.SpecularGlossinessMap, VgoColorSpaceType.Linear, smoothness);
 
-            ExportTextureProperty(vgoMaterial, material, Property.DetailMask, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.DetailAlbedoMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.DetailNormalMap, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.DetailMask, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.DetailAlbedoMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.DetailNormalMap, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
 
             ExportKeywords(vgoMaterial, material);
 
@@ -98,8 +101,9 @@ namespace UniVgo2.Porters
         /// Create a vgo material from a URP/Simple Lit material.
         /// </summary>
         /// <param name="material">A URP/Simple Lit material.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        protected VgoMaterial CreateVgoMaterialFromUrpSimpleLit(Material material)
+        protected VgoMaterial CreateVgoMaterialFromUrpSimpleLit(Material material, IVgoStorage vgoStorage)
         {
             UrpSimpleLitDefinition definition = UniUrpShader.Utils.GetParametersFromMaterial<UrpSimpleLitDefinition>(material);
 
@@ -128,11 +132,11 @@ namespace UniVgo2.Porters
                 Debug.LogWarning($"{material.shader.name} does not have {Property.Smoothness} property.");
             }
 
-            ExportTextureProperty(vgoMaterial, material, Property.BaseMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoMaterial, material, Property.BumpMap, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
-            ExportTextureProperty(vgoMaterial, material, Property.EmissionMap, VgoTextureMapType.EmissionMap, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.BaseMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.BumpMap, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.EmissionMap, VgoTextureMapType.EmissionMap, VgoColorSpaceType.Srgb);
 
-            ExportTextureProperty(vgoMaterial, material, Property.SpecGlossMap, VgoTextureMapType.SpecularGlossinessMap, VgoColorSpaceType.Linear, smoothness);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.SpecGlossMap, VgoTextureMapType.SpecularGlossinessMap, VgoColorSpaceType.Linear, smoothness);
 
             ExportKeywords(vgoMaterial, material);
 
@@ -143,8 +147,9 @@ namespace UniVgo2.Porters
         /// Create a vgo material from a URP/Unlit material.
         /// </summary>
         /// <param name="material">A URP/Unlit material.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        protected VgoMaterial CreateVgoMaterialFromUrpUnlit(Material material)
+        protected VgoMaterial CreateVgoMaterialFromUrpUnlit(Material material, IVgoStorage vgoStorage)
         {
             UrpUnlitDefinition definition = UniUrpShader.Utils.GetParametersFromMaterial<UrpUnlitDefinition>(material);
 
@@ -158,7 +163,7 @@ namespace UniVgo2.Porters
 
             ExportProperties(vgoMaterial, material);
 
-            ExportTextureProperty(vgoMaterial, material, Property.BaseMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.BaseMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
 
             ExportKeywords(vgoMaterial, material);
 
@@ -174,8 +179,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A URP shader.</param>
+        /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A URP material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader)
+        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D> allTexture2dList)
         {
             switch (vgoMaterial.shaderName)
             {
@@ -189,7 +195,7 @@ namespace UniVgo2.Porters
                     throw new NotSupportedException(vgoMaterial.shaderName);
             }
 
-            Material material = base.CreateMaterialAsset(vgoMaterial, shader);
+            Material material = base.CreateMaterialAsset(vgoMaterial, shader, allTexture2dList);
 
             SurfaceType? surfaceType = null;
             BlendMode? blendMode = null;

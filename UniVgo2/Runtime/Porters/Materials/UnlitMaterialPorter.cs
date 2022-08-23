@@ -18,7 +18,7 @@ namespace UniVgo2.Porters
     /// <summary>
     /// Unlit Material Porter
     /// </summary>
-    public class UnlitMaterialPorter : MaterialPorterBase
+    public class UnlitMaterialPorter : AbstractMaterialPorterBase
     {
         #region Constructors
 
@@ -52,8 +52,9 @@ namespace UniVgo2.Porters
         /// Create a vgo material.
         /// </summary>
         /// <param name="material">A unlit material.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>vgo material</returns>
-        public override VgoMaterial CreateVgoMaterial(Material material)
+        public override VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
         {
             VgoMaterial vgoMaterial = new VgoMaterial()
             {
@@ -75,7 +76,7 @@ namespace UniVgo2.Porters
             ExportProperty(vgoMaterial, material, UniUnlitUtil.PropNameZWrite, VgoMaterialPropertyType.Int);
 
             // Textures
-            ExportTextureProperty(vgoMaterial, material, UniUnlitUtil.PropNameMainTex, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, UniUnlitUtil.PropNameMainTex, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
 
             // Tags
             ExportTag(vgoMaterial, material, UniUnlitUtil.TagRenderTypeKey);
@@ -97,10 +98,11 @@ namespace UniVgo2.Porters
         ///// </summary>
         ///// <param name="vgoMaterial">A vgo material.</param>
         ///// <param name="shader">A unlit shader.</param>
+        ///// <param name="allTexture2dList">List of all texture 2D.</param>
         ///// <returns>A unlit material.</returns>
-        //public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader)
+        //public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D> allTexture2dList)
         //{
-        //    Material material = base.CreateMaterialAsset(vgoMaterial, shader);
+        //    Material material = base.CreateMaterialAsset(vgoMaterial, shader, allTexture2dList);
 
         //    if (material.shader.name == ShaderName.UniGLTF_UniUnlit)
         //    {

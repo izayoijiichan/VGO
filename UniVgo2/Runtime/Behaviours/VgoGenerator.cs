@@ -10,6 +10,7 @@ namespace UniVgo2
     /// <summary>
     /// VGO Generator
     /// </summary>
+    [AddComponentMenu("Vgo/Vgo Generator")]
     [DisallowMultipleComponent]
     //[RequireComponent(typeof(VgoRight))]
     public class VgoGenerator : MonoBehaviour

@@ -19,7 +19,7 @@ namespace NewtonVgo
     /// <summary>
     /// VGO Storage
     /// </summary>
-    public class VgoStorage
+    public partial class VgoStorage : IVgoStorage
     {
         #region Constants
 
@@ -134,11 +134,6 @@ namespace NewtonVgo
         /// <remarks>for Export</remarks>
         public VgoStorage(IByteBuffer resource, VgoGeometryCoordinate geometryCoordinate, VgoUVCoordinate uvCoordinate)
         {
-            if (resource == null)
-            {
-                throw new ArgumentNullException(nameof(resource));
-            }
-
             Header.Magic = (uint)VgoChunkTypeID.Vgo;
             Header.DataLength = 8;
             Header.MajorVersion = SpecMajorVersion;
@@ -150,7 +145,7 @@ namespace NewtonVgo
 
             ResourceAccessors = new List<VgoResourceAccessor>();
 
-            Resource = resource;
+            Resource = resource ?? throw new ArgumentNullException(nameof(resource));
         }
 
         #endregion
@@ -169,14 +164,14 @@ namespace NewtonVgo
                 throw new ArgumentNullException(nameof(allBytes));
             }
 
-            if (allBytes.Length == 0)
+            if (allBytes.Any() == false)
             {
-                throw new ArgumentException();
+                throw new ArgumentOutOfRangeException(nameof(allBytes));
             }
 
             if (allBytes.Length < 16)
             {
-                throw new FormatException();
+                throw new ArgumentOutOfRangeException(nameof(allBytes));
             }
 
             ArraySegment<byte> allSegmentBytes = new ArraySegment<byte>(allBytes);
@@ -204,9 +199,9 @@ namespace NewtonVgo
             {
                 AssetInfo = ExtractAssetInfo(composerChunkData, ChunkIndexMap, allSegmentBytes);
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
 
             // Layout chunk
@@ -214,9 +209,9 @@ namespace NewtonVgo
             {
                 Layout = ExtractLayout(composerChunkData, ChunkIndexMap, allSegmentBytes);
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
 
             // Resource Accessor chunk
@@ -224,9 +219,9 @@ namespace NewtonVgo
             {
                 ResourceAccessors = ExtractResourceAccessor(composerChunkData, ChunkIndexMap, allSegmentBytes, cryptKey);
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
 
             // Resource chunk
@@ -236,9 +231,9 @@ namespace NewtonVgo
 
                 Resource = new ReadOnlyArraySegmentByteBuffer(resourceBytes);
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -290,9 +285,9 @@ namespace NewtonVgo
 
                 return header;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -466,13 +461,13 @@ namespace NewtonVgo
 
                 return vgoAssetInfo;
             }
-            catch (JsonSerializationException ex)
+            catch (JsonSerializationException)
             {
-                throw ex;
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -516,13 +511,13 @@ namespace NewtonVgo
 
                 return vgoLayout;
             }
-            catch (JsonSerializationException ex)
+            catch (JsonSerializationException)
             {
-                throw ex;
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -628,13 +623,13 @@ namespace NewtonVgo
                         throw new NotSupportedException($"CryptographyAlgorithms: {vgoCrypt.algorithms}");
                     }
                 }
-                catch (JsonSerializationException ex)
+                catch (JsonSerializationException)
                 {
-                    throw ex;
+                    throw;
                 }
-                catch (Exception ex)
+                catch
                 {
-                    throw ex;
+                    throw;
                 }
             }
 
@@ -660,13 +655,13 @@ namespace NewtonVgo
                     vgoResourceAccessors = bsonSerializer.DeserializeObject<List<VgoResourceAccessor>>(plainJsonOrBson, rootValueAsArray: true);
                 }
             }
-            catch (JsonSerializationException ex)
+            catch (JsonSerializationException)
             {
-                throw ex;
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
 
             return vgoResourceAccessors;
@@ -716,13 +711,13 @@ namespace NewtonVgo
                     throw new FormatException($"[COMP] ResourceChunkTypeId: {resourceChunkTypeId}");
                 }
             }
-            catch (JsonSerializationException ex)
+            catch (JsonSerializationException)
             {
-                throw ex;
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
 
             if (string.IsNullOrEmpty(vgoResource.uri))
@@ -780,13 +775,13 @@ namespace NewtonVgo
 
                 return vgoCrypt;
             }
-            catch (JsonSerializationException ex)
+            catch (JsonSerializationException)
             {
-                throw ex;
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -1068,13 +1063,13 @@ namespace NewtonVgo
                     throw new Exception($"assetInfoTypeId: {assetInfoTypeId}");
                 }
             }
-            catch (JsonSerializationException ex)
+            catch (JsonSerializationException)
             {
-                throw ex;
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
 
             VgoChunk assetInfoChunk = new VgoChunk(assetInfoTypeId, assetInfoChunkData);
@@ -1116,13 +1111,13 @@ namespace NewtonVgo
                     throw new Exception($"layoutTypeId: {layoutTypeId}");
                 }
             }
-            catch (JsonSerializationException ex)
+            catch (JsonSerializationException)
             {
-                throw ex;
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
 
             VgoChunk layoutChunk = new VgoChunk(layoutTypeId, layoutChunkData);
@@ -1260,13 +1255,13 @@ namespace NewtonVgo
                     throw new Exception($"resourceAccessorTypeId: {resourceAccessorTypeId}");
                 }
             }
-            catch (JsonSerializationException ex)
+            catch (JsonSerializationException)
             {
-                throw ex;
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
 
             VgoChunk resourceAccessorChunk = new VgoChunk(resourceAccessorTypeId, resourceAccessorChunkData);
@@ -1339,13 +1334,13 @@ namespace NewtonVgo
                     throw new Exception($"resourceTypeId: {resourceTypeId}");
                 }
             }
-            catch (JsonSerializationException ex)
+            catch (JsonSerializationException)
             {
-                throw ex;
+                throw;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
 
             VgoChunk resourceChunk = new VgoChunk(resourceTypeId, resourceChunkData);

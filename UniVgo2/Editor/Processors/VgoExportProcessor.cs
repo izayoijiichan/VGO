@@ -34,9 +34,7 @@ namespace UniVgo2.Editor
             EditorApplication.isPlaying = false;
             try
             {
-                string errorMessage;
-
-                if (!Validate(out errorMessage))
+                if (Validate(out string errorMessage) == false)
                 {
                     Debug.LogAssertion(errorMessage);
 
@@ -54,12 +52,9 @@ namespace UniVgo2.Editor
                     return;
                 }
 
-                VgoStorage vgoStorage;
+                var exporter = new VgoExporter();
 
-                using (var exporter = new VgoExporter())
-                {
-                    vgoStorage = exporter.CreateVgoStorage(root, geometryCoordinate, uvCoordinate);
-                }
+                IVgoStorage vgoStorage = exporter.CreateVgoStorage(root, geometryCoordinate, uvCoordinate);
 
                 FileInfo fileInfo = new FileInfo(path);
 

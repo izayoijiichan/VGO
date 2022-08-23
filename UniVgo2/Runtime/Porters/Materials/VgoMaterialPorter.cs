@@ -13,7 +13,7 @@ namespace UniVgo2.Porters
     /// <summary>
     /// VGO Material Porter
     /// </summary>
-    public class VgoMaterialPorter : IMaterialExporter, IMaterialImporter
+    public class VgoMaterialPorter : IVgoMaterialExporter, IVgoMaterialImporter
     {
         #region Fields
 
@@ -56,8 +56,9 @@ namespace UniVgo2.Porters
         /// Create a vgo material.
         /// </summary>
         /// <param name="material">A unity material.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public VgoMaterial CreateVgoMaterial(Material material)
+        public VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
         {
             if (MaterialPorterStore == null)
             {
@@ -73,7 +74,7 @@ namespace UniVgo2.Porters
 
             materialPorter.ExportTexture = ExportTexture;
 
-            VgoMaterial vgoMaterial = materialPorter.CreateVgoMaterial(material);
+            VgoMaterial vgoMaterial = materialPorter.CreateVgoMaterial(material, vgoStorage);
 
             return vgoMaterial;
         }
@@ -104,9 +105,7 @@ namespace UniVgo2.Porters
 
             IMaterialPorter materialPorter = MaterialPorterStore.GetPorterOrStandard(vgoMaterial, RenderPipelineType);
 
-            materialPorter.AllTexture2dList = texture2dList;
-
-            Material material = materialPorter.CreateMaterialAsset(vgoMaterial, shader);
+            Material material = materialPorter.CreateMaterialAsset(vgoMaterial, shader, texture2dList);
 
 #if UNITY_EDITOR
             material.hideFlags = HideFlags.DontUnloadUnusedAsset;

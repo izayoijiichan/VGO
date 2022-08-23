@@ -20,9 +20,9 @@ namespace UniVgo2.Converters
         /// <param name="cloth"></param>
         /// <param name="geometryCoordinate"></param>
         /// <param name="colliderList"></param>
-        /// <param name="storageAdapter"></param>
+        /// <param name="vgoStorage"></param>
         /// <returns></returns>
-        public static VgoCloth CreateFrom(Cloth cloth, VgoGeometryCoordinate geometryCoordinate, List<Collider> colliderList, VgoStorageAdapter storageAdapter)
+        public static VgoCloth CreateFrom(Cloth cloth, VgoGeometryCoordinate geometryCoordinate, IList<Collider> colliderList, IVgoStorage vgoStorage)
         {
             if (cloth == null)
             {
@@ -68,7 +68,7 @@ namespace UniVgo2.Converters
 
             if (cloth.coefficients.Any())
             {
-                vgoCloth.coefficients = storageAdapter.AddAccessorWithoutSparse(cloth.coefficients, VgoResourceAccessorDataType.Vector2Float, VgoResourceAccessorKind.ClothCoefficients);
+                vgoCloth.coefficients = vgoStorage.AddAccessorWithoutSparse(cloth.coefficients, VgoResourceAccessorDataType.Vector2Float, VgoResourceAccessorKind.ClothCoefficients);
             }
             else
             {
@@ -85,8 +85,8 @@ namespace UniVgo2.Converters
         /// <param name="vgoCloth"></param>
         /// <param name="geometryCoordinate"></param>
         /// <param name="colliderList"></param>
-        /// <param name="storageAdapter"></param>
-        public static void SetComponentValue(Cloth cloth, VgoCloth vgoCloth, VgoGeometryCoordinate geometryCoordinate, List<Collider> colliderList, VgoStorageAdapter storageAdapter)
+        /// <param name="vgoStorage"></param>
+        public static void SetComponentValue(Cloth cloth, VgoCloth vgoCloth, VgoGeometryCoordinate geometryCoordinate, List<Collider> colliderList, IVgoStorage vgoStorage)
         {
             if (cloth == null)
             {
@@ -267,7 +267,7 @@ namespace UniVgo2.Converters
             // coefficients
             if (vgoCloth.coefficients > -1)
             {
-                cloth.coefficients = storageAdapter.GetAccessorArrayData<ClothSkinningCoefficient>(vgoCloth.coefficients);
+                cloth.coefficients = vgoStorage.GetAccessorArrayData<ClothSkinningCoefficient>(vgoCloth.coefficients);
             }
 
             cloth.enabled = vgoCloth.enabled;

@@ -16,15 +16,8 @@ namespace UniVgo2.Porters
     /// <summary>
     /// VGO Particle System Importer
     /// </summary>
-    public class VgoParticleSystemImporter
+    public class VgoParticleSystemImporter : IVgoParticleSystemImporter
     {
-        #region Properties
-
-        /// <summary>The VGO storage adapter.</summary>
-        protected VgoStorageAdapter StorageAdapter { get; set; }
-
-        #endregion
-
         #region Public Methods
 
         /// <summary>
@@ -32,26 +25,22 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="go"></param>
         /// <param name="vgoParticleSystem"></param>
-        /// <param name="storageAdapter"></param>
+        /// <param name="geometryCoordinate"></param>
         /// <param name="materialList"></param>
         /// <param name="texture2dList"></param>
         /// <returns>Returns ParticleSystem component.</returns>
-        public virtual ParticleSystem AddComponent(GameObject go, VgoParticleSystem vgoParticleSystem, VgoStorageAdapter storageAdapter, IList<Material> materialList, IList<Texture2D> texture2dList)
+        public virtual ParticleSystem AddComponent(GameObject go, VgoParticleSystem vgoParticleSystem, VgoGeometryCoordinate geometryCoordinate, IList<Material> materialList, IList<Texture2D> texture2dList)
         {
-            StorageAdapter = storageAdapter;
-
-            ParticleSystem particleSystem = go.GetComponent<ParticleSystem>();
-
-            if (particleSystem == null)
+            if (go.TryGetComponentEx<ParticleSystem>(out var particleSystem) == false)
             {
                 particleSystem = go.AddComponent<ParticleSystem>();
             }
 
             if (vgoParticleSystem != null)
             {
-                SetModuleValue(particleSystem, vgoParticleSystem.main);
+                SetModuleValue(particleSystem, vgoParticleSystem.main, geometryCoordinate);
                 SetModuleValue(particleSystem, vgoParticleSystem.emission);
-                SetModuleValue(particleSystem, vgoParticleSystem.shape, texture2dList);
+                SetModuleValue(particleSystem, vgoParticleSystem.shape, texture2dList, geometryCoordinate);
                 SetModuleValue(particleSystem, vgoParticleSystem.velocityOverLifetime);
                 SetModuleValue(particleSystem, vgoParticleSystem.limitVelocityOverLifetime);
                 SetModuleValue(particleSystem, vgoParticleSystem.inheritVelocity);
@@ -73,16 +62,14 @@ namespace UniVgo2.Porters
                 //SetModuleValue(particleSystem, vgoParticleSystem.CustomData);
             }
 
-            ParticleSystemRenderer particleSystemRenderer = go.GetComponent<ParticleSystemRenderer>();
-
-            if (particleSystemRenderer == null)
+            if (go.TryGetComponentEx<ParticleSystemRenderer>(out var particleSystemRenderer) == false)
             {
                 particleSystemRenderer = go.AddComponent<ParticleSystemRenderer>();
             }
 
             if (particleSystemRenderer != null)
             {
-                SetComponentValue(particleSystemRenderer, vgoParticleSystem.renderer, materialList);
+                SetComponentValue(particleSystemRenderer, vgoParticleSystem.renderer, geometryCoordinate, materialList);
             }
 
             return particleSystem;
@@ -97,7 +84,8 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_MainModule vgoModule)
+        /// <param name="geometryCoordinate"></param>
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_MainModule vgoModule, VgoGeometryCoordinate geometryCoordinate)
         {
             if (vgoModule == null)
             {
@@ -162,7 +150,7 @@ namespace UniVgo2.Porters
 
             module.simulationSpace = (UnityEngine.ParticleSystemSimulationSpace)vgoModule.simulationSpace;
             module.simulationSpeed = vgoModule.simulationSpeed;
-            VgoTransformConverter.SetComponentValue(module.customSimulationSpace, vgoModule.customSimulationSpace, StorageAdapter.GeometryCoordinate);
+            VgoTransformConverter.SetComponentValue(module.customSimulationSpace, vgoModule.customSimulationSpace, geometryCoordinate);
 
             module.useUnscaledTime = vgoModule.useUnscaledTime;
             module.scalingMode = (UnityEngine.ParticleSystemScalingMode)vgoModule.scalingMode;
@@ -217,7 +205,8 @@ namespace UniVgo2.Porters
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
         /// <param name="texture2dList"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_ShapeModule vgoModule, IList<Texture2D> texture2dList)
+        /// <param name="geometryCoordinate"></param>
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_ShapeModule vgoModule, IList<Texture2D> texture2dList, VgoGeometryCoordinate geometryCoordinate)
         {
             if (vgoModule == null)
             {
@@ -267,8 +256,8 @@ namespace UniVgo2.Porters
             module.textureAlphaAffectsParticles = vgoModule.textureAlphaAffectsParticles;
             module.textureBilinearFiltering = vgoModule.textureBilinearFiltering;
             module.textureUVChannel = vgoModule.textureUVChannel;
-            module.position = vgoModule.position.ToUnityVector3(Vector3.zero, StorageAdapter.GeometryCoordinate);
-            module.rotation = vgoModule.rotation.ToUnityVector3(Vector3.zero, StorageAdapter.GeometryCoordinate);
+            module.position = vgoModule.position.ToUnityVector3(Vector3.zero, geometryCoordinate);
+            module.rotation = vgoModule.rotation.ToUnityVector3(Vector3.zero, geometryCoordinate);
             module.scale = vgoModule.scale.ToUnityVector3(Vector3.one);
             module.alignToDirection = vgoModule.alignToDirection;
             module.randomPositionAmount = vgoModule.randomPositionAmount;
@@ -735,9 +724,7 @@ namespace UniVgo2.Porters
             if (vgoModule.light != null)
             {
                 // @notice
-                Light goLight = particleSystem.gameObject.GetComponent<Light>();
-
-                if (goLight == null)
+                if (particleSystem.gameObject.TryGetComponent<Light>(out var goLight) == false)
                 {
                     goLight = particleSystem.gameObject.AddComponent<Light>();
                 }
@@ -809,15 +796,16 @@ namespace UniVgo2.Porters
 
         #endregion
 
-        #region Protected Methods (Renderer)
+        #region Public Methods (Renderer)
 
         /// <summary>
         /// Set particleSystemRenderer field value.
         /// </summary>
         /// <param name="particleSystemRenderer"></param>
         /// <param name="vgoRenderer"></param>
+        /// <param name="geometryCoordinate"></param>
         /// <param name="materialList"></param>
-        public virtual void SetComponentValue(ParticleSystemRenderer particleSystemRenderer, VGO_PS_Renderer vgoRenderer, IList<Material> materialList)
+        public virtual void SetComponentValue(ParticleSystemRenderer particleSystemRenderer, VGO_PS_Renderer vgoRenderer, VgoGeometryCoordinate geometryCoordinate, IList<Material> materialList)
         {
             if (vgoRenderer == null)
             {
@@ -871,13 +859,17 @@ namespace UniVgo2.Porters
             particleSystemRenderer.reflectionProbeUsage = (UnityEngine.Rendering.ReflectionProbeUsage)vgoRenderer.reflectionProbeUsage;
 
             // @notice
-            VgoTransformConverter.SetComponentValue(particleSystemRenderer.probeAnchor, vgoRenderer.probeAnchor, StorageAdapter.GeometryCoordinate);
+            VgoTransformConverter.SetComponentValue(particleSystemRenderer.probeAnchor, vgoRenderer.probeAnchor, geometryCoordinate);
 
             if (particleSystemRenderer.sharedMaterial != null)
             {
                 //SetVertexStream(particleSystemRenderer, particleSystemRenderer.sharedMaterial);
             }
         }
+
+        #endregion
+
+        #region Protected Methods (Renderer)
 
         /// <summary>
         /// Set vertex stream.
@@ -893,7 +885,7 @@ namespace UniVgo2.Porters
             //bool useGPUInstancing = ShaderUtil.HasProceduralInstancing(material.shader);
             bool useGPUInstancing = particleSystemRenderer.enableGPUInstancing;
 
-            List<ParticleSystemVertexStream> streams = new List<ParticleSystemVertexStream>();
+            var streams = new List<ParticleSystemVertexStream>();
 
             streams.Add(ParticleSystemVertexStream.Position);
 

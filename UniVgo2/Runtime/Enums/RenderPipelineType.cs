@@ -8,10 +8,12 @@ namespace UniVgo2
     public enum RenderPipelineType
     {
         /// <summary>Built-in Render Pipeline</summary>
-        BRP,
+        BRP = 0,
+        ///// <summary>Lightweight Render Pipeline</summary>
+        //LWRP = 1,
         /// <summary>Universal Render Pipeline</summary>
-        URP,
+        URP = 2,
         /// <summary>High Definition Render Pipeline</summary>
-        HDRP,
+        HDRP = 3,
     }
 }

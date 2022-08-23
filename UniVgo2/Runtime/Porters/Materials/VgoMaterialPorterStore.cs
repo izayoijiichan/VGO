@@ -1,15 +1,15 @@
 ﻿// ----------------------------------------------------------------------
 // @Namespace : UniVgo2.Porters
-// @Class     : MaterialPorterStore
+// @Class     : VgoMaterialPorterStore
 // ----------------------------------------------------------------------
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
 
     /// <summary>
-    /// Material Porter Store
+    /// VGO Material Porter Store
     /// </summary>
-    public class MaterialPorterStore : IMaterialPorterStore
+    public class VgoMaterialPorterStore : IMaterialPorterStore
     {
         #region Fields & Properties
 

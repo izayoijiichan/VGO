@@ -10,7 +10,7 @@ namespace UniVgo2.Converters
     /// <summary>
     /// Texture Converter
     /// </summary>
-    public class TextureConverter
+    public class TextureConverter : ITextureConverter
     {
         /// <summary>
         /// Get import texture.
@@ -19,7 +19,7 @@ namespace UniVgo2.Converters
         /// <param name="textureMapType">The texture map type.</param>
         /// <param name="metallicRoughness">The metallic roughness.</param>
         /// <returns></returns>
-        public Texture2D GetImportTexture(Texture2D source, VgoTextureMapType textureMapType, float metallicRoughness = -1.0f)
+        public virtual Texture2D GetImportTexture(Texture2D source, VgoTextureMapType textureMapType, float metallicRoughness = -1.0f)
         {
             if (textureMapType == VgoTextureMapType.NormalMap)
             {
@@ -51,7 +51,7 @@ namespace UniVgo2.Converters
         /// <param name="colorSpaceType">The color space type.</param>
         /// <param name="metallicSmoothness">The metallic smoothness.</param>
         /// <returns></returns>
-        public Texture2D GetExportTexture(Texture2D source, VgoTextureMapType textureMapType, VgoColorSpaceType colorSpaceType, float metallicSmoothness = -1.0f)
+        public virtual Texture2D GetExportTexture(Texture2D source, VgoTextureMapType textureMapType, VgoColorSpaceType colorSpaceType, float metallicSmoothness = -1.0f)
         {
             if (textureMapType == VgoTextureMapType.NormalMap)
             {
@@ -78,7 +78,7 @@ namespace UniVgo2.Converters
         /// <param name="colorSpaceType">The color space type.</param>
         /// <param name="converter">The converter.</param>
         /// <returns>The copied Texture2D.</returns>
-        protected Texture2D CopyTexture2d(Texture2D source, VgoColorSpaceType colorSpaceType, Material converter = null)
+        protected virtual Texture2D CopyTexture2d(Texture2D source, VgoColorSpaceType colorSpaceType, Material converter = null)
         {
             RenderTextureReadWrite readWrite =
                 (colorSpaceType == VgoColorSpaceType.Linear) ? RenderTextureReadWrite.Linear : RenderTextureReadWrite.sRGB;

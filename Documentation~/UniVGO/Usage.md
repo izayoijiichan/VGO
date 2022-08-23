@@ -13,7 +13,7 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2022.1|
-|2|UniVGO version|2.4.10|
+|2|UniVGO version|2.4.11|
 |3|VGO spec version|2.4|
 
 ### Supported Unity components
@@ -122,7 +122,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.4.10|
+|2|Version|Version of the generation tool.|2.4.11|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -274,7 +274,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.4.10|
+|2|Version|Version of the generation tool.|2.4.11|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -479,18 +479,28 @@ If an error has occurred, the Console will display the details of the error.
 If you write your own script, write as follows.
 
 ~~~csharp
+    using System;
     using UnityEngine;
     using UniVgo2;
 
     public class RuntimeLoadBehaviour : MonoBehaviour
     {
+        private IDisposable _ModelAssetDisposer;
+
         private void Start()
         {
-            var importer = new VgoImporter();
+            VgoImporter importer = new();
 
-            importer.Load(filePath);
+            ModelAsset modelAsset = importer.Load(filePath);
 
-            importer.ReflectSkybox(Camera.main);
+            importer.ReflectSkybox(Camera.main, modelAsset);
+
+            _ModelAssetDisposer = modelAsset;
+        }
+
+        private void OnDestroy()
+        {
+            _ModelAssetDisposer?.Dispose();
         }
     }
 ~~~
@@ -535,7 +545,7 @@ Multiple play allows multiple people to enter the same room and make calls.
 https://vovola.wixsite.com/website
 
 ___
-Last updated: 11 July, 2022  
+Last updated: 24 August, 2022  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*

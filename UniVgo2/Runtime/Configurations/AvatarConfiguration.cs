@@ -12,7 +12,7 @@ namespace UniVgo2
     /// <summary>
     /// Avatar Configuration
     /// </summary>
-    [CreateAssetMenu(menuName = "VGO/AvatarConfiguration")]
+    [CreateAssetMenu(menuName = "Vgo/Avatar Configuration")]
     [Serializable]
     public class AvatarConfiguration : ScriptableObject
     {

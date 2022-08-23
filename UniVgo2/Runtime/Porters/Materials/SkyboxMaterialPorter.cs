@@ -6,13 +6,14 @@ namespace UniVgo2.Porters
 {
     using NewtonVgo;
     using System;
+    using System.Collections.Generic;
     using UniSkyboxShader;
     using UnityEngine;
 
     /// <summary>
     /// Skybox Material Porter
     /// </summary>
-    public class SkyboxMaterialPorter : MaterialPorterBase
+    public class SkyboxMaterialPorter : AbstractMaterialPorterBase
     {
         #region Constructors
 
@@ -29,8 +30,9 @@ namespace UniVgo2.Porters
         /// Create a vgo material.
         /// </summary>
         /// <param name="material">A skybox material.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateVgoMaterial(Material material)
+        public override VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
         {
             var vgoMaterial = new VgoMaterial
             {
@@ -48,12 +50,12 @@ namespace UniVgo2.Porters
                         ExportProperty(vgoMaterial, material, Property.Tint, VgoMaterialPropertyType.Color4);
                         ExportProperty(vgoMaterial, material, Property.Exposure, VgoMaterialPropertyType.Float);
                         ExportProperty(vgoMaterial, material, Property.Rotation, VgoMaterialPropertyType.Int);
-                        ExportTextureProperty(vgoMaterial, material, Property.FrontTex);
-                        ExportTextureProperty(vgoMaterial, material, Property.BackTex);
-                        ExportTextureProperty(vgoMaterial, material, Property.LeftTex);
-                        ExportTextureProperty(vgoMaterial, material, Property.RightTex);
-                        ExportTextureProperty(vgoMaterial, material, Property.UpTex);
-                        ExportTextureProperty(vgoMaterial, material, Property.DownTex);
+                        ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.FrontTex);
+                        ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.BackTex);
+                        ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.LeftTex);
+                        ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.RightTex);
+                        ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.UpTex);
+                        ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.DownTex);
                     }
                     break;
 
@@ -63,7 +65,7 @@ namespace UniVgo2.Porters
                         ExportProperty(vgoMaterial, material, Property.Tint, VgoMaterialPropertyType.Color4);
                         ExportProperty(vgoMaterial, material, Property.Exposure, VgoMaterialPropertyType.Float);
                         ExportProperty(vgoMaterial, material, Property.Rotation, VgoMaterialPropertyType.Int);
-                        ExportTextureProperty(vgoMaterial, material, Property.Tex, VgoTextureMapType.CubeMap);
+                        ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.Tex, VgoTextureMapType.CubeMap);
                     }
                     break;
 
@@ -73,7 +75,7 @@ namespace UniVgo2.Porters
                         ExportProperty(vgoMaterial, material, Property.Tint, VgoMaterialPropertyType.Color4);
                         ExportProperty(vgoMaterial, material, Property.Exposure, VgoMaterialPropertyType.Float);
                         ExportProperty(vgoMaterial, material, Property.Rotation, VgoMaterialPropertyType.Int);
-                        ExportTextureProperty(vgoMaterial, material, Property.MainTex);
+                        ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.MainTex);
                         ExportProperty(vgoMaterial, material, Property.Mapping, VgoMaterialPropertyType.Int);
                         ExportProperty(vgoMaterial, material, Property.ImageType, VgoMaterialPropertyType.Int);
                         ExportProperty(vgoMaterial, material, Property.MirrorOnBack, VgoMaterialPropertyType.Int);
@@ -110,8 +112,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A skybox shader.</param>
+        /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A skybox material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader)
+        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D> allTexture2dList)
         {
             if (vgoMaterial == null)
             {
@@ -141,12 +144,12 @@ namespace UniVgo2.Porters
                         Tint = vgoMaterial.GetColorOrDefault(Property.Tint, Color.white).gamma,
                         Exposure = vgoMaterial.GetSafeFloat(Property.Exposure, 0.0f, 8.0f, 1.0f),
                         Rotation = vgoMaterial.GetSafeInt(Property.Rotation, 0, 360, 0),
-                        FrontTex = AllTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.FrontTex)),
-                        BackTex = AllTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BackTex)),
-                        LeftTex = AllTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.LeftTex)),
-                        RightTex = AllTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.RightTex)),
-                        UpTex = AllTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.UpTex)),
-                        DownTex = AllTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.DownTex)),
+                        FrontTex = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.FrontTex)),
+                        BackTex = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BackTex)),
+                        LeftTex = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.LeftTex)),
+                        RightTex = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.RightTex)),
+                        UpTex = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.UpTex)),
+                        DownTex = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.DownTex)),
                     });
                     break;
 
@@ -166,7 +169,7 @@ namespace UniVgo2.Porters
                         Tint = vgoMaterial.GetColorOrDefault(Property.Tint, Color.white).gamma,
                         Exposure = vgoMaterial.GetSafeFloat(Property.Exposure, 0.0f, 8.0f, 1.0f),
                         Rotation = vgoMaterial.GetSafeInt(Property.Rotation, 0, 360, 0),
-                        MainTex = AllTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MainTex)),
+                        MainTex = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MainTex)),
                         Mapping = (Mapping)vgoMaterial.GetIntOrDefault(Property.Mapping),
                         ImageType = (ImageType)vgoMaterial.GetIntOrDefault(Property.ImageType),
                         MirrorOnBack = vgoMaterial.GetIntOrDefault(Property.MirrorOnBack) == 1,

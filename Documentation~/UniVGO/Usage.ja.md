@@ -13,7 +13,7 @@ ___
 |No|項目|値|
 |:---:|:---|:---:|
 |1|Unity バージョン|2022.1|
-|2|UniVGO バージョン|2.4.10|
+|2|UniVGO バージョン|2.4.11|
 |3|VGO 仕様バージョン|2.4|
 
 ### 対応 Unity コンポーネント
@@ -122,7 +122,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Name|生成ツールの名前です。|UniVGO|
-|2|Version|生成ツールのバージョンです。|2.4.10|
+|2|Version|生成ツールのバージョンです。|2.4.11|
 
 ユーザーが設定可能な項目はありません。  
 ジェネレーター情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -274,7 +274,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Generator Name|生成ツールの名前です。|UniVGO|
-|2|Generator Version|生成ツールのバージョンです。|2.4.10|
+|2|Generator Version|生成ツールのバージョンです。|2.4.11|
 
 ユーザーが設定可能な項目はありません。  
 メタ情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -483,18 +483,28 @@ VGOファイルが読み込まれることを確認します。
 自分でスクリプトを書く場合には以下のように記述します。
 
 ~~~csharp
+    using System;
     using UnityEngine;
     using UniVgo2;
 
     public class RuntimeLoadBehaviour : MonoBehaviour
     {
+        private IDisposable _ModelAssetDisposer;
+
         private void Start()
         {
-            var importer = new VgoImporter();
+            VgoImporter importer = new();
 
-            importer.Load(filePath);
+            ModelAsset modelAsset = importer.Load(filePath);
 
-            importer.ReflectSkybox(Camera.main);
+            importer.ReflectSkybox(Camera.main, modelAsset);
+
+            _ModelAssetDisposer = modelAsset;
+        }
+
+        private void OnDestroy()
+        {
+            _ModelAssetDisposer?.Dispose();
         }
     }
 ~~~
@@ -540,7 +550,7 @@ VR-HMD（ヘッドマウントディスプレイ）が不要な簡易3D バー�
 https://vovola.wixsite.com/website
 
 ___
-最終更新日：2022年7月11日  
+最終更新日：2022年8月24日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*

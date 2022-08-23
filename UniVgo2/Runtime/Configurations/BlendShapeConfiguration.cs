@@ -12,7 +12,7 @@ namespace UniVgo2
     /// <summary>
     /// BlendShape Configuration
     /// </summary>
-    [CreateAssetMenu(menuName = "VGO/BlendShapeConfiguration")]
+    [CreateAssetMenu(menuName = "Vgo/Blend Shape Configuration")]
     [Serializable]
     public class BlendShapeConfiguration : ScriptableObject
     {

@@ -19,10 +19,6 @@ namespace UniVgo2.Porters
         /// <remarks>for Export</remarks>
         ExportTextureDelegate ExportTexture { get; set; }
 
-        /// <summary>List of all texture 2D.</summary>
-        /// <remarks>for Import</remarks>
-        List<Texture2D> AllTexture2dList { get; set; }
-
         #endregion
 
         #region Public Methods (Export)
@@ -31,8 +27,9 @@ namespace UniVgo2.Porters
         /// Create a vgo material.
         /// </summary>
         /// <param name="material">A unity material.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        VgoMaterial CreateVgoMaterial(Material material);
+        VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage);
 
         #endregion
 
@@ -43,8 +40,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A shader.</param>
+        /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A unity material.</returns>
-        Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader);
+        Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D> allTexture2dList);
 
         #endregion
     }

@@ -11,6 +11,7 @@ namespace UniVgo2
     /// <summary>
     /// VGO BlendShape
     /// </summary>
+    [AddComponentMenu("Vgo/Vgo Blend Shape")]
     [DisallowMultipleComponent]
     public class VgoBlendShape : MonoBehaviour
     {
@@ -25,11 +26,9 @@ namespace UniVgo2
         /// </summary>
         private void Awake()
         {
-            _SkinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
-
-            if (_SkinnedMeshRenderer == null)
+            if (gameObject.TryGetComponentEx(out _SkinnedMeshRenderer) == false)
             {
-                Debug.LogWarning("SkinnedMeshRenderer component is not attached.");
+                Debug.LogWarning($"{nameof(SkinnedMeshRenderer)} component is not attached.");
             }
         }
 

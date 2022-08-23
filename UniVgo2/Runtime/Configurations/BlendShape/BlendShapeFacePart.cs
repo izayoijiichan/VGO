@@ -16,7 +16,7 @@ namespace UniVgo2
         /// <summary>The index of the BlendShape.</summary>
         public int index;
 
-        /// <summary>The type of the BlendShape.</summary>
+        /// <summary>The type of the face parts.</summary>
         public VgoBlendShapeFacePartsType type;
     }
 }

@@ -6,13 +6,14 @@ namespace UniVgo2.Porters
 {
     using NewtonVgo;
     using System;
+    using System.Collections.Generic;
     using UniParticleShader;
     using UnityEngine;
 
     /// <summary>
     /// Particle Material Porter
     /// </summary>
-    public class ParticleMaterialPorter : MaterialPorterBase
+    public class ParticleMaterialPorter : AbstractMaterialPorterBase
     {
         #region Constructors
 
@@ -29,8 +30,9 @@ namespace UniVgo2.Porters
         /// Create a vgo material.
         /// </summary>
         /// <param name="material">A particle material.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateVgoMaterial(Material material)
+        public override VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
         {
             //ParticleDefinition particleDefinition = UniParticleShader.Utils.GetParametersFromMaterial(material);
 
@@ -71,11 +73,11 @@ namespace UniVgo2.Porters
             ExportProperty(vgoMaterial, material, Property.ZWrite, VgoMaterialPropertyType.Int);
 
             // Textures
-            ExportTextureProperty(vgoMaterial, material, Property.GrabTexture);
-            ExportTextureProperty(vgoMaterial, material, Property.MainTex);
-            ExportTextureProperty(vgoMaterial, material, Property.MetallicGlossMap, VgoTextureMapType.MetallicRoughnessMap, VgoColorSpaceType.Linear, smoothness);
-            ExportTextureProperty(vgoMaterial, material, Property.BumpMap, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
-            ExportTextureProperty(vgoMaterial, material, Property.EmissionMap, VgoTextureMapType.EmissionMap, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.GrabTexture);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.MainTex);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.MetallicGlossMap, VgoTextureMapType.MetallicRoughnessMap, VgoColorSpaceType.Linear, smoothness);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.BumpMap, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.EmissionMap, VgoTextureMapType.EmissionMap, VgoColorSpaceType.Srgb);
 
             // Tags
             ExportTag(vgoMaterial, material, Tag.RenderType);
@@ -105,8 +107,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A particle shader.</param>
+        /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A particle material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader)
+        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D> allTexture2dList)
         {
             if (vgoMaterial == null)
             {
@@ -123,7 +126,7 @@ namespace UniVgo2.Porters
                 name = vgoMaterial.name
             };
 
-            ParticleDefinition particleDefinition = CreateParticleDefinition(vgoMaterial);
+            ParticleDefinition particleDefinition = CreateParticleDefinition(vgoMaterial, allTexture2dList);
 
             UniParticleShader.Utils.SetParametersToMaterial(material, particleDefinition);
 
@@ -137,9 +140,10 @@ namespace UniVgo2.Porters
         /// <summary>
         /// Create a particle definition.
         /// </summary>
-        /// <param name="materialInfo">A material info.</param>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A particle definition.</returns>
-        protected virtual ParticleDefinition CreateParticleDefinition(VgoMaterial vgoMaterial)
+        protected virtual ParticleDefinition CreateParticleDefinition(VgoMaterial vgoMaterial, List<Texture2D> allTexture2dList)
         {
             ParticleDefinition particleDefinition = new ParticleDefinition
             {
@@ -171,11 +175,11 @@ namespace UniVgo2.Porters
                 EmissionMap = null,
             };
 
-            particleDefinition.GrabTexture = AllTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.GrabTexture));
-            particleDefinition.MainTex = AllTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MainTex));
-            particleDefinition.MetallicGlossMap = AllTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MetallicGlossMap));
-            particleDefinition.BumpMap = AllTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BumpMap));
-            particleDefinition.EmissionMap = AllTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.EmissionMap));
+            particleDefinition.GrabTexture = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.GrabTexture));
+            particleDefinition.MainTex = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MainTex));
+            particleDefinition.MetallicGlossMap = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MetallicGlossMap));
+            particleDefinition.BumpMap = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BumpMap));
+            particleDefinition.EmissionMap = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.EmissionMap));
 
             return particleDefinition;
         }

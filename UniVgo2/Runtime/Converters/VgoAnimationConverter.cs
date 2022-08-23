@@ -20,7 +20,7 @@ namespace UniVgo2.Converters
         /// <param name="animationClips"></param>
         /// <param name="geometryCoordinate"></param>
         /// <returns></returns>
-        public static VgoAnimation CreateFrom(Animation animation, List<AnimationClip> animationClips, VgoGeometryCoordinate geometryCoordinate)
+        public static VgoAnimation CreateFrom(Animation animation, IList<AnimationClip> animationClips, VgoGeometryCoordinate geometryCoordinate)
         {
             if (animation == null)
             {

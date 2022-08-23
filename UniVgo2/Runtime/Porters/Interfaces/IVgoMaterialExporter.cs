@@ -1,6 +1,6 @@
 ﻿// ----------------------------------------------------------------------
 // @Namespace : UniVgo2.Porters
-// @Class     : IMaterialExporter
+// @Class     : IVgoMaterialExporter
 // ----------------------------------------------------------------------
 namespace UniVgo2.Porters
 {
@@ -8,9 +8,9 @@ namespace UniVgo2.Porters
     using UnityEngine;
 
     /// <summary>
-    /// Material Exporter Interface
+    /// VGO Material Exporter Interface
     /// </summary>
-    public interface IMaterialExporter
+    public interface IVgoMaterialExporter
     {
         #region Properties
 
@@ -29,8 +29,9 @@ namespace UniVgo2.Porters
         /// Create a vgo material.
         /// </summary>
         /// <param name="material">A unity material.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        VgoMaterial CreateVgoMaterial(Material material);
+        VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage);
 
         #endregion
     }

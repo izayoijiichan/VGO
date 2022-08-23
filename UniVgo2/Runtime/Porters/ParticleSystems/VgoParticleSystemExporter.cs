@@ -15,15 +15,8 @@ namespace UniVgo2.Porters
     /// <summary>
     /// VGO Particle System Exporter
     /// </summary>
-    public class VgoParticleSystemExporter
+    public class VgoParticleSystemExporter : IVgoParticleSystemExporter
     {
-        #region Properties
-
-        /// <summary>The VGO storage adapter.</summary>
-        protected VgoStorageAdapter StorageAdapter { get; set; }
-
-        #endregion
-
         #region Public Methods
 
         /// <summary>
@@ -31,23 +24,21 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="particleSystemRenderer"></param>
-        /// <param name="storageAdapter"></param>
+        /// <param name="vgoStorage"></param>
         /// <param name="exportTexture"></param>
         /// <returns></returns>
-        public virtual VgoParticleSystem Create(ParticleSystem particleSystem, ParticleSystemRenderer particleSystemRenderer, VgoStorageAdapter storageAdapter, ExportTextureDelegate exportTexture)
+        public virtual VgoParticleSystem Create(ParticleSystem particleSystem, ParticleSystemRenderer particleSystemRenderer, IVgoStorage vgoStorage, ExportTextureDelegate exportTexture)
         {
             if (particleSystem == null)
             {
                 return null;
             }
 
-            StorageAdapter = storageAdapter;
-
             var vgoParticleSystem = new VgoParticleSystem()
             {
-                main = CreateVgoModule(particleSystem.main),
+                main = CreateVgoModule(particleSystem.main, vgoStorage.GeometryCoordinate),
                 emission = CreateVgoModule(particleSystem.emission),
-                shape = CreateVgoModule(particleSystem.shape, storageAdapter, exportTexture),
+                shape = CreateVgoModule(particleSystem.shape, vgoStorage, exportTexture),
                 velocityOverLifetime = CreateVgoModule(particleSystem.velocityOverLifetime),
                 limitVelocityOverLifetime = CreateVgoModule(particleSystem.limitVelocityOverLifetime),
                 inheritVelocity = CreateVgoModule(particleSystem.inheritVelocity),
@@ -67,7 +58,7 @@ namespace UniVgo2.Porters
                 lights = CreateVgoModule(particleSystem.lights),
                 trails = CreateVgoModule(particleSystem.trails),
                 //CustomData = CreateVgoModule(particleSystem.customData),
-                renderer = CreateVgoPsRenderer(particleSystemRenderer),
+                renderer = CreateVgoPsRenderer(particleSystemRenderer, vgoStorage.GeometryCoordinate, vgoStorage.Layout),
             };
 
             return vgoParticleSystem;
@@ -81,8 +72,9 @@ namespace UniVgo2.Porters
         /// Create VGO_PS_MainModule from MainModule.
         /// </summary>
         /// <param name="module"></param>
+        /// <param name="geometryCoordinate"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_MainModule CreateVgoModule(MainModule module)
+        protected virtual VGO_PS_MainModule CreateVgoModule(MainModule module, VgoGeometryCoordinate geometryCoordinate)
         {
             var vgoModule = new VGO_PS_MainModule()
             {
@@ -103,7 +95,7 @@ namespace UniVgo2.Porters
                 gravityModifierMultiplier = module.gravityModifierMultiplier,
                 simulationSpace = (NewtonVgo.ParticleSystemSimulationSpace)module.simulationSpace,
                 simulationSpeed = module.simulationSpeed,
-                customSimulationSpace = VgoTransformConverter.CreateFrom(module.customSimulationSpace, StorageAdapter.GeometryCoordinate),
+                customSimulationSpace = VgoTransformConverter.CreateFrom(module.customSimulationSpace, geometryCoordinate),
                 useUnscaledTime = module.useUnscaledTime,
                 scalingMode = (NewtonVgo.ParticleSystemScalingMode)module.scalingMode,
                 playOnAwake = module.playOnAwake,
@@ -193,10 +185,10 @@ namespace UniVgo2.Porters
         /// Create VGO_PS_ShapeModule from ShapeModule.
         /// </summary>
         /// <param name="module"></param>
-        /// <param name="vgoStorageAdapter"></param>
+        /// <param name="vgoStorage"></param>
         /// <param name="exportTexture"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_ShapeModule CreateVgoModule(ShapeModule module, VgoStorageAdapter vgoStorageAdapter, ExportTextureDelegate exportTexture)
+        protected virtual VGO_PS_ShapeModule CreateVgoModule(ShapeModule module, IVgoStorage vgoStorage, ExportTextureDelegate exportTexture)
         {
             var vgoShapeModule = new VGO_PS_ShapeModule()
             {
@@ -238,8 +230,8 @@ namespace UniVgo2.Porters
                 textureAlphaAffectsParticles = module.textureAlphaAffectsParticles,
                 textureBilinearFiltering = module.textureBilinearFiltering,
                 textureUVChannel = module.textureUVChannel,
-                position = module.position.ToNullableNumericsVector3(Vector3.zero, StorageAdapter.GeometryCoordinate),
-                rotation = module.rotation.ToNullableNumericsVector3(Vector3.zero, StorageAdapter.GeometryCoordinate),
+                position = module.position.ToNullableNumericsVector3(Vector3.zero, vgoStorage.GeometryCoordinate),
+                rotation = module.rotation.ToNullableNumericsVector3(Vector3.zero, vgoStorage.GeometryCoordinate),
                 scale = module.scale.ToNullableNumericsVector3(Vector3.one),
                 alignToDirection = module.alignToDirection,
                 randomPositionAmount = module.randomPositionAmount,
@@ -249,7 +241,7 @@ namespace UniVgo2.Porters
 
             if (module.texture != null)
             {
-                vgoShapeModule.textureIndex = exportTexture(material: null, module.texture);
+                vgoShapeModule.textureIndex = exportTexture(vgoStorage, material: null, module.texture);
             }
 
             return vgoShapeModule;
@@ -717,8 +709,10 @@ namespace UniVgo2.Porters
         /// Create VGO_PS_Renderer from ParticleSystemRenderer.
         /// </summary>
         /// <param name="particleSystemRenderer"></param>
+        /// <param name="geometryCoordinate"></param>
+        /// <param name="vgoLayout"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_Renderer CreateVgoPsRenderer(ParticleSystemRenderer particleSystemRenderer)
+        protected virtual VGO_PS_Renderer CreateVgoPsRenderer(ParticleSystemRenderer particleSystemRenderer, VgoGeometryCoordinate geometryCoordinate, VgoLayout vgoLayout)
         {
             return new VGO_PS_Renderer()
             {
@@ -728,8 +722,8 @@ namespace UniVgo2.Porters
                 velocityScale = particleSystemRenderer.velocityScale,
                 lengthScale = particleSystemRenderer.lengthScale,
                 normalDirection = particleSystemRenderer.normalDirection,
-                sharedMaterial = GetMaterialIndex(particleSystemRenderer.sharedMaterial),
-                trailMaterialIndex = GetMaterialIndex(particleSystemRenderer.trailMaterial),
+                sharedMaterial = GetMaterialIndex(particleSystemRenderer.sharedMaterial, vgoLayout),
+                trailMaterialIndex = GetMaterialIndex(particleSystemRenderer.trailMaterial, vgoLayout),
                 sortMode = (NewtonVgo.ParticleSystemSortMode)particleSystemRenderer.sortMode,
                 sortingFudge = particleSystemRenderer.sortingFudge,
                 minParticleSize = particleSystemRenderer.minParticleSize,
@@ -751,7 +745,7 @@ namespace UniVgo2.Porters
                 sortingOrder = particleSystemRenderer.sortingOrder,
                 lightProbeUsage = (LightProbeUsage)particleSystemRenderer.lightProbeUsage,
                 reflectionProbeUsage = (ReflectionProbeUsage)particleSystemRenderer.reflectionProbeUsage,
-                probeAnchor = VgoTransformConverter.CreateFrom(particleSystemRenderer.probeAnchor, StorageAdapter.GeometryCoordinate),
+                probeAnchor = VgoTransformConverter.CreateFrom(particleSystemRenderer.probeAnchor, geometryCoordinate),
             };
         }
 
@@ -763,27 +757,28 @@ namespace UniVgo2.Porters
         /// Get a material index.
         /// </summary>
         /// <param name="material"></param>
+        /// <param name="vgoLayout"></param>
         /// <returns></returns>
-        protected virtual int GetMaterialIndex(Material material)
+        protected virtual int GetMaterialIndex(Material material, VgoLayout vgoLayout)
         {
             if (material == null)
             {
                 return -1;
             }
 
-            if (StorageAdapter.Layout.materials == null)
+            if (vgoLayout.materials == null)
             {
                 return -1;
             }
 
-            var vgoMaterial = StorageAdapter.Layout.materials.FirstOrDefault(m => m.name.Equals(material.name));
+            var vgoMaterial = vgoLayout.materials.FirstOrDefault(m => m.name.Equals(material.name));
 
             if (vgoMaterial == null)
             {
                 return -1;
             }
 
-            return StorageAdapter.Layout.materials.IndexOf(vgoMaterial);
+            return vgoLayout.materials.IndexOf(vgoMaterial);
         }
 
         #endregion
