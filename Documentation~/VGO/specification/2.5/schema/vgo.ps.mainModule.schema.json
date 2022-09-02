@@ -1,0 +1,302 @@
+{
+    "$id": "vgo.ps.mainModule",
+    "type": "object",
+    "properties": {
+        "duration": {
+            "type": "number"
+        },
+        "loop": {
+            "type": "boolean"
+        },
+        "prewarm": {
+            "type": "boolean"
+        },
+        "startDelay": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "startDelayMultiplier": {
+            "type": "number"
+        },
+        "startLifetime": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "startLifetimeMultiplier": {
+            "type": "number"
+        },
+        "startSpeed": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "startSpeedMultiplier": {
+            "type": "number"
+        },
+        "startSize3D": {
+            "type": "boolean"
+        },
+        "startSize": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "startSizeX": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "startSizeY": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "startSizeZ": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "startSizeMultiplier": {
+            "type": "number"
+        },
+        "startSizeXMultiplier": {
+            "type": "number"
+        },
+        "startSizeYMultiplier": {
+            "type": "number"
+        },
+        "startSizeZMultiplier": {
+            "type": "number"
+        },
+        "startRotation3D": {
+            "type": "boolean"
+        },
+        "startRotation": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "startRotationX": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "startRotationY": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "startRotationZ": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "startRotationMultiplier": {
+            "type": "number",
+            "default": -1.0
+        },
+        "startRotationXMultiplier": {
+            "type": "number",
+            "default": -1.0
+        },
+        "startRotationYMultiplier": {
+            "type": "number",
+            "default": -1.0
+        },
+        "startRotationZMultiplier": {
+            "type": "number",
+            "default": -1.0
+        },
+        "flipRotation": {
+            "type": "number"
+        },
+        "startColor": {
+            "$id": "vgo.ps.minMaxGradient",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "gravityModifier": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "gravityModifierMultiplier": {
+            "type": "number"
+        },
+        "simulationSpace": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Local",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "World",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Custom",
+                    "type": "integer"
+                }
+            ]
+        },
+        "simulationSpeed": {
+            "type": "number"
+        },
+        "customSimulationSpace": {
+            "$id": "node.vgo.transform",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "useUnscaledTime": {
+            "type": "boolean"
+        },
+        "scalingMode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Hierarchy",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Local",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Shape",
+                    "type": "integer"
+                }
+            ]
+        },
+        "playOnAwake": {
+            "type": "boolean"
+        },
+        "emitterVelocityMode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Transform",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Rigidbody",
+                    "type": "integer"
+                }
+            ]
+        },
+        "maxParticles": {
+            "type": "integer"
+        },
+        "stopAction": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Disable",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Destroy",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "Callback",
+                    "type": "integer"
+                }
+            ]
+        },
+        "cullingMode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Automatic",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "PauseAndCatchup",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Pause",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "AlwaysSimulate",
+                    "type": "integer"
+                }
+            ]
+        },
+        "ringBufferMode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Disabled",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "PauseUntilReplaced",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "LoopUntilReplaced",
+                    "type": "integer"
+                }
+            ]
+        },
+        "ringBufferLoopRange": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        }
+    }
+}

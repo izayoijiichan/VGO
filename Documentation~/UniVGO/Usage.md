@@ -13,8 +13,8 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2022.1|
-|2|UniVGO version|2.4.11|
-|3|VGO spec version|2.4|
+|2|UniVGO version|2.5.0|
+|3|VGO spec version|2.5|
 
 ### Supported Unity components
 
@@ -122,7 +122,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.4.11|
+|2|Version|Version of the generation tool.|2.5.0|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -274,7 +274,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.4.11|
+|2|Version|Version of the generation tool.|2.5.0|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -519,33 +519,7 @@ or the VGO (avatar or world) that others have set to be available in the linked 
 https://vgohub.azurewebsites.net
 
 ___
-
-## Apps that can use VGO
-
-Currently two applications are supported.
-
-### VISHOP
-
-It is a virtual shopping system.  
-You can specify a VGO file for the player and shop.  
-It is an application linked with VGO Hub.
-
-![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/820_vishop.jpg)
-
-https://vishop.azurewebsites.net
-
-### VOVOLA
-
-It is a simple 3D virtual YouTuber application that does not require VR-HMD (head mounted display).  
-You can specify a VGO file for the player and room.  
-Multiple play allows multiple people to enter the same room and make calls.
-
-![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/810_vovola.jpg)
-
-https://vovola.wixsite.com/website
-
-___
-Last updated: 24 August, 2022  
+Last updated: 3 September, 2022  
 Editor: Izayoi Jiichan
 
-*Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*
+*Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

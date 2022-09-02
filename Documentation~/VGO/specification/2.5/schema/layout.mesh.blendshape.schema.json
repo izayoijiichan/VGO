@@ -1,0 +1,243 @@
+{
+    "title": "Blend Shape",
+    "description": "A mesh blend shape.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The name of the blend shape.",
+            "type": "string"
+        },
+        "attributes": {
+            "description": "A dictionary mapping attributes.",
+            "type": "object",
+            "minProperties": 1
+        },
+        "facePartsType": {
+            "description": "The type of face parts.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 10 ],
+                    "description": "Forehead",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 11 ],
+                    "description": "Eyebrow",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 12 ],
+                    "description": "Eyelashes",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 13 ],
+                    "description": "Eyelid",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 14 ],
+                    "description": "Pupil",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 20 ],
+                    "description": "Ear",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 30 ],
+                    "description": "Nose",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 40 ],
+                    "description": "Cheek",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 50 ],
+                    "description": "Mouth",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 51 ],
+                    "description": "Teeth",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 52 ],
+                    "description": "Tongue",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 60 ],
+                    "description": "Hair",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 61 ],
+                    "description": "BackHair",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 62 ],
+                    "description": "SideHair",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 63 ],
+                    "description": "Frizz",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 64 ],
+                    "description": "EarHair",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 65 ],
+                    "description": "NoseHair",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 66 ],
+                    "description": "Mustache",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 67 ],
+                    "description": "Beard",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 70 ],
+                    "description": "Mole",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        },
+        "blinkType": {
+            "description": "The type of blink.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Left",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Right",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "Both",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        },
+        "visemeType": {
+            "description": "The type of viseme.",
+            "anyOf": [
+                {
+                    "enum": [ -1 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 0 ],
+                    "description": "Silence",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "PP",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "FF",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "TH",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "DD",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 5 ],
+                    "description": "kk",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 6 ],
+                    "description": "CH",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 7 ],
+                    "description": "SS",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 8 ],
+                    "description": "nn",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 9 ],
+                    "description": "RR",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 10 ],
+                    "description": "A",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 11 ],
+                    "description": "E",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 12 ],
+                    "description": "I",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 13 ],
+                    "description": "O",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 14 ],
+                    "description": "U",
+                    "type": "integer"
+                }
+            ],
+            "default": -1
+        }
+    },
+    "required": [
+        "name",
+        "attributes"
+    ]
+}

@@ -19,7 +19,7 @@ ___
 |Unity 2021.3|OK|OK|OK|OK|unconfirmed|
 |Unity 2022.1|OK|OK|unconfirmed|unconfirmed|unconfirmed|
 
-As of August of 2022, we are developing and confirming in `Unity 2022.1` `Windows` `.NET Standard 2.1` environment.
+As of September of 2022, we are developing and confirming in `Unity 2022.1` `Windows` `.NET Standard 2.1` environment.
 
 ### Required package
 
@@ -32,7 +32,7 @@ As of August of 2022, we are developing and confirming in `Unity 2022.1` `Window
 |LilToonShader.Utility|IzayoiJiichan|GitHub||1.0.1|21 Aug, 2022|
 |UniShaders|IzayoiJiichan|GitHub|-|1.4.0|20 May, 2022|
 |VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.2|24 Aug, 2022|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.4|2.4.11|24 Aug, 2022|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.0|3 Sep, 2022|
 
 #### Added (when using Unity 2021.1 or lower version)
 
@@ -103,23 +103,19 @@ Create a new 3D project in Unity Editor or Unity Hub.
 
 Add the Define symbol to match the version of VRMShaders (com.vrmc.vrmshaders) you are using.
 
-- When using VRMShaders 0.72.0 to 0.84.0
-
-`VRMC_VRMSHADERS_0_72_OR_NEWER`
-
-- When using VRMShaders 0.85.0 or higher
-
-`VRMC_VRMSHADERS_0_85_OR_NEWER`
+|symbol value|min version|max version|
+|:--|:--:|:--:|
+|VRMC_VRMSHADERS_0_72_OR_NEWER|0.72.0|0.84.0|
+|VRMC_VRMSHADERS_0_85_OR_NEWER|0.85.0|(0.101.0)|
 
 Add the Define symbol to match the version of lilToon (jp.lilxyzw.liltoon) you are using.
 
-- When using lilToon 1.2.12
+|symbol value|min version|max version|
+|:--|:--:|:--:|
+|LILTOON_1_2_12_OR_OLDER|(1.2.0)|1.2.12|
+|LILTOON_1_3_0_OR_NEWER|1.3.0|(1.3.3)|
 
-`LILTOON_1_2_12_OR_OLDER`
-
-- When using lilToon 1.3.0 or higher
-
-`LILTOON_1_3_0_OR_NEWER` (not required)
+Click `Apply` button.
 
 #### 3. Installation of required packages
 
@@ -141,7 +137,7 @@ You need to be careful where you add them.
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.1",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.11",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.5.0",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
@@ -163,7 +159,7 @@ You need to be careful where you add them.
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.1",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.4.11",
+    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.5.0",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
@@ -376,7 +372,7 @@ Write the following in `<Project> /Packages/package.json`.
     ...
     "com.vrmc.gltf": "https://github.com/vrm-c/UniVRM.git?path=/Assets/UniGLTF#v0.81.0",
     "com.vrmc.univrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM#v0.81.0",
-    "com.vrmc.vrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM#v0.81.0",
+    "com.vrmc.vrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM10#v0.81.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.81.0",
     ...
   }
@@ -387,13 +383,10 @@ Modify the define symbol to match the version of VRMShaders (com.vrmc.vrmshaders
 
 `Projcet Settings` > `Player` > `Other Settings` > `Script Compilation` > `Scripting Define Symbols`
 
-- When using VRMShaders 0.72.0 to 0.84.0
-
-`VRMC_VRMSHADERS_0_72_OR_NEWER`
-
-- When using VRMShaders 0.85.0 or higher
-
-`VRMC_VRMSHADERS_0_85_OR_NEWER`
+|symbol value|min version|max version|
+|:--|:--:|:--:|
+|VRMC_VRMSHADERS_0_72_OR_NEWER|0.72.0|0.84.0|
+|VRMC_VRMSHADERS_0_85_OR_NEWER|0.85.0|(0.101.0)|
 
 ### Pre-set up sample project
 
@@ -403,7 +396,7 @@ Modify the define symbol to match the version of VRMShaders (com.vrmc.vrmshaders
 |2021.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.brp.univrm)|
 
 ___
-Last updated: 24 August, 2022  
+Last updated: 3 September, 2022  
 Editor: Izayoi Jiichan
 
-*Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*
+*Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

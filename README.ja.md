@@ -62,6 +62,7 @@ ___
     - rigidbody
     - colliders
       - collider
+    - meshRenderer
     - skybox
     - light
     - right
@@ -82,14 +83,14 @@ ___
 - [アセット情報](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.assetInfo.json.md)
 - [レイアウト](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.json.md)
 - [レイアウト（アニメーション）](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.animation.json.md)
-- [レイアウト（クロース）](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.cloth.json.md)
+- [レイアウト（クロス）](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.cloth.json.md)
 - [レイアウト（パーティクル）](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.particle.json.md)
 - [レイアウト（スプリングボーン）](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.springBoneInfo.json.md)
 - [リソース](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.resource.json.md)
 
 ## JSON 仕様
 
-- VGO JSON Schema: [2.4](https://github.com/izayoijiichan/VGO2/tree/main/Documentation~/VGO/specification/2.4/schema)
+- VGO JSON Schema: [2.5](https://github.com/izayoijiichan/VGO2/tree/main/Documentation~/VGO/specification/2.5/schema)
 
 ## ツール
 
@@ -106,7 +107,7 @@ VGOファイルを生成／出力／取り込み／ロードするためのツ�
 [使用方法](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Usage.ja.md)
 
 ___
-最終更新日：2022年5月16日  
+最終更新日：2022年9月3日  
 編集者：十六夜おじいちゃん
 
-*Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*
+*Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

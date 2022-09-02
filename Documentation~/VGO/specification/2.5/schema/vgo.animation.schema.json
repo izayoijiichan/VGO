@@ -1,0 +1,92 @@
+{
+    "title": "animation",
+    "description": "The animation.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The name of the object.",
+            "type": "string"
+        },
+        "enabled": {
+            "description": "Whether this component is enabled.",
+            "type": "boolean",
+            "default": true
+        },
+        "clipIndex": {
+            "description": "The index of default animation clip.",
+            "type": "integer"
+        },
+        "localBounds": {
+            "description": "AABB of this Animation animation component in local space.",
+            "$ref": "vgo.bounds.schema.json"
+        },
+        "playAutomatically": {
+            "description": "Should the default animation clip (the Animation.clip property) automatically start playing on startup?",
+            "type": "boolean"
+        },
+        "animatePhysics": {
+            "description": "When turned on, animations will be executed in the physics loop.",
+            "type": "boolean",
+            "default": false
+        },
+        "cullingType": {
+            "description": "Controls culling of this Animation component.",
+            "type": "integer",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "AlwaysAnimate",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "BasedOnRenderers",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "BasedOnClipBounds",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "BasedOnUserBounds",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        },
+        "wrapMode": {
+            "description": "The default wrap mode used in the animation state.",
+            "type": "integer",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Default",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Once",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Loop",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "PingPong",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 8 ],
+                    "description": "ClampForever",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        }
+    }
+}

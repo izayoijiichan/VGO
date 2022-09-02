@@ -1,0 +1,33 @@
+{
+    "title": "Mesh",
+    "description": "A set of primitives to be rendered.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The name of this mesh.",
+            "type": "string"
+        },
+        "attributes": {
+            "description": "A dictionary mapping attributes.",
+            "type": "object",
+            "minProperties": 1
+        },
+        "subMeshes": {
+            "description": "The index of the accessor that contains the sub-mesh indices.",
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "blendShapes": {
+            "description": "List of the blend shape.",
+            "type": "array",
+            "items": {
+            "$ref": "layout.mesh.blendshape.schema.json"
+            }
+        }
+    },
+    "required": [
+        "attributes"
+    ]
+}

@@ -1,0 +1,84 @@
+{
+    "title": "node.collider",
+    "description": "Node collider.",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "description": "Whether collider is enabled.",
+            "type": "boolean",
+            "default": true
+        },
+        "type": {
+            "description": "Type of collider.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Box",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Capsule",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Sphere",
+                    "type": "integer"
+                }
+            ]
+        },
+        "isTrigger": {
+            "description": "Is the collider a trigger?",
+            "type": "boolean",
+            "default": false
+        },
+        "center": {
+            "description": "The center of the collider. [x, y, z]",
+            "type": "array",
+            "items": {
+                "type": "number"
+            }
+        },
+        "size": {
+            "description": "The total size of the box. [x, y, z]",
+            "type": "array",
+            "items": {
+                "type": "number"
+            }
+        },
+        "radius": {
+            "description": "The radius of the capsule or sphere, measured in the object's local space.",
+            "type": "number",
+            "minimum": 0
+        },
+        "height": {
+            "description": "The height of the capsule, measured in the object's local space.",
+            "type": "number",
+            "minimum": 0
+        },
+        "direction": {
+            "description": "The direction of the capsule.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "x",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "y",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "z",
+                    "type": "integer"
+                }
+            ]
+        },
+        "physicMaterial": {
+            "$ref": "vgo.physicMaterial.schema.json"
+        }
+    }
+}

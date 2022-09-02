@@ -1,5 +1,16 @@
 # Change Log
 
+## [2.5.0] - 2022-09-03
+
+- Features
+  - Updated the specification version of VGO to `2.5`.
+  - 3D models from the 2.4 spec version can continue to be imported or loaded.
+  - The spec version of the 3D model at the time of export will be 2.5.
+- Improvements
+  - Duplicate meshes are now referenced to the same one.
+- Changes
+  - Mesh configuration information has changed.
+
 ## [2.4.11] - 2022-08-24
 
 - Improvements

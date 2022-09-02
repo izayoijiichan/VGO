@@ -23,7 +23,7 @@ namespace UniVgo2.Porters
         /// <param name="scriptableObjectList">List of scriptable object.</param>
         /// <param name="unityMaterialList">List of unity material.</param>
         /// <returns>A mesh asset.</returns>
-        MeshAsset CreateMeshAsset(IVgoStorage vgoStorage, int meshIndex, IList<ScriptableObject> scriptableObjectList, IList<Material> unityMaterialList);
+        MeshAsset CreateMeshAsset(IVgoStorage vgoStorage, int meshIndex, IList<ScriptableObject> scriptableObjectList, IList<Material> unityMaterialList = null);
 
         #endregion
     }

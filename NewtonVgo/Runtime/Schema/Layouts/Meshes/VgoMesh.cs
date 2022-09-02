@@ -32,10 +32,12 @@ namespace NewtonVgo
         public List<int> subMeshes;
 
         /// <summary>The index list of the material to apply to this primitive when rendering.</summary>
+        /// <remarks>This property is used only in spec version between 2.0 and 2.4.</remarks>
         [JsonProperty("materials")]
         public List<int> materials;
 
         /// <summary>The kind of the blend shape.</summary>
+        /// <remarks>This property is used only in spec version between 2.0 and 2.4.</remarks>
         [JsonProperty("blendShapeKind", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [DefaultValue(VgoBlendShapeKind.None)]
         public VgoBlendShapeKind blendShapeKind;
@@ -45,6 +47,7 @@ namespace NewtonVgo
         public List<VgoMeshBlendShape> blendShapes;
 
         /// <summary>List of the blend shape preset.</summary>
+        /// <remarks>This property is used only in spec version between 2.0 and 2.4.</remarks>
         [JsonProperty("blendShapePesets")]
         public List<VgoMeshBlendShapePreset> blendShapePesets;
 

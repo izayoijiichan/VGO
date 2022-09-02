@@ -49,7 +49,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="unityMeshAssetList">List of unity mesh asset.</param>
         /// <param name="unityMaterialList">List of unity material.</param>
-        public virtual void ExportMeshes(IVgoStorage vgoStorage, IList<MeshAsset> unityMeshAssetList, IList<Material> unityMaterialList)
+        public virtual void ExportMeshes(IVgoStorage vgoStorage, IList<MeshAsset> unityMeshAssetList, IList<Material> unityMaterialList = null)
         {
             if (vgoStorage == null)
             {
@@ -61,9 +61,12 @@ namespace UniVgo2.Porters
                 throw new ArgumentNullException(nameof(unityMeshAssetList));
             }
 
-            if (unityMaterialList == null)
+            if (vgoStorage.IsSpecVersion_2_4_orLower)
             {
-                throw new ArgumentNullException(nameof(unityMaterialList));
+                if (unityMaterialList == null)
+                {
+                    throw new ArgumentNullException(nameof(unityMaterialList));
+                }
             }
 
             vgoStorage.Layout.meshes = new List<VgoMesh>(unityMeshAssetList.Count);
@@ -111,21 +114,24 @@ namespace UniVgo2.Porters
 
                     vgoMesh.subMeshes.Add(indicesAccessorIndex);
 
-                    // Materials
-                    if ((unityMaterialList != null) &&
-                        (meshAsset.Renderer != null) &&
-                        (meshAsset.Renderer.sharedMaterial != null))
+                    if (vgoStorage.IsSpecVersion_2_4_orLower)
                     {
-                        int materialIndex = unityMaterialList.IndexOf(meshAsset.Renderer.sharedMaterials[subMeshIndex]);
-
-                        if (materialIndex >= 0)
+                        // Materials
+                        if ((unityMaterialList != null) &&
+                            (meshAsset.Renderer != null) &&
+                            (meshAsset.Renderer.sharedMaterial != null))
                         {
-                            if (vgoMesh.materials == null)
-                            {
-                                vgoMesh.materials = new List<int>();
-                            }
+                            int materialIndex = unityMaterialList.IndexOf(meshAsset.Renderer.sharedMaterials[subMeshIndex]);
 
-                            vgoMesh.materials.Add(materialIndex);
+                            if (materialIndex >= 0)
+                            {
+                                if (vgoMesh.materials == null)
+                                {
+                                    vgoMesh.materials = new List<int>();
+                                }
+
+                                vgoMesh.materials.Add(materialIndex);
+                            }
                         }
                     }
                 }
@@ -175,10 +181,13 @@ namespace UniVgo2.Porters
                     vgoMesh.blendShapes.Add(vgoMeshBlendShape);
                 }
 
-                if (blendShapeConfig != null)
+                if (vgoStorage.IsSpecVersion_2_4_orLower)
                 {
-                    vgoMesh.blendShapeKind = blendShapeConfig.kind;
-                    vgoMesh.blendShapePesets = blendShapeConfig.presets;
+                    if (blendShapeConfig != null)
+                    {
+                        vgoMesh.blendShapeKind = blendShapeConfig.kind;
+                        vgoMesh.blendShapePesets = blendShapeConfig.presets;
+                    }
                 }
             }
 

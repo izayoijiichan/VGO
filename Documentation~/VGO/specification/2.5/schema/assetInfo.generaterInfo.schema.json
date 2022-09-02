@@ -1,0 +1,15 @@
+{
+    "title": "vgo.generatorInfo",
+    "description": "VGO generator information.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The VGO generator name.",
+            "type": "string"
+        },
+        "version": {
+            "description": "The VGO generator version.",
+            "type": "string"
+        }
+    }
+}

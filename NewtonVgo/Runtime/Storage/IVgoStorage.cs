@@ -39,6 +39,9 @@ namespace NewtonVgo
         /// <summary>The timeout seconds of http request.</summary>
         int HttpTimeoutSeconds { get; set; }
 
+        /// <summary>Whether spec version is 2.4 or lower.</summary>
+        bool IsSpecVersion_2_4_orLower { get; }
+
         #endregion
 
         #region Methods (Export)

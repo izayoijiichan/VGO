@@ -502,6 +502,7 @@ namespace UniVgo2
             var skinnedMeshRenderer = gameObject.GetComponent<SkinnedMeshRenderer>();
 
             // Mesh
+            if (vgoStorage.IsSpecVersion_2_4_orLower)
             {
                 if (meshRenderer != null)
                 {
@@ -511,6 +512,75 @@ namespace UniVgo2
                 if (skinnedMeshRenderer != null)
                 {
                     vgoNode.mesh = modelAsset.MeshAssetList.IndexOf(x => x.Renderer == skinnedMeshRenderer);
+                }
+            }
+            else
+            {
+                var particleSystemRenderer = gameObject.GetComponent<ParticleSystemRenderer>();
+
+#if UNITY_2021_2_OR_NEWER
+                Renderer renderer
+                    = (meshRenderer != null) ? meshRenderer
+                    : (skinnedMeshRenderer != null) ? skinnedMeshRenderer
+                    : (particleSystemRenderer != null) ? particleSystemRenderer
+                    : null;
+#else
+                Renderer renderer;
+
+                if (meshRenderer != null)
+                {
+                    renderer = meshRenderer;
+                }
+                else if (skinnedMeshRenderer != null)
+                {
+                    renderer = skinnedMeshRenderer;
+                }
+                else if (particleSystemRenderer != null)
+                {
+                    renderer = particleSystemRenderer;
+                }
+                else
+                {
+                    renderer = null;
+                }
+#endif
+
+                // MeshRenderer
+                if (renderer != null)
+                {
+                    var meshRendererAsset = modelAsset.MeshRendererAssetList
+                        .Where(x => x.Renderer == renderer)
+                        .FirstOrDefault();
+
+                    if ((meshRendererAsset != null) &&
+                        (meshRendererAsset.Mesh != null))
+                    {
+                        int meshIndex = modelAsset.MeshList.IndexOf(m => m == meshRendererAsset.Mesh);
+
+                        if (meshIndex == -1)
+                        {
+                            throw new IndexOutOfRangeException();
+                        }
+
+                        var vgoMeshRenderer = new VgoMeshRenderer()
+                        {
+                            name = renderer.name,
+                            enabled = renderer.enabled,
+                            mesh = meshIndex,
+                            materials = renderer.sharedMaterials.Select(m => modelAsset.MaterialList.IndexOf(m)).ToList(),
+                        };
+
+                        if (gameObject.TryGetComponentEx(out VgoBlendShape vgoBlendShapeComponent))
+                        {
+                            if (vgoBlendShapeComponent.BlendShapeConfiguration != null)
+                            {
+                                vgoMeshRenderer.blendShapeKind = vgoBlendShapeComponent.BlendShapeConfiguration.kind;
+                                vgoMeshRenderer.blendShapePesets = vgoBlendShapeComponent.BlendShapeConfiguration.presets;
+                            }
+                        }
+
+                        vgoNode.meshRenderer = vgoMeshRenderer;
+                    }
                 }
             }
 

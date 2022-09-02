@@ -50,7 +50,7 @@ namespace UniVgo2.Porters
         /// <param name="scriptableObjectList">List of scriptable object.</param>
         /// <param name="unityMaterialList">List of unity material.</param>
         /// <returns>A mesh asset.</returns>
-        public virtual MeshAsset CreateMeshAsset(IVgoStorage vgoStorage, int meshIndex, IList<ScriptableObject> scriptableObjectList, IList<Material> unityMaterialList)
+        public virtual MeshAsset CreateMeshAsset(IVgoStorage vgoStorage, int meshIndex, IList<ScriptableObject> scriptableObjectList, IList<Material> unityMaterialList = null)
         {
             if (vgoStorage == null)
             {
@@ -62,9 +62,12 @@ namespace UniVgo2.Porters
                 throw new ArgumentNullException(nameof(scriptableObjectList));
             }
 
-            if (unityMaterialList == null)
+            if (vgoStorage.IsSpecVersion_2_4_orLower)
             {
-                throw new ArgumentNullException(nameof(unityMaterialList));
+                if (unityMaterialList == null)
+                {
+                    throw new ArgumentNullException(nameof(unityMaterialList));
+                }
             }
 
             MeshContext meshContext = ReadMesh(vgoStorage, meshIndex, out BlendShapeConfiguration blendShapeConfig);
@@ -74,9 +77,13 @@ namespace UniVgo2.Porters
             MeshAsset meshAsset = new MeshAsset
             {
                 Mesh = mesh,
-                Materials = meshContext.materialIndices.Select(x => unityMaterialList[x]).ToArray(),
                 BlendShapeConfiguration = blendShapeConfig,
             };
+
+            if (vgoStorage.IsSpecVersion_2_4_orLower)
+            {
+                meshAsset.Materials = meshContext.materialIndices.Select(x => unityMaterialList[x]).ToArray();
+            }
 
             scriptableObjectList.Add(blendShapeConfig);
 
@@ -108,38 +115,51 @@ namespace UniVgo2.Porters
             // SubMeshes
             meshContext.subMeshes = CreateSubMeshes(vgoStorage, vgoMesh.subMeshes, positionsCount);
 
-            // Materials
-            meshContext.materialIndices = vgoMesh.materials;
-
-            if (meshContext.materialIndices.Any() == false)
+            if (vgoStorage.IsSpecVersion_2_4_orLower)
             {
-                meshContext.materialIndices.Add(0);
+                // Materials
+                meshContext.materialIndices = vgoMesh.materials;
+
+                if (meshContext.materialIndices.Any() == false)
+                {
+                    meshContext.materialIndices.Add(0);
+                }
             }
 
             // BlendShapes
             meshContext.blendShapes = CreateBlendShapes(vgoStorage, vgoMesh.blendShapes, out blendShapeConfig);
 
-            // BlendShapeConfiguration
-            if ((vgoMesh.blendShapeKind != VgoBlendShapeKind.None) ||
-                (vgoMesh.blendShapePesets != null))
+            if (vgoStorage.IsSpecVersion_2_4_orLower)
             {
-                if (blendShapeConfig == null)
+                // BlendShapeConfiguration
+                if ((vgoMesh.blendShapeKind != VgoBlendShapeKind.None) ||
+                    (vgoMesh.blendShapePesets != null))
                 {
-                    blendShapeConfig = ScriptableObject.CreateInstance<BlendShapeConfiguration>();
+                    if (blendShapeConfig == null)
+                    {
+                        blendShapeConfig = ScriptableObject.CreateInstance<BlendShapeConfiguration>();
+                    }
+
+                    blendShapeConfig.name = vgoMesh.name;
+
+                    blendShapeConfig.kind = vgoMesh.blendShapeKind;
+
+                    if (vgoMesh.blendShapePesets != null)
+                    {
+                        blendShapeConfig.presets = vgoMesh.blendShapePesets;
+                    }
                 }
-
-                blendShapeConfig.name = vgoMesh.name;
-
-                blendShapeConfig.kind = vgoMesh.blendShapeKind;
-
-                if (vgoMesh.blendShapePesets != null)
+                else
                 {
-                    blendShapeConfig.presets = vgoMesh.blendShapePesets;
+                    blendShapeConfig = null;
                 }
             }
             else
             {
-                blendShapeConfig = null;
+                if (blendShapeConfig != null)
+                {
+                    blendShapeConfig.name = vgoMesh.name;
+                }
             }
 
             return meshContext;

@@ -1,0 +1,41 @@
+{
+    "$id": "vgo.ps.externalForcesModule",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "multiplierCurve": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "multiplier": {
+            "type": "number"
+        },
+        "influenceFilter": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "LayerMask",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "List",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "LayerMaskAndList",
+                    "type": "integer"
+                }
+            ]
+        },
+        "influenceMask": {
+            "type": "integer"
+        }
+    }
+}

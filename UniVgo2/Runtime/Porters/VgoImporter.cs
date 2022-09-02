@@ -113,7 +113,14 @@ namespace UniVgo2
             modelAsset.MaterialList = CreateMaterialAssets(vgoStorage, modelAsset.Texture2dList);
 
             // UnityEngine.Mesh
-            modelAsset.MeshAssetList = CreateMeshAssets(vgoStorage, modelAsset.MaterialList, modelAsset.ScriptableObjectList);
+            if (vgoStorage.IsSpecVersion_2_4_orLower)
+            {
+                modelAsset.MeshAssetList = CreateMeshAssets(vgoStorage, modelAsset.ScriptableObjectList, modelAsset.MaterialList);
+            }
+            else
+            {
+                modelAsset.MeshAssetList = CreateMeshAssets(vgoStorage, modelAsset.ScriptableObjectList);
+            }
 
             // UnityEngine.AnimationClip
             modelAsset.AnimationClipList = CreateAnimationClipAssets(vgoStorage.Layout, vgoStorage.GeometryCoordinate);
@@ -289,10 +296,10 @@ namespace UniVgo2
         /// Create mesh assets.
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
-        /// <param name="materialList">List of unity material.</param>
         /// <param name="scriptableObjectList">List of scriptable object.</param>
+        /// <param name="materialList">List of unity material.</param>
         /// <returns>List of mesh asset.</returns>
-        protected virtual List<MeshAsset> CreateMeshAssets(IVgoStorage vgoStorage, IList<Material> materialList, IList<ScriptableObject> scriptableObjectList)
+        protected virtual List<MeshAsset> CreateMeshAssets(IVgoStorage vgoStorage, IList<ScriptableObject> scriptableObjectList, IList<Material> materialList = null)
         {
             var meshAssetList = new List<MeshAsset>();
 
@@ -452,9 +459,19 @@ namespace UniVgo2
             // UnityEngine.Renderer
             for (int nodeIndex = 0; nodeIndex < vgoStorage.Layout.nodes.Count; nodeIndex++)
             {
-                if (vgoStorage.Layout.nodes[nodeIndex].mesh >= 0)
+                if (vgoStorage.IsSpecVersion_2_4_orLower)
                 {
-                    AttachMeshAndRenderer(nodes, nodeIndex, vgoStorage, modelAsset, _Option.ShowMesh, _Option.UpdateWhenOffscreen);
+                    if (vgoStorage.Layout.nodes[nodeIndex].mesh >= 0)
+                    {
+                        AttachMeshAndRenderer(nodes, nodeIndex, vgoStorage, modelAsset, _Option.ShowMesh, _Option.UpdateWhenOffscreen);
+                    }
+                }
+                else
+                {
+                    if (vgoStorage.Layout.nodes[nodeIndex].meshRenderer != null)
+                    {
+                        AttachMeshAndRenderer(nodes, nodeIndex, vgoStorage, modelAsset, _Option.ShowMesh, _Option.UpdateWhenOffscreen);
+                    }
                 }
             }
 
@@ -860,51 +877,129 @@ namespace UniVgo2
 
             Renderer renderer;
 
-            MeshAsset meshAsset = modelAsset.MeshAssetList[vgoNode.mesh];
-
-            Mesh mesh = meshAsset.Mesh;
-
-            Material[] materials = meshAsset.Materials;
-
-            if ((meshAsset.Mesh.blendShapeCount == 0) && (vgoNode.skin == -1))
+            if (vgoStorage.IsSpecVersion_2_4_orLower)
             {
-                // without blendshape and bone skinning
-                var filter = go.AddComponent<MeshFilter>();
+                MeshAsset meshAsset = modelAsset.MeshAssetList[vgoNode.mesh];
 
-                filter.sharedMesh = mesh;
+                Mesh mesh = meshAsset.Mesh;
 
-                var meshRenderer = go.AddComponent<MeshRenderer>();
+                Material[] materials = meshAsset.Materials;
 
-                meshRenderer.sharedMaterials = materials;
+                if ((meshAsset.Mesh.blendShapeCount == 0) && (vgoNode.skin == -1))
+                {
+                    // without blendshape and bone skinning
+                    var filter = go.AddComponent<MeshFilter>();
 
-                renderer = meshRenderer;
+                    filter.sharedMesh = mesh;
+
+                    var meshRenderer = go.AddComponent<MeshRenderer>();
+
+                    meshRenderer.sharedMaterials = materials;
+
+                    renderer = meshRenderer;
+                }
+                else
+                {
+                    var skinnedMeshRenderer = go.AddComponent<SkinnedMeshRenderer>();
+
+                    skinnedMeshRenderer.sharedMesh = mesh;
+
+                    if (vgoNode.skin >= 0)
+                    {
+                        SetupSkin(skinnedMeshRenderer, vgoNode.skin, nodes, vgoStorage);
+                    }
+
+                    skinnedMeshRenderer.sharedMaterials = materials;
+
+                    if (updateWhenOffscreen)
+                    {
+                        skinnedMeshRenderer.updateWhenOffscreen = true;
+                    }
+
+                    renderer = skinnedMeshRenderer;
+                }
+
+                if (meshAsset.BlendShapeConfiguration != null)
+                {
+                    var vgoBlendShape = go.AddComponent<VgoBlendShape>();
+
+                    vgoBlendShape.BlendShapeConfiguration = meshAsset.BlendShapeConfiguration;
+                }
             }
             else
             {
-                var skinnedMeshRenderer = go.AddComponent<SkinnedMeshRenderer>();
+                VgoMeshRenderer vgoMeshRenderer = vgoNode.meshRenderer;
 
-                skinnedMeshRenderer.sharedMesh = mesh;
+                MeshAsset meshAsset = modelAsset.MeshAssetList[vgoMeshRenderer.mesh];
 
-                if (vgoNode.skin >= 0)
+                Mesh mesh = meshAsset.Mesh;
+
+                Material[] materials = null;
+
+                if (vgoMeshRenderer.materials != null && vgoMeshRenderer.materials.Any())
                 {
+                    materials = vgoMeshRenderer.materials
+                        .Select(materialIndex => modelAsset.MaterialList[materialIndex])
+                        .ToArray();
+                }
+
+                if (vgoNode.particle >= 0)
+                {
+                    if (go.TryGetComponentEx(out ParticleSystemRenderer particleSystemRenderer))
+                    {
+                        if (particleSystemRenderer.renderMode == UnityEngine.ParticleSystemRenderMode.Mesh)
+                        {
+                            particleSystemRenderer.mesh = mesh;
+                            particleSystemRenderer.sharedMaterials = materials;
+                        }
+                    }
+
+                    return;
+                }
+                else if (vgoNode.skin >= 0)
+                {
+                    var skinnedMeshRenderer = go.AddComponent<SkinnedMeshRenderer>();
+
+                    //skinnedMeshRenderer.name = vgoMeshRenderer.name;
+                    skinnedMeshRenderer.enabled = vgoMeshRenderer.enabled;
+                    skinnedMeshRenderer.sharedMesh = mesh;
+
                     SetupSkin(skinnedMeshRenderer, vgoNode.skin, nodes, vgoStorage);
+
+                    skinnedMeshRenderer.sharedMaterials = materials;
+
+                    if (updateWhenOffscreen)
+                    {
+                        skinnedMeshRenderer.updateWhenOffscreen = true;
+                    }
+
+                    renderer = skinnedMeshRenderer;
                 }
-
-                skinnedMeshRenderer.sharedMaterials = materials;
-
-                if (updateWhenOffscreen)
+                else
                 {
-                    skinnedMeshRenderer.updateWhenOffscreen = true;
+                    // without blendshape and bone skinning
+                    var filter = go.AddComponent<MeshFilter>();
+
+                    filter.sharedMesh = mesh;
+
+                    var meshRenderer = go.AddComponent<MeshRenderer>();
+
+                    //meshRenderer.name = vgoMeshRenderer.name;
+                    meshRenderer.enabled = vgoMeshRenderer.enabled;
+                    meshRenderer.sharedMaterials = materials;
+
+                    renderer = meshRenderer;
                 }
 
-                renderer = skinnedMeshRenderer;
-            }
+                if (meshAsset.BlendShapeConfiguration != null)
+                {
+                    meshAsset.BlendShapeConfiguration.kind = vgoMeshRenderer.blendShapeKind;
+                    meshAsset.BlendShapeConfiguration.presets = vgoMeshRenderer.blendShapePesets;
 
-            if (meshAsset.BlendShapeConfiguration != null)
-            {
-                var vgoBlendShape = go.AddComponent<VgoBlendShape>();
+                    var vgoBlendShape = go.AddComponent<VgoBlendShape>();
 
-                vgoBlendShape.BlendShapeConfiguration = meshAsset.BlendShapeConfiguration;
+                    vgoBlendShape.BlendShapeConfiguration = meshAsset.BlendShapeConfiguration;
+                }
             }
 
             if (showMesh == false)

@@ -69,6 +69,9 @@ namespace UniVgo2
         /// <summary>List of unity VgoSpringBoneColliderGroup.</summary>
         private readonly List<VgoSpringBone.VgoSpringBoneColliderGroup> _VgoSpringBoneColliderGroupList;
 
+        ///// <summary>Whether export spec version is 2.4, otherwise 2.5.</summary>
+        private readonly bool _IsExportSpecVersion_2_4 = false;
+
         #endregion
 
         #region Properties
@@ -165,9 +168,9 @@ namespace UniVgo2
                 .ToList();
 
             _MeshRendererAssetList = GetMeshRendererAssetList(_RendererList);
-            
+
             _MeshAssetList = GetMeshAssetList(_MeshRendererAssetList);
-            
+
             _MeshList = GetMeshList(_MeshRendererAssetList);
 
             _SkyboxList = GetUnityComponentList<Skybox>(_TransformList);
@@ -372,11 +375,30 @@ namespace UniVgo2
                     continue;
                 }
 
-                MeshAsset meshAsset = new MeshAsset()
+                MeshAsset meshAsset;
+
+                if (_IsExportSpecVersion_2_4)
                 {
-                    Mesh = meshRendererAsset.Mesh,
-                    Renderer = meshRendererAsset.Renderer,
-                };
+                    meshAsset = new MeshAsset()
+                    {
+                        Mesh = meshRendererAsset.Mesh,
+                        Renderer = meshRendererAsset.Renderer,
+                    };
+                }
+                else
+                {
+                    int meshInstanceId = mesh.GetInstanceID();
+
+                    if (meshAssetList.Exists(x => x.Mesh.GetInstanceID() == meshInstanceId))
+                    {
+                        continue;
+                    }
+
+                    meshAsset = new MeshAsset()
+                    {
+                        Mesh = meshRendererAsset.Mesh,
+                    };
+                }
 
                 if (meshRendererAsset.Renderer is SkinnedMeshRenderer skinnedMeshRenderer)
                 {

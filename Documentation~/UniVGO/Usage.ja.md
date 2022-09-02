@@ -13,8 +13,8 @@ ___
 |No|項目|値|
 |:---:|:---|:---:|
 |1|Unity バージョン|2022.1|
-|2|UniVGO バージョン|2.4.11|
-|3|VGO 仕様バージョン|2.4|
+|2|UniVGO バージョン|2.5.0|
+|3|VGO 仕様バージョン|2.5|
 
 ### 対応 Unity コンポーネント
 
@@ -122,7 +122,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Name|生成ツールの名前です。|UniVGO|
-|2|Version|生成ツールのバージョンです。|2.4.11|
+|2|Version|生成ツールのバージョンです。|2.5.0|
 
 ユーザーが設定可能な項目はありません。  
 ジェネレーター情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -274,7 +274,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Generator Name|生成ツールの名前です。|UniVGO|
-|2|Generator Version|生成ツールのバージョンです。|2.4.11|
+|2|Generator Version|生成ツールのバージョンです。|2.5.0|
 
 ユーザーが設定可能な項目はありません。  
 メタ情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -524,33 +524,7 @@ VGOファイルをアップロードし管理することができるサービ�
 https://vgohub.azurewebsites.net
 
 ___
-
-## VGOが使用できるアプリ
-
-現在２つのアプリが対応しています。
-
-### VISHOP
-
-バーチャルショッピングシステムです。  
-アバターやショップにVGOファイルを指定することができます。  
-VGO Hub と連携したアプリです。
-
-![image1](https://github.com/izayoijiichan/vgo2/blob/main/Documentation~/UniVGO/Images/820_vishop.jpg)
-
-https://vishop.azurewebsites.net
-
-### VOVOLA
-
-VR-HMD（ヘッドマウントディスプレイ）が不要な簡易3D バーチャルYouTuber アプリです。  
-プレイヤーやルームにVGOファイルを指定することができます。  
-マルチプレイでは複数人が同じルームに入り通話をすることができます。
-
-![image1](https://github.com/izayoijiichan/vgo2/blob/main/Documentation~/UniVGO/Images/810_vovola.jpg)
-
-https://vovola.wixsite.com/website
-
-___
-最終更新日：2022年8月24日  
+最終更新日：2022年9月3日  
 編集者：十六夜おじいちゃん
 
-*Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*
+*Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

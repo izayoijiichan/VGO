@@ -37,7 +37,7 @@ A node in the node hierarchy.
 |animation|The animation.|vgo.animation||||
 |rigidbody|The rigidbody.|node.rigidbody||||
 |colliders|The indices of the collider referenced by this node.|int[]||||
-|mesh|The index of the mesh referenced by this node.|int|||-1|
+|meshRenderer|The mesh renderer.|vgo.mesh.renderer||||
 |skin|The index of the skin referenced by this node.|int|||-1|
 |springBoneGroups|The indices of the spring bone groups referenced by this node.|int[]||||
 |springBoneColliderGroup|The index of the spring bone collider group referenced by this node.|int|||-1|
@@ -88,7 +88,36 @@ A node in the node hierarchy.
                 0,
                 1
             ],
-            "mesh": 0
+            "meshRenderer":  {
+                "name": "Node2",
+                "mesh": 0,
+                "materials": [
+                    4,
+                    5,
+                    6
+                ],
+                "blendShapeKind": 1,
+                "blendShapePesets": [
+                    {
+                        "name": "Joy",
+                        "type": 2,
+                        "bindings": [
+                            {
+                                "index": 24,
+                                "weight": 100.0
+                            },
+                            {
+                                "index": 36,
+                                "weight": 100.0
+                            },
+                            {
+                                "index": 44,
+                                "weight": 100.0
+                            }
+                        ]
+                    }
+                ]
+            }
         }
     ]
 }
@@ -118,7 +147,6 @@ A node in the node hierarchy.
 |:---|:---|:---|:---:|:---|:---:|
 |humanBodyBone|The human body bone.|enum|true|[0, 55]||
 |nodeIndex|The index of the node.|int|true|||
-
 
 #### node.rigidbody
 
@@ -156,6 +184,17 @@ A node in the node hierarchy.
 |bounciness|How elastic is the surface.|float||[0.0, 1.0]||
 |frictionCombine|The type of friction handling between colliding objects.|enum||0: Average<br>1: Multiply<br>2: Minimum<br>3: Maximum|0|
 |bounceCombine|Processing type for bounce between colliding objects.|enum||0: Average<br>1: Multiply<br>2: Minimum<br>3: Maximum|0|
+
+#### vgo.mesh.renderer
+
+|definition name|description|type|required|setting value|default value|
+|:---|:---|:---:|:---:|:---|:---:|
+|name|The name of this mesh.|string|true|||
+|enabled|Whether the mesh renderer is enable.|bool||true / false|true|
+|mesh|The index of the mesh referenced by this renderer.|int|||-1|
+|materials|The index list of the material to apply to this renderer.|int[]||||
+|blendShapeKind|The kind of the blend shape.|enum||0: None<br>1: Face<br>2: Face_2<br>3: Kind_3<br>4: Kind_4<br>5: Kind_5|0|
+|blendShapePesets|List of the blend shape preset.|mesh.blendshape.preset[]||||
 
 #### JSON example (layout.colliders)
 
@@ -204,10 +243,7 @@ A set of primitives to be rendered.
 |name|The name of this mesh.|string|true|||
 |attributes|A dictionary mapping attributes.|mesh.primitive.attributes|true|||
 |subMeshes|The index of the accessor that contains the sub-mesh indices.|int[]||||
-|materials|The index list of the material to apply to this primitive when rendering.|int[]||||
-|blendShapeKind|The kind of the blend shape.|enum||0: None<br>1: Face<br>2: Face_2<br>3: Kind_3<br>4: Kind_4<br>5: Kind_5|0|
 |blendShapes|List of the blend shape.|mesh.blendshape[]||||
-|blendShapePesets|List of the blend shape preset.|mesh.blendshape.preset[]||||
 
 #### mesh.primitive.attributes
 
@@ -258,7 +294,6 @@ A blend shape binding for preset.
 |index|The index of the BlendShape.|int|true|||
 |weight|The weight for this BlendShape.|float||[0.0, 100.0]|0|
 
-
 #### JSON example (layout.meshes)
 
 ```json
@@ -278,12 +313,6 @@ A blend shape binding for preset.
                 65,
                 66
             ],
-            "materials": [
-                4,
-                5,
-                6
-            ],
-            "blendShapeKind": 1,
             "blendShapes": [
                 {
                     "name": "face.mouth_a",
@@ -295,26 +324,6 @@ A blend shape binding for preset.
                     "facePartsType": 50,
                     "blinkType": 0,
                     "visemeType": 10
-                }
-            ],
-            "blendShapePesets": [
-                {
-                    "name": "Joy",
-                    "type": 2,
-                    "bindings": [
-                        {
-                            "index": 24,
-                            "weight": 100.0
-                        },
-                        {
-                            "index": 36,
-                            "weight": 100.0
-                        },
-                        {
-                            "index": 44,
-                            "weight": 100.0
-                        }
-                    ]
                 }
             ]
         }
@@ -481,7 +490,7 @@ Cookie, Flare, Halo are not supported.
 |materialIndex|The index of the material.|int||||
 
 ___
-Last updated: 5 June, 2021  
+Last updated: 3 September, 2022  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

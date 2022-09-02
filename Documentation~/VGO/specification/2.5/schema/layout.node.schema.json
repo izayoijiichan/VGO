@@ -1,0 +1,119 @@
+{
+    "title": "node",
+    "description": "A Node.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "The user-defined name of this object.",
+            "type": "string"
+        },
+        "isRoot": {
+            "description": "Whether GameObject is root.",
+            "type": "boolean",
+            "default": false
+        },
+        "isActive": {
+            "description": "Whether GameObject is active.",
+            "type": "boolean",
+            "default": true
+        },
+        "isStatic": {
+            "description": "Whether GameObject is static.",
+            "type": "boolean",
+            "default": false
+        },
+        "tag": {
+            "description": "Tag attached to GameObject.",
+            "type": "string"
+        },
+        "layer": {
+            "description": "Index of the layer where GameObject is located.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 31,
+            "default": 0
+        },
+        "animator": {
+            "$ref": "layout.node.animator.schema.json"
+        },
+        "animation": {
+            "$ref": "vgo.animation.schema.json"
+        },
+        "rigidbody": {
+            "$ref": "layout.node.rigidbody.schema.json"
+        },
+        "colliders": {
+            "description": "The indices of the collider referenced by this node.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "integer"
+            }
+        },
+        "skybox": {
+            "$ref": "vgo.skybox.schema.json"
+        },
+        "light": {
+            "description": "The index of the light referenced by this node.",
+            "type": "integer",
+            "minimum": -1,
+            "default": -1
+        },
+        "right": {
+            "$ref": "assetInfo.right.schema.json"
+        },
+        "particle": {
+            "description": "The index of the particle referenced by this node.",
+            "type": "integer",
+            "minimum": -1,
+            "default": -1
+        },
+        "meshRenderer": {
+            "$ref": "vgo.mesh.renderer.schema.json"
+        },
+        "skin": {
+            "description": "The index of the skin referenced by this node.",
+            "type": "integer",
+            "minimum": -1,
+            "default": -1
+        },
+        "springBoneGroups": {
+            "description": "The indices of the spring bone groups referenced by this node.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "integer"
+            }
+        },
+        "springBoneColliderGroup": {
+            "description": "The index of the spring bone collider group referenced by this node.",
+            "type": "integer",
+            "minimum": -1,
+            "default": -1
+        },
+        "cloth": {
+            "description": "The index of the cloth referenced by this node.",
+            "type": "integer",
+            "minimum": -1,
+            "default": -1
+        },
+        "children": {
+            "description": "The indices of this node's children.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "integer"
+            }
+        },
+        "extensions": {
+            "description": "Dictionary object with extension-specific objects.",
+            "type": "object"
+        }
+    }
+}

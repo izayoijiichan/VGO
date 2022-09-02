@@ -1,0 +1,17 @@
+{
+    "title": "vgo.skybox",
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "description": "Whether the skybox is enable.",
+            "type": "boolean",
+            "default": true
+        },
+        "materialIndex": {
+            "description": "The index of the material.",
+            "type": "integer",
+            "minimum": -1,
+            "default": -1
+        }
+    }
+}

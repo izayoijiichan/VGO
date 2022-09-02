@@ -27,7 +27,7 @@ namespace NewtonVgo
         public const byte SpecMajorVersion = 2;
 
         /// <summary>The spec minor version.</summary>
-        public const byte SpecMinorVersion = 4;
+        public const byte SpecMinorVersion = 5;
 
         #endregion
 
@@ -66,6 +66,9 @@ namespace NewtonVgo
 
         /// <summary>The timeout seconds of http request.</summary>
         public int HttpTimeoutSeconds { get; set; } = 30;
+
+        /// <summary>Whether spec version is 2.4 or lower.</summary>
+        public bool IsSpecVersion_2_4_orLower => (Header.MajorVersion == 2) && (Header.MinorVersion <= 4);
 
         #endregion
 

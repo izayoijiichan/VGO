@@ -1,0 +1,56 @@
+{
+    "$id": "vgo.keyframe",
+    "type": "object",
+    "properties": {
+        "time": {
+            "description": "The time of the keyframe.",
+            "type": "number"
+        },
+        "value": {
+            "description": "The value of the curve at keyframe.",
+            "type": "number"
+        },
+        "inTangent": {
+            "description": "The incoming tangent for this key.",
+            "type": "number"
+        },
+        "outTangent": {
+            "description": "The outgoing tangent for this key.",
+            "type": "number"
+        },
+        "inWeight": {
+            "description": "The incoming weight for this key.",
+            "type": "number"
+        },
+        "outWeight": {
+            "description": "The outgoing weight for this key.",
+            "type": "number"
+        },
+        "weightedMode": {
+            "description": "Weighted mode for the keyframe.",
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "None",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "In",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "Out",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 3 ],
+                    "description": "Both",
+                    "type": "integer"
+                }
+            ],
+            "default": 0
+        }
+    }
+}

@@ -61,6 +61,7 @@ VGO version 2.0 is a new type of 3D data format.
     - rigidbody
     - colliders
       - collider
+    - meshRenderer
     - skybox
     - light
     - right
@@ -88,7 +89,7 @@ VGO version 2.0 is a new type of 3D data format.
 
 ## JSON specification
 
-- VGO JSON Schema: [2.4](https://github.com/izayoijiichan/VGO2/tree/main/Documentation~/VGO/specification/2.4/schema)
+- VGO JSON Schema: [2.5](https://github.com/izayoijiichan/VGO2/tree/main/Documentation~/VGO/specification/2.5/schema)
 
 ## Tools
 
@@ -105,7 +106,7 @@ You can easily export a VGO file with the click of a button.
 [Usage.md](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Usage.md)
 
 ___
-Last updated: 20 May, 2022  
+Last updated: 3 September, 2022  
 Editor: Izayoi Jiichan
 
-*Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*
+*Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

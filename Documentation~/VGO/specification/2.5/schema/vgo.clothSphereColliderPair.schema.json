@@ -1,0 +1,18 @@
+{
+    "$id": "vgo.clothSphereColliderPair",
+    "type": "object",
+    "properties": {
+        "first": {
+            "description": "The index of the first SphereCollider.",
+            "type": "integer",
+            "minimum": -1,
+            "default": -1
+        },
+        "second": {
+            "description": "The index of the second SphereCollider.",
+            "type": "integer",
+            "minimum": -1,
+            "default": -1
+        }
+    }
+}

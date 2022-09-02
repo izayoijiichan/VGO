@@ -61,7 +61,13 @@ namespace NewtonVgo
         [JsonProperty("colliders")]
         public List<int> colliders = null;
 
+        /// <summary>The mesh renderer.</summary>
+        /// <remarks>This propety was added in the spec 2.5 version.</remarks>
+        [JsonProperty("meshRenderer")]
+        public VgoMeshRenderer meshRenderer = null;
+
         /// <summary>The index of the mesh referenced by this node.</summary>
+        /// <remarks>This propety is used only in spec version between 2.0 and 2.4.</remarks>
         [JsonProperty("mesh", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [DefaultValue(-1)]
         public int mesh = -1;

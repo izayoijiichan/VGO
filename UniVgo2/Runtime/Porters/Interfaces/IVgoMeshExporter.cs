@@ -21,7 +21,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="unityMeshAssetList">List of unity mesh asset.</param>
         /// <param name="unityMaterialList">List of unity material.</param>
-        void ExportMeshes(IVgoStorage vgoStorage, IList<MeshAsset> unityMeshAssetList, IList<Material> unityMaterialList);
+        void ExportMeshes(IVgoStorage vgoStorage, IList<MeshAsset> unityMeshAssetList, IList<Material> unityMaterialList = null);
 
         #endregion
     }
