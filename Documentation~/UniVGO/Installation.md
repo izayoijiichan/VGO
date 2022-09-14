@@ -32,7 +32,7 @@ As of September of 2022, we are developing and confirming in `Unity 2022.1` `Win
 |LilToonShader.Utility|IzayoiJiichan|GitHub||1.0.1|21 Aug, 2022|
 |UniShaders|IzayoiJiichan|GitHub|-|1.4.0|20 May, 2022|
 |VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.2|24 Aug, 2022|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.0|3 Sep, 2022|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.1|15 Sep, 2022|
 
 #### Added (when using Unity 2021.1 or lower version)
 
@@ -97,27 +97,7 @@ Create a new 3D project in Unity Editor or Unity Hub.
         ProjectSettings
 ```
 
-#### 2. Add Define symbol
-
-`Projcet Settings` > `Player` > `Other Settings` > `Script Compilation` > `Scripting Define Symbols`
-
-Add the Define symbol to match the version of VRMShaders (com.vrmc.vrmshaders) you are using.
-
-|symbol value|min version|max version|
-|:--|:--:|:--:|
-|VRMC_VRMSHADERS_0_72_OR_NEWER|0.72.0|0.84.0|
-|VRMC_VRMSHADERS_0_85_OR_NEWER|0.85.0|(0.101.0)|
-
-Add the Define symbol to match the version of lilToon (jp.lilxyzw.liltoon) you are using.
-
-|symbol value|min version|max version|
-|:--|:--:|:--:|
-|LILTOON_1_2_12_OR_OLDER|(1.2.0)|1.2.12|
-|LILTOON_1_3_0_OR_NEWER|1.3.0|(1.3.3)|
-
-Click `Apply` button.
-
-#### 3. Installation of required packages
+#### 2. Installation of required packages
 
 Import UniVGO and dependent packages into your project.  
 Write the following in `<Project>/Packages/package.json`.  
@@ -137,7 +117,7 @@ You need to be careful where you add them.
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.1",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.5.0",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.1",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
@@ -159,7 +139,7 @@ You need to be careful where you add them.
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.1",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.5.0",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.1",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
@@ -379,15 +359,6 @@ Write the following in `<Project> /Packages/package.json`.
 }
 ```
 
-Modify the define symbol to match the version of VRMShaders (com.vrmc.vrmshaders) you are using.
-
-`Projcet Settings` > `Player` > `Other Settings` > `Script Compilation` > `Scripting Define Symbols`
-
-|symbol value|min version|max version|
-|:--|:--:|:--:|
-|VRMC_VRMSHADERS_0_72_OR_NEWER|0.72.0|0.84.0|
-|VRMC_VRMSHADERS_0_85_OR_NEWER|0.85.0|(0.101.0)|
-
 ### Pre-set up sample project
 
 |unity version|rendering pipeline|package|link|
@@ -396,7 +367,7 @@ Modify the define symbol to match the version of VRMShaders (com.vrmc.vrmshaders
 |2021.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.brp.univrm)|
 
 ___
-Last updated: 3 September, 2022  
+Last updated: 15 September, 2022  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

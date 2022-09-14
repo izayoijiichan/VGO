@@ -126,7 +126,7 @@ namespace UniVgo2.Porters
                     //throw new NotSupportedException($"{nameof(propertyName)}: {propertyName}, {nameof(ShaderPropertyType)}: {propertyType} ");
                     return true;
 
-#if UNITY_2020_1_OR_NEWER
+#if UNITY_2021_1_OR_NEWER
                 case ShaderPropertyType.Int:
                     if (vgoMaterial.intProperties == null)
                     {
@@ -335,7 +335,7 @@ namespace UniVgo2.Porters
                 return false;
             }
 
-#if UNITY_2020_1_OR_NEWER
+#if UNITY_2021_1_OR_NEWER
             if (material.HasTexture(propertyName) == false)
             {
                 return false;

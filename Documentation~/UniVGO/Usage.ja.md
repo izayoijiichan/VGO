@@ -231,11 +231,11 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 シーンにVGO用の`GameObject`を作成します。  
 名前は任意ですが、ここでは「VGO」とします。
 
-![image1](https://github.com/izayoijiichan/vgo2/blob/main/Documentation~/UniVGO/Images/421_Hierarchy_VGO.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/421_Hierarchy_VGO.png)
 
 「VGO」の設定をしていきます。
 
-![image1](https://github.com/izayoijiichan/vgo2/blob/main/Documentation~/UniVGO/Images/422_Inspector_VGO.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/422_Inspector_VGO.png)
 
 【GameObject】
 
@@ -333,9 +333,9 @@ Skyboxマテリアルを設定します。
 
 以下は床（Floor）の設定例です。
 
-![image1](https://github.com/izayoijiichan/vgo2/blob/main/Documentation~/UniVGO/Images/431_Hierarchy_Floor.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/431_Hierarchy_Floor.png)
 
-![image1](https://github.com/izayoijiichan/vgo2/blob/main/Documentation~/UniVGO/Images/432_Inspector_Floor.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/432_Inspector_Floor.png)
 
 床の大きさは自由ですが、コライダーの厚さは0.3m以上となるよう調整したほうがよいです。  
 厚みがないと物体が高速で落下した際に床を貫通することがあります。
@@ -389,7 +389,7 @@ ___
 
 すべての設定が完了しましたらVGOファイル (.vgo) を出力します。
 
-![image1](https://github.com/izayoijiichan/vgo2/blob/main/Documentation~/UniVGO/Images/501_Export.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/501_Export.png)
 
 Hierarchy にて 出力したい GameObject を選択します。
 
@@ -444,7 +444,7 @@ Unity Editor の `Project` ウィンドウ（タブ）から VGOファイルを�
 
 Unity Editor の `Project` ウィンドウ（タブ）から VGOファイルを探し、選択します。  
 
-![image1](https://github.com/izayoijiichan/vgo2/blob/main/Documentation~/UniVGO/Images/620_Import.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/620_Import.png)
 
 `Inspector` ウィンドウ（タブ）に `Vgo Scripted Importer` が表示されます。  
 
@@ -461,16 +461,16 @@ ___
 
 UniVGOサンプルプロジェクトを使用する場合は「LoadScene」を読み込みます。
 
-![image1](https://github.com/izayoijiichan/vgo2/blob/main/Documentation~/UniVGO/Images/710_Load.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/710_Load.png)
 
 ### 2. ファイルの設定
 
 「Hierarchy」にて`VgoLoader`ゲームオブジェクトを選択し、  
 「Inspector」にて`Local File Path`に実行時に読み込みたいVGOファイルのフルパスを入力します。
 
-![image1](https://github.com/izayoijiichan/vgo2/blob/main/Documentation~/UniVGO/Images/721_Hierarchy.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/721_Hierarchy.png)
 
-![image1](https://github.com/izayoijiichan/vgo2/blob/main/Documentation~/UniVGO/Images/722_Inspector.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/722_Inspector.png)
 
 ### 3. ゲーム実行
 
@@ -524,7 +524,7 @@ VGOファイルをアップロードし管理することができるサービ�
 https://vgohub.azurewebsites.net
 
 ___
-最終更新日：2022年9月3日  
+最終更新日：2022年9月15日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

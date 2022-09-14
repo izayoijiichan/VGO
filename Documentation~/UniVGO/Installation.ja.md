@@ -32,7 +32,7 @@ ___
 |LilToonShader.Utility|IzayoiJiichan|GitHub||1.0.1|2022年8月21日|
 |UniShaders|IzayoiJiichan|GitHub||1.4.0|2022年5月20日|
 |VgoSpringBone|IzayoiJiichan|GitHub||1.1.2|2022年8月24日|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.0|2022年9月3日|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.1|2022年9月15日|
 
 #### 追加（Unity 2021.1 以下のバージョンを使用する場合）
 
@@ -97,26 +97,7 @@ Unity Editor または Unity Hub にて3Dの新規プロジェクトを作成し
         ProjectSettings
 ```
 
-#### 2. Define シンボルの追加
-
-`Projcet Settings` > `Player` > `Other Settings` > `Script Compilation` > `Scripting Define Symbols`
-
-使用する VRMShaders (com.vrmc.vrmshaders) のバージョンに合わせて、Define シンボルを追加します。
-
-|symbol value|min version|max version|
-|:--|:--:|:--:|
-|VRMC_VRMSHADERS_0_72_OR_NEWER|0.72.0|0.84.0|
-|VRMC_VRMSHADERS_0_85_OR_NEWER|0.85.0|(0.101.0)|
-
-Add the Define symbol to match the version of lilToon (jp.lilxyzw.liltoon) you are using.使用する lilToon (jp.lilxyzw.liltoon) のバージョンに合わせて、Define シンボルを追加します。
-|symbol value|min version|max version|
-|:--|:--:|:--:|
-|LILTOON_1_2_12_OR_OLDER|(1.2.0)|1.2.12|
-|LILTOON_1_3_0_OR_NEWER|1.3.0|(1.3.3)|
-
-`Apply` ボタンをクリックします.
-
-#### 3. 必要パッケージ のインストール
+#### 2. 必要パッケージ のインストール
 
 UniVGO及び依存パッケージをプロジェクトに取り込みます。  
 `<Project>/Packages/package.json` に以下の記述を行います。  
@@ -136,7 +117,7 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.1",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.5.0",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.1",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
@@ -158,7 +139,7 @@ UniVGO及び依存パッケージをプロジェクトに取り込みます。
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.1",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo2": "https://github.com/izayoijiican/VGO2.git#v2.5.0",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.1",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
@@ -381,15 +362,6 @@ UniVGO 2.4.4 を使用してください。
 }
 ```
 
-使用する VRMShaders (com.vrmc.vrmshaders) のバージョンに合わせて、Define シンボルを修正します。
-
-`Projcet Settings` > `Player` > `Other Settings` > `Script Compilation` > `Scripting Define Symbols`
-
-|symbol value|min version|max version|
-|:--|:--:|:--:|
-|VRMC_VRMSHADERS_0_72_OR_NEWER|0.72.0|0.84.0|
-|VRMC_VRMSHADERS_0_85_OR_NEWER|0.85.0|(0.101.0)|
-
 ### セットアップ済みサンプルプロジェクト
 
 |unity version|rendering pipeline|package|link|
@@ -398,7 +370,7 @@ UniVGO 2.4.4 を使用してください。
 |2021.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.brp.univrm)|
 
 ___
-最終更新日：2022年9月3日  
+最終更新日：2022年9月15日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

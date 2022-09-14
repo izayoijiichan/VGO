@@ -1,8 +1,8 @@
 {
-  "name": "com.izayoi.univgo2",
-  "displayName": "UniVGO 2",
-  "description": "UniVGO 2 is a package that can handle VGO files in Unity.",
-  "version": "2.5.0",
+  "name": "com.izayoi.univgo",
+  "displayName": "UniVGO",
+  "description": "UniVGO is a package that can handle VGO files in Unity.",
+  "version": "2.5.1",
   "type": "tool",
   "category": "",
   "keywords": [
@@ -28,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/izayoijiichan/VGO2.git"
+    "url": "git+https://github.com/izayoijiichan/VGO.git"
   },
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "1.0.1",

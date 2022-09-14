@@ -18,144 +18,63 @@ namespace UniVgo2.Porters
 
         /// <summary>HDRP Material Porter</summary>
         protected HdrpMaterialPorter HdrpMaterialPorter
-        {
-            get
-            {
-                if (_HdrpMaterialPorter == null)
-                {
-                    _HdrpMaterialPorter = new HdrpMaterialPorter();
-                }
-                return _HdrpMaterialPorter;
-            }
-        }
+            => _HdrpMaterialPorter = _HdrpMaterialPorter ?? new HdrpMaterialPorter();
 
         /// <summary>lilToon Material Porter</summary>
         protected LilToonMaterialPorter _LilToonMaterialPorter;
 
         /// <summary>lilToon Material Porter</summary>
         protected LilToonMaterialPorter LilToonMaterialPorter
-        {
-            get
-            {
-                if (_LilToonMaterialPorter == null)
-                {
-                    _LilToonMaterialPorter = new LilToonMaterialPorter();
-                }
-                return _LilToonMaterialPorter;
-            }
-        }
+            => _LilToonMaterialPorter = _LilToonMaterialPorter ?? new LilToonMaterialPorter();
 
         /// <summary>MToon Material Porter</summary>
         protected MtoonMaterialPorter _MtoonMaterialPorter;
 
         /// <summary>MToon Material Porter</summary>
         protected MtoonMaterialPorter MtoonMaterialPorter
-        {
-            get
-            {
-                if (_MtoonMaterialPorter == null)
-                {
-                    _MtoonMaterialPorter = new MtoonMaterialPorter();
-                }
-                return _MtoonMaterialPorter;
-            }
-        }
+            => _MtoonMaterialPorter = _MtoonMaterialPorter ?? new MtoonMaterialPorter();
 
         /// <summary>Particle Material Porter</summary>
         protected ParticleMaterialPorter _ParticleMaterialPorter;
 
         /// <summary>Particle Material Porter</summary>
         protected ParticleMaterialPorter ParticleMaterialPorter
-        {
-            get
-            {
-                if (_ParticleMaterialPorter == null)
-                {
-                    _ParticleMaterialPorter = new ParticleMaterialPorter();
-                }
-                return _ParticleMaterialPorter;
-            }
-        }
+            => _ParticleMaterialPorter = _ParticleMaterialPorter ?? new ParticleMaterialPorter();
 
         /// <summary>Skybox Material Porter</summary>
         protected SkyboxMaterialPorter _SkyboxMaterialPorter;
 
         /// <summary>Skybox Material Porter</summary>
         protected SkyboxMaterialPorter SkyboxMaterialPorter
-        {
-            get
-            {
-                if (_SkyboxMaterialPorter == null)
-                {
-                    _SkyboxMaterialPorter = new SkyboxMaterialPorter();
-                }
-                return _SkyboxMaterialPorter;
-            }
-        }
+            => _SkyboxMaterialPorter = _SkyboxMaterialPorter ?? new SkyboxMaterialPorter();
 
         /// <summary>Standard Material Porter</summary>
         protected StandardMaterialPorter _StandardMaterialPorter;
 
         /// <summary>Standard Material Porter</summary>
         protected StandardMaterialPorter StandardMaterialPorter
-        {
-            get
-            {
-                if (_StandardMaterialPorter == null)
-                {
-                    _StandardMaterialPorter = new StandardMaterialPorter();
-                }
-                return _StandardMaterialPorter;
-            }
-        }
+            => _StandardMaterialPorter = _StandardMaterialPorter ?? new StandardMaterialPorter();
 
         /// <summary>Standard VColor Material Porter</summary>
         protected StandardVColorMaterialPorter _StandardVColorMaterialPorter;
 
         /// <summary>Standard VColor Material Porter</summary>
         protected StandardVColorMaterialPorter StandardVColorMaterialPorter
-        {
-            get
-            {
-                if (_StandardVColorMaterialPorter == null)
-                {
-                    _StandardVColorMaterialPorter = new StandardVColorMaterialPorter();
-                }
-                return _StandardVColorMaterialPorter;
-            }
-        }
+            => _StandardVColorMaterialPorter = _StandardVColorMaterialPorter ?? new StandardVColorMaterialPorter();
 
         /// <summary>Unlit Material Porter</summary>
         protected UnlitMaterialPorter _UnlitMaterialPorter;
 
         /// <summary>Unlit Material Porter</summary>
         protected UnlitMaterialPorter UnlitMaterialPorter
-        {
-            get
-            {
-                if (_UnlitMaterialPorter == null)
-                {
-                    _UnlitMaterialPorter = new UnlitMaterialPorter();
-                }
-                return _UnlitMaterialPorter;
-            }
-        }
+            => _UnlitMaterialPorter = _UnlitMaterialPorter ?? new UnlitMaterialPorter();
 
         /// <summary>URP Material Porter</summary>
         protected UrpMaterialPorter _UrpMaterialPorter;
 
         /// <summary>URP Material Porter</summary>
         protected UrpMaterialPorter UrpMaterialPorter
-        {
-            get
-            {
-                if (_UrpMaterialPorter == null)
-                {
-                    _UrpMaterialPorter = new UrpMaterialPorter();
-                }
-                return _UrpMaterialPorter;
-            }
-        }
+            => _UrpMaterialPorter = _UrpMaterialPorter ?? new UrpMaterialPorter();
 
         #endregion
 

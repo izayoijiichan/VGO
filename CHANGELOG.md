@@ -1,5 +1,14 @@
 # Change Log
 
+## [2.5.1] - 2022-09-15
+
+- Changes
+  - Changed the package name from `com.izayoi.univgo2` to `com.izayoi.univgo`.
+- Improvements
+  - Scripting Define Symbol, which used to be done manually for each version of dependent packages, is now done automatically.
+- Fixes
+  - Fixed a bug that caused an error in Unity 2020.
+
 ## [2.5.0] - 2022-09-03
 
 - Features

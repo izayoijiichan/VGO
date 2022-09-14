@@ -1,11 +1,10 @@
-# VGO 2
+# VGO
 
-VGO version 2.0 とは、新しい形の3Dデータフォーマットです。
+VGOとは、新しい形の3Dデータフォーマットです。
 
 ___
 ## 特徴
 
-- VGO 1.0 から発展させた独自のフォーマットです。
 - `Node`, `Transform`, `Rigidbody`, `Collider`, `Mesh`, `BlendShape`, `Material`, `Texture` といった3Dモデルの基本情報を保存することができます。
 - Unityでの使用を意識して `Human Avatar`, `SpringBone`, `Animation`, `Cloth`, `Light`, `ParticleSystem`, `Skybox` の情報も保存することができます。
 - アプリケーションでの使用を意識して `BlendShapePreset` の情報も保存することができます。
@@ -21,7 +20,7 @@ ___
 
 ## 翻訳
 
-[English](https://github.com/izayoijiichan/VGO2/blob/main/README.md).
+[English](https://github.com/izayoijiichan/VGO/blob/main/README.md).
 
 ## ファイル拡張子
 
@@ -44,7 +43,7 @@ ___
 |REXX|Resource|リソースを保持します。|
 |CXXX|Crypt|暗号情報を保持します。|
 
-[チャンク詳細](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/chunk.md)
+[チャンク詳細](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/chunk.md)
 
 ## データ スキーマ
 
@@ -80,34 +79,32 @@ ___
 
 ## データ スキーマの説明
 
-- [アセット情報](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.assetInfo.json.md)
-- [レイアウト](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.json.md)
-- [レイアウト（アニメーション）](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.animation.json.md)
-- [レイアウト（クロス）](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.cloth.json.md)
-- [レイアウト（パーティクル）](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.particle.json.md)
-- [レイアウト（スプリングボーン）](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.springBoneInfo.json.md)
-- [リソース](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.resource.json.md)
+- [アセット情報](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.assetInfo.json.md)
+- [レイアウト](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.layout.json.md)
+- [レイアウト（アニメーション）](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.layout.animation.json.md)
+- [レイアウト（クロス）](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.layout.cloth.json.md)
+- [レイアウト（パーティクル）](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.layout.particle.json.md)
+- [レイアウト（スプリングボーン）](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.layout.springBoneInfo.json.md)
+- [リソース](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.resource.json.md)
 
 ## JSON 仕様
 
-- VGO JSON Schema: [2.5](https://github.com/izayoijiichan/VGO2/tree/main/Documentation~/VGO/specification/2.5/schema)
+- VGO JSON Schema: [2.5](https://github.com/izayoijiichan/VGO/tree/main/Documentation~/VGO/specification/2.5/schema)
 
 ## ツール
 
-### UniVGO2
+### UniVGO
 
 VGOファイルを生成／出力／取り込み／ロードするためのツールです。
 
 ボタンをクリックするだけで簡単にVGOファイルを出力できます。
 
-![image1](https://github.com/izayoijiichan/vgo2/blob/main/Documentation~/UniVGO/Images/500_Export.png)
+![image1](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/UniVGO/Images/500_Export.png)
 
-[インストール方法](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Installation.ja.md)
-
-[使用方法](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Usage.ja.md)
+[Wiki](https://github.com/izayoijiichan/VGO/wiki)
 
 ___
-最終更新日：2022年9月3日  
+最終更新日：2022年9月15日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

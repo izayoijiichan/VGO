@@ -388,7 +388,7 @@ ___
 
 When all settings are completed, export the VGO file (.vgo).
 
-![image1](https://github.com/izayoijiichan/vgo2/blob/main/Documentation~/UniVGO/Images/501_Export.png)
+![image1](https://github.com/izayoijiichan/vgo/blob/main/Documentation~/UniVGO/Images/501_Export.png)
 
 Select the GameObject you want to output in Hierarchy.
 
@@ -519,7 +519,7 @@ or the VGO (avatar or world) that others have set to be available in the linked 
 https://vgohub.azurewebsites.net
 
 ___
-Last updated: 3 September, 2022  
+Last updated: 15 September, 2022  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

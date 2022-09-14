@@ -1,10 +1,9 @@
-# VGO 2
+# VGO
 
-VGO version 2.0 is a new type of 3D data format.
+VGO is a new type of 3D data format.
 
 ## Features
 
-- A proprietary format developed from VGO 1.0.
 - You can save basic information of 3D model such as `Node`, `Transform`, `Rigidbody`, `Collider`, `Mesh`, `BlendShape`, `Material`, `Texture`.
 - You can also save the information of `Human Avatar`, `SpringBone`, `Animation`, `Cloth`, `Light`, `ParticleSystem`, `Skybox` for use in Unity.
 - You can also save the information of `BlendShapePreset` for use in the application.
@@ -20,7 +19,7 @@ VGO version 2.0 is a new type of 3D data format.
 
 ## Translation
 
-[Japanese](https://github.com/izayoijiichan/VGO2/blob/main/README.ja.md).
+[Japanese](https://github.com/izayoijiichan/VGO/blob/main/README.ja.md).
 
 ## File extension
 
@@ -43,7 +42,7 @@ VGO version 2.0 is a new type of 3D data format.
 |REXX|Resource|Holds a resource.|
 |CXXX|Crypt|Holds cryptographic information.|
 
-[Chunk details](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/chunk.md)
+[Chunk details](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/chunk.md)
 
 ## Data schema
 
@@ -79,34 +78,32 @@ VGO version 2.0 is a new type of 3D data format.
 
 ## Data schema description
 
-- [Asset Info](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.assetInfo.json.md)
-- [Layout](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.json.md)
-- [Layout (animation)](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.animation.json.md)
-- [Layout (cloth)](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.cloth.json.md)
-- [Layout (particle)](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.particle.json.md)
-- [Layout (spring bone)](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.layout.springBoneInfo.json.md)
-- [Resource](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/VGO/instructions/schema.resource.json.md)
+- [Asset Info](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.assetInfo.json.md)
+- [Layout](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.layout.json.md)
+- [Layout (animation)](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.layout.animation.json.md)
+- [Layout (cloth)](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.layout.cloth.json.md)
+- [Layout (particle)](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.layout.particle.json.md)
+- [Layout (spring bone)](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.layout.springBoneInfo.json.md)
+- [Resource](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.resource.json.md)
 
 ## JSON specification
 
-- VGO JSON Schema: [2.5](https://github.com/izayoijiichan/VGO2/tree/main/Documentation~/VGO/specification/2.5/schema)
+- VGO JSON Schema: [2.5](https://github.com/izayoijiichan/VGO/tree/main/Documentation~/VGO/specification/2.5/schema)
 
 ## Tools
 
-### UniVGO2
+### UniVGO
 
 A tool for creating\/exporting\/importing\/loading VGO file.
 
 You can easily export a VGO file with the click of a button.
 
-![image1](https://github.com/izayoijiichan/vgo2/blob/main/Documentation~/UniVGO/Images/500_Export.png)
+![image1](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/UniVGO/Images/500_Export.png)
 
-[Installation.md](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Installation.md)
-
-[Usage.md](https://github.com/izayoijiichan/VGO2/blob/main/Documentation~/UniVGO/Usage.md)
+[Wiki](https://github.com/izayoijiichan/VGO/wiki)
 
 ___
-Last updated: 3 September, 2022  
+Last updated: 15 September, 2022  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*
