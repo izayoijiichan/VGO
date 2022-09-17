@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Enum      : VgoMaterialPropertyType
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     /// <summary>The data type of the matarial property.</summary>

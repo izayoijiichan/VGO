@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : ListExtensions
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     using System;

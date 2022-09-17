@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : BlendShapeContext
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     using UnityEngine;
@@ -15,13 +16,13 @@ namespace UniVgo2
         public string name;
 
         /// <summary></summary>
-        public Vector3[] positions;
+        public Vector3[]? positions;
 
         /// <summary></summary>
-        public Vector3[] normals;
+        public Vector3[]? normals;
 
         /// <summary></summary>
-        public Vector3[] tangents;
+        public Vector3[]? tangents;
 
         /// <summary>
         /// Create a new instance of BlendShape with name.

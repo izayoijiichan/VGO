@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_ExternalForcesModule
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -20,7 +21,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Multiplies the magnitude of applied external forces.</summary>
         [JsonProperty("multiplierCurve")]
-        public VGO_PS_MinMaxCurve multiplierCurve;
+        public VGO_PS_MinMaxCurve? multiplierCurve;
 
         /// <summary>Multiplies the magnitude of external forces affecting the particles.</summary>
         [JsonProperty("multiplier")]

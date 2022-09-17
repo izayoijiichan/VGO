@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : IMaterialPorter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
@@ -17,7 +18,7 @@ namespace UniVgo2.Porters
 
         /// <summary>A delegate of ExportTexture method.</summary>
         /// <remarks>for Export</remarks>
-        ExportTextureDelegate ExportTexture { get; set; }
+        ExportTextureDelegate? ExportTexture { get; set; }
 
         #endregion
 
@@ -42,7 +43,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A unity material.</returns>
-        Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D> allTexture2dList);
+        Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList);
 
         #endregion
     }

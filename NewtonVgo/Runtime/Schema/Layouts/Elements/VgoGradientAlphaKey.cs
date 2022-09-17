@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoGradientAlphaKey
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;

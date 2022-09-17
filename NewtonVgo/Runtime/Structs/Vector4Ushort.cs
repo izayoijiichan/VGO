@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Struct    : Vector4Ushort
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using System;

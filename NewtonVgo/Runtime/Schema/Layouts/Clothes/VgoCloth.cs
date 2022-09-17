@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoCloth
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -18,7 +19,7 @@ namespace NewtonVgo
     {
         /// <summary>The name of the object.</summary>
         [JsonProperty("name", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public string name;
+        public string? name;
 
         /// <summary>Whether this component is enabled.</summary>
         [JsonProperty("enabled", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -122,11 +123,11 @@ namespace NewtonVgo
 
         /// <summary>An array of ClothSphereColliderPairs which this Cloth instance should collide with.</summary>
         [JsonProperty("sphereColliders")]
-        public List<VgoClothSphereColliderPair> sphereColliders;
+        public List<VgoClothSphereColliderPair?>? sphereColliders;
 
         /// <summary>An array of CapsuleColliders which this Cloth instance should collide with.</summary>
         [JsonProperty("capsuleColliders")]
-        public List<int> capsuleColliders;
+        public List<int>? capsuleColliders;
 
         /// <summary>The resource accessor index of the cloth skinning coefficients used to set up how the cloth interacts with the skinned mesh.</summary>
         [JsonProperty("coefficients", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

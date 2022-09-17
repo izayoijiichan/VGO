@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VertexKey
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>The vertex key name of mesh primitives.</summary>

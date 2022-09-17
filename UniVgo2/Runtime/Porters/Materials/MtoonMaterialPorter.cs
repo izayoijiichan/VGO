@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : MtoonMaterialPorter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using MToon;
@@ -120,7 +121,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A MToon shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A MToon material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D> allTexture2dList)
+        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
         {
             //Material material = base.CreateMaterialAsset(vgoMaterial, shader);
 
@@ -157,7 +158,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A MToon definition.</returns>
-        protected virtual MToonDefinition CreateMToonDefinition(VgoMaterial vgoMaterial, List<Texture2D> allTexture2dList)
+        protected virtual MToonDefinition CreateMToonDefinition(VgoMaterial vgoMaterial, List<Texture2D?> allTexture2dList)
         {
             MToonDefinition mtoonDefinition = new MToonDefinition();
 
@@ -180,9 +181,9 @@ namespace UniVgo2.Porters
             mtoonDefinition.Color = new ColorDefinition
             {
                 LitColor = vgoMaterial.GetColorOrDefault(MToon.Utils.PropColor, Color.white).gamma,
-                LitMultiplyTexture = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropMainTex)),
+                LitMultiplyTexture = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropMainTex)),
                 ShadeColor = vgoMaterial.GetColorOrDefault(MToon.Utils.PropShadeColor, Color.black).gamma,
-                ShadeMultiplyTexture = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropShadeTexture)),
+                ShadeMultiplyTexture = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropShadeTexture)),
                 CutoutThresholdValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropCutoff, 0.0f, 1.0f, 0.5f),
             };
 
@@ -195,9 +196,9 @@ namespace UniVgo2.Porters
                 ShadingShiftValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropShadeShift, -1.0f, 1.0f, 0.0f),
                 ShadingToonyValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropShadeToony, 0.0f, 1.0f, 0.9f),
                 ShadowReceiveMultiplierValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropReceiveShadowRate, 0.0f, 1.0f, 1.0f),
-                ShadowReceiveMultiplierMultiplyTexture = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropReceiveShadowTexture)),
+                ShadowReceiveMultiplierMultiplyTexture = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropReceiveShadowTexture)),
                 LitAndShadeMixingMultiplierValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropShadingGradeRate, 0.0f, 1.0f, 1.0f),
-                LitAndShadeMixingMultiplierMultiplyTexture = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropShadingGradeTexture)),
+                LitAndShadeMixingMultiplierMultiplyTexture = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropShadingGradeTexture)),
             };
 
             // LightingInfluence
@@ -210,7 +211,7 @@ namespace UniVgo2.Porters
             // Normal
             mtoonDefinition.Lighting.Normal = new NormalDefinition
             {
-                NormalTexture = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropBumpMap)),
+                NormalTexture = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropBumpMap)),
                 NormalScaleValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropBumpScale, 0.0f, 1.0f, 1.0f),
             };
 
@@ -218,20 +219,20 @@ namespace UniVgo2.Porters
             mtoonDefinition.Emission = new EmissionDefinition
             {
                 EmissionColor = vgoMaterial.GetColorOrDefault(MToon.Utils.PropEmissionColor, Color.black).gamma,
-                EmissionMultiplyTexture = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropEmissionMap)),
+                EmissionMultiplyTexture = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropEmissionMap)),
             };
 
             // MatCap
             mtoonDefinition.MatCap = new MatCapDefinition
             {
-                AdditiveTexture = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropSphereAdd)),
+                AdditiveTexture = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropSphereAdd)),
             };
 
             // Rim
             mtoonDefinition.Rim = new RimDefinition()
             {
                 RimColor = vgoMaterial.GetColorOrDefault(MToon.Utils.PropRimColor, Color.black).gamma,
-                RimMultiplyTexture = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropRimTexture)),
+                RimMultiplyTexture = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropRimTexture)),
                 RimLightingMixValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropRimLightingMix, 0.0f, 1.0f, 0.0f),
                 RimFresnelPowerValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropRimFresnelPower, 0.0f, 100.0f, 1.0f),
                 RimLiftValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropRimLift, 0.0f, 1.0f, 0.0f),
@@ -242,7 +243,7 @@ namespace UniVgo2.Porters
             {
                 OutlineWidthMode = (MToon.OutlineWidthMode)vgoMaterial.GetIntOrDefault(MToon.Utils.PropOutlineWidthMode),
                 OutlineWidthValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropOutlineWidth, 0.0f, 1.0f, 0.5f),
-                OutlineWidthMultiplyTexture = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropOutlineWidthTexture)),
+                OutlineWidthMultiplyTexture = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropOutlineWidthTexture)),
                 OutlineScaledMaxDistanceValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropOutlineScaledMaxDistance, 1.0f, 10.0f, 1.0f),
                 OutlineColorMode = (MToon.OutlineColorMode)vgoMaterial.GetIntOrDefault(MToon.Utils.PropOutlineColorMode),
                 OutlineColor = vgoMaterial.GetColorOrDefault(MToon.Utils.PropOutlineColor, Color.black).gamma,
@@ -254,7 +255,7 @@ namespace UniVgo2.Porters
             {
                 MainTextureLeftBottomOriginScale = vgoMaterial.GetVector2OrDefault(MToon.Utils.PropMainTex, Vector2.one),
                 MainTextureLeftBottomOriginOffset = vgoMaterial.GetVector2OrDefault(MToon.Utils.PropMainTex, Vector2.zero),
-                UvAnimationMaskTexture = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropUvAnimMaskTexture)),
+                UvAnimationMaskTexture = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropUvAnimMaskTexture)),
                 UvAnimationScrollXSpeedValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropUvAnimScrollX, 0.0f, float.MaxValue, 0.0f),
                 UvAnimationScrollYSpeedValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropUvAnimScrollY, 0.0f, float.MaxValue, 0.0f),
                 UvAnimationRotationSpeedValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropUvAnimRotation, 0.0f, float.MaxValue, 0.0f),

@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoMeshRenderer
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -23,7 +24,7 @@ namespace NewtonVgo
     {
         /// <summary>The name of this renderer.</summary>
         [JsonProperty("name")]
-        public string name;
+        public string? name;
 
         /// <summary>Enabled</summary>
         [JsonProperty("enabled", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -37,7 +38,7 @@ namespace NewtonVgo
 
         /// <summary>The index list of the material to apply to mesh.</summary>
         [JsonProperty("materials")]
-        public List<int> materials;
+        public List<int>? materials;
 
         /// <summary>The kind of the blend shape.</summary>
         [JsonProperty("blendShapeKind", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -46,7 +47,7 @@ namespace NewtonVgo
 
         /// <summary>List of the blend shape preset.</summary>
         [JsonProperty("blendShapePesets")]
-        public List<VgoMeshBlendShapePreset> blendShapePesets;
+        public List<VgoMeshBlendShapePreset>? blendShapePesets;
 
         /// <summary>
         /// Returns a string that represents the current object.

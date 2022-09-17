@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoMaterial
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -18,11 +19,11 @@ namespace NewtonVgo
     {
         /// <summary>The user-defined name of this object.</summary>
         [JsonProperty("name")]
-        public string name;
+        public string? name;
 
         /// <summary>The shader name.</summary>
         [JsonProperty("shaderName")]
-        public string shaderName;
+        public string? shaderName;
 
         /// <summary>The render queue.</summary>
         [JsonProperty("renderQueue", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -35,38 +36,38 @@ namespace NewtonVgo
         public bool isUnlit;
 
         /// <summary></summary>
-        public Dictionary<string, int> intProperties;
+        public Dictionary<string, int>? intProperties;
 
         /// <summary></summary>
-        public Dictionary<string, float> floatProperties;
+        public Dictionary<string, float>? floatProperties;
 
         /// <summary></summary>
-        public Dictionary<string, float[]> colorProperties;
+        public Dictionary<string, float[]>? colorProperties;
 
         /// <summary></summary>
-        public Dictionary<string, float[]> vectorProperties;
+        public Dictionary<string, float[]>? vectorProperties;
 
         /// <summary></summary>
-        public Dictionary<string, float[]> matrixProperties;
+        public Dictionary<string, float[]>? matrixProperties;
 
         /// <summary></summary>
-        public Dictionary<string, float[]> textureOffsetProperties;
+        public Dictionary<string, float[]>? textureOffsetProperties;
 
         /// <summary></summary>
-        public Dictionary<string, float[]> textureScaleProperties;
+        public Dictionary<string, float[]>? textureScaleProperties;
 
         /// <summary></summary>
-        public Dictionary<string, int> textureIndexProperties;
+        public Dictionary<string, int>? textureIndexProperties;
 
         /// <summary></summary>
-        public Dictionary<string, bool> keywordMap;
+        public Dictionary<string, bool>? keywordMap;
 
         /// <summary></summary>
-        public Dictionary<string, string> tagMap;
+        public Dictionary<string, string>? tagMap;
 
         /// <summary>Dictionary object with extension-specific objects.</summary>
         [JsonProperty("extensions")]
-        public VgoExtensions extensions = null;
+        public VgoExtensions? extensions = null;
 
         /// <summary>
         /// Returns a string that represents the current object.

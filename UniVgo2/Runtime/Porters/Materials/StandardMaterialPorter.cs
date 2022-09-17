@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : StandardMaterialPorter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
@@ -117,13 +118,16 @@ namespace UniVgo2.Porters
         /// <param name="shader">A standard shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A standard material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D> allTexture2dList)
+        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
         {
             Material material = base.CreateMaterialAsset(vgoMaterial, shader, allTexture2dList);
 
-            if (vgoMaterial.intProperties.TryGetValue(Property.Mode, out int mode))
+            if (vgoMaterial.intProperties != null)
             {
-                UniStandardShader.Utils.SetMode(material, (AlphaMode)mode);
+                if (vgoMaterial.intProperties.TryGetValue(Property.Mode, out int mode))
+                {
+                    UniStandardShader.Utils.SetMode(material, (AlphaMode)mode);
+                }
             }
 
             return material;

@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Converters
 // @Class     : VgoAnimationCurveConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
     using NewtonVgo;
@@ -19,11 +20,6 @@ namespace UniVgo2.Converters
         /// <returns></returns>
         public static VgoAnimationCurve CreateFrom(AnimationCurve animationCurve)
         {
-            if (animationCurve == null)
-            {
-                return default;
-            }
-
             var vgoAnimationCurve = new VgoAnimationCurve()
             {
                 keys = null,
@@ -43,6 +39,20 @@ namespace UniVgo2.Converters
 
             return vgoAnimationCurve;
         }
+        /// <summary>
+        /// Create VGO_AnimationCurve from AnimationCurve.
+        /// </summary>
+        /// <param name="animationCurve"></param>
+        /// <returns></returns>
+        public static VgoAnimationCurve? CreateOrDefaultFrom(AnimationCurve? animationCurve)
+        {
+            if (animationCurve == null)
+            {
+                return default;
+            }
+
+            return CreateFrom(animationCurve);
+        }
 
         /// <summary>
         /// Create AnimationCurve from VGO_AnimationCurve.
@@ -51,11 +61,6 @@ namespace UniVgo2.Converters
         /// <returns></returns>
         public static AnimationCurve CreateAnimationCurve(VgoAnimationCurve vgoAnimationCurve)
         {
-            if (vgoAnimationCurve == null)
-            {
-                return default;
-            }
-
             var animationCurve = new AnimationCurve()
             {
                 //keys = null,
@@ -76,6 +81,21 @@ namespace UniVgo2.Converters
             }
 
             return animationCurve;
+        }
+
+        /// <summary>
+        /// Create AnimationCurve from VGO_AnimationCurve.
+        /// </summary>
+        /// <param name="vgoAnimationCurve"></param>
+        /// <returns></returns>
+        public static AnimationCurve? CreateAnimationCurveOrDefault(VgoAnimationCurve? vgoAnimationCurve)
+        {
+            if (vgoAnimationCurve is null)
+            {
+                return default;
+            }
+
+            return CreateAnimationCurve(vgoAnimationCurve);
         }
     }
 }

@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : CollectionsExtensions
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace NewtonVgo
         /// <param name="list">The list.</param>
         /// <param name="index">The index of the list.</param>
         /// <returns></returns>
-        public static T GetValueOrDefault<T>(this IList<T> list, int index)
+        public static T? GetValueOrDefault<T>(this IList<T> list, int index) where T : class
         {
             if (index < 0)
             {
@@ -47,6 +48,28 @@ namespace NewtonVgo
         }
 
         /// <summary>
+        /// Gets the value associated with the specified index or default value.
+        /// </summary>
+        /// <typeparam name="T">Type of the item.</typeparam>
+        /// <param name="list">The list.</param>
+        /// <param name="index">The index of the list.</param>
+        /// <returns></returns>
+        public static T? GetNullableValueOrDefault<T>(this IList<T?> list, int index) where T : class
+        {
+            if (index < 0)
+            {
+                return default;
+            }
+            if (index >= list.Count)
+            {
+                return default;
+            }
+
+            return list[index];
+        }
+
+#nullable disable
+        /// <summary>
         /// Attempts to get the value associated with the specified index.
         /// </summary>
         /// <typeparam name="T">Type of the item.</typeparam>
@@ -54,7 +77,7 @@ namespace NewtonVgo
         /// <param name="index">The index of the list.</param>
         /// <param name="item"></param>
         /// <returns>true if the list contains a item with the specified index; otherwise, false.</returns>
-        public static bool TryGetValue<T>(this IList<T> list, int index, out T item)
+        public static bool TryGetValue<T>(this IList<T> list, int index, out T item) where T : class
         {
             item = default;
 
@@ -71,5 +94,6 @@ namespace NewtonVgo
 
             return true;
         }
+#nullable enable
     }
 }

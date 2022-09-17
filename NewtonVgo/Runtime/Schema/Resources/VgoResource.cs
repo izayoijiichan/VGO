@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoResource
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -16,7 +17,7 @@ namespace NewtonVgo
     {
         /// <summary>The uri of the resource.</summary>
         [JsonProperty("uri", Required = Required.Always)]
-        public string uri;
+        public string? uri;
 
         /// <summary>The length of the resource in bytes.</summary>
         [JsonProperty("byteLength", Required = Required.Always)]

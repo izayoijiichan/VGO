@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Converters
 // @Class     : VgoAnimationConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
     using NewtonVgo;
@@ -22,21 +23,6 @@ namespace UniVgo2.Converters
         /// <returns></returns>
         public static VgoAnimation CreateFrom(Animation animation, IList<AnimationClip> animationClips, VgoGeometryCoordinate geometryCoordinate)
         {
-            if (animation == null)
-            {
-                return null;
-            }
-
-            if (animationClips == null)
-            {
-                return null;
-            }
-
-            if (animationClips.Contains(animation.clip) == false)
-            {
-                return null;
-            }
-
             var vgoAnimation = new VgoAnimation()
             {
                 name = animation.name,
@@ -59,28 +45,8 @@ namespace UniVgo2.Converters
         /// <param name="vgoAnimation"></param>
         /// <param name="animationClips"></param>
         /// <param name="geometryCoordinate"></param>
-        public static void SetComponentValue(Animation animation, VgoAnimation vgoAnimation, List<AnimationClip> animationClips, VgoGeometryCoordinate geometryCoordinate)
+        public static void SetComponentValue(Animation animation, VgoAnimation vgoAnimation, List<AnimationClip?>? animationClips, VgoGeometryCoordinate geometryCoordinate)
         {
-            if (animation == null)
-            {
-                return;
-            }
-
-            if (vgoAnimation == null)
-            {
-                return;
-            }
-
-            if (animationClips == null)
-            {
-                return;
-            }
-
-            if (animationClips.TryGetValue(vgoAnimation.clipIndex, out AnimationClip animationClip) == false)
-            {
-                return;
-            }
-
             animation.name = vgoAnimation.name;
             animation.enabled = vgoAnimation.enabled;
             animation.localBounds = VgoBoundsConverter.CreateBounds(vgoAnimation.localBounds, geometryCoordinate);
@@ -88,6 +54,21 @@ namespace UniVgo2.Converters
             animation.animatePhysics = vgoAnimation.animatePhysics;
             animation.cullingType = (UnityEngine.AnimationCullingType)vgoAnimation.cullingType;
             animation.wrapMode = (UnityEngine.WrapMode)vgoAnimation.wrapMode;
+
+            if (animationClips == null)
+            {
+                return;
+            }
+
+            if (animationClips.TryGetValue(vgoAnimation.clipIndex, out AnimationClip? animationClip) == false)
+            {
+                return;
+            }
+
+            if (animationClip == null)
+            {
+                return;
+            }
 
             animation.clip = animationClip;
 

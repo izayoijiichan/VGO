@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoStorageAdapter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using NewtonVgo;
@@ -152,6 +153,11 @@ namespace NewtonVgo
             if (byteLength == 0)
             {
                 byteLength = byteStride * accessor.count;
+            }
+
+            if (Resource is null)
+            {
+                throw new FormatException("resource is null.");
             }
 
             ArraySegment<byte> accessorBytes = Resource.GetBytes()
@@ -311,6 +317,11 @@ namespace NewtonVgo
                 throw new FormatException($"totalSparseIndexSize + totalSparseValueSize: {totalSparseIndexSize + totalSparseValueSize} != accessor.byteLength: {accessor.byteLength}");
             }
 
+            if (Resource is null)
+            {
+                throw new Exception("resource is null.");
+            }
+
             ArraySegment<byte> indexByteArraySegment = Resource.GetBytes().Slice(
                 offset: accessor.byteOffset,
                 count: totalSparseIndexSize
@@ -389,6 +400,16 @@ namespace NewtonVgo
                 return -1;
             }
 
+            if (Resource is null)
+            {
+                throw new Exception("resource is null.");
+            }
+
+            if (ResourceAccessors is null)
+            {
+                throw new Exception("resource accessor is null.");
+            }
+
             int byteStride = Marshal.SizeOf(typeof(T));
 
             ArraySegment<T> segment = new ArraySegment<T>(arrayData);
@@ -447,6 +468,16 @@ namespace NewtonVgo
             if (sparseIndices.Length != sparseValues.Length)
             {
                 throw new Exception();
+            }
+
+            if (Resource is null)
+            {
+                throw new Exception("resource is null.");
+            }
+
+            if (ResourceAccessors is null)
+            {
+                throw new Exception("resource accessor is null.");
             }
 
             int byteOffset = Resource.Length;

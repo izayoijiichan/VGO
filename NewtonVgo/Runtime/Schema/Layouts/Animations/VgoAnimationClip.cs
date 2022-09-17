@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoAnimationClip
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -18,7 +19,7 @@ namespace NewtonVgo
     {
         /// <summary>The name of the object.</summary>
         [JsonProperty("name", Required = Required.Always)]
-        public string name;
+        public string? name;
 
         ///// <summary>Frame rate at which keyframes are sampled. (Read Only)</summary>
         //[JsonProperty("frameRate")]

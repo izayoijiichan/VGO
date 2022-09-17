@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoCryptV0
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -19,15 +20,15 @@ namespace NewtonVgo
         /// <summary></summary>
         /// <remarks>"AES", "Base64"</remarks>
         [JsonProperty("algorithms", Required = Required.Always)]
-        public string algorithms;
+        public string? algorithms;
 
         /// <summary>The base64 encoded key.</summary>
         [JsonProperty("key", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public string key;
+        public string? key;
 
         /// <summary>The base64 encoded initialization vector.</summary>
         [JsonProperty("iv", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public string iv;
+        public string? iv;
 
         /// <summary>The mode for operation of the symmetric algorithm.</summary>
         [JsonProperty("cipherMode", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

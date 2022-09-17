@@ -1,5 +1,10 @@
 # Change Log
 
+## [2.5.2] - 2022-09-18
+
+- Changes
+  - The minimum version of unity is now `2020.3`.
+
 ## [2.5.1] - 2022-09-15
 
 - Changes

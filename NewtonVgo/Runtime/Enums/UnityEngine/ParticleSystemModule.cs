@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : 
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary></summary>

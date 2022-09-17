@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : HdrpMaterialPorter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
@@ -166,7 +167,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A HDRP shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A HDRP material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D> allTexture2dList)
+        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
         {
             switch (vgoMaterial.shaderName)
             {

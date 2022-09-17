@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoSpringBoneGroup
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -17,7 +18,7 @@ namespace NewtonVgo
     {
         /// <summary>The name of the object.</summary>
         [JsonProperty("name", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public string name;
+        public string? name;
 
         /// <summary>Whether this component is enabled.</summary>
         [JsonProperty("enabled", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -26,7 +27,7 @@ namespace NewtonVgo
 
         /// <summary>Comments on this component.</summary>
         [JsonProperty("comment")]
-        public string comment;
+        public string? comment;
 
         /// <summary>The drag force.</summary>
         [JsonProperty("dragForce", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -52,7 +53,7 @@ namespace NewtonVgo
 
         /// <summary>The indices of the root bone nodes.</summary>
         [JsonProperty("rootBones")]
-        public int[] rootBones;
+        public int[]? rootBones;
 
         /// <summary></summary>
         [JsonProperty("hitRadius", DefaultValueHandling = DefaultValueHandling.Populate)]
@@ -62,7 +63,7 @@ namespace NewtonVgo
 
         /// <summary>The indices of the collider groups.</summary>
         [JsonProperty("colliderGroups")]
-        public int[] colliderGroups = null;
+        public int[]? colliderGroups = null;
 
         /// <summary>Whether to draw Gizmo.</summary>
         [JsonProperty("drawGizmo", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

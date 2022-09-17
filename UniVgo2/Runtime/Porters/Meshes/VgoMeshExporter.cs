@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : VgoMeshExporter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
@@ -49,7 +50,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="unityMeshAssetList">List of unity mesh asset.</param>
         /// <param name="unityMaterialList">List of unity material.</param>
-        public virtual void ExportMeshes(IVgoStorage vgoStorage, IList<MeshAsset> unityMeshAssetList, IList<Material> unityMaterialList = null)
+        public virtual void ExportMeshes(IVgoStorage vgoStorage, IList<MeshAsset> unityMeshAssetList, IList<Material>? unityMaterialList = null)
         {
             if (vgoStorage == null)
             {
@@ -69,7 +70,7 @@ namespace UniVgo2.Porters
                 }
             }
 
-            vgoStorage.Layout.meshes = new List<VgoMesh>(unityMeshAssetList.Count);
+            vgoStorage.Layout.meshes = new List<VgoMesh?>(unityMeshAssetList.Count);
 
             for (int meshIndex = 0; meshIndex < unityMeshAssetList.Count; meshIndex++)
             {
@@ -90,11 +91,11 @@ namespace UniVgo2.Porters
         /// <param name="meshAsset">A mesh asset.</param>
         /// <param name="unityMaterialList">List of unity material.</param>
         /// <returns>A vgo mesh.</returns>
-        protected virtual VgoMesh CreateVgoMesh(IVgoStorage vgoStorage, MeshAsset meshAsset, IList<Material> unityMaterialList)
+        protected virtual VgoMesh CreateVgoMesh(IVgoStorage vgoStorage, MeshAsset meshAsset, IList<Material>? unityMaterialList)
         {
             Mesh mesh = meshAsset.Mesh;
 
-            BlendShapeConfiguration blendShapeConfig = meshAsset.BlendShapeConfiguration;
+            BlendShapeConfiguration? blendShapeConfig = meshAsset.BlendShapeConfiguration;
 
             VgoMesh vgoMesh = new VgoMesh(mesh.name);
 

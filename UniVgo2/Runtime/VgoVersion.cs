@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : VgoVersion
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     /// <summary>
@@ -16,9 +17,9 @@ namespace UniVgo2
         public const int MINOR = 5;
 
         /// <summary>Patch</summary>
-        public const int PATCH = 1;
+        public const int PATCH = 2;
 
         /// <summary>Version</summary>
-        public const string VERSION = "2.5.1";
+        public const string VERSION = "2.5.2";
     }
 }

@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Editor
 // @Class     : VgoRightEditor
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Editor
 {
     using UnityEditor;
@@ -14,7 +15,7 @@ namespace UniVgo2.Editor
     public class VgoRightEditor : ScriptEditorBase
     {
         /// <summary>Right Property</summary>
-        private SerializedProperty _RightProperty;
+        private SerializedProperty? _RightProperty;
 
         /// <summary>
         /// This function is called when the object becomes enabled and active.
@@ -34,12 +35,15 @@ namespace UniVgo2.Editor
             // Script
             //base.OnInspectorGUI();
 
+
             serializedObject.Update();
 
             // Right
-            //EditorGUILayout.LabelField(_RightProperty.name, EditorStyles.boldLabel);
-            SetPropertyFields(_RightProperty, new string[]
+            if (_RightProperty != null)
             {
+                //EditorGUILayout.LabelField(_RightProperty.name, EditorStyles.boldLabel);
+                SetPropertyFields(_RightProperty, new string[]
+                {
                 "title",
                 "author",
                 "organization",
@@ -48,7 +52,8 @@ namespace UniVgo2.Editor
                 "version",
                 "distributionUrl",
                 "licenseUrl",
-            });
+                });
+            }
 
             serializedObject.ApplyModifiedProperties();
         }

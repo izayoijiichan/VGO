@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : IVgoStorage
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using NewtonVgo.Buffers;
@@ -22,19 +23,19 @@ namespace NewtonVgo
         VgoUVCoordinate UVCoordinate { get; }
 
         /// <summary>The asset info.</summary>
-        VgoAssetInfo AssetInfo { get; set; }
+        VgoAssetInfo? AssetInfo { get; set; }
 
         /// <summary>The layout.</summary>
         VgoLayout Layout { get; }
 
         /// <summary>List of the resource accessor.</summary>
-        List<VgoResourceAccessor> ResourceAccessors { get; }
+        List<VgoResourceAccessor>? ResourceAccessors { get; }
 
         /// <summary>The resource.</summary>
-        IByteBuffer Resource { get; }
+        IByteBuffer? Resource { get; }
 
         /// <summary>The directory path.</summary>
-        string DirectoryPath { get; }
+        string? DirectoryPath { get; }
 
         /// <summary>The timeout seconds of http request.</summary>
         int HttpTimeoutSeconds { get; set; }
@@ -66,11 +67,11 @@ namespace NewtonVgo
             VgoChunkTypeID layoutTypeId = VgoChunkTypeID.LAPJ,
             VgoChunkTypeID resourceAccessorTypeId = VgoChunkTypeID.RAPJ,
             VgoChunkTypeID resourceAccessorCryptTypeId = VgoChunkTypeID.None,
-            string resourceAccessorCryptAlgorithm = null,
-            byte[] resourceAccessorCryptKey = null,
+            string? resourceAccessorCryptAlgorithm = null,
+            byte[]? resourceAccessorCryptKey = null,
             VgoChunkTypeID resourceTypeId = VgoChunkTypeID.REPb,
-            string resourceUri = null,
-            string binFileName = null);
+            string? resourceUri = null,
+            string? binFileName = null);
 
         #endregion
 

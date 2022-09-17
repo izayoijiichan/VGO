@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : ModelAsset
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     using NewtonVgo;
@@ -21,34 +22,34 @@ namespace UniVgo2
         #region Fields
 
         /// <summary>A game object of root.</summary>
-        public GameObject Root = null;
+        public GameObject? Root = null;
 
         /// <summary>An avatar.</summary>
-        public Avatar Avatar = null;
+        public Avatar? Avatar = null;
 
         /// <summary>List of unity animation clip.</summary>
-        public List<AnimationClip> AnimationClipList = null;
+        public List<AnimationClip?>? AnimationClipList = null;
 
         /// <summary>List of unity collider.</summary>
-        public List<Collider> ColliderList = null;
+        public List<Collider?>? ColliderList = null;
 
         /// <summary>List of unity material.</summary>
-        public List<Material> MaterialList = null;
+        public List<Material?>? MaterialList = null;
 
         /// <summary>List of unity mesh and renderer.</summary>
-        public List<MeshAsset> MeshAssetList = null;
+        public List<MeshAsset>? MeshAssetList = null;
 
         /// <summary>List of unity texture2D.</summary>
-        public List<Texture2D> Texture2dList = null;
+        public List<Texture2D?>? Texture2dList = null;
 
         /// <summary>List of scriptable object.</summary>
         public readonly List<ScriptableObject> ScriptableObjectList = new List<ScriptableObject>();
 
         /// <summary>Array of spring bone collider group.</summary>
-        public VgoSpringBone.VgoSpringBoneColliderGroup[] SpringBoneColliderGroupArray = null;
+        public VgoSpringBone.VgoSpringBoneColliderGroup?[]? SpringBoneColliderGroupArray = null;
 
         /// <summary>A vgo layout.</summary>
-        public VgoLayout Layout = null;
+        public VgoLayout? Layout;
 
         /// <summary></summary>
         protected bool disposed;
@@ -131,8 +132,13 @@ namespace UniVgo2
                 }
             }
 
-            foreach (UnityEngine.Object obj in ObjectsForSubAsset())
+            foreach (UnityEngine.Object? obj in ObjectsForSubAsset())
             {
+                if (obj == null)
+                {
+                    continue;
+                }
+
                 try
                 {
                     UnityEngine.Object.Destroy(obj);
@@ -148,7 +154,7 @@ namespace UniVgo2
         /// 
         /// </summary>
         /// <returns></returns>
-        protected virtual IEnumerable<UnityEngine.Object> ObjectsForSubAsset()
+        protected virtual IEnumerable<UnityEngine.Object?> ObjectsForSubAsset()
         {
             if (AnimationClipList != null)
             {
@@ -164,7 +170,7 @@ namespace UniVgo2
             }
             if (MeshAssetList != null)
             {
-                foreach (var x in MeshAssetList) { yield return x.Mesh; }
+                foreach (var x in MeshAssetList) { yield return x?.Mesh; }
             }
             if (Texture2dList != null)
             {
@@ -218,8 +224,13 @@ namespace UniVgo2
                     }
                 }
 
-                foreach (UnityEngine.Object obj in ObjectsForSubAsset())
+                foreach (UnityEngine.Object? obj in ObjectsForSubAsset())
                 {
+                    if (obj == null)
+                    {
+                        continue;
+                    }
+
                     try
                     {
                         if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(obj)))

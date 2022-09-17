@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoMeshPrimitiveAttributes
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;

@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoPhysicMaterial
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;

@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : VgoExporterOption
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     /// <summary>

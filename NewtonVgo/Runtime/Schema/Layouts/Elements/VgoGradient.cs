@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoGradient
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -16,11 +17,11 @@ namespace NewtonVgo
     {
         /// <summary>All color keys defined in the gradient.</summary>
         [JsonProperty("colorKeys")]
-        public VgoGradientColorKey[] colorKeys = null;
+        public VgoGradientColorKey[]? colorKeys = null;
 
         /// <summary>All alpha keys defined in the gradient.</summary>
         [JsonProperty("alphaKeys")]
-        public VgoGradientAlphaKey[] alphaKeys = null;
+        public VgoGradientAlphaKey[]? alphaKeys = null;
 
         /// <summary>Control how the gradient is evaluated.</summary>
         [JsonProperty("mode")]

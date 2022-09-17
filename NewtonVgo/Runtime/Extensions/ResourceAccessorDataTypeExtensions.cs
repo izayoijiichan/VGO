@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : ResourceAccessorDataTypeExtensions
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using System;

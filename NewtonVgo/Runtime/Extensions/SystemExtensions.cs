@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : SystemExtensions
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using System.Collections.Generic;

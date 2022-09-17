@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoCryptographyAlgorithms
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>The name of algorithms.</summary>

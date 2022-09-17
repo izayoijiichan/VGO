@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoAssetInfo
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -17,18 +18,18 @@ namespace NewtonVgo
     {
         /// <summary>Information about the generator for this VGO model.</summary>
         [JsonProperty("generator")]
-        public VgoGeneratorInfo generator;
+        public VgoGeneratorInfo? generator;
 
         /// <summary></summary>
         [JsonProperty("right")]
-        public VgoRight right;
+        public VgoRight? right;
 
         /// <summary>Dictionary object with extension-specific objects.</summary>
         [JsonProperty("extensions")]
-        public VgoExtensions extensions = null;
+        public VgoExtensions? extensions = null;
 
         /// <summary>Names of extensions used somewhere in this asset (include layout).</summary>
         [JsonProperty("extensionsUsed")]
-        public List<string> extensionsUsed;
+        public List<string?>? extensionsUsed;
     }
 }

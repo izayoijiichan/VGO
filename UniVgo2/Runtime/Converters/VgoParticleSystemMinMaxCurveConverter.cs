@@ -2,10 +2,11 @@
 // @Namespace : UniVgo2.Converters
 // @Class     : VgoParticleSystemMinMaxCurveConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
-    using NewtonVgo;
     using NewtonVgo.Schema.ParticleSystems;
+    using System;
     using static UnityEngine.ParticleSystem;
 
     /// <summary>
@@ -34,7 +35,7 @@ namespace UniVgo2.Converters
                     {
                         mode = NewtonVgo.ParticleSystemCurveMode.Curve,
                         curveMultiplier = minMaxCurve.curveMultiplier,
-                        curve = VgoAnimationCurveConverter.CreateFrom(minMaxCurve.curve),
+                        curve = VgoAnimationCurveConverter.CreateOrDefaultFrom(minMaxCurve.curve),
                     };
 
                 case UnityEngine.ParticleSystemCurveMode.TwoCurves:
@@ -42,8 +43,8 @@ namespace UniVgo2.Converters
                     {
                         mode = NewtonVgo.ParticleSystemCurveMode.TwoCurves,
                         curveMultiplier = minMaxCurve.curveMultiplier,
-                        curveMin = VgoAnimationCurveConverter.CreateFrom(minMaxCurve.curveMin),
-                        curveMax = VgoAnimationCurveConverter.CreateFrom(minMaxCurve.curveMax),
+                        curveMin = VgoAnimationCurveConverter.CreateOrDefaultFrom(minMaxCurve.curveMin),
+                        curveMax = VgoAnimationCurveConverter.CreateOrDefaultFrom(minMaxCurve.curveMax),
                     };
 
                 case UnityEngine.ParticleSystemCurveMode.TwoConstants:
@@ -55,7 +56,7 @@ namespace UniVgo2.Converters
                     };
 
                 default:
-                    return null;
+                    throw new IndexOutOfRangeException($"{minMaxCurve.mode}");
             }
         }
 
@@ -64,7 +65,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="vgoMinMaxCurve"></param>
         /// <returns></returns>
-        public static MinMaxCurve CreateMinMaxCurve(VGO_PS_MinMaxCurve vgoMinMaxCurve)
+        public static MinMaxCurve CreateMinMaxCurve(VGO_PS_MinMaxCurve? vgoMinMaxCurve)
         {
             if (vgoMinMaxCurve == null)
             {
@@ -79,14 +80,14 @@ namespace UniVgo2.Converters
                 case NewtonVgo.ParticleSystemCurveMode.Curve:
                     return new MinMaxCurve(
                         multiplier: vgoMinMaxCurve.curveMultiplier,
-                        curve: VgoAnimationCurveConverter.CreateAnimationCurve(vgoMinMaxCurve.curve)
+                        curve: VgoAnimationCurveConverter.CreateAnimationCurveOrDefault(vgoMinMaxCurve.curve)
                     );
 
                 case NewtonVgo.ParticleSystemCurveMode.TwoCurves:
                     return new MinMaxCurve(
                         multiplier: vgoMinMaxCurve.curveMultiplier,
-                        min: VgoAnimationCurveConverter.CreateAnimationCurve(vgoMinMaxCurve.curveMin),
-                        max: VgoAnimationCurveConverter.CreateAnimationCurve(vgoMinMaxCurve.curveMax)
+                        min: VgoAnimationCurveConverter.CreateAnimationCurveOrDefault(vgoMinMaxCurve.curveMin),
+                        max: VgoAnimationCurveConverter.CreateAnimationCurveOrDefault(vgoMinMaxCurve.curveMax)
                     );
 
                 case NewtonVgo.ParticleSystemCurveMode.TwoConstants:

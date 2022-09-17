@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoSpringBoneColliderGroup
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -15,7 +16,7 @@ namespace NewtonVgo
     {
         /// <summary>An array of the srping bone collider.</summary>
         [JsonProperty("colliders")]
-        public VgoSpringBoneCollider[] colliders;
+        public VgoSpringBoneCollider?[]? colliders;
 
         /// <summary>The Gizmo color.</summary>
         [JsonProperty("gizmoColor")]

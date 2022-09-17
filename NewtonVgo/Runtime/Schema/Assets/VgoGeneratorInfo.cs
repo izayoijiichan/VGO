@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoGeneratorInfo
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -18,11 +19,11 @@ namespace NewtonVgo
 
         /// <summary>Generator Name</summary>
         [JsonProperty("name", Required = Required.Always)]
-        public string name = null;
+        public string? name = null;
 
         /// <summary>Generator Version</summary>
         [JsonProperty("version", Required = Required.Always)]
-        public string version = null;
+        public string? version = null;
 
         #endregion
 

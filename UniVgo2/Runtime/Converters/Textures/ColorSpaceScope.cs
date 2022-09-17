@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Converters
 // @Struct    : ColorSpaceScope
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
     using System;

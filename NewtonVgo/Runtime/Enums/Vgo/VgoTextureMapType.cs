@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Enum      : VgoTextureType
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>The map type of the texture.</summary>

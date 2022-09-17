@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoStorage
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -37,7 +38,7 @@ namespace NewtonVgo
         protected VgoHeader Header = default;
 
         /// <summary>The index map of chunks.</summary>
-        protected VgoIndexChunkDataElement[] ChunkIndexMap;
+        protected VgoIndexChunkDataElement[]? ChunkIndexMap;
 
         #endregion
 
@@ -50,19 +51,19 @@ namespace NewtonVgo
         public VgoUVCoordinate UVCoordinate => Header.UVCoordinate;
 
         /// <summary>The asset info.</summary>
-        public VgoAssetInfo AssetInfo { get; set; }
+        public VgoAssetInfo? AssetInfo { get; set; }
 
         /// <summary>The layout.</summary>
         public VgoLayout Layout { get; protected set; }
 
         /// <summary>List of the resource accessor.</summary>
-        public List<VgoResourceAccessor> ResourceAccessors { get; protected set; }
+        public List<VgoResourceAccessor>? ResourceAccessors { get; protected set; }
 
         /// <summary>The resource.</summary>
-        public IByteBuffer Resource { get; protected set; }
+        public IByteBuffer? Resource { get; protected set; }
 
         /// <summary>The directory path.</summary>
-        public string DirectoryPath { get; protected set; }
+        public string? DirectoryPath { get; protected set; }
 
         /// <summary>The timeout seconds of http request.</summary>
         public int HttpTimeoutSeconds { get; set; } = 30;
@@ -80,7 +81,7 @@ namespace NewtonVgo
         /// <param name="vgoFilePath">The file path of the vgo.</param>
         /// <param name="vgkFilePath">The file path of the crypt key.</param>
         /// <remarks>for Import</remarks>
-        public VgoStorage(string vgoFilePath, string vgkFilePath = null)
+        public VgoStorage(string vgoFilePath, string? vgkFilePath = null)
         {
             if (vgoFilePath == null)
             {
@@ -98,7 +99,7 @@ namespace NewtonVgo
 
             byte[] allBytes = File.ReadAllBytes(vgoFilePath);
 
-            byte[] cryptKey = null;
+            byte[]? cryptKey = null;
 
             if (vgkFilePath != null)
             {
@@ -112,7 +113,9 @@ namespace NewtonVgo
                 cryptKey = File.ReadAllBytes(vgkFilePath);
             }
 
-            ParseVgo(allBytes, cryptKey);
+            ParseVgo(allBytes, cryptKey, out var layout);
+
+            Layout = layout;
         }
 
         /// <summary>
@@ -123,9 +126,11 @@ namespace NewtonVgo
         /// <remarks>
         /// for Import
         /// </remarks>
-        public VgoStorage(byte[] allBytes, byte[] cryptKey = null)
+        public VgoStorage(byte[] allBytes, byte[]? cryptKey = null)
         {
-            ParseVgo(allBytes, cryptKey);
+            ParseVgo(allBytes, cryptKey, out var layout);
+
+            Layout = layout;
         }
 
         /// <summary>
@@ -160,7 +165,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="allBytes">All bytes of ".vgo" file.</param>
         /// <param name="cryptKey">The crypt key.</param>
-        protected virtual void ParseVgo(byte[] allBytes, byte[] cryptKey = null)
+        protected virtual void ParseVgo(byte[] allBytes, byte[]? cryptKey, out VgoLayout layout)
         {
             if (allBytes == null)
             {
@@ -210,7 +215,7 @@ namespace NewtonVgo
             // Layout chunk
             try
             {
-                Layout = ExtractLayout(composerChunkData, ChunkIndexMap, allSegmentBytes);
+                layout = ExtractLayout(composerChunkData, ChunkIndexMap, allSegmentBytes);
             }
             catch
             {
@@ -435,13 +440,13 @@ namespace NewtonVgo
         /// <param name="chunkIndexMap">The chunk index map.</param>
         /// <param name="allSegmentBytes">The all segment bytes.</param>
         /// <returns>The asset info.</returns>
-        protected virtual VgoAssetInfo ExtractAssetInfo(VgoComposerChunkData composerChunkData, VgoIndexChunkDataElement[] chunkIndexMap, ArraySegment<byte> allSegmentBytes)
+        protected virtual VgoAssetInfo? ExtractAssetInfo(VgoComposerChunkData composerChunkData, VgoIndexChunkDataElement[] chunkIndexMap, ArraySegment<byte> allSegmentBytes)
         {
             try
             {
                 ArraySegment<byte> assetInfoChunkData = ExtractChunkData(composerChunkData.AssetInfoChunkTypeId, chunkIndexMap, allSegmentBytes);
 
-                VgoAssetInfo vgoAssetInfo;
+                VgoAssetInfo? vgoAssetInfo;
 
                 if (composerChunkData.AssetInfoChunkTypeId == VgoChunkTypeID.AIPJ)
                 {
@@ -491,7 +496,7 @@ namespace NewtonVgo
             {
                 ArraySegment<byte> layoutChunkData = ExtractChunkData(composerChunkData.LayoutChunkTypeId, chunkIndexMap, allSegmentBytes);
 
-                VgoLayout vgoLayout;
+                VgoLayout? vgoLayout;
 
                 if (composerChunkData.LayoutChunkTypeId == VgoChunkTypeID.LAPJ)
                 {
@@ -510,6 +515,11 @@ namespace NewtonVgo
                 else
                 {
                     throw new FormatException($"[COMP] LayoutChunkTypeId: {composerChunkData.LayoutChunkTypeId}");
+                }
+
+                if (vgoLayout is null)
+                {
+                    throw new FormatException();
                 }
 
                 return vgoLayout;
@@ -536,7 +546,7 @@ namespace NewtonVgo
         /// <param name="allSegmentBytes">The all segment bytes.</param>
         /// <param name="cryptKey">The crypt key.</param>
         /// <returns>List of the resource accessor.</returns>
-        protected virtual List<VgoResourceAccessor> ExtractResourceAccessor(VgoComposerChunkData composerChunkData, VgoIndexChunkDataElement[] chunkIndexMap, ArraySegment<byte> allSegmentBytes, byte[] cryptKey = null)
+        protected virtual List<VgoResourceAccessor>? ExtractResourceAccessor(VgoComposerChunkData composerChunkData, VgoIndexChunkDataElement[] chunkIndexMap, ArraySegment<byte> allSegmentBytes, byte[]? cryptKey = null)
         {
             VgoChunkTypeID raChunkTypeId = composerChunkData.ResourceAccessorChunkTypeId;
 
@@ -553,7 +563,7 @@ namespace NewtonVgo
 
             ArraySegment<byte> raChunkData = ExtractChunkData(raChunkTypeId, chunkIndexMap, allSegmentBytes);
 
-            byte[] plainJsonOrBson = null;
+            byte[]? plainJsonOrBson;
 
             if (raChunkTypeId == VgoChunkTypeID.RAPJ)
             {
@@ -567,7 +577,12 @@ namespace NewtonVgo
                 (raChunkTypeId == VgoChunkTypeID.RACJ) ||
                 (raChunkTypeId == VgoChunkTypeID.RACB))
             {
-                VgoCryptV0 vgoCrypt = GetVgoCrypt(composerChunkData.ResourceAccessorCryptChunkTypeId, chunkIndexMap, allSegmentBytes);
+                VgoCryptV0? vgoCrypt = GetVgoCrypt(composerChunkData.ResourceAccessorCryptChunkTypeId, chunkIndexMap, allSegmentBytes);
+
+                if (vgoCrypt is null)
+                {
+                    throw new FormatException($" ResourceAccessorChunkTypeId: {raChunkTypeId}");
+                }
 
                 try
                 {
@@ -625,6 +640,7 @@ namespace NewtonVgo
                     {
                         throw new NotSupportedException($"CryptographyAlgorithms: {vgoCrypt.algorithms}");
                     }
+
                 }
                 catch (JsonSerializationException)
                 {
@@ -635,8 +651,12 @@ namespace NewtonVgo
                     throw;
                 }
             }
+            else
+            {
+                throw new FormatException($"[COMP] ResourceAccessorChunkTypeId: {raChunkTypeId}");
+            }
 
-            List<VgoResourceAccessor> vgoResourceAccessors = null;
+            List<VgoResourceAccessor>? vgoResourceAccessors = null;
 
             try
             {
@@ -685,7 +705,7 @@ namespace NewtonVgo
         {
             VgoChunkTypeID resourceChunkTypeId = composerChunkData.ResourceChunkTypeId;
 
-            VgoResource vgoResource;
+            VgoResource? vgoResource;
 
             try
             {
@@ -713,6 +733,11 @@ namespace NewtonVgo
                 {
                     throw new FormatException($"[COMP] ResourceChunkTypeId: {resourceChunkTypeId}");
                 }
+
+                if (vgoResource is null)
+                {
+                    throw new FormatException($"[{resourceChunkTypeId}] resource is null.");
+                }
             }
             catch (JsonSerializationException)
             {
@@ -723,9 +748,9 @@ namespace NewtonVgo
                 throw;
             }
 
-            if (string.IsNullOrEmpty(vgoResource.uri))
+            if (vgoResource.uri is null || vgoResource.uri == string.Empty)
             {
-                throw new FormatException($"[{resourceChunkTypeId}] uri is null.");
+                throw new FormatException($"[{resourceChunkTypeId}] uri is null or empty.");
             }
 
             if (vgoResource.byteLength == 0)
@@ -749,13 +774,13 @@ namespace NewtonVgo
         /// <param name="chunkIndexMap">The chunk index map.</param>
         /// <param name="allSegmentBytes">The all segment bytes.</param>
         /// <returns>The vgo crypt.</returns>
-        protected virtual VgoCryptV0 GetVgoCrypt(VgoChunkTypeID cryptChunkTypeId, VgoIndexChunkDataElement[] chunkIndexMap, ArraySegment<byte> allSegmentBytes)
+        protected virtual VgoCryptV0? GetVgoCrypt(VgoChunkTypeID cryptChunkTypeId, VgoIndexChunkDataElement[] chunkIndexMap, ArraySegment<byte> allSegmentBytes)
         {
             try
             {
                 ArraySegment<byte> cryptChunkData = ExtractChunkData(cryptChunkTypeId, chunkIndexMap, allSegmentBytes);
 
-                VgoCryptV0 vgoCrypt;
+                VgoCryptV0? vgoCrypt;
 
                 if (cryptChunkTypeId == VgoChunkTypeID.CRAJ)
                 {
@@ -876,11 +901,11 @@ namespace NewtonVgo
             VgoChunkTypeID layoutTypeId = VgoChunkTypeID.LAPJ,
             VgoChunkTypeID resourceAccessorTypeId = VgoChunkTypeID.RAPJ,
             VgoChunkTypeID resourceAccessorCryptTypeId = VgoChunkTypeID.None,
-            string resourceAccessorCryptAlgorithm = null,
-            byte[] resourceAccessorCryptKey = null,
+            string? resourceAccessorCryptAlgorithm = null,
+            byte[]? resourceAccessorCryptKey = null,
             VgoChunkTypeID resourceTypeId = VgoChunkTypeID.REPb,
-            string resourceUri = null,
-            string binFileName = null)
+            string? resourceUri = null,
+            string? binFileName = null)
         {
             if (filePath == null)
             {
@@ -916,7 +941,7 @@ namespace NewtonVgo
             VgoChunk layoutChunk = CreateLayoutChunk(layoutTypeId);
 
             // Resource Accessor chunk
-            (VgoChunk resourceAccessorChunk, VgoChunk resourceAccessorCryptChunk) =
+            (VgoChunk resourceAccessorChunk, VgoChunk? resourceAccessorCryptChunk) =
                 CreateResourceAccessorChunk(
                     resourceAccessorTypeId,
                     resourceAccessorCryptTypeId,
@@ -925,7 +950,7 @@ namespace NewtonVgo
                 );
 
             // Resource chunk
-            VgoChunk resourceChunk = CreatResourceChunk(resourceTypeId, fileInfo, binFileName, resourceUri);
+            VgoChunk resourceChunk = CreateResourceChunk(resourceTypeId, fileInfo, binFileName, resourceUri);
 
             // Composer chunk
             VgoChunk composerChunk = CreateComposerChunk(
@@ -1136,14 +1161,14 @@ namespace NewtonVgo
         /// <param name="cryptAlgorithm">The crypt algorithm.</param>
         /// <param name="cryptKey">The crypt key.</param>
         /// <returns>A resource accessor chunk and a crypt chunk.</returns>
-        protected virtual (VgoChunk, VgoChunk) CreateResourceAccessorChunk(
+        protected virtual (VgoChunk, VgoChunk?) CreateResourceAccessorChunk(
             VgoChunkTypeID resourceAccessorTypeId,
             VgoChunkTypeID resourceAccessorCryptTypeId,
-            string cryptAlgorithm = null,
-            byte[] cryptKey = null)
+            string? cryptAlgorithm = null,
+            byte[]? cryptKey = null)
         {
             IByteBuffer resourceAccessorChunkData;
-            IByteBuffer resourceAccessorCryptChunkData = null;
+            IByteBuffer? resourceAccessorCryptChunkData = null;
 
             try
             {
@@ -1188,8 +1213,8 @@ namespace NewtonVgo
                     {
                         AesCrypter aesCrypter = new AesCrypter();
 
-                        string keyString;
-                        string ivString;
+                        string? keyString;
+                        string? ivString;
 
                         // JSON or BSON (encrypt)
                         if (cryptKey == null)
@@ -1269,7 +1294,7 @@ namespace NewtonVgo
 
             VgoChunk resourceAccessorChunk = new VgoChunk(resourceAccessorTypeId, resourceAccessorChunkData);
 
-            VgoChunk resourceAccessorCryptChunk = null;
+            VgoChunk? resourceAccessorCryptChunk = null;
 
             if (resourceAccessorCryptChunkData != null)
             {
@@ -1287,7 +1312,7 @@ namespace NewtonVgo
         /// <param name="binFileName">The resource binary file name.</param>
         /// <param name="resourceUri">The resource URI.</param>
         /// <returns>A resouce chunk.</returns>
-        protected virtual VgoChunk CreatResourceChunk(VgoChunkTypeID resourceTypeId, FileInfo fileInfo, string binFileName = null, string resourceUri = null)
+        protected virtual VgoChunk CreateResourceChunk(VgoChunkTypeID resourceTypeId, FileInfo fileInfo, string? binFileName = null, string? resourceUri = null)
         {
             if (binFileName == null)
             {
@@ -1297,6 +1322,11 @@ namespace NewtonVgo
             if (resourceUri == null)
             {
                 resourceUri = binFileName;
+            }
+
+            if (Resource == null)
+            {
+                throw new Exception();
             }
 
             IByteBuffer resourceChunkData;

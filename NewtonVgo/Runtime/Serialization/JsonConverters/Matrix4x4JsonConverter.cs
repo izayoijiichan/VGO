@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Serialization.JsonConverters
 // @Class     : Matrix4x4JsonConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Serialization.JsonConverters
 {
     using Newtonsoft.Json;
@@ -31,11 +32,11 @@ namespace NewtonVgo.Serialization.JsonConverters
         /// <param name="existingValue">The existing value of object being read.</param>
         /// <param name="serializer">The calling serializer.</param>
         /// <returns>The object value.</returns>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
             Matrix4x4 value = default;
 
-            float[] floatArray = serializer.Deserialize<float[]>(reader);
+            float[]? floatArray = serializer.Deserialize<float[]>(reader);
 
             if (floatArray != null)
             {
@@ -71,19 +72,20 @@ namespace NewtonVgo.Serialization.JsonConverters
         /// <param name="writer">The Newtonsoft.Json.JsonWriter to write to.</param>
         /// <param name="value">The value.</param>
         /// <param name="serializer">The calling serializer.</param>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
-            Matrix4x4 m = (Matrix4x4)value;
-
-            float[] floatArray = new float[]
+            if (value is Matrix4x4 m)
             {
+                float[] floatArray = new float[]
+                {
                 m.M11, m.M12, m.M13, m.M14,
                 m.M21, m.M22, m.M23, m.M24,
                 m.M31, m.M32, m.M33, m.M34,
                 m.M41, m.M42, m.M43, m.M44
-            };
+                };
 
-            serializer.Serialize(writer, floatArray);
+                serializer.Serialize(writer, floatArray);
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Enum      : TextureWrapType
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     /// <summary></summary>

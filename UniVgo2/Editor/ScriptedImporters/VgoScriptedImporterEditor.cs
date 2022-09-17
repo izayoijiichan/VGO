@@ -2,8 +2,10 @@
 // @Namespace : UniVgo2.Editor
 // @Class     : VgoScriptedImporterEditor
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Editor
 {
+    using System;
     using System.Linq;
     using UnityEditor;
 #if UNITY_2020_2_OR_NEWER
@@ -27,7 +29,14 @@ namespace UniVgo2.Editor
         /// </summary>
         public override void OnInspectorGUI()
         {
-            var importer = target as VgoScriptedImporter;
+            if (target is VgoScriptedImporter importer)
+            {
+                //
+            }
+            else
+            {
+                throw new InvalidCastException();
+            }
 
             EditorGUILayout.LabelField("Extract settings");
 
@@ -127,10 +136,13 @@ namespace UniVgo2.Editor
             {
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.PrefixLabel(obj.Key.name);
-                var asset = EditorGUILayout.ObjectField(obj.Value, obj.Key.type, true) as T;
-                if (asset != obj.Value)
+                var unityObj = EditorGUILayout.ObjectField(obj.Value, obj.Key.type, true);
+                if (unityObj is T asset)
                 {
-                    importer.SetExternalUnityObject(obj.Key, asset);
+                    if (asset != obj.Value)
+                    {
+                        importer.SetExternalUnityObject(obj.Key, asset);
+                    }
                 }
                 EditorGUILayout.EndHorizontal();
             }

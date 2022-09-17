@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_Renderer
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -41,23 +42,23 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         ///// <summary>The Mesh that the particle uses instead of a billboarded Texture.</summary>
         //[JsonProperty("mesh")]
-        //public Mesh mesh;
+        //public Mesh? mesh;
 
         ///// <summary>The number of Meshes the system uses for particle rendering.</summary>
         //[JsonProperty("meshCount")]
         //public int meshCount { get; }
 
         ///// <summary>Returns the first instantiated Material assigned to the renderer.</summary>
-        //public Material material;
+        //public Material? material;
 
         /// <summary>The shared material of this object.</summary>
         [JsonProperty("sharedMaterialIndex")]
-        //public Material sharedMaterial;
+        //public Material? sharedMaterial;
         public int sharedMaterial;
 
         /// <summary>Set the Material that the TrailModule uses to attach trails to particles.</summary>
         [JsonProperty("trailMaterialIndex")]
-        //public Material trailMaterial;
+        //public Material? trailMaterial;
         public int trailMaterialIndex;
 
         /// <summary>Specifies how to sort particles within a system.</summary>
@@ -147,7 +148,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>If set, Renderer will use this Transform's position to find the light or reflection probe.</summary>
         [JsonProperty("probeAnchor")]
-        public VgoTransform probeAnchor;
+        public VgoTransform? probeAnchor;
 
         ///// <summary>The number of currently active custom vertex streams.</summary>
         //[JsonProperty("activeVertexStreamsCount")]

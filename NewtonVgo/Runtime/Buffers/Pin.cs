@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Buffers
 // @Class     : Pin
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Buffers
 {
     using System;
@@ -39,7 +40,7 @@ namespace NewtonVgo.Buffers
     /// Pin
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Pin<T> : IDisposable  where T : struct
+    public class Pin<T> : IDisposable where T : struct
     {
         /// <summary>
         /// Create a new instance of Pin with src.

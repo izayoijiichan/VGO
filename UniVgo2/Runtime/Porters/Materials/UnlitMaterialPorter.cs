@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : UnlitMaterialPorter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using NewtonVgo;

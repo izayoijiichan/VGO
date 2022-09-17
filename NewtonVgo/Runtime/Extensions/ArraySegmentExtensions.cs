@@ -2,11 +2,12 @@
 // @Namespace : NewtonVgo
 // @Class     : ArraySegmentExtensions
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
+    using NewtonVgo.Buffers;
     using System;
     using System.Runtime.InteropServices;
-    using NewtonVgo.Buffers;
 
     /// <summary>
     /// ArraySegment Extensions

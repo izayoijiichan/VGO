@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoNode
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -18,7 +19,7 @@ namespace NewtonVgo
     {
         /// <summary>The user-defined name of this object.</summary>
         [JsonProperty("name")]
-        public string name;
+        public string? name;
 
         /// <summary>Whether GameObject is root.</summary>
         [JsonProperty("isRoot", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -38,7 +39,7 @@ namespace NewtonVgo
         /// <summary>Tag attached to GameObject.</summary>
         [JsonProperty("tag", DefaultValueHandling = DefaultValueHandling.Ignore)]
         [DefaultValue("Untagged")]
-        public string tag = null;
+        public string? tag = null;
 
         /// <summary>Index of the layer where GameObject is located.</summary>
         [JsonProperty("layer", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -47,24 +48,24 @@ namespace NewtonVgo
 
         /// <summary>The animator.</summary>
         [JsonProperty("animator")]
-        public VgoAnimator animator = null;
+        public VgoAnimator? animator = null;
 
         /// <summary>The animation.</summary>
         [JsonProperty("animation")]
-        public VgoAnimation animation = null;
+        public VgoAnimation? animation = null;
 
         /// <summary>The rigidbody.</summary>
         [JsonProperty("rigidbody")]
-        public VgoRigidbody rigidbody = null;
+        public VgoRigidbody? rigidbody = null;
 
         /// <summary>The indices of the collider referenced by this node.</summary>
         [JsonProperty("colliders")]
-        public List<int> colliders = null;
+        public List<int>? colliders = null;
 
         /// <summary>The mesh renderer.</summary>
         /// <remarks>This propety was added in the spec 2.5 version.</remarks>
         [JsonProperty("meshRenderer")]
-        public VgoMeshRenderer meshRenderer = null;
+        public VgoMeshRenderer? meshRenderer = null;
 
         /// <summary>The index of the mesh referenced by this node.</summary>
         /// <remarks>This propety is used only in spec version between 2.0 and 2.4.</remarks>
@@ -79,7 +80,7 @@ namespace NewtonVgo
 
         /// <summary>The indices of the spring bone groups referenced by this node.</summary>
         [JsonProperty("springBoneGroups")]
-        public List<int> springBoneGroups = null;
+        public List<int>? springBoneGroups = null;
 
         /// <summary>The index of the spring bone collider group referenced by this node.</summary>
         [JsonProperty("springBoneColliderGroup", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -103,19 +104,19 @@ namespace NewtonVgo
 
         /// <summary>The skybox.</summary>
         [JsonProperty("skybox")]
-        public VgoSkybox skybox = null;
+        public VgoSkybox? skybox = null;
 
         /// <summary>The right.</summary>
         [JsonProperty("right")]
-        public VgoRight right = null;
+        public VgoRight? right = null;
 
         /// <summary>The indices of this node's children.</summary>
         [JsonProperty("children")]
-        public List<int> children = null;
+        public List<int>? children = null;
 
         /// <summary>Dictionary object with extension-specific objects.</summary>
         [JsonProperty("extensions")]
-        public VgoExtensions extensions = null;
+        public VgoExtensions? extensions = null;
 
         /// <summary>
         /// Returns a string that represents the current object.

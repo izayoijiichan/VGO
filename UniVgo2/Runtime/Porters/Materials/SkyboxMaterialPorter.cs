@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : SkyboxMaterialPorter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
@@ -114,7 +115,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A skybox shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A skybox material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D> allTexture2dList)
+        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
         {
             if (vgoMaterial == null)
             {
@@ -144,12 +145,12 @@ namespace UniVgo2.Porters
                         Tint = vgoMaterial.GetColorOrDefault(Property.Tint, Color.white).gamma,
                         Exposure = vgoMaterial.GetSafeFloat(Property.Exposure, 0.0f, 8.0f, 1.0f),
                         Rotation = vgoMaterial.GetSafeInt(Property.Rotation, 0, 360, 0),
-                        FrontTex = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.FrontTex)),
-                        BackTex = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BackTex)),
-                        LeftTex = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.LeftTex)),
-                        RightTex = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.RightTex)),
-                        UpTex = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.UpTex)),
-                        DownTex = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.DownTex)),
+                        FrontTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.FrontTex)),
+                        BackTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BackTex)),
+                        LeftTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.LeftTex)),
+                        RightTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.RightTex)),
+                        UpTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.UpTex)),
+                        DownTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.DownTex)),
                     });
                     break;
 
@@ -169,7 +170,7 @@ namespace UniVgo2.Porters
                         Tint = vgoMaterial.GetColorOrDefault(Property.Tint, Color.white).gamma,
                         Exposure = vgoMaterial.GetSafeFloat(Property.Exposure, 0.0f, 8.0f, 1.0f),
                         Rotation = vgoMaterial.GetSafeInt(Property.Rotation, 0, 360, 0),
-                        MainTex = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MainTex)),
+                        MainTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MainTex)),
                         Mapping = (Mapping)vgoMaterial.GetIntOrDefault(Property.Mapping),
                         ImageType = (ImageType)vgoMaterial.GetIntOrDefault(Property.ImageType),
                         MirrorOnBack = vgoMaterial.GetIntOrDefault(Property.MirrorOnBack) == 1,

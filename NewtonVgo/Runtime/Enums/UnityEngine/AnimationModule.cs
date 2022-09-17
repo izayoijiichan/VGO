@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : 
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>This enum controlls culling of Animation component.</summary>

@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : LilToonMaterialPorter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using LilToonShader;
@@ -557,7 +558,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A lilToon shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A lilToon material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D> allTexture2dList)
+        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
         {
             if ((shader.name.Contains("lilToon") == false) &&
                 (shader.name.StartsWith("Hidden/ltspass") == false))

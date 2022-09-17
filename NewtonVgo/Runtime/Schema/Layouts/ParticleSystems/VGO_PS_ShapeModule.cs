@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_ShapeModule
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -46,7 +47,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>In animated modes, this determines how quickly the particle emission position moves along the radius.</summary>
         [JsonProperty("radiusSpeed")]
-        public VGO_PS_MinMaxCurve radiusSpeed;
+        public VGO_PS_MinMaxCurve? radiusSpeed;
 
         /// <summary>A multiplier of the radius speed of the particle emission shape.</summary>
         [JsonProperty("radiusSpeedMultiplier")]
@@ -75,7 +76,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>In animated modes, this determines how quickly the particle emission position moves around the arc.</summary>
         [JsonProperty("arcSpeed")]
-        public VGO_PS_MinMaxCurve arcSpeed;
+        public VGO_PS_MinMaxCurve? arcSpeed;
 
         /// <summary>A multiplier of the arc speed of the particle emission shape.</summary>
         [JsonProperty("arcSpeedMultiplier")]
@@ -99,7 +100,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>In animated modes, this determines how quickly the particle emission position moves across the Mesh.</summary>
         [JsonProperty("meshSpawnSpeed")]
-        public VGO_PS_MinMaxCurve meshSpawnSpeed;
+        public VGO_PS_MinMaxCurve? meshSpawnSpeed;
 
         /// <summary>A multiplier of the Mesh spawn speed.</summary>
         [JsonProperty("meshSpawnSpeedMultiplier")]
@@ -107,15 +108,15 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         ///// <summary>Mesh to emit particles from.</summary>
         //[JsonProperty("mesh")]
-        //public Mesh mesh;
+        //public Mesh? mesh;
 
         ///// <summary>MeshRenderer to emit particles from.</summary>
         //[JsonProperty("meshRenderer")]
-        //public MeshRenderer meshRenderer;
+        //public MeshRenderer? meshRenderer;
 
         ///// <summary>SkinnedMeshRenderer to emit particles from.</summary>
         //[JsonProperty("skinnedMeshRenderer")]
-        //public SkinnedMeshRenderer skinnedMeshRenderer;
+        //public SkinnedMeshRenderer? skinnedMeshRenderer;
 
         /// <summary>Emit particles from a single Material, or the whole Mesh.</summary>
         [JsonProperty("useMeshMaterialIndex")]
@@ -131,11 +132,11 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         ///// <summary>Sprite to emit particles from.</summary>
         //[JsonProperty("sprite")]
-        //public Sprite sprite;
+        //public Sprite? sprite;
 
         ///// <summary>SpriteRenderer to emit particles from.</summary>
         //[JsonProperty("spriteRenderer")]
-        //public SpriteRenderer spriteRenderer;
+        //public SpriteRenderer? spriteRenderer;
 
         /// <summary>Move particles away from the surface of the source Mesh.</summary>
         [JsonProperty("normalOffset")]

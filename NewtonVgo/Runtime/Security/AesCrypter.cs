@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Security.Cryptography
 // @Class     : AesCrypter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Security.Cryptography
 {
     using System;

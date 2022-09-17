@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Editor
 // @Class     : ScriptEditorBase
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Editor
 {
     using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace UniVgo2.Editor
     public abstract class ScriptEditorBase : Editor
     {
         /// <summary>Script Property</summary>
-        protected SerializedProperty _ScriptProperty;
+        protected SerializedProperty? _ScriptProperty;
 
         /// <summary>
         /// This function is called when the object becomes enabled and active.

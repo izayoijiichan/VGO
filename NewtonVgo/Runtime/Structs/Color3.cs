@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Struct    : Color3
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using System;

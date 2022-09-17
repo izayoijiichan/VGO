@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoMeshBlendShape
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -17,12 +18,12 @@ namespace NewtonVgo
     {
         /// <summary>The name of the blend shape.</summary>
         [JsonProperty("name", Required = Required.Always)]
-        public string name;
+        public string? name;
 
         /// <summary>A dictionary mapping attributes.</summary>
         /// <remarks>Supported only `POSITION`, `NORMAL`, `TANGENT`.</remarks>
         [JsonProperty("attributes", Required = Required.Always)]
-        public VgoMeshPrimitiveAttributes attributes;
+        public VgoMeshPrimitiveAttributes? attributes;
 
         ///// <summary></summary>
         //[JsonProperty("weight", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

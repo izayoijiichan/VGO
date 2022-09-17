@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Enum      : VgoResourceAccessorSparseType
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>The type of the resource accessor sparse.</summary>

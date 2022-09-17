@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Serialization.JsonConverters
 // @Class     : VgoMeshPrimitiveAttributesJsonConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Serialization.JsonConverters
 {
     using Newtonsoft.Json;
@@ -32,9 +33,9 @@ namespace NewtonVgo.Serialization.JsonConverters
         /// <param name="existingValue">The existing value of object being read.</param>
         /// <param name="serializer">The calling serializer.</param>
         /// <returns>The object value.</returns>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
-            Dictionary<string, int> dictionary;
+            Dictionary<string, int>? dictionary;
 
             if (reader.TokenType == JsonToken.StartArray)
             {
@@ -61,23 +62,19 @@ namespace NewtonVgo.Serialization.JsonConverters
         /// <param name="writer">The Newtonsoft.Json.JsonWriter to write to.</param>
         /// <param name="value">The value.</param>
         /// <param name="serializer">The calling serializer.</param>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
-            if (value == null)
+            if (value is VgoMeshPrimitiveAttributes attributes)
             {
-                return;
+                Dictionary<string, int> dictionary = new Dictionary<string, int>();
+
+                foreach (KeyValuePair<string, int> attribute in attributes)
+                {
+                    dictionary.Add(attribute.Key, attribute.Value);
+                }
+
+                serializer.Serialize(writer, dictionary);
             }
-
-            VgoMeshPrimitiveAttributes attributes = value as VgoMeshPrimitiveAttributes;
-
-            Dictionary<string, int> dictionary = new Dictionary<string, int>();
-
-            foreach (KeyValuePair<string, int> attribute in attributes)
-            {
-                dictionary.Add(attribute.Key, attribute.Value);
-            }
-
-            serializer.Serialize(writer, dictionary);
         }
     }
 }

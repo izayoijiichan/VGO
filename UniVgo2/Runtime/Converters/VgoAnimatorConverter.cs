@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Converters
 // @Class     : VgoAnimatorConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
     using NewtonVgo;
@@ -19,11 +20,6 @@ namespace UniVgo2.Converters
         /// <returns></returns>
         public static VgoAnimator CreateFrom(Animator animator)
         {
-            if (animator == null)
-            {
-                return null;
-            }
-
             var vgoAnimator = new VgoAnimator()
             {
                 name = animator.name,
@@ -44,16 +40,6 @@ namespace UniVgo2.Converters
         /// <param name="vgoAnimator"></param>
         public static void SetComponentValue(Animator animator, VgoAnimator vgoAnimator)
         {
-            if (animator == null)
-            {
-                return;
-            }
-
-            if (vgoAnimator == null)
-            {
-                return;
-            }
-
             animator.name = vgoAnimator.name;
             animator.enabled = vgoAnimator.enabled;
             //animator.avatar = VgoAvatarConverter.CreateHumanAvatar(go, vgoAnimator.avatar, nodes);

@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Enum      : VgoBlendShapePresetType
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>The type of blend shape preset.</summary>

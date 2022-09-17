@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoComposerChunkData
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using System;

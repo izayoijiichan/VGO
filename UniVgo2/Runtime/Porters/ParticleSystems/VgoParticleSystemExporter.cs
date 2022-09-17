@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : VgoParticleSystemExporter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
@@ -29,11 +30,6 @@ namespace UniVgo2.Porters
         /// <returns></returns>
         public virtual VgoParticleSystem Create(ParticleSystem particleSystem, ParticleSystemRenderer particleSystemRenderer, IVgoStorage vgoStorage, ExportTextureDelegate exportTexture)
         {
-            if (particleSystem == null)
-            {
-                return null;
-            }
-
             var vgoParticleSystem = new VgoParticleSystem()
             {
                 main = CreateVgoModule(particleSystem.main, vgoStorage.GeometryCoordinate),
@@ -241,7 +237,7 @@ namespace UniVgo2.Porters
 
             if (module.texture != null)
             {
-                vgoShapeModule.textureIndex = exportTexture(vgoStorage, material: null, module.texture);
+                vgoShapeModule.textureIndex = exportTexture(vgoStorage, module.texture);
             }
 
             return vgoShapeModule;
@@ -771,7 +767,7 @@ namespace UniVgo2.Porters
                 return -1;
             }
 
-            var vgoMaterial = vgoLayout.materials.FirstOrDefault(m => m.name.Equals(material.name));
+            var vgoMaterial = vgoLayout.materials.FirstOrDefault(m => m?.name != null && m.name.Equals(material.name));
 
             if (vgoMaterial == null)
             {

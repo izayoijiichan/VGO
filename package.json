@@ -2,7 +2,7 @@
   "name": "com.izayoi.univgo",
   "displayName": "UniVGO",
   "description": "UniVGO is a package that can handle VGO files in Unity.",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "type": "tool",
   "category": "",
   "keywords": [
@@ -22,7 +22,7 @@
     "unity",
     "vgo"
   ],
-  "unity": "2019.4",
+  "unity": "2020.3",
   "author": {
     "name" : "Izayoi Jiichan"
   },

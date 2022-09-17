@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoSpringBoneCollider
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;

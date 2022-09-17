@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : VgoImporter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     using NewtonVgo;
@@ -75,7 +76,7 @@ namespace UniVgo2
         /// <param name="vgoFilePath">The file path of the vgo.</param>
         /// <param name="vgkFilePath">The file path of the crypt key.</param>
         /// <returns>A model asset.</returns>
-        public virtual ModelAsset Load(string vgoFilePath, string vgkFilePath = null)
+        public virtual ModelAsset Load(string vgoFilePath, string? vgkFilePath = null)
         {
             var storage = new VgoStorage(vgoFilePath, vgkFilePath);
 
@@ -88,7 +89,7 @@ namespace UniVgo2
         /// <param name="allBytes">All bytes of file.</param>
         /// <param name="cryptKey">The crypt key.</param>
         /// <returns>A model asset.</returns>
-        public virtual ModelAsset Load(byte[] allBytes, byte[] cryptKey = null)
+        public virtual ModelAsset Load(byte[] allBytes, byte[]? cryptKey = null)
         {
             var storage = new VgoStorage(allBytes, cryptKey);
 
@@ -199,9 +200,9 @@ namespace UniVgo2
         /// <remarks>
         /// After UpdateTextureInfoList()
         /// </remarks>
-        protected virtual List<Texture2D> CreateTextureAssets(IVgoStorage vgoStorage)
+        protected virtual List<Texture2D?> CreateTextureAssets(IVgoStorage vgoStorage)
         {
-            var texture2dList = new List<Texture2D>();
+            var texture2dList = new List<Texture2D?>();
 
             if ((vgoStorage.Layout.textures == null) || (vgoStorage.Layout.textures.Any() == false))
             {
@@ -210,11 +211,18 @@ namespace UniVgo2
 
             for (int textureIndex = 0; textureIndex < vgoStorage.Layout.textures.Count; textureIndex++)
             {
-                VgoTexture vgoTexture = vgoStorage.Layout.textures[textureIndex];
+                VgoTexture? vgoTexture = vgoStorage.Layout.textures[textureIndex];
 
-                Texture2D texture2d = CreateTexture2D(vgoTexture, vgoStorage);
+                if (vgoTexture is null)
+                {
+                    texture2dList.Add(null);
+                }
+                else
+                {
+                    Texture2D texture2d = CreateTexture2D(vgoTexture, vgoStorage);
 
-                texture2dList.Add(texture2d);
+                    texture2dList.Add(texture2d);
+                }
             }
 
             return texture2dList;
@@ -231,6 +239,11 @@ namespace UniVgo2
             if (vgoTexture.dimensionType != TextureDimension.Tex2D)
             {
                 throw new Exception($"Texture.dimensionType: {vgoTexture.dimensionType}");
+            }
+
+            if (vgoStorage.ResourceAccessors is null)
+            {
+                throw new Exception();
             }
 
             if (vgoTexture.source.IsInRangeOf(vgoStorage.ResourceAccessors) == false)
@@ -267,9 +280,9 @@ namespace UniVgo2
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="texture2dList">List of unity texture 2D.</param>
         /// <returns>List of unity material.</returns>
-        protected virtual List<Material> CreateMaterialAssets(IVgoStorage vgoStorage, List<Texture2D> texture2dList)
+        protected virtual List<Material?> CreateMaterialAssets(IVgoStorage vgoStorage, List<Texture2D?> texture2dList)
         {
-            var materialList = new List<Material>();
+            var materialList = new List<Material?>();
 
             if ((vgoStorage.Layout.materials == null) || (vgoStorage.Layout.materials.Any() == false))
             {
@@ -278,11 +291,18 @@ namespace UniVgo2
 
             for (int materialIndex = 0; materialIndex < vgoStorage.Layout.materials.Count; materialIndex++)
             {
-                VgoMaterial vgoMaterial = vgoStorage.Layout.materials[materialIndex];
+                VgoMaterial? vgoMaterial = vgoStorage.Layout.materials[materialIndex];
 
-                Material material = _MaterialImporter.CreateMaterialAsset(vgoMaterial, texture2dList);
+                if (vgoMaterial is null)
+                {
+                    materialList.Add(null);
+                }
+                else
+                {
+                    Material material = _MaterialImporter.CreateMaterialAsset(vgoMaterial, texture2dList);
 
-                materialList.Add(material);
+                    materialList.Add(material);
+                }
             }
 
             return materialList;
@@ -299,7 +319,7 @@ namespace UniVgo2
         /// <param name="scriptableObjectList">List of scriptable object.</param>
         /// <param name="materialList">List of unity material.</param>
         /// <returns>List of mesh asset.</returns>
-        protected virtual List<MeshAsset> CreateMeshAssets(IVgoStorage vgoStorage, IList<ScriptableObject> scriptableObjectList, IList<Material> materialList = null)
+        protected virtual List<MeshAsset> CreateMeshAssets(IVgoStorage vgoStorage, IList<ScriptableObject> scriptableObjectList, IList<Material?>? materialList = null)
         {
             var meshAssetList = new List<MeshAsset>();
 
@@ -312,7 +332,7 @@ namespace UniVgo2
             {
                 MeshAsset meshAsset = _MeshImporter.CreateMeshAsset(vgoStorage, meshIndex, scriptableObjectList, materialList);
 
-                if (meshAssetList.Where(x => x.Mesh.name == meshAsset.Mesh.name).Any())
+                if (meshAssetList.Where(x => x?.Mesh.name == meshAsset.Mesh.name).Any())
                 {
                     meshAsset.Mesh.name = string.Format($"mesh_{meshIndex}");
                 }
@@ -332,7 +352,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoLayout">A vgo layout.</param>
         /// <returns>An array of vgo spring bone collider group.</returns>
-        protected virtual VgoSpringBone.VgoSpringBoneColliderGroup[] CreateSpringBoneColliderGroupArray(VgoLayout vgoLayout)
+        protected virtual VgoSpringBone.VgoSpringBoneColliderGroup[]? CreateSpringBoneColliderGroupArray(VgoLayout vgoLayout)
         {
             if (vgoLayout.springBoneInfo == null)
             {
@@ -363,15 +383,20 @@ namespace UniVgo2
         /// <returns>List of transform.</returns>
         protected virtual List<Transform> CreateNodes(IVgoStorage vgoStorage)
         {
+            if (vgoStorage.Layout.nodes is null)
+            {
+                throw new Exception();
+            }
+
             var nodes = new List<Transform>(vgoStorage.Layout.nodes.Count);
 
             System.Numerics.Matrix4x4[] matrixes = GetVgoNodeTransforms(vgoStorage);
 
             for (int nodeIndex = 0; nodeIndex < vgoStorage.Layout.nodes.Count; nodeIndex++)
             {
-                string name = vgoStorage.Layout.nodes[nodeIndex].name;
+                string? name = vgoStorage.Layout.nodes[nodeIndex]?.name;
 
-                if (string.IsNullOrEmpty(name))
+                if (name is null || name == string.Empty)
                 {
                     name = string.Format("node_{0:000}", nodeIndex);
                 }
@@ -403,14 +428,31 @@ namespace UniVgo2
         /// <param name="vgoLayout">A vgo layout.</param>
         protected virtual void CreateNodeHierarchy(List<Transform> nodes, VgoLayout vgoLayout)
         {
-            if (vgoLayout.nodes[0].isRoot == false)
+            if (vgoLayout.nodes is null)
+            {
+                throw new Exception();
+            }
+
+            var rootNode = vgoLayout.nodes[0];
+
+            if (rootNode is null)
+            {
+                throw new Exception();
+            }
+
+            if (rootNode.isRoot == false)
             {
                 throw new FormatException("nodes[0].isRoot: false");
             }
 
             for (int nodeIndex = 0; nodeIndex < nodes.Count; nodeIndex++)
             {
-                VgoNode vgoNode = vgoLayout.nodes[nodeIndex];
+                VgoNode? vgoNode = vgoLayout.nodes[nodeIndex];
+
+                if (vgoNode == null)
+                {
+                    continue;
+                }
 
                 if (vgoNode.children == null)
                 {
@@ -451,6 +493,11 @@ namespace UniVgo2
         /// <param name="modelAsset">A model asset.</param>
         protected virtual void SetupNodes(List<Transform> nodes, IVgoStorage vgoStorage, ModelAsset modelAsset)
         {
+            if (vgoStorage.Layout.nodes is null)
+            {
+               return;
+            }
+
             for (int nodeIndex = 0; nodeIndex < vgoStorage.Layout.nodes.Count; nodeIndex++)
             {
                 SetupNode(nodes, nodeIndex, vgoStorage.Layout, vgoStorage.GeometryCoordinate, modelAsset);
@@ -459,16 +506,23 @@ namespace UniVgo2
             // UnityEngine.Renderer
             for (int nodeIndex = 0; nodeIndex < vgoStorage.Layout.nodes.Count; nodeIndex++)
             {
+                var vgoNode = vgoStorage.Layout.nodes[nodeIndex];
+
+                if (vgoNode is null)
+                {
+                    continue;
+                }
+
                 if (vgoStorage.IsSpecVersion_2_4_orLower)
                 {
-                    if (vgoStorage.Layout.nodes[nodeIndex].mesh >= 0)
+                    if (vgoNode.mesh >= 0)
                     {
                         AttachMeshAndRenderer(nodes, nodeIndex, vgoStorage, modelAsset, _Option.ShowMesh, _Option.UpdateWhenOffscreen);
                     }
                 }
                 else
                 {
-                    if (vgoStorage.Layout.nodes[nodeIndex].meshRenderer != null)
+                    if (vgoNode.meshRenderer != null)
                     {
                         AttachMeshAndRenderer(nodes, nodeIndex, vgoStorage, modelAsset, _Option.ShowMesh, _Option.UpdateWhenOffscreen);
                     }
@@ -500,10 +554,20 @@ namespace UniVgo2
         /// <param name="modelAsset">A model asset.</param>
         protected virtual void SetupNode(List<Transform> nodes, int nodeIndex, VgoLayout vgoLayout, VgoGeometryCoordinate geometryCoordinate, ModelAsset modelAsset)
         {
+            if (vgoLayout.nodes is null)
+            {
+                return;
+            }
+
             // GameObject
             GameObject go = nodes[nodeIndex].gameObject;
 
-            VgoNode vgoNode = vgoLayout.nodes[nodeIndex];
+            VgoNode? vgoNode = vgoLayout.nodes[nodeIndex];
+
+            if (vgoNode is null)
+            {
+                return;
+            }
 
             go.SetActive(vgoNode.isActive);
 
@@ -590,7 +654,7 @@ namespace UniVgo2
             {
                 foreach (int colliderIndex in vgoNode.colliders)
                 {
-                    VgoCollider vgoCollider = vgoLayout.colliders.GetValueOrDefault(colliderIndex);
+                    VgoCollider? vgoCollider = vgoLayout.colliders.GetNullableValueOrDefault(colliderIndex);
 
                     if (vgoCollider is null)
                     {
@@ -619,9 +683,12 @@ namespace UniVgo2
             }
 
             // SpringBoneCollider
-            if ((vgoNode.springBoneColliderGroup != -1) && (vgoLayout.springBoneInfo.colliderGroups != null))
+            try
             {
-                if (vgoLayout.springBoneInfo.colliderGroups.TryGetValue(vgoNode.springBoneColliderGroup, out VgoSpringBoneColliderGroup layoutSpringBoneColliderGroup))
+                if (vgoNode.springBoneColliderGroup != -1 &&
+                    vgoLayout.springBoneInfo?.colliderGroups != null &&
+                    vgoLayout.springBoneInfo.colliderGroups.TryGetValue(vgoNode.springBoneColliderGroup, out var layoutSpringBoneColliderGroup) &&
+                    layoutSpringBoneColliderGroup != null)
                 {
                     var component = go.AddComponent<VgoSpringBone.VgoSpringBoneColliderGroup>();
 
@@ -631,7 +698,12 @@ namespace UniVgo2
 
                         for (int index = 0; index < layoutSpringBoneColliderGroup.colliders.Length; index++)
                         {
-                            VgoSpringBoneCollider layoutCollider = layoutSpringBoneColliderGroup.colliders[index];
+                            VgoSpringBoneCollider? layoutCollider = layoutSpringBoneColliderGroup.colliders[index];
+
+                            if (layoutCollider == null)
+                            {
+                                continue;
+                            }
 
                             component.colliders[index] = new VgoSpringBone.SpringBoneCollider
                             {
@@ -644,28 +716,49 @@ namespace UniVgo2
 
                     component.gizmoColor = layoutSpringBoneColliderGroup.gizmoColor.ToUnityColor();
 
-                    modelAsset.SpringBoneColliderGroupArray[vgoNode.springBoneColliderGroup] = component;
+                    if (modelAsset.SpringBoneColliderGroupArray != null)
+                    {
+                        modelAsset.SpringBoneColliderGroupArray[vgoNode.springBoneColliderGroup] = component;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
             }
 
             // Light
-            if ((vgoNode.light != -1) && (vgoLayout.lights != null))
+            try
             {
-                if (vgoLayout.lights.TryGetValue(vgoNode.light, out VgoLight vgoLight))
+                if (vgoNode.light != -1 &&
+                    vgoLayout.lights != null &&
+                    vgoLayout.lights.TryGetValue(vgoNode.light, out var vgoLight) &&
+                    vgoLight != null)
                 {
                     Light light = go.AddComponent<Light>();
 
                     VgoLightConverter.SetComponentValue(light, vgoLight);
                 }
             }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+            }
 
             // ParticleSystem
-            if ((vgoNode.particle != -1) && (vgoLayout.particles != null))
+            try
             {
-                if (vgoLayout.particles.TryGetValue(vgoNode.particle, out VgoParticleSystem vgoParticleSystem))
+                if (vgoNode.particle != -1 &&
+                    vgoLayout.particles != null &&
+                    vgoLayout.particles.TryGetValue(vgoNode.particle, out var vgoParticleSystem) &&
+                    vgoParticleSystem != null)
                 {
                     _ParticleSystemImporter.AddComponent(go, vgoParticleSystem, geometryCoordinate, modelAsset.MaterialList, modelAsset.Texture2dList);
                 }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
             }
 
             // Skybox
@@ -675,12 +768,11 @@ namespace UniVgo2
 
                 skybox.enabled = vgoNode.skybox.enabled;
 
-                if (modelAsset.MaterialList != null)
+                if (modelAsset.MaterialList != null &&
+                    modelAsset.MaterialList.TryGetValue(vgoNode.skybox.materialIndex, out var skyboxMaterial) &&
+                    skyboxMaterial != null)
                 {
-                    if (modelAsset.MaterialList.TryGetValue(vgoNode.skybox.materialIndex, out Material skyboxMaterial))
-                    {
-                        skybox.material = skyboxMaterial;
-                    }
+                    skybox.material = skyboxMaterial;
                 }
             }
 
@@ -710,23 +802,38 @@ namespace UniVgo2
         /// <param name="modelAsset">A model asset.</param>
         protected virtual void SetupNodeSpringBone(List<Transform> nodes, int nodeIndex, VgoLayout vgoLayout, VgoGeometryCoordinate geometryCoordinate, ModelAsset modelAsset)
         {
+            if (vgoLayout.nodes is null)
+            {
+                return;
+            }
+
             if (vgoLayout.springBoneInfo?.springBoneGroups == null)
             {
                 return;
             }
 
-            GameObject go = nodes[nodeIndex].gameObject;
+            VgoNode? vgoNode = vgoLayout.nodes[nodeIndex];
 
-            VgoNode vgoNode = vgoLayout.nodes[nodeIndex];
+            if (vgoNode == null)
+            {
+                return;
+            }
 
             if (vgoNode.springBoneGroups == null)
             {
                 return;
             }
 
+            GameObject go = nodes[nodeIndex].gameObject;
+
             foreach (var groupIndex in vgoNode.springBoneGroups)
             {
-                if (vgoLayout.springBoneInfo.springBoneGroups.TryGetValue(groupIndex, out VgoSpringBoneGroup layoutSpringBoneGroup) == false)
+                if (vgoLayout.springBoneInfo.springBoneGroups.TryGetValue(groupIndex, out var layoutSpringBoneGroup) == false)
+                {
+                    continue;
+                }
+
+                if (layoutSpringBoneGroup == null)
                 {
                     continue;
                 }
@@ -769,7 +876,7 @@ namespace UniVgo2
 
                     for (int index = 0; index < layoutSpringBoneGroup.colliderGroups.Length; index++)
                     {
-                        if ((0 <= layoutSpringBoneGroup.colliderGroups[index]) && (layoutSpringBoneGroup.colliderGroups[index] < modelAsset.SpringBoneColliderGroupArray.Length))
+                        if (layoutSpringBoneGroup.colliderGroups[index].IsInRangeOf(modelAsset.SpringBoneColliderGroupArray))
                         {
                             var colliderGroup = modelAsset.SpringBoneColliderGroupArray[layoutSpringBoneGroup.colliderGroups[index]];
 
@@ -791,28 +898,38 @@ namespace UniVgo2
         /// <param name="nodeIndex">The index of layout.nodes.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="colliderList">List of collider.</param>
-        protected virtual void SetupNodeCloth(List<Transform> nodes, int nodeIndex, IVgoStorage vgoStorage, List<Collider> colliderList)
+        protected virtual void SetupNodeCloth(List<Transform> nodes, int nodeIndex, IVgoStorage vgoStorage, List<Collider?> colliderList)
         {
-            if (vgoStorage.Layout.clothes == null)
+            if (vgoStorage.Layout.nodes is null)
             {
                 return;
             }
 
-            GameObject go = nodes[nodeIndex].gameObject;
+            if (vgoStorage.Layout.clothes is null)
+            {
+                return;
+            }
 
-            VgoNode vgoNode = vgoStorage.Layout.nodes[nodeIndex];
+            VgoNode? vgoNode = vgoStorage.Layout.nodes[nodeIndex];
+
+            if (vgoNode is null)
+            {
+                return;
+            }
 
             if (vgoNode.cloth == -1)
             {
                 return;
             }
 
-            VgoCloth vgoCloth = vgoStorage.Layout.clothes.GetValueOrDefault(vgoNode.cloth);
+            VgoCloth? vgoCloth = vgoStorage.Layout.clothes.GetNullableValueOrDefault(vgoNode.cloth);
 
             if (vgoCloth == null)
             {
                 return;
             }
+
+            GameObject go = nodes[nodeIndex].gameObject;
 
             Cloth cloth = go.AddComponent<Cloth>();
 
@@ -831,14 +948,14 @@ namespace UniVgo2
         /// <remarks>
         /// VgoExporter.CreateUnityColliderList is same logic.
         /// </remarks>
-        protected virtual List<Collider> CreateUnityColliderList(List<Transform> nodes)
+        protected virtual List<Collider?> CreateUnityColliderList(List<Transform> nodes)
         {
             if (nodes == null)
             {
                 throw new Exception();
             }
 
-            var colliderList = new List<Collider>();
+            var colliderList = new List<Collider?>();
 
             for (int index = 0; index < nodes.Count; index++)
             {
@@ -871,7 +988,22 @@ namespace UniVgo2
         /// <param name="updateWhenOffscreen">Whether update skinned mesh renderer when off screen.</param>
         protected virtual void AttachMeshAndRenderer(List<Transform> nodes, int nodeIndex, IVgoStorage vgoStorage, ModelAsset modelAsset, bool showMesh = true, bool updateWhenOffscreen = false)
         {
-            VgoNode vgoNode = vgoStorage.Layout.nodes[nodeIndex];
+            if (vgoStorage.Layout.nodes is null)
+            {
+                return;
+            }
+
+            if (modelAsset.MeshAssetList is null)
+            {
+                return;
+            }
+
+            VgoNode? vgoNode = vgoStorage.Layout.nodes[nodeIndex];
+
+            if (vgoNode is null)
+            {
+                return;
+            }
 
             GameObject go = nodes[nodeIndex].gameObject;
 
@@ -883,7 +1015,7 @@ namespace UniVgo2
 
                 Mesh mesh = meshAsset.Mesh;
 
-                Material[] materials = meshAsset.Materials;
+                Material?[]? materials = meshAsset.Materials;
 
                 if ((meshAsset.Mesh.blendShapeCount == 0) && (vgoNode.skin == -1))
                 {
@@ -894,7 +1026,10 @@ namespace UniVgo2
 
                     var meshRenderer = go.AddComponent<MeshRenderer>();
 
-                    meshRenderer.sharedMaterials = materials;
+                    if (materials != null)
+                    {
+                        meshRenderer.sharedMaterials = materials;
+                    }
 
                     renderer = meshRenderer;
                 }
@@ -928,15 +1063,23 @@ namespace UniVgo2
             }
             else
             {
+                if (vgoNode.meshRenderer is null)
+                {
+                    return;
+                }
+
                 VgoMeshRenderer vgoMeshRenderer = vgoNode.meshRenderer;
 
                 MeshAsset meshAsset = modelAsset.MeshAssetList[vgoMeshRenderer.mesh];
 
                 Mesh mesh = meshAsset.Mesh;
 
-                Material[] materials = null;
+                Material?[]? materials = null;
 
-                if (vgoMeshRenderer.materials != null && vgoMeshRenderer.materials.Any())
+                if (vgoMeshRenderer.materials != null &&
+                    vgoMeshRenderer.materials.Any() &&
+                    modelAsset.MaterialList != null &&
+                    modelAsset.MaterialList.Any())
                 {
                     materials = vgoMeshRenderer.materials
                         .Select(materialIndex => modelAsset.MaterialList[materialIndex])
@@ -950,7 +1093,11 @@ namespace UniVgo2
                         if (particleSystemRenderer.renderMode == UnityEngine.ParticleSystemRenderMode.Mesh)
                         {
                             particleSystemRenderer.mesh = mesh;
-                            particleSystemRenderer.sharedMaterials = materials;
+
+                            if (materials != null)
+                            {
+                                particleSystemRenderer.sharedMaterials = materials;
+                            }
                         }
                     }
 
@@ -966,7 +1113,10 @@ namespace UniVgo2
 
                     SetupSkin(skinnedMeshRenderer, vgoNode.skin, nodes, vgoStorage);
 
-                    skinnedMeshRenderer.sharedMaterials = materials;
+                    if (materials != null)
+                    {
+                        skinnedMeshRenderer.sharedMaterials = materials;
+                    }
 
                     if (updateWhenOffscreen)
                     {
@@ -986,7 +1136,11 @@ namespace UniVgo2
 
                     //meshRenderer.name = vgoMeshRenderer.name;
                     meshRenderer.enabled = vgoMeshRenderer.enabled;
-                    meshRenderer.sharedMaterials = materials;
+
+                    if (materials != null)
+                    {
+                        meshRenderer.sharedMaterials = materials;
+                    }
 
                     renderer = meshRenderer;
                 }
@@ -994,7 +1148,12 @@ namespace UniVgo2
                 if (meshAsset.BlendShapeConfiguration != null)
                 {
                     meshAsset.BlendShapeConfiguration.kind = vgoMeshRenderer.blendShapeKind;
-                    meshAsset.BlendShapeConfiguration.presets = vgoMeshRenderer.blendShapePesets;
+
+                    if (vgoMeshRenderer.blendShapePesets != null &&
+                        vgoMeshRenderer.blendShapePesets.Any())
+                    {
+                        meshAsset.BlendShapeConfiguration.presets.AddRange(vgoMeshRenderer.blendShapePesets);
+                    }
 
                     var vgoBlendShape = go.AddComponent<VgoBlendShape>();
 
@@ -1031,14 +1190,19 @@ namespace UniVgo2
                 throw new Exception();
             }
 
-            if (vgoStorage.Layout.skins.TryGetValue(skinIndex, out VgoSkin skin) == false)
+            if (vgoStorage.Layout.skins.TryGetValue(skinIndex, out var vgoSkin) == false)
             {
                 throw new IndexOutOfRangeException($"skins[{skinIndex}] is out of the range.");
             }
 
+            if (vgoSkin is null)
+            {
+                return;
+            }
+
             Mesh mesh = skinnedMeshRenderer.sharedMesh;
 
-            Transform[] joints = skin.joints.Select(n => nodes[n]).ToArray();
+            Transform[] joints = vgoSkin.joints.Select(n => nodes[n]).ToArray();
 
             // calculate internal values(boundingBox etc...) when sharedMesh assigned ?
             skinnedMeshRenderer.sharedMesh = null;
@@ -1048,11 +1212,11 @@ namespace UniVgo2
                 // have bones
                 skinnedMeshRenderer.bones = joints;
 
-                if (skin.inverseBindMatrices >= 0)
+                if (vgoSkin.inverseBindMatrices >= 0)
                 {
                     if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                     {
-                        ReadOnlySpan<Matrix4x4> matrixSpan = vgoStorage.GetAccessorSpan<Matrix4x4>(skin.inverseBindMatrices);
+                        ReadOnlySpan<Matrix4x4> matrixSpan = vgoStorage.GetAccessorSpan<Matrix4x4>(vgoSkin.inverseBindMatrices);
 
                         var bindPoses = new Matrix4x4[matrixSpan.Length];
 
@@ -1065,7 +1229,7 @@ namespace UniVgo2
                     }
                     else
                     {
-                        mesh.bindposes = vgoStorage.GetAccessorArrayData<Matrix4x4>(skin.inverseBindMatrices);
+                        mesh.bindposes = vgoStorage.GetAccessorArrayData<Matrix4x4>(vgoSkin.inverseBindMatrices);
                     }
                 }
                 else
@@ -1085,9 +1249,9 @@ namespace UniVgo2
 
             skinnedMeshRenderer.sharedMesh = mesh;
 
-            if (skin.skeleton.IsInRangeOf(nodes))
+            if (vgoSkin.skeleton.IsInRangeOf(nodes))
             {
-                skinnedMeshRenderer.rootBone = nodes[skin.skeleton];
+                skinnedMeshRenderer.rootBone = nodes[vgoSkin.skeleton];
             }
         }
 
@@ -1101,9 +1265,9 @@ namespace UniVgo2
         /// <param name="vgoLayout">A vgo layout.</param>
         /// <param name="geometryCoordinate"></param>
         /// <returns>List of unity animation clip.</returns>
-        protected virtual List<AnimationClip> CreateAnimationClipAssets(VgoLayout vgoLayout, VgoGeometryCoordinate geometryCoordinate)
+        protected virtual List<AnimationClip?> CreateAnimationClipAssets(VgoLayout vgoLayout, VgoGeometryCoordinate geometryCoordinate)
         {
-            var animationClipList = new List<AnimationClip>();
+            var animationClipList = new List<AnimationClip?>();
 
             if ((vgoLayout.animationClips == null) || (vgoLayout.animationClips.Any() == false))
             {
@@ -1112,9 +1276,9 @@ namespace UniVgo2
 
             for (int animationClipIndex = 0; animationClipIndex < vgoLayout.animationClips.Count; animationClipIndex++)
             {
-                VgoAnimationClip vgoAnimationClip = vgoLayout.animationClips[animationClipIndex];
+                VgoAnimationClip? vgoAnimationClip = vgoLayout.animationClips[animationClipIndex];
 
-                AnimationClip animationClip = VgoAnimationClipConverter.CreateAnimationClip(vgoAnimationClip, geometryCoordinate);
+                AnimationClip? animationClip = VgoAnimationClipConverter.CreateAnimationClipOrDefault(vgoAnimationClip, geometryCoordinate);
 
                 animationClipList.Add(animationClip);
             }
@@ -1134,6 +1298,11 @@ namespace UniVgo2
         protected virtual void SetupAssetInfo(IVgoStorage vgoStorage, ModelAsset modelAsset)
         {
             if (vgoStorage.AssetInfo == null)
+            {
+                return;
+            }
+
+            if (modelAsset.Root == null)
             {
                 return;
             }
@@ -1166,6 +1335,11 @@ namespace UniVgo2
         /// <param name="modelAsset">A model asset.</param>
         public virtual void ReflectSkybox(Camera camera, ModelAsset modelAsset)
         {
+            if (modelAsset.Root == null)
+            {
+                return;
+            }
+
             var vgoSkybox = modelAsset.Root.GetComponentInChildren<Skybox>(includeInactive: false);
 
             if (vgoSkybox != null)
@@ -1192,7 +1366,10 @@ namespace UniVgo2
             var avatarConfiguration = ScriptableObject.CreateInstance<AvatarConfiguration>();
 
             avatarConfiguration.name = vgoHumanAvatar.name;
-            avatarConfiguration.humanBones = vgoHumanAvatar.humanBones;
+            avatarConfiguration.humanBones = vgoHumanAvatar.humanBones
+                .Where(x => x != null)
+                .Select(x => x!)
+                .ToList();
 
             return avatarConfiguration;
         }
@@ -1205,6 +1382,11 @@ namespace UniVgo2
         protected virtual System.Numerics.Matrix4x4[] GetVgoNodeTransforms(IVgoStorage vgoStorage)
         {
             if (vgoStorage.ResourceAccessors.Where(x => x.kind == VgoResourceAccessorKind.NodeTransform).Count() != 1)
+            {
+                throw new Exception();
+            }
+
+            if (vgoStorage.Layout.nodes is null)
             {
                 throw new Exception();
             }

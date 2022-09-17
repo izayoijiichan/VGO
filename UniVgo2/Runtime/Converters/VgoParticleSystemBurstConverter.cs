@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Converters
 // @Class     : VgoParticleSystemBurstConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
     using NewtonVgo.Schema.ParticleSystems;

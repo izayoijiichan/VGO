@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoTexture
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -21,7 +22,7 @@ namespace NewtonVgo
 
         /// <summary>The user-defined name of this object.</summary>
         [JsonProperty("name")]
-        public string name;
+        public string? name;
 
         /// <summary>The index of the accessor that contains the image.</summary>
         [JsonProperty("source", Required = Required.Always)]
@@ -45,7 +46,7 @@ namespace NewtonVgo
 
         /// <summary>The image's MIME type.</summary>
         [JsonProperty("mimeType")]
-        public string mimeType = null;
+        public string? mimeType = null;
 
         /// <summary>Filtering mode of the texture.</summary>
         [JsonProperty("filterMode", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -74,7 +75,7 @@ namespace NewtonVgo
 
         /// <summary>Dictionary object with extension-specific objects.</summary>
         [JsonProperty("extensions")]
-        public VgoExtensions extensions = null;
+        public VgoExtensions? extensions = null;
 
         /// <summary>Whehter the color space is linear.</summary>
         [JsonIgnore]

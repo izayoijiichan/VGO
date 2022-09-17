@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : ArrayConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     using UnityEngine;

@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_RotationOverLifetimeModule
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -25,15 +26,15 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Rotation over lifetime curve for the x-axis.</summary>
         [JsonProperty("x")]
-        public VGO_PS_MinMaxCurve x;
+        public VGO_PS_MinMaxCurve? x;
 
         /// <summary>Rotation over lifetime curve for the y-axis.</summary>
         [JsonProperty("y")]
-        public VGO_PS_MinMaxCurve y;
+        public VGO_PS_MinMaxCurve? y;
 
         /// <summary>Rotation over lifetime curve for the z-axis.</summary>
         [JsonProperty("z")]
-        public VGO_PS_MinMaxCurve z;
+        public VGO_PS_MinMaxCurve? z;
 
         /// <summary>Rotation multiplier along the x-axis.</summary>
         [JsonProperty("xMultiplier", DefaultValueHandling = DefaultValueHandling.Ignore)]

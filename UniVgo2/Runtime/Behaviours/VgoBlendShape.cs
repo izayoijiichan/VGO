@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : VgoBlendShape
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     using NewtonVgo;
@@ -16,20 +17,22 @@ namespace UniVgo2
     public class VgoBlendShape : MonoBehaviour
     {
         /// <summary>Skinned Mesh Renderer</summary>
-        private SkinnedMeshRenderer _SkinnedMeshRenderer = null;
+        private SkinnedMeshRenderer? _SkinnedMeshRenderer = null;
 
         /// <summary>BlendShape Configuration</summary>
-        public BlendShapeConfiguration BlendShapeConfiguration;
+        public BlendShapeConfiguration? BlendShapeConfiguration = null;
 
         /// <summary>
         /// Called when an instance of the script is loaded.
         /// </summary>
         private void Awake()
         {
+#nullable disable
             if (gameObject.TryGetComponentEx(out _SkinnedMeshRenderer) == false)
             {
                 Debug.LogWarning($"{nameof(SkinnedMeshRenderer)} component is not attached.");
             }
+#nullable enable
         }
 
         /// <summary>
@@ -40,6 +43,11 @@ namespace UniVgo2
         public int GetVgoBlendShapeIndex(VgoBlendShapeBlinkType blinkType)
         {
             if (blinkType == VgoBlendShapeBlinkType.None)
+            {
+                return -1;
+            }
+
+            if (BlendShapeConfiguration == null)
             {
                 return -1;
             }
@@ -62,6 +70,11 @@ namespace UniVgo2
         public int GetVgoBlendShapeIndex(VgoBlendShapeVisemeType visemeType)
         {
             if (visemeType == VgoBlendShapeVisemeType.None)
+            {
+                return -1;
+            }
+
+            if (BlendShapeConfiguration == null)
             {
                 return -1;
             }

@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Struct    : Matrix2
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using System;

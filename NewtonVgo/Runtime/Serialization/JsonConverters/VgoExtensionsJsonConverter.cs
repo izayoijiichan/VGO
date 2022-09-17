@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Serialization.JsonConverters
 // @Class     : VgoExtensionsJsonConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Serialization.JsonConverters
 {
     using Newtonsoft.Json;
@@ -32,9 +33,9 @@ namespace NewtonVgo.Serialization.JsonConverters
         /// <param name="existingValue">The existing value of object being read.</param>
         /// <param name="serializer">The calling serializer.</param>
         /// <returns>The object value.</returns>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
-            Dictionary<string, JRaw> dictionary = serializer.Deserialize<Dictionary<string, JRaw>>(reader);
+            Dictionary<string, JRaw>? dictionary = serializer.Deserialize<Dictionary<string, JRaw>>(reader);
 
             if (dictionary == null)
             {
@@ -54,23 +55,20 @@ namespace NewtonVgo.Serialization.JsonConverters
         /// <param name="writer">The Newtonsoft.Json.JsonWriter to write to.</param>
         /// <param name="value">The value.</param>
         /// <param name="serializer">The calling serializer.</param>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
-            if (value == null)
+            if (value is VgoExtensions extensions)
             {
-                return;
+                Dictionary<string, JRaw>? dictionary = extensions.GetConverterDictionary();
+
+                if (dictionary is null)
+                {
+                    return;
+                }
+
+                serializer.Serialize(writer, dictionary);
             }
 
-            VgoExtensions extensions = value as VgoExtensions;
-
-            Dictionary<string, JRaw> dictionary = extensions.GetConverterDictionary();
-
-            if (dictionary == null)
-            {
-                return;
-            }
-
-            serializer.Serialize(writer, dictionary);
         }
     }
 }

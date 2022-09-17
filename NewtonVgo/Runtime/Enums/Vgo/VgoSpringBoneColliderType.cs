@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Enum      : VgoSpringBoneColliderType
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>The type of the spring bone collider.</summary>

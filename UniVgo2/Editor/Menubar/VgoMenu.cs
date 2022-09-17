@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Editor
 // @Class     : VgoMenu
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Editor
 {
     using NewtonVgo;

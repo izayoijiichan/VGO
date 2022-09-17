@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : BlendShapeConfiguration
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     using NewtonVgo;

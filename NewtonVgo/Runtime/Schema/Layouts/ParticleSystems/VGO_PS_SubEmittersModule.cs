@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_SubEmittersModule
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;

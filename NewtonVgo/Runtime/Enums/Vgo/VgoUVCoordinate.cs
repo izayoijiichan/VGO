@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Enum      : VgoUVCoordinate
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>The type of the UV coodinates.</summary>

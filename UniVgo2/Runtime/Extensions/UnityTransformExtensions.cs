@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : UnityTransformExtensions
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     using System.Collections.Generic;

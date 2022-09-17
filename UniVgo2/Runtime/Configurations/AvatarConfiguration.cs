@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : AvatarConfiguration
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     using NewtonVgo;

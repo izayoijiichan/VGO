@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : StructureExtensions
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using System;

@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Enum      : RenderPipelineType
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     /// <summary></summary>

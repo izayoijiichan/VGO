@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Enum      : VgoBlendShapeFacePartsType
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>The type of the face parts.</summary>

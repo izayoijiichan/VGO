@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Editor
 // @Class     : VgoExportProcessor
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Editor
 {
     using NewtonVgo;
@@ -28,8 +29,8 @@ namespace UniVgo2.Editor
             VgoGeometryCoordinate geometryCoordinate = VgoGeometryCoordinate.RightHanded,
             VgoUVCoordinate uvCoordinate = VgoUVCoordinate.TopLeft,
             bool isBson = false,
-            string cryptAlgorithms = null,
-            byte[] cryptKey = null)
+            string? cryptAlgorithms = null,
+            byte[]? cryptKey = null)
         {
             EditorApplication.isPlaying = false;
             try
@@ -43,7 +44,14 @@ namespace UniVgo2.Editor
                     return;
                 }
 
-                GameObject root = Selection.activeObject as GameObject;
+                if (Selection.activeObject is GameObject root)
+                {
+                    //
+                }
+                else
+                {
+                    return;
+                }
 
                 string path = EditorUtility.SaveFilePanel(title: "Save File Dialog", directory: "", defaultName: root.name + ".vgo", extension: "vgo");
 

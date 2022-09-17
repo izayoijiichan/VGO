@@ -10,9 +10,6 @@ ___
 
 |version|Win (Editor)|Win (Mono)|Win (IL2CPP)|Android (IL2CPP)|iOS|
 |:---|:---:|:---:|:---:|:---:|:---:|
-|Unity 2019.4|OK|OK|OK|OK|unconfirmed|
-|Unity 2020.1|OK|OK|OK|OK|unconfirmed|
-|Unity 2020.2|OK|OK|OK|OK|unconfirmed|
 |Unity 2020.3|OK|OK|OK|OK|unconfirmed|
 |Unity 2021.1|OK|OK|OK|OK|unconfirmed|
 |Unity 2021.2|OK|OK|OK|OK|unconfirmed|
@@ -23,7 +20,19 @@ As of September of 2022, we are developing and confirming in `Unity 2022.1` `Win
 
 ### Required package
 
-#### Common (required regardless of which Unity version you use)
+#### Basic System Packages
+
+If you are using Unity 2021.1.28f1 or lower.
+
+|package name|owner|Repository|specification version|program version|release date|
+|:---|:---:|:---:|:---:|:---:|:---:|
+|org.nuget.system.buffers|Microsoft|NuGet||4.4.0|2017年8月11日|
+|org.nuget.system.memory|Microsoft|NuGet||4.5.0|2018年5月29日|
+|org.nuget.system.numerics.vectors|Microsoft|NuGet||4.4.0|2017年8月11日|
+
+#### Basic Packages
+
+This package is required for any Unity version.
 
 |package name|owner|Repository|specification version|program version|release date|
 |:---|:---:|:---:|:---:|:---:|:---:|
@@ -32,27 +41,17 @@ As of September of 2022, we are developing and confirming in `Unity 2022.1` `Win
 |LilToonShader.Utility|IzayoiJiichan|GitHub||1.0.1|21 Aug, 2022|
 |UniShaders|IzayoiJiichan|GitHub|-|1.4.0|20 May, 2022|
 |VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.2|24 Aug, 2022|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.1|15 Sep, 2022|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.2|18 Sep, 2022|
 
-#### Added (when using Unity 2021.1 or lower version)
+#### Additional Packages
 
-|package name|owner|Repository|specification version|program version|release date|
-|:---|:---:|:---:|:---:|:---:|:---:|
-|org.nuget.system.buffers|Microsoft|NuGet||4.4.0|11 Aug, 2017|
-|org.nuget.system.memory|Microsoft|NuGet||4.5.0|29 May, 2018|
-|org.nuget.system.numerics.vectors|Microsoft|NuGet||4.4.0|11 Aug, 2017|
+Add if necessary.
 
-#### Add (when used in HDRP projects)
-
-|package name|owner|Repository|specification version|program version|release date|
-|:---|:---:|:---:|:---:|:---:|:---:|
-|com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||11.0.0|26 Oct, 2021|
-
-#### Add (when used in URP projects)
-
-|package name|owner|Repository|specification version|program version|release date|
-|:---|:---:|:---:|:---:|:---:|:---:|
-|com.unity.render-pipelines.universal|Unity Technologies|Unity Registry||11.0.0|26 Oct, 2021|
+|package name|owner|Repository|specification version|program version|release date|remarks|
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+|jp.lilxyzw.liltoon|lilxyzw|GitHub||1.3.1|28 Jun, 2022||
+|com.unity.render-pipelines.universal|Unity Technologies|Unity Registry||11.0.0|26 Oct, 2021|URP only|
+|com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||11.0.0|26 Oct, 2021|HDRP only|
 
 ___
 
@@ -100,10 +99,12 @@ Create a new 3D project in Unity Editor or Unity Hub.
 #### 2. Installation of required packages
 
 Import UniVGO and dependent packages into your project.  
-Write the following in `<Project>/Packages/package.json`.  
+Configure settings in `<Project>/Packages/package.json`.  
 You need to be careful where you add them.
 
-- Unity 2021.1.28f1 or lower
+#### 2-1. Basic Sytem Packages
+
+If you are using Unity 2021.1.28f1 or lower, add the following settings. Otherwise, do nothing.
 
 ```json
 {
@@ -115,38 +116,39 @@ You need to be careful where you add them.
     }
   ],
   "dependencies": {
-    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.1",
-    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.1",
-    "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
-    "com.unity.nuget.newtonsoft-json": "3.0.2",
-    "com.unity.ugui": "1.0.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.85.0",
     "org.nuget.system.buffers": "4.4.0",
     "org.nuget.system.memory": "4.5.0",
     "org.nuget.system.numerics.vectors": "4.4.0",
-    "com.unity.modules.ai": "1.0.0",
-    ...
-    "com.unity.modules.xr": "1.0.0"
   }
 }
 ```
 
-- Unity 2021.2.0f1 or heigher (2021.3, 2022.1)
+#### 2-2. Basic Packages
+
+To use UniVGO, add the following settings.
 
 ```json
 {
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.1",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.1",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.2",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.85.0",
-    "com.unity.modules.ai": "1.0.0",
-    ...
-    "com.unity.modules.xr": "1.0.0"
+  }
+}
+```
+
+#### 2-3. Addtional Packages
+
+If you want to use lilToon, append the line "jp.lilxyzw.liltoon".
+
+```json
+{
+  "dependencies": {
+    "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.3.1",
   }
 }
 ```
@@ -156,10 +158,7 @@ If you want to use URP, append the line "com.unity.render-pipelines.universal".
 ```json
 {
   "dependencies": {
-    ...
     "com.unity.render-pipelines.universal": "11.0.0",
-    "com.unity.ugui": "1.0.0",
-    ...
   }
 }
 ```
@@ -169,23 +168,7 @@ If you want to use HDRP, append the line "com.unity.render-pipelines.high-defini
 ```json
 {
   "dependencies": {
-    ...
     "com.unity.render-pipelines.high-definition": "11.0.0",
-    "com.unity.ugui": "1.0.0",
-    ...
-  }
-}
-```
-
-If you want to use lilToon, append the line "jp.lilxyzw.liltoon".
-
-```json
-{
-  "dependencies": {
-    ...
-    "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.3.1",
-    "com.unity.modules.ai": "1.0.0",
-    ...
   }
 }
 ```
@@ -240,77 +223,15 @@ When the package is installed in the project, the script is automatically compil
 
 - For each of UniVgo2, and UniVgo2.Editor, * is attached to the dependent DLL.
 
-### How to use UniVGO version 1.0 and version 2.0 together
-
-To install both UniVGO and UniVGO2 packages in Unity Editor at the same time, you need to avoid two major errors.
-
-1. Duplicate shader
-
-Delete either `UniGLTF` folder.
-
-2. Scripted Importer
-
-Both `VgoScriptedImporter`s try to handle the extension `.vgo`, so the conflict will result in an error.
-
-In UniVGO (v1.1.1 and later) and UniVGO2 (v2.0.1 and later), you can change the process and avoid errors by adding definitions to Scripting Define Symbols.
-
-|Scripting Define Symbols|description|
-|:---|:---|
-|VGO_FILE_EXTENSION_1|Change the version 1 file extension to be judged as `.vgo1`.|
-|VGO_FILE_EXTENSION_2|Change the version 2 file extension to be judged as `.vgo2`.|
-|VGO_1_DISABLE_SCRIPTED_IMPORTER|Disable the version 1 Scripted Importer.|
-|VGO_2_DISABLE_SCRIPTED_IMPORTER|Disable the version 2 Scripted Importer.|
-
-Add / delete definitions according to the purpose.
-
-If the settings do not take effect immediately, restart Unity Editor.
-
 ### How to use UniVRM and UniVGO together
 
 The version combinations are as follows.
 
-|UniVRM|min UniVGO|min Unity|Result|
-|:---:|:---:|:---:|:---:|
-|0.66.0|2.4.4|2019.4|OK|
-|0.68.2|2.4.4|2019.4|OK|
-|0.70.0|2.4.4|2019.4|OK|
-|0.71.0|2.4.4|2019.4|OK|
-|0.72.0|2.4.5|2019.4|OK|
-|0.73.0|2.4.5|2019.4|OK|
-|0.74.0|2.4.5|2019.4|OK|
-|0.75.0|2.4.5|2019.4|OK|
-|0.76.0|2.4.5|2019.4|(OK)|
-|0.77.0|2.4.5|2019.4|(OK)|
-|0.78.0|2.4.5|2019.4|(OK)|
-|0.79.0|2.4.5|2019.4|(OK)|
-|0.80.0|2.4.5|2019.4|(OK)|
-|0.81.0|2.4.5|2019.4|OK|
-|0.82.0|2.4.5|2019.4|OK|
-|0.83.0|2.4.5|2019.4|OK|
-|0.84.0|2.4.5|2019.4|OK|
-|0.85.0|2.4.5|2019.4|OK|
-|0.86.0|2.4.5|2019.4|OK|
-|0.87.0|2.4.5|2019.4|OK|
-|0.88.0|2.4.5|2019.4|OK|
-|0.89.0|2.4.5|2019.4|OK|
-|0.90.0|2.4.5|2019.4|OK|
-|0.91.0|2.4.5|2019.4|OK|
-|0.92.0|2.4.5|2019.4|OK|
-|0.93.0|2.4.5|2019.4|OK|
-|0.94.0|2.4.5|2019.4|OK|
-|0.95.1|2.4.5|2019.4|OK|
-|0.96.2|2.4.5|2019.4|OK|
-|0.97.0|2.4.5|2019.4|OK|
-|0.98.0|2.4.5|2019.4|OK|
-|0.99.4|2.4.5|2019.4|OK|
-|0.100.0|2.4.5|2020.3|OK|
-|0.101.0|2.4.5|2020.3|OK|
-
-When using Unity 2020.2 or higher, 0.76.0 to 0.80.0 will cause compilation errors and is not recommended.
-
-- When using UniVRM 0.66.0 to 0.71.0
-
-Please use UniVGO 2.4.4.
+|UniVRM|UniVGO|min Unity|
+|:---:|:---:|:---:|
+|0.100.0|2.5.2|2020.3|
+|0.101.0|2.5.2|2020.3|
+|0.102.0|2.5.2|2020.3|
 
 Write the following in `<Project> /Packages/package.json`.
 
@@ -318,46 +239,18 @@ Write the following in `<Project> /Packages/package.json`.
 {
   "dependencies": {
     ...
-    "com.vrmc.unigltf": "https://github.com/vrm-c/UniVRM.git?path=/Assets/UniGLTF#v0.66.0",
-    "com.vrmc.univrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM#v0.66.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.66.0",
+    "com.vrmc.gltf": "https://github.com/vrm-c/UniVRM.git?path=/Assets/UniGLTF#v0.100.0",
+    "com.vrmc.univrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM#v0.100.0",
+    "com.vrmc.vrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM10#v0.100.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.100.0",
     ...
   }
 }
 ```
 
-- When using UniVRM 0.72.0 to 0.80.0
+For other combinations not listed above, please see the wiki.
 
-Write the following in `<Project> /Packages/package.json`.
-
-```json
-{
-  "dependencies": {
-    ...
-    "com.vrmc.unigltf": "https://github.com/vrm-c/UniVRM.git?path=/Assets/UniGLTF#v0.72.0",
-    "com.vrmc.univrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM#v0.72.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.72.0",
-    ...
-  }
-}
-```
-
-- When using UniVRM 0.81.0 to 0.90.0
-
-Write the following in `<Project> /Packages/package.json`.
-
-```json
-{
-  "dependencies": {
-    ...
-    "com.vrmc.gltf": "https://github.com/vrm-c/UniVRM.git?path=/Assets/UniGLTF#v0.81.0",
-    "com.vrmc.univrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM#v0.81.0",
-    "com.vrmc.vrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM10#v0.81.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.81.0",
-    ...
-  }
-}
-```
+https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 
 ### Pre-set up sample project
 
@@ -367,7 +260,7 @@ Write the following in `<Project> /Packages/package.json`.
 |2021.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.brp.univrm)|
 
 ___
-Last updated: 15 September, 2022  
+Last updated: 18 September, 2022  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

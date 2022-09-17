@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : VgoMeshImporter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
@@ -50,7 +51,7 @@ namespace UniVgo2.Porters
         /// <param name="scriptableObjectList">List of scriptable object.</param>
         /// <param name="unityMaterialList">List of unity material.</param>
         /// <returns>A mesh asset.</returns>
-        public virtual MeshAsset CreateMeshAsset(IVgoStorage vgoStorage, int meshIndex, IList<ScriptableObject> scriptableObjectList, IList<Material> unityMaterialList = null)
+        public virtual MeshAsset CreateMeshAsset(IVgoStorage vgoStorage, int meshIndex, IList<ScriptableObject> scriptableObjectList, IList<Material?>? unityMaterialList = null)
         {
             if (vgoStorage == null)
             {
@@ -62,30 +63,29 @@ namespace UniVgo2.Porters
                 throw new ArgumentNullException(nameof(scriptableObjectList));
             }
 
+            MeshContext meshContext = ReadMesh(vgoStorage, meshIndex, out var blendShapeConfig);
+
+            Mesh mesh = BuildMesh(meshContext);
+
+            MeshAsset meshAsset = new MeshAsset(mesh)
+            {
+                BlendShapeConfiguration = blendShapeConfig,
+            };
+
             if (vgoStorage.IsSpecVersion_2_4_orLower)
             {
                 if (unityMaterialList == null)
                 {
                     throw new ArgumentNullException(nameof(unityMaterialList));
                 }
-            }
 
-            MeshContext meshContext = ReadMesh(vgoStorage, meshIndex, out BlendShapeConfiguration blendShapeConfig);
-
-            Mesh mesh = BuildMesh(meshContext);
-
-            MeshAsset meshAsset = new MeshAsset
-            {
-                Mesh = mesh,
-                BlendShapeConfiguration = blendShapeConfig,
-            };
-
-            if (vgoStorage.IsSpecVersion_2_4_orLower)
-            {
                 meshAsset.Materials = meshContext.materialIndices.Select(x => unityMaterialList[x]).ToArray();
             }
 
-            scriptableObjectList.Add(blendShapeConfig);
+            if (blendShapeConfig != null)
+            {
+                scriptableObjectList.Add(blendShapeConfig);
+            }
 
             return meshAsset;
         }
@@ -101,13 +101,30 @@ namespace UniVgo2.Porters
         /// <param name="meshIndex">The index of vgo mesh.</param>
         /// <param name="blendShapeConfig">A blend shape configuration.</param>
         /// <returns>A mesh context.</returns>
-        protected virtual MeshContext ReadMesh(IVgoStorage vgoStorage, int meshIndex, out BlendShapeConfiguration blendShapeConfig)
+        protected virtual MeshContext ReadMesh(IVgoStorage vgoStorage, int meshIndex, out BlendShapeConfiguration? blendShapeConfig)
         {
-            VgoMesh vgoMesh = vgoStorage.Layout.meshes[meshIndex];
+            if (vgoStorage.Layout.meshes == null)
+            {
+                throw new Exception();
+            }
 
-            string meshName = (string.IsNullOrEmpty(vgoMesh.name) == false) ? vgoMesh.name : string.Format($"mesh_{meshIndex}");
+            VgoMesh? vgoMesh = vgoStorage.Layout.meshes[meshIndex];
+
+            if (vgoMesh is null)
+            {
+                throw new Exception();
+            }
+
+            string meshName = ((vgoMesh.name is null) || (vgoMesh.name == string.Empty))
+                ? string.Format($"mesh_{meshIndex}")
+                : vgoMesh.name;
 
             var meshContext = new MeshContext(meshName);
+
+            if (vgoMesh.attributes == null)
+            {
+                throw new Exception();
+            }
 
             // Attributes
             SetPrimitiveAttributes(vgoStorage, meshContext, vgoMesh.attributes, out int positionsCount);
@@ -118,7 +135,7 @@ namespace UniVgo2.Porters
             if (vgoStorage.IsSpecVersion_2_4_orLower)
             {
                 // Materials
-                meshContext.materialIndices = vgoMesh.materials;
+                meshContext.materialIndices = vgoMesh.materials ?? new List<int>();
 
                 if (meshContext.materialIndices.Any() == false)
                 {
@@ -344,9 +361,9 @@ namespace UniVgo2.Porters
         /// <param name="texcoord">The accessor index of texture coord.</param>
         /// <param name="positionsCount">The positions count.</param>
         /// <returns>An array of UV.</returns>
-        protected virtual Vector2[] ReadUV(IVgoStorage vgoStorage, int texcoord, int positionsCount)
+        protected virtual Vector2[]? ReadUV(IVgoStorage vgoStorage, int texcoord, int positionsCount)
         {
-            Vector2[] uvs;
+            Vector2[]? uvs;
 
             if (texcoord == -1)
             {
@@ -392,7 +409,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoSubMeshes">The vgo subMesh accessor indices.</param>
         /// <param name="positionsLength"></param>
         /// <returns>List of blend shape.</returns>
-        protected virtual List<int[]> CreateSubMeshes(IVgoStorage vgoStorage, List<int> vgoSubMeshes, int positionsLength)
+        protected virtual List<int[]>? CreateSubMeshes(IVgoStorage vgoStorage, List<int>? vgoSubMeshes, int positionsLength)
         {
             if ((vgoSubMeshes == null) || (vgoSubMeshes.Any() == false))
             {
@@ -497,7 +514,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoBlendShapes">List of vgo blend shape.</param>
         /// <param name="blendShapeConfig">A blend shape configuration.</param>
         /// <returns>List of blend shape.</returns>
-        protected virtual List<BlendShapeContext> CreateBlendShapes(IVgoStorage vgoStorage, List<VgoMeshBlendShape> vgoBlendShapes, out BlendShapeConfiguration blendShapeConfig)
+        protected virtual List<BlendShapeContext>? CreateBlendShapes(IVgoStorage vgoStorage, List<VgoMeshBlendShape>? vgoBlendShapes, out BlendShapeConfiguration? blendShapeConfig)
         {
             if ((vgoBlendShapes == null) || (vgoBlendShapes.Any() == false))
             {
@@ -514,9 +531,16 @@ namespace UniVgo2.Porters
             {
                 VgoMeshBlendShape vgoBlendShape = vgoBlendShapes[shapeIndex];
 
-                string name = (string.IsNullOrEmpty(vgoBlendShape.name) == false) ? vgoBlendShape.name : shapeIndex.ToString();
+                string name = ((vgoBlendShape.name is null) || (vgoBlendShape.name == string.Empty))
+                    ? shapeIndex.ToString()
+                    : vgoBlendShape.name;
 
                 BlendShapeContext blendShape = new BlendShapeContext(name);
+
+                if (vgoBlendShape.attributes is null)
+                {
+                    continue;
+                }
 
                 VgoMeshPrimitiveAttributes attributes = vgoBlendShape.attributes;
 
@@ -633,12 +657,15 @@ namespace UniVgo2.Porters
             };
 
             // Positions
-            if (meshContext.positions.Length > UInt16.MaxValue)
+            if ((meshContext.positions != null) && meshContext.positions.Any())
             {
-                // UNITY_2017_3_OR_NEWER
-                mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+                if (meshContext.positions.Length > UInt16.MaxValue)
+                {
+                    // UNITY_2017_3_OR_NEWER
+                    mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+                }
+                mesh.SetVertices(meshContext.positions);
             }
-            mesh.SetVertices(meshContext.positions);
 
             // Normals
             bool recalculateNormals = true;
@@ -698,11 +725,14 @@ namespace UniVgo2.Porters
             }
 
             // SubMesh
-            mesh.subMeshCount = meshContext.subMeshes.Count;
-
-            for (int i = 0; i < meshContext.subMeshes.Count; ++i)
+            if (meshContext.subMeshes != null)
             {
-                mesh.SetTriangles(meshContext.subMeshes[i], i);
+                mesh.subMeshCount = meshContext.subMeshes.Count;
+
+                for (int i = 0; i < meshContext.subMeshes.Count; ++i)
+                {
+                    mesh.SetTriangles(meshContext.subMeshes[i], i);
+                }
             }
 
             // Normals
@@ -720,7 +750,7 @@ namespace UniVgo2.Porters
             // BlendShape
             if (meshContext.blendShapes != null)
             {
-                Vector3[] emptyVertices = null;
+                Vector3[]? emptyVertices = null;
 
                 foreach (BlendShapeContext blendShape in meshContext.blendShapes)
                 {
@@ -730,7 +760,7 @@ namespace UniVgo2.Porters
                         {
                             Vector3[] deltaPositions = blendShape.positions;
 
-                            Vector3[] deltaNormals = null;
+                            Vector3[]? deltaNormals = null;
                             if ((meshContext.normals != null) &&
                                 (meshContext.normals.Length == mesh.vertexCount) &&
                                 (blendShape.normals.Count() == blendShape.positions.Count()))

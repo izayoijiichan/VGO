@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoBlendShapePreset
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -17,7 +18,7 @@ namespace NewtonVgo
     {
         /// <summary>The name of preset.</summary>
         [JsonProperty("name")]
-        public string name;
+        public string? name;
 
         /// <summary>The type of preset.</summary>
         [JsonProperty("type", Required = Required.Always)]

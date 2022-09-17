@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Enum      : VgoResourceAccessorDataType
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>The data type of the resource accessor.</summary>

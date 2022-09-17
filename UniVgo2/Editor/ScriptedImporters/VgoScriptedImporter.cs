@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Editor
 // @Class     : VgoScriptedImporter
 // ----------------------------------------------------------------------
+#nullable enable
 #if !VGO_2_DISABLE_SCRIPTED_IMPORTER
 namespace UniVgo2.Editor
 {
@@ -64,7 +65,7 @@ namespace UniVgo2.Editor
                     {
                         Dictionary<string, AnimationClip> externalObjects = GetExternalUnityObjects<AnimationClip>();
 
-                        foreach (AnimationClip animationClip in modelAsset.AnimationClipList)
+                        foreach (AnimationClip? animationClip in modelAsset.AnimationClipList)
                         {
                             if (animationClip == null)
                             {
@@ -96,7 +97,7 @@ namespace UniVgo2.Editor
                     {
                         Dictionary<string, Material> externalObjects = GetExternalUnityObjects<Material>();
 
-                        foreach (Material material in modelAsset.MaterialList)
+                        foreach (Material? material in modelAsset.MaterialList)
                         {
                             if (material == null)
                             {
@@ -138,7 +139,7 @@ namespace UniVgo2.Editor
                     {
                         Dictionary<string, Texture2D> externalObjects = GetExternalUnityObjects<Texture2D>();
 
-                        foreach (Texture2D texture in modelAsset.Texture2dList)
+                        foreach (Texture2D? texture in modelAsset.Texture2dList)
                         {
                             if (texture == null)
                             {
@@ -166,7 +167,7 @@ namespace UniVgo2.Editor
 
                         var externals = GetExternalUnityObjects<BlendShapeConfiguration>();
 
-                        foreach (BlendShapeConfiguration blendShapeConfiguration in blendShapeConfigurationList)
+                        foreach (BlendShapeConfiguration? blendShapeConfiguration in blendShapeConfigurationList)
                         {
                             if (blendShapeConfiguration == null)
                             {
@@ -184,13 +185,16 @@ namespace UniVgo2.Editor
                     }
 
                     // Root
-                    ctx.AddObjectToAsset(modelAsset.Root.name, modelAsset.Root);
-                    ctx.SetMainObject(modelAsset.Root);
+                    if (modelAsset.Root != null)
+                    {
+                        ctx.AddObjectToAsset(modelAsset.Root.name, modelAsset.Root);
+                        ctx.SetMainObject(modelAsset.Root);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Debug.LogError(ex);
+                Debug.LogException(ex);
             }
         }
 
@@ -355,42 +359,59 @@ namespace UniVgo2.Editor
             // Reload Model
             using (ModelAsset modelAsset = ExtractModel(assetPath))
             {
-                for (int textureIndex = 0; textureIndex < modelAsset.Layout.textures.Count; textureIndex++)
+                if (modelAsset.Layout != null &&
+                    modelAsset.Layout.textures != null &&
+                    modelAsset.Layout.textures.Any() &&
+                    modelAsset.Texture2dList != null &&
+                    modelAsset.Texture2dList.Any())
                 {
-                    VgoTexture vgoTexture = modelAsset.Layout.textures[textureIndex];
-
-                    Texture2D texture2d = modelAsset.Texture2dList[textureIndex];
-
-                    string fileExt;
-
-                    byte[] imageBytes;
-
-                    if (vgoTexture.mimeType == "image/jpeg")
+                    for (int textureIndex = 0; textureIndex < modelAsset.Layout.textures.Count; textureIndex++)
                     {
-                        fileExt = ".jpg";
-                        imageBytes = texture2d.EncodeToJPG();
+                        VgoTexture? vgoTexture = modelAsset.Layout.textures[textureIndex];
+
+                        if (vgoTexture == null)
+                        {
+                            continue;
+                        }
+
+                        Texture2D? texture2d = modelAsset.Texture2dList[textureIndex];
+
+                        if (texture2d == null)
+                        {
+                            continue;
+                        }
+
+                        string fileExt;
+
+                        byte[] imageBytes;
+
+                        if (vgoTexture.mimeType == "image/jpeg")
+                        {
+                            fileExt = ".jpg";
+                            imageBytes = texture2d.EncodeToJPG();
+                        }
+                        else if (vgoTexture.mimeType == "image/png")
+                        {
+                            fileExt = ".png";
+                            imageBytes = texture2d.EncodeToPNG();
+                        }
+                        else
+                        {
+                            continue;
+                        }
+
+                        string fileName = vgoTexture.name is null || vgoTexture.name == string.Empty
+                            ? string.Format("Image_{0:000}", textureIndex)
+                            : vgoTexture.name;
+
+                        string targetPath = Path.Combine(path, fileName + fileExt);
+
+                        File.WriteAllBytes(targetPath, imageBytes);
+
+                        AssetDatabase.ImportAsset(targetPath);
+
+                        targetPaths.Add(vgoTexture, targetPath);
                     }
-                    else if (vgoTexture.mimeType == "image/png")
-                    {
-                        fileExt = ".png";
-                        imageBytes = texture2d.EncodeToPNG();
-                    }
-                    else
-                    {
-                        continue;
-                    }
-
-                    string fileName =
-                        !string.IsNullOrEmpty(vgoTexture.name) ? vgoTexture.name :
-                        string.Format("Image_{0:000}", textureIndex);
-
-                    string targetPath = Path.Combine(path, fileName + fileExt);
-
-                    File.WriteAllBytes(targetPath, imageBytes);
-
-                    AssetDatabase.ImportAsset(targetPath);
-
-                    targetPaths.Add(vgoTexture, targetPath);
                 }
             }
 
@@ -398,7 +419,16 @@ namespace UniVgo2.Editor
             {
                 foreach ((VgoTexture vgoTexture, string targetPath) in targetPaths)
                 {
-                    TextureImporter targetTextureImporter = AssetImporter.GetAtPath(targetPath) as TextureImporter;
+                    AssetImporter assetImporter = AssetImporter.GetAtPath(targetPath);
+
+                    if (assetImporter is TextureImporter targetTextureImporter)
+                    {
+                        //
+                    }
+                    else
+                    {
+                        continue;
+                    }
 
                     targetTextureImporter.sRGBTexture = (vgoTexture.colorSpace == VgoColorSpaceType.Srgb);
 
@@ -514,7 +544,7 @@ namespace UniVgo2.Editor
         {
             return GetExternalObjectMap()
                 .Where(x => x.Key.type == typeof(T))
-                .ToDictionary(x => x.Key.name, x => x.Value as T);
+                .ToDictionary(x => x.Key.name, x => (T)x.Value);
         }
 
         /// <summary>
@@ -541,7 +571,7 @@ namespace UniVgo2.Editor
                 .LoadAllAssetsAtPath(assetPath)
                 .Where(x => AssetDatabase.IsSubAsset(x))
                 .Where(x => x is T)
-                .Select(x => x as T);
+                .Select(x => (T)x);
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoAnimation
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -17,7 +18,7 @@ namespace NewtonVgo
     {
         /// <summary>The name of the object.</summary>
         [JsonProperty("name")]
-        public string name;
+        public string? name;
 
         /// <summary>Whether this component is enabled.</summary>
         [JsonProperty("enabled", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

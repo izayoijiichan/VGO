@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Converters
 // @Class     : NormalMapConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
     using NewtonVgo;
@@ -20,11 +21,11 @@ namespace UniVgo2.Converters
         /// <returns></returns>
         public Texture2D GetImportTexture(Texture2D source)
         {
-            Shader encoder = Shader.Find("UniGLTF/NormalMapEncoder");
+            Shader? encoder = Shader.Find("UniGLTF/NormalMapEncoder");
 
             if (encoder == null)
             {
-                throw new Exception();
+                throw new Exception("UniGLTF/NormalMapEncoder");
             }
 
             Material converter = new Material(encoder);
@@ -50,11 +51,11 @@ namespace UniVgo2.Converters
         /// <returns></returns>
         public Texture2D GetExportTexture(Texture2D source)
         {
-            Shader decoder = Shader.Find("UniGLTF/NormalMapDecoder");
+            Shader? decoder = Shader.Find("UniGLTF/NormalMapDecoder");
 
             if (decoder == null)
             {
-                throw new Exception();
+                throw new Exception("UniGLTF/NormalMapDecoder");
             }
 
             Material converter = new Material(decoder);

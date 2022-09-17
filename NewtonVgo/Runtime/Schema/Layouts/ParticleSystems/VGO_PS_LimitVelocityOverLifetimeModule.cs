@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_LimitVelocityOverLifetimeModule
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -35,15 +36,15 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Maximum velocity curve for the x-axis.</summary>
         [JsonProperty("limitX")]
-        public VGO_PS_MinMaxCurve limitX;
+        public VGO_PS_MinMaxCurve? limitX;
 
         /// <summary>Maximum velocity curve for the y-axis.</summary>
         [JsonProperty("limitY")]
-        public VGO_PS_MinMaxCurve limitY;
+        public VGO_PS_MinMaxCurve? limitY;
 
         /// <summary>Maximum velocity curve for the z-axis.</summary>
         [JsonProperty("limitZ")]
-        public VGO_PS_MinMaxCurve limitZ;
+        public VGO_PS_MinMaxCurve? limitZ;
 
         /// <summary>Change the limit multiplier on the x-axis.</summary>
         [JsonProperty("limitXMultiplier", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -70,7 +71,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Controls the amount of drag that this modules applies to the particle velocities.</summary>
         [JsonProperty("drag")]
-        public VGO_PS_MinMaxCurve drag;
+        public VGO_PS_MinMaxCurve? drag;
 
         /// <summary>Specifies the drag multiplier.</summary>
         [JsonProperty("dragMultiplier")]

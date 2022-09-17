@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoChunk
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using NewtonVgo.Buffers;
@@ -39,7 +40,7 @@ namespace NewtonVgo
         public readonly uint DataLength = 0;
 
         /// <summary>The chunk data.</summary>
-        public readonly IByteBuffer ChunkData = default;
+        public readonly IByteBuffer? ChunkData = default;
 
         #endregion
 
@@ -70,22 +71,26 @@ namespace NewtonVgo
             // @notice Array.Copy(sourceArray, sourceIndex, destinationArray, destinationIndex length);
             Array.Copy(typeIdBytes, 0, chunkBytes, 0, 4);
             Array.Copy(dataLengthBytes, 0, chunkBytes, 4, 4);
-            Array.Copy(ChunkData.ToArray(), 0, chunkBytes, 8, ChunkData.Length);
 
-            if (PaddingCount == 1)
+            if (ChunkData != null)
             {
-                int paddingStartIndex = 8 + ChunkData.Length;
+                Array.Copy(ChunkData.ToArray(), 0, chunkBytes, 8, ChunkData.Length);
 
-                if ((TypeId == VgoChunkTypeID.AIPJ) ||
-                    (TypeId == VgoChunkTypeID.LAPJ) ||
-                    (TypeId == VgoChunkTypeID.RAPJ) ||
-                    (TypeId == VgoChunkTypeID.REPJ))
+                if (PaddingCount == 1)
                 {
-                    chunkBytes[paddingStartIndex] = (byte)0x20;  // space
-                }
-                else
-                {
-                    chunkBytes[paddingStartIndex] = (byte)0x00;
+                    int paddingStartIndex = 8 + ChunkData.Length;
+
+                    if ((TypeId == VgoChunkTypeID.AIPJ) ||
+                        (TypeId == VgoChunkTypeID.LAPJ) ||
+                        (TypeId == VgoChunkTypeID.RAPJ) ||
+                        (TypeId == VgoChunkTypeID.REPJ))
+                    {
+                        chunkBytes[paddingStartIndex] = (byte)0x20;  // space
+                    }
+                    else
+                    {
+                        chunkBytes[paddingStartIndex] = (byte)0x00;
+                    }
                 }
             }
 

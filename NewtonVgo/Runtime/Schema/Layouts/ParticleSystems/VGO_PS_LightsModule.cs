@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_LightsModule
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -28,7 +29,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Select what Light Prefab you want to base your particle lights on.</summary>
         [JsonProperty("light")]
-        public VgoLight light;
+        public VgoLight? light;
 
         /// <summary>Toggle whether the particle lights multiply their color by the particle color.</summary>
         [JsonProperty("useParticleColor")]
@@ -44,7 +45,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Define a curve to apply custom range scaling to particle Lights.</summary>
         [JsonProperty("range")]
-        public VGO_PS_MinMaxCurve range;
+        public VGO_PS_MinMaxCurve? range;
 
         /// <summary>Range multiplier.</summary>
         [JsonProperty("rangeMultiplier")]
@@ -52,7 +53,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Define a curve to apply custom intensity scaling to particle Lights.</summary>
         [JsonProperty("intensity")]
-        public VGO_PS_MinMaxCurve intensity;
+        public VGO_PS_MinMaxCurve? intensity;
 
         /// <summary>Intensity multiplier.</summary>
         [JsonProperty("intensityMultiplier")]

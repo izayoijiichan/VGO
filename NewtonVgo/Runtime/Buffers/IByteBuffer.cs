@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Buffers
 // @Class     : IByteBuffer
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Buffers
 {
     using System;

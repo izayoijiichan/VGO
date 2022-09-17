@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : VgoParticleSystemImporter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
@@ -29,47 +30,103 @@ namespace UniVgo2.Porters
         /// <param name="materialList"></param>
         /// <param name="texture2dList"></param>
         /// <returns>Returns ParticleSystem component.</returns>
-        public virtual ParticleSystem AddComponent(GameObject go, VgoParticleSystem vgoParticleSystem, VgoGeometryCoordinate geometryCoordinate, IList<Material> materialList, IList<Texture2D> texture2dList)
+        public virtual ParticleSystem AddComponent(GameObject go, VgoParticleSystem vgoParticleSystem, VgoGeometryCoordinate geometryCoordinate, IList<Material?>? materialList, IList<Texture2D?>? texture2dList)
         {
             if (go.TryGetComponentEx<ParticleSystem>(out var particleSystem) == false)
             {
                 particleSystem = go.AddComponent<ParticleSystem>();
             }
 
-            if (vgoParticleSystem != null)
+            if (vgoParticleSystem == null)
+            {
+                return particleSystem;
+            }
+
+            if (vgoParticleSystem.main != null)
             {
                 SetModuleValue(particleSystem, vgoParticleSystem.main, geometryCoordinate);
+            }
+            if (vgoParticleSystem.emission != null)
+            {
                 SetModuleValue(particleSystem, vgoParticleSystem.emission);
+            }
+            if (vgoParticleSystem.shape != null)
+            {
                 SetModuleValue(particleSystem, vgoParticleSystem.shape, texture2dList, geometryCoordinate);
+            }
+            if (vgoParticleSystem.velocityOverLifetime != null)
+            {
                 SetModuleValue(particleSystem, vgoParticleSystem.velocityOverLifetime);
+            }
+            if (vgoParticleSystem.limitVelocityOverLifetime != null)
+            {
                 SetModuleValue(particleSystem, vgoParticleSystem.limitVelocityOverLifetime);
+            }
+            if (vgoParticleSystem.inheritVelocity != null)
+            {
                 SetModuleValue(particleSystem, vgoParticleSystem.inheritVelocity);
+            }
+            if (vgoParticleSystem.forceOverLifetime != null)
+            {
                 SetModuleValue(particleSystem, vgoParticleSystem.forceOverLifetime);
+            }
+            if (vgoParticleSystem.colorOverLifetime != null)
+            {
                 SetModuleValue(particleSystem, vgoParticleSystem.colorOverLifetime);
+            }
+            if (vgoParticleSystem.colorBySpeed != null)
+            {
                 SetModuleValue(particleSystem, vgoParticleSystem.colorBySpeed);
+            }
+            if (vgoParticleSystem.sizeOverLifetime != null)
+            {
                 SetModuleValue(particleSystem, vgoParticleSystem.sizeOverLifetime);
+            }
+            if (vgoParticleSystem.sizeBySpeed != null)
+            {
                 SetModuleValue(particleSystem, vgoParticleSystem.sizeBySpeed);
+            }
+            if (vgoParticleSystem.rotationOverLifetime != null)
+            {
                 SetModuleValue(particleSystem, vgoParticleSystem.rotationOverLifetime);
+            }
+            if (vgoParticleSystem.rotationBySpeed != null)
+            {
                 SetModuleValue(particleSystem, vgoParticleSystem.rotationBySpeed);
+            }
+            if (vgoParticleSystem.externalForces != null)
+            {
                 SetModuleValue(particleSystem, vgoParticleSystem.externalForces);
+            }
+            if (vgoParticleSystem.noise != null)
+            {
                 SetModuleValue(particleSystem, vgoParticleSystem.noise);
-                //SetModuleValue(particleSystem, vgoParticleSystem.Collision);
-                //SetModuleValue(particleSystem, vgoParticleSystem.Trigger);
-                //SetModuleValue(particleSystem, vgoParticleSystem.SubEmitters);
-                //SetModuleValue(particleSystem, vgoParticleSystem.TextureSheetAnimation);
+            }
+            //SetModuleValue(particleSystem, vgoParticleSystem.Collision);
+            //SetModuleValue(particleSystem, vgoParticleSystem.Trigger);
+            //SetModuleValue(particleSystem, vgoParticleSystem.SubEmitters);
+            //SetModuleValue(particleSystem, vgoParticleSystem.TextureSheetAnimation);
+            if (vgoParticleSystem.lights != null)
+            {
                 SetModuleValue(particleSystem, vgoParticleSystem.lights);
+            }
+            if (vgoParticleSystem.trails != null)
+            {
                 SetModuleValue(particleSystem, vgoParticleSystem.trails);
-                //SetModuleValue(particleSystem, vgoParticleSystem.CustomData);
             }
+            //SetModuleValue(particleSystem, vgoParticleSystem.CustomData);
 
-            if (go.TryGetComponentEx<ParticleSystemRenderer>(out var particleSystemRenderer) == false)
+            if (vgoParticleSystem.renderer != null)
             {
-                particleSystemRenderer = go.AddComponent<ParticleSystemRenderer>();
-            }
+                if (go.TryGetComponentEx<ParticleSystemRenderer>(out var particleSystemRenderer) == false)
+                {
+                    particleSystemRenderer = go.AddComponent<ParticleSystemRenderer>();
+                }
 
-            if (particleSystemRenderer != null)
-            {
-                SetComponentValue(particleSystemRenderer, vgoParticleSystem.renderer, geometryCoordinate, materialList);
+                if (particleSystemRenderer != null)
+                {
+                    SetComponentValue(particleSystemRenderer, vgoParticleSystem.renderer, geometryCoordinate, materialList);
+                }
             }
 
             return particleSystem;
@@ -150,7 +207,11 @@ namespace UniVgo2.Porters
 
             module.simulationSpace = (UnityEngine.ParticleSystemSimulationSpace)vgoModule.simulationSpace;
             module.simulationSpeed = vgoModule.simulationSpeed;
-            VgoTransformConverter.SetComponentValue(module.customSimulationSpace, vgoModule.customSimulationSpace, geometryCoordinate);
+
+            if (vgoModule.customSimulationSpace != null)
+            {
+                VgoTransformConverter.SetComponentValue(module.customSimulationSpace, vgoModule.customSimulationSpace, geometryCoordinate);
+            }
 
             module.useUnscaledTime = vgoModule.useUnscaledTime;
             module.scalingMode = (UnityEngine.ParticleSystemScalingMode)vgoModule.scalingMode;
@@ -206,7 +267,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoModule"></param>
         /// <param name="texture2dList"></param>
         /// <param name="geometryCoordinate"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_ShapeModule vgoModule, IList<Texture2D> texture2dList, VgoGeometryCoordinate geometryCoordinate)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_ShapeModule vgoModule, IList<Texture2D?>? texture2dList, VgoGeometryCoordinate geometryCoordinate)
         {
             if (vgoModule == null)
             {
@@ -248,7 +309,10 @@ namespace UniVgo2.Porters
             module.normalOffset = vgoModule.normalOffset;
             if ((texture2dList != null) && (-1 < vgoModule.textureIndex) && (vgoModule.textureIndex < texture2dList.Count))
             {
-                module.texture = texture2dList[vgoModule.textureIndex];
+                if (texture2dList[vgoModule.textureIndex] != null)
+                {
+                    module.texture = texture2dList[vgoModule.textureIndex];
+                }
             }
             module.textureClipChannel = (UnityEngine.ParticleSystemShapeTextureChannel)vgoModule.textureClipChannel;
             module.textureClipThreshold = vgoModule.textureClipThreshold;
@@ -805,7 +869,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoRenderer"></param>
         /// <param name="geometryCoordinate"></param>
         /// <param name="materialList"></param>
-        public virtual void SetComponentValue(ParticleSystemRenderer particleSystemRenderer, VGO_PS_Renderer vgoRenderer, VgoGeometryCoordinate geometryCoordinate, IList<Material> materialList)
+        public virtual void SetComponentValue(ParticleSystemRenderer particleSystemRenderer, VGO_PS_Renderer vgoRenderer, VgoGeometryCoordinate geometryCoordinate, IList<Material?>? materialList)
         {
             if (vgoRenderer == null)
             {
@@ -822,14 +886,20 @@ namespace UniVgo2.Porters
             particleSystemRenderer.normalDirection = vgoRenderer.normalDirection;
 
             // Material
-            if ((materialList != null) && (-1 < vgoRenderer.sharedMaterial) && (vgoRenderer.sharedMaterial < materialList.Count))
+            if ((materialList != null) && vgoRenderer.sharedMaterial.IsInRangeOf(materialList))
             {
-                particleSystemRenderer.sharedMaterial = materialList[vgoRenderer.sharedMaterial];
+                if (materialList[vgoRenderer.sharedMaterial] != null)
+                {
+                    particleSystemRenderer.sharedMaterial = materialList[vgoRenderer.sharedMaterial];
+                }
             }
 
-            if ((materialList != null) && (-1 < vgoRenderer.trailMaterialIndex) && (vgoRenderer.trailMaterialIndex < materialList.Count))
+            if ((materialList != null) && vgoRenderer.trailMaterialIndex.IsInRangeOf(materialList))
             {
-                particleSystemRenderer.trailMaterial = materialList[vgoRenderer.trailMaterialIndex];
+                if (materialList[vgoRenderer.trailMaterialIndex] != null)
+                {
+                    particleSystemRenderer.trailMaterial = materialList[vgoRenderer.trailMaterialIndex];
+                }
             }
 
             particleSystemRenderer.sortMode = (UnityEngine.ParticleSystemSortMode)vgoRenderer.sortMode;
@@ -859,7 +929,10 @@ namespace UniVgo2.Porters
             particleSystemRenderer.reflectionProbeUsage = (UnityEngine.Rendering.ReflectionProbeUsage)vgoRenderer.reflectionProbeUsage;
 
             // @notice
-            VgoTransformConverter.SetComponentValue(particleSystemRenderer.probeAnchor, vgoRenderer.probeAnchor, geometryCoordinate);
+            if (vgoRenderer.probeAnchor != null)
+            {
+                VgoTransformConverter.SetComponentValue(particleSystemRenderer.probeAnchor, vgoRenderer.probeAnchor, geometryCoordinate);
+            }
 
             if (particleSystemRenderer.sharedMaterial != null)
             {

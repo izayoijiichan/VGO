@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoMesh
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -21,20 +22,20 @@ namespace NewtonVgo
     {
         /// <summary>The name of this mesh.</summary>
         [JsonProperty("name")]
-        public string name;
+        public string? name;
 
         /// <summary>A dictionary mapping attributes.</summary>
         [JsonProperty("attributes", Required = Required.Always)]
-        public VgoMeshPrimitiveAttributes attributes;
+        public VgoMeshPrimitiveAttributes? attributes;
 
         /// <summary>The index of the accessor that contains the sub-mesh indices.</summary>
         [JsonProperty("subMeshes")]
-        public List<int> subMeshes;
+        public List<int>? subMeshes;
 
         /// <summary>The index list of the material to apply to this primitive when rendering.</summary>
         /// <remarks>This property is used only in spec version between 2.0 and 2.4.</remarks>
         [JsonProperty("materials")]
-        public List<int> materials;
+        public List<int>? materials;
 
         /// <summary>The kind of the blend shape.</summary>
         /// <remarks>This property is used only in spec version between 2.0 and 2.4.</remarks>
@@ -44,12 +45,12 @@ namespace NewtonVgo
 
         /// <summary>List of the blend shape.</summary>
         [JsonProperty("blendShapes")]
-        public List<VgoMeshBlendShape> blendShapes;
+        public List<VgoMeshBlendShape>? blendShapes;
 
         /// <summary>List of the blend shape preset.</summary>
         /// <remarks>This property is used only in spec version between 2.0 and 2.4.</remarks>
         [JsonProperty("blendShapePesets")]
-        public List<VgoMeshBlendShapePreset> blendShapePesets;
+        public List<VgoMeshBlendShapePreset>? blendShapePesets;
 
         /// <summary>Whether this primitive has a vertex color.</summary>
         [JsonIgnore]

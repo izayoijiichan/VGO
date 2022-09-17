@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : IMaterialPorterStore
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
@@ -18,7 +19,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">The vgo material.</param>
         /// <returns>A material porter instanse.</returns>
-        IMaterialPorter GetPorterOrDefault(VgoMaterial vgoMaterial);
+        IMaterialPorter? GetPorterOrDefault(VgoMaterial vgoMaterial);
 
         /// <summary>
         /// Get a porter or standard.
@@ -37,7 +38,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="shaderName">The shader name.</param>
         /// <returns>A material porter instanse.</returns>
-        IMaterialPorter GetPorterOrDefault(string shaderName);
+        IMaterialPorter? GetPorterOrDefault(string shaderName);
 
         /// <summary>
         /// Get a porter or standard.

@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_EmissionModule
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -20,7 +21,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>The rate at which the emitter spawns new particles over time.</summary>
         [JsonProperty("rateOverTime")]
-        public VGO_PS_MinMaxCurve rateOverTime;
+        public VGO_PS_MinMaxCurve? rateOverTime;
 
         /// <summary>Change the rate over time multiplier.</summary>
         [JsonProperty("rateOverTimeMultiplier")]
@@ -28,7 +29,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>The rate at which the emitter spawns new particles over distance.</summary>
         [JsonProperty("rateOverDistance")]
-        public VGO_PS_MinMaxCurve rateOverDistance;
+        public VGO_PS_MinMaxCurve? rateOverDistance;
 
         /// <summary>Change the rate over distance multiplier.</summary>
         [JsonProperty("rateOverDistanceMultiplier")]
@@ -40,6 +41,6 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary></summary>
         [JsonProperty("bursts")]
-        public VGO_PS_Burst[] bursts;
+        public VGO_PS_Burst[]? bursts;
     }
 }

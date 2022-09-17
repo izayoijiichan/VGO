@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : 
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>Filtering mode for textures. Corresponds to the settings in a.</summary>
@@ -14,7 +15,7 @@ namespace NewtonVgo
         /// <summary>Trilinear filtering - texture samples are averaged and also blended between mipmap levels.</summary>
         Trilinear = 2,
     }
-    
+
     /// <summary>Select how gradients will be evaluated.</summary>
     public enum GradientMode
     {

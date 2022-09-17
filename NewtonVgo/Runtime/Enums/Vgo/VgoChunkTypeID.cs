@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Enum      : VgoChunkTypeID
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>The chunk type ID.</summary>

@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Serialization
 // @Class     : VgoJsonSerializerSettings
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Serialization
 {
     using Newtonsoft.Json;

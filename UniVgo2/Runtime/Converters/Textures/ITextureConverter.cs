@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Converters
 // @Class     : ITextureConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
     using NewtonVgo;

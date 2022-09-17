@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Converters
 // @Class     : VgoLightConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
     using NewtonVgo;
@@ -19,11 +20,6 @@ namespace UniVgo2.Converters
         /// <returns></returns>
         public static VgoLight CreateFrom(Light light)
         {
-            if (light == null)
-            {
-                return null;
-            }
-
             var vgoLight = new VgoLight()
             {
                 enabled = light.enabled,
@@ -119,6 +115,21 @@ namespace UniVgo2.Converters
             }
 
             return vgoLight;
+        }
+
+        /// <summary>
+        /// Create VgoLight from Light.
+        /// </summary>
+        /// <param name="light"></param>
+        /// <returns></returns>
+        public static VgoLight? CreateOrDefaultFrom(Light? light)
+        {
+            if (light == null)
+            {
+                return default;
+            }
+
+            return CreateFrom(light);
         }
 
         /// <summary>

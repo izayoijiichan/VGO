@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : 
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>The collision detection mode constants used for Rigidbody.collisionDetectionMode.</summary>

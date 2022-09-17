@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : ParticleMaterialPorter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
@@ -91,6 +92,11 @@ namespace UniVgo2.Porters
             ExportKeyword(vgoMaterial, material, Keyword.ColorColorOn);
             ExportKeyword(vgoMaterial, material, Keyword.ColorAddSubDiffOn);
 
+            if (vgoMaterial.intProperties is null)
+            {
+                vgoMaterial.intProperties = new Dictionary<string, int>();
+            }
+
             // @notice
             vgoMaterial.intProperties.Add("_BlendMode", (int)UniParticleShader.Utils.GetBlendMode(material));
             vgoMaterial.intProperties.Add("_ColorMode", (int)UniParticleShader.Utils.GetColorMode(material));
@@ -109,7 +115,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A particle shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A particle material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D> allTexture2dList)
+        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
         {
             if (vgoMaterial == null)
             {
@@ -143,7 +149,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A particle definition.</returns>
-        protected virtual ParticleDefinition CreateParticleDefinition(VgoMaterial vgoMaterial, List<Texture2D> allTexture2dList)
+        protected virtual ParticleDefinition CreateParticleDefinition(VgoMaterial vgoMaterial, List<Texture2D?> allTexture2dList)
         {
             ParticleDefinition particleDefinition = new ParticleDefinition
             {
@@ -175,11 +181,11 @@ namespace UniVgo2.Porters
                 EmissionMap = null,
             };
 
-            particleDefinition.GrabTexture = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.GrabTexture));
-            particleDefinition.MainTex = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MainTex));
-            particleDefinition.MetallicGlossMap = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MetallicGlossMap));
-            particleDefinition.BumpMap = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BumpMap));
-            particleDefinition.EmissionMap = allTexture2dList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.EmissionMap));
+            particleDefinition.GrabTexture = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.GrabTexture));
+            particleDefinition.MainTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MainTex));
+            particleDefinition.MetallicGlossMap = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MetallicGlossMap));
+            particleDefinition.BumpMap = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BumpMap));
+            particleDefinition.EmissionMap = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.EmissionMap));
 
             return particleDefinition;
         }

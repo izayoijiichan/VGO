@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : UnityColorExtensions
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     /// <summary>

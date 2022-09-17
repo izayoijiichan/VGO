@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Converters
 // @Class     : VgoAvatarConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
     using NewtonVgo;
@@ -22,26 +23,26 @@ namespace UniVgo2.Converters
         /// <param name="nodeName"></param>
         /// <param name="nodes"></param>
         /// <returns></returns>
-        public static VgoHumanAvatar CreateVgoAvatar(Animator animator, string nodeName, IList<Transform> nodes)
+        public static VgoHumanAvatar? CreateVgoAvatarOrDefault(Animator animator, string nodeName, IList<Transform> nodes)
         {
             if (animator.avatar is null)
             {
-                return null;
+                return default;
             }
 
             if (animator.avatar.isHuman == false)
             {
-                return null;
+                return default;
             }
 
             if (animator.avatar.isValid == false)
             {
-                return null;
+                return default;
             }
 
             Avatar humanAvatar = animator.avatar;
 
-            var vgoHumanBones = new List<VgoHumanBone>(humanAvatar.humanDescription.human.Length);
+            var vgoHumanBones = new List<VgoHumanBone?>(humanAvatar.humanDescription.human.Length);
 
             for (int humanBoneIndex = 0; humanBoneIndex < humanAvatar.humanDescription.human.Length; humanBoneIndex++)
             {
@@ -80,16 +81,27 @@ namespace UniVgo2.Converters
         {
             //string[] humanNames = HumanTrait.BoneName;
 
-            HumanBone[] humanBones = vgoAvatar.humanBones
-                .Select(x => new HumanBone
+            HumanBone[] humanBones = new HumanBone[vgoAvatar.humanBones.Count];
+
+            for (int humanBoneIndex = 0; humanBoneIndex < vgoAvatar.humanBones.Count; humanBoneIndex++)
+            {
+                VgoHumanBone? vgoHumanBone = vgoAvatar.humanBones[humanBoneIndex];
+
+                if (vgoHumanBone is null)
                 {
-                    boneName = nodes[x.nodeIndex].name,
-                    humanName = _HumanBoneNameDic[x.humanBodyBone],
+                    throw new FormatException($"vgoAvatar.humanBones[{humanBoneIndex}] is null.");
+                }
+
+                humanBones[humanBoneIndex] = new HumanBone
+                {
+                    boneName = nodes[vgoHumanBone.nodeIndex].name,
+                    humanName = _HumanBoneNameDic[vgoHumanBone.humanBodyBone],
                     limit = new HumanLimit
                     {
                         useDefaultValues = true,
                     }
-                }).ToArray();
+                };
+            }
 
             // @notice
             SkeletonBone[] skeletonBones = nodes

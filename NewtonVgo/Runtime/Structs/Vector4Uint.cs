@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Struct    : Vector4Uint
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using System;

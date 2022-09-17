@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_SizeBySpeedModule
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -27,7 +28,7 @@ namespace NewtonVgo.Schema.ParticleSystems
         ///// <summary>Curve to control particle size based on speed.</summary>
         //[JsonProperty("size")]
         //[NativeName("X")]
-        //public VGO_PS_MinMaxCurve size;
+        //public VGO_PS_MinMaxCurve? size;
 
         ///// <summary>A multiplier for ParticleSystem.SizeBySpeedModule._size.</summary>
         //[JsonProperty("sizeMultiplier")]
@@ -36,15 +37,15 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Size by speed curve for the x-axis.</summary>
         [JsonProperty("x")]
-        public VGO_PS_MinMaxCurve x;
+        public VGO_PS_MinMaxCurve? x;
 
         /// <summary>Size by speed curve for the y-axis.</summary>
         [JsonProperty("y")]
-        public VGO_PS_MinMaxCurve y;
+        public VGO_PS_MinMaxCurve? y;
 
         /// <summary>Size by speed curve for the z-axis.</summary>
         [JsonProperty("z")]
-        public VGO_PS_MinMaxCurve z;
+        public VGO_PS_MinMaxCurve? z;
 
         /// <summary>Size multiplier along the x-axis.</summary>
         [JsonProperty("xMultiplier", DefaultValueHandling = DefaultValueHandling.Ignore)]

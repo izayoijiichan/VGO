@@ -2,12 +2,12 @@
 // @Namespace : NewtonVgo.Serialization
 // @Class     : VgoContractResolver
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Serialization
 {
-    using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Serialization;
-    using System;
     using NewtonVgo.Serialization.JsonConverters;
+    using System;
 
     /// <summary>
     /// VGO Contract Resolver

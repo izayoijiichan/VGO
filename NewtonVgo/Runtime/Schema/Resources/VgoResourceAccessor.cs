@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoResourceAccessor
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;

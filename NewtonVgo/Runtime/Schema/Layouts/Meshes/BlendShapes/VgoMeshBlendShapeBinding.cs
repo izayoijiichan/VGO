@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoBlendShapeBinding
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;

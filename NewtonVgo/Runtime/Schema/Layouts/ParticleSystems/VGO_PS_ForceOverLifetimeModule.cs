@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_ForceOverLifetimeModule
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -20,15 +21,15 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>The curve that defines particle forces in the x-axis.</summary>
         [JsonProperty("x")]
-        public VGO_PS_MinMaxCurve x;
+        public VGO_PS_MinMaxCurve? x;
 
         /// <summary>The curve defining particle forces in the y-axis.</summary>
         [JsonProperty("y")]
-        public VGO_PS_MinMaxCurve y;
+        public VGO_PS_MinMaxCurve? y;
 
         /// <summary>The curve defining particle forces in the z-axis.</summary>
         [JsonProperty("z")]
-        public VGO_PS_MinMaxCurve z;
+        public VGO_PS_MinMaxCurve? z;
 
         /// <summary>Defines the x-axis multiplier.</summary>
         [JsonProperty("xMultiplier")]

@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : IShaderStore
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     using NewtonVgo;
@@ -19,7 +20,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoMaterial">The vgo material.</param>
         /// <returns></returns>
-        Shader GetShaderOrDefault(VgoMaterial vgoMaterial);
+        Shader? GetShaderOrDefault(VgoMaterial vgoMaterial);
 
         /// <summary>
         /// Get a shader or standard.

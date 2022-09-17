@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Converters
 // @Class     : VgoTransformConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
     using NewtonVgo;
@@ -20,11 +21,6 @@ namespace UniVgo2.Converters
         /// <returns></returns>
         public static VgoTransform CreateFrom(Transform transform, VgoGeometryCoordinate geometryCoordinate)
         {
-            if (transform == null)
-            {
-                return default;
-            }
-
             VgoTransform vgoTransform = new VgoTransform()
             {
                 position = transform.localPosition.ToNullableNumericsVector3(Vector3.zero, geometryCoordinate),
@@ -44,16 +40,6 @@ namespace UniVgo2.Converters
         /// <returns></returns>
         public static void SetComponentValue(Transform transform, VgoTransform vgoTransform, VgoGeometryCoordinate geometryCoordinate)
         {
-            if (transform == null)
-            {
-                return;  // @notice
-            }
-
-            if (vgoTransform == null)
-            {
-                return;
-            }
-
             transform.localPosition = vgoTransform.position.ToUnityVector3(Vector3.zero, geometryCoordinate);
             transform.localRotation = vgoTransform.rotation.ToUnityQuaternion(Quaternion.identity, geometryCoordinate);
             transform.localScale = vgoTransform.scale.ToUnityVector3(Vector3.one);

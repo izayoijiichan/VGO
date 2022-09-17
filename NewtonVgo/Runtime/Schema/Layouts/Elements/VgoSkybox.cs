@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoSkybox
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;

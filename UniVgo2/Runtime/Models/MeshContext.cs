@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : MeshContext
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     using System;
@@ -18,43 +19,43 @@ namespace UniVgo2
         public string name;
 
         /// <summary></summary>
-        public Vector3[] positions;
+        public Vector3[]? positions;
 
         /// <summary></summary>
-        public Vector3[] normals;
+        public Vector3[]? normals;
 
         /// <summary></summary>
-        public Vector4[] tangents;
+        public Vector4[]? tangents;
 
         /// <summary></summary>
-        public Vector2[] uv0s;
+        public Vector2[]? uv0s;
 
         /// <summary></summary>
-        public Vector2[] uv1s;
+        public Vector2[]? uv1s;
 
         /// <summary></summary>
-        public Vector2[] uv2s;
+        public Vector2[]? uv2s;
 
         /// <summary></summary>
-        public Vector2[] uv3s;
+        public Vector2[]? uv3s;
 
         /// <summary></summary>
-        public Color[] colors;
+        public Color[]? colors;
 
         /// <summary></summary>
-        public Color32[] color32s;
+        public Color32[]? color32s;
 
         /// <summary></summary>
-        public BoneWeight[] boneWeights;
+        public BoneWeight[]? boneWeights;
 
         /// <summary></summary>
-        public List<int[]> subMeshes;
+        public List<int[]>? subMeshes;
 
         /// <summary></summary>
-        public List<int> materialIndices;
+        public List<int>? materialIndices;
 
         /// <summary></summary>
-        public List<BlendShapeContext> blendShapes;
+        public List<BlendShapeContext>? blendShapes;
 
         /// <summary>
         /// Create a new instance of MeshContext with name.

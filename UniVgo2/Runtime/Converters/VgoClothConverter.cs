@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Converters
 // @Class     : VgoClothConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
     using NewtonVgo;
@@ -24,11 +25,6 @@ namespace UniVgo2.Converters
         /// <returns></returns>
         public static VgoCloth CreateFrom(Cloth cloth, VgoGeometryCoordinate geometryCoordinate, IList<Collider> colliderList, IVgoStorage vgoStorage)
         {
-            if (cloth == null)
-            {
-                return null;
-            }
-
             var vgoCloth = new VgoCloth()
             {
                 name = cloth.name,
@@ -79,6 +75,24 @@ namespace UniVgo2.Converters
         }
 
         /// <summary>
+        /// Create VgoCloth from Cloth.
+        /// </summary>
+        /// <param name="cloth"></param>
+        /// <param name="geometryCoordinate"></param>
+        /// <param name="colliderList"></param>
+        /// <param name="vgoStorage"></param>
+        /// <returns></returns>
+        public static VgoCloth? CreateOrDefaultFrom(Cloth? cloth, VgoGeometryCoordinate geometryCoordinate, IList<Collider> colliderList, IVgoStorage vgoStorage)
+        {
+            if (cloth == null)
+            {
+                return default;
+            }
+
+            return CreateFrom(cloth, geometryCoordinate, colliderList, vgoStorage);
+        }
+
+        /// <summary>
         /// Set Cloth field value.
         /// </summary>
         /// <param name="cloth"></param>
@@ -86,18 +100,8 @@ namespace UniVgo2.Converters
         /// <param name="geometryCoordinate"></param>
         /// <param name="colliderList"></param>
         /// <param name="vgoStorage"></param>
-        public static void SetComponentValue(Cloth cloth, VgoCloth vgoCloth, VgoGeometryCoordinate geometryCoordinate, List<Collider> colliderList, IVgoStorage vgoStorage)
+        public static void SetComponentValue(Cloth cloth, VgoCloth vgoCloth, VgoGeometryCoordinate geometryCoordinate, List<Collider?> colliderList, IVgoStorage vgoStorage)
         {
-            if (cloth == null)
-            {
-                return;
-            }
-
-            if (vgoCloth == null)
-            {
-                return;
-            }
-
             //cloth.enabled = vgoCloth.enabled;
             cloth.enabled = false;
 
@@ -129,7 +133,7 @@ namespace UniVgo2.Converters
 
                 for (int index = 0; index < vgoCloth.sphereColliders.Count; index++)
                 {
-                    VgoClothSphereColliderPair vgoSphereColliderPair = vgoCloth.sphereColliders[index];
+                    VgoClothSphereColliderPair? vgoSphereColliderPair = vgoCloth.sphereColliders[index];
 
                     if (vgoSphereColliderPair is null)
                     {
@@ -139,8 +143,8 @@ namespace UniVgo2.Converters
                         continue;
                     }
 
-                    SphereCollider firstSphereCollider;
-                    SphereCollider secondSphereCollider;
+                    SphereCollider? firstSphereCollider;
+                    SphereCollider? secondSphereCollider;
 
                     if (vgoSphereColliderPair.first == -1)
                     {
@@ -148,7 +152,7 @@ namespace UniVgo2.Converters
                     }
                     else
                     {
-                        Collider firstCollider = colliderList.GetValueOrDefault(vgoSphereColliderPair.first);
+                        Collider? firstCollider = colliderList.GetNullableValueOrDefault(vgoSphereColliderPair.first);
 
                         if (firstCollider is null)
                         {
@@ -178,7 +182,7 @@ namespace UniVgo2.Converters
                     }
                     else
                     {
-                        Collider secondCollider = colliderList.GetValueOrDefault(vgoSphereColliderPair.second);
+                        Collider? secondCollider = colliderList.GetNullableValueOrDefault(vgoSphereColliderPair.second);
 
                         if (secondCollider is null)
                         {
@@ -218,7 +222,7 @@ namespace UniVgo2.Converters
             // capsuleColliders
             if (vgoCloth.capsuleColliders != null)
             {
-                List<CapsuleCollider> capsuleColliderList = new List<CapsuleCollider>(vgoCloth.capsuleColliders.Count);
+                List<CapsuleCollider?> capsuleColliderList = new List<CapsuleCollider?>(vgoCloth.capsuleColliders.Count);
 
                 bool capsuleResult = true;
 
@@ -234,7 +238,7 @@ namespace UniVgo2.Converters
                         continue;
                     }
 
-                    Collider collider = colliderList.GetValueOrDefault(idx);
+                    Collider? collider = colliderList.GetNullableValueOrDefault(idx);
 
                     if (collider is null)
                     {

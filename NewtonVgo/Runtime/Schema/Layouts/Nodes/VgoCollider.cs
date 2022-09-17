@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoCollider
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -56,6 +57,6 @@ namespace NewtonVgo
 
         /// <summary>Physic Material</summary>
         [JsonProperty("physicMaterial")]
-        public VgoPhysicMaterial physicMaterial = null;
+        public VgoPhysicMaterial? physicMaterial = null;
     }
 }

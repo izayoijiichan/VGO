@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoHumanAvatar
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -17,11 +18,11 @@ namespace NewtonVgo
     {
         /// <summary>The name of this human avatar.</summary>
         [JsonProperty("name")]
-        public string name;
+        public string? name;
 
         /// <summary>List of the human bone.</summary>
         [JsonProperty("humanBones", Required = Required.Always)]
-        public List<VgoHumanBone> humanBones = new List<VgoHumanBone>();
+        public List<VgoHumanBone?> humanBones = new List<VgoHumanBone?>();
 
         ///// <summary>List of the node index of the skeleton bone.</summary>
         //[JsonProperty("skeletonBones")]

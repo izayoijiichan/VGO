@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoAnimationCurve
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -17,7 +18,7 @@ namespace NewtonVgo
     {
         /// <summary>All keys defined in the animation curve.</summary>
         [JsonProperty("keys")]
-        public VgoKeyframe[] keys = null;
+        public VgoKeyframe[]? keys = null;
 
         /// <summary>The behaviour of the animation before the first keyframe.</summary>
         [JsonProperty("preWrapMode", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

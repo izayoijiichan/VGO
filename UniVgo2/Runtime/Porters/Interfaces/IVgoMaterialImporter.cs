@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : IVgoMaterialImporter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
@@ -16,10 +17,10 @@ namespace UniVgo2.Porters
         #region Properties
 
         /// <summary>The material porter store.</summary>
-        IMaterialPorterStore MaterialPorterStore { get; set; }
+        IMaterialPorterStore? MaterialPorterStore { get; set; }
 
         /// <summary>The shader store.</summary>
-        IShaderStore ShaderStore { get; set; }
+        IShaderStore? ShaderStore { get; set; }
 
         #endregion
 
@@ -31,7 +32,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="texture2dList">List of Texture2D.</param>
         /// <returns>A unity material.</returns>
-        Material CreateMaterialAsset(VgoMaterial vgoMaterial, List<Texture2D> texture2dList);
+        Material CreateMaterialAsset(VgoMaterial vgoMaterial, List<Texture2D?> texture2dList);
 
         #endregion
     }

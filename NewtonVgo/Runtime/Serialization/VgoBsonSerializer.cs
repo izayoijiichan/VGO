@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Serialization
 // @Class     : VgoBsonSerializer
 // ----------------------------------------------------------------------
+#nullable enable
 #pragma warning disable 618 
 namespace NewtonVgo.Serialization
 {
@@ -19,24 +20,14 @@ namespace NewtonVgo.Serialization
         #region Fields
 
         /// <summary>The serializer.</summary>
-        protected JsonSerializer _Serializer;
+        protected JsonSerializer? _Serializer;
 
         #endregion
 
         #region Properties
 
         /// <summary>The serializer.</summary>
-        protected JsonSerializer Serializer
-        {
-            get
-            {
-                if (_Serializer == null)
-                {
-                    _Serializer = CreateBsonSerializer();
-                }
-                return _Serializer;
-            }
-        }
+        protected JsonSerializer Serializer => _Serializer ??= CreateBsonSerializer();
 
         #endregion
 
@@ -108,7 +99,8 @@ namespace NewtonVgo.Serialization
         /// <param name="bson">The BSON.</param>
         /// <param name="rootValueAsArray">Specify true if the root value is an array.</param>
         /// <returns>A object.</returns>
-        public T DeserializeObject<T>(byte[] bson, bool rootValueAsArray = false)
+        public T? DeserializeObject<T>(byte[] bson, bool rootValueAsArray = false)
+            where T : class
         {
             try
             {

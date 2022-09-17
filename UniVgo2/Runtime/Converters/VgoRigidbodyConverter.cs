@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Converters
 // @Class     : VgoRigidbodyConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
     using NewtonVgo;
@@ -19,11 +20,6 @@ namespace UniVgo2.Converters
         /// <returns></returns>
         public static VgoRigidbody CreateFrom(Rigidbody rigidbody)
         {
-            if (rigidbody == null)
-            {
-                return null;
-            }
-
             return new VgoRigidbody()
             {
                 mass = rigidbody.mass,
@@ -44,16 +40,6 @@ namespace UniVgo2.Converters
         /// <param name="vgoRigidbody"></param>
         public static void SetComponentValue(Rigidbody rigidbody, VgoRigidbody vgoRigidbody)
         {
-            if (rigidbody == null)
-            {
-                return;
-            }
-
-            if (vgoRigidbody == null)
-            {
-                return;
-            }
-
             rigidbody.mass = vgoRigidbody.mass;
             rigidbody.drag = vgoRigidbody.drag;
             rigidbody.angularDrag = vgoRigidbody.angularDrag;

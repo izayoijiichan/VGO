@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_InheritVelocityModule
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -24,7 +25,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Curve to define how much of the emitter velocity the system applies during the lifetime of a particle.</summary>
         [JsonProperty("curve")]
-        public VGO_PS_MinMaxCurve curve;
+        public VGO_PS_MinMaxCurve? curve;
 
         /// <summary>Change the curve multiplier.</summary>
         [JsonProperty("curveMultiplier")]

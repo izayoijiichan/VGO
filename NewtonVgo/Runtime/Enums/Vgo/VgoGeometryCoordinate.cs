@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Enum      : VgoGeometryCoordinate
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>The type of the geometry coodinates.</summary>

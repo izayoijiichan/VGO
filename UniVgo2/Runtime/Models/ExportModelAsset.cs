@@ -2,8 +2,10 @@
 // @Namespace : UniVgo2
 // @Class     : ExportModelAsset
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -163,7 +165,7 @@ namespace UniVgo2
 
             _SkinnedMeshRendererList = _RendererList
                 .Where(r => r is SkinnedMeshRenderer)
-                .Select(r => r as SkinnedMeshRenderer)
+                .Select(r => (SkinnedMeshRenderer)r)
                 .Where(x => x.bones != null && x.bones.Any())
                 .ToList();
 
@@ -304,7 +306,7 @@ namespace UniVgo2
 
             foreach (Renderer renderer in rendererList)
             {
-                Mesh mesh = null;
+                Mesh mesh;
 
                 if (renderer is SkinnedMeshRenderer skinnedMeshRenderer)
                 {
@@ -344,12 +346,12 @@ namespace UniVgo2
                     // @notice
                     mesh = particleSystemRenderer.mesh;
                 }
-
-                var meshRendererAsset = new ExportMeshRendererAsset
+                else
                 {
-                    Renderer = renderer,
-                    Mesh = mesh,
-                };
+                    continue;
+                }
+
+                var meshRendererAsset = new ExportMeshRendererAsset(renderer, mesh);
 
                 meshRendererAssetList.Add(meshRendererAsset);
             }
@@ -368,7 +370,7 @@ namespace UniVgo2
 
             foreach (ExportMeshRendererAsset meshRendererAsset in meshRendererAssetList)
             {
-                Mesh mesh = meshRendererAsset.Mesh;
+                Mesh? mesh = meshRendererAsset.Mesh;
 
                 if (mesh is null)
                 {
@@ -379,9 +381,8 @@ namespace UniVgo2
 
                 if (_IsExportSpecVersion_2_4)
                 {
-                    meshAsset = new MeshAsset()
+                    meshAsset = new MeshAsset(mesh)
                     {
-                        Mesh = meshRendererAsset.Mesh,
                         Renderer = meshRendererAsset.Renderer,
                     };
                 }
@@ -394,10 +395,7 @@ namespace UniVgo2
                         continue;
                     }
 
-                    meshAsset = new MeshAsset()
-                    {
-                        Mesh = meshRendererAsset.Mesh,
-                    };
+                    meshAsset = new MeshAsset(mesh);
                 }
 
                 if (meshRendererAsset.Renderer is SkinnedMeshRenderer skinnedMeshRenderer)
@@ -463,11 +461,7 @@ namespace UniVgo2
                     continue;
                 }
 
-                var particleSystemAsset = new ParticleSystemAsset
-                {
-                    ParticleSystem = particleSystem,
-                    ParticleSystemRenderer = particleSystemRenderer,
-                };
+                var particleSystemAsset = new ParticleSystemAsset(particleSystem, particleSystemRenderer);
 
                 particleSystemAssetList.Add(particleSystemAsset);
             }

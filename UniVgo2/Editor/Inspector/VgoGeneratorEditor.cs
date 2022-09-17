@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Editor
 // @Class     : VgoGeneratorEditor
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Editor
 {
     using NewtonVgo;
@@ -18,10 +19,10 @@ namespace UniVgo2.Editor
     public class VgoGeneratorEditor : ScriptEditorBase
     {
         /// <summary></summary>
-        private VgoGenerator _Target;
+        private VgoGenerator? _Target;
 
         /// <summary>GeneratorInfo Property</summary>
-        private SerializedProperty _GeneratorInfoProperty;
+        private SerializedProperty? _GeneratorInfoProperty;
 
         /// <summary>The selected index of the geometry coodinate.</summary>
         private int _GeometryCoordinateIndex = 0;
@@ -45,9 +46,21 @@ namespace UniVgo2.Editor
         {
             base.OnEnable();
 
-            _Target = target as VgoGenerator;
+            if (target is VgoGenerator _Target)
+            {
+                //
+            }
+            else
+            {
+                throw new InvalidCastException();
+            }
 
             _GeneratorInfoProperty = serializedObject.FindProperty("GeneratorInfo");
+
+            if (_Target.GeneratorInfo == null)
+            {
+                _Target.GeneratorInfo = new VgoGeneratorInfo();
+            }
 
             if (string.IsNullOrEmpty(_Target.GeneratorInfo.name))
             {
@@ -71,14 +84,17 @@ namespace UniVgo2.Editor
             serializedObject.Update();
 
             // Meta
-            //EditorGUILayout.LabelField(_GeneratorInfoProperty.name, EditorStyles.boldLabel);
-            EditorGUI.BeginDisabledGroup(true);
-            SetPropertyFields(_GeneratorInfoProperty, new string[]
+            if (_GeneratorInfoProperty != null)
             {
+                //EditorGUILayout.LabelField(_GeneratorInfoProperty.name, EditorStyles.boldLabel);
+                EditorGUI.BeginDisabledGroup(true);
+                SetPropertyFields(_GeneratorInfoProperty, new string[]
+                {
                 "name",
                 "version",
-            });
-            EditorGUI.EndDisabledGroup();
+                });
+                EditorGUI.EndDisabledGroup();
+            }
 
             EditorGUILayout.Space();
 
@@ -124,7 +140,7 @@ namespace UniVgo2.Editor
 
                 bool isBson = _JsonOrBsonIndex == 1;
 
-                string cryptAlgorithms;
+                string? cryptAlgorithms;
 
                 if (_CryptAlgorithmsIndex == 1)
                 {

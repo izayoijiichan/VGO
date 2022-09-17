@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoSkin
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -30,6 +31,6 @@ namespace NewtonVgo
         /// <summary>Indices of skeleton nodes, used as joints in this skin.</summary>
         /// <remarks>The array length must be the same as the `count` property of the `inverseBindMatrices` accessor (when defined).</remarks>
         [JsonProperty("joints", Required = Required.Always)]
-        public int[] joints;
+        public int[]? joints;
     }
 }

@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoKeyframe
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;

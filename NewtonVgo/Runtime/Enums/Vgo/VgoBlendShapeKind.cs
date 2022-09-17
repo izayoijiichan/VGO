@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Enum      : VgoBlendShapeKind
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>The kind of blend shape.</summary>

@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Converters
 // @Class     : VgoColliderConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
     using NewtonVgo;
@@ -21,17 +22,8 @@ namespace UniVgo2.Converters
         /// <returns></returns>
         public static VgoCollider CreateFrom(Collider collider, VgoGeometryCoordinate geometryCoordinate)
         {
-            if (collider == null)
+            if (collider is BoxCollider boxCollider)
             {
-                return null;
-            }
-
-            Type type = collider.GetType();
-
-            if (type == typeof(BoxCollider))
-            {
-                var boxCollider = collider as BoxCollider;
-
                 return new VgoCollider()
                 {
                     type = VgoColliderType.Box,
@@ -39,13 +31,11 @@ namespace UniVgo2.Converters
                     isTrigger = boxCollider.isTrigger,
                     center = boxCollider.center.ToNullableNumericsVector3(Vector3.zero, geometryCoordinate),
                     size = boxCollider.size.ToNullableNumericsVector3(Vector3.one, geometryCoordinate),
-                    physicMaterial = VgoPhysicMaterialConverter.CreateFrom(collider.sharedMaterial),
+                    physicMaterial = VgoPhysicMaterialConverter.CreateOrDefaultFrom(collider.sharedMaterial),
                 };
             }
-            else if (type == typeof(CapsuleCollider))
+            else if (collider is CapsuleCollider capsuleCollider)
             {
-                var capsuleCollider = collider as CapsuleCollider;
-
                 return new VgoCollider()
                 {
                     type = VgoColliderType.Capsule,
@@ -55,13 +45,11 @@ namespace UniVgo2.Converters
                     radius = capsuleCollider.radius,
                     height = capsuleCollider.height,
                     direction = capsuleCollider.direction,
-                    physicMaterial = VgoPhysicMaterialConverter.CreateFrom(collider.sharedMaterial),
+                    physicMaterial = VgoPhysicMaterialConverter.CreateOrDefaultFrom(collider.sharedMaterial),
                 };
             }
-            else if (type == typeof(SphereCollider))
+            else if (collider is SphereCollider sphereCollider)
             {
-                var sphereCollider = collider as SphereCollider;
-
                 return new VgoCollider()
                 {
                     type = VgoColliderType.Sphere,
@@ -69,12 +57,36 @@ namespace UniVgo2.Converters
                     isTrigger = sphereCollider.isTrigger,
                     center = sphereCollider.center.ToNullableNumericsVector3(Vector3.zero, geometryCoordinate),
                     radius = sphereCollider.radius,
-                    physicMaterial = VgoPhysicMaterialConverter.CreateFrom(collider.sharedMaterial),
+                    physicMaterial = VgoPhysicMaterialConverter.CreateOrDefaultFrom(collider.sharedMaterial),
                 };
             }
             else
             {
-                return null;
+                throw new NotSupportedException();
+            }
+        }
+        /// <summary>
+        /// Create VgoCollider from Collider.
+        /// </summary>
+        /// <param name="collider"></param>
+        /// <param name="geometryCoordinate"></param>
+        /// <returns></returns>
+        public static VgoCollider? CreateOrDefaultFrom(Collider? collider, VgoGeometryCoordinate geometryCoordinate)
+        {
+            if (collider == null)
+            {
+                return default;
+            }
+
+            if (collider is BoxCollider ||
+                collider is CapsuleCollider ||
+                collider is SphereCollider)
+            {
+                return CreateFrom(collider, geometryCoordinate);
+            }
+            else
+            {
+                return default;
             }
         }
 
@@ -96,25 +108,22 @@ namespace UniVgo2.Converters
                 return;
             }
 
-            Type type = collider.GetType();
-
-            if (type == typeof(BoxCollider))
+            if (collider is BoxCollider boxCollider)
             {
-                var boxCollider = collider as BoxCollider;
-
                 if (vgoCollider.type == VgoColliderType.Box)
                 {
                     boxCollider.enabled = vgoCollider.enabled;
                     boxCollider.isTrigger = vgoCollider.isTrigger;
                     boxCollider.center = vgoCollider.center.ToUnityVector3(Vector3.zero, geometryCoordinate);
                     boxCollider.size = vgoCollider.size.ToUnityVector3(Vector3.one, geometryCoordinate);
-                    boxCollider.sharedMaterial = VgoPhysicMaterialConverter.ToPhysicMaterial(vgoCollider.physicMaterial);
+                    if (vgoCollider.physicMaterial != null)
+                    {
+                        boxCollider.sharedMaterial = VgoPhysicMaterialConverter.ToPhysicMaterial(vgoCollider.physicMaterial);
+                    }
                 }
             }
-            else if (type == typeof(CapsuleCollider))
+            else if (collider is CapsuleCollider capsuleCollider)
             {
-                var capsuleCollider = collider as CapsuleCollider;
-
                 if (vgoCollider.type == VgoColliderType.Capsule)
                 {
                     capsuleCollider.enabled = vgoCollider.enabled;
@@ -123,20 +132,24 @@ namespace UniVgo2.Converters
                     capsuleCollider.radius = vgoCollider.radius;
                     capsuleCollider.height = vgoCollider.height;
                     capsuleCollider.direction = vgoCollider.direction;
-                    capsuleCollider.sharedMaterial = VgoPhysicMaterialConverter.ToPhysicMaterial(vgoCollider.physicMaterial);
+                    if (vgoCollider.physicMaterial != null)
+                    {
+                        capsuleCollider.sharedMaterial = VgoPhysicMaterialConverter.ToPhysicMaterial(vgoCollider.physicMaterial);
+                    }
                 }
             }
-            else if (type == typeof(SphereCollider))
+            else if (collider is SphereCollider sphereCollider)
             {
-                var sphereCollider = collider as SphereCollider;
-
                 if (vgoCollider.type == VgoColliderType.Sphere)
                 {
                     sphereCollider.enabled = vgoCollider.enabled;
                     sphereCollider.isTrigger = vgoCollider.isTrigger;
                     sphereCollider.center = vgoCollider.center.ToUnityVector3(Vector3.zero, geometryCoordinate);
                     sphereCollider.radius = vgoCollider.radius;
-                    sphereCollider.sharedMaterial = VgoPhysicMaterialConverter.ToPhysicMaterial(vgoCollider.physicMaterial);
+                    if (vgoCollider.physicMaterial != null)
+                    {
+                        sphereCollider.sharedMaterial = VgoPhysicMaterialConverter.ToPhysicMaterial(vgoCollider.physicMaterial);
+                    }
                 }
             }
         }

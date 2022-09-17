@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_MinMaxGradient
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -32,14 +33,14 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Set the gradient.</summary>
         [JsonProperty("gradient")]
-        public VgoGradient gradient;
+        public VgoGradient? gradient;
 
         /// <summary>Set a gradient for the lower bound.</summary>
         [JsonProperty("gradientMin")]
-        public VgoGradient gradientMin;
+        public VgoGradient? gradientMin;
 
         /// <summary>Set a gradient for the upper bound.</summary>
         [JsonProperty("gradientMax")]
-        public VgoGradient gradientMax;
+        public VgoGradient? gradientMax;
     }
 }

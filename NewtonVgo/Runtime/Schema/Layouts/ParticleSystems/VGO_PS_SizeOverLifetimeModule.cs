@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_SizeOverLifetimeModule
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -26,7 +27,7 @@ namespace NewtonVgo.Schema.ParticleSystems
         ///// <summary>Curve to control particle size based on lifetime.</summary>
         //[JsonProperty("size")]
         //[NativeName("X")]
-        //public VGO_PS_MinMaxCurve size;
+        //public VGO_PS_MinMaxCurve? size;
 
         ///// <summary>A multiplier for ParticleSystem.SizeOverLifetimeModule._size.</summary>
         //[JsonProperty("sizeMultiplier")]
@@ -35,15 +36,15 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Size over lifetime curve for the x-axis.</summary>
         [JsonProperty("x")]
-        public VGO_PS_MinMaxCurve x;
+        public VGO_PS_MinMaxCurve? x;
 
         /// <summary>Size over lifetime curve for the y-axis.</summary>
         [JsonProperty("y")]
-        public VGO_PS_MinMaxCurve y;
+        public VGO_PS_MinMaxCurve? y;
 
         /// <summary>Size over lifetime curve for the z-axis.</summary>
         [JsonProperty("z")]
-        public VGO_PS_MinMaxCurve z;
+        public VGO_PS_MinMaxCurve? z;
 
         /// <summary>Size multiplier along the x-axis.</summary>
         [JsonProperty("xMultiplier", DefaultValueHandling = DefaultValueHandling.Ignore)]

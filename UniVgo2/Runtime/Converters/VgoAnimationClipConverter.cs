@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Converters
 // @Class     : VgoAnimationClipConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
     using NewtonVgo;
@@ -23,11 +24,6 @@ namespace UniVgo2.Converters
         /// <returns></returns>
         public static VgoAnimationClip CreateFrom(AnimationClip animationClip, VgoGeometryCoordinate geometryCoordinate)
         {
-            if (animationClip == null)
-            {
-                return null;
-            }
-
             var vgoAnimationClip = new VgoAnimationClip()
             {
                 name = animationClip.name,
@@ -74,7 +70,7 @@ namespace UniVgo2.Converters
                         vgoCurveBinding.propertyName = curveBinding.propertyName;
                     }
 
-                    vgoCurveBinding.animationCurve = VgoAnimationCurveConverter.CreateFrom(animationCurve);
+                    vgoCurveBinding.animationCurve = VgoAnimationCurveConverter.CreateOrDefaultFrom(animationCurve);
 
                     vgoAnimationClip.curveBindings.Add(vgoCurveBinding);
                 }
@@ -85,17 +81,28 @@ namespace UniVgo2.Converters
         }
 
         /// <summary>
+        /// Create VgoAnimationClip from AnimationClip.
+        /// </summary>
+        /// <param name="animationClip"></param>
+        /// <param name="geometryCoordinate"></param>
+        /// <returns></returns>
+        public static VgoAnimationClip? CreateOrDefaultFrom(AnimationClip? animationClip, VgoGeometryCoordinate geometryCoordinate)
+        {
+            if (animationClip == null)
+            {
+                return default;
+            }
+
+            return CreateFrom(animationClip, geometryCoordinate);
+        }
+
+        /// <summary>
         /// Create VgoAnimationClip from VgoAnimationClip.
         /// </summary>
         /// <param name="vgoAnimationClip"></param>
         /// <param name="geometryCoordinate"></param>
         public static AnimationClip CreateAnimationClip(VgoAnimationClip vgoAnimationClip, VgoGeometryCoordinate geometryCoordinate)
         {
-            if (vgoAnimationClip == null)
-            {
-                return null;
-            }
-
             var animationClip = new AnimationClip()
             {
                 name = vgoAnimationClip.name,
@@ -141,6 +148,11 @@ namespace UniVgo2.Converters
                             continue;
                         }
 
+                        if (curveBinding.propertyName == null)
+                        {
+                            continue;
+                        }
+
                         string propertyName;
 
                         if (curveBinding.propertyName.StartsWith("LocalPosition") ||
@@ -152,6 +164,11 @@ namespace UniVgo2.Converters
                         else
                         {
                             propertyName = curveBinding.propertyName;
+                        }
+
+                        if (curveBinding.animationCurve == null)
+                        {
+                            continue;
                         }
 
                         AnimationCurve animationCurve = VgoAnimationCurveConverter.CreateAnimationCurve(curveBinding.animationCurve);
@@ -171,6 +188,21 @@ namespace UniVgo2.Converters
             }
 
             return animationClip;
+        }
+
+        /// <summary>
+        /// Create VgoAnimationClip from VgoAnimationClip.
+        /// </summary>
+        /// <param name="vgoAnimationClip"></param>
+        /// <param name="geometryCoordinate"></param>
+        public static AnimationClip? CreateAnimationClipOrDefault(VgoAnimationClip? vgoAnimationClip, VgoGeometryCoordinate geometryCoordinate)
+        {
+            if (vgoAnimationClip == null)
+            {
+                return null;
+            }
+
+            return CreateAnimationClip(vgoAnimationClip, geometryCoordinate);
         }
     }
 }

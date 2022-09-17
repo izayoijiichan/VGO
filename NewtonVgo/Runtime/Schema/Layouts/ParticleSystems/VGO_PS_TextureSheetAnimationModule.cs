@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_TextureSheetAnimationModule
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -33,7 +34,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         ///// <summary></summary>
         //[JsonProperty("sprites")]
-        //public VGO_Sprite[] sprites;
+        //public VGO_Sprite[]? sprites;
 
         ///// <summary>The total number of sprites.</summary>
         //[JsonProperty("spriteCount")]
@@ -63,7 +64,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>A curve to control which frame of the Texture sheet animation to play.</summary>
         [JsonProperty("frameOverTime")]
-        public VGO_PS_MinMaxCurve frameOverTime;
+        public VGO_PS_MinMaxCurve? frameOverTime;
 
         /// <summary>The frame over time mutiplier.</summary>
         [JsonProperty("frameOverTimeMultiplier")]
@@ -71,7 +72,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Define a random starting frame for the Texture sheet animation.</summary>
         [JsonProperty("startFrame")]
-        public VGO_PS_MinMaxCurve startFrame;
+        public VGO_PS_MinMaxCurve? startFrame;
 
         /// <summary>The starting frame multiplier.</summary>
         [JsonProperty("startFrameMultiplier")]

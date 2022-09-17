@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_Burst
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -20,7 +21,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Specify the number of particles to emit.</summary>
         [JsonProperty("count")]
-        public VGO_PS_MinMaxCurve count;
+        public VGO_PS_MinMaxCurve? count;
 
         ///// <summary>The minimum number of particles to emit.</summary>
         //[JsonProperty("minCount", DefaultValueHandling = DefaultValueHandling.Ignore)]

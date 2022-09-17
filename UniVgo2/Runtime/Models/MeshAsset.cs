@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : MeshAsset
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     using UnityEngine;
@@ -20,16 +21,25 @@ namespace UniVgo2
         /// for Import.
         /// This field is used only in spec version between 2.0 and 2.4.
         /// </remarks>
-        public Material[] Materials;
+        public Material?[]? Materials;
 
         /// <summary>A renderer.</summary>
         /// <remarks>
         /// for Export.
         /// This field is used only in spec version between 2.0 and 2.4.
         /// </remarks>
-        public Renderer Renderer;
+        public Renderer? Renderer;
 
         /// <summary>A blend shape configuration.</summary>
-        public BlendShapeConfiguration BlendShapeConfiguration;
+        public BlendShapeConfiguration? BlendShapeConfiguration;
+
+        /// <summary>
+        /// Create a new instance of MeshAsset with mesh.
+        /// </summary>
+        /// <param name="mesh"></param>
+        public MeshAsset(Mesh mesh)
+        {
+            Mesh = mesh;
+        }
     }
 }

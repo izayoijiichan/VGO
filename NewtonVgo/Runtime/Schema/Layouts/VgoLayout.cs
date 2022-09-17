@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoLayout
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -18,50 +19,50 @@ namespace NewtonVgo
         /// <summary>List of nodes.</summary>
         /// <remarks>The root is included at the first of the node.</remarks>
         [JsonProperty("nodes")]
-        public List<VgoNode> nodes = null;
+        public List<VgoNode?>? nodes = null;
 
         /// <summary>List of skins.</summary>
         [JsonProperty("skins")]
-        public List<VgoSkin> skins = null;
+        public List<VgoSkin?>? skins = null;
 
         /// <summary>List of meshes.</summary>
         [JsonProperty("meshes")]
-        public List<VgoMesh> meshes = null;
+        public List<VgoMesh?>? meshes = null;
 
         /// <summary>List of materials.</summary>
         [JsonProperty("materials")]
-        public List<VgoMaterial> materials = null;
+        public List<VgoMaterial?>? materials = null;
 
         /// <summary>List of textures.</summary>
         [JsonProperty("textures")]
-        public List<VgoTexture> textures = null;
+        public List<VgoTexture?>? textures = null;
 
         /// <summary>List of animation clips.</summary>
         [JsonProperty("animationClips")]
-        public List<VgoAnimationClip> animationClips = null;
+        public List<VgoAnimationClip?>? animationClips = null;
 
         /// <summary>List of colliders.</summary>
         [JsonProperty("colliders")]
-        public List<VgoCollider> colliders = null;
+        public List<VgoCollider?>? colliders = null;
 
         /// <summary>List of clothes.</summary>
         [JsonProperty("clothes")]
-        public List<VgoCloth> clothes = null;
+        public List<VgoCloth?>? clothes = null;
 
         /// <summary>List of lights.</summary>
         [JsonProperty("lights")]
-        public List<VgoLight> lights = null;
+        public List<VgoLight?>? lights = null;
 
         /// <summary>List of particles.</summary>
         [JsonProperty("particles")]
-        public List<VgoParticleSystem> particles = null;
+        public List<VgoParticleSystem?>? particles = null;
 
         /// <summary>The spring bone info.</summary>
         [JsonProperty("springBoneInfo")]
-        public VgoSpringBoneInfo springBoneInfo = null;
+        public VgoSpringBoneInfo? springBoneInfo = null;
 
         /// <summary>Dictionary object with extension-specific objects.</summary>
         [JsonProperty("extensions")]
-        public VgoExtensions extensions = null;
+        public VgoExtensions? extensions = null;
     }
 }

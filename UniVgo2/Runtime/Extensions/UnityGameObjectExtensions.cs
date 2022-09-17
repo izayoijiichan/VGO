@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : UnityGameObjectExtensions
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     using System;

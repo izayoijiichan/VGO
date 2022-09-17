@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Serialization.JsonConverters
 // @Class     : Vector4JsonConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Serialization.JsonConverters
 {
     using Newtonsoft.Json;
@@ -31,11 +32,11 @@ namespace NewtonVgo.Serialization.JsonConverters
         /// <param name="existingValue">The existing value of object being read.</param>
         /// <param name="serializer">The calling serializer.</param>
         /// <returns>The object value.</returns>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
             Vector4 value = default;
 
-            float[] floatArray = serializer.Deserialize<float[]>(reader);
+            float[]? floatArray = serializer.Deserialize<float[]>(reader);
 
             if (floatArray != null)
             {
@@ -54,13 +55,14 @@ namespace NewtonVgo.Serialization.JsonConverters
         /// <param name="writer">The Newtonsoft.Json.JsonWriter to write to.</param>
         /// <param name="value">The value.</param>
         /// <param name="serializer">The calling serializer.</param>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
-            Vector4 vector4 = (Vector4)value;
+            if (value is Vector4 vector4)
+            {
+                float[] floatArray = new float[] { vector4.X, vector4.Y, vector4.Z, vector4.W };
 
-            float[] floatArray = new float[] { vector4.X, vector4.Y, vector4.Z, vector4.W };
-
-            serializer.Serialize(writer, floatArray);
+                serializer.Serialize(writer, floatArray);
+            }
         }
     }
 }

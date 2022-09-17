@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_MinMaxCurve
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -41,14 +42,14 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Set the curve.</summary>
         [JsonProperty("curve")]
-        public VgoAnimationCurve curve;
+        public VgoAnimationCurve? curve;
 
         /// <summary>Set a curve for the lower bound.</summary>
         [JsonProperty("curveMin")]
-        public VgoAnimationCurve curveMin;
+        public VgoAnimationCurve? curveMin;
 
         /// <summary>Set a curve for the upper bound.</summary>
         [JsonProperty("curveMax")]
-        public VgoAnimationCurve curveMax;
+        public VgoAnimationCurve? curveMax;
     }
 }

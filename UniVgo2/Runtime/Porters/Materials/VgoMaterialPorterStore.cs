@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : VgoMaterialPorterStore
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
@@ -14,67 +15,67 @@ namespace UniVgo2.Porters
         #region Fields & Properties
 
         /// <summary>HDRP Material Porter</summary>
-        protected HdrpMaterialPorter _HdrpMaterialPorter;
+        protected HdrpMaterialPorter? _HdrpMaterialPorter;
 
         /// <summary>HDRP Material Porter</summary>
         protected HdrpMaterialPorter HdrpMaterialPorter
-            => _HdrpMaterialPorter = _HdrpMaterialPorter ?? new HdrpMaterialPorter();
+            => _HdrpMaterialPorter ??= new HdrpMaterialPorter();
 
         /// <summary>lilToon Material Porter</summary>
-        protected LilToonMaterialPorter _LilToonMaterialPorter;
+        protected LilToonMaterialPorter? _LilToonMaterialPorter;
 
         /// <summary>lilToon Material Porter</summary>
         protected LilToonMaterialPorter LilToonMaterialPorter
-            => _LilToonMaterialPorter = _LilToonMaterialPorter ?? new LilToonMaterialPorter();
+            => _LilToonMaterialPorter ??= new LilToonMaterialPorter();
 
         /// <summary>MToon Material Porter</summary>
-        protected MtoonMaterialPorter _MtoonMaterialPorter;
+        protected MtoonMaterialPorter? _MtoonMaterialPorter;
 
         /// <summary>MToon Material Porter</summary>
         protected MtoonMaterialPorter MtoonMaterialPorter
-            => _MtoonMaterialPorter = _MtoonMaterialPorter ?? new MtoonMaterialPorter();
+            => _MtoonMaterialPorter ??= new MtoonMaterialPorter();
 
         /// <summary>Particle Material Porter</summary>
-        protected ParticleMaterialPorter _ParticleMaterialPorter;
+        protected ParticleMaterialPorter? _ParticleMaterialPorter;
 
         /// <summary>Particle Material Porter</summary>
         protected ParticleMaterialPorter ParticleMaterialPorter
-            => _ParticleMaterialPorter = _ParticleMaterialPorter ?? new ParticleMaterialPorter();
+            => _ParticleMaterialPorter ??= new ParticleMaterialPorter();
 
         /// <summary>Skybox Material Porter</summary>
-        protected SkyboxMaterialPorter _SkyboxMaterialPorter;
+        protected SkyboxMaterialPorter? _SkyboxMaterialPorter;
 
         /// <summary>Skybox Material Porter</summary>
         protected SkyboxMaterialPorter SkyboxMaterialPorter
-            => _SkyboxMaterialPorter = _SkyboxMaterialPorter ?? new SkyboxMaterialPorter();
+            => _SkyboxMaterialPorter ??= new SkyboxMaterialPorter();
 
         /// <summary>Standard Material Porter</summary>
-        protected StandardMaterialPorter _StandardMaterialPorter;
+        protected StandardMaterialPorter? _StandardMaterialPorter;
 
         /// <summary>Standard Material Porter</summary>
         protected StandardMaterialPorter StandardMaterialPorter
-            => _StandardMaterialPorter = _StandardMaterialPorter ?? new StandardMaterialPorter();
+            => _StandardMaterialPorter ??= new StandardMaterialPorter();
 
         /// <summary>Standard VColor Material Porter</summary>
-        protected StandardVColorMaterialPorter _StandardVColorMaterialPorter;
+        protected StandardVColorMaterialPorter? _StandardVColorMaterialPorter;
 
         /// <summary>Standard VColor Material Porter</summary>
         protected StandardVColorMaterialPorter StandardVColorMaterialPorter
-            => _StandardVColorMaterialPorter = _StandardVColorMaterialPorter ?? new StandardVColorMaterialPorter();
+            => _StandardVColorMaterialPorter ??= new StandardVColorMaterialPorter();
 
         /// <summary>Unlit Material Porter</summary>
-        protected UnlitMaterialPorter _UnlitMaterialPorter;
+        protected UnlitMaterialPorter? _UnlitMaterialPorter;
 
         /// <summary>Unlit Material Porter</summary>
         protected UnlitMaterialPorter UnlitMaterialPorter
-            => _UnlitMaterialPorter = _UnlitMaterialPorter ?? new UnlitMaterialPorter();
+            => _UnlitMaterialPorter ??= new UnlitMaterialPorter();
 
         /// <summary>URP Material Porter</summary>
-        protected UrpMaterialPorter _UrpMaterialPorter;
+        protected UrpMaterialPorter? _UrpMaterialPorter;
 
         /// <summary>URP Material Porter</summary>
         protected UrpMaterialPorter UrpMaterialPorter
-            => _UrpMaterialPorter = _UrpMaterialPorter ?? new UrpMaterialPorter();
+            => _UrpMaterialPorter ??= new UrpMaterialPorter();
 
         #endregion
 
@@ -85,16 +86,17 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">The vgo material.</param>
         /// <returns>A material porter instanse.</returns>
-        public virtual IMaterialPorter GetPorterOrDefault(VgoMaterial vgoMaterial)
+        public virtual IMaterialPorter? GetPorterOrDefault(VgoMaterial vgoMaterial)
         {
             if (vgoMaterial == null)
             {
                 return default;
             }
 
-            if (string.IsNullOrEmpty(vgoMaterial.shaderName) == false)
+            if ((vgoMaterial.shaderName != null) &&
+                (string.IsNullOrEmpty(vgoMaterial.shaderName) == false))
             {
-                IMaterialPorter porter = GetPorterOrDefault(vgoMaterial.shaderName);
+                IMaterialPorter? porter = GetPorterOrDefault(vgoMaterial.shaderName);
 
                 if (porter != default)
                 {
@@ -125,7 +127,7 @@ namespace UniVgo2.Porters
         /// <returns>A material porter instanse.</returns>
         public virtual IMaterialPorter GetPorterOrStandard(VgoMaterial vgoMaterial, RenderPipelineType renderPipelineType)
         {
-            IMaterialPorter porter = GetPorterOrDefault(vgoMaterial);
+            IMaterialPorter? porter = GetPorterOrDefault(vgoMaterial);
 
             if (porter == default)
             {
@@ -162,7 +164,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="shaderName">The shader name.</param>
         /// <returns>A material porter instanse.</returns>
-        public virtual IMaterialPorter GetPorterOrDefault(string shaderName)
+        public virtual IMaterialPorter? GetPorterOrDefault(string shaderName)
         {
             if (string.IsNullOrEmpty(shaderName))
             {
@@ -291,7 +293,7 @@ namespace UniVgo2.Porters
         /// <returns>A material porter instanse.</returns>
         public virtual IMaterialPorter GetPorterOrStandard(string shaderName, RenderPipelineType renderPipelineType)
         {
-            IMaterialPorter porter = GetPorterOrDefault(shaderName);
+            IMaterialPorter? porter = GetPorterOrDefault(shaderName);
 
             if (porter == default)
             {

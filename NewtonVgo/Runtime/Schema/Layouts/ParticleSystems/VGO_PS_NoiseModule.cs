@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_NoiseModule
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -26,7 +27,7 @@ namespace NewtonVgo.Schema.ParticleSystems
         ///// <summary>How strong the overall noise effect is.</summary>
         //[JsonProperty("strength")]
         //[NativeName("StrengthX")]
-        //public VGO_PS_MinMaxCurve strength;
+        //public VGO_PS_MinMaxCurve? strength;
 
         ///// <summary>Strength multiplier.</summary>
         //[JsonProperty("strengthMultiplier")]
@@ -35,15 +36,15 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Define the strength of the effect on the x-axis, when using the ParticleSystem.NoiseModule.separateAxes option.</summary>
         [JsonProperty("strengthX")]
-        public VGO_PS_MinMaxCurve strengthX;
+        public VGO_PS_MinMaxCurve? strengthX;
 
         /// <summary>Define the strength of the effect on the y-axis, when using the ParticleSystem.NoiseModule.separateAxes option.</summary>
         [JsonProperty("strengthY")]
-        public VGO_PS_MinMaxCurve strengthY;
+        public VGO_PS_MinMaxCurve? strengthY;
 
         /// <summary>Define the strength of the effect on the z-axis, when using the ParticleSystem.NoiseModule.separateAxes option.</summary>
         [JsonProperty("strengthZ")]
-        public VGO_PS_MinMaxCurve strengthZ;
+        public VGO_PS_MinMaxCurve? strengthZ;
 
         /// <summary>x-axis strength multiplier.</summary>
         [JsonProperty("strengthXMultiplier", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -66,7 +67,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Scroll the noise map over the Particle System.</summary>
         [JsonProperty("scrollSpeed")]
-        public VGO_PS_MinMaxCurve scrollSpeed;
+        public VGO_PS_MinMaxCurve? scrollSpeed;
 
         /// <summary>Scroll speed multiplier.</summary>
         [JsonProperty("scrollSpeedMultiplier")]
@@ -99,7 +100,7 @@ namespace NewtonVgo.Schema.ParticleSystems
         ///// <summary>Define how the noise values are remapped.</summary>
         //[JsonProperty("remap")]
         //[NativeName("RemapX")]
-        //public VGO_PS_MinMaxCurve remap;
+        //public VGO_PS_MinMaxCurve? remap;
 
         ///// <summary>Remap multiplier.</summary>
         //[JsonProperty("remapMultiplier")]
@@ -108,15 +109,15 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Define how the noise values are remapped on the x-axis, when using the ParticleSystem.NoiseModule.separateAxes option.</summary>
         [JsonProperty("remapX")]
-        public VGO_PS_MinMaxCurve remapX;
+        public VGO_PS_MinMaxCurve? remapX;
 
         /// <summary>Define how the noise values are remapped on the y-axis, when using the ParticleSystem.NoiseModule.separateAxes option.</summary>
         [JsonProperty("remapY")]
-        public VGO_PS_MinMaxCurve remapY;
+        public VGO_PS_MinMaxCurve? remapY;
 
         /// <summary>Define how the noise values are remapped on the z-axis, when using the ParticleSystem.NoiseModule.separateAxes option.</summary>
         [JsonProperty("remapZ")]
-        public VGO_PS_MinMaxCurve remapZ;
+        public VGO_PS_MinMaxCurve? remapZ;
 
         /// <summary>x-axis remap multiplier.</summary>
         [JsonProperty("remapXMultiplier", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -135,14 +136,14 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>How much the noise affects the particle positions.</summary>
         [JsonProperty("positionAmount")]
-        public VGO_PS_MinMaxCurve positionAmount;
+        public VGO_PS_MinMaxCurve? positionAmount;
 
         /// <summary>How much the noise affects the particle rotation, in degrees per second.</summary>
         [JsonProperty("rotationAmount")]
-        public VGO_PS_MinMaxCurve rotationAmount;
+        public VGO_PS_MinMaxCurve? rotationAmount;
 
         /// <summary>How much the noise affects the particle sizes, applied as a multiplier on the size of each particle.</summary>
         [JsonProperty("sizeAmount")]
-        public VGO_PS_MinMaxCurve sizeAmount;
+        public VGO_PS_MinMaxCurve? sizeAmount;
     }
 }

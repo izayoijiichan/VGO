@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoAnimator
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -17,7 +18,7 @@ namespace NewtonVgo
     {
         /// <summary>The name of the object.</summary>
         [JsonProperty("name", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public string name;
+        public string? name;
 
         /// <summary>Enabled</summary>
         [JsonProperty("enabled", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -30,7 +31,7 @@ namespace NewtonVgo
 
         /// <summary>The current human avatar.</summary>
         [JsonProperty("humanAvatar")]
-        public VgoHumanAvatar humanAvatar = null;
+        public VgoHumanAvatar? humanAvatar = null;
 
         /// <summary>Should root motion be applied?</summary>
         [JsonProperty("applyRootMotion", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

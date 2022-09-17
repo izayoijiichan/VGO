@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : IVgoParticleSystemExporter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using NewtonVgo;

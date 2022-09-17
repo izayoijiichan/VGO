@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoExtensions
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -70,7 +71,7 @@ namespace NewtonVgo
         /// <param name="key">The key of the element to add.</param>
         /// <param name="value">The value of the element to add.</param>
         /// <param name="jsonSerializerSettings"></param>
-        public void Add<T>(string key, T value, JsonSerializerSettings jsonSerializerSettings = null)
+        public void Add<T>(string key, T value, JsonSerializerSettings? jsonSerializerSettings = null)
         {
             if (jsonSerializerSettings == null)
             {
@@ -91,7 +92,8 @@ namespace NewtonVgo
         /// <param name="key">The key of the element to get.</param>
         /// <param name="jsonSerializerSettings"></param>
         /// <returns>Returns the value associated with the specified key.</returns>
-        public T GetValue<T>(string key, JsonSerializerSettings jsonSerializerSettings = null)
+        public T GetValue<T>(string key, JsonSerializerSettings? jsonSerializerSettings = null)
+            where T : class
         {
             ExModel model = this[key];
 
@@ -100,7 +102,12 @@ namespace NewtonVgo
                 jsonSerializerSettings = JsonSerializerSettings;
             }
 
-            T value = JsonConvert.DeserializeObject<T>(model.json, jsonSerializerSettings);
+            T? value = JsonConvert.DeserializeObject<T>(model.json, jsonSerializerSettings);
+
+            if (value is null)
+            {
+                throw new Exception();
+            }
 
             return value;
         }
@@ -115,7 +122,8 @@ namespace NewtonVgo
         /// If the key is found, returns the value associated with the specified key.
         /// otherwise, the default value for the type of the value parameter. 
         /// </returns>
-        public T GetValueOrDefault<T>(string key, JsonSerializerSettings jsonSerializerSettings = null)
+        public T? GetValueOrDefault<T>(string key, JsonSerializerSettings? jsonSerializerSettings = null)
+            where T : class
         {
             try
             {
@@ -140,7 +148,7 @@ namespace NewtonVgo
         /// <param name="value">The value of the element to add.</param>
         /// <param name="jsonSerializerSettings"></param>
         /// <returns></returns>
-        public bool TryAdd<T>(string key, T value, JsonSerializerSettings jsonSerializerSettings = null)
+        public bool TryAdd<T>(string key, T value, JsonSerializerSettings? jsonSerializerSettings = null)
         {
             if (Contains(key))
             {
@@ -159,6 +167,7 @@ namespace NewtonVgo
             }
         }
 
+#nullable disable
         /// <summary>
         /// Gets the value associated with the specified key.
         /// </summary>
@@ -168,6 +177,7 @@ namespace NewtonVgo
         /// <param name="jsonSerializerSettings"></param>
         /// <returns>true if the collection contains an element with the specified key; otherwise, false.</returns>
         public bool TryGetValue<T>(string key, out T value, JsonSerializerSettings jsonSerializerSettings = null)
+            where T : class
         {
             try
             {
@@ -189,6 +199,7 @@ namespace NewtonVgo
                 return false;
             }
         }
+#nullable enable
 
         #endregion
 
@@ -199,7 +210,7 @@ namespace NewtonVgo
         /// </summary>
         /// <returns></returns>
         /// <remarks>for JsonConverter</remarks>
-        public Dictionary<string, JRaw> GetConverterDictionary()
+        public Dictionary<string, JRaw>? GetConverterDictionary()
         {
             if (Items == null)
             {
@@ -221,7 +232,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="src"></param>
         /// <remarks>for JsonConverter</remarks>
-        public void SetConverterDictionary(Dictionary<string, JRaw> src)
+        public void SetConverterDictionary(Dictionary<string, JRaw>? src)
         {
             if (src == null)
             {

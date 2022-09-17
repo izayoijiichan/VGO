@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2
 // @Class     : ShaderStore
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2
 {
     using NewtonVgo;
@@ -15,7 +16,7 @@ namespace UniVgo2
         #region Fields & Properties (BRP)
 
         /// <summary>Standard</summary>
-        protected Shader _Standard;
+        protected Shader? _Standard;
 
         /// <summary>Standard</summary>
         protected Shader Standard
@@ -24,7 +25,7 @@ namespace UniVgo2
             ? _Standard : Shader.Find(ShaderName.Standard);
 
         /// <summary>Particles/Standard Surface</summary>
-        protected Shader _ParticlesStandardSurface;
+        protected Shader? _ParticlesStandardSurface;
 
         /// <summary>Particles/Standard Surface</summary>
         protected Shader ParticlesStandardSurface
@@ -33,7 +34,7 @@ namespace UniVgo2
             ? _ParticlesStandardSurface : Shader.Find(ShaderName.Particles_Standard_Surface);
 
         /// <summary>Particles/Standard Unlit</summary>
-        protected Shader _ParticlesStandardUnlit;
+        protected Shader? _ParticlesStandardUnlit;
 
         /// <summary>Particles/Standard Unlit</summary>
         protected Shader ParticlesStandardUnlit
@@ -42,7 +43,7 @@ namespace UniVgo2
             ? _ParticlesStandardUnlit : Shader.Find(ShaderName.Particles_Standard_Unlit);
 
         /// <summary>Skybox/6 Sided</summary>
-        protected Shader _Skybox6Sided;
+        protected Shader? _Skybox6Sided;
 
         /// <summary>Skybox/6 Sided</summary>
         protected Shader Skybox6Sided
@@ -51,7 +52,7 @@ namespace UniVgo2
             ? _Skybox6Sided : Shader.Find(ShaderName.Skybox_6_Sided);
 
         /// <summary>Skybox/Cubemap</summary>
-        protected Shader _SkyboxCubemap;
+        protected Shader? _SkyboxCubemap;
 
         /// <summary>Skybox/Cubemap</summary>
         protected Shader SkyboxCubemap
@@ -60,7 +61,7 @@ namespace UniVgo2
             ? _SkyboxCubemap : Shader.Find(ShaderName.Skybox_Cubemap);
 
         /// <summary>Skybox/Panoramic</summary>
-        protected Shader _SkyboxPanoramic;
+        protected Shader? _SkyboxPanoramic;
 
         /// <summary>Skybox/Panoramic</summary>
         protected Shader SkyboxPanoramic
@@ -69,7 +70,7 @@ namespace UniVgo2
             ? _SkyboxPanoramic : Shader.Find(ShaderName.Skybox_Panoramic);
 
         /// <summary>Skybox/Procedural</summary>
-        protected Shader _SkyboxProcedural;
+        protected Shader? _SkyboxProcedural;
 
         /// <summary>Skybox/Procedural</summary>
         protected Shader SkyboxProcedural
@@ -78,7 +79,7 @@ namespace UniVgo2
             ? _SkyboxProcedural : Shader.Find(ShaderName.Skybox_Procedural);
 
         /// <summary>Unlit/Texture</summary>
-        protected Shader _UnlitTexture;
+        protected Shader? _UnlitTexture;
 
         /// <summary>Unlit/Texture</summary>
         protected Shader UnlitTexture
@@ -87,7 +88,7 @@ namespace UniVgo2
             ? _UnlitTexture : Shader.Find(ShaderName.Unlit_Texture);
 
         /// <summary>Unlit/Color</summary>
-        protected Shader _UnlitColor;
+        protected Shader? _UnlitColor;
 
         /// <summary>Unlit/Color</summary>
         protected Shader UnlitColor
@@ -96,7 +97,7 @@ namespace UniVgo2
             ? _UnlitColor : Shader.Find(ShaderName.Unlit_Color);
 
         /// <summary>Unlit/Transparent</summary>
-        protected Shader _UnlitTransparent;
+        protected Shader? _UnlitTransparent;
 
         /// <summary>Unlit/Transparent</summary>
         protected Shader UnlitTransparent
@@ -105,7 +106,7 @@ namespace UniVgo2
             ? _UnlitTransparent : Shader.Find(ShaderName.Unlit_Transparent);
 
         /// <summary>Unlit/Transparent Cutout</summary>
-        protected Shader _UnlitTransparentCutout;
+        protected Shader? _UnlitTransparentCutout;
 
         /// <summary>Unlit/Transparent Cutout</summary>
         protected Shader UnlitTransparentCutout
@@ -114,7 +115,7 @@ namespace UniVgo2
             ? _UnlitTransparentCutout : Shader.Find(ShaderName.Unlit_Transparent_Cutout);
 
         /// <summary>UniGLTF/UniUnlit</summary>
-        protected Shader _UniGLTFUniUnlit;
+        protected Shader? _UniGLTFUniUnlit;
 
         /// <summary>UniGLTF/UniUnlit</summary>
         protected Shader UniGLTFUniUnlit
@@ -123,7 +124,7 @@ namespace UniVgo2
             ? _UniGLTFUniUnlit : Shader.Find(ShaderName.UniGLTF_UniUnlit);
 
         /// <summary>UniGLTF/StandardVColor</summary>
-        protected Shader _UniGLTFStandardVColor;
+        protected Shader? _UniGLTFStandardVColor;
 
         /// <summary>UniGLTF/StandardVColor</summary>
         protected Shader UniGLTFStandardVColor
@@ -132,7 +133,7 @@ namespace UniVgo2
             ? _UniGLTFStandardVColor : Shader.Find(ShaderName.UniGLTF_StandardVColor);
 
         /// <summary>VRM/UnlitTexture</summary>
-        protected Shader _VrmUnlitTexture;
+        protected Shader? _VrmUnlitTexture;
 
         /// <summary>VRM/UnlitTexture</summary>
         protected Shader VrmUnlitTexture
@@ -141,7 +142,7 @@ namespace UniVgo2
             ? _VrmUnlitTexture : Shader.Find(ShaderName.VRM_UnlitTexture);
 
         /// <summary>VRM/UnlitTransparent</summary>
-        protected Shader _VrmUnlitTransparent;
+        protected Shader? _VrmUnlitTransparent;
 
         /// <summary>VRM/UnlitTransparent</summary>
         protected Shader VrmUnlitTransparent
@@ -150,7 +151,7 @@ namespace UniVgo2
             ? _VrmUnlitTransparent : Shader.Find(ShaderName.VRM_UnlitTransparent);
 
         /// <summary>VRM/UnlitCutout</summary>
-        protected Shader _VrmUnlitCutout;
+        protected Shader? _VrmUnlitCutout;
 
         /// <summary>VRM/UnlitCutout</summary>
         protected Shader VrmUnlitCutout
@@ -159,7 +160,7 @@ namespace UniVgo2
             ? _VrmUnlitCutout : Shader.Find(ShaderName.VRM_UnlitCutout);
 
         /// <summary>VRM/UnlitTransparentZWrite</summary>
-        protected Shader _VrmUnlitTransparentZWrite;
+        protected Shader? _VrmUnlitTransparentZWrite;
 
         /// <summary>VRM/UnlitTransparentZWrite</summary>
         protected Shader VrmUnlitTransparentZWrite
@@ -168,7 +169,7 @@ namespace UniVgo2
             ? _VrmUnlitTransparentZWrite : Shader.Find(ShaderName.VRM_UnlitTransparentZWrite);
 
         /// <summary>VRM/MToon</summary>
-        protected Shader _VrmMtoon;
+        protected Shader? _VrmMtoon;
 
         /// <summary>VRM/MToon</summary>
         protected Shader VrmMtoon
@@ -181,7 +182,7 @@ namespace UniVgo2
         #region Fields & Properties (URP)
 
         /// <summary>Universal Render Pipeline/Lit</summary>
-        protected Shader _UrpLit;
+        protected Shader? _UrpLit;
 
         /// <summary>Universal Render Pipeline/Lit</summary>
         protected Shader UrpLit
@@ -190,7 +191,7 @@ namespace UniVgo2
             ? _UrpLit : Shader.Find(ShaderName.URP_Lit);
 
         /// <summary>Universal Render Pipeline/Simple Lit</summary>
-        protected Shader _UrpSimpleLit;
+        protected Shader? _UrpSimpleLit;
 
         /// <summary>Universal Render Pipeline/Simple Lit</summary>
         protected Shader UrpSimpleLit
@@ -199,7 +200,7 @@ namespace UniVgo2
             ? _UrpSimpleLit : Shader.Find(ShaderName.URP_SimpleLit);
 
         /// <summary>Universal Render Pipeline/Unlit</summary>
-        protected Shader _UrpUnlit;
+        protected Shader? _UrpUnlit;
 
         /// <summary>Universal Render Pipeline/Unlit</summary>
         protected Shader UrpUnlit
@@ -212,7 +213,7 @@ namespace UniVgo2
         #region Fields & Properties (HDRP)
 
         /// <summary>HDRP/Eye</summary>
-        protected Shader _HDRPEye;
+        protected Shader? _HDRPEye;
 
         /// <summary>HDRP/Eye</summary>
         protected Shader HDRPEye
@@ -221,7 +222,7 @@ namespace UniVgo2
             ? _HDRPEye : Shader.Find(ShaderName.HDRP_Eye);
 
         /// <summary>HDRP/Hair</summary>
-        protected Shader _HDRPHair;
+        protected Shader? _HDRPHair;
 
         /// <summary>HDRP/Hair</summary>
         protected Shader HDRPHair
@@ -230,7 +231,7 @@ namespace UniVgo2
             ? _HDRPHair : Shader.Find(ShaderName.HDRP_Hair);
 
         /// <summary>HDRP/Lit</summary>
-        protected Shader _HDRPLit;
+        protected Shader? _HDRPLit;
 
         /// <summary>HDRP/Lit</summary>
         protected Shader HDRPLit
@@ -244,7 +245,7 @@ namespace UniVgo2
 
         /// <summary>lilToon</summary>
         /// <remarks>lilToon</remarks>
-        protected Shader _Lil_LilToon;
+        protected Shader? _Lil_LilToon;
 
         /// <summary>lilToon</summary>
         /// <remarks>lilToon</remarks>
@@ -255,7 +256,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Outline</summary>
         /// <remarks>Hidden/lilToonOutline</remarks>
-        protected Shader _Lil_LilToonOutline;
+        protected Shader? _Lil_LilToonOutline;
 
         /// <summary>lilToon Outline</summary>
         /// <remarks>Hidden/lilToonOutline</remarks>
@@ -266,7 +267,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Outline only</summary>
         /// <remarks>_lil/[Optional] lilToonOutlineOnly</remarks>
-        protected Shader _Lil_LilToonOutlineOnly;
+        protected Shader? _Lil_LilToonOutlineOnly;
 
         /// <summary>lilToon Outline only</summary>
         /// <remarks>_lil/[Optional] lilToonOutlineOnly</remarks>
@@ -277,7 +278,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Outline only Cutout</summary>
         /// <remarks>_lil/[Optional] lilToonOutlineOnlyCutout</remarks>
-        protected Shader _Lil_LilToonOutlineOnlyCutout;
+        protected Shader? _Lil_LilToonOutlineOnlyCutout;
 
         /// <summary>lilToon Outline only Cutout</summary>
         /// <remarks>_lil/[Optional] lilToonOutlineOnlyCutout</remarks>
@@ -288,7 +289,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Outline only Transparent</summary>
         /// <remarks>_lil/[Optional] lilToonOutlineOnlyTransparent</remarks>
-        protected Shader _Lil_LilToonOutlineOnlyTransparent;
+        protected Shader? _Lil_LilToonOutlineOnlyTransparent;
 
         /// <summary>lilToon Outline only Transparent</summary>
         /// <remarks>_lil/[Optional] lilToonOutlineOnlyTransparent</remarks>
@@ -299,7 +300,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Cutout</summary>
         /// <remarks>Hidden/lilToonCutout</remarks>
-        protected Shader _Lil_LilToonCutout;
+        protected Shader? _Lil_LilToonCutout;
 
         /// <summary>lilToon Cutout</summary>
         /// <remarks>Hidden/lilToonCutout</remarks>
@@ -310,7 +311,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Cutout Outline</summary>
         /// <remarks>Hidden/lilToonCutoutOutline</remarks>
-        protected Shader _Lil_LilToonCutoutOutline;
+        protected Shader? _Lil_LilToonCutoutOutline;
 
         /// <summary>lilToon Cutout Outline</summary>
         /// <remarks>Hidden/lilToonCutoutOutline</remarks>
@@ -321,7 +322,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Transparent</summary>
         /// <remarks>Hidden/lilToonTransparent</remarks>
-        protected Shader _Lil_LilToonTransparent;
+        protected Shader? _Lil_LilToonTransparent;
 
         /// <summary>lilToon Transparent</summary>
         /// <remarks>Hidden/lilToonTransparent</remarks>
@@ -332,7 +333,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Transparent Outline</summary>
         /// <remarks>Hidden/lilToonTransparentOutline</remarks>
-        protected Shader _Lil_LilToonTransparentOutline;
+        protected Shader? _Lil_LilToonTransparentOutline;
 
         /// <summary>lilToon Transparent Outline</summary>
         /// <remarks>Hidden/lilToonTransparentOutline</remarks>
@@ -343,7 +344,7 @@ namespace UniVgo2
 
         /// <summary>lilToon OnePass Transparent</summary>
         /// <remarks>Hidden/lilToonOnePassTransparent</remarks>
-        protected Shader _Lil_LilToonOnePassTransparent;
+        protected Shader? _Lil_LilToonOnePassTransparent;
 
         /// <summary>lilToon OnePass Transparent</summary>
         /// <remarks>Hidden/lilToonOnePassTransparent</remarks>
@@ -354,7 +355,7 @@ namespace UniVgo2
 
         /// <summary>lilToon OnePass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonOnePassTransparentOutline</remarks>
-        protected Shader _Lil_LilToonOnePassTransparentOutline;
+        protected Shader? _Lil_LilToonOnePassTransparentOutline;
 
         /// <summary>lilToon OnePass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonOnePassTransparentOutline</remarks>
@@ -365,7 +366,7 @@ namespace UniVgo2
 
         /// <summary>lilToon TwoPass Transparent</summary>
         /// <remarks>Hidden/lilToonTwoPassTransparent</remarks>
-        protected Shader _Lil_LilToonTwoPassTransparent;
+        protected Shader? _Lil_LilToonTwoPassTransparent;
 
         /// <summary>lilToon TwoPass Transparent</summary>
         /// <remarks>Hidden/lilToonTwoPassTransparent</remarks>
@@ -376,7 +377,7 @@ namespace UniVgo2
 
         /// <summary>lilToon TwoPass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonTwoPassTransparentOutline</remarks>
-        protected Shader _Lil_LilToonTwoPassTransparentOutline;
+        protected Shader? _Lil_LilToonTwoPassTransparentOutline;
 
         /// <summary>lilToon TwoPass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonTwoPassTransparentOutline</remarks>
@@ -387,7 +388,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Overlay</summary>
         /// <remarks>_lil/[Optional] lilToonOverlay</remarks>
-        protected Shader _Lil_LilToonOverlay;
+        protected Shader? _Lil_LilToonOverlay;
 
         /// <summary>lilToon Overlay</summary>
         /// <remarks>_lil/[Optional] lilToonOverlay</remarks>
@@ -398,7 +399,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Overlay OnePass</summary>
         /// <remarks>_lil/[Optional] lilToonOverlayOnePass</remarks>
-        protected Shader _Lil_LilToonOverlayOnePass;
+        protected Shader? _Lil_LilToonOverlayOnePass;
 
         /// <summary>lilToon Overlay OnePass</summary>
         /// <remarks>_lil/[Optional] lilToonOverlayOnePass</remarks>
@@ -409,7 +410,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Refraction</summary>
         /// <remarks>Hidden/lilToonRefraction</remarks>
-        protected Shader _Lil_LilToonRefraction;
+        protected Shader? _Lil_LilToonRefraction;
 
         /// <summary>lilToon Refraction</summary>
         /// <remarks>Hidden/lilToonRefraction</remarks>
@@ -420,7 +421,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Refraction Blur</summary>
         /// <remarks>Hidden/lilToonRefractionBlur</remarks>
-        protected Shader _Lil_LilToonRefractionBlur;
+        protected Shader? _Lil_LilToonRefractionBlur;
 
         /// <summary>lilToon Refraction Blur</summary>
         /// <remarks>Hidden/lilToonRefractionBlur</remarks>
@@ -435,7 +436,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Fur</summary>
         /// <remarks>Hidden/lilToonFur</remarks>
-        protected Shader _Lil_LilToonFur;
+        protected Shader? _Lil_LilToonFur;
 
         /// <summary>lilToon Fur</summary>
         /// <remarks>Hidden/lilToonFur</remarks>
@@ -446,7 +447,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Fur Cutout</summary>
         /// <remarks>Hidden/lilToonFurCutout</remarks>
-        protected Shader _Lil_LilToonFurCutout;
+        protected Shader? _Lil_LilToonFurCutout;
 
         /// <summary>lilToon Fur Cutout</summary>
         /// <remarks>Hidden/lilToonFurCutout</remarks>
@@ -457,7 +458,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Fur TwoPass</summary>
         /// <remarks>Hidden/lilToonFurTwoPass</remarks>
-        protected Shader _Lil_LilToonFurTwoPass;
+        protected Shader? _Lil_LilToonFurTwoPass;
 
         /// <summary>lilToon Fur TwoPass</summary>
         /// <remarks>Hidden/lilToonFurTwoPass</remarks>
@@ -468,7 +469,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Fur only</summary>
         /// <remarks>_lil/[Optional] lilToonFurOnly</remarks>
-        protected Shader _Lil_LilToonFurOnly;
+        protected Shader? _Lil_LilToonFurOnly;
 
         /// <summary>lilToon Fur only</summary>
         /// <remarks>_lil/[Optional] lilToonFurOnly</remarks>
@@ -479,7 +480,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Fur only Cutout</summary>
         /// <remarks>_lil/[Optional] lilToonFurOnlyCutout</remarks>
-        protected Shader _Lil_LilToonFurOnlyCutout;
+        protected Shader? _Lil_LilToonFurOnlyCutout;
 
         /// <summary>lilToon Fur only Cutout</summary>
         /// <remarks>_lil/[Optional] lilToonFurOnlyCutout</remarks>
@@ -490,7 +491,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Fur only TwoPass</summary>
         /// <remarks>_lil/[Optional] lilToonFurOnlyTwoPass</remarks>
-        protected Shader _Lil_LilToonFurOnlyTwoPass;
+        protected Shader? _Lil_LilToonFurOnlyTwoPass;
 
         /// <summary>lilToon Fur only TwoPass</summary>
         /// <remarks>_lil/[Optional] lilToonFurOnlyTwoPass</remarks>
@@ -505,7 +506,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Gem</summary>
         /// <remarks>Hidden/lilToonGem</remarks>
-        protected Shader _Lil_LilToonGem;
+        protected Shader? _Lil_LilToonGem;
 
         /// <summary>lilToon Gem</summary>
         /// <remarks>Hidden/lilToonGem</remarks>
@@ -520,7 +521,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Tessellation</summary>
         /// <remarks>Hidden/lilToonTessellation</remarks>
-        protected Shader _Lil_LilToonTessellation;
+        protected Shader? _Lil_LilToonTessellation;
 
         /// <summary>lilToon Tessellation</summary>
         /// <remarks>Hidden/lilToonTessellation</remarks>
@@ -531,7 +532,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Tessellation Outline</summary>
         /// <remarks>Hidden/lilToonTessellationOutline</remarks>
-        protected Shader _Lil_LilToonTessellationOutline;
+        protected Shader? _Lil_LilToonTessellationOutline;
 
         /// <summary>lilToon Tessellation Outline</summary>
         /// <remarks>Hidden/lilToonTessellationOutline</remarks>
@@ -542,7 +543,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Tessellation Cutout</summary>
         /// <remarks>Hidden/lilToonTessellationCutout</remarks>
-        protected Shader _Lil_LilToonTessellationCutout;
+        protected Shader? _Lil_LilToonTessellationCutout;
 
         /// <summary>lilToon Tessellation Cutout</summary>
         /// <remarks>Hidden/lilToonTessellationCutout</remarks>
@@ -553,7 +554,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Tessellation Cutout Outline</summary>
         /// <remarks>Hidden/lilToonTessellationCutoutOutline</remarks>
-        protected Shader _Lil_LilToonTessellationCutoutOutline;
+        protected Shader? _Lil_LilToonTessellationCutoutOutline;
 
         /// <summary>lilToon Tessellation Cutout Outline</summary>
         /// <remarks>Hidden/lilToonTessellationCutoutOutline</remarks>
@@ -564,7 +565,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Tessellation Transparent</summary>
         /// <remarks>Hidden/lilToonTessellationTransparent</remarks>
-        protected Shader _Lil_LilToonTessellationTransparent;
+        protected Shader? _Lil_LilToonTessellationTransparent;
 
         /// <summary>lilToon Tessellation Transparent</summary>
         /// <remarks>Hidden/lilToonTessellationTransparent</remarks>
@@ -575,7 +576,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Tessellation Transparent Outline</summary>
         /// <remarks>Hidden/lilToonTessellationTransparentOutline</remarks>
-        protected Shader _Lil_LilToonTessellationTransparentOutline;
+        protected Shader? _Lil_LilToonTessellationTransparentOutline;
 
         /// <summary>lilToon Tessellation Transparent Outline</summary>
         /// <remarks>Hidden/lilToonTessellationTransparentOutline</remarks>
@@ -586,7 +587,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Tessellation OnePass Transparent</summary>
         /// <remarks>Hidden/lilToonTessellationOnePassTransparent</remarks>
-        protected Shader _Lil_LilToonTessellationOnePassTransparent;
+        protected Shader? _Lil_LilToonTessellationOnePassTransparent;
 
         /// <summary>lilToon Tessellation OnePass Transparent</summary>
         /// <remarks>Hidden/lilToonTessellationOnePassTransparent</remarks>
@@ -597,7 +598,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Tessellation OnePass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonTessellationOnePassTransparentOutline</remarks>
-        protected Shader _Lil_LilToonTessellationOnePassTransparentOutline;
+        protected Shader? _Lil_LilToonTessellationOnePassTransparentOutline;
 
         /// <summary>lilToon Tessellation OnePass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonTessellationOnePassTransparentOutline</remarks>
@@ -608,7 +609,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Tessellation TwoPass Transparent</summary>
         /// <remarks>Hidden/lilToonTessellationTwoPassTransparent</remarks>
-        protected Shader _Lil_LilToonTessellationTwoPassTransparent;
+        protected Shader? _Lil_LilToonTessellationTwoPassTransparent;
 
         /// <summary>lilToon Tessellation TwoPass Transparent</summary>
         /// <remarks>Hidden/lilToonTessellationTwoPassTransparent</remarks>
@@ -619,7 +620,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Tessellation TwoPass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonTessellationTwoPassTransparentOutline</remarks>
-        protected Shader _Lil_LilToonTessellationTwoPassTransparentOutline;
+        protected Shader? _Lil_LilToonTessellationTwoPassTransparentOutline;
 
         /// <summary>lilToon Tessellation TwoPass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonTessellationTwoPassTransparentOutline</remarks>
@@ -634,7 +635,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Lite</summary>
         /// <remarks>Hidden/lilToonLite</remarks>
-        protected Shader _Lil_LilToonLite;
+        protected Shader? _Lil_LilToonLite;
 
         /// <summary>lilToon Lite</summary>
         /// <remarks>Hidden/lilToonLite</remarks>
@@ -645,7 +646,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Lite Outline</summary>
         /// <remarks>Hidden/lilToonLiteOutline</remarks>
-        protected Shader _Lil_LilToonLiteOutline;
+        protected Shader? _Lil_LilToonLiteOutline;
 
         /// <summary>lilToon Lite Outline</summary>
         /// <remarks>Hidden/lilToonLiteOutline</remarks>
@@ -656,7 +657,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Lite Cutout</summary>
         /// <remarks>Hidden/lilToonLiteCutout</remarks>
-        protected Shader _Lil_LilToonLiteCutout;
+        protected Shader? _Lil_LilToonLiteCutout;
 
         /// <summary>lilToon Lite Cutout</summary>
         /// <remarks>Hidden/lilToonLiteCutout</remarks>
@@ -667,7 +668,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Lite Cutout Outline</summary>
         /// <remarks>Hidden/lilToonLiteCutoutOutline</remarks>
-        protected Shader _Lil_LilToonLiteCutoutOutline;
+        protected Shader? _Lil_LilToonLiteCutoutOutline;
 
         /// <summary>lilToon Lite Cutout Outline</summary>
         /// <remarks>Hidden/lilToonLiteCutoutOutline</remarks>
@@ -678,7 +679,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Lite Transparent</summary>
         /// <remarks>Hidden/lilToonLiteTransparent</remarks>
-        protected Shader _Lil_LilToonLiteTransparent;
+        protected Shader? _Lil_LilToonLiteTransparent;
 
         /// <summary>lilToon Lite Transparent</summary>
         /// <remarks>Hidden/lilToonLiteTransparent</remarks>
@@ -689,7 +690,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Lite Transparent Outline</summary>
         /// <remarks>Hidden/lilToonLiteTransparentOutline</remarks>
-        protected Shader _Lil_LilToonLiteTransparentOutline;
+        protected Shader? _Lil_LilToonLiteTransparentOutline;
 
         /// <summary>lilToon Lite Transparent Outline</summary>
         /// <remarks>Hidden/lilToonLiteTransparentOutline</remarks>
@@ -700,7 +701,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Lite OnePass Transparent</summary>
         /// <remarks>Hidden/lilToonLiteOnePassTransparent</remarks>
-        protected Shader _Lil_LilToonLiteOnePassTransparent;
+        protected Shader? _Lil_LilToonLiteOnePassTransparent;
 
         /// <summary>lilToon Lite OnePass Transparent</summary>
         /// <remarks>Hidden/lilToonLiteOnePassTransparent</remarks>
@@ -711,7 +712,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Lite OnePass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonLiteOnePassTransparentOutline</remarks>
-        protected Shader _Lil_LilToonLiteOnePassTransparentOutline;
+        protected Shader? _Lil_LilToonLiteOnePassTransparentOutline;
 
         /// <summary>lilToon Lite OnePass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonLiteOnePassTransparentOutline</remarks>
@@ -722,7 +723,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Lite TwoPass Transparent</summary>
         /// <remarks>Hidden/lilToonLiteTransparent</remarks>
-        protected Shader _Lil_LilToonLiteTwoPassTransparent;
+        protected Shader? _Lil_LilToonLiteTwoPassTransparent;
 
         /// <summary>lilToon Lite TwoPass Transparent</summary>
         /// <remarks>Hidden/lilToonLiteTransparent</remarks>
@@ -733,7 +734,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Lite TwoPass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonLiteTwoPassTransparentOutline</remarks>
-        protected Shader _Lil_LilToonLiteTwoPassTransparentOutline;
+        protected Shader? _Lil_LilToonLiteTwoPassTransparentOutline;
 
         /// <summary>lilToon Lite TwoPass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonLiteTwoPassTransparentOutline</remarks>
@@ -744,7 +745,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Lite Overlay</summary>
         /// <remarks>_lil/[Optional] lilToonLiteOverlay</remarks>
-        protected Shader _Lil_LilToonLiteOverlay;
+        protected Shader? _Lil_LilToonLiteOverlay;
 
         /// <summary>lilToon Lite Overlay</summary>
         /// <remarks>_lil/[Optional] lilToonLiteOverlay</remarks>
@@ -755,7 +756,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Lite Overlay OnePass</summary>
         /// <remarks>_lil/[Optional] lilToonLiteOverlayOnePass</remarks>
-        protected Shader _Lil_LilToonLiteOverlayOnePass;
+        protected Shader? _Lil_LilToonLiteOverlayOnePass;
 
         /// <summary>lilToon Lite Overlay OnePass</summary>
         /// <remarks>_lil/[Optional] lilToonLiteOverlayOnePass</remarks>
@@ -770,7 +771,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Multi</summary>
         /// <remarks>_lil/lilToonMulti</remarks>
-        protected Shader _Lil_LilToonMulti;
+        protected Shader? _Lil_LilToonMulti;
 
         /// <summary>lilToon Multi</summary>
         /// <remarks>_lil/lilToonMulti</remarks>
@@ -781,7 +782,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Multi Outline</summary>
         /// <remarks>Hidden/lilToonMultiOutline</remarks>
-        protected Shader _Lil_LilToonMultiOutline;
+        protected Shader? _Lil_LilToonMultiOutline;
 
         /// <summary>lilToon Multi Outline</summary>
         /// <remarks>Hidden/lilToonMultiOutline</remarks>
@@ -792,7 +793,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Multi Refraction</summary>
         /// <remarks>Hidden/lilToonMultiRefraction</remarks>
-        protected Shader _Lil_LilToonMultiRefraction;
+        protected Shader? _Lil_LilToonMultiRefraction;
 
         /// <summary>lilToon Multi Refraction</summary>
         /// <remarks>Hidden/lilToonMultiRefraction</remarks>
@@ -803,7 +804,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Multi Fur</summary>
         /// <remarks>Hidden/lilToonMultiFur</remarks>
-        protected Shader _Lil_LilToonMultiFur;
+        protected Shader? _Lil_LilToonMultiFur;
 
         /// <summary>lilToon Multi Fur</summary>
         /// <remarks>Hidden/lilToonMultiFur</remarks>
@@ -814,7 +815,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Multi Gem</summary>
         /// <remarks>Hidden/lilToonMultiGem</remarks>
-        protected Shader _Lil_LilToonMultiGem;
+        protected Shader? _Lil_LilToonMultiGem;
 
         /// <summary>lilToon Multi Gem</summary>
         /// <remarks>Hidden/lilToonMultiGem</remarks>
@@ -829,7 +830,7 @@ namespace UniVgo2
 
         /// <summary>lilToon FakeShadow</summary>
         /// <remarks>_lil/[Optional] lilToonFakeShadow</remarks>
-        protected Shader _Lil_LilToonFakeShadow;
+        protected Shader? _Lil_LilToonFakeShadow;
 
         /// <summary>lilToon FakeShadow</summary>
         /// <remarks>_lil/[Optional] lilToonFakeShadow</remarks>
@@ -844,7 +845,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Other Baker</summary>
         /// <remarks>Hidden/ltsother_baker</remarks>
-        protected Shader _Lil_LilToonOtherBaker;
+        protected Shader? _Lil_LilToonOtherBaker;
 
         /// <summary>lilToon Other Baker</summary>
         /// <remarks>Hidden/ltsother_baker</remarks>
@@ -855,7 +856,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Pass Dummy</summary>
         /// <remarks>Hidden/ltspass_dummy</remarks>
-        protected Shader _Lil_LilToonPassDummy;
+        protected Shader? _Lil_LilToonPassDummy;
 
         /// <summary>lilToon Pass Dummy</summary>
         /// <remarks>Hidden/ltspass_dummy</remarks>
@@ -866,7 +867,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Pass Opaque</summary>
         /// <remarks>Hidden/ltspass_opaque</remarks>
-        protected Shader _Lil_LilToonPassOpaque;
+        protected Shader? _Lil_LilToonPassOpaque;
 
         /// <summary>lilToon Pass Opaque</summary>
         /// <remarks>Hidden/ltspass_opaque</remarks>
@@ -877,7 +878,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Pass Cutout</summary>
         /// <remarks>Hidden/ltspass_cutout</remarks>
-        protected Shader _Lil_LilToonPassCutout;
+        protected Shader? _Lil_LilToonPassCutout;
 
         /// <summary>lilToon Pass Cutout</summary>
         /// <remarks>Hidden/ltspass_cutout</remarks>
@@ -888,7 +889,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Pass Transparent</summary>
         /// <remarks>Hidden/ltspass_transparent</remarks>
-        protected Shader _Lil_LilToonPassTransparent;
+        protected Shader? _Lil_LilToonPassTransparent;
 
         /// <summary>lilToon Pass Transparent</summary>
         /// <remarks>Hidden/ltspass_transparent</remarks>
@@ -899,7 +900,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Pass Tessellation Opaque</summary>
         /// <remarks>Hidden/ltspass_tess_opaque</remarks>
-        protected Shader _Lil_LilToonPassTessOpaque;
+        protected Shader? _Lil_LilToonPassTessOpaque;
 
         /// <summary>lilToon Pass Tessellation Opaque</summary>
         /// <remarks>Hidden/ltspass_tess_opaque</remarks>
@@ -910,7 +911,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Pass Tessellation Cutout</summary>
         /// <remarks>Hidden/ltspass_tess_cutout</remarks>
-        protected Shader _Lil_LilToonPassTessCutout;
+        protected Shader? _Lil_LilToonPassTessCutout;
 
         /// <summary>lilToon Pass Tessellation Cutout</summary>
         /// <remarks>Hidden/ltspass_tess_cutout</remarks>
@@ -921,7 +922,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Pass Tessellation Transparent</summary>
         /// <remarks>Hidden/ltspass_tess_transparent</remarks>
-        protected Shader _Lil_LilToonPassTessTransparent;
+        protected Shader? _Lil_LilToonPassTessTransparent;
 
         /// <summary>lilToon Pass Tessellation Transparent</summary>
         /// <remarks>Hidden/ltspass_tess_transparent</remarks>
@@ -932,7 +933,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Pass Lite Opaque</summary>
         /// <remarks>Hidden/ltspass_lite_opaque</remarks>
-        protected Shader _Lil_LilToonPassLiteOpaque;
+        protected Shader? _Lil_LilToonPassLiteOpaque;
 
         /// <summary>lilToon Pass Lite Opaque</summary>
         /// <remarks>Hidden/ltspass_lite_opaque</remarks>
@@ -943,7 +944,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Pass Lite Cutout</summary>
         /// <remarks>Hidden/ltspass_lite_cutout</remarks>
-        protected Shader _Lil_LilToonPassLiteCutout;
+        protected Shader? _Lil_LilToonPassLiteCutout;
 
         /// <summary>lilToon Pass Lite Cutout</summary>
         /// <remarks>Hidden/ltspass_lite_cutout</remarks>
@@ -954,7 +955,7 @@ namespace UniVgo2
 
         /// <summary>lilToon Pass Lite Transparent</summary>
         /// <remarks>Hidden/ltspass_lite_transparent</remarks>
-        protected Shader _Lil_LilToonPassLiteTransparent;
+        protected Shader? _Lil_LilToonPassLiteTransparent;
 
         /// <summary>lilToon Pass Lite Transparent</summary>
         /// <remarks>Hidden/ltspass_lite_transparent</remarks>
@@ -972,7 +973,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="shaderName">The shader name.</param>
         /// <returns>A shader instanse or default.</returns>
-        public virtual Shader GetShaderOrDefault(string shaderName)
+        public virtual Shader? GetShaderOrDefault(string shaderName)
         {
             if (string.IsNullOrEmpty(shaderName))
             {
@@ -1252,16 +1253,17 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoMaterial">The vgo material.</param>
         /// <returns>A shader instanse or default.</returns>
-        public virtual Shader GetShaderOrDefault(VgoMaterial vgoMaterial)
+        public virtual Shader? GetShaderOrDefault(VgoMaterial vgoMaterial)
         {
             if (vgoMaterial == null)
             {
                 return default;
             }
 
-            if (string.IsNullOrEmpty(vgoMaterial.shaderName) == false)
+            if ((vgoMaterial.shaderName != null) &&
+                (string.IsNullOrEmpty(vgoMaterial.shaderName) == false))
             {
-                Shader shader = GetShaderOrDefault(vgoMaterial.shaderName);
+                Shader? shader = GetShaderOrDefault(vgoMaterial.shaderName);
 
                 if (shader != default)
                 {
@@ -1292,7 +1294,7 @@ namespace UniVgo2
         /// <returns>A shader instanse.</returns>
         public virtual Shader GetShaderOrStandard(VgoMaterial vgoMaterial, RenderPipelineType renderPipelineType)
         {
-            Shader shader = GetShaderOrDefault(vgoMaterial);
+            Shader? shader = GetShaderOrDefault(vgoMaterial);
 
             if (shader == default)
             {

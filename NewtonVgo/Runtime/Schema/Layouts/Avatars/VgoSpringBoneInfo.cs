@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : VgoSpringBoneInfo
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using Newtonsoft.Json;
@@ -16,10 +17,10 @@ namespace NewtonVgo
     {
         /// <summary>List of spring bone groups.</summary>
         [JsonProperty("springBoneGroups")]
-        public List<VgoSpringBoneGroup> springBoneGroups = null;
+        public List<VgoSpringBoneGroup?>? springBoneGroups = null;
 
         /// <summary>List of spring bone collider groups.</summary>
         [JsonProperty("colliderGroups")]
-        public List<VgoSpringBoneColliderGroup> colliderGroups = null;
+        public List<VgoSpringBoneColliderGroup?>? colliderGroups = null;
     }
 }

@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Enum      : VgoBlendShapeBlinkType
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>The type of the blink.</summary>

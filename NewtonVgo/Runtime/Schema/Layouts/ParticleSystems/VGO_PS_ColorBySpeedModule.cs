@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_ColorBySpeedModule
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -21,7 +22,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>The gradient that controls the particle colors.</summary>
         [JsonProperty("color")]
-        public VGO_PS_MinMaxGradient color;
+        public VGO_PS_MinMaxGradient? color;
 
         /// <summary>Apply the color gradient between these minimum and maximum speeds.</summary>
         [JsonProperty("range")]

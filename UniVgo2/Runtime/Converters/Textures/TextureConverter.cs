@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Converters
 // @Class     : TextureConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
     using NewtonVgo;
@@ -78,7 +79,7 @@ namespace UniVgo2.Converters
         /// <param name="colorSpaceType">The color space type.</param>
         /// <param name="converter">The converter.</param>
         /// <returns>The copied Texture2D.</returns>
-        protected virtual Texture2D CopyTexture2d(Texture2D source, VgoColorSpaceType colorSpaceType, Material converter = null)
+        protected virtual Texture2D CopyTexture2d(Texture2D source, VgoColorSpaceType colorSpaceType, Material? converter = null)
         {
             RenderTextureReadWrite readWrite =
                 (colorSpaceType == VgoColorSpaceType.Linear) ? RenderTextureReadWrite.Linear : RenderTextureReadWrite.sRGB;

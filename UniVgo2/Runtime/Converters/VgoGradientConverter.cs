@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Converters
 // @Class     : VgoGradientConverter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Converters
 {
     using NewtonVgo;
@@ -19,11 +20,6 @@ namespace UniVgo2.Converters
         /// <returns></returns>
         public static VgoGradient CreateFrom(Gradient gradient)
         {
-            if (gradient == null)
-            {
-                return default;
-            }
-
             var vgoGradient = new VgoGradient()
             {
                 colorKeys = null,
@@ -63,17 +59,27 @@ namespace UniVgo2.Converters
         }
 
         /// <summary>
+        /// Create VgoGradient from Gradient.
+        /// </summary>
+        /// <param name="gradient"></param>
+        /// <returns></returns>
+        public static VgoGradient? CreateOrDefaultFrom(Gradient? gradient)
+        {
+            if (gradient == null)
+            {
+                return default;
+            }
+
+            return CreateFrom(gradient);
+        }
+
+        /// <summary>
         /// Create Gradient from VgoGradient.
         /// </summary>
         /// <param name="vgoGradient"></param>
         /// <returns></returns>
         public static Gradient CreateGradient(VgoGradient vgoGradient)
         {
-            if (vgoGradient == null)
-            {
-                return default;
-            }
-
             var gradient = new Gradient()
             {
                 //colorKeys = null,
@@ -112,6 +118,21 @@ namespace UniVgo2.Converters
             }
 
             return gradient;
+        }
+
+        /// <summary>
+        /// Create Gradient from VgoGradient.
+        /// </summary>
+        /// <param name="vgoGradient"></param>
+        /// <returns></returns>
+        public static Gradient? CreateGradientOrDefault(VgoGradient? vgoGradient)
+        {
+            if (vgoGradient == null)
+            {
+                return default;
+            }
+
+            return CreateGradient(vgoGradient);
         }
     }
 }

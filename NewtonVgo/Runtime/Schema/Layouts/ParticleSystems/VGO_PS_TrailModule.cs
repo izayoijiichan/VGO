@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_TrailModule
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -28,7 +29,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>The curve describing the trail lifetime, throughout the lifetime of the particle.</summary>
         [JsonProperty("lifetime")]
-        public VGO_PS_MinMaxCurve lifetime;
+        public VGO_PS_MinMaxCurve? lifetime;
 
         /// <summary>A multiplier for ParticleSystem.TrailModule._lifetime.</summary>
         [JsonProperty("lifetimeMultiplier")]
@@ -76,11 +77,11 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>The gradient that controls the trail colors during the lifetime of the attached particle.</summary>
         [JsonProperty("colorOverLifetime")]
-        public VGO_PS_MinMaxGradient colorOverLifetime;
+        public VGO_PS_MinMaxGradient? colorOverLifetime;
 
         /// <summary>The curve describing the width of each trail point.</summary>
         [JsonProperty("widthOverTrail")]
-        public VGO_PS_MinMaxCurve widthOverTrail;
+        public VGO_PS_MinMaxCurve? widthOverTrail;
 
         /// <summary>A multiplier for ParticleSystem.TrailModule._widthOverTrail.</summary>
         [JsonProperty("widthOverTrailMultiplier")]
@@ -88,7 +89,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>The gradient that controls the trail colors over the length of the trail.</summary>
         [JsonProperty("colorOverTrail")]
-        public VGO_PS_MinMaxGradient colorOverTrail;
+        public VGO_PS_MinMaxGradient? colorOverTrail;
 
         /// <summary>Configures the trails to generate Normals and Tangents.</summary>
         [JsonProperty("generateLightingData")]

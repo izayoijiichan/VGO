@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Class     : ExModel
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     using System;

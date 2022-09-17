@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo.Schema.ParticleSystems
 // @Class     : VGO_PS_MainModule
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo.Schema.ParticleSystems
 {
     using Newtonsoft.Json;
@@ -30,7 +31,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Start delay in seconds.</summary>
         [JsonProperty("startDelay")]
-        public VGO_PS_MinMaxCurve startDelay;
+        public VGO_PS_MinMaxCurve? startDelay;
 
         /// <summary>A multiplier for ParticleSystem.MainModule._startDelay in seconds.</summary>
         [JsonProperty("startDelayMultiplier")]
@@ -38,7 +39,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>The total lifetime in seconds that each new particle has.</summary>
         [JsonProperty("startLifetime")]
-        public VGO_PS_MinMaxCurve startLifetime;
+        public VGO_PS_MinMaxCurve? startLifetime;
 
         /// <summary>A multiplier for ParticleSystem.MainModule._startLifetime.</summary>
         [JsonProperty("startLifetimeMultiplier")]
@@ -46,7 +47,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>The initial speed of particles when the Particle System first spawns them.</summary>
         [JsonProperty("startSpeed")]
-        public VGO_PS_MinMaxCurve startSpeed;
+        public VGO_PS_MinMaxCurve? startSpeed;
 
         /// <summary>A multiplier for ParticleSystem.MainModule._startSpeed.</summary>
         [JsonProperty("startSpeedMultiplier")]
@@ -58,19 +59,19 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>The initial size of particles when the Particle System first spawns them.</summary>
         [JsonProperty("startSize")]
-        public VGO_PS_MinMaxCurve startSize;
+        public VGO_PS_MinMaxCurve? startSize;
 
         /// <summary>The initial size of particles along the x-axis when the Particle System first spawns them.</summary>
         [JsonProperty("startSizeX")]
-        public VGO_PS_MinMaxCurve startSizeX;
+        public VGO_PS_MinMaxCurve? startSizeX;
 
         /// <summary>The initial size of particles along the y-axis when the Particle System first spawns them.</summary>
         [JsonProperty("startSizeY")]
-        public VGO_PS_MinMaxCurve startSizeY;
+        public VGO_PS_MinMaxCurve? startSizeY;
 
         /// <summary>The initial size of particles along the z-axis when the Particle System first spawns them.</summary>
         [JsonProperty("startSizeZ")]
-        public VGO_PS_MinMaxCurve startSizeZ;
+        public VGO_PS_MinMaxCurve? startSizeZ;
 
         /// <summary>A multiplier for the initial size of particles when the Particle System first spawns them.</summary>
         [JsonProperty("startSizeMultiplier", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -98,19 +99,19 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>The initial rotation of particles when the Particle System first spawns them.</summary>
         [JsonProperty("startRotation")]
-        public VGO_PS_MinMaxCurve startRotation;
+        public VGO_PS_MinMaxCurve? startRotation;
 
         /// <summary>The initial rotation of particles around the x-axis when emitted.</summary>
         [JsonProperty("startRotationX")]
-        public VGO_PS_MinMaxCurve startRotationX;
+        public VGO_PS_MinMaxCurve? startRotationX;
 
         /// <summary>The initial rotation of particles around the y-axis when the Particle System first spawns them.</summary>
         [JsonProperty("startRotationY")]
-        public VGO_PS_MinMaxCurve startRotationY;
+        public VGO_PS_MinMaxCurve? startRotationY;
 
         /// <summary>The initial rotation of particles around the z-axis when the Particle System first spawns them.</summary>
         [JsonProperty("startRotationZ")]
-        public VGO_PS_MinMaxCurve startRotationZ;
+        public VGO_PS_MinMaxCurve? startRotationZ;
 
         /// <summary>A multiplier for ParticleSystem.MainModule._startRotation.</summary>
         [JsonProperty("startRotationMultiplier", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -138,11 +139,11 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>The initial color of particles when the Particle System first spawns them.</summary>
         [JsonProperty("startColor")]
-        public VGO_PS_MinMaxGradient startColor;
+        public VGO_PS_MinMaxGradient? startColor;
 
         /// <summary>A scale that this Particle System applies to gravity, defined by Physics.gravity.</summary>
         [JsonProperty("gravityModifier")]
-        public VGO_PS_MinMaxCurve gravityModifier;
+        public VGO_PS_MinMaxCurve? gravityModifier;
 
         /// <summary>Change the gravity multiplier.</summary>
         [JsonProperty("gravityModifierMultiplier")]
@@ -158,7 +159,7 @@ namespace NewtonVgo.Schema.ParticleSystems
 
         /// <summary>Simulate particles relative to a custom transform component.</summary>
         [JsonProperty("customSimulationSpace")]
-        public VgoTransform customSimulationSpace;
+        public VgoTransform? customSimulationSpace;
 
         /// <summary>When true, use the unscaled delta time to simulate the Particle System. Otherwise, use the scaled delta time.</summary>
         [JsonProperty("useUnscaledTime")]

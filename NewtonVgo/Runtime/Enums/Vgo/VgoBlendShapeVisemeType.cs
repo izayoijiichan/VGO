@@ -2,6 +2,7 @@
 // @Namespace : NewtonVgo
 // @Enum      : VgoBlendShapeVisemeType
 // ----------------------------------------------------------------------
+#nullable enable
 namespace NewtonVgo
 {
     /// <summary>The type of Viseme.</summary>

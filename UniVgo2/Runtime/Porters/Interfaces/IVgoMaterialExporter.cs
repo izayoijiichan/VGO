@@ -2,6 +2,7 @@
 // @Namespace : UniVgo2.Porters
 // @Class     : IVgoMaterialExporter
 // ----------------------------------------------------------------------
+#nullable enable
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
@@ -15,11 +16,11 @@ namespace UniVgo2.Porters
         #region Properties
 
         /// <summary>The material porter store.</summary>
-        IMaterialPorterStore MaterialPorterStore { get; set; }
+        IMaterialPorterStore? MaterialPorterStore { get; set; }
 
         /// <summary>A delegate of ExportTexture method.</summary>
         /// <remarks>for Export</remarks>
-        ExportTextureDelegate ExportTexture { get; set; }
+        ExportTextureDelegate? ExportTexture { get; set; }
 
         #endregion
 
