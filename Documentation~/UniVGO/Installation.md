@@ -15,8 +15,9 @@ ___
 |Unity 2021.2|OK|OK|OK|OK|unconfirmed|
 |Unity 2021.3|OK|OK|OK|OK|unconfirmed|
 |Unity 2022.1|OK|OK|unconfirmed|unconfirmed|unconfirmed|
+|Unity 2022.2|OK|OK|unconfirmed|unconfirmed|unconfirmed|
 
-As of September of 2022, we are developing and confirming in `Unity 2022.1` `Windows` `.NET Standard 2.1` environment.
+As of September of 2022, we are developing and confirming in `Unity 2022.2` `Windows` `.NET Standard 2.1` environment.
 
 ### Required package
 
@@ -41,7 +42,7 @@ This package is required for any Unity version.
 |LilToonShader.Utility|IzayoiJiichan|GitHub||1.0.1|21 Aug, 2022|
 |UniShaders|IzayoiJiichan|GitHub|-|1.4.0|20 May, 2022|
 |VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.2|24 Aug, 2022|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.2|18 Sep, 2022|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.4|4 Apr, 2023|
 
 #### Additional Packages
 
@@ -74,7 +75,7 @@ Download the UniVGO sample project.
 
 #### 2. Install Unity Editor
 
-Install Unity Editor `2021.1.28f1`, `2021.2.0f1`, `2021.3.0f1`, or `2022.1.0f1` on Unity Hub.
+Install Unity Editor `2021.1.28f1`, `2021.2.0f1`, `2021.3.0f1`, `2022.1.0f1`, or `2022.2.0f1` on Unity Hub.
 
 If you don't see the version you're looking for in Unity Hub, install it via the [Unity Download Archive](https://unity3d.com/jp/get-unity/download/archive).
 
@@ -132,7 +133,7 @@ To use UniVGO, add the following settings.
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.1",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.2",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.3",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
@@ -229,9 +230,9 @@ The version combinations are as follows.
 
 |UniVRM|UniVGO|min Unity|
 |:---:|:---:|:---:|
-|0.100.0|2.5.2|2020.3|
-|0.101.0|2.5.2|2020.3|
-|0.102.0|2.5.2|2020.3|
+|0.100.0|2.5.3|2020.3|
+|0.101.0|2.5.3|2020.3|
+|0.102.0|2.5.3|2020.3|
 
 Write the following in `<Project> /Packages/package.json`.
 
@@ -260,7 +261,7 @@ https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 |2021.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.brp.univrm)|
 
 ___
-Last updated: 18 September, 2022  
+Last updated: 4 April, 2023  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -42,8 +42,8 @@ namespace NewtonVgo
 
         /// <summary>The kind of the blend shape.</summary>
         [JsonProperty("blendShapeKind", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [DefaultValue(VgoBlendShapeKind.None)]
-        public VgoBlendShapeKind blendShapeKind;
+        [DefaultValue(null)]
+        public VgoBlendShapeKind? blendShapeKind;
 
         /// <summary>List of the blend shape preset.</summary>
         [JsonProperty("blendShapePesets")]

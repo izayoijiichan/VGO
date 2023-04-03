@@ -400,9 +400,35 @@ namespace UniVgo2
                 var vgoSkin = new VgoSkin
                 {
                     inverseBindMatrices = accessorIndex,
-                    joints = renderer.bones.Select(t => modelAsset.TransformList.IndexOf(t)).ToArray(),
                     skeleton = modelAsset.TransformList.IndexOf(renderer.rootBone),
                 };
+
+                int[] joints = new int[renderer.bones.Length];
+
+                for (int boneIndex = 0; boneIndex < renderer.bones.Length; boneIndex++)
+                {
+                    Transform? boneTransform = renderer.bones[boneIndex];
+
+                    if (boneTransform == null)
+                    {
+                        Debug.LogWarning($"SkinnedMeshRenderer: {renderer.name} bones[{boneIndex}] is null.");
+
+                        continue;
+                    }
+
+                    int jointTransformIndex = modelAsset.TransformList.IndexOf(boneTransform);
+
+                    if (jointTransformIndex == -1)
+                    {
+                        Debug.LogWarning($"SkinnedMeshRenderer: {renderer.name} bones[{boneIndex}] is not contains in Transform list.");
+
+                        continue;
+                    }
+
+                    joints[boneIndex] = jointTransformIndex;
+                }
+
+                vgoSkin.joints = joints;
 
                 vgoStorage.Layout.skins.Add(vgoSkin);
             }

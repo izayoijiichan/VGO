@@ -116,11 +116,11 @@ namespace UniVgo2
             // UnityEngine.Mesh
             if (vgoStorage.IsSpecVersion_2_4_orLower)
             {
-                modelAsset.MeshAssetList = CreateMeshAssets(vgoStorage, modelAsset.ScriptableObjectList, modelAsset.MaterialList);
+                modelAsset.MeshAssetList = CreateMeshAssets(vgoStorage, modelAsset.MaterialList);
             }
             else
             {
-                modelAsset.MeshAssetList = CreateMeshAssets(vgoStorage, modelAsset.ScriptableObjectList);
+                modelAsset.MeshAssetList = CreateMeshAssets(vgoStorage);
             }
 
             // UnityEngine.AnimationClip
@@ -316,10 +316,9 @@ namespace UniVgo2
         /// Create mesh assets.
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
-        /// <param name="scriptableObjectList">List of scriptable object.</param>
         /// <param name="materialList">List of unity material.</param>
         /// <returns>List of mesh asset.</returns>
-        protected virtual List<MeshAsset> CreateMeshAssets(IVgoStorage vgoStorage, IList<ScriptableObject> scriptableObjectList, IList<Material?>? materialList = null)
+        protected virtual List<MeshAsset> CreateMeshAssets(IVgoStorage vgoStorage, IList<Material?>? materialList = null)
         {
             var meshAssetList = new List<MeshAsset>();
 
@@ -330,7 +329,7 @@ namespace UniVgo2
 
             for (int meshIndex = 0; meshIndex < vgoStorage.Layout.meshes.Count; meshIndex++)
             {
-                MeshAsset meshAsset = _MeshImporter.CreateMeshAsset(vgoStorage, meshIndex, scriptableObjectList, materialList);
+                MeshAsset meshAsset = _MeshImporter.CreateMeshAsset(vgoStorage, meshIndex, materialList);
 
                 if (meshAssetList.Where(x => x?.Mesh.name == meshAsset.Mesh.name).Any())
                 {
@@ -1054,11 +1053,23 @@ namespace UniVgo2
                     renderer = skinnedMeshRenderer;
                 }
 
-                if (meshAsset.BlendShapeConfiguration != null)
+                if ((meshAsset.BlendShapeConfig != null) &&
+                    (meshAsset.BlendShapeConfig.kind != VgoBlendShapeKind.None))
                 {
                     var vgoBlendShape = go.AddComponent<VgoBlendShape>();
 
-                    vgoBlendShape.BlendShapeConfiguration = meshAsset.BlendShapeConfiguration;
+                    BlendShapeConfiguration blendShapeConfiguration = ScriptableObject.CreateInstance<BlendShapeConfiguration>();
+
+                    blendShapeConfiguration.name = meshAsset.BlendShapeConfig.name;
+                    blendShapeConfiguration.kind = meshAsset.BlendShapeConfig.kind;
+                    blendShapeConfiguration.faceParts = meshAsset.BlendShapeConfig.faceParts;
+                    blendShapeConfiguration.blinks = meshAsset.BlendShapeConfig.blinks;
+                    blendShapeConfiguration.visemes = meshAsset.BlendShapeConfig.visemes;
+                    blendShapeConfiguration.presets = meshAsset.BlendShapeConfig.presets;
+
+                    vgoBlendShape.BlendShapeConfiguration = blendShapeConfiguration;
+
+                    modelAsset.ScriptableObjectList.Add(blendShapeConfiguration);
                 }
             }
             else
@@ -1145,19 +1156,30 @@ namespace UniVgo2
                     renderer = meshRenderer;
                 }
 
-                if (meshAsset.BlendShapeConfiguration != null)
+                if ((vgoMeshRenderer.blendShapeKind != null) &&
+                    (meshAsset.BlendShapeConfig != null))
                 {
-                    meshAsset.BlendShapeConfiguration.kind = vgoMeshRenderer.blendShapeKind;
+                    var vgoBlendShape = go.AddComponent<VgoBlendShape>();
+
+                    BlendShapeConfiguration blendShapeConfiguration = ScriptableObject.CreateInstance<BlendShapeConfiguration>();
+
+                    blendShapeConfiguration.name = meshAsset.BlendShapeConfig.name;
+
+                    blendShapeConfiguration.kind = vgoMeshRenderer.blendShapeKind.Value;
+
+                    blendShapeConfiguration.faceParts = meshAsset.BlendShapeConfig.faceParts;
+                    blendShapeConfiguration.blinks = meshAsset.BlendShapeConfig.blinks;
+                    blendShapeConfiguration.visemes = meshAsset.BlendShapeConfig.visemes;
 
                     if (vgoMeshRenderer.blendShapePesets != null &&
                         vgoMeshRenderer.blendShapePesets.Any())
                     {
-                        meshAsset.BlendShapeConfiguration.presets.AddRange(vgoMeshRenderer.blendShapePesets);
+                        blendShapeConfiguration.presets.AddRange(vgoMeshRenderer.blendShapePesets);
                     }
 
-                    var vgoBlendShape = go.AddComponent<VgoBlendShape>();
+                    vgoBlendShape.BlendShapeConfiguration = blendShapeConfiguration;
 
-                    vgoBlendShape.BlendShapeConfiguration = meshAsset.BlendShapeConfiguration;
+                    modelAsset.ScriptableObjectList.Add(blendShapeConfiguration);
                 }
             }
 
@@ -1202,14 +1224,30 @@ namespace UniVgo2
 
             Mesh mesh = skinnedMeshRenderer.sharedMesh;
 
-            Transform[] joints = vgoSkin.joints.Select(n => nodes[n]).ToArray();
-
             // calculate internal values(boundingBox etc...) when sharedMesh assigned ?
             skinnedMeshRenderer.sharedMesh = null;
 
-            if (joints.Any())
+            if (vgoSkin.joints != null && vgoSkin.joints.Any())
             {
                 // have bones
+
+                Transform?[] joints = new Transform?[vgoSkin.joints.Length];
+
+                for (int jointIndex = 0; jointIndex < vgoSkin.joints.Length; jointIndex++)
+                {
+                    int vgoSkinJointNodeIndex = vgoSkin.joints[jointIndex];
+
+                    if (vgoSkinJointNodeIndex.IsInRangeOf(nodes))
+                    {
+                        joints[jointIndex] = nodes[vgoSkinJointNodeIndex];
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"skins[{skinIndex}].joints[{jointIndex}] is out of the range.");
+                        //throw new IndexOutOfRangeException($"skins[{skinIndex}].joints[{jointIndex}] is out of the range.");
+                    }
+                }
+
                 skinnedMeshRenderer.bones = joints;
 
                 if (vgoSkin.inverseBindMatrices >= 0)
@@ -1239,9 +1277,19 @@ namespace UniVgo2
 
                     Transform meshCoords = skinnedMeshRenderer.transform; // ?
 
-                    Matrix4x4[] calculatedBindPoses = joints
-                        .Select(t => t.worldToLocalMatrix * meshCoords.localToWorldMatrix)
-                        .ToArray();
+                    Matrix4x4[] calculatedBindPoses = new Matrix4x4[joints.Length];
+
+                    for (int index = 0; index < joints.Length; index++)
+                    {
+                        Transform? jointTransform = joints[index];
+
+                        if (jointTransform == null)
+                        {
+                            continue;
+                        }
+
+                        calculatedBindPoses[index] = jointTransform.worldToLocalMatrix * meshCoords.localToWorldMatrix;
+                    }
 
                     mesh.bindposes = calculatedBindPoses;
                 }

@@ -31,7 +31,7 @@ namespace UniVgo2
         public Renderer? Renderer;
 
         /// <summary>A blend shape configuration.</summary>
-        public BlendShapeConfiguration? BlendShapeConfiguration;
+        public BlendShapeConfig? BlendShapeConfig;
 
         /// <summary>
         /// Create a new instance of MeshAsset with mesh.

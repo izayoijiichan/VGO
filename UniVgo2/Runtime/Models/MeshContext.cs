@@ -55,7 +55,7 @@ namespace UniVgo2
         public List<int>? materialIndices;
 
         /// <summary></summary>
-        public List<BlendShapeContext>? blendShapes;
+        public BlendShapesContext? blendShapesContext;
 
         /// <summary>
         /// Create a new instance of MeshContext with name.

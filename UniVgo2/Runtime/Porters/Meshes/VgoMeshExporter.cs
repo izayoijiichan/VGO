@@ -95,7 +95,7 @@ namespace UniVgo2.Porters
         {
             Mesh mesh = meshAsset.Mesh;
 
-            BlendShapeConfiguration? blendShapeConfig = meshAsset.BlendShapeConfiguration;
+            BlendShapeConfig? blendShapeConfig = meshAsset.BlendShapeConfig;
 
             VgoMesh vgoMesh = new VgoMesh(mesh.name);
 

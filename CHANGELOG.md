@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.5.3] - 2023-04-04
+
+- Fixes
+  - Fixed Vgo Blend Shape component being attached to all skinned mesh renderers on import.
+  - Fixed export and import failures when skinned mesh renderer's bones settings are incorrect.
+
 ## [2.5.2] - 2022-09-18
 
 - Changes

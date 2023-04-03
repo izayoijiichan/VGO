@@ -48,29 +48,20 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="meshIndex">The index of vgo mesh.</param>
-        /// <param name="scriptableObjectList">List of scriptable object.</param>
         /// <param name="unityMaterialList">List of unity material.</param>
         /// <returns>A mesh asset.</returns>
-        public virtual MeshAsset CreateMeshAsset(IVgoStorage vgoStorage, int meshIndex, IList<ScriptableObject> scriptableObjectList, IList<Material?>? unityMaterialList = null)
+        public virtual MeshAsset CreateMeshAsset(IVgoStorage vgoStorage, int meshIndex, IList<Material?>? unityMaterialList = null)
         {
             if (vgoStorage == null)
             {
                 throw new ArgumentNullException(nameof(vgoStorage));
             }
 
-            if (scriptableObjectList == null)
-            {
-                throw new ArgumentNullException(nameof(scriptableObjectList));
-            }
-
-            MeshContext meshContext = ReadMesh(vgoStorage, meshIndex, out var blendShapeConfig);
+            MeshContext meshContext = ReadMesh(vgoStorage, meshIndex);
 
             Mesh mesh = BuildMesh(meshContext);
 
-            MeshAsset meshAsset = new MeshAsset(mesh)
-            {
-                BlendShapeConfiguration = blendShapeConfig,
-            };
+            MeshAsset meshAsset = new MeshAsset(mesh);
 
             if (vgoStorage.IsSpecVersion_2_4_orLower)
             {
@@ -82,9 +73,10 @@ namespace UniVgo2.Porters
                 meshAsset.Materials = meshContext.materialIndices.Select(x => unityMaterialList[x]).ToArray();
             }
 
-            if (blendShapeConfig != null)
+            if ((meshContext.blendShapesContext != null) &&
+                (meshContext.blendShapesContext.blendShapeConfig != null))
             {
-                scriptableObjectList.Add(blendShapeConfig);
+                meshAsset.BlendShapeConfig = meshContext.blendShapesContext.blendShapeConfig;
             }
 
             return meshAsset;
@@ -101,7 +93,7 @@ namespace UniVgo2.Porters
         /// <param name="meshIndex">The index of vgo mesh.</param>
         /// <param name="blendShapeConfig">A blend shape configuration.</param>
         /// <returns>A mesh context.</returns>
-        protected virtual MeshContext ReadMesh(IVgoStorage vgoStorage, int meshIndex, out BlendShapeConfiguration? blendShapeConfig)
+        protected virtual MeshContext ReadMesh(IVgoStorage vgoStorage, int meshIndex)
         {
             if (vgoStorage.Layout.meshes == null)
             {
@@ -144,38 +136,23 @@ namespace UniVgo2.Porters
             }
 
             // BlendShapes
-            meshContext.blendShapes = CreateBlendShapes(vgoStorage, vgoMesh.blendShapes, out blendShapeConfig);
+            meshContext.blendShapesContext = CreateBlendShapes(vgoStorage, vgoMesh.blendShapes);
 
-            if (vgoStorage.IsSpecVersion_2_4_orLower)
+            if ((meshContext.blendShapesContext != null) &&
+                (meshContext.blendShapesContext.blendShapeConfig != null))
             {
-                // BlendShapeConfiguration
-                if ((vgoMesh.blendShapeKind != VgoBlendShapeKind.None) ||
-                    (vgoMesh.blendShapePesets != null))
+                BlendShapeConfig blendShapeConfig = meshContext.blendShapesContext.blendShapeConfig;
+
+                blendShapeConfig.name = vgoMesh.name;
+
+                if (vgoStorage.IsSpecVersion_2_4_orLower)
                 {
-                    if (blendShapeConfig == null)
-                    {
-                        blendShapeConfig = ScriptableObject.CreateInstance<BlendShapeConfiguration>();
-                    }
-
-                    blendShapeConfig.name = vgoMesh.name;
-
                     blendShapeConfig.kind = vgoMesh.blendShapeKind;
 
                     if (vgoMesh.blendShapePesets != null)
                     {
                         blendShapeConfig.presets = vgoMesh.blendShapePesets;
                     }
-                }
-                else
-                {
-                    blendShapeConfig = null;
-                }
-            }
-            else
-            {
-                if (blendShapeConfig != null)
-                {
-                    blendShapeConfig.name = vgoMesh.name;
                 }
             }
 
@@ -511,25 +488,23 @@ namespace UniVgo2.Porters
         /// Create blend shapes.
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
-        /// <param name="vgoBlendShapes">List of vgo blend shape.</param>
-        /// <param name="blendShapeConfig">A blend shape configuration.</param>
-        /// <returns>List of blend shape.</returns>
-        protected virtual List<BlendShapeContext>? CreateBlendShapes(IVgoStorage vgoStorage, List<VgoMeshBlendShape>? vgoBlendShapes, out BlendShapeConfiguration? blendShapeConfig)
+        /// <param name="vgoMeshBlendShapes">List of vgo mesh blend shape.</param>
+        /// <returns>List of blend shapes context.</returns>
+        protected virtual BlendShapesContext? CreateBlendShapes(IVgoStorage vgoStorage, List<VgoMeshBlendShape>? vgoMeshBlendShapes)
         {
-            if ((vgoBlendShapes == null) || (vgoBlendShapes.Any() == false))
+            if ((vgoMeshBlendShapes == null) || (vgoMeshBlendShapes.Any() == false))
             {
-                blendShapeConfig = null;
-
                 return null;
             }
 
-            blendShapeConfig = ScriptableObject.CreateInstance<BlendShapeConfiguration>();
-
-            List<BlendShapeContext> blendShapes = new List<BlendShapeContext>(vgoBlendShapes.Count);
-
-            for (int shapeIndex = 0; shapeIndex < vgoBlendShapes.Count; shapeIndex++)
+            BlendShapesContext context = new BlendShapesContext()
             {
-                VgoMeshBlendShape vgoBlendShape = vgoBlendShapes[shapeIndex];
+                blendShapeContexts = new List<BlendShapeContext>(vgoMeshBlendShapes.Count),
+            };
+
+            for (int shapeIndex = 0; shapeIndex < vgoMeshBlendShapes.Count; shapeIndex++)
+            {
+                VgoMeshBlendShape vgoBlendShape = vgoMeshBlendShapes[shapeIndex];
 
                 string name = ((vgoBlendShape.name is null) || (vgoBlendShape.name == string.Empty))
                     ? shapeIndex.ToString()
@@ -601,7 +576,7 @@ namespace UniVgo2.Porters
                     }
                 }
 
-                blendShapes.Add(blendShape);
+                context.blendShapeContexts.Add(blendShape);
 
                 if (vgoBlendShape.facePartsType != VgoBlendShapeFacePartsType.None)
                 {
@@ -611,7 +586,7 @@ namespace UniVgo2.Porters
                         type = vgoBlendShape.facePartsType,
                     };
 
-                    blendShapeConfig.faceParts.Add(facePart);
+                    context.blendShapeConfig.faceParts.Add(facePart);
                 }
 
                 if (vgoBlendShape.blinkType != VgoBlendShapeBlinkType.None)
@@ -622,7 +597,7 @@ namespace UniVgo2.Porters
                         type = vgoBlendShape.blinkType,
                     };
 
-                    blendShapeConfig.blinks.Add(blink);
+                    context.blendShapeConfig.blinks.Add(blink);
                 }
 
                 if (vgoBlendShape.visemeType != VgoBlendShapeVisemeType.None)
@@ -633,11 +608,11 @@ namespace UniVgo2.Porters
                         type = vgoBlendShape.visemeType,
                     };
 
-                    blendShapeConfig.visemes.Add(viseme);
+                    context.blendShapeConfig.visemes.Add(viseme);
                 }
             }
 
-            return blendShapes;
+            return context;
         }
 
         #endregion
@@ -748,11 +723,11 @@ namespace UniVgo2.Porters
             }
 
             // BlendShape
-            if (meshContext.blendShapes != null)
+            if (meshContext.blendShapesContext != null)
             {
                 Vector3[]? emptyVertices = null;
 
-                foreach (BlendShapeContext blendShape in meshContext.blendShapes)
+                foreach (BlendShapeContext blendShape in meshContext.blendShapesContext.blendShapeContexts)
                 {
                     if (blendShape.positions?.Length > 0)
                     {

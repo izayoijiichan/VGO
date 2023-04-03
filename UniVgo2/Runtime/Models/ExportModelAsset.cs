@@ -402,7 +402,20 @@ namespace UniVgo2
                 {
                     if (skinnedMeshRenderer.gameObject.TryGetComponentEx(out VgoBlendShape vgoBlendShape))
                     {
-                        meshAsset.BlendShapeConfiguration = vgoBlendShape.BlendShapeConfiguration;
+                        if (vgoBlendShape.BlendShapeConfiguration != null)
+                        {
+                            BlendShapeConfiguration blendShapeConfiguration = vgoBlendShape.BlendShapeConfiguration;
+
+                            meshAsset.BlendShapeConfig = new BlendShapeConfig()
+                            {
+                                name = blendShapeConfiguration.name ?? string.Empty,
+                                kind = blendShapeConfiguration.kind,
+                                faceParts = blendShapeConfiguration.faceParts,
+                                blinks = blendShapeConfiguration.blinks,
+                                visemes = blendShapeConfiguration.visemes,
+                                presets = blendShapeConfiguration.presets,
+                            };
+                        }
                     }
                 }
 

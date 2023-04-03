@@ -15,8 +15,9 @@ ___
 |Unity 2021.2|○|○|○|○|未確認|
 |Unity 2021.3|○|○|○|○|未確認|
 |Unity 2022.1|○|○|○|未確認|未確認|
+|Unity 2022.2|○|○|○|未確認|未確認|
 
-2022年9月の時点では `Unity 2022.1` の `Windows` `.NET Standard 2.1` 環境にて開発＆確認を行っています。
+2022年9月の時点では `Unity 2022.2` の `Windows` `.NET Standard 2.1` 環境にて開発＆確認を行っています。
 
 ### 必要パッケージ
 
@@ -41,7 +42,7 @@ Unity 2021.1 以下のバージョンを使用する場合
 |LilToonShader.Utility|IzayoiJiichan|GitHub||1.0.1|2022年8月21日|
 |UniShaders|IzayoiJiichan|GitHub||1.4.0|2022年5月20日|
 |VgoSpringBone|IzayoiJiichan|GitHub||1.1.2|2022年8月24日|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.2|2022年9月18日|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.3|2023年4月4日|
 
 #### 追加パッケージ
 
@@ -74,7 +75,7 @@ ___
 
 #### 2. Unity Editor のインストール
 
-Unity Hub にて Unity Editor `2021.1.28f1`、`2021.2.0f1`、`2021.3.0f1`、`2022.1.0f1` のいずれかをインストールします。
+Unity Hub にて Unity Editor `2021.1.28f1`、`2021.2.0f1`、`2021.3.0f1`、`2022.1.0f1`、`2022.2.0f1` のいずれかをインストールします。
 
 探しているバージョンが Unity Hub に表示されない場合は、[Unity ダウンロード アーカイブ](https://unity3d.com/jp/get-unity/download/archive) 経由でインストールしてください。
 
@@ -133,7 +134,7 @@ UniVGOを使用するために、以下の設定を追加してください。
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.1",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.2",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.3",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
     "com.unity.ugui": "1.0.0",
@@ -231,9 +232,9 @@ ___
 
 |UniVRM|UniVGO|min Unity|
 |:---:|:---:|:---:|
-|0.100.0|2.5.2|2020.3|
-|0.101.0|2.5.2|2020.3|
-|0.102.0|2.5.2|2020.3|
+|0.100.0|2.5.3|2020.3|
+|0.101.0|2.5.3|2020.3|
+|0.102.0|2.5.3|2020.3|
 
 `<Project>/Packages/package.json` に以下の記述を行います。  
 
@@ -263,7 +264,7 @@ https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 |2021.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.brp.univrm)|
 
 ___
-最終更新日：2022年9月18日  
+最終更新日：2023年4月4日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*
