@@ -52,7 +52,7 @@ namespace UniVgo2
                 return -1;
             }
 
-            BlendShapeBlink blendShapeBlink = BlendShapeConfiguration.blinks.Where(x => x.type == blinkType).FirstOrDefault();
+            BlendShapeBlink? blendShapeBlink = BlendShapeConfiguration.blinks.FirstOrDefault(x => x.type == blinkType);
 
             if (blendShapeBlink == null)
             {
@@ -79,7 +79,7 @@ namespace UniVgo2
                 return -1;
             }
 
-            BlendShapeViseme blendShapeViseme = BlendShapeConfiguration.visemes.Where(x => x.type == visemeType).FirstOrDefault();
+            BlendShapeViseme? blendShapeViseme = BlendShapeConfiguration.visemes.FirstOrDefault(x => x.type == visemeType);
 
             if (blendShapeViseme == null)
             {
@@ -136,7 +136,7 @@ namespace UniVgo2
                 return;
             }
 
-            BlendShapeBlink vgoBlink = BlendShapeConfiguration.blinks.Where(x => x.type == blinkType).FirstOrDefault();
+            BlendShapeBlink? vgoBlink = BlendShapeConfiguration.blinks.FirstOrDefault(x => x.type == blinkType);
 
             if (vgoBlink == null)
             {
@@ -163,7 +163,7 @@ namespace UniVgo2
                 return;
             }
 
-            BlendShapeViseme vgoViseme = BlendShapeConfiguration.visemes.Where(x => x.type == visemeType).FirstOrDefault();
+            BlendShapeViseme? vgoViseme = BlendShapeConfiguration.visemes.FirstOrDefault(x => x.type == visemeType);
 
             if (vgoViseme == null)
             {
@@ -191,7 +191,7 @@ namespace UniVgo2
                 return;
             }
 
-            VgoMeshBlendShapePreset preset = BlendShapeConfiguration.presets.Where(x => x.type == presetType).FirstOrDefault();
+            VgoMeshBlendShapePreset? preset = BlendShapeConfiguration.presets.FirstOrDefault(x => x.type == presetType);
 
             if (preset == null)
             {
@@ -204,7 +204,7 @@ namespace UniVgo2
                 {
                     if (ignoreEyelid)
                     {
-                        var blink = BlendShapeConfiguration.blinks.Where(x => x.index == binding.index).FirstOrDefault();
+                        BlendShapeBlink? blink = BlendShapeConfiguration.blinks.FirstOrDefault(x => x.index == binding.index);
 
                         if (blink != null)
                         {
@@ -214,7 +214,7 @@ namespace UniVgo2
 
                     if (ignoreMouth)
                     {
-                        var visume = BlendShapeConfiguration.visemes.Where(x => x.index == binding.index).FirstOrDefault();
+                        BlendShapeViseme? visume = BlendShapeConfiguration.visemes.FirstOrDefault(x => x.index == binding.index);
 
                         if (visume != null)
                         {
@@ -222,18 +222,18 @@ namespace UniVgo2
                         }
                     }
 
-                    var parts = BlendShapeConfiguration.faceParts.Where(x => x.index == binding.index).FirstOrDefault();
+                    BlendShapeFacePart? facePart = BlendShapeConfiguration.faceParts.FirstOrDefault(x => x.index == binding.index);
 
-                    if (parts != null)
+                    if (facePart != null)
                     {
-                        if (parts.type == VgoBlendShapeFacePartsType.Eyelid)
+                        if (facePart.type == VgoBlendShapeFacePartsType.Eyelid)
                         {
                             if (ignoreEyelid)
                             {
                                 continue;
                             }
                         }
-                        else if (parts.type == VgoBlendShapeFacePartsType.Mouth)
+                        else if (facePart.type == VgoBlendShapeFacePartsType.Mouth)
                         {
                             if (ignoreMouth)
                             {

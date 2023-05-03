@@ -13,14 +13,20 @@ namespace UniVgo2
     public class ExportMeshRendererAsset
     {
         /// <summary>A renderer.</summary>
+        private readonly Renderer _Renderer;
+
+        /// <summary>A mesh.</summary>
+        private readonly Mesh _Mesh;
+
+        /// <summary>A renderer.</summary>
         /// <remarks>
         /// This is unique.
         /// MeshRenderer or SkinnedMeshRenderer or ParticleSystemRenderer
         /// </remarks>
-        public Renderer Renderer;
+        public Renderer Renderer => _Renderer;
 
         /// <summary>A mesh.</summary>
-        public Mesh Mesh;
+        public Mesh Mesh => _Mesh;
 
         /// <summary>
         /// Create a new instance of ExportMeshRendererAsset with renderer and mesh.
@@ -29,9 +35,9 @@ namespace UniVgo2
         /// <param name="mesh"></param>
         public ExportMeshRendererAsset(Renderer renderer, Mesh mesh)
         {
-            Renderer = renderer;
+            _Renderer = renderer;
 
-            Mesh = mesh;
+            _Mesh = mesh;
         }
     }
 }

@@ -406,14 +406,14 @@ namespace UniVgo2
                         {
                             BlendShapeConfiguration blendShapeConfiguration = vgoBlendShape.BlendShapeConfiguration;
 
-                            meshAsset.BlendShapeConfig = new BlendShapeConfig()
+                            meshAsset.BlendShapeConfig = new BlendShapeConfig
                             {
-                                name = blendShapeConfiguration.name ?? string.Empty,
-                                kind = blendShapeConfiguration.kind,
-                                faceParts = blendShapeConfiguration.faceParts,
-                                blinks = blendShapeConfiguration.blinks,
-                                visemes = blendShapeConfiguration.visemes,
-                                presets = blendShapeConfiguration.presets,
+                                Name = blendShapeConfiguration.name ?? string.Empty,
+                                Kind = blendShapeConfiguration.kind,
+                                FaceParts = blendShapeConfiguration.faceParts,
+                                Blinks = blendShapeConfiguration.blinks,
+                                Visemes = blendShapeConfiguration.visemes,
+                                Presets = blendShapeConfiguration.presets,
                             };
                         }
                     }

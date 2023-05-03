@@ -22,37 +22,67 @@ namespace UniVgo2
         #region Fields
 
         /// <summary>A game object of root.</summary>
-        public GameObject? Root = null;
+        private GameObject? _Root = null;
 
         /// <summary>An avatar.</summary>
-        public Avatar? Avatar = null;
+        private Avatar? _Avatar = null;
 
         /// <summary>List of unity animation clip.</summary>
-        public List<AnimationClip?>? AnimationClipList = null;
+        private List<AnimationClip?>? _AnimationClipList = null;
 
         /// <summary>List of unity collider.</summary>
-        public List<Collider?>? ColliderList = null;
+        private List<Collider?>? _ColliderList = null;
 
         /// <summary>List of unity material.</summary>
-        public List<Material?>? MaterialList = null;
+        private List<Material?>? _MaterialList = null;
 
         /// <summary>List of unity mesh and renderer.</summary>
-        public List<MeshAsset>? MeshAssetList = null;
+        private List<MeshAsset>? _MeshAssetList = null;
 
         /// <summary>List of unity texture2D.</summary>
-        public List<Texture2D?>? Texture2dList = null;
+        private List<Texture2D?>? _Texture2dList = null;
 
         /// <summary>List of scriptable object.</summary>
-        public readonly List<ScriptableObject> ScriptableObjectList = new List<ScriptableObject>();
+        private readonly List<ScriptableObject> _ScriptableObjectList = new List<ScriptableObject>();
 
         /// <summary>Array of spring bone collider group.</summary>
-        public VgoSpringBone.VgoSpringBoneColliderGroup?[]? SpringBoneColliderGroupArray = null;
+        private VgoSpringBone.VgoSpringBoneColliderGroup?[]? _SpringBoneColliderGroupArray = null;
 
         /// <summary>A vgo layout.</summary>
-        public VgoLayout? Layout;
+        private VgoLayout? _Layout = null;
 
         /// <summary></summary>
         protected bool disposed;
+
+        /// <summary>A game object of root.</summary>
+        public GameObject? Root { get => _Root; set => _Root = value; }
+
+        /// <summary>An avatar.</summary>
+        public Avatar? Avatar { get => _Avatar; set => _Avatar = value; }
+
+        /// <summary>List of unity animation clip.</summary>
+        public List<AnimationClip?>? AnimationClipList { get => _AnimationClipList; set => _AnimationClipList = value; }
+
+        /// <summary>List of unity collider.</summary>
+        public List<Collider?>? ColliderList { get => _ColliderList; set => _ColliderList = value; }
+
+        /// <summary>List of unity material.</summary>
+        public List<Material?>? MaterialList { get => _MaterialList; set => _MaterialList = value; }
+
+        /// <summary>List of unity mesh and renderer.</summary>
+        public List<MeshAsset>? MeshAssetList { get => _MeshAssetList; set => _MeshAssetList = value; }
+
+        /// <summary>List of unity texture2D.</summary>
+        public List<Texture2D?>? Texture2dList { get => _Texture2dList; set => _Texture2dList = value; }
+
+        /// <summary>List of scriptable object.</summary>
+        public List<ScriptableObject> ScriptableObjectList => _ScriptableObjectList;
+
+        /// <summary>Array of spring bone collider group.</summary>
+        public VgoSpringBone.VgoSpringBoneColliderGroup?[]? SpringBoneColliderGroupArray { get => _SpringBoneColliderGroupArray; set => _SpringBoneColliderGroupArray = value; }
+
+        /// <summary>A vgo layout.</summary>
+        public VgoLayout? Layout { get => _Layout; set => _Layout = value; }
 
         #endregion
 
@@ -192,7 +222,11 @@ namespace UniVgo2
         /// </summary>
         public void DestroyRootAndResourcesForEditor()
         {
-            if (Application.isPlaying == false)
+            if (Application.isPlaying)
+            {
+                DestroyRootAndResources();
+            }
+            else
             {
                 if (Root != null)
                 {

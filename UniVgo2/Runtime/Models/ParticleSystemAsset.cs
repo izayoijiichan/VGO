@@ -13,10 +13,16 @@ namespace UniVgo2
     public class ParticleSystemAsset
     {
         /// <summary>Particle System</summary>
-        public ParticleSystem ParticleSystem;
+        private readonly ParticleSystem _ParticleSystem;
 
         /// <summary>Particle System Renderer</summary>
-        public ParticleSystemRenderer ParticleSystemRenderer;
+        private readonly ParticleSystemRenderer _ParticleSystemRenderer;
+
+        /// <summary>Particle System</summary>
+        public ParticleSystem ParticleSystem => _ParticleSystem;
+
+        /// <summary>Particle System Renderer</summary>
+        public ParticleSystemRenderer ParticleSystemRenderer => _ParticleSystemRenderer;
 
         /// <summary>
         /// Create a new instance of ParticleSystemAsset with particleSystem and particleSystemRenderer.
@@ -25,9 +31,9 @@ namespace UniVgo2
         /// <param name="particleSystemRenderer"></param>
         public ParticleSystemAsset(ParticleSystem particleSystem, ParticleSystemRenderer particleSystemRenderer)
         {
-            ParticleSystem = particleSystem;
+            _ParticleSystem = particleSystem;
 
-            ParticleSystemRenderer = particleSystemRenderer;
+            _ParticleSystemRenderer = particleSystemRenderer;
         }
     }
 }

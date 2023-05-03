@@ -35,7 +35,6 @@ namespace UniVgo2.Editor
             // Script
             //base.OnInspectorGUI();
 
-
             serializedObject.Update();
 
             // Right
@@ -44,14 +43,14 @@ namespace UniVgo2.Editor
                 //EditorGUILayout.LabelField(_RightProperty.name, EditorStyles.boldLabel);
                 SetPropertyFields(_RightProperty, new string[]
                 {
-                "title",
-                "author",
-                "organization",
-                "createdDate",
-                "updatedDate",
-                "version",
-                "distributionUrl",
-                "licenseUrl",
+                    "title",
+                    "author",
+                    "organization",
+                    "createdDate",
+                    "updatedDate",
+                    "version",
+                    "distributionUrl",
+                    "licenseUrl",
                 });
             }
 

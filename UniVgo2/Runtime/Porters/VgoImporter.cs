@@ -1054,18 +1054,18 @@ namespace UniVgo2
                 }
 
                 if ((meshAsset.BlendShapeConfig != null) &&
-                    (meshAsset.BlendShapeConfig.kind != VgoBlendShapeKind.None))
+                    (meshAsset.BlendShapeConfig.Kind != VgoBlendShapeKind.None))
                 {
                     var vgoBlendShape = go.AddComponent<VgoBlendShape>();
 
                     BlendShapeConfiguration blendShapeConfiguration = ScriptableObject.CreateInstance<BlendShapeConfiguration>();
 
-                    blendShapeConfiguration.name = meshAsset.BlendShapeConfig.name;
-                    blendShapeConfiguration.kind = meshAsset.BlendShapeConfig.kind;
-                    blendShapeConfiguration.faceParts = meshAsset.BlendShapeConfig.faceParts;
-                    blendShapeConfiguration.blinks = meshAsset.BlendShapeConfig.blinks;
-                    blendShapeConfiguration.visemes = meshAsset.BlendShapeConfig.visemes;
-                    blendShapeConfiguration.presets = meshAsset.BlendShapeConfig.presets;
+                    blendShapeConfiguration.name = meshAsset.BlendShapeConfig.Name;
+                    blendShapeConfiguration.kind = meshAsset.BlendShapeConfig.Kind;
+                    blendShapeConfiguration.faceParts = meshAsset.BlendShapeConfig.FaceParts;
+                    blendShapeConfiguration.blinks = meshAsset.BlendShapeConfig.Blinks;
+                    blendShapeConfiguration.visemes = meshAsset.BlendShapeConfig.Visemes;
+                    blendShapeConfiguration.presets = meshAsset.BlendShapeConfig.Presets;
 
                     vgoBlendShape.BlendShapeConfiguration = blendShapeConfiguration;
 
@@ -1163,13 +1163,13 @@ namespace UniVgo2
 
                     BlendShapeConfiguration blendShapeConfiguration = ScriptableObject.CreateInstance<BlendShapeConfiguration>();
 
-                    blendShapeConfiguration.name = meshAsset.BlendShapeConfig.name;
+                    blendShapeConfiguration.name = meshAsset.BlendShapeConfig.Name;
 
                     blendShapeConfiguration.kind = vgoMeshRenderer.blendShapeKind.Value;
 
-                    blendShapeConfiguration.faceParts = meshAsset.BlendShapeConfig.faceParts;
-                    blendShapeConfiguration.blinks = meshAsset.BlendShapeConfig.blinks;
-                    blendShapeConfiguration.visemes = meshAsset.BlendShapeConfig.visemes;
+                    blendShapeConfiguration.faceParts = meshAsset.BlendShapeConfig.FaceParts;
+                    blendShapeConfiguration.blinks = meshAsset.BlendShapeConfig.Blinks;
+                    blendShapeConfiguration.visemes = meshAsset.BlendShapeConfig.Visemes;
 
                     if (vgoMeshRenderer.blendShapePesets != null &&
                         vgoMeshRenderer.blendShapePesets.Any())

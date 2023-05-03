@@ -70,13 +70,13 @@ namespace UniVgo2.Porters
                     throw new ArgumentNullException(nameof(unityMaterialList));
                 }
 
-                meshAsset.Materials = meshContext.materialIndices.Select(x => unityMaterialList[x]).ToArray();
+                meshAsset.Materials = meshContext.MaterialIndices.Select(x => unityMaterialList[x]).ToArray();
             }
 
-            if ((meshContext.blendShapesContext != null) &&
-                (meshContext.blendShapesContext.blendShapeConfig != null))
+            if ((meshContext.BlendShapesContext != null) &&
+                (meshContext.BlendShapesContext.BlendShapeConfig != null))
             {
-                meshAsset.BlendShapeConfig = meshContext.blendShapesContext.blendShapeConfig;
+                meshAsset.BlendShapeConfig = meshContext.BlendShapesContext.BlendShapeConfig;
             }
 
             return meshAsset;
@@ -122,36 +122,36 @@ namespace UniVgo2.Porters
             SetPrimitiveAttributes(vgoStorage, meshContext, vgoMesh.attributes, out int positionsCount);
 
             // SubMeshes
-            meshContext.subMeshes = CreateSubMeshes(vgoStorage, vgoMesh.subMeshes, positionsCount);
+            meshContext.SubMeshes = CreateSubMeshes(vgoStorage, vgoMesh.subMeshes, positionsCount);
 
             if (vgoStorage.IsSpecVersion_2_4_orLower)
             {
                 // Materials
-                meshContext.materialIndices = vgoMesh.materials ?? new List<int>();
+                meshContext.MaterialIndices = vgoMesh.materials ?? new List<int>();
 
-                if (meshContext.materialIndices.Any() == false)
+                if (meshContext.MaterialIndices.Any() == false)
                 {
-                    meshContext.materialIndices.Add(0);
+                    meshContext.MaterialIndices.Add(0);
                 }
             }
 
             // BlendShapes
-            meshContext.blendShapesContext = CreateBlendShapes(vgoStorage, vgoMesh.blendShapes);
+            meshContext.BlendShapesContext = CreateBlendShapes(vgoStorage, vgoMesh.blendShapes);
 
-            if ((meshContext.blendShapesContext != null) &&
-                (meshContext.blendShapesContext.blendShapeConfig != null))
+            if ((meshContext.BlendShapesContext != null) &&
+                (meshContext.BlendShapesContext.BlendShapeConfig != null))
             {
-                BlendShapeConfig blendShapeConfig = meshContext.blendShapesContext.blendShapeConfig;
+                BlendShapeConfig blendShapeConfig = meshContext.BlendShapesContext.BlendShapeConfig;
 
-                blendShapeConfig.name = vgoMesh.name;
+                blendShapeConfig.Name = vgoMesh.name;
 
                 if (vgoStorage.IsSpecVersion_2_4_orLower)
                 {
-                    blendShapeConfig.kind = vgoMesh.blendShapeKind;
+                    blendShapeConfig.Kind = vgoMesh.blendShapeKind;
 
                     if (vgoMesh.blendShapePesets != null)
                     {
-                        blendShapeConfig.presets = vgoMesh.blendShapePesets;
+                        blendShapeConfig.Presets = vgoMesh.blendShapePesets;
                     }
                 }
             }
@@ -181,16 +181,16 @@ namespace UniVgo2.Porters
 
                 if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                 {
-                    meshContext.positions = new Vector3[positions.Length];
+                    meshContext.Positions = new Vector3[positions.Length];
 
                     for (int idx = 0; idx < positions.Length; idx++)
                     {
-                        meshContext.positions[idx] = positions[idx].ReverseZ();
+                        meshContext.Positions[idx] = positions[idx].ReverseZ();
                     }
                 }
                 else
                 {
-                    meshContext.positions = positions;
+                    meshContext.Positions = positions;
                 }
 
                 positionsCount = positions.Length;
@@ -203,16 +203,16 @@ namespace UniVgo2.Porters
 
                 if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                 {
-                    meshContext.normals = new Vector3[normals.Length];
+                    meshContext.Normals = new Vector3[normals.Length];
 
                     for (int idx = 0; idx < normals.Length; idx++)
                     {
-                        meshContext.normals[idx] = normals[idx].ReverseZ();
+                        meshContext.Normals[idx] = normals[idx].ReverseZ();
                     }
                 }
                 else
                 {
-                    meshContext.normals = normals;
+                    meshContext.Normals = normals;
                 }
             }
 
@@ -236,26 +236,26 @@ namespace UniVgo2.Porters
 
                     if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                     {
-                        meshContext.tangents = new Vector4[tangents.Length];
+                        meshContext.Tangents = new Vector4[tangents.Length];
 
                         for (int idx = 0; idx < tangents.Length; idx++)
                         {
-                            meshContext.tangents[idx] = tangents[idx].ReverseZ();
+                            meshContext.Tangents[idx] = tangents[idx].ReverseZ();
                         }
                     }
                     else
                     {
-                        meshContext.tangents = tangents;
+                        meshContext.Tangents = tangents;
                     }
                 }
             }
 
             // UVs
             {
-                meshContext.uv0s = ReadUV(vgoStorage, attributes.TEXCOORD_0, positionsCount);
-                meshContext.uv1s = ReadUV(vgoStorage, attributes.TEXCOORD_1, -1);
-                meshContext.uv2s = ReadUV(vgoStorage, attributes.TEXCOORD_2, -1);
-                meshContext.uv3s = ReadUV(vgoStorage, attributes.TEXCOORD_3, -1);
+                meshContext.UV0s = ReadUV(vgoStorage, attributes.TEXCOORD_0, positionsCount);
+                meshContext.UV1s = ReadUV(vgoStorage, attributes.TEXCOORD_1, -1);
+                meshContext.UV2s = ReadUV(vgoStorage, attributes.TEXCOORD_2, -1);
+                meshContext.UV3s = ReadUV(vgoStorage, attributes.TEXCOORD_3, -1);
             }
 
             // Colors
@@ -268,14 +268,14 @@ namespace UniVgo2.Porters
                     // @notice Vector4(byte) = Color32
                     Color32[] colors = vgoStorage.GetAccessorArrayData<Color32>(attributes.COLOR_0);
 
-                    meshContext.color32s = colors;
+                    meshContext.Color32s = colors;
                 }
                 else if (colorAccessor.dataType == VgoResourceAccessorDataType.Vector4Float)
                 {
                     // @notice Vector4(float) = Color
                     Color[] colors = vgoStorage.GetAccessorArrayData<Color>(attributes.COLOR_0);
 
-                    meshContext.colors = colors;
+                    meshContext.Colors = colors;
                 }
                 else
                 {
@@ -297,13 +297,13 @@ namespace UniVgo2.Porters
 
                     joints = new Vector4Ushort[vec4byteSpan.Length];
 
-                    for (int i = 0; i < vec4byteSpan.Length; i++)
+                    for (int idx = 0; idx < vec4byteSpan.Length; idx++)
                     {
-                        joints[i] = new Vector4Ushort(
-                            vec4byteSpan[i].X,
-                            vec4byteSpan[i].Y,
-                            vec4byteSpan[i].Z,
-                            vec4byteSpan[i].W);
+                        joints[idx] = new Vector4Ushort(
+                            vec4byteSpan[idx].X,
+                            vec4byteSpan[idx].Y,
+                            vec4byteSpan[idx].Z,
+                            vec4byteSpan[idx].W);
                     }
                 }
                 else if (jointsAccessor.dataType == VgoResourceAccessorDataType.Vector4UInt16)
@@ -321,11 +321,11 @@ namespace UniVgo2.Porters
                 // BoneWeights
                 if (joints.Length == weights.Length)
                 {
-                    meshContext.boneWeights = new BoneWeight[joints.Length];
+                    meshContext.BoneWeights = new BoneWeight[joints.Length];
 
                     for (int idx = 0; idx < joints.Length; idx++)
                     {
-                        meshContext.boneWeights[idx] = ConvertJointAndWeightToBoneWeight(joints[idx], weights[idx]);
+                        meshContext.BoneWeights[idx] = ConvertJointAndWeightToBoneWeight(joints[idx], weights[idx]);
                     }
                 }
             }
@@ -438,9 +438,9 @@ namespace UniVgo2.Porters
 
                         indices = new int[indexSpan.Length];
 
-                        for (int i = 0; i < indexSpan.Length; i++)
+                        for (int idx = 0; idx < indexSpan.Length; idx++)
                         {
-                            indices[i] = indexSpan[i];
+                            indices[idx] = indexSpan[idx];
                         }
                     }
                     break;
@@ -452,9 +452,9 @@ namespace UniVgo2.Porters
 
                         indices = new int[indexSpan.Length];
 
-                        for (int i = 0; i < indexSpan.Length; i++)
+                        for (int idx = 0; idx < indexSpan.Length; idx++)
                         {
-                            indices[i] = indexSpan[i];
+                            indices[idx] = indexSpan[idx];
                         }
                     }
                     break;
@@ -466,9 +466,9 @@ namespace UniVgo2.Porters
 
                         indices = new int[indexSpan.Length];
 
-                        for (int i = 0; i < indexSpan.Length; i++)
+                        for (int idx = 0; idx < indexSpan.Length; idx++)
                         {
-                            indices[i] = (int)indexSpan[i];
+                            indices[idx] = (int)indexSpan[idx];
                         }
                     }
                     break;
@@ -499,7 +499,7 @@ namespace UniVgo2.Porters
 
             BlendShapesContext context = new BlendShapesContext()
             {
-                blendShapeContexts = new List<BlendShapeContext>(vgoMeshBlendShapes.Count),
+                BlendShapeContexts = new List<BlendShapeContext>(vgoMeshBlendShapes.Count),
             };
 
             for (int shapeIndex = 0; shapeIndex < vgoMeshBlendShapes.Count; shapeIndex++)
@@ -525,16 +525,16 @@ namespace UniVgo2.Porters
 
                     if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                     {
-                        blendShape.positions = new Vector3[positions.Length];
+                        blendShape.Positions = new Vector3[positions.Length];
 
                         for (int idx = 0; idx < positions.Length; idx++)
                         {
-                            blendShape.positions[idx] = positions[idx].ReverseZ();
+                            blendShape.Positions[idx] = positions[idx].ReverseZ();
                         }
                     }
                     else
                     {
-                        blendShape.positions = positions;
+                        blendShape.Positions = positions;
                     }
                 }
 
@@ -544,16 +544,16 @@ namespace UniVgo2.Porters
 
                     if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                     {
-                        blendShape.normals = new Vector3[normals.Length];
+                        blendShape.Normals = new Vector3[normals.Length];
 
                         for (int idx = 0; idx < normals.Length; idx++)
                         {
-                            blendShape.normals[idx] = normals[idx].ReverseZ();
+                            blendShape.Normals[idx] = normals[idx].ReverseZ();
                         }
                     }
                     else
                     {
-                        blendShape.normals = normals;
+                        blendShape.Normals = normals;
                     }
                 }
 
@@ -563,20 +563,20 @@ namespace UniVgo2.Porters
 
                     if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                     {
-                        blendShape.tangents = new Vector3[tangents.Length];
+                        blendShape.Tangents = new Vector3[tangents.Length];
 
                         for (int idx = 0; idx < tangents.Length; idx++)
                         {
-                            blendShape.tangents[idx] = tangents[idx].ReverseZ();
+                            blendShape.Tangents[idx] = tangents[idx].ReverseZ();
                         }
                     }
                     else
                     {
-                        blendShape.tangents = tangents;
+                        blendShape.Tangents = tangents;
                     }
                 }
 
-                context.blendShapeContexts.Add(blendShape);
+                context.BlendShapeContexts.Add(blendShape);
 
                 if (vgoBlendShape.facePartsType != VgoBlendShapeFacePartsType.None)
                 {
@@ -586,7 +586,7 @@ namespace UniVgo2.Porters
                         type = vgoBlendShape.facePartsType,
                     };
 
-                    context.blendShapeConfig.faceParts.Add(facePart);
+                    context.BlendShapeConfig.FaceParts.Add(facePart);
                 }
 
                 if (vgoBlendShape.blinkType != VgoBlendShapeBlinkType.None)
@@ -597,7 +597,7 @@ namespace UniVgo2.Porters
                         type = vgoBlendShape.blinkType,
                     };
 
-                    context.blendShapeConfig.blinks.Add(blink);
+                    context.BlendShapeConfig.Blinks.Add(blink);
                 }
 
                 if (vgoBlendShape.visemeType != VgoBlendShapeVisemeType.None)
@@ -608,7 +608,7 @@ namespace UniVgo2.Porters
                         type = vgoBlendShape.visemeType,
                     };
 
-                    context.blendShapeConfig.visemes.Add(viseme);
+                    context.BlendShapeConfig.Visemes.Add(viseme);
                 }
             }
 
@@ -628,26 +628,26 @@ namespace UniVgo2.Porters
         {
             Mesh mesh = new Mesh
             {
-                name = meshContext.name
+                name = meshContext.Name
             };
 
             // Positions
-            if ((meshContext.positions != null) && meshContext.positions.Any())
+            if ((meshContext.Positions != null) && meshContext.Positions.Any())
             {
-                if (meshContext.positions.Length > UInt16.MaxValue)
+                if (meshContext.Positions.Length > UInt16.MaxValue)
                 {
                     // UNITY_2017_3_OR_NEWER
                     mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
                 }
-                mesh.SetVertices(meshContext.positions);
+                mesh.SetVertices(meshContext.Positions);
             }
 
             // Normals
             bool recalculateNormals = true;
 
-            if ((meshContext.normals != null) && meshContext.normals.Any())
+            if ((meshContext.Normals != null) && meshContext.Normals.Any())
             {
-                mesh.SetNormals(meshContext.normals);
+                mesh.SetNormals(meshContext.Normals);
 
                 recalculateNormals = false;
             }
@@ -657,56 +657,56 @@ namespace UniVgo2.Porters
 
             if (_Option.ImportTangents)
             {
-                if ((meshContext.tangents != null) && meshContext.tangents.Any())
+                if ((meshContext.Tangents != null) && meshContext.Tangents.Any())
                 {
-                    mesh.SetTangents(meshContext.tangents);
+                    mesh.SetTangents(meshContext.Tangents);
 
                     recalculateTangents = false;
                 }
             }
 
             // UVs
-            if ((meshContext.uv0s != null) && meshContext.uv0s.Any())
+            if ((meshContext.UV0s != null) && meshContext.UV0s.Any())
             {
-                mesh.SetUVs(channel: 0, meshContext.uv0s);
+                mesh.SetUVs(channel: 0, meshContext.UV0s);
             }
-            if ((meshContext.uv1s != null) && meshContext.uv1s.Any())
+            if ((meshContext.UV1s != null) && meshContext.UV1s.Any())
             {
-                mesh.SetUVs(channel: 1, meshContext.uv1s);
+                mesh.SetUVs(channel: 1, meshContext.UV1s);
             }
-            if ((meshContext.uv2s != null) && meshContext.uv2s.Any())
+            if ((meshContext.UV2s != null) && meshContext.UV2s.Any())
             {
-                mesh.SetUVs(channel: 2, meshContext.uv2s);
+                mesh.SetUVs(channel: 2, meshContext.UV2s);
             }
-            if ((meshContext.uv3s != null) && meshContext.uv3s.Any())
+            if ((meshContext.UV3s != null) && meshContext.UV3s.Any())
             {
-                mesh.SetUVs(channel: 3, meshContext.uv3s);
+                mesh.SetUVs(channel: 3, meshContext.UV3s);
             }
 
             // Colors
-            if ((meshContext.color32s != null) && meshContext.color32s.Any())
+            if ((meshContext.Color32s != null) && meshContext.Color32s.Any())
             {
-                mesh.SetColors(meshContext.color32s);
+                mesh.SetColors(meshContext.Color32s);
             }
-            else if ((meshContext.colors != null) && meshContext.colors.Any())
+            else if ((meshContext.Colors != null) && meshContext.Colors.Any())
             {
-                mesh.SetColors(meshContext.colors);
+                mesh.SetColors(meshContext.Colors);
             }
 
             // BoneWeights
-            if ((meshContext.boneWeights != null) && meshContext.boneWeights.Any())
+            if ((meshContext.BoneWeights != null) && meshContext.BoneWeights.Any())
             {
-                mesh.boneWeights = meshContext.boneWeights;
+                mesh.boneWeights = meshContext.BoneWeights;
             }
 
             // SubMesh
-            if (meshContext.subMeshes != null)
+            if (meshContext.SubMeshes != null)
             {
-                mesh.subMeshCount = meshContext.subMeshes.Count;
+                mesh.subMeshCount = meshContext.SubMeshes.Count;
 
-                for (int i = 0; i < meshContext.subMeshes.Count; ++i)
+                for (int i = 0; i < meshContext.SubMeshes.Count; ++i)
                 {
-                    mesh.SetTriangles(meshContext.subMeshes[i], i);
+                    mesh.SetTriangles(meshContext.SubMeshes[i], i);
                 }
             }
 
@@ -723,31 +723,31 @@ namespace UniVgo2.Porters
             }
 
             // BlendShape
-            if (meshContext.blendShapesContext != null)
+            if (meshContext.BlendShapesContext != null)
             {
                 Vector3[]? emptyVertices = null;
 
-                foreach (BlendShapeContext blendShape in meshContext.blendShapesContext.blendShapeContexts)
+                foreach (BlendShapeContext blendShape in meshContext.BlendShapesContext.BlendShapeContexts)
                 {
-                    if (blendShape.positions?.Length > 0)
+                    if (blendShape.Positions?.Length > 0)
                     {
-                        if (blendShape.positions.Length == mesh.vertexCount)
+                        if (blendShape.Positions.Length == mesh.vertexCount)
                         {
-                            Vector3[] deltaPositions = blendShape.positions;
+                            Vector3[] deltaPositions = blendShape.Positions;
 
                             Vector3[]? deltaNormals = null;
-                            if ((meshContext.normals != null) &&
-                                (meshContext.normals.Length == mesh.vertexCount) &&
-                                (blendShape.normals.Count() == blendShape.positions.Count()))
+                            if ((meshContext.Normals != null) &&
+                                (meshContext.Normals.Length == mesh.vertexCount) &&
+                                (blendShape.Normals.Count() == blendShape.Positions.Count()))
                             {
-                                deltaNormals = blendShape.normals;
+                                deltaNormals = blendShape.Normals;
                             }
 
-                            mesh.AddBlendShapeFrame(blendShape.name, frameWeight: 100.0f, deltaPositions, deltaNormals, deltaTangents: null);
+                            mesh.AddBlendShapeFrame(blendShape.Name, frameWeight: 100.0f, deltaPositions, deltaNormals, deltaTangents: null);
                         }
                         else
                         {
-                            Debug.LogWarningFormat("May be partial primitive has blendShape. Require separate mesh or extend blend shape, but not implemented: {0}", blendShape.name);
+                            Debug.LogWarningFormat("May be partial primitive has blendShape. Require separate mesh or extend blend shape, but not implemented: {0}", blendShape.Name);
                         }
                     }
                     else
@@ -758,7 +758,7 @@ namespace UniVgo2.Porters
                         }
 
                         // add empty blend shape for keep blend shape index
-                        mesh.AddBlendShapeFrame(blendShape.name, frameWeight: 100.0f, emptyVertices, deltaNormals: null, deltaTangents: null);
+                        mesh.AddBlendShapeFrame(blendShape.Name, frameWeight: 100.0f, emptyVertices, deltaNormals: null, deltaTangents: null);
                     }
                 }
             }

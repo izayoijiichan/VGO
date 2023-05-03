@@ -1,5 +1,16 @@
 # Change Log
 
+## [2.5.4] - 2023-05-04
+
+- Features
+  - liltoon shader version 1.3.7 is now supported.
+  - [Editor] Blendshape indices of `Vgo Blend Shape` are now selectable in dropdown format.
+- Fixes
+  - Fixed a setting error for lilToon in versionDefines in UniVgo2.asmdef.
+  - [Editor] Fixed a problem in which `ModelAsset` was not properly disposed when played in the Editor.
+- Changes
+  - Public fields have been changed to properties.
+
 ## [2.5.3] - 2023-04-04
 
 - Fixes

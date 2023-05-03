@@ -13,16 +13,28 @@ namespace UniVgo2
     public class BlendShapeContext
     {
         /// <summary></summary>
-        public string name;
+        private readonly string _Name = string.Empty;
 
         /// <summary></summary>
-        public Vector3[]? positions;
+        private Vector3[]? _Positions;
 
         /// <summary></summary>
-        public Vector3[]? normals;
+        private Vector3[]? _Normals;
 
         /// <summary></summary>
-        public Vector3[]? tangents;
+        private Vector3[]? _Tangents;
+
+        /// <summary></summary>
+        public string Name => _Name;
+
+        /// <summary></summary>
+        public Vector3[]? Positions { get => _Positions; set => _Positions = value; }
+
+        /// <summary></summary>
+        public Vector3[]? Normals { get => _Normals; set => _Normals = value; }
+
+        /// <summary></summary>
+        public Vector3[]? Tangents { get => _Tangents; set => _Tangents = value; }
 
         /// <summary>
         /// Create a new instance of BlendShape with name.
@@ -30,7 +42,7 @@ namespace UniVgo2
         /// <param name="name"></param>
         public BlendShapeContext(string name)
         {
-            this.name = name;
+            _Name = name;
         }
 
         /// <summary>
@@ -39,7 +51,7 @@ namespace UniVgo2
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return name ?? "{no name}";
+            return _Name ?? "{no name}";
         }
     }
 }

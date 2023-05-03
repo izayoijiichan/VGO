@@ -157,21 +157,21 @@ namespace UniVgo2.Porters
 
                     if (blendShapeConfig != null)
                     {
-                        BlendShapeFacePart facePart = blendShapeConfig.faceParts.Where(x => x.index == shapeIndex).FirstOrDefault();
+                        BlendShapeFacePart? facePart = blendShapeConfig.FaceParts.FirstOrDefault(x => x.index == shapeIndex);
 
                         if (facePart != null)
                         {
                             vgoMeshBlendShape.facePartsType = facePart.type;
                         }
 
-                        BlendShapeBlink blink = blendShapeConfig.blinks.Where(x => x.index == shapeIndex).FirstOrDefault();
+                        BlendShapeBlink? blink = blendShapeConfig.Blinks.FirstOrDefault(x => x.index == shapeIndex);
 
                         if (blink != null)
                         {
                             vgoMeshBlendShape.blinkType = blink.type;
                         }
 
-                        BlendShapeViseme viseme = blendShapeConfig.visemes.Where(x => x.index == shapeIndex).FirstOrDefault();
+                        BlendShapeViseme? viseme = blendShapeConfig.Visemes.FirstOrDefault(x => x.index == shapeIndex);
 
                         if (viseme != null)
                         {
@@ -186,8 +186,8 @@ namespace UniVgo2.Porters
                 {
                     if (blendShapeConfig != null)
                     {
-                        vgoMesh.blendShapeKind = blendShapeConfig.kind;
-                        vgoMesh.blendShapePesets = blendShapeConfig.presets;
+                        vgoMesh.blendShapeKind = blendShapeConfig.Kind;
+                        vgoMesh.blendShapePesets = blendShapeConfig.Presets;
                     }
                 }
             }

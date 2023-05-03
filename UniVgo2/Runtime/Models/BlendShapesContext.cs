@@ -5,7 +5,6 @@
 #nullable enable
 namespace UniVgo2
 {
-    using NewtonVgo;
     using System.Collections.Generic;
 
     /// <summary>
@@ -14,9 +13,15 @@ namespace UniVgo2
     public class BlendShapesContext
     {
         /// <summary>A blend shape configuration.</summary>
-        public BlendShapeConfig blendShapeConfig = new BlendShapeConfig();
+        private readonly BlendShapeConfig _BlendShapeConfig = new BlendShapeConfig();
 
         /// <summary>List of blend shape context.</summary>
-        public List<BlendShapeContext> blendShapeContexts = new List<BlendShapeContext>();
+        private List<BlendShapeContext> _BlendShapeContexts = new List<BlendShapeContext>();
+
+        /// <summary>A blend shape configuration.</summary>
+        public BlendShapeConfig BlendShapeConfig => _BlendShapeConfig;
+
+        /// <summary>List of blend shape context.</summary>
+        public List<BlendShapeContext> BlendShapeContexts { get => _BlendShapeContexts; set => _BlendShapeContexts = value; }
     }
 }

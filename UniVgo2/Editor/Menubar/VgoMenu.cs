@@ -5,7 +5,6 @@
 #nullable enable
 namespace UniVgo2.Editor
 {
-    using NewtonVgo;
     using UnityEditor;
     using UnityEngine;
 

@@ -13,7 +13,7 @@ namespace UniVgo2.Editor
     using UniVgo2;
 
     /// <summary>
-    /// VGO Meta Editor
+    /// VGO Generator Editor
     /// </summary>
     [CustomEditor(typeof(VgoGenerator))]
     public class VgoGeneratorEditor : ScriptEditorBase
@@ -83,15 +83,15 @@ namespace UniVgo2.Editor
 
             serializedObject.Update();
 
-            // Meta
+            // Generator Info
             if (_GeneratorInfoProperty != null)
             {
                 //EditorGUILayout.LabelField(_GeneratorInfoProperty.name, EditorStyles.boldLabel);
                 EditorGUI.BeginDisabledGroup(true);
                 SetPropertyFields(_GeneratorInfoProperty, new string[]
                 {
-                "name",
-                "version",
+                    "name",
+                    "version",
                 });
                 EditorGUI.EndDisabledGroup();
             }

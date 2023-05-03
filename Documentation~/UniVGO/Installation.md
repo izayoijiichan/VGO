@@ -37,12 +37,12 @@ This package is required for any Unity version.
 
 |package name|owner|Repository|specification version|program version|release date|
 |:---|:---:|:---:|:---:|:---:|:---:|
-|com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|-|3.0.2|29 Mar, 2022|
-|VRMShaders|vrm-c|GitHub|VRM 0.0|0.72.0|13 Apr, 2020|
-|LilToonShader.Utility|IzayoiJiichan|GitHub||1.0.1|21 Aug, 2022|
+|com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|-|3.1.0|13 Mar, 2023|
+|VRMShaders|vrm-c|GitHub|VRM 0.0|0.105.0|7 Oct, 2022|
+|LilToonShader.Utility|IzayoiJiichan|GitHub||1.0.2|3 May, 2023|
 |UniShaders|IzayoiJiichan|GitHub|-|1.4.0|20 May, 2022|
 |VgoSpringBone|IzayoiJiichan|GitHub|-|1.1.2|24 Aug, 2022|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.4|4 Apr, 2023|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.4|4 May, 2023|
 
 #### Additional Packages
 
@@ -50,7 +50,7 @@ Add if necessary.
 
 |package name|owner|Repository|specification version|program version|release date|remarks|
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
-|jp.lilxyzw.liltoon|lilxyzw|GitHub||1.3.1|28 Jun, 2022||
+|jp.lilxyzw.liltoon|lilxyzw|GitHub||1.3.7|17 Jan, 2023||
 |com.unity.render-pipelines.universal|Unity Technologies|Unity Registry||11.0.0|26 Oct, 2021|URP only|
 |com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||11.0.0|26 Oct, 2021|HDRP only|
 
@@ -131,13 +131,13 @@ To use UniVGO, add the following settings.
 ```json
 {
   "dependencies": {
-    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.1",
+    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.2",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.3",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.4",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
-    "com.unity.nuget.newtonsoft-json": "3.0.2",
+    "com.unity.nuget.newtonsoft-json": "3.1.0",
     "com.unity.ugui": "1.0.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.85.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.105.0",
   }
 }
 ```
@@ -149,7 +149,7 @@ If you want to use lilToon, append the line "jp.lilxyzw.liltoon".
 ```json
 {
   "dependencies": {
-    "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.3.1",
+    "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.3.7",
   }
 }
 ```
@@ -230,9 +230,17 @@ The version combinations are as follows.
 
 |UniVRM|UniVGO|min Unity|
 |:---:|:---:|:---:|
-|0.100.0|2.5.3|2020.3|
-|0.101.0|2.5.3|2020.3|
-|0.102.0|2.5.3|2020.3|
+|0.100.0|2.5.4|2020.3|
+|0.101.0|2.5.4|2020.3|
+|0.102.0|2.5.4|2020.3|
+|0.103.2|2.5.4|2020.3|
+|0.104.2|2.5.4|2020.3|
+|0.105.0|2.5.4|2020.3|
+|0.106.0|2.5.4|2020.3|
+|0.107.2|2.5.4|2020.3|
+|0.108.0|2.5.4|2020.3|
+|0.109.0|2.5.4|2020.3|
+|0.110.0|2.5.4|2020.3|
 
 Write the following in `<Project> /Packages/package.json`.
 
@@ -240,10 +248,10 @@ Write the following in `<Project> /Packages/package.json`.
 {
   "dependencies": {
     ...
-    "com.vrmc.gltf": "https://github.com/vrm-c/UniVRM.git?path=/Assets/UniGLTF#v0.100.0",
-    "com.vrmc.univrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM#v0.100.0",
-    "com.vrmc.vrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM10#v0.100.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.100.0",
+    "com.vrmc.gltf": "https://github.com/vrm-c/UniVRM.git?path=/Assets/UniGLTF#v0.105.0",
+    "com.vrmc.univrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM#v0.105.0",
+    "com.vrmc.vrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM10#v0.105.0",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.105.0",
     ...
   }
 }
@@ -261,7 +269,7 @@ https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 |2021.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.brp.univrm)|
 
 ___
-Last updated: 4 April, 2023  
+Last updated: 4 May, 2023  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

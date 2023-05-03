@@ -16,46 +16,88 @@ namespace UniVgo2
     public class MeshContext
     {
         /// <summary></summary>
-        public string name;
+        private readonly string _Name = string.Empty;
 
         /// <summary></summary>
-        public Vector3[]? positions;
+        private Vector3[]? _Positions;
 
         /// <summary></summary>
-        public Vector3[]? normals;
+        private Vector3[]? _Normals;
 
         /// <summary></summary>
-        public Vector4[]? tangents;
+        private Vector4[]? _Tangents;
 
         /// <summary></summary>
-        public Vector2[]? uv0s;
+        private Vector2[]? _Uv0s;
 
         /// <summary></summary>
-        public Vector2[]? uv1s;
+        private Vector2[]? _Uv1s;
 
         /// <summary></summary>
-        public Vector2[]? uv2s;
+        private Vector2[]? _Uv2s;
 
         /// <summary></summary>
-        public Vector2[]? uv3s;
+        private Vector2[]? _Uv3s;
 
         /// <summary></summary>
-        public Color[]? colors;
+        private Color[]? _Colors;
 
         /// <summary></summary>
-        public Color32[]? color32s;
+        private Color32[]? _Color32s;
 
         /// <summary></summary>
-        public BoneWeight[]? boneWeights;
+        private BoneWeight[]? _BoneWeights;
 
         /// <summary></summary>
-        public List<int[]>? subMeshes;
+        private List<int[]>? _SubMeshes;
 
         /// <summary></summary>
-        public List<int>? materialIndices;
+        private List<int>? _MaterialIndices;
 
         /// <summary></summary>
-        public BlendShapesContext? blendShapesContext;
+        private BlendShapesContext? _BlendShapesContext;
+
+        /// <summary></summary>
+        public string Name => _Name;
+
+        /// <summary></summary>
+        public Vector3[]? Positions { get => _Positions; set => _Positions = value; }
+
+        /// <summary></summary>
+        public Vector3[]? Normals { get => _Normals; set => _Normals = value; }
+
+        /// <summary></summary>
+        public Vector4[]? Tangents { get => _Tangents; set => _Tangents = value; }
+
+        /// <summary></summary>
+        public Vector2[]? UV0s { get => _Uv0s; set => _Uv0s = value; }
+
+        /// <summary></summary>
+        public Vector2[]? UV1s { get => _Uv1s; set => _Uv1s = value; }
+
+        /// <summary></summary>
+        public Vector2[]? UV2s { get => _Uv2s; set => _Uv2s = value; }
+
+        /// <summary></summary>
+        public Vector2[]? UV3s { get => _Uv3s; set => _Uv3s = value; }
+
+        /// <summary></summary>
+        public Color[]? Colors { get => _Colors; set => _Colors = value; }
+
+        /// <summary></summary>
+        public Color32[]? Color32s { get => _Color32s; set => _Color32s = value; }
+
+        /// <summary></summary>
+        public BoneWeight[]? BoneWeights { get => _BoneWeights; set => _BoneWeights = value; }
+
+        /// <summary></summary>
+        public List<int[]>? SubMeshes { get => _SubMeshes; set => _SubMeshes = value; }
+
+        /// <summary></summary>
+        public List<int>? MaterialIndices { get => _MaterialIndices; set => _MaterialIndices = value; }
+
+        /// <summary></summary>
+        public BlendShapesContext? BlendShapesContext { get => _BlendShapesContext; set => _BlendShapesContext = value; }
 
         /// <summary>
         /// Create a new instance of MeshContext with name.
@@ -63,7 +105,7 @@ namespace UniVgo2
         /// <param name="name"></param>
         public MeshContext(string name)
         {
-            this.name = name ?? throw new ArgumentNullException(nameof(name));
+            _Name = name ?? throw new ArgumentNullException(nameof(name));
         }
 
         /// <summary>
@@ -72,7 +114,7 @@ namespace UniVgo2
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return name ?? "{no name}";
+            return _Name ?? "{no name}";
         }
     }
 }

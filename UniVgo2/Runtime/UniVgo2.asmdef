@@ -28,12 +28,12 @@
     "defineConstraints": [],
     "versionDefines": [
         {
-            "name": "com.izayoi.liltoon.shader.utility",
+            "name": "jp.lilxyzw.liltoon",
             "expression": "[1.2.0,1.2.12]",
             "define": "LILTOON_1_2_12_OR_OLDER"
         },
         {
-            "name": "com.izayoi.liltoon.shader.utility",
+            "name": "jp.lilxyzw.liltoon",
             "expression": "1.3.0",
             "define": "LILTOON_1_3_0_OR_NEWER"
         },
