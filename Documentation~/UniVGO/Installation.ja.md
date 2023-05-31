@@ -37,12 +37,12 @@ Unity 2021.1 以下のバージョンを使用する場合
 
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|
 |:---|:---:|:---:|:---:|:---:|:---:|
-|com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|-|3.1.0|2023年3月13日|
+|com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|13.0.2|3.2.1|2023年5月2日|
 |VRMShaders|vrm-c|GitHub||0.105.0|2022年10月7日|
-|LilToonShader.Utility|IzayoiJiichan|GitHub||1.0.2|2023年5月3日|
+|LilToonShader.Utility|IzayoiJiichan|GitHub||1.4.0|2023年5月30日|
 |UniShaders|IzayoiJiichan|GitHub||1.4.0|2022年5月20日|
 |VgoSpringBone|IzayoiJiichan|GitHub||1.1.2|2022年8月24日|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.4|2023年5月4日|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.5|2023年6月1日|
 
 #### 追加パッケージ
 
@@ -50,7 +50,7 @@ Unity 2021.1 以下のバージョンを使用する場合
 
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|備考|
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
-|jp.lilxyzw.liltoon|lilxyzw|GitHub||1.3.7|2023年1月17日||
+|jp.lilxyzw.liltoon|lilxyzw|GitHub||1.4.0|2023年5月12日||
 |com.unity.render-pipelines.universal|Unity Technologies|Unity Registry||11.0.0|2021年10月26日|URP only|
 |com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||11.0.0|2021年10月26日|HDRP only|
 
@@ -83,6 +83,11 @@ Unity Hub にて Unity Editor `2021.1.28f1`、`2021.2.0f1`、`2021.3.0f1`、`202
 
 Unity Hub にて、1でダウンロードしたサンプルプロジェクトをリストに追加します。  
 指定するフォルダーはプロジェクトフォルダーです。
+
+#### 4. プロジェクトのアップデート
+
+必要であれば、Unity Editor やパッケージのバージョンをアップデートしてください。  
+特段の注記がない限りは UniVGO は最新バージョンを使用することをおすすめします。
 
 ### インストール手順（自分でプロジェクトを作成する場合）
 
@@ -132,11 +137,11 @@ UniVGOを使用するために、以下の設定を追加してください。
 ```json
 {
   "dependencies": {
-    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.0.2",
+    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.4.0",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.4",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.5",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
-    "com.unity.nuget.newtonsoft-json": "3.1.0",
+    "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.ugui": "1.0.0",
     "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.105.0",
   }
@@ -150,7 +155,7 @@ lilToonを使用する場合、"jp.lilxyzw.liltoon" の行を追加してくだ�
 ```json
 {
   "dependencies": {
-    "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.3.7",
+    "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.4.0",
   }
 }
 ```
@@ -185,7 +190,7 @@ HDRPを使用する場合、"com.unity.render-pipelines.high-definition" の行�
 
 エラーが発生する原因としては以下のようなことが考えられます。
 
-- Unityのバージョンが異なる
+- Unity Editor のバージョンが異なる
 - パッケージのバージョンが異なる
 - ファイルが重複または不足している
 - `asmdef` の設定が変更されている
@@ -193,6 +198,7 @@ HDRPを使用する場合、"com.unity.render-pipelines.high-definition" の行�
 - コンポーネントの `.meta` の guid が変更されている
 - `System.Buffers.dll`, `System.Memory.dll`, `System.Numerics.Vectors.dll` が重複して配置されている
 - `NewtonSoft.Json.dll` が重複して配置されている
+- GitHub から `LFS` のデータが取得できていない
 
 ___
 
@@ -232,17 +238,17 @@ ___
 
 |UniVRM|UniVGO|min Unity|
 |:---:|:---:|:---:|
-|0.100.0|2.5.4|2020.3|
-|0.101.0|2.5.4|2020.3|
-|0.102.0|2.5.4|2020.3|
-|0.103.2|2.5.4|2020.3|
-|0.104.2|2.5.4|2020.3|
-|0.105.0|2.5.4|2020.3|
-|0.106.0|2.5.4|2020.3|
-|0.107.2|2.5.4|2020.3|
-|0.108.0|2.5.4|2020.3|
-|0.109.0|2.5.4|2020.3|
-|0.110.0|2.5.4|2020.3|
+|0.100.0|2.5.5|2020.3|
+|0.101.0|2.5.5|2020.3|
+|0.102.0|2.5.5|2020.3|
+|0.103.2|2.5.5|2020.3|
+|0.104.2|2.5.5|2020.3|
+|0.105.0|2.5.5|2020.3|
+|0.106.0|2.5.5|2020.3|
+|0.107.2|2.5.5|2020.3|
+|0.108.0|2.5.5|2020.3|
+|0.109.0|2.5.5|2020.3|
+|0.110.0|2.5.5|2020.3|
 
 `<Project>/Packages/package.json` に以下の記述を行います。  
 
@@ -272,7 +278,7 @@ https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 |2021.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.brp.univrm)|
 
 ___
-最終更新日：2023年5月4日  
+最終更新日：2023年6月1日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

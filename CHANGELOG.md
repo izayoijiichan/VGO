@@ -1,9 +1,18 @@
 # Change Log
 
+## [2.5.5] - 2023-06-01
+
+- Features
+  - lilToon shader version 1.4.0 is now supported.
+- Improvements
+  - A pop-up window is now displayed during export operations.
+- Fixes
+  - [Editor] Fixed a bug where the elements `Face Parts`, `Blinks`, `Visemes`, and `Presets` in `Vgo Blend Shape` only increased by 1 in one operation.
+
 ## [2.5.4] - 2023-05-04
 
 - Features
-  - liltoon shader version 1.3.7 is now supported.
+  - lilToon shader version 1.3.7 is now supported.
   - [Editor] Blendshape indices of `Vgo Blend Shape` are now selectable in dropdown format.
 - Fixes
   - Fixed a setting error for lilToon in versionDefines in UniVgo2.asmdef.

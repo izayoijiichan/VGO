@@ -1,18 +1,17 @@
 {
     "name": "NewtonVgo",
-    "references": [],
-    "optionalUnityReferences": [],
+    "rootNamespace": "NewtonVgo",
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": true,
-    "overrideReferences": false,
-    "precompiledReferences": [
-        "Newtonsoft.Json.dll",
-        "System.Buffers.dll",
-        "System.Memory.dll",
-        "System.Numerics.Vectors.dll",
-        "System.Runtime.CompilerServices.Unsafe.dll"
-    ],
+    "allowUnsafeCode": false,
     "autoReferenced": true,
-    "defineConstraints": []
+    "noEngineReferences": true,
+    "overrideReferences": true,
+    "references": [],
+    "precompiledReferences": [
+        "Newtonsoft.Json.dll"
+    ],
+    "optionalUnityReferences": [],
+    "defineConstraints": [],
+    "versionDefines": []
 }

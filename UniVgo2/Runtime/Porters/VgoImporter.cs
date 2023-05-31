@@ -151,29 +151,13 @@ namespace UniVgo2
         /// <summary>
         /// Extract a 3D model asset from the specified file.
         /// </summary>
-        /// <param name="filePath">The file path.</param>
+        /// <param name="vgoFilePath">The file path of the vgo.</param>
+        /// <param name="vgkFilePath">The file path of the vgk.</param>
         /// <returns>A model asset.</returns>
         /// <remarks>for ScriptedImporter</remarks>
-        public virtual ModelAsset Extract(string filePath)
+        public virtual ModelAsset Extract(string vgoFilePath, string? vgkFilePath = null)
         {
-            FileInfo vgoFileInfo = new FileInfo(filePath);
-
-            string vgkFileName = vgoFileInfo.Name.Substring(0, vgoFileInfo.Name.Length - vgoFileInfo.Extension.Length) + ".vgk";
-
-            string vgkFilePath = Path.Combine(vgoFileInfo.DirectoryName, vgkFileName);
-
-            FileInfo vgkFileInfo = new FileInfo(vgkFilePath);
-
-            VgoStorage vgoStorage;
-
-            if (vgkFileInfo.Exists)
-            {
-                vgoStorage = new VgoStorage(filePath, vgkFilePath);
-            }
-            else
-            {
-                vgoStorage = new VgoStorage(filePath);
-            }
+            var vgoStorage = new VgoStorage(vgoFilePath, vgkFilePath);
 
             var modelAsset = new ModelAsset();
 

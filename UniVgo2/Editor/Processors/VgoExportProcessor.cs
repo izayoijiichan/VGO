@@ -6,6 +6,7 @@
 namespace UniVgo2.Editor
 {
     using NewtonVgo;
+    using NewtonVgo.Security.Cryptography;
     using System;
     using System.IO;
     using System.Linq;
@@ -17,25 +18,33 @@ namespace UniVgo2.Editor
     /// </summary>
     public static class VgoExportProcessor
     {
+        /// <summary>The type of box collider.</summary>
+        private static readonly Type _BoxColliderType = typeof(BoxCollider);
+
+        /// <summary>The type of capsule collider.</summary>
+        private static readonly Type _CapsuleColliderType = typeof(CapsuleCollider);
+
+        /// <summary>The type of sphere collider.</summary>
+        private static readonly Type _SphereColliderType = typeof(SphereCollider);
+
         /// <summary>
         /// Export VGO.
         /// </summary>
+        /// <param name="gameObject">The target.</param>
         /// <param name="geometryCoordinate">The type of the geometry coodinates.</param>
         /// <param name="uvCoordinate">The type of the UV coodinates.</param>
         /// <param name="isBson">Whether type is BSON, otherwise JSON.</param>
-        /// <param name="cryptAlgorithm">The crypt algorithm.</param>
-        /// <param name="cryptKey">The crypt key.</param>
+        /// <param name="cryptAlgorithms">The crypt algorithm.</param>
         public static void ExportVgo(
+            GameObject gameObject,
             VgoGeometryCoordinate geometryCoordinate = VgoGeometryCoordinate.RightHanded,
             VgoUVCoordinate uvCoordinate = VgoUVCoordinate.TopLeft,
             bool isBson = false,
-            string? cryptAlgorithms = null,
-            byte[]? cryptKey = null)
+            string? cryptAlgorithms = null)
         {
-            EditorApplication.isPlaying = false;
             try
             {
-                if (Validate(out string errorMessage) == false)
+                if (Validate(gameObject, out string errorMessage) == false)
                 {
                     Debug.LogAssertion(errorMessage);
 
@@ -44,80 +53,87 @@ namespace UniVgo2.Editor
                     return;
                 }
 
-                if (Selection.activeObject is GameObject root)
-                {
-                    //
-                }
-                else
-                {
-                    return;
-                }
+                string vgoFilePath = EditorUtility.SaveFilePanel(title: "Save File Dialog", directory: "", defaultName: gameObject.name + ".vgo", extension: "vgo");
 
-                string path = EditorUtility.SaveFilePanel(title: "Save File Dialog", directory: "", defaultName: root.name + ".vgo", extension: "vgo");
-
-                if (string.IsNullOrEmpty(path))
+                if (string.IsNullOrEmpty(vgoFilePath))
                 {
                     return;
                 }
 
                 var exporter = new VgoExporter();
 
-                IVgoStorage vgoStorage = exporter.CreateVgoStorage(root, geometryCoordinate, uvCoordinate);
+                IVgoStorage vgoStorage = exporter.CreateVgoStorage(gameObject, geometryCoordinate, uvCoordinate);
 
-                FileInfo fileInfo = new FileInfo(path);
+                VgoExportSetting vgoExportSetting;
 
-                string binFileName = fileInfo.Name.Substring(0, fileInfo.Name.Length - fileInfo.Extension.Length) + ".bin";
+                if (isBson)
+                {
+                    vgoExportSetting = new VgoExportSetting
+                    {
+                        AssetInfoTypeId = VgoChunkTypeID.AIPB,
+                        LayoutTypeId = VgoChunkTypeID.LAPB,
+                    };
+                }
+                else
+                {
+                    vgoExportSetting = new VgoExportSetting
+                    {
+                        AssetInfoTypeId = VgoChunkTypeID.AIPJ,
+                        LayoutTypeId = VgoChunkTypeID.LAPJ,
+                    };
+                }
 
                 if (string.IsNullOrEmpty(cryptAlgorithms))
                 {
                     if (isBson)
                     {
-                        vgoStorage.ExportVgoFile(
-                            filePath: path,
-                            assetInfoTypeId: VgoChunkTypeID.AIPB,
-                            layoutTypeId: VgoChunkTypeID.LAPB,
-                            resourceAccessorTypeId: VgoChunkTypeID.RAPB
-                        );
+                        vgoExportSetting.ResourceAccessorTypeId = VgoChunkTypeID.RAPB;
                     }
                     else
                     {
-                        vgoStorage.ExportVgoFile(
-                            filePath: path,
-                            assetInfoTypeId: VgoChunkTypeID.AIPJ,
-                            layoutTypeId: VgoChunkTypeID.LAPJ,
-                            resourceAccessorTypeId: VgoChunkTypeID.RAPJ
-                        );
+                        vgoExportSetting.ResourceAccessorTypeId = VgoChunkTypeID.RAPJ;
                     }
                 }
                 else
                 {
+                    byte[]? cryptKey = null;
+
+                    if (cryptAlgorithms == VgoCryptographyAlgorithms.AES)
+                    {
+                        var aesCrypter = new AesCrypter();
+
+                        cryptKey = aesCrypter.GenerateRandomKey(256);
+                    }
+                    else if (cryptAlgorithms == VgoCryptographyAlgorithms.Base64)
+                    {
+                        //
+                    }
+
                     if (isBson)
                     {
-                        vgoStorage.ExportVgoFile(
-                            filePath: path,
-                            assetInfoTypeId: VgoChunkTypeID.AIPB,
-                            layoutTypeId: VgoChunkTypeID.LAPB,
-                            resourceAccessorTypeId: VgoChunkTypeID.RACB,
-                            resourceAccessorCryptTypeId: VgoChunkTypeID.CRAB,
-                            resourceAccessorCryptAlgorithm: cryptAlgorithms,
-                            resourceAccessorCryptKey: cryptKey
-                        );
+                        vgoExportSetting.ResourceAccessorTypeId = VgoChunkTypeID.RACB;
+                        vgoExportSetting.ResourceAccessorCryptTypeId = VgoChunkTypeID.CRAB;
+                        vgoExportSetting.ResourceAccessorCryptAlgorithm = cryptAlgorithms;
+                        vgoExportSetting.ResourceAccessorCryptKey = cryptKey;
                     }
                     else
                     {
-                        vgoStorage.ExportVgoFile(
-                            filePath: path,
-                            assetInfoTypeId: VgoChunkTypeID.AIPJ,
-                            layoutTypeId: VgoChunkTypeID.LAPJ,
-                            resourceAccessorTypeId: VgoChunkTypeID.RACJ,
-                            resourceAccessorCryptTypeId: VgoChunkTypeID.CRAJ,
-                            resourceAccessorCryptAlgorithm: cryptAlgorithms,
-                            resourceAccessorCryptKey: cryptKey
-                        );
+                        vgoExportSetting.ResourceAccessorTypeId = VgoChunkTypeID.RACJ;
+                        vgoExportSetting.ResourceAccessorCryptTypeId = VgoChunkTypeID.CRAJ;
+                        vgoExportSetting.ResourceAccessorCryptAlgorithm = cryptAlgorithms;
+                        vgoExportSetting.ResourceAccessorCryptKey = cryptKey;
                     }
                 }
 
-                Debug.LogFormat("Export VGO file.\nGameObject: {0}, output: {1}", root.name, path);
+                vgoExportSetting.ResourceTypeId = VgoChunkTypeID.REPb;
+
+                var fileInfo = new FileInfo(vgoFilePath);
+
+                string binFileName = fileInfo.Name.Substring(0, fileInfo.Name.Length - fileInfo.Extension.Length) + ".bin";
+
+                vgoStorage.ExportVgoFile(vgoFilePath, vgoExportSetting);
+
+                Debug.Log($"Export VGO file.\nGameObject: {gameObject.name}, output: {vgoFilePath}");
             }
             catch
             {
@@ -128,86 +144,68 @@ namespace UniVgo2.Editor
         /// <summary>
         /// Perform verification.
         /// </summary>
+        /// <param name="gameObject">The target.</param>
         /// <param name="errorMessage"></param>
         /// <returns>Returns true if validation is successful, false otherwise.</returns>
-        private static bool Validate(out string errorMessage)
+        private static bool Validate(GameObject gameObject, out string errorMessage)
         {
-            GameObject[] selectedGameObjects = Selection.gameObjects;
-
-            if (selectedGameObjects.Length == 0)
-            {
-                errorMessage = "Select a GameObject with a VgoMeta component attached.";
-                return false;
-            }
-
-            if (2 <= selectedGameObjects.Length)
-            {
-                errorMessage = "Please select only one GameObject.";
-                return false;
-            }
-
-            GameObject selectedGameObject = selectedGameObjects[0];
-
-            //if (selectedGameObject.GetComponent<VgoGenerator>() == null)
+            //if (gameObject.TryGetComponent<VgoGenerator>(out _) == false)
             //{
-            //    errorMessage = "Please attach a VgoGenerator component to the root GameObject.";
+            //    errorMessage = "Please attach a Vgo Generator component to root GameObject.";
             //    return false;
             //}
 
-            if (selectedGameObject.transform.position != Vector3.zero)
+            if (gameObject.transform.position != Vector3.zero)
             {
                 errorMessage = "Please set Transform Position(0, 0, 0).";
                 return false;
             }
 
-            if (selectedGameObject.transform.rotation != Quaternion.identity)
+            if (gameObject.transform.rotation != Quaternion.identity)
             {
                 errorMessage = "Please set Transform Rotation(0, 0, 0).";
                 return false;
             }
 
-            if (selectedGameObject.transform.localScale != Vector3.one)
+            if (gameObject.transform.localScale != Vector3.one)
             {
                 errorMessage = "Please set Transform Scale(1, 1, 1).";
                 return false;
             }
 
-            //if (selectedGameObject.GetComponent<VgoRight>() == null)
-            //{
-            //    errorMessage = "Please attach a VgoRight component to the root GameObject.";
-            //    return false;
-            //}
+            if (gameObject.TryGetComponent<UniVgo2.VgoRight>(out _) == false)
+            {
+                Debug.LogWarning("Vgo Right component is not attached to root GameObject.");
+                //errorMessage = "Please attach a Vgo Right component to root GameObject.";
+                //return false;
+            }
 
-            if (selectedGameObject.GetComponent<Rigidbody>() != null)
+            if (gameObject.TryGetComponent<Rigidbody>(out _))
             {
                 errorMessage = "The root GameObject is not allowed to attach the Rigidbody component.";
                 return false;
             }
 
-            if (selectedGameObject.GetComponents<Collider>().Any())
+            if (gameObject.GetComponents<Collider>().Any())
             {
                 errorMessage = "The root GameObject is not allowed to attach the Collider component.";
                 return false;
             }
 
-            Collider[] colliders = selectedGameObject.GetComponentsInChildren<Collider>();
-
-            Type boxColliderType = typeof(BoxCollider);
-            Type capsuleColliderType = typeof(CapsuleCollider);
-            Type sphereColliderType = typeof(SphereCollider);
+            Collider[] colliders = gameObject.GetComponentsInChildren<Collider>();
 
             foreach (Collider collider in colliders)
             {
                 Type collierType = collider.GetType();
 
-                if ((collierType == boxColliderType) ||
-                    (collierType == capsuleColliderType) ||
-                    (collierType == sphereColliderType))
+                if ((collierType == _BoxColliderType) ||
+                    (collierType == _CapsuleColliderType) ||
+                    (collierType == _SphereColliderType))
                 {
                     continue;
                 }
 
-                errorMessage = string.Format("Not supported collier is found. GameObject: {0}", collider.gameObject.name);
+                errorMessage = $"Not supported collier is found. GameObject: {collider.gameObject.name}";
 
                 return false;
             }

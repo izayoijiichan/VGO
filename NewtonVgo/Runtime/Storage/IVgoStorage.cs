@@ -51,27 +51,9 @@ namespace NewtonVgo
         /// Exports a VGO format file.
         /// </summary>
         /// <param name="filePath">The full path of the file.</param>
-        /// <param name="assetInfoTypeId">AIPJ or AIPB</param>
-        /// <param name="layoutTypeId">LAPJ or LAPB</param>
-        /// <param name="resourceAccessorTypeId">RAPJ or RAPB or RACJ or RACB</param>
-        /// <param name="resourceAccessorCryptTypeId">None or CRAJ or CRAB</param>
-        /// <param name="resourceAccessorCryptAlgorithm">The resource accessor crypt algorithm.</param>
-        /// <param name="resourceAccessorCryptKey">The resource accessor crypt key.</param>
-        /// <param name="resourceTypeId">REPb or REPJ or REPB</param>
-        /// <param name="resourceUri">The resource URI.</param>
-        /// <param name="binFileName">The resource binary file name.</param>
+        /// <param name="exportSetting">A vgo export setting.</param>
         /// <returns>Returns true if the export was successful, false otherwise.</returns>
-        bool ExportVgoFile(
-            string filePath,
-            VgoChunkTypeID assetInfoTypeId = VgoChunkTypeID.AIPJ,
-            VgoChunkTypeID layoutTypeId = VgoChunkTypeID.LAPJ,
-            VgoChunkTypeID resourceAccessorTypeId = VgoChunkTypeID.RAPJ,
-            VgoChunkTypeID resourceAccessorCryptTypeId = VgoChunkTypeID.None,
-            string? resourceAccessorCryptAlgorithm = null,
-            byte[]? resourceAccessorCryptKey = null,
-            VgoChunkTypeID resourceTypeId = VgoChunkTypeID.REPb,
-            string? resourceUri = null,
-            string? binFileName = null);
+        bool ExportVgoFile(string filePath, VgoExportSetting exportSetting);
 
         #endregion
 

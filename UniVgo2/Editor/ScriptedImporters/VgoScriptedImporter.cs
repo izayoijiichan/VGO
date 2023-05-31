@@ -201,13 +201,15 @@ namespace UniVgo2.Editor
         /// <summary>
         /// Load 3D model.
         /// </summary>
-        /// <param name="filePath">The file path.</param>
+        /// <param name="vgoFilePath">The file path of the vgo.</param>
         /// <returns>A model asset.</returns>
-        protected virtual ModelAsset LoadModel(string filePath)
+        protected virtual ModelAsset LoadModel(string vgoFilePath)
         {
+            string? vgkFilePath = FindVgkFilePath(vgoFilePath);
+
             var importer = new VgoImporter();
 
-            ModelAsset modelAsset = importer.Load(filePath);
+            ModelAsset modelAsset = importer.Load(vgoFilePath, vgkFilePath);
 
             return modelAsset;
         }
@@ -215,15 +217,40 @@ namespace UniVgo2.Editor
         /// <summary>
         /// Extract 3D model.
         /// </summary>
-        /// <param name="filePath">The file path.</param>
+        /// <param name="vgoFilePath">The file path of the vgo.</param>
         /// <returns>A model asset.</returns>
-        protected virtual ModelAsset ExtractModel(string filePath)
+        protected virtual ModelAsset ExtractModel(string vgoFilePath)
         {
+            string? vgkFilePath = FindVgkFilePath(vgoFilePath);
+
             var importer = new VgoImporter();
 
-            ModelAsset modelAsset = importer.Extract(filePath);
+            ModelAsset modelAsset = importer.Extract(vgoFilePath, vgkFilePath);
 
             return modelAsset;
+        }
+
+        /// <summary>
+        /// Find the file path of the vgk.
+        /// </summary>
+        /// <param name="vgoFilePath">The file path of the vgo.</param>
+        /// <returns>The file path of the vgk.</returns>
+        protected virtual string? FindVgkFilePath(string vgoFilePath)
+        {
+            var vgoFileInfo = new FileInfo(vgoFilePath);
+
+            string vgkFileName = vgoFileInfo.Name.Substring(0, vgoFileInfo.Name.Length - vgoFileInfo.Extension.Length) + ".vgk";
+
+            string? vgkFilePath = Path.Combine(vgoFileInfo.DirectoryName, vgkFileName);
+
+            var vgkFileInfo = new FileInfo(vgkFilePath);
+
+            if (vgkFileInfo.Exists == false)
+            {
+                vgkFilePath = null;
+            }
+
+            return vgkFilePath;
         }
 
         /// <summary>

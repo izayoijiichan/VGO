@@ -200,17 +200,7 @@ namespace UniVgo2.Editor
 
             if (confFaceParts.Count != listCount)
             {
-                if (confFaceParts.Count < listCount)
-                {
-                    confFaceParts.Add(new BlendShapeFacePart());
-                }
-                else if (confFaceParts.Count > listCount)
-                {
-                    for (int index = confFaceParts.Count - 1; index > listCount - 1; index--)
-                    {
-                        confFaceParts.RemoveAt(index);
-                    }
-                }
+                AdjustListCount(confFaceParts, listCount);
             }
 
             if (confFaceParts.Count == 0)
@@ -275,17 +265,7 @@ namespace UniVgo2.Editor
 
             if (confBlinks.Count != listCount)
             {
-                if (confBlinks.Count < listCount)
-                {
-                    confBlinks.Add(new BlendShapeBlink());
-                }
-                else if (confBlinks.Count > listCount)
-                {
-                    for (int index = confBlinks.Count - 1; index > listCount - 1; index--)
-                    {
-                        confBlinks.RemoveAt(index);
-                    }
-                }
+                AdjustListCount(confBlinks, listCount);
             }
 
             if (confBlinks.Count == 0)
@@ -346,17 +326,7 @@ namespace UniVgo2.Editor
 
             if (confVisemes.Count != listCount)
             {
-                if (confVisemes.Count < listCount)
-                {
-                    confVisemes.Add(new BlendShapeViseme());
-                }
-                else if (confVisemes.Count > listCount)
-                {
-                    for (int index = confVisemes.Count - 1; index > listCount - 1; index--)
-                    {
-                        confVisemes.RemoveAt(index);
-                    }
-                }
+                AdjustListCount(confVisemes, listCount);
             }
 
             if (confVisemes.Count == 0)
@@ -417,17 +387,7 @@ namespace UniVgo2.Editor
 
             if (confPresets.Count != listCount)
             {
-                if (confPresets.Count < listCount)
-                {
-                    confPresets.Add(new VgoMeshBlendShapePreset());
-                }
-                else if (confPresets.Count > listCount)
-                {
-                    for (int index = confPresets.Count - 1; index > listCount - 1; index--)
-                    {
-                        confPresets.RemoveAt(index);
-                    }
-                }
+                AdjustListCount(confPresets, listCount);
             }
 
             if (confPresets.Count == 0)
@@ -467,6 +427,7 @@ namespace UniVgo2.Editor
         /// <summary>
         /// Draw preset bindings in the inspector.
         /// </summary>
+        /// <param name="bindings"></param>
         private void DrawPresetBindings(List<VgoMeshBlendShapeBinding> bindings)
         {
             int listCount = bindings.Count;
@@ -483,17 +444,7 @@ namespace UniVgo2.Editor
 
             if (bindings.Count != listCount)
             {
-                if (bindings.Count < listCount)
-                {
-                    bindings.Add(new VgoMeshBlendShapeBinding());
-                }
-                else if (bindings.Count > listCount)
-                {
-                    for (int index = bindings.Count - 1; index > listCount - 1; index--)
-                    {
-                        bindings.RemoveAt(index);
-                    }
-                }
+                AdjustListCount(bindings, listCount);
             }
 
             if (bindings.Count == 0)
@@ -518,6 +469,34 @@ namespace UniVgo2.Editor
             }
 
             EditorGUI.indentLevel--;
+        }
+
+        /// <summary>
+        /// Adjust the number of elements in the list.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="num"></param>
+        private void AdjustListCount<T>(IList<T> list, int num) where T : class, new()
+        {
+            int listCount = list.Count;
+
+            if (listCount < num)
+            {
+                int addCount = num - listCount;
+
+                for (int index = 0; index < addCount; index++)
+                {
+                    list.Add(new T());
+                }
+            }
+            else if (listCount > num)
+            {
+                for (int index = listCount - 1; index > num - 1; index--)
+                {
+                    list.RemoveAt(index);
+                }
+            }
         }
     }
 }

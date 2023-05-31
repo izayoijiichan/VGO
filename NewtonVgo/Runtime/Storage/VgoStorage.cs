@@ -40,6 +40,12 @@ namespace NewtonVgo
         /// <summary>The index map of chunks.</summary>
         protected VgoIndexChunkDataElement[]? ChunkIndexMap;
 
+        /// <summary>Vgo BSON Serializer.</summary>
+        protected readonly VgoBsonSerializer _VgoBsonSerializer = new VgoBsonSerializer();
+
+        /// <summary>Vgo JSON Serializer settings.</summary>
+        protected readonly VgoJsonSerializerSettings _VgoJsonSerializerSettings = new VgoJsonSerializerSettings();
+
         #endregion
 
         #region Properties
@@ -123,9 +129,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="allBytes">All bytes of file.</param>
         /// <param name="cryptKey">The crypt key.</param>
-        /// <remarks>
-        /// for Import
-        /// </remarks>
+        /// <remarks>for Import</remarks>
         public VgoStorage(byte[] allBytes, byte[]? cryptKey = null)
         {
             ParseVgo(allBytes, cryptKey, out var layout);
@@ -399,7 +403,7 @@ namespace NewtonVgo
         /// <summary>
         /// Extract chunk data from asset info chunk.
         /// </summary>
-        /// <param name="composerChunkData">The composer chunk data.</param>
+        /// <param name="chunkTypeId">The chunk type ID.</param>
         /// <param name="chunkIndexMap">The chunk index map.</param>
         /// <param name="allSegmentBytes">The all segment bytes.</param>
         /// <returns>The chunk data bytes.</returns>
@@ -451,16 +455,12 @@ namespace NewtonVgo
                 if (composerChunkData.AssetInfoChunkTypeId == VgoChunkTypeID.AIPJ)
                 {
                     // JSON
-                    string jsonString = Encoding.UTF8.GetString(assetInfoChunkData.ToArray());
-
-                    vgoAssetInfo = JsonConvert.DeserializeObject<VgoAssetInfo>(jsonString, new VgoJsonSerializerSettings());
+                    vgoAssetInfo = DeserializeObject<VgoAssetInfo>(assetInfoChunkData.ToArray(), isBson: false);
                 }
                 else if (composerChunkData.AssetInfoChunkTypeId == VgoChunkTypeID.AIPB)
                 {
                     // BSON
-                    var bsonSerializer = new VgoBsonSerializer();
-
-                    vgoAssetInfo = bsonSerializer.DeserializeObject<VgoAssetInfo>(assetInfoChunkData.ToArray());
+                    vgoAssetInfo = DeserializeObject<VgoAssetInfo>(assetInfoChunkData.ToArray(), isBson: true);
                 }
                 else
                 {
@@ -501,16 +501,12 @@ namespace NewtonVgo
                 if (composerChunkData.LayoutChunkTypeId == VgoChunkTypeID.LAPJ)
                 {
                     // JSON
-                    string jsonString = Encoding.UTF8.GetString(layoutChunkData.ToArray());
-
-                    vgoLayout = JsonConvert.DeserializeObject<VgoLayout>(jsonString, new VgoJsonSerializerSettings());
+                    vgoLayout = DeserializeObject<VgoLayout>(layoutChunkData.ToArray(), isBson: false);
                 }
                 else if (composerChunkData.LayoutChunkTypeId == VgoChunkTypeID.LAPB)
                 {
                     // BSON
-                    var bsonSerializer = new VgoBsonSerializer();
-
-                    vgoLayout = bsonSerializer.DeserializeObject<VgoLayout>(layoutChunkData.ToArray());
+                    vgoLayout = DeserializeObject<VgoLayout>(layoutChunkData.ToArray(), isBson: true);
                 }
                 else
                 {
@@ -664,18 +660,14 @@ namespace NewtonVgo
                     (raChunkTypeId == VgoChunkTypeID.RACJ))
                 {
                     // JSON
-                    string jsonString = Encoding.UTF8.GetString(plainJsonOrBson);
-
-                    vgoResourceAccessors = JsonConvert.DeserializeObject<List<VgoResourceAccessor>>(jsonString, new VgoJsonSerializerSettings());
+                    vgoResourceAccessors = DeserializeObject<List<VgoResourceAccessor>>(plainJsonOrBson, isBson: false);
                 }
                 else if (
                     (raChunkTypeId == VgoChunkTypeID.RAPB) ||
                     (raChunkTypeId == VgoChunkTypeID.RACB))
                 {
                     // BSON
-                    var bsonSerializer = new VgoBsonSerializer();
-
-                    vgoResourceAccessors = bsonSerializer.DeserializeObject<List<VgoResourceAccessor>>(plainJsonOrBson, rootValueAsArray: true);
+                    vgoResourceAccessors = DeserializeObject<List<VgoResourceAccessor>>(plainJsonOrBson, isBson: true, rootValueAsArray: true);
                 }
             }
             catch (JsonSerializationException)
@@ -718,16 +710,12 @@ namespace NewtonVgo
                 else if (resourceChunkTypeId == VgoChunkTypeID.REPJ)
                 {
                     // JSON
-                    string resourceJsonString = Encoding.UTF8.GetString(resouceChunkData.ToArray());
-
-                    vgoResource = JsonConvert.DeserializeObject<VgoResource>(resourceJsonString, new VgoJsonSerializerSettings());
+                    vgoResource = DeserializeObject<VgoResource>(resouceChunkData.ToArray(), isBson: false);
                 }
                 else if (resourceChunkTypeId == VgoChunkTypeID.REPB)
                 {
                     // BSON
-                    var bsonSerializer = new VgoBsonSerializer();
-
-                    vgoResource = bsonSerializer.DeserializeObject<VgoResource>(resouceChunkData.ToArray());
+                    vgoResource = DeserializeObject<VgoResource>(resouceChunkData.ToArray(), isBson: true);
                 }
                 else
                 {
@@ -785,20 +773,16 @@ namespace NewtonVgo
                 if (cryptChunkTypeId == VgoChunkTypeID.CRAJ)
                 {
                     // JSON
-                    string cryptJsonString = Encoding.UTF8.GetString(cryptChunkData.ToArray());
-
-                    vgoCrypt = JsonConvert.DeserializeObject<VgoCryptV0>(cryptJsonString, new VgoJsonSerializerSettings());
+                    vgoCrypt = DeserializeObject<VgoCryptV0>(cryptChunkData.ToArray(), isBson: false);
                 }
                 else if (cryptChunkTypeId == VgoChunkTypeID.CRAB)
                 {
                     // BSON
-                    var bsonSerializer = new VgoBsonSerializer();
-
-                    vgoCrypt = bsonSerializer.DeserializeObject<VgoCryptV0>(cryptChunkData.ToArray());
+                    vgoCrypt = DeserializeObject<VgoCryptV0>(cryptChunkData.ToArray(), isBson: true);
                 }
                 else
                 {
-                    throw new Exception($"cryptChunkTypeId: {cryptChunkTypeId}");
+                    throw new Exception($"{nameof(cryptChunkTypeId)}: {cryptChunkTypeId}");
                 }
 
                 return vgoCrypt;
@@ -885,27 +869,9 @@ namespace NewtonVgo
         /// Exports a VGO format file.
         /// </summary>
         /// <param name="filePath">The full path of the file.</param>
-        /// <param name="assetInfoTypeId">AIPJ or AIPB</param>
-        /// <param name="layoutTypeId">LAPJ or LAPB</param>
-        /// <param name="resourceAccessorTypeId">RAPJ or RAPB or RACJ or RACB</param>
-        /// <param name="resourceAccessorCryptTypeId">None or CRAJ or CRAB</param>
-        /// <param name="resourceAccessorCryptAlgorithm">The resource accessor crypt algorithm.</param>
-        /// <param name="resourceAccessorCryptKey">The resource accessor crypt key.</param>
-        /// <param name="resourceTypeId">REPb or REPJ or REPB</param>
-        /// <param name="resourceUri">The resource URI.</param>
-        /// <param name="binFileName">The resource binary file name.</param>
+        /// <param name="exportSetting">A vgo export setting.</param>
         /// <returns>Returns true if the export was successful, false otherwise.</returns>
-        public virtual bool ExportVgoFile(
-            string filePath,
-            VgoChunkTypeID assetInfoTypeId = VgoChunkTypeID.AIPJ,
-            VgoChunkTypeID layoutTypeId = VgoChunkTypeID.LAPJ,
-            VgoChunkTypeID resourceAccessorTypeId = VgoChunkTypeID.RAPJ,
-            VgoChunkTypeID resourceAccessorCryptTypeId = VgoChunkTypeID.None,
-            string? resourceAccessorCryptAlgorithm = null,
-            byte[]? resourceAccessorCryptKey = null,
-            VgoChunkTypeID resourceTypeId = VgoChunkTypeID.REPb,
-            string? resourceUri = null,
-            string? binFileName = null)
+        public virtual bool ExportVgoFile(string filePath, VgoExportSetting exportSetting)
         {
             if (filePath == null)
             {
@@ -932,33 +898,38 @@ namespace NewtonVgo
                 throw new Exception();
             }
 
+            if (exportSetting.Validate(out IReadOnlyList<string> errorMessages) == false)
+            {
+                throw new Exception(string.Join("\n", errorMessages));
+            }
+
             FileInfo fileInfo = new FileInfo(filePath);
 
             // Asset Info chunk
-            VgoChunk assetInfoChunk = CreateAssetInfoChunk(assetInfoTypeId);
+            VgoChunk assetInfoChunk = CreateAssetInfoChunk(exportSetting.AssetInfoTypeId);
 
             // Layout chunk
-            VgoChunk layoutChunk = CreateLayoutChunk(layoutTypeId);
+            VgoChunk layoutChunk = CreateLayoutChunk(exportSetting.LayoutTypeId);
 
             // Resource Accessor chunk
             (VgoChunk resourceAccessorChunk, VgoChunk? resourceAccessorCryptChunk) =
                 CreateResourceAccessorChunk(
-                    resourceAccessorTypeId,
-                    resourceAccessorCryptTypeId,
-                    resourceAccessorCryptAlgorithm,
-                    resourceAccessorCryptKey
+                    exportSetting.ResourceAccessorTypeId,
+                    exportSetting.ResourceAccessorCryptTypeId,
+                    exportSetting.ResourceAccessorCryptAlgorithm,
+                    exportSetting.ResourceAccessorCryptKey
                 );
 
             // Resource chunk
-            VgoChunk resourceChunk = CreateResourceChunk(resourceTypeId, fileInfo, binFileName, resourceUri);
+            VgoChunk resourceChunk = CreateResourceChunk(exportSetting.ResourceTypeId, fileInfo, exportSetting.BinFileName, exportSetting.ResourceUri);
 
             // Composer chunk
             VgoChunk composerChunk = CreateComposerChunk(
-                assetInfoTypeId,
-                layoutTypeId,
-                resourceAccessorTypeId,
-                resourceAccessorCryptTypeId,
-                resourceTypeId
+                exportSetting.AssetInfoTypeId,
+                exportSetting.LayoutTypeId,
+                exportSetting.ResourceAccessorTypeId,
+                exportSetting.ResourceAccessorCryptTypeId,
+                exportSetting.ResourceTypeId
             );
 
             // Index chunk
@@ -991,11 +962,11 @@ namespace NewtonVgo
             VgoChunk indexChunk = CreateIndexChunk(chunkList);
 
             // Header
-            if (resourceAccessorCryptTypeId != VgoChunkTypeID.None)
+            if (exportSetting.ResourceAccessorCryptTypeId != VgoChunkTypeID.None)
             {
                 Header.ResourceAccessorIsCrypted = 1;
 
-                if (resourceAccessorCryptKey != null)
+                if (exportSetting.ResourceAccessorCryptKey != null)
                 {
                     Header.IsRequireResourceAccessorExternalCryptKey = 1;
                 }
@@ -1020,7 +991,7 @@ namespace NewtonVgo
                 writer.Flush();
             }
 
-            if (resourceAccessorCryptKey != null)
+            if (exportSetting.ResourceAccessorCryptKey != null)
             {
                 string keyFileName = fileInfo.Name.Substring(0, fileInfo.Name.Length - fileInfo.Extension.Length) + ".vgk";
 
@@ -1030,15 +1001,15 @@ namespace NewtonVgo
                 using (var stream = new FileStream(keyFullPath, FileMode.Create, FileAccess.Write, FileShare.None))
                 using (var writer = new BinaryWriter(stream))
                 {
-                    writer.Write(resourceAccessorCryptKey);
+                    writer.Write(exportSetting.ResourceAccessorCryptKey);
 
                     writer.Flush();
                 }
             }
 
-            if (resourceTypeId != VgoChunkTypeID.REPb)
+            if (exportSetting.ResourceTypeId != VgoChunkTypeID.REPb)
             {
-                string binFullPath = Path.Combine(fileInfo.DirectoryName, binFileName);  // @notice binFileName
+                string binFullPath = Path.Combine(fileInfo.DirectoryName, exportSetting.BinFileName);  // @notice binFileName
 
                 // Output (.bin)
                 using (var stream = new FileStream(binFullPath, FileMode.Create, FileAccess.Write, FileShare.None))
@@ -1071,24 +1042,20 @@ namespace NewtonVgo
                 if (assetInfoTypeId == VgoChunkTypeID.AIPJ)
                 {
                     // JSON
-                    string jsonString = JsonConvert.SerializeObject(AssetInfo, new VgoJsonSerializerSettings());
-
-                    byte[] json = Encoding.UTF8.GetBytes(jsonString);
+                    byte[] json = SerializeObject(AssetInfo, isBson: false);
 
                     assetInfoChunkData = new ReadOnlyArraySegmentByteBuffer(new ArraySegment<byte>(json));
                 }
                 else if (assetInfoTypeId == VgoChunkTypeID.AIPB)
                 {
                     // BSON
-                    var bsonSerializer = new VgoBsonSerializer();
-
-                    byte[] bson = bsonSerializer.SerializeObject(AssetInfo);
+                    byte[] bson = SerializeObject(AssetInfo, isBson: true);
 
                     assetInfoChunkData = new ReadOnlyArraySegmentByteBuffer(new ArraySegment<byte>(bson));
                 }
                 else
                 {
-                    throw new Exception($"assetInfoTypeId: {assetInfoTypeId}");
+                    throw new Exception($"{nameof(assetInfoTypeId)}: {assetInfoTypeId}");
                 }
             }
             catch (JsonSerializationException)
@@ -1119,24 +1086,20 @@ namespace NewtonVgo
                 if (layoutTypeId == VgoChunkTypeID.LAPJ)
                 {
                     // JSON
-                    string jsonString = JsonConvert.SerializeObject(Layout, new VgoJsonSerializerSettings());
-
-                    byte[] json = Encoding.UTF8.GetBytes(jsonString);
+                    byte[] json = SerializeObject(Layout, isBson: false);
 
                     layoutChunkData = new ReadOnlyArraySegmentByteBuffer(new ArraySegment<byte>(json));
                 }
                 else if (layoutTypeId == VgoChunkTypeID.LAPB)
                 {
                     // BSON
-                    var bsonSerializer = new VgoBsonSerializer();
-
-                    byte[] bson = bsonSerializer.SerializeObject(Layout);
+                    byte[] bson = SerializeObject(Layout, isBson: true);
 
                     layoutChunkData = new ReadOnlyArraySegmentByteBuffer(new ArraySegment<byte>(bson));
                 }
                 else
                 {
-                    throw new Exception($"layoutTypeId: {layoutTypeId}");
+                    throw new Exception($"{nameof(layoutTypeId)}: {layoutTypeId}");
                 }
             }
             catch (JsonSerializationException)
@@ -1178,22 +1141,18 @@ namespace NewtonVgo
                     (resourceAccessorTypeId == VgoChunkTypeID.RACJ))
                 {
                     // JSON
-                    string jsonString = JsonConvert.SerializeObject(ResourceAccessors, new VgoJsonSerializerSettings());
-
-                    plainResourceAccessorJsonOrBson = Encoding.UTF8.GetBytes(jsonString);
+                    plainResourceAccessorJsonOrBson = SerializeObject(ResourceAccessors, isBson: false);
                 }
                 else if (
                     (resourceAccessorTypeId == VgoChunkTypeID.RAPB) ||
                     (resourceAccessorTypeId == VgoChunkTypeID.RACB))
                 {
                     // BSON
-                    var bsonSerializer = new VgoBsonSerializer();
-
-                    plainResourceAccessorJsonOrBson = bsonSerializer.SerializeObject(ResourceAccessors);
+                    plainResourceAccessorJsonOrBson = SerializeObject(ResourceAccessors, isBson: true);
                 }
                 else
                 {
-                    throw new Exception($"resourceAccessorTypeId: {resourceAccessorTypeId}");
+                    throw new Exception($"{nameof(resourceAccessorTypeId)}: {resourceAccessorTypeId}");
                 }
 
                 if ((resourceAccessorTypeId == VgoChunkTypeID.RAPJ) ||
@@ -1260,19 +1219,15 @@ namespace NewtonVgo
 
                     if (resourceAccessorCryptTypeId == VgoChunkTypeID.CRAJ)
                     {
-                        string cryptInfoJsonString = JsonConvert.SerializeObject(cryptInfo);
-
-                        cryptInfoJsonOrBson = Encoding.UTF8.GetBytes(cryptInfoJsonString);
+                        cryptInfoJsonOrBson = SerializeObject(cryptInfo, isBson: false);
                     }
                     else if (resourceAccessorCryptTypeId == VgoChunkTypeID.CRAB)
                     {
-                        var bsonSerializer = new VgoBsonSerializer();
-
-                        cryptInfoJsonOrBson = bsonSerializer.SerializeObject(cryptInfo);
+                        cryptInfoJsonOrBson = SerializeObject(cryptInfo, isBson: true);
                     }
                     else
                     {
-                        throw new Exception($"resourceAccessorCryptTypeId: {resourceAccessorCryptTypeId}");
+                        throw new Exception($"{nameof(resourceAccessorCryptTypeId)}: {resourceAccessorCryptTypeId}");
                     }
 
                     resourceAccessorChunkData = new ReadOnlyArraySegmentByteBuffer(new ArraySegment<byte>(encryptedResourceAccessorJsonOrBson));
@@ -1280,7 +1235,7 @@ namespace NewtonVgo
                 }
                 else
                 {
-                    throw new Exception($"resourceAccessorTypeId: {resourceAccessorTypeId}");
+                    throw new Exception($"{nameof(resourceAccessorTypeId)}: {resourceAccessorTypeId}");
                 }
             }
             catch (JsonSerializationException)
@@ -1347,24 +1302,20 @@ namespace NewtonVgo
                 else if (resourceTypeId == VgoChunkTypeID.REPJ)
                 {
                     // JSON
-                    string resourceJsonString = JsonConvert.SerializeObject(vgoResource, new VgoJsonSerializerSettings());
-
-                    byte[] resourceJson = Encoding.UTF8.GetBytes(resourceJsonString);
+                    byte[] resourceJson = SerializeObject(vgoResource, isBson: false);
 
                     resourceChunkData = new ReadOnlyArraySegmentByteBuffer(new ArraySegment<byte>(resourceJson));
                 }
                 else if (resourceTypeId == VgoChunkTypeID.REPB)
                 {
                     // BSON
-                    var bsonSerializer = new VgoBsonSerializer();
-
-                    byte[] resourceBson = bsonSerializer.SerializeObject(vgoResource);
+                    byte[] resourceBson = SerializeObject(vgoResource, isBson: true);
 
                     resourceChunkData = new ReadOnlyArraySegmentByteBuffer(new ArraySegment<byte>(resourceBson));
                 }
                 else
                 {
-                    throw new Exception($"resourceTypeId: {resourceTypeId}");
+                    throw new Exception($"{nameof(resourceTypeId)}: {resourceTypeId}");
                 }
             }
             catch (JsonSerializationException)
@@ -1457,6 +1408,88 @@ namespace NewtonVgo
             VgoChunk indexChunk = new VgoChunk(VgoChunkTypeID.Idx, indicatorBuffer);
 
             return indexChunk;
+        }
+
+        #endregion
+
+        #region Protected Methods (JSON or BSON)
+
+        /// <summary>
+        /// Serialize a object to JSON or BSON.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="isBson">Specify true if the data is BSON.</param>
+        /// <returns>The JSON or BSON.</returns>
+        protected virtual byte[] SerializeObject<T>(T? value, bool isBson) where T : class
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            try
+            {
+                if (isBson)
+                {
+                    byte[] bson = _VgoBsonSerializer.SerializeObject(value);
+
+                    return bson;
+                }
+                else
+                {
+                    string jsonString = JsonConvert.SerializeObject(value, _VgoJsonSerializerSettings);
+
+                    byte[] json = Encoding.UTF8.GetBytes(jsonString);
+
+                    return json;
+                }
+            }
+            catch (JsonSerializationException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Deserialize JSON or BSON to a object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="jsonOrBson">The JSON or BSON.</param>
+        /// <param name="isBson">Specify true if the data is BSON.</param>
+        /// <param name="rootValueAsArray">Specify true if the root value is an array.</param>
+        /// <returns>A object.</returns>
+        protected virtual T? DeserializeObject<T>(byte[] jsonOrBson, bool isBson, bool rootValueAsArray = false) where T : class
+        {
+            try
+            {
+                T? data;
+
+                if (isBson)
+                {
+                    data = _VgoBsonSerializer.DeserializeObject<T>(jsonOrBson, rootValueAsArray);
+                }
+                else
+                {
+                    string jsonString = Encoding.UTF8.GetString(jsonOrBson);
+
+                    data = JsonConvert.DeserializeObject<T>(jsonString, _VgoJsonSerializerSettings);
+                }
+
+                return data;
+            }
+            catch (JsonSerializationException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         #endregion

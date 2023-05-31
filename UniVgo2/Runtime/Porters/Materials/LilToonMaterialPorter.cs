@@ -288,12 +288,19 @@ namespace UniVgo2.Porters
             LilRenderingMode renderingMode = LilRenderingMode.Opaque,
             bool isOutline = false)
         {
-            int lilToonVersin = material.GetLilToonVersion();
+            int lilToonVersion = material.GetLilToonVersion();
 
             // Base
             if (shaderType == LilShaderType.Lite)
             {
                 base.ExportTextureProperty(vgoStorage, vgoMaterial, material, LilToonShader.PropertyName.TriMask, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            }
+            else if (shaderType == LilShaderType.Normal)
+            {
+                if (lilToonVersion >= 34)  // v1.4.0
+                {
+                    base.ExportTextureProperty(vgoStorage, vgoMaterial, material, LilToonShader.PropertyName.DitherTex, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+                }
             }
 
             // Main
@@ -457,7 +464,7 @@ namespace UniVgo2.Porters
                 {
                     base.ExportTextureProperty(vgoStorage, vgoMaterial, material, LilToonShader.PropertyName.GlitterColorTex, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
 
-                    if (lilToonVersin >= 26)  // v1.3.0
+                    if (lilToonVersion >= 26)  // v1.3.0
                     {
                         base.ExportTextureProperty(vgoStorage, vgoMaterial, material, LilToonShader.PropertyName.GlitterShapeTex, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
                     }

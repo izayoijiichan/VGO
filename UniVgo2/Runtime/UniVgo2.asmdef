@@ -1,5 +1,12 @@
 {
     "name": "UniVgo2",
+    "rootNamespace": "UniVgo2",
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "autoReferenced": true,
+    "noEngineReferences": false,
+    "overrideReferences": true,
     "references": [
         "NewtonVgo",
         "LilToonShader.Utility",
@@ -13,18 +20,10 @@
         "VRMShaders.GLTF.UniUnlit.Runtime",
         "VgoSpringBone"
     ],
-    "optionalUnityReferences": [],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": true,
-    "overrideReferences": false,
     "precompiledReferences": [
-        "Newtonsoft.Json.dll",
-        "System.Buffers.dll",
-        "System.Memory.dll",
-        "System.Numerics.Vectors.dll"
+        "Newtonsoft.Json.dll"
     ],
-    "autoReferenced": true,
+    "optionalUnityReferences": [],
     "defineConstraints": [],
     "versionDefines": [
         {
@@ -34,8 +33,13 @@
         },
         {
             "name": "jp.lilxyzw.liltoon",
-            "expression": "1.3.0",
+            "expression": "[1.3.0,1.3.7]",
             "define": "LILTOON_1_3_0_OR_NEWER"
+        },
+        {
+            "name": "jp.lilxyzw.liltoon",
+            "expression": "1.4.0",
+            "define": "LILTOON_1_4_0_OR_NEWER"
         },
         {
             "name": "com.vrmc.vrmshaders",
@@ -47,6 +51,5 @@
             "expression": "0.85.0",
             "define": "VRMC_VRMSHADERS_0_85_OR_NEWER"
         }
-    ],
-    "noEngineReferences": false
+    ]
 }
