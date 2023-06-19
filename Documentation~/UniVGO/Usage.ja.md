@@ -12,8 +12,8 @@ ___
 
 |No|項目|値|
 |:---:|:---|:---:|
-|1|Unity バージョン|2022.1|
-|2|UniVGO バージョン|2.5.0|
+|1|Unity バージョン|2022.3|
+|2|UniVGO バージョン|2.5.5|
 |3|VGO 仕様バージョン|2.5|
 
 ### 対応 Unity コンポーネント
@@ -122,7 +122,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Name|生成ツールの名前です。|UniVGO|
-|2|Version|生成ツールのバージョンです。|2.5.0|
+|2|Version|生成ツールのバージョンです。|2.5.5|
 
 ユーザーが設定可能な項目はありません。  
 ジェネレーター情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -136,12 +136,14 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 
 `Skinned Mesh Renderer` コンポーネントが `BlendShapes` のパラメーターを持っていることを確認します。
 
-`Vgo BlendShape` コンポーネントを新しく付与します。
+`Vgo Blend Shape` コンポーネントを新しく付与します。
 
 次に `Project` タブ上で右クリックをし、  
-`Create > VGO2 > BlendShapeConfiguration` で設定ファイルを作成します。
+`Create > Vgo > Blend Shape Configuration` で設定ファイルを作成します。
 
-【Vgo BlendShape】
+`Vgo Blend Shape` コンポーネントの `Blend Shape Configuration` に設定ファイルを設定します。
+
+【Vgo Blend Shape】
 
 |No|項目|説明|備考|
 |:---:|:---|:---|:---|
@@ -151,9 +153,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |4|Visemes|口形素を関連付けます。母音のみでもOKです。|任意|
 |5|Presets|プリセットを登録します。|任意|
 
-BlendShape の index は 一番上を 0 として順にカウントします。
-
-設定が終わりましたら、`Vgo BlendShape` コンポーネントの `BlendShapeConfiguration` に設定ファイルを設定します。
+`Vgo Blend Shape` コンポーネントのインスペクター上で設定を行います。
 
 ### 4. SpringBone
 
@@ -274,7 +274,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Generator Name|生成ツールの名前です。|UniVGO|
-|2|Generator Version|生成ツールのバージョンです。|2.5.0|
+|2|Generator Version|生成ツールのバージョンです。|2.5.5|
 
 ユーザーが設定可能な項目はありません。  
 メタ情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -524,7 +524,7 @@ VGOファイルをアップロードし管理することができるサービ�
 https://vgohub.azurewebsites.net
 
 ___
-最終更新日：2022年9月15日  
+最終更新日：2023年6月20日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

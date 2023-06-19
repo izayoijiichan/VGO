@@ -43,6 +43,9 @@ namespace UniVgo2
         /// <summary>The texture converter.</summary>
         protected readonly ITextureConverter _TextureConverter;
 
+        /// <summary>The texture type.</summary>
+        protected ImageType _TextureType;
+
         #endregion
 
         #region Delegates
@@ -92,12 +95,16 @@ namespace UniVgo2
         /// <param name="root">The GameObject of root.</param>
         /// <param name="geometryCoordinate"></param>
         /// <param name="uvCoordinate"></param>
+        /// <param name="textureType"></param>
         /// <returns>A vgo storage.</returns>
         public virtual IVgoStorage CreateVgoStorage(
             GameObject root,
             VgoGeometryCoordinate geometryCoordinate = VgoGeometryCoordinate.RightHanded,
-            VgoUVCoordinate uvCoordinate = VgoUVCoordinate.TopLeft)
+            VgoUVCoordinate uvCoordinate = VgoUVCoordinate.TopLeft,
+            ImageType textureType = ImageType.PNG)
         {
+            _TextureType = textureType;
+
             int initialResourceSize = 10 * 1024 * 1024;  // 10MB
 
             IByteBuffer resource = new ArraySegmentByteBuffer(initialResourceSize);
@@ -277,7 +284,7 @@ namespace UniVgo2
         /// <returns>The index of layout.texture.</returns>
         protected virtual int ExportTexture(IVgoStorage vgoStorage, Texture texture, VgoTextureMapType textureMapType = VgoTextureMapType.Default, VgoColorSpaceType colorSpaceType = VgoColorSpaceType.Srgb, float metallicRoughness = -1.0f)
         {
-            if (texture is null)
+            if (texture == null)
             {
                 return -1;
             }
@@ -295,8 +302,7 @@ namespace UniVgo2
             int srcTextureInstanceId = srcTexture2d.GetInstanceID();
 
             VgoTexture? vgoTexture = vgoStorage.Layout.textures
-                .Where(x => x?.id == srcTextureInstanceId)
-                .FirstOrDefault();
+                .FirstOrDefault(x => x?.id == srcTextureInstanceId);
 
             if (vgoTexture != null)
             {
@@ -307,8 +313,44 @@ namespace UniVgo2
 
             Texture2D convertedTexture2d = _TextureConverter.GetExportTexture(srcTexture2d, textureMapType, colorSpaceType, metallicSmoothness);
 
-            string mimeType = "image/png";
-            byte[] imageBytes = convertedTexture2d.EncodeToPNG();
+            int width = convertedTexture2d.width;
+
+            int height = convertedTexture2d.height;
+
+            string mimeType;
+
+            byte[] imageBytes;
+
+            if (_TextureType == ImageType.JPEG)
+            {
+                mimeType = MimeType.Image_Jpeg;
+
+                byte[] textureData = convertedTexture2d.GetRawTextureData();
+
+                byte[]? jpgBytes = ImageConversion.EncodeArrayToJPG(textureData, convertedTexture2d.graphicsFormat, (uint)width, (uint)height, quality: 100);
+
+                if (jpgBytes == null)
+                {
+                    return -1;
+                }
+
+                imageBytes = jpgBytes;
+            }
+            else
+            {
+                mimeType = MimeType.Image_Png;
+
+                byte[] textureData = convertedTexture2d.GetRawTextureData();
+
+                byte[]? pngBytes = ImageConversion.EncodeArrayToPNG(textureData, convertedTexture2d.graphicsFormat, (uint)width, (uint)height);
+
+                if (pngBytes == null)
+                {
+                    return -1;
+                }
+
+                imageBytes = pngBytes;
+            }
 
             int accessorIndex = vgoStorage.AddAccessorWithoutSparse(imageBytes, VgoResourceAccessorDataType.UnsignedByte, VgoResourceAccessorKind.ImageData);
 

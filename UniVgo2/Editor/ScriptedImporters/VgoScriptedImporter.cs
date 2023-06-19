@@ -412,15 +412,31 @@ namespace UniVgo2.Editor
 
                         byte[] imageBytes;
 
-                        if (vgoTexture.mimeType == "image/jpeg")
+                        if (vgoTexture.mimeType == MimeType.Image_Jpeg)
                         {
                             fileExt = ".jpg";
-                            imageBytes = texture2d.EncodeToJPG();
+
+                            byte[]? jpgBytes = ImageConversion.EncodeToJPG(texture2d, quality: 100);
+
+                            if (jpgBytes == null)
+                            {
+                                continue;
+                            }
+
+                            imageBytes = jpgBytes;
                         }
-                        else if (vgoTexture.mimeType == "image/png")
+                        else if (vgoTexture.mimeType == MimeType.Image_Png)
                         {
                             fileExt = ".png";
-                            imageBytes = texture2d.EncodeToPNG();
+
+                            byte[]? pngBytes = ImageConversion.EncodeToPNG(texture2d);
+
+                            if (pngBytes == null)
+                            {
+                                continue;
+                            }
+
+                            imageBytes = pngBytes;
                         }
                         else
                         {

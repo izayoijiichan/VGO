@@ -12,8 +12,8 @@ The contents described in this manual are for the following versions.
 
 |No|item|value|
 |:---:|:---|:---:|
-|1|Unity version|2022.1|
-|2|UniVGO version|2.5.0|
+|1|Unity version|2022.3|
+|2|UniVGO version|2.5.5|
 |3|VGO spec version|2.5|
 
 ### Supported Unity components
@@ -122,7 +122,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.5.0|
+|2|Version|Version of the generation tool.|2.5.5|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -136,12 +136,14 @@ Select the GameObject of the face in the `Hierarchy` tab.
 
 Make sure the `Skinned Mesh Renderer` component has a parameter of `BlendShapes`.
 
-Attath a new `Vgo BlendShape` component.
+Attath a new `Vgo Blend Shape` component.
 
 Then right-click on the `Project` tab,  
-Create a configuration file with `Create > VGO2 > BlendShapeConfiguration`.
+Create a configuration file with `Create > Vgo > Blend Shape Configuration`.
 
-[Vgo BlendShape]
+Set the configuration file to the `Blend Shape Configuration` of the `Vgo Blend Shape` component.
+
+[Vgo Blend Shape]
 
 |No|item|description|remarks|
 |:---:|:---|:---|:---|
@@ -151,9 +153,7 @@ Create a configuration file with `Create > VGO2 > BlendShapeConfiguration`.
 |4|Visemes|Associate the viseme. Only vowels are OK.|Option|
 |5|Presets|Register the preset.|Option|
 
-BlendShape's index is counted from 0 at the top.
-
-After setting, set the configuration file in `BlendShapeConfiguration` of the `Vgo BlendShape` component.
+Set up on the inspector of the `Vgo Blend Shape` component.
 
 ### 4. SpringBone
 
@@ -274,7 +274,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.5.0|
+|2|Version|Version of the generation tool.|2.5.5|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -519,7 +519,7 @@ or the VGO (avatar or world) that others have set to be available in the linked 
 https://vgohub.azurewebsites.net
 
 ___
-Last updated: 15 September, 2022  
+Last updated: 20 June, 2023  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

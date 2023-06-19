@@ -33,12 +33,14 @@ namespace UniVgo2.Editor
         /// <param name="gameObject">The target.</param>
         /// <param name="geometryCoordinate">The type of the geometry coodinates.</param>
         /// <param name="uvCoordinate">The type of the UV coodinates.</param>
+        /// <param name="textureType">The type of the texture.</param>
         /// <param name="isBson">Whether type is BSON, otherwise JSON.</param>
         /// <param name="cryptAlgorithms">The crypt algorithm.</param>
         public static void ExportVgo(
             GameObject gameObject,
             VgoGeometryCoordinate geometryCoordinate = VgoGeometryCoordinate.RightHanded,
             VgoUVCoordinate uvCoordinate = VgoUVCoordinate.TopLeft,
+            ImageType textureType = ImageType.PNG,
             bool isBson = false,
             string? cryptAlgorithms = null)
         {
@@ -62,7 +64,7 @@ namespace UniVgo2.Editor
 
                 var exporter = new VgoExporter();
 
-                IVgoStorage vgoStorage = exporter.CreateVgoStorage(gameObject, geometryCoordinate, uvCoordinate);
+                IVgoStorage vgoStorage = exporter.CreateVgoStorage(gameObject, geometryCoordinate, uvCoordinate, textureType);
 
                 VgoExportSetting vgoExportSetting;
 

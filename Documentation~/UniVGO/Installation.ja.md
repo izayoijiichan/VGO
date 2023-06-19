@@ -8,16 +8,18 @@ ___
 
 ### Unity のバージョン
 
-|バージョン|Win (Editor)|Win (Mono)|Win (IL2CPP)|Android (IL2CPP)|iOS|
-|:---|:---:|:---:|:---:|:---:|:---:|
-|Unity 2020.3|○|○|○|○|未確認|
-|Unity 2021.1|○|○|○|○|未確認|
-|Unity 2021.2|○|○|○|○|未確認|
-|Unity 2021.3|○|○|○|○|未確認|
-|Unity 2022.1|○|○|○|未確認|未確認|
-|Unity 2022.2|○|○|○|未確認|未確認|
+|バージョン|Win (Editor)|Win (Mono)|Win (IL2CPP)|Android (IL2CPP)|iOS|WebGL|
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+|Unity 2020.3|○|○|○|○|未確認|○|
+|Unity 2021.1|○|○|○|○|未確認|○|
+|Unity 2021.2|○|○|○|○|未確認|○|
+|Unity 2021.3|○|○|○|○|未確認|○|
+|Unity 2022.1|○|○|○|未確認|未確認|○|
+|Unity 2022.2|○|○|○|未確認|未確認|○|
+|Unity 2022.3|○|○|○|未確認|未確認|未確認|
+|Unity 2023.1|○|○|○|未確認|未確認|未確認|
 
-2022年9月の時点では `Unity 2022.2` の `Windows` `.NET Standard 2.1` 環境にて開発＆確認を行っています。
+2023年6月の時点では `Unity 2023.1` の `Windows` `.NET Standard 2.1` 環境にて開発＆確認を行っています。
 
 ### 必要パッケージ
 
@@ -42,7 +44,7 @@ Unity 2021.1 以下のバージョンを使用する場合
 |LilToonShader.Utility|IzayoiJiichan|GitHub||1.4.0|2023年5月30日|
 |UniShaders|IzayoiJiichan|GitHub||1.4.0|2022年5月20日|
 |VgoSpringBone|IzayoiJiichan|GitHub||1.1.2|2022年8月24日|
-|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.5|2023年6月1日|
+|UniVGO2|IzayoiJiichan|GitHub|VGO 2.5|2.5.6|2023年6月20日|
 
 #### 追加パッケージ
 
@@ -72,10 +74,11 @@ ___
 |2021.3.0f1|BRP|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.brp)|
 |2021.3.0f1|URP|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.urp)|
 |2021.3.0f1|HDRP|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.hdrp)|
+|2022.3.0f1|BRP|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2022.3.brp)|
 
 #### 2. Unity Editor のインストール
 
-Unity Hub にて Unity Editor `2021.1.28f1`、`2021.2.0f1`、`2021.3.0f1`、`2022.1.0f1`、`2022.2.0f1` のいずれかをインストールします。
+Unity Hub にて Unity Editor `2021.1.28f1`、`2021.2.0f1`、`2021.3.0f1`、`2022.1.0f1`、`2022.2.0f1`、`2022.3.0f1` のいずれかをインストールします。
 
 探しているバージョンが Unity Hub に表示されない場合は、[Unity ダウンロード アーカイブ](https://unity3d.com/jp/get-unity/download/archive) 経由でインストールしてください。
 
@@ -139,7 +142,7 @@ UniVGOを使用するために、以下の設定を追加してください。
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.4.0",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.5",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.6",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.ugui": "1.0.0",
@@ -238,17 +241,17 @@ ___
 
 |UniVRM|UniVGO|min Unity|
 |:---:|:---:|:---:|
-|0.100.0|2.5.5|2020.3|
-|0.101.0|2.5.5|2020.3|
-|0.102.0|2.5.5|2020.3|
-|0.103.2|2.5.5|2020.3|
-|0.104.2|2.5.5|2020.3|
-|0.105.0|2.5.5|2020.3|
-|0.106.0|2.5.5|2020.3|
-|0.107.2|2.5.5|2020.3|
-|0.108.0|2.5.5|2020.3|
-|0.109.0|2.5.5|2020.3|
-|0.110.0|2.5.5|2020.3|
+|0.100.0|2.5.6|2020.3|
+|0.101.0|2.5.6|2020.3|
+|0.102.0|2.5.6|2020.3|
+|0.103.2|2.5.6|2020.3|
+|0.104.2|2.5.6|2020.3|
+|0.105.0|2.5.6|2020.3|
+|0.106.0|2.5.6|2020.3|
+|0.107.2|2.5.6|2020.3|
+|0.108.0|2.5.6|2020.3|
+|0.109.0|2.5.6|2020.3|
+|0.110.0|2.5.6|2020.3|
 
 `<Project>/Packages/package.json` に以下の記述を行います。  
 
@@ -276,9 +279,10 @@ https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 |:--|:--:|:--:|:--:|
 |2021.1.28f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.1.brp.univrm)|
 |2021.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2021.3.brp.univrm)|
+|2022.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2022.3.brp.univrm)|
 
 ___
-最終更新日：2023年6月1日  
+最終更新日：2023年6月20日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

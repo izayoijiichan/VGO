@@ -8,7 +8,6 @@ namespace UniVgo2
     using NewtonVgo;
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
     using UnityEngine;
     using UniVgo2.Converters;
@@ -203,7 +202,7 @@ namespace UniVgo2
                 }
                 else
                 {
-                    Texture2D texture2d = CreateTexture2D(vgoTexture, vgoStorage);
+                    Texture2D? texture2d = CreateTexture2D(vgoTexture, vgoStorage);
 
                     texture2dList.Add(texture2d);
                 }
@@ -218,13 +217,8 @@ namespace UniVgo2
         /// <param name="vgoTexture">A vgo texture.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A unity texture 2D.</returns>
-        protected virtual Texture2D CreateTexture2D(VgoTexture vgoTexture, IVgoStorage vgoStorage)
+        protected virtual Texture2D? CreateTexture2D(VgoTexture vgoTexture, IVgoStorage vgoStorage)
         {
-            if (vgoTexture.dimensionType != TextureDimension.Tex2D)
-            {
-                throw new Exception($"Texture.dimensionType: {vgoTexture.dimensionType}");
-            }
-
             if (vgoStorage.ResourceAccessors is null)
             {
                 throw new Exception();
@@ -232,26 +226,44 @@ namespace UniVgo2
 
             if (vgoTexture.source.IsInRangeOf(vgoStorage.ResourceAccessors) == false)
             {
-                throw new Exception($"Texture.source: {vgoTexture.source}");
+                Debug.LogError($"{nameof(VgoTexture)}.{nameof(vgoTexture.source)}: {vgoTexture.source}");
+
+                return null;
             }
 
-            byte[] imageBytes = vgoStorage.GetAccessorBytes(vgoTexture.source).ToArray();
-
-            var srcTexture2d = new Texture2D(width: 2, height: 2, TextureFormat.ARGB32, mipChain: false, linear: vgoTexture.IsLinear)
+            if (vgoTexture.dimensionType != TextureDimension.Tex2D)
             {
-                name = vgoTexture.name
-            };
+                Debug.LogError($"{nameof(VgoTexture)}.{nameof(vgoTexture.dimensionType)}: {vgoTexture.dimensionType}");
 
-            srcTexture2d.LoadImage(imageBytes);
+                return null;
+            }
 
-            Texture2D texture2D = _TextureConverter.GetImportTexture(srcTexture2d, vgoTexture.mapType, vgoTexture.metallicRoughness);
+            try
+            {
+                byte[] imageBytes = vgoStorage.GetAccessorBytes(vgoTexture.source).ToArray();
 
-            texture2D.filterMode = (UnityEngine.FilterMode)vgoTexture.filterMode;
-            texture2D.wrapMode = (UnityEngine.TextureWrapMode)vgoTexture.wrapMode;
-            texture2D.wrapModeU = (UnityEngine.TextureWrapMode)vgoTexture.wrapModeU;
-            texture2D.wrapModeV = (UnityEngine.TextureWrapMode)vgoTexture.wrapModeV;
+                var srcTexture2d = new Texture2D(width: 2, height: 2, TextureFormat.ARGB32, mipChain: false, linear: vgoTexture.IsLinear)
+                {
+                    name = vgoTexture.name
+                };
 
-            return texture2D;
+                ImageConversion.LoadImage(srcTexture2d, imageBytes);
+
+                Texture2D texture2D = _TextureConverter.GetImportTexture(srcTexture2d, vgoTexture.mapType, vgoTexture.metallicRoughness);
+
+                texture2D.filterMode = (UnityEngine.FilterMode)vgoTexture.filterMode;
+                texture2D.wrapMode = (UnityEngine.TextureWrapMode)vgoTexture.wrapMode;
+                texture2D.wrapModeU = (UnityEngine.TextureWrapMode)vgoTexture.wrapModeU;
+                texture2D.wrapModeV = (UnityEngine.TextureWrapMode)vgoTexture.wrapModeV;
+
+                return texture2D;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+
+                return null;
+            }
         }
 
         #endregion

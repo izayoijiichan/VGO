@@ -257,7 +257,7 @@ namespace UniVgo2.Editor
                 : _CryptAlgorithmsIndex == 2 ? VgoCryptographyAlgorithms.Base64
                 : null;
 
-            VgoExportProcessor.ExportVgo(_TargetGameObject, geometryCoordinate, uvCoordinate, isBson, cryptographyAlgorithms);
+            VgoExportProcessor.ExportVgo(_TargetGameObject, geometryCoordinate, uvCoordinate, ImageType.PNG, isBson, cryptographyAlgorithms);
         }
     }
 }

@@ -9,7 +9,10 @@
     "overrideReferences": true,
     "references": [],
     "precompiledReferences": [
-        "Newtonsoft.Json.dll"
+        "Newtonsoft.Json.dll",
+        "System.Buffers.dll",
+        "System.Memory.dll",
+        "System.Numerics.Vectors.dll"
     ],
     "optionalUnityReferences": [],
     "defineConstraints": [],

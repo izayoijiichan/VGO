@@ -1,5 +1,10 @@
 # Change Log
 
+## [2.5.6] - 2023-06-20
+
+- Fixes
+  - Fixed script errors in Unity `2020.3`.
+
 ## [2.5.5] - 2023-06-01
 
 - Features
