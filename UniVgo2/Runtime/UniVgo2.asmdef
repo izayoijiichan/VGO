@@ -18,6 +18,7 @@
         "MToon",
         "ShaderProperty.Runtime",
         "VRMShaders.GLTF.UniUnlit.Runtime",
+        "UniTask",
         "VgoSpringBone"
     ],
     "precompiledReferences": [
@@ -29,6 +30,11 @@
     "optionalUnityReferences": [],
     "defineConstraints": [],
     "versionDefines": [
+        {
+            "name": "com.cysharp.unitask",
+            "expression": "2.0.0",
+            "define": "CYSHARP_UNITASK_2_OR_NEWER"
+        },
         {
             "name": "com.vrmc.vrmshaders",
             "expression": "[0.72.0,0.84.0]",

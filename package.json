@@ -2,7 +2,7 @@
   "name": "com.izayoi.univgo",
   "displayName": "UniVGO",
   "description": "UniVGO is a package that can handle VGO files in Unity.",
-  "version": "2.5.6",
+  "version": "2.5.7",
   "type": "tool",
   "category": "",
   "keywords": [
@@ -34,6 +34,7 @@
     "com.izayoi.liltoon.shader.utility": "1.4.0",
     "com.izayoi.unishaders": "1.4.0",
     "com.izayoi.vgospringbone": "1.1.2",
+    "com.unity.modules.imageconversion": "1.0.0",
     "com.unity.nuget.newtonsoft-json": "3.0.0",
     "com.vrmc.vrmshaders": "0.72.0"
   }

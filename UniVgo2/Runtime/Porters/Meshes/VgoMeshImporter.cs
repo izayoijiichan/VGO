@@ -5,10 +5,21 @@
 #nullable enable
 namespace UniVgo2.Porters
 {
+#if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
+    //
+#elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
+    using Cysharp.Threading.Tasks;
+#else
+    //System.Threading.Tasks;
+#endif
+
     using NewtonVgo;
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
     using UnityEngine;
 
     /// <summary>
@@ -44,13 +55,150 @@ namespace UniVgo2.Porters
         #region Public Methods
 
         /// <summary>
+        /// Create mesh assets.
+        /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
+        /// <param name="materialList">List of unity material.</param>
+        /// <returns>List of mesh asset.</returns>
+        public virtual List<MeshAsset> CreateMeshAssets(IVgoStorage vgoStorage, IList<Material?>? materialList = null)
+        {
+            if ((vgoStorage.Layout.meshes == null) || (vgoStorage.Layout.meshes.Any() == false))
+            {
+                return new List<MeshAsset>(0);
+            }
+
+            var meshAssetList = new List<MeshAsset>(vgoStorage.Layout.meshes.Count);
+
+            for (int meshIndex = 0; meshIndex < vgoStorage.Layout.meshes.Count; meshIndex++)
+            {
+                MeshAsset meshAsset = CreateMeshAsset(vgoStorage, meshIndex, materialList);
+
+                if (meshAssetList.Where(x => x?.Mesh.name == meshAsset.Mesh.name).Any())
+                {
+                    meshAsset.Mesh.name = string.Format($"mesh_{meshIndex}");
+                }
+
+                meshAssetList.Add(meshAsset);
+            }
+
+            return meshAssetList;
+        }
+
+        /// <summary>
+        /// Create mesh assets.
+        /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
+        /// <param name="materialList">List of unity material.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>List of mesh asset.</returns>
+#if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
+        public virtual async Awaitable<List<MeshAsset>> CreateMeshAssetsAsync(IVgoStorage vgoStorage, IList<Material?>? materialList, CancellationToken cancellationToken)
+#elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
+        public virtual async UniTask<List<MeshAsset>> CreateMeshAssetsAsync(IVgoStorage vgoStorage, IList<Material?>? materialList, CancellationToken cancellationToken)
+#else
+        public virtual async Task<List<MeshAsset>> CreateMeshAssetsAsync(IVgoStorage vgoStorage, IList<Material?>? materialList, CancellationToken cancellationToken)
+#endif
+        {
+            if ((vgoStorage.Layout.meshes == null) || (vgoStorage.Layout.meshes.Any() == false))
+            {
+                return new List<MeshAsset>(0);
+            }
+
+            var meshAssetList = new List<MeshAsset>(vgoStorage.Layout.meshes.Count);
+
+            for (int meshIndex = 0; meshIndex < vgoStorage.Layout.meshes.Count; meshIndex++)
+            {
+                MeshAsset meshAsset = await CreateMeshAssetAsync(vgoStorage, meshIndex, materialList, cancellationToken);
+
+                if (meshAssetList.Where(x => x?.Mesh.name == meshAsset.Mesh.name).Any())
+                {
+                    meshAsset.Mesh.name = string.Format($"mesh_{meshIndex}");
+                }
+
+                meshAssetList.Add(meshAsset);
+            }
+
+            return meshAssetList;
+        }
+
+        /// <summary>
+        /// Create mesh assets.
+        /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
+        /// <param name="materialList">List of unity material.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>List of mesh asset.</returns>
+#if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
+        public virtual async Awaitable<List<MeshAsset>> CreateMeshAssetsParallelAsync(IVgoStorage vgoStorage, IList<Material?>? materialList, CancellationToken cancellationToken)
+#elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
+        public virtual async UniTask<List<MeshAsset>> CreateMeshAssetsParallelAsync(IVgoStorage vgoStorage, IList<Material?>? materialList, CancellationToken cancellationToken)
+#else
+        public virtual async Task<List<MeshAsset>> CreateMeshAssetsParallelAsync(IVgoStorage vgoStorage, IList<Material?>? materialList, CancellationToken cancellationToken)
+#endif
+        {
+            if ((vgoStorage.Layout.meshes == null) || (vgoStorage.Layout.meshes.Any() == false))
+            {
+                return new List<MeshAsset>(0);
+            }
+
+            var meshAssetList = new List<MeshAsset>(vgoStorage.Layout.meshes.Count);
+
+#if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
+            await Awaitable.BackgroundThreadAsync();
+#elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
+            await UniTask.SwitchToThreadPool();
+#endif
+            //var sw = new System.Diagnostics.Stopwatch();
+
+            //sw.Start();
+
+            List<MeshContext> meshContextList = await CreateMeshContextListParallelAsync(vgoStorage, cancellationToken);
+
+            //sw.Stop();
+
+            //Debug.LogFormat("{0,2}: {1,5}ms", Thread.CurrentThread.ManagedThreadId, sw.ElapsedMilliseconds);
+
+#if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
+            await Awaitable.MainThreadAsync();
+#elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
+            await UniTask.SwitchToMainThread();
+#endif
+
+            for (int meshIndex = 0; meshIndex < vgoStorage.Layout.meshes.Count; meshIndex++)
+            {
+                MeshAsset meshAsset = CreateMeshAsset(vgoStorage, meshIndex, meshContextList, materialList);
+
+                if (meshAssetList.Where(x => x?.Mesh.name == meshAsset.Mesh.name).Any())
+                {
+                    meshAsset.Mesh.name = string.Format($"mesh_{meshIndex}");
+                }
+
+                meshAssetList.Add(meshAsset);
+            }
+
+#if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
+            //await Awaitable.NextFrameAsync(cancellationToken);
+
+            return meshAssetList;
+#elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
+            return await UniTask.FromResult(meshAssetList);
+#else
+            return await Task.FromResult(meshAssetList);
+#endif
+        }
+
+        #endregion
+
+        #region Protected Methods
+
+        /// <summary>
         /// Create a mesh asset.
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="meshIndex">The index of vgo mesh.</param>
         /// <param name="unityMaterialList">List of unity material.</param>
         /// <returns>A mesh asset.</returns>
-        public virtual MeshAsset CreateMeshAsset(IVgoStorage vgoStorage, int meshIndex, IList<Material?>? unityMaterialList = null)
+        protected virtual MeshAsset CreateMeshAsset(IVgoStorage vgoStorage, int meshIndex, IList<Material?>? unityMaterialList = null)
         {
             if (vgoStorage == null)
             {
@@ -80,6 +228,196 @@ namespace UniVgo2.Porters
             }
 
             return meshAsset;
+        }
+
+        /// <summary>
+        /// Create a mesh asset.
+        /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
+        /// <param name="meshIndex">The index of vgo mesh.</param>
+        /// <param name="meshContextList">List of mesh context.</param>
+        /// <param name="unityMaterialList">List of unity material.</param>
+        /// <returns>A mesh asset.</returns>
+        protected virtual MeshAsset CreateMeshAsset(IVgoStorage vgoStorage, int meshIndex, IList<MeshContext> meshContextList, IList<Material?>? unityMaterialList = null)
+        {
+            if (vgoStorage == null)
+            {
+                throw new ArgumentNullException(nameof(vgoStorage));
+            }
+
+            if (meshIndex.IsInRangeOf(meshContextList) == false)
+            {
+                throw new ArgumentOutOfRangeException(nameof(meshIndex));
+            }
+
+            MeshContext meshContext = meshContextList[meshIndex];
+
+            Mesh mesh = BuildMesh(meshContext);
+
+            MeshAsset meshAsset = new MeshAsset(mesh);
+
+            if (vgoStorage.IsSpecVersion_2_4_orLower)
+            {
+                if (unityMaterialList == null)
+                {
+                    throw new ArgumentNullException(nameof(unityMaterialList));
+                }
+
+                meshAsset.Materials = meshContext.MaterialIndices.Select(x => unityMaterialList[x]).ToArray();
+            }
+
+            if ((meshContext.BlendShapesContext != null) &&
+                (meshContext.BlendShapesContext.BlendShapeConfig != null))
+            {
+                meshAsset.BlendShapeConfig = meshContext.BlendShapesContext.BlendShapeConfig;
+            }
+
+            return meshAsset;
+        }
+
+        /// <summary>
+        /// Create a mesh asset.
+        /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
+        /// <param name="meshIndex">The index of vgo mesh.</param>
+        /// <param name="unityMaterialList">List of unity material.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>A mesh asset.</returns>
+#if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
+        protected virtual async Awaitable<MeshAsset> CreateMeshAssetAsync(IVgoStorage vgoStorage, int meshIndex, IList<Material?>? unityMaterialList, CancellationToken cancellationToken)
+#elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
+        protected virtual async UniTask<MeshAsset> CreateMeshAssetAsync(IVgoStorage vgoStorage, int meshIndex, IList<Material?>? unityMaterialList, CancellationToken cancellationToken)
+#else
+        protected virtual async Task<MeshAsset> CreateMeshAssetAsync(IVgoStorage vgoStorage, int meshIndex, IList<Material?>? unityMaterialList, CancellationToken cancellationToken)
+#endif
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            if (vgoStorage == null)
+            {
+                throw new ArgumentNullException(nameof(vgoStorage));
+            }
+
+#if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
+            await Awaitable.BackgroundThreadAsync();
+
+            //var sw = new System.Diagnostics.Stopwatch();
+
+            //sw.Start();
+
+            MeshContext meshContext = ReadMesh(vgoStorage, meshIndex);
+
+            //sw.Stop();
+
+            //Debug.LogFormat("{0,2}: {1,5}ms", Thread.CurrentThread.ManagedThreadId, sw.ElapsedMilliseconds);
+
+            await Awaitable.MainThreadAsync();
+#elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
+            await UniTask.SwitchToThreadPool();
+
+            //var sw = new System.Diagnostics.Stopwatch();
+
+            //sw.Start();
+
+            MeshContext meshContext = ReadMesh(vgoStorage, meshIndex);
+
+            //sw.Stop();
+
+            //Debug.LogFormat("{0,2}: {1,5}ms", Thread.CurrentThread.ManagedThreadId, sw.ElapsedMilliseconds);
+
+            await UniTask.SwitchToMainThread();
+#else
+            //var sw = new System.Diagnostics.Stopwatch();
+
+            //sw.Start();
+
+            MeshContext meshContext = ReadMesh(vgoStorage, meshIndex);
+
+            //MeshContext meshContext = await Task.Run(() =>
+            //{
+            //    //var swt = new System.Diagnostics.Stopwatch();
+
+            //    //swt.Start();
+
+            //    MeshContext context = ReadMesh(vgoStorage, meshIndex);
+
+            //    //swt.Stop();
+
+            //    //Debug.LogFormat("{0,2}: {1,5}ms", Thread.CurrentThread.ManagedThreadId, swt.ElapsedMilliseconds);
+
+            //    return context;
+            //});
+
+            //sw.Stop();
+
+            //Debug.LogFormat("{0,2}: {1,5}ms", Thread.CurrentThread.ManagedThreadId, sw.ElapsedMilliseconds);
+#endif
+
+            Mesh mesh = BuildMesh(meshContext);
+
+            MeshAsset meshAsset = new MeshAsset(mesh);
+
+            if (vgoStorage.IsSpecVersion_2_4_orLower)
+            {
+                if (unityMaterialList == null)
+                {
+                    throw new ArgumentNullException(nameof(unityMaterialList));
+                }
+
+                meshAsset.Materials = meshContext.MaterialIndices.Select(x => unityMaterialList[x]).ToArray();
+            }
+
+            if ((meshContext.BlendShapesContext != null) &&
+                (meshContext.BlendShapesContext.BlendShapeConfig != null))
+            {
+                meshAsset.BlendShapeConfig = meshContext.BlendShapesContext.BlendShapeConfig;
+            }
+
+#if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
+            //await Awaitable.NextFrameAsync(cancellationToken);
+
+            return meshAsset;
+#elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
+            return await UniTask.FromResult(meshAsset);
+#else
+            return await Task.FromResult(meshAsset);
+#endif
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vgoStorage">A vgo storage.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>List of mesh context.</returns>
+        protected virtual async Task<List<MeshContext>> CreateMeshContextListParallelAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken)
+        {
+            if ((vgoStorage.Layout.meshes == null) || (vgoStorage.Layout.meshes.Any() == false))
+            {
+                return new List<MeshContext>(0);
+            }
+
+            var meshContextDictionary = new ConcurrentDictionary<int, MeshContext>();
+
+            var createMeshContextTasks = new List<Task>(vgoStorage.Layout.meshes.Count);
+
+            for (int meshIndex = 0; meshIndex < vgoStorage.Layout.meshes.Count; meshIndex++)
+            {
+                int index = meshIndex;  // @impotant
+
+                Task createMeshContextTask = Task.Run(() =>
+                {
+                    MeshContext meshContext = ReadMesh(vgoStorage, index);
+
+                    meshContextDictionary.TryAdd(index, meshContext);
+                });
+
+                createMeshContextTasks.Add(createMeshContextTask);
+            }
+
+            await Task.WhenAll(createMeshContextTasks);
+
+            return meshContextDictionary.Values.ToList();
         }
 
         #endregion

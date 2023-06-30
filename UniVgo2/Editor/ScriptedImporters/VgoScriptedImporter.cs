@@ -47,6 +47,9 @@ namespace UniVgo2.Editor
         /// <summary>The texture directory name.</summary>
         protected readonly string TextureDirectoryName = "Textures";
 
+        /// <summary>The vgo importer.</summary>
+        protected readonly VgoImporter _VgoImporter = new VgoImporter();
+
         /// <summary>
         /// This method must by overriden by the derived class and is called by the Asset pipeline to import files.
         /// </summary>
@@ -58,7 +61,7 @@ namespace UniVgo2.Editor
         {
             try
             {
-                ModelAsset modelAsset = LoadModel(ctx.assetPath);
+                VgoModelAsset modelAsset = LoadModel(ctx.assetPath);
                 {
                     // Animation
                     if (modelAsset.AnimationClipList != null)
@@ -202,32 +205,28 @@ namespace UniVgo2.Editor
         /// Load 3D model.
         /// </summary>
         /// <param name="vgoFilePath">The file path of the vgo.</param>
-        /// <returns>A model asset.</returns>
-        protected virtual ModelAsset LoadModel(string vgoFilePath)
+        /// <returns>A vgo model asset.</returns>
+        protected virtual VgoModelAsset LoadModel(string vgoFilePath)
         {
             string? vgkFilePath = FindVgkFilePath(vgoFilePath);
 
-            var importer = new VgoImporter();
+            VgoModelAsset vgoModelAsset = _VgoImporter.Load(vgoFilePath, vgkFilePath);
 
-            ModelAsset modelAsset = importer.Load(vgoFilePath, vgkFilePath);
-
-            return modelAsset;
+            return vgoModelAsset;
         }
 
         /// <summary>
         /// Extract 3D model.
         /// </summary>
         /// <param name="vgoFilePath">The file path of the vgo.</param>
-        /// <returns>A model asset.</returns>
-        protected virtual ModelAsset ExtractModel(string vgoFilePath)
+        /// <returns>A vgo model asset.</returns>
+        protected virtual VgoModelAsset ExtractModel(string vgoFilePath)
         {
             string? vgkFilePath = FindVgkFilePath(vgoFilePath);
 
-            var importer = new VgoImporter();
+            VgoModelAsset vgoModelAsset = _VgoImporter.Extract(vgoFilePath, vgkFilePath);
 
-            ModelAsset modelAsset = importer.Extract(vgoFilePath, vgkFilePath);
-
-            return modelAsset;
+            return vgoModelAsset;
         }
 
         /// <summary>
@@ -364,7 +363,7 @@ namespace UniVgo2.Editor
         /// <param name="dirName"></param>
         /// <param name="ExtractModel"></param>
         /// <param name="continueMaterial"></param>
-        public virtual void ExtractTextures(string dirName, Func<string, ModelAsset> ExtractModel, bool continueMaterial = false)
+        public virtual void ExtractTextures(string dirName, Func<string, VgoModelAsset> ExtractModel, bool continueMaterial = false)
         {
             if (string.IsNullOrEmpty(assetPath))
             {
@@ -384,7 +383,7 @@ namespace UniVgo2.Editor
             Dictionary<VgoTexture, string> targetPaths = new Dictionary<VgoTexture, string>();
 
             // Reload Model
-            using (ModelAsset modelAsset = ExtractModel(assetPath))
+            using (VgoModelAsset modelAsset = ExtractModel(assetPath))
             {
                 if (modelAsset.Layout != null &&
                     modelAsset.Layout.textures != null &&

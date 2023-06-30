@@ -13,7 +13,7 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2022.3|
-|2|UniVGO version|2.5.5|
+|2|UniVGO version|2.5.7|
 |3|VGO spec version|2.5|
 
 ### Supported Unity components
@@ -122,7 +122,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.5.5|
+|2|Version|Version of the generation tool.|2.5.7|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -274,7 +274,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.5.5|
+|2|Version|Version of the generation tool.|2.5.7|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -485,22 +485,22 @@ If you write your own script, write as follows.
 
     public class RuntimeLoadBehaviour : MonoBehaviour
     {
-        private IDisposable _ModelAssetDisposer;
+        private readonly VgoImporter _VgoImporter = new();
+
+        private IDisposable _VgoModelAssetDisposer;
 
         private void Start()
         {
-            VgoImporter importer = new();
+            VgoModelAsset vgoModelAsset = _VgoImporter.Load(filePath);
 
-            ModelAsset modelAsset = importer.Load(filePath);
+            _VgoImporter.ReflectSkybox(Camera.main, vgoModelAsset);
 
-            importer.ReflectSkybox(Camera.main, modelAsset);
-
-            _ModelAssetDisposer = modelAsset;
+            _VgoModelAssetDisposer = vgoModelAsset;
         }
 
         private void OnDestroy()
         {
-            _ModelAssetDisposer?.Dispose();
+            _VgoModelAssetDisposer?.Dispose();
         }
     }
 ~~~
@@ -519,7 +519,7 @@ or the VGO (avatar or world) that others have set to be available in the linked 
 https://vgohub.azurewebsites.net
 
 ___
-Last updated: 20 June, 2023  
+Last updated: 1 July, 2023  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

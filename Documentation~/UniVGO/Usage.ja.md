@@ -13,7 +13,7 @@ ___
 |No|項目|値|
 |:---:|:---|:---:|
 |1|Unity バージョン|2022.3|
-|2|UniVGO バージョン|2.5.5|
+|2|UniVGO バージョン|2.5.7|
 |3|VGO 仕様バージョン|2.5|
 
 ### 対応 Unity コンポーネント
@@ -122,7 +122,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Name|生成ツールの名前です。|UniVGO|
-|2|Version|生成ツールのバージョンです。|2.5.5|
+|2|Version|生成ツールのバージョンです。|2.5.7|
 
 ユーザーが設定可能な項目はありません。  
 ジェネレーター情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -274,7 +274,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Generator Name|生成ツールの名前です。|UniVGO|
-|2|Generator Version|生成ツールのバージョンです。|2.5.5|
+|2|Generator Version|生成ツールのバージョンです。|2.5.7|
 
 ユーザーが設定可能な項目はありません。  
 メタ情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -489,22 +489,22 @@ VGOファイルが読み込まれることを確認します。
 
     public class RuntimeLoadBehaviour : MonoBehaviour
     {
-        private IDisposable _ModelAssetDisposer;
+        private readonly VgoImporter _VgoImporter = new();
+
+        private IDisposable _VgoModelAssetDisposer;
 
         private void Start()
         {
-            VgoImporter importer = new();
+            VgoModelAsset vgoModelAsset = _VgoImporter.Load(filePath);
 
-            ModelAsset modelAsset = importer.Load(filePath);
+            _VgoImporter.ReflectSkybox(Camera.main, vgoModelAsset);
 
-            importer.ReflectSkybox(Camera.main, modelAsset);
-
-            _ModelAssetDisposer = modelAsset;
+            _VgoModelAssetDisposer = vgoModelAsset;
         }
 
         private void OnDestroy()
         {
-            _ModelAssetDisposer?.Dispose();
+            _VgoModelAssetDisposer?.Dispose();
         }
     }
 ~~~
@@ -524,7 +524,7 @@ VGOファイルをアップロードし管理することができるサービ�
 https://vgohub.azurewebsites.net
 
 ___
-最終更新日：2023年6月20日  
+最終更新日：2023年7月1日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

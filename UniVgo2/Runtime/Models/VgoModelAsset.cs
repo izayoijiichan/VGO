@@ -1,6 +1,6 @@
 ﻿// ----------------------------------------------------------------------
 // @Namespace : UniVgo2
-// @Class     : ModelAsset
+// @Class     : VgoModelAsset
 // ----------------------------------------------------------------------
 #nullable enable
 namespace UniVgo2
@@ -14,10 +14,10 @@ namespace UniVgo2
 #endif
 
     /// <summary>
-    /// Model Asset
+    /// VGO Model Asset
     /// </summary>
     [Serializable]
-    public class ModelAsset : IDisposable
+    public class VgoModelAsset : IDisposable
     {
         #region Fields
 

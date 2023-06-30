@@ -16,7 +16,7 @@ namespace UniVgo2
     /// <summary>
     /// VGO Importer
     /// </summary>
-    public class VgoImporter
+    public partial class VgoImporter
     {
         #region Fields
 
@@ -32,8 +32,8 @@ namespace UniVgo2
         /// <summary>The particle system importer.</summary>
         protected readonly IVgoParticleSystemImporter _ParticleSystemImporter;
 
-        /// <summary>The texture converter.</summary>
-        protected readonly ITextureConverter _TextureConverter;
+        /// <summary>The texture importer.</summary>
+        protected readonly IVgoTextureImporter _TextureImporter;
 
         #endregion
 
@@ -62,7 +62,7 @@ namespace UniVgo2
 
             _ParticleSystemImporter = new VgoParticleSystemImporter();
 
-            _TextureConverter = new TextureConverter();
+            _TextureImporter = new VgoTextureImporter();
         }
 
         #endregion
@@ -74,77 +74,77 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoFilePath">The file path of the vgo.</param>
         /// <param name="vgkFilePath">The file path of the crypt key.</param>
-        /// <returns>A model asset.</returns>
-        public virtual ModelAsset Load(string vgoFilePath, string? vgkFilePath = null)
+        /// <returns>A vgo model asset.</returns>
+        public virtual VgoModelAsset Load(string vgoFilePath, string? vgkFilePath = null)
         {
-            var storage = new VgoStorage(vgoFilePath, vgkFilePath);
+            var vgoStorage = new VgoStorage(vgoFilePath, vgkFilePath);
 
-            return Load(storage);
+            return Load(vgoStorage);
         }
 
         /// <summary>
         /// Load a 3D model from the specified bytes.
         /// </summary>
-        /// <param name="allBytes">All bytes of file.</param>
-        /// <param name="cryptKey">The crypt key.</param>
-        /// <returns>A model asset.</returns>
-        public virtual ModelAsset Load(byte[] allBytes, byte[]? cryptKey = null)
+        /// <param name="vgoBytes">The vgo bytes.</param>
+        /// <param name="vgkBytes">The vgk bytes.</param>
+        /// <returns>A vgo model asset.</returns>
+        public virtual VgoModelAsset Load(byte[] vgoBytes, byte[]? vgkBytes = null)
         {
-            var storage = new VgoStorage(allBytes, cryptKey);
+            var vgoStorage = new VgoStorage(vgoBytes, vgkBytes);
 
-            return Load(storage);
+            return Load(vgoStorage);
         }
 
         /// <summary>
         /// Load a 3D model from the specified vgo storage.
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
-        /// <returns>A model asset.</returns>
-        public virtual ModelAsset Load(IVgoStorage vgoStorage)
+        /// <returns>A vgo model asset.</returns>
+        public virtual VgoModelAsset Load(IVgoStorage vgoStorage)
         {
-            var modelAsset = new ModelAsset();
+            var vgoModelAsset = new VgoModelAsset();
 
-            modelAsset.Layout = vgoStorage.Layout;
+            vgoModelAsset.Layout = vgoStorage.Layout;
 
             // UnityEngine.Texture2D
-            modelAsset.Texture2dList = CreateTextureAssets(vgoStorage);
+            vgoModelAsset.Texture2dList = _TextureImporter.CreateTextureAssets(vgoStorage);
 
             // UnityEngine.Material
-            modelAsset.MaterialList = CreateMaterialAssets(vgoStorage, modelAsset.Texture2dList);
+            vgoModelAsset.MaterialList = CreateMaterialAssets(vgoStorage, vgoModelAsset.Texture2dList);
 
             // UnityEngine.Mesh
             if (vgoStorage.IsSpecVersion_2_4_orLower)
             {
-                modelAsset.MeshAssetList = CreateMeshAssets(vgoStorage, modelAsset.MaterialList);
+                vgoModelAsset.MeshAssetList = _MeshImporter.CreateMeshAssets(vgoStorage, vgoModelAsset.MaterialList);
             }
             else
             {
-                modelAsset.MeshAssetList = CreateMeshAssets(vgoStorage);
+                vgoModelAsset.MeshAssetList = _MeshImporter.CreateMeshAssets(vgoStorage);
             }
 
             // UnityEngine.AnimationClip
-            modelAsset.AnimationClipList = CreateAnimationClipAssets(vgoStorage.Layout, vgoStorage.GeometryCoordinate);
+            vgoModelAsset.AnimationClipList = CreateAnimationClipAssets(vgoStorage.Layout, vgoStorage.GeometryCoordinate);
 
             // UnityEngine.VgoSpringBoneColliderGroup
-            modelAsset.SpringBoneColliderGroupArray = CreateSpringBoneColliderGroupArray(vgoStorage.Layout);
+            vgoModelAsset.SpringBoneColliderGroupArray = CreateSpringBoneColliderGroupArray(vgoStorage.Layout);
 
             // UnityEngine.GameObejct
             List<Transform> nodes = CreateNodes(vgoStorage);
 
             CreateNodeHierarchy(nodes, vgoStorage.Layout);
 
-            modelAsset.Root = nodes[0].gameObject;
+            vgoModelAsset.Root = nodes[0].gameObject;
 
             if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
             {
                 FixCoordinate(nodes);
             }
 
-            SetupNodes(nodes, vgoStorage, modelAsset);
+            SetupNodes(nodes, vgoStorage, vgoModelAsset);
 
-            SetupAssetInfo(vgoStorage, modelAsset);
+            SetupAssetInfo(vgoStorage, vgoModelAsset);
 
-            return modelAsset;
+            return vgoModelAsset;
         }
 
         /// <summary>
@@ -152,118 +152,23 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoFilePath">The file path of the vgo.</param>
         /// <param name="vgkFilePath">The file path of the vgk.</param>
-        /// <returns>A model asset.</returns>
+        /// <returns>A vgo model asset.</returns>
         /// <remarks>for ScriptedImporter</remarks>
-        public virtual ModelAsset Extract(string vgoFilePath, string? vgkFilePath = null)
+        public virtual VgoModelAsset Extract(string vgoFilePath, string? vgkFilePath = null)
         {
             var vgoStorage = new VgoStorage(vgoFilePath, vgkFilePath);
 
-            var modelAsset = new ModelAsset();
+            var vgoModelAsset = new VgoModelAsset();
 
-            modelAsset.Layout = vgoStorage.Layout;
+            vgoModelAsset.Layout = vgoStorage.Layout;
 
             // UnityEngine.Texture2D
-            modelAsset.Texture2dList = CreateTextureAssets(vgoStorage);
+            vgoModelAsset.Texture2dList = _TextureImporter.CreateTextureAssets(vgoStorage);
 
             // UnityEngine.Material
-            modelAsset.MaterialList = CreateMaterialAssets(vgoStorage, modelAsset.Texture2dList);
+            vgoModelAsset.MaterialList = CreateMaterialAssets(vgoStorage, vgoModelAsset.Texture2dList);
 
-            return modelAsset;
-        }
-
-        #endregion
-
-        #region layout.textures
-
-        /// <summary>
-        /// Create texture assets.
-        /// </summary>
-        /// <param name="vgoStorage">A vgo storage.</param>
-        /// <returns>List of unity texture2D.</returns>
-        /// <remarks>
-        /// After UpdateTextureInfoList()
-        /// </remarks>
-        protected virtual List<Texture2D?> CreateTextureAssets(IVgoStorage vgoStorage)
-        {
-            var texture2dList = new List<Texture2D?>();
-
-            if ((vgoStorage.Layout.textures == null) || (vgoStorage.Layout.textures.Any() == false))
-            {
-                return texture2dList;
-            }
-
-            for (int textureIndex = 0; textureIndex < vgoStorage.Layout.textures.Count; textureIndex++)
-            {
-                VgoTexture? vgoTexture = vgoStorage.Layout.textures[textureIndex];
-
-                if (vgoTexture is null)
-                {
-                    texture2dList.Add(null);
-                }
-                else
-                {
-                    Texture2D? texture2d = CreateTexture2D(vgoTexture, vgoStorage);
-
-                    texture2dList.Add(texture2d);
-                }
-            }
-
-            return texture2dList;
-        }
-
-        /// <summary>
-        /// Create a unity texture 2D.
-        /// </summary>
-        /// <param name="vgoTexture">A vgo texture.</param>
-        /// <param name="vgoStorage">A vgo storage.</param>
-        /// <returns>A unity texture 2D.</returns>
-        protected virtual Texture2D? CreateTexture2D(VgoTexture vgoTexture, IVgoStorage vgoStorage)
-        {
-            if (vgoStorage.ResourceAccessors is null)
-            {
-                throw new Exception();
-            }
-
-            if (vgoTexture.source.IsInRangeOf(vgoStorage.ResourceAccessors) == false)
-            {
-                Debug.LogError($"{nameof(VgoTexture)}.{nameof(vgoTexture.source)}: {vgoTexture.source}");
-
-                return null;
-            }
-
-            if (vgoTexture.dimensionType != TextureDimension.Tex2D)
-            {
-                Debug.LogError($"{nameof(VgoTexture)}.{nameof(vgoTexture.dimensionType)}: {vgoTexture.dimensionType}");
-
-                return null;
-            }
-
-            try
-            {
-                byte[] imageBytes = vgoStorage.GetAccessorBytes(vgoTexture.source).ToArray();
-
-                var srcTexture2d = new Texture2D(width: 2, height: 2, TextureFormat.ARGB32, mipChain: false, linear: vgoTexture.IsLinear)
-                {
-                    name = vgoTexture.name
-                };
-
-                ImageConversion.LoadImage(srcTexture2d, imageBytes);
-
-                Texture2D texture2D = _TextureConverter.GetImportTexture(srcTexture2d, vgoTexture.mapType, vgoTexture.metallicRoughness);
-
-                texture2D.filterMode = (UnityEngine.FilterMode)vgoTexture.filterMode;
-                texture2D.wrapMode = (UnityEngine.TextureWrapMode)vgoTexture.wrapMode;
-                texture2D.wrapModeU = (UnityEngine.TextureWrapMode)vgoTexture.wrapModeU;
-                texture2D.wrapModeV = (UnityEngine.TextureWrapMode)vgoTexture.wrapModeV;
-
-                return texture2D;
-            }
-            catch (Exception ex)
-            {
-                Debug.LogException(ex);
-
-                return null;
-            }
+            return vgoModelAsset;
         }
 
         #endregion
@@ -302,40 +207,6 @@ namespace UniVgo2
             }
 
             return materialList;
-        }
-
-        #endregion
-
-        #region layout.meshes
-
-        /// <summary>
-        /// Create mesh assets.
-        /// </summary>
-        /// <param name="vgoStorage">A vgo storage.</param>
-        /// <param name="materialList">List of unity material.</param>
-        /// <returns>List of mesh asset.</returns>
-        protected virtual List<MeshAsset> CreateMeshAssets(IVgoStorage vgoStorage, IList<Material?>? materialList = null)
-        {
-            var meshAssetList = new List<MeshAsset>();
-
-            if ((vgoStorage.Layout.meshes == null) || (vgoStorage.Layout.meshes.Any() == false))
-            {
-                return meshAssetList;
-            }
-
-            for (int meshIndex = 0; meshIndex < vgoStorage.Layout.meshes.Count; meshIndex++)
-            {
-                MeshAsset meshAsset = _MeshImporter.CreateMeshAsset(vgoStorage, meshIndex, materialList);
-
-                if (meshAssetList.Where(x => x?.Mesh.name == meshAsset.Mesh.name).Any())
-                {
-                    meshAsset.Mesh.name = string.Format($"mesh_{meshIndex}");
-                }
-
-                meshAssetList.Add(meshAsset);
-            }
-
-            return meshAssetList;
         }
 
         #endregion
@@ -485,8 +356,8 @@ namespace UniVgo2
         /// </summary>
         /// <param name="nodes">List of node.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
-        /// <param name="modelAsset">A model asset.</param>
-        protected virtual void SetupNodes(List<Transform> nodes, IVgoStorage vgoStorage, ModelAsset modelAsset)
+        /// <param name="vgoModelAsset">A vgo model asset.</param>
+        protected virtual void SetupNodes(List<Transform> nodes, IVgoStorage vgoStorage, VgoModelAsset vgoModelAsset)
         {
             if (vgoStorage.Layout.nodes is null)
             {
@@ -495,7 +366,7 @@ namespace UniVgo2
 
             for (int nodeIndex = 0; nodeIndex < vgoStorage.Layout.nodes.Count; nodeIndex++)
             {
-                SetupNode(nodes, nodeIndex, vgoStorage.Layout, vgoStorage.GeometryCoordinate, modelAsset);
+                SetupNode(nodes, nodeIndex, vgoStorage.Layout, vgoStorage.GeometryCoordinate, vgoModelAsset);
             }
 
             // UnityEngine.Renderer
@@ -512,30 +383,30 @@ namespace UniVgo2
                 {
                     if (vgoNode.mesh >= 0)
                     {
-                        AttachMeshAndRenderer(nodes, nodeIndex, vgoStorage, modelAsset, _Option.ShowMesh, _Option.UpdateWhenOffscreen);
+                        AttachMeshAndRenderer(nodes, nodeIndex, vgoStorage, vgoModelAsset, _Option.ShowMesh, _Option.UpdateWhenOffscreen);
                     }
                 }
                 else
                 {
                     if (vgoNode.meshRenderer != null)
                     {
-                        AttachMeshAndRenderer(nodes, nodeIndex, vgoStorage, modelAsset, _Option.ShowMesh, _Option.UpdateWhenOffscreen);
+                        AttachMeshAndRenderer(nodes, nodeIndex, vgoStorage, vgoModelAsset, _Option.ShowMesh, _Option.UpdateWhenOffscreen);
                     }
                 }
             }
 
-            modelAsset.ColliderList = CreateUnityColliderList(nodes);
+            vgoModelAsset.ColliderList = CreateUnityColliderList(nodes);
 
             // UnigyEngine.Cloth
             for (int nodeIndex = 0; nodeIndex < vgoStorage.Layout.nodes.Count; nodeIndex++)
             {
-                SetupNodeCloth(nodes, nodeIndex, vgoStorage, modelAsset.ColliderList);
+                SetupNodeCloth(nodes, nodeIndex, vgoStorage, vgoModelAsset.ColliderList);
             }
 
             // UnigyEngine.VgoSpringBone
             for (int nodeIndex = 0; nodeIndex < vgoStorage.Layout.nodes.Count; nodeIndex++)
             {
-                SetupNodeSpringBone(nodes, nodeIndex, vgoStorage.Layout, vgoStorage.GeometryCoordinate, modelAsset);
+                SetupNodeSpringBone(nodes, nodeIndex, vgoStorage.Layout, vgoStorage.GeometryCoordinate, vgoModelAsset);
             }
         }
 
@@ -546,8 +417,8 @@ namespace UniVgo2
         /// <param name="nodeIndex">The index of layout.nodes.</param>
         /// <param name="vgoLayout">A vgo layout.</param>
         /// <param name="geometryCoordinate"></param>
-        /// <param name="modelAsset">A model asset.</param>
-        protected virtual void SetupNode(List<Transform> nodes, int nodeIndex, VgoLayout vgoLayout, VgoGeometryCoordinate geometryCoordinate, ModelAsset modelAsset)
+        /// <param name="vgoModelAsset">A vgo model asset.</param>
+        protected virtual void SetupNode(List<Transform> nodes, int nodeIndex, VgoLayout vgoLayout, VgoGeometryCoordinate geometryCoordinate, VgoModelAsset vgoModelAsset)
         {
             if (vgoLayout.nodes is null)
             {
@@ -608,9 +479,9 @@ namespace UniVgo2
 
                     AvatarConfiguration avatarConfiguration = CreateAvatarConfiguration(vgoNode.animator.humanAvatar);
 
-                    modelAsset.Avatar = animator.avatar;
+                    vgoModelAsset.Avatar = animator.avatar;
 
-                    modelAsset.ScriptableObjectList.Add(avatarConfiguration);
+                    vgoModelAsset.ScriptableObjectList.Add(avatarConfiguration);
                 }
             }
 
@@ -621,7 +492,7 @@ namespace UniVgo2
 
                 try
                 {
-                    VgoAnimationConverter.SetComponentValue(animation, vgoNode.animation, modelAsset.AnimationClipList, geometryCoordinate);
+                    VgoAnimationConverter.SetComponentValue(animation, vgoNode.animation, vgoModelAsset.AnimationClipList, geometryCoordinate);
 
                     if (animation.enabled &&
                         animation.playAutomatically &&
@@ -711,9 +582,9 @@ namespace UniVgo2
 
                     component.gizmoColor = layoutSpringBoneColliderGroup.gizmoColor.ToUnityColor();
 
-                    if (modelAsset.SpringBoneColliderGroupArray != null)
+                    if (vgoModelAsset.SpringBoneColliderGroupArray != null)
                     {
-                        modelAsset.SpringBoneColliderGroupArray[vgoNode.springBoneColliderGroup] = component;
+                        vgoModelAsset.SpringBoneColliderGroupArray[vgoNode.springBoneColliderGroup] = component;
                     }
                 }
             }
@@ -748,7 +619,7 @@ namespace UniVgo2
                     vgoLayout.particles.TryGetValue(vgoNode.particle, out var vgoParticleSystem) &&
                     vgoParticleSystem != null)
                 {
-                    _ParticleSystemImporter.AddComponent(go, vgoParticleSystem, geometryCoordinate, modelAsset.MaterialList, modelAsset.Texture2dList);
+                    _ParticleSystemImporter.AddComponent(go, vgoParticleSystem, geometryCoordinate, vgoModelAsset.MaterialList, vgoModelAsset.Texture2dList);
                 }
             }
             catch (Exception ex)
@@ -763,8 +634,8 @@ namespace UniVgo2
 
                 skybox.enabled = vgoNode.skybox.enabled;
 
-                if (modelAsset.MaterialList != null &&
-                    modelAsset.MaterialList.TryGetValue(vgoNode.skybox.materialIndex, out var skyboxMaterial) &&
+                if (vgoModelAsset.MaterialList != null &&
+                    vgoModelAsset.MaterialList.TryGetValue(vgoNode.skybox.materialIndex, out var skyboxMaterial) &&
                     skyboxMaterial != null)
                 {
                     skybox.material = skyboxMaterial;
@@ -794,8 +665,8 @@ namespace UniVgo2
         /// <param name="nodeIndex">The index of layout.nodes.</param>
         /// <param name="vgoLayout">A vgo layout.</param>
         /// <param name="geometryCoordinate"></param>
-        /// <param name="modelAsset">A model asset.</param>
-        protected virtual void SetupNodeSpringBone(List<Transform> nodes, int nodeIndex, VgoLayout vgoLayout, VgoGeometryCoordinate geometryCoordinate, ModelAsset modelAsset)
+        /// <param name="vgoModelAsset">A vgo model asset.</param>
+        protected virtual void SetupNodeSpringBone(List<Transform> nodes, int nodeIndex, VgoLayout vgoLayout, VgoGeometryCoordinate geometryCoordinate, VgoModelAsset vgoModelAsset)
         {
             if (vgoLayout.nodes is null)
             {
@@ -865,15 +736,15 @@ namespace UniVgo2
                 // colliderGroups
                 if (layoutSpringBoneGroup.colliderGroups != null &&
                     layoutSpringBoneGroup.colliderGroups.Any() &&
-                    modelAsset.SpringBoneColliderGroupArray != null)
+                    vgoModelAsset.SpringBoneColliderGroupArray != null)
                 {
                     component.colliderGroups = new VgoSpringBone.VgoSpringBoneColliderGroup[layoutSpringBoneGroup.colliderGroups.Length];
 
                     for (int index = 0; index < layoutSpringBoneGroup.colliderGroups.Length; index++)
                     {
-                        if (layoutSpringBoneGroup.colliderGroups[index].IsInRangeOf(modelAsset.SpringBoneColliderGroupArray))
+                        if (layoutSpringBoneGroup.colliderGroups[index].IsInRangeOf(vgoModelAsset.SpringBoneColliderGroupArray))
                         {
-                            var colliderGroup = modelAsset.SpringBoneColliderGroupArray[layoutSpringBoneGroup.colliderGroups[index]];
+                            var colliderGroup = vgoModelAsset.SpringBoneColliderGroupArray[layoutSpringBoneGroup.colliderGroups[index]];
 
                             component.colliderGroups[index] = colliderGroup;
                         }
@@ -979,16 +850,17 @@ namespace UniVgo2
         /// </summary>
         /// <param name="nodes">List of node.</param>
         /// <param name="nodeIndex">The index of layout.node.</param>
+        /// <param name="vgoModelAsset">A vgo model asset.</param>
         /// <param name="showMesh">Whether show mesh renderer.</param>
         /// <param name="updateWhenOffscreen">Whether update skinned mesh renderer when off screen.</param>
-        protected virtual void AttachMeshAndRenderer(List<Transform> nodes, int nodeIndex, IVgoStorage vgoStorage, ModelAsset modelAsset, bool showMesh = true, bool updateWhenOffscreen = false)
+        protected virtual void AttachMeshAndRenderer(List<Transform> nodes, int nodeIndex, IVgoStorage vgoStorage, VgoModelAsset vgoModelAsset, bool showMesh = true, bool updateWhenOffscreen = false)
         {
             if (vgoStorage.Layout.nodes is null)
             {
                 return;
             }
 
-            if (modelAsset.MeshAssetList is null)
+            if (vgoModelAsset.MeshAssetList is null)
             {
                 return;
             }
@@ -1006,7 +878,7 @@ namespace UniVgo2
 
             if (vgoStorage.IsSpecVersion_2_4_orLower)
             {
-                MeshAsset meshAsset = modelAsset.MeshAssetList[vgoNode.mesh];
+                MeshAsset meshAsset = vgoModelAsset.MeshAssetList[vgoNode.mesh];
 
                 Mesh mesh = meshAsset.Mesh;
 
@@ -1065,7 +937,7 @@ namespace UniVgo2
 
                     vgoBlendShape.BlendShapeConfiguration = blendShapeConfiguration;
 
-                    modelAsset.ScriptableObjectList.Add(blendShapeConfiguration);
+                    vgoModelAsset.ScriptableObjectList.Add(blendShapeConfiguration);
                 }
             }
             else
@@ -1077,7 +949,7 @@ namespace UniVgo2
 
                 VgoMeshRenderer vgoMeshRenderer = vgoNode.meshRenderer;
 
-                MeshAsset meshAsset = modelAsset.MeshAssetList[vgoMeshRenderer.mesh];
+                MeshAsset meshAsset = vgoModelAsset.MeshAssetList[vgoMeshRenderer.mesh];
 
                 Mesh mesh = meshAsset.Mesh;
 
@@ -1085,11 +957,11 @@ namespace UniVgo2
 
                 if (vgoMeshRenderer.materials != null &&
                     vgoMeshRenderer.materials.Any() &&
-                    modelAsset.MaterialList != null &&
-                    modelAsset.MaterialList.Any())
+                    vgoModelAsset.MaterialList != null &&
+                    vgoModelAsset.MaterialList.Any())
                 {
                     materials = vgoMeshRenderer.materials
-                        .Select(materialIndex => modelAsset.MaterialList[materialIndex])
+                        .Select(materialIndex => vgoModelAsset.MaterialList[materialIndex])
                         .ToArray();
                 }
 
@@ -1175,7 +1047,7 @@ namespace UniVgo2
 
                     vgoBlendShape.BlendShapeConfiguration = blendShapeConfiguration;
 
-                    modelAsset.ScriptableObjectList.Add(blendShapeConfiguration);
+                    vgoModelAsset.ScriptableObjectList.Add(blendShapeConfiguration);
                 }
             }
 
@@ -1338,15 +1210,15 @@ namespace UniVgo2
         /// Setup a asset info to root GameObject.
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
-        /// <param name="modelAsset">A model asset.</param>
-        protected virtual void SetupAssetInfo(IVgoStorage vgoStorage, ModelAsset modelAsset)
+        /// <param name="vgoModelAsset">A vgo model asset.</param>
+        protected virtual void SetupAssetInfo(IVgoStorage vgoStorage, VgoModelAsset vgoModelAsset)
         {
             if (vgoStorage.AssetInfo == null)
             {
                 return;
             }
 
-            if (modelAsset.Root == null)
+            if (vgoModelAsset.Root == null)
             {
                 return;
             }
@@ -1355,14 +1227,14 @@ namespace UniVgo2
 
             if (vgoAssetInfo.right != null)
             {
-                VgoRight vgoRightComponent = modelAsset.Root.AddComponent<VgoRight>();
+                VgoRight vgoRightComponent = vgoModelAsset.Root.AddComponent<VgoRight>();
 
                 vgoRightComponent.Right = new NewtonVgo.VgoRight(vgoAssetInfo.right);
             }
 
             if (vgoAssetInfo.generator != null)
             {
-                VgoGenerator vgoGeneratorComponent = modelAsset.Root.AddComponent<VgoGenerator>();
+                VgoGenerator vgoGeneratorComponent = vgoModelAsset.Root.AddComponent<VgoGenerator>();
 
                 vgoGeneratorComponent.GeneratorInfo = new VgoGeneratorInfo(vgoAssetInfo.generator);
             }
@@ -1376,15 +1248,15 @@ namespace UniVgo2
         /// Reflect VGO skybox to Camera skybox.
         /// </summary>
         /// <param name="camera">A scene main camera.</param>
-        /// <param name="modelAsset">A model asset.</param>
-        public virtual void ReflectSkybox(Camera camera, ModelAsset modelAsset)
+        /// <param name="vgoModelAsset">A vgo model asset.</param>
+        public virtual void ReflectSkybox(Camera camera, VgoModelAsset vgoModelAsset)
         {
-            if (modelAsset.Root == null)
+            if (vgoModelAsset.Root == null)
             {
                 return;
             }
 
-            var vgoSkybox = modelAsset.Root.GetComponentInChildren<Skybox>(includeInactive: false);
+            var vgoSkybox = vgoModelAsset.Root.GetComponentInChildren<Skybox>(includeInactive: false);
 
             if (vgoSkybox != null)
             {

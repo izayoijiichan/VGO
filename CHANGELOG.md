@@ -1,5 +1,17 @@
 # Change Log
 
+## [2.5.7] - 2023-07-01
+
+- Features
+  - VgoImporter.LoadAsync() method is added.
+    - If you are using `Unity 2023.1` or higher, you can declare `UNIVGO_USE_UNITY_AWAITABLE` script define symbol.
+    - If you are using `UniTask 2.0` or higher, you can declare `UNIVGO_USE_UNITASK` script define symbol.
+    - None of these may be used without declaration.
+    - Asynchronous methods load models more slowly than synchronous methods.
+    - This method is not provided in `WebGL`.
+- Changes
+  - The class name of `ModelAsset` was changed to `VgoModelAsset`.
+
 ## [2.5.6] - 2023-06-20
 
 - Fixes
