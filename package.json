@@ -2,11 +2,12 @@
   "name": "com.izayoi.univgo",
   "displayName": "UniVGO",
   "description": "UniVGO is a package that can handle VGO files in Unity.",
-  "version": "2.5.7",
+  "version": "2.5.8",
   "type": "tool",
   "category": "",
   "keywords": [
-    "3d",
+    "3d-model",
+    "model-format",
     "avatar",
     "rigidbody",
     "collider",
@@ -20,6 +21,8 @@
     "skybox",
     "liltoon",
     "unity",
+    "unity3d",
+    "unity3d-plugin",
     "vgo"
   ],
   "unity": "2020.3",

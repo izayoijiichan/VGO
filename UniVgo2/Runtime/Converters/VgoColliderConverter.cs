@@ -62,7 +62,13 @@ namespace UniVgo2.Converters
             }
             else
             {
+#if NET_STANDARD_2_1
+                ThrowHelper.ThrowNotSupportedException();
+
+                return default;
+#else
                 throw new NotSupportedException();
+#endif
             }
         }
         /// <summary>

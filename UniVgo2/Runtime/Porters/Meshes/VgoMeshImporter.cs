@@ -200,11 +200,6 @@ namespace UniVgo2.Porters
         /// <returns>A mesh asset.</returns>
         protected virtual MeshAsset CreateMeshAsset(IVgoStorage vgoStorage, int meshIndex, IList<Material?>? unityMaterialList = null)
         {
-            if (vgoStorage == null)
-            {
-                throw new ArgumentNullException(nameof(vgoStorage));
-            }
-
             MeshContext meshContext = ReadMesh(vgoStorage, meshIndex);
 
             Mesh mesh = BuildMesh(meshContext);
@@ -215,7 +210,9 @@ namespace UniVgo2.Porters
             {
                 if (unityMaterialList == null)
                 {
-                    throw new ArgumentNullException(nameof(unityMaterialList));
+                    ThrowHelper.ThrowArgumentNullException(nameof(unityMaterialList));
+
+                    return meshAsset;
                 }
 
                 meshAsset.Materials = meshContext.MaterialIndices.Select(x => unityMaterialList[x]).ToArray();
@@ -240,14 +237,9 @@ namespace UniVgo2.Porters
         /// <returns>A mesh asset.</returns>
         protected virtual MeshAsset CreateMeshAsset(IVgoStorage vgoStorage, int meshIndex, IList<MeshContext> meshContextList, IList<Material?>? unityMaterialList = null)
         {
-            if (vgoStorage == null)
-            {
-                throw new ArgumentNullException(nameof(vgoStorage));
-            }
-
             if (meshIndex.IsInRangeOf(meshContextList) == false)
             {
-                throw new ArgumentOutOfRangeException(nameof(meshIndex));
+                ThrowHelper.ThrowArgumentOutOfRangeException(nameof(meshIndex), meshIndex, min: 0, max: meshContextList.Count);
             }
 
             MeshContext meshContext = meshContextList[meshIndex];
@@ -260,7 +252,9 @@ namespace UniVgo2.Porters
             {
                 if (unityMaterialList == null)
                 {
-                    throw new ArgumentNullException(nameof(unityMaterialList));
+                    ThrowHelper.ThrowArgumentNullException(nameof(unityMaterialList));
+
+                    return meshAsset;
                 }
 
                 meshAsset.Materials = meshContext.MaterialIndices.Select(x => unityMaterialList[x]).ToArray();
@@ -292,11 +286,6 @@ namespace UniVgo2.Porters
 #endif
         {
             cancellationToken.ThrowIfCancellationRequested();
-
-            if (vgoStorage == null)
-            {
-                throw new ArgumentNullException(nameof(vgoStorage));
-            }
 
 #if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
             await Awaitable.BackgroundThreadAsync();
@@ -361,7 +350,9 @@ namespace UniVgo2.Porters
             {
                 if (unityMaterialList == null)
                 {
-                    throw new ArgumentNullException(nameof(unityMaterialList));
+                    ThrowHelper.ThrowArgumentNullException(nameof(unityMaterialList));
+
+                    return meshAsset;
                 }
 
                 meshAsset.Materials = meshContext.MaterialIndices.Select(x => unityMaterialList[x]).ToArray();
@@ -435,14 +426,22 @@ namespace UniVgo2.Porters
         {
             if (vgoStorage.Layout.meshes == null)
             {
+#if NET_STANDARD_2_1
+                ThrowHelper.ThrowException();
+#else
                 throw new Exception();
+#endif
             }
 
             VgoMesh? vgoMesh = vgoStorage.Layout.meshes[meshIndex];
 
             if (vgoMesh is null)
             {
+#if NET_STANDARD_2_1
+                ThrowHelper.ThrowException();
+#else
                 throw new Exception();
+#endif
             }
 
             string meshName = ((vgoMesh.name is null) || (vgoMesh.name == string.Empty))
@@ -453,7 +452,11 @@ namespace UniVgo2.Porters
 
             if (vgoMesh.attributes == null)
             {
+#if NET_STANDARD_2_1
+                ThrowHelper.ThrowException();
+#else
                 throw new Exception();
+#endif
             }
 
             // Attributes
@@ -569,7 +572,9 @@ namespace UniVgo2.Porters
                     }
                     else
                     {
-                        throw new NotImplementedException(string.Format("unknown tangentAccessor.type: {0}", tangentAccessor.dataType));
+                        ThrowHelper.ThrowNotImplementedException($"unknown tangentAccessor.type: {tangentAccessor.dataType}");
+
+                        return;
                     }
 
                     if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
@@ -617,7 +622,7 @@ namespace UniVgo2.Porters
                 }
                 else
                 {
-                    throw new NotImplementedException(string.Format("unknown colorAccessor.dataType: {0}", colorAccessor.dataType));
+                    ThrowHelper.ThrowNotImplementedException($"unknown colorAccessor.dataType: {colorAccessor.dataType}");
                 }
             }
 
@@ -650,7 +655,9 @@ namespace UniVgo2.Porters
                 }
                 else
                 {
-                    throw new NotImplementedException(string.Format("unknown jointsAccessor.dataType: {0}", jointsAccessor.dataType));
+                    ThrowHelper.ThrowNotImplementedException($"unknown jointsAccessor.dataType: {jointsAccessor.dataType}");
+
+                    return;
                 }
 
                 // Weights
@@ -812,7 +819,9 @@ namespace UniVgo2.Porters
                     break;
 
                 default:
-                    throw new NotSupportedException($"accessor.dataType: {accessor.dataType}");
+                    ThrowHelper.ThrowNotSupportedException($"accessor.dataType: {accessor.dataType}");
+
+                    return Array.Empty<int>();
             }
 
             return indices;

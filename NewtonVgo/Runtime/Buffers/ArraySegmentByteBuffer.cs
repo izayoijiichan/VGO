@@ -46,7 +46,7 @@ namespace NewtonVgo.Buffers
         {
             if (capacity <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(capacity));
+                ThrowHelper.ThrowArgumentOutOfRangeException(nameof(capacity), capacity, min: 1);
             }
 
             _Bytes = new byte[capacity];
@@ -71,12 +71,12 @@ namespace NewtonVgo.Buffers
         {
             if (data == null)
             {
-                throw new ArgumentNullException(nameof(data));
+                ThrowHelper.ThrowArgumentNullException(nameof(data));
             }
 
             if (data.Count == 0)
             {
-                throw new ArgumentException(nameof(data));
+                ThrowHelper.ThrowArgumentOutOfRangeException(nameof(data));
             }
 
             int perDataSize = Marshal.SizeOf(typeof(T));
@@ -87,11 +87,11 @@ namespace NewtonVgo.Buffers
             }
             else if (stride < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(stride));
+                ThrowHelper.ThrowArgumentOutOfRangeException(nameof(stride), stride, min: 0);
             }
             else if (stride < perDataSize)
             {
-                throw new InvalidOperationException();
+                ThrowHelper.ThrowInvalidOperationException();
             }
 
             int dataCount = data.Count;

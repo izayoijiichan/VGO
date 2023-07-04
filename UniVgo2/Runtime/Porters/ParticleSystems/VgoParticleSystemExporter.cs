@@ -625,7 +625,13 @@ namespace UniVgo2.Porters
         /// <returns></returns>
         protected virtual VGO_PS_CollisionModule CreateVgoModule(CollisionModule module)
         {
+#if NET_STANDARD_2_1
+            ThrowHelper.ThrowNotImplementedException();
+
+            return default;
+#else
             throw new NotImplementedException();
+#endif
         }
 
         /// <summary>
@@ -635,7 +641,13 @@ namespace UniVgo2.Porters
         /// <returns></returns>
         protected virtual VGO_PS_TriggerModule CreateVgoModule(TriggerModule module)
         {
+#if NET_STANDARD_2_1
+            ThrowHelper.ThrowNotImplementedException();
+
+            return default;
+#else
             throw new NotImplementedException();
+#endif
         }
 
         /// <summary>
@@ -645,7 +657,13 @@ namespace UniVgo2.Porters
         /// <returns></returns>
         protected virtual VGO_PS_SubEmittersModule CreateVgoModule(SubEmittersModule module)
         {
+#if NET_STANDARD_2_1
+            ThrowHelper.ThrowNotImplementedException();
+
+            return default;
+#else
             throw new NotImplementedException();
+#endif
         }
 
         /// <summary>
@@ -655,7 +673,13 @@ namespace UniVgo2.Porters
         /// <returns></returns>
         protected virtual VGO_PS_TextureSheetAnimationModule CreateVgoModule(TextureSheetAnimationModule module)
         {
+#if NET_STANDARD_2_1
+            ThrowHelper.ThrowNotImplementedException();
+
+            return default;
+#else
             throw new NotImplementedException();
+#endif
         }
 
         /// <summary>
@@ -698,7 +722,13 @@ namespace UniVgo2.Porters
         /// <returns></returns>
         protected virtual VGO_PS_CustomDataModule CreateVgoModule(CustomDataModule module)
         {
+#if NET_STANDARD_2_1
+            ThrowHelper.ThrowNotImplementedException();
+
+            return default;
+#else
             throw new NotImplementedException();
+#endif
         }
 
         /// <summary>

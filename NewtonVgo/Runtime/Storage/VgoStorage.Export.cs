@@ -29,34 +29,41 @@ namespace NewtonVgo
         /// <returns>Returns true if the export was successful, false otherwise.</returns>
         public virtual bool ExportVgoFile(string filePath, VgoExportSetting exportSetting)
         {
-            if (filePath == null)
-            {
-                throw new ArgumentNullException(nameof(filePath));
-            }
+            ThrowHelper.ThrowExceptionIfArgumentIsNull(nameof(filePath), filePath);
 
             if (AssetInfo == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return false;
             }
 
             if (Layout == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return false;
             }
 
             if (ResourceAccessors == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return false;
             }
 
             if (Resource == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return false;
             }
 
             if (exportSetting.Validate(out IReadOnlyList<string> errorMessages) == false)
             {
-                throw new Exception(string.Join("\n", errorMessages));
+                ThrowHelper.ThrowException(string.Join("\n", errorMessages));
+
+                return false;
             }
 
             FileInfo fileInfo = new FileInfo(filePath);
@@ -211,7 +218,13 @@ namespace NewtonVgo
                 }
                 else
                 {
+#if NET_STANDARD_2_1
+                    ThrowHelper.ThrowException($"{nameof(assetInfoTypeId)}: {assetInfoTypeId}");
+
+                    return default;
+#else
                     throw new Exception($"{nameof(assetInfoTypeId)}: {assetInfoTypeId}");
+#endif
                 }
             }
             catch (JsonSerializationException)
@@ -259,7 +272,13 @@ namespace NewtonVgo
                 }
                 else
                 {
+#if NET_STANDARD_2_1
+                    ThrowHelper.ThrowException($"{nameof(layoutTypeId)}: {layoutTypeId}");
+
+                    return default;
+#else
                     throw new Exception($"{nameof(layoutTypeId)}: {layoutTypeId}");
+#endif
                 }
             }
             catch (JsonSerializationException)
@@ -316,7 +335,13 @@ namespace NewtonVgo
                 }
                 else
                 {
+#if NET_STANDARD_2_1
+                    ThrowHelper.ThrowException($"{nameof(resourceAccessorTypeId)}: {resourceAccessorTypeId}");
+
+                    return (default, default);
+#else
                     throw new Exception($"{nameof(resourceAccessorTypeId)}: {resourceAccessorTypeId}");
+#endif
                 }
 
                 if ((resourceAccessorTypeId == VgoChunkTypeID.RAPJ) ||
@@ -376,7 +401,13 @@ namespace NewtonVgo
                     }
                     else
                     {
+#if NET_STANDARD_2_1
+                        ThrowHelper.ThrowException($"resourceAccessorCryptAlgorithm: {cryptAlgorithm}");
+
+                        return (default, default);
+#else
                         throw new Exception($"resourceAccessorCryptAlgorithm: {cryptAlgorithm}");
+#endif
                     }
 
                     byte[] cryptInfoJsonOrBson;
@@ -391,7 +422,13 @@ namespace NewtonVgo
                     }
                     else
                     {
+#if NET_STANDARD_2_1
+                        ThrowHelper.ThrowException($"{nameof(resourceAccessorCryptTypeId)}: {resourceAccessorCryptTypeId}");
+
+                        return (default, default);
+#else
                         throw new Exception($"{nameof(resourceAccessorCryptTypeId)}: {resourceAccessorCryptTypeId}");
+#endif
                     }
 
                     resourceAccessorChunkData = new ReadOnlyArraySegmentByteBuffer(new ArraySegment<byte>(encryptedResourceAccessorJsonOrBson));
@@ -399,7 +436,13 @@ namespace NewtonVgo
                 }
                 else
                 {
+#if NET_STANDARD_2_1
+                    ThrowHelper.ThrowException($"{nameof(resourceAccessorTypeId)}: {resourceAccessorTypeId}");
+
+                    return (default, default);
+#else
                     throw new Exception($"{nameof(resourceAccessorTypeId)}: {resourceAccessorTypeId}");
+#endif
                 }
             }
             catch (JsonSerializationException)
@@ -449,7 +492,11 @@ namespace NewtonVgo
 
             if (Resource == null)
             {
+#if NET_STANDARD_2_1
+                ThrowHelper.ThrowException();
+#else
                 throw new Exception();
+#endif
             }
 
             IByteBuffer resourceChunkData;
@@ -483,7 +530,13 @@ namespace NewtonVgo
                 }
                 else
                 {
+#if NET_STANDARD_2_1
+                    ThrowHelper.ThrowException($"{nameof(resourceTypeId)}: {resourceTypeId}");
+
+                    return default;
+#else
                     throw new Exception($"{nameof(resourceTypeId)}: {resourceTypeId}");
+#endif
                 }
             }
             catch (JsonSerializationException)

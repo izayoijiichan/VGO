@@ -1,5 +1,10 @@
 # Change Log
 
+## [2.5.8] - 2023-07-05
+
+- Improvements
+  - Minor improvements were made to processing speed.
+
 ## [2.5.7] - 2023-07-01
 
 - Features

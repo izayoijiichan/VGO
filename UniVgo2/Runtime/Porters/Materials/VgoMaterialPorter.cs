@@ -63,12 +63,16 @@ namespace UniVgo2.Porters
         {
             if (MaterialPorterStore == null)
             {
+#if NET_STANDARD_2_1
+                ThrowHelper.ThrowException();
+#else
                 throw new Exception();
+#endif
             }
 
             if (ExportTexture == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
             }
 
             IMaterialPorter materialPorter = MaterialPorterStore.GetPorterOrStandard(material.shader.name, RenderPipelineType);
@@ -94,12 +98,20 @@ namespace UniVgo2.Porters
         {
             if (MaterialPorterStore == null)
             {
+#if NET_STANDARD_2_1
+                ThrowHelper.ThrowException();
+#else
                 throw new Exception();
+#endif
             }
 
             if (ShaderStore == null)
             {
+#if NET_STANDARD_2_1
+                ThrowHelper.ThrowException();
+#else
                 throw new Exception();
+#endif
             }
 
             Shader shader = ShaderStore.GetShaderOrStandard(vgoMaterial, RenderPipelineType);

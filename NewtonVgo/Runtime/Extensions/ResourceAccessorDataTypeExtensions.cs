@@ -48,7 +48,8 @@ namespace NewtonVgo
                 case VgoResourceAccessorDataType.Matrix4Float:
                     return 64;
                 default:
-                    throw new NotSupportedException();
+                    ThrowHelper.ThrowNotSupportedException();
+                    return default;
             }
         }
     }

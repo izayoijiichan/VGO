@@ -34,9 +34,18 @@ namespace NewtonVgo
         /// <returns>An accessor.</returns>
         public VgoResourceAccessor GetAccessor(int accessorIndex)
         {
+            if (ResourceAccessors == null)
+            {
+#if NET_STANDARD_2_1
+                ThrowHelper.ThrowFormatException("resource accessor is null.");
+#else
+                throw new FormatException("resource accessor is null.");
+#endif
+            }
+
             if (ResourceAccessors.TryGetValue(accessorIndex, out VgoResourceAccessor accessor) == false)
             {
-                throw new IndexOutOfRangeException($"accessors[{accessorIndex}]");
+                ThrowHelper.ThrowIndexOutOfRangeException(nameof(accessorIndex), accessorIndex, min: 0, max: ResourceAccessors.Count);
             }
 
             return accessor;
@@ -138,7 +147,7 @@ namespace NewtonVgo
         {
             if (accessor.count <= 0)
             {
-                throw new FormatException("accessor.count: 0");
+                ThrowHelper.ThrowFormatException("accessor.count: 0");
             }
 
             int byteStride = accessor.byteStride;
@@ -157,7 +166,9 @@ namespace NewtonVgo
 
             if (Resource is null)
             {
-                throw new FormatException("resource is null.");
+                ThrowHelper.ThrowFormatException("resource is null.");
+
+                return default;
             }
 
             ArraySegment<byte> accessorBytes = Resource.GetBytes()
@@ -175,12 +186,12 @@ namespace NewtonVgo
         {
             if (accessor.count <= 0)
             {
-                throw new FormatException("accessor.count: 0");
+                ThrowHelper.ThrowFormatException("accessor.count: 0");
             }
 
             if (accessor.sparseCount <= 0)
             {
-                throw new FormatException($"accessor.sparseCount: {accessor.sparseCount}");
+                ThrowHelper.ThrowFormatException($"accessor.sparseCount: {accessor.sparseCount}");
             }
 
             ArraySegment<byte> restoreBytes;
@@ -192,12 +203,12 @@ namespace NewtonVgo
             {
                 if (accessor.sparseCount > accessor.count)
                 {
-                    throw new FormatException($"accessor.sparseCount: {accessor.sparseCount}, accessor.count: {accessor.count}");
+                    ThrowHelper.ThrowFormatException($"accessor.sparseCount: {accessor.sparseCount}, accessor.count: {accessor.count}");
                 }
 
                 if (accessor.dataType != accessor.sparseValueDataType)
                 {
-                    throw new FormatException($"accessorDataType: {accessor.dataType} != SparseValueDataType: {accessor.sparseValueDataType}");
+                    ThrowHelper.ThrowFormatException($"accessorDataType: {accessor.dataType} != SparseValueDataType: {accessor.sparseValueDataType}");
                 }
 
                 if (accessor.dataType == VgoResourceAccessorDataType.UnsignedInt)
@@ -219,14 +230,16 @@ namespace NewtonVgo
                 else
                 {
                     // @todo
-                    throw new NotImplementedException($"SparseValueDataType: {accessor.dataType}");
+                    ThrowHelper.ThrowNotImplementedException($"SparseValueDataType: {accessor.dataType}");
+
+                    return default;
                 }
             }
             else if (accessor.sparseType == VgoResourceAccessorSparseType.Powerful)
             {
                 if (accessor.dataType == accessor.sparseValueDataType)
                 {
-                    throw new FormatException($"accessorDataType: {accessor.dataType} == SparseValueDataType: {accessor.sparseValueDataType}");
+                    ThrowHelper.ThrowFormatException($"accessorDataType: {accessor.dataType} == SparseValueDataType: {accessor.sparseValueDataType}");
                 }
 
                 if (
@@ -236,7 +249,7 @@ namespace NewtonVgo
                 {
                     if (accessor.sparseValueDataType != VgoResourceAccessorDataType.Float)
                     {
-                        throw new FormatException($"SparseValueDataType: {accessor.sparseValueDataType}");
+                        ThrowHelper.ThrowFormatException($"SparseValueDataType: {accessor.sparseValueDataType}");
                     }
 
                     if (accessor.dataType == VgoResourceAccessorDataType.Vector2Float)
@@ -253,18 +266,24 @@ namespace NewtonVgo
                     }
                     else
                     {
-                        throw new Exception($"SparseValueDataType: {accessor.dataType}");
+                        ThrowHelper.ThrowException($"SparseValueDataType: {accessor.dataType}");
+
+                        return default;
                     }
                 }
                 else
                 {
                     // @todo
-                    throw new NotImplementedException($"SparseValueDataType: {accessor.dataType}");
+                    ThrowHelper.ThrowNotImplementedException($"SparseValueDataType: {accessor.dataType}");
+
+                    return default;
                 }
             }
             else
             {
-                throw new Exception($"SparseType: {accessor.sparseType}");
+                ThrowHelper.ThrowFormatException($"SparseType: {accessor.sparseType}");
+
+                return new ArraySegment<byte>();
             }
 
             return restoreBytes;
@@ -299,7 +318,7 @@ namespace NewtonVgo
 
             if (dataByteSize != marshalDataByteSize)
             {
-                throw new FormatException($"accessorDataTypeByteSize: {dataByteSize} != marshalDataByteSize: {marshalDataByteSize}");
+                ThrowHelper.ThrowFormatException($"accessorDataTypeByteSize: {dataByteSize} != marshalDataByteSize: {marshalDataByteSize}");
             }
 
             int totalDataSize = dataByteSize * accessor.count;
@@ -309,17 +328,19 @@ namespace NewtonVgo
 
             if (totalSparseIndexSize != accessor.sparseValueOffset)
             {
-                throw new FormatException($"totalSparseIndexSize: {totalSparseIndexSize} != sparseValueOffset: {accessor.sparseValueOffset}");
+                ThrowHelper.ThrowFormatException($"totalSparseIndexSize: {totalSparseIndexSize} != sparseValueOffset: {accessor.sparseValueOffset}");
             }
 
             if (totalSparseIndexSize + totalSparseValueSize != accessor.byteLength)
             {
-                throw new FormatException($"totalSparseIndexSize + totalSparseValueSize: {totalSparseIndexSize + totalSparseValueSize} != accessor.byteLength: {accessor.byteLength}");
+                ThrowHelper.ThrowFormatException($"totalSparseIndexSize + totalSparseValueSize: {totalSparseIndexSize + totalSparseValueSize} != accessor.byteLength: {accessor.byteLength}");
             }
 
             if (Resource is null)
             {
-                throw new Exception("resource is null.");
+                ThrowHelper.ThrowException("resource is null.");
+
+                return default;
             }
 
             ArraySegment<byte> indexByteArraySegment = Resource.GetBytes().Slice(
@@ -369,7 +390,7 @@ namespace NewtonVgo
             }
             else
             {
-                throw new NotSupportedException($"accessor.sparseIndexDataType: {accessor.sparseIndexDataType}");
+                ThrowHelper.ThrowNotSupportedException($"accessor.sparseIndexDataType: {accessor.sparseIndexDataType}");
             }
 
             return restoreByteArraySegment;
@@ -402,12 +423,16 @@ namespace NewtonVgo
 
             if (Resource is null)
             {
-                throw new Exception("resource is null.");
+                ThrowHelper.ThrowException("resource is null.");
+
+                return -1;
             }
 
             if (ResourceAccessors is null)
             {
-                throw new Exception("resource accessor is null.");
+                ThrowHelper.ThrowException("resource accessor is null.");
+
+                return -1;
             }
 
             int byteStride = Marshal.SizeOf(typeof(T));
@@ -467,17 +492,21 @@ namespace NewtonVgo
 
             if (sparseIndices.Length != sparseValues.Length)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
             }
 
             if (Resource is null)
             {
-                throw new Exception("resource is null.");
+                ThrowHelper.ThrowException("resource is null.");
+
+                return -1;
             }
 
             if (ResourceAccessors is null)
             {
-                throw new Exception("resource accessor is null.");
+                ThrowHelper.ThrowException("resource accessor is null.");
+
+                return -1;
             }
 
             int byteOffset = Resource.Length;
@@ -517,7 +546,7 @@ namespace NewtonVgo
 
             if ((Resource.Length - byteOffset) != (sparseIndicesByteLength + sparseValuesByteLength))
             {
-                throw new Exception($"byteLength: {Resource.Length - byteOffset} != {sparseIndicesByteLength + sparseValuesByteLength}");
+                ThrowHelper.ThrowException($"byteLength: {Resource.Length - byteOffset} != {sparseIndicesByteLength + sparseValuesByteLength}");
             }
 
             VgoResourceAccessor accessor = new VgoResourceAccessor

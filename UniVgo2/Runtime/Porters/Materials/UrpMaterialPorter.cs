@@ -44,7 +44,12 @@ namespace UniVgo2.Porters
                 case ShaderName.URP_Unlit:
                     return CreateVgoMaterialFromUrpUnlit(material, vgoStorage);
                 default:
+#if NET_STANDARD_2_1
+                    ThrowHelper.ThrowNotSupportedException(material.shader.name);
+                    return default;
+#else
                     throw new NotSupportedException(material.shader.name);
+#endif
             }
         }
 
@@ -193,7 +198,13 @@ namespace UniVgo2.Porters
                 case ShaderName.URP_Unlit:
                     break;
                 default:
-                    throw new NotSupportedException(vgoMaterial.shaderName);
+#if NET_STANDARD_2_1
+                    ThrowHelper.ThrowNotSupportedException(vgoMaterial?.shaderName ?? string.Empty);
+                    break;
+#else
+                    throw new NotSupportedException(vgoMaterial.shaderName ?? string.Empty);
+#endif
+
             }
 
             Material material = base.CreateMaterialAsset(vgoMaterial, shader, allTexture2dList);

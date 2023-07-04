@@ -87,7 +87,8 @@ namespace NewtonVgo
                     case 2:
                         return B;
                     default:
-                        throw new IndexOutOfRangeException($"index: {index} is out of range.");
+                        ThrowHelper.ThrowIndexOutOfRangeException(nameof(index), index, min: 0, max: 3);
+                        return default;
                 }
             }
 
@@ -105,7 +106,8 @@ namespace NewtonVgo
                         B = value;
                         break;
                     default:
-                        throw new IndexOutOfRangeException($"index: {index} is out of range.");
+                        ThrowHelper.ThrowIndexOutOfRangeException(nameof(index), index, min: 0, max: 3);
+                        break;
                 }
             }
         }

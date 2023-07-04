@@ -32,17 +32,21 @@ namespace NewtonVgo
         {
             if (vgoBytes == null)
             {
+#if NET_STANDARD_2_1
+                ThrowHelper.ThrowArgumentNullException(nameof(vgoBytes));
+#else
                 throw new ArgumentNullException(nameof(vgoBytes));
+#endif
             }
 
             if (vgoBytes.Any() == false)
             {
-                throw new ArgumentOutOfRangeException(nameof(vgoBytes));
+                ThrowHelper.ThrowArgumentOutOfRangeException(nameof(vgoBytes), vgoBytes.Length);
             }
 
             if (vgoBytes.Length < 16)
             {
-                throw new ArgumentOutOfRangeException(nameof(vgoBytes));
+                ThrowHelper.ThrowArgumentOutOfRangeException(nameof(vgoBytes), vgoBytes.Length, min: 16);
             }
 
             ArraySegment<byte> allSegmentBytes = new ArraySegment<byte>(vgoBytes);
@@ -52,7 +56,7 @@ namespace NewtonVgo
 
             if ((Header.IsRequireResourceAccessorExternalCryptKey == 1) && (vgkBytes == null))
             {
-                throw new Exception("cryptKey is required.");
+                ThrowHelper.ThrowException("cryptKey is required.");
             }
 
             // Index chunk
@@ -129,29 +133,29 @@ namespace NewtonVgo
 
                 if (header.Magic != (uint)VgoChunkTypeID.Vgo)
                 {
-                    throw new FormatException($"Header.Magic: {header.Magic}");
+                    ThrowHelper.ThrowFormatException($"Header.Magic: {header.Magic}");
                 }
 
                 if (header.DataLength != 8)
                 {
-                    throw new FormatException($"Header.DataLength: {header.DataLength}");
+                    ThrowHelper.ThrowFormatException($"Header.DataLength: {header.DataLength}");
                 }
 
                 if (header.MajorVersion == 0)
                 {
-                    throw new FormatException($"Header.MajorVersion: {header.MajorVersion}");
+                    ThrowHelper.ThrowFormatException($"Header.MajorVersion: {header.MajorVersion}");
                 }
 
                 if ((header.GeometryCoordinate != VgoGeometryCoordinate.RightHanded) &&
                     (header.GeometryCoordinate != VgoGeometryCoordinate.LeftHanded))
                 {
-                    throw new FormatException($"Header.GeometryCoordinate: {header.GeometryCoordinate}");
+                    ThrowHelper.ThrowFormatException($"Header.GeometryCoordinate: {header.GeometryCoordinate}");
                 }
 
                 if ((header.UVCoordinate != VgoUVCoordinate.TopLeft) &&
                     (header.UVCoordinate != VgoUVCoordinate.BottomLeft))
                 {
-                    throw new FormatException($"Header.UVCoordinate: {header.UVCoordinate}");
+                    ThrowHelper.ThrowFormatException($"Header.UVCoordinate: {header.UVCoordinate}");
                 }
 
                 return header;
@@ -183,21 +187,21 @@ namespace NewtonVgo
 
                 if (indexChunkTypeId != (uint)VgoChunkTypeID.Idx)
                 {
-                    throw new FormatException($"[IDX] Chunk.ChunkTypeId: {indexChunkTypeId}");
+                    ThrowHelper.ThrowFormatException($"[IDX] Chunk.ChunkTypeId: {indexChunkTypeId}");
                 }
 
                 uint indexChunkDataLength = BitConverter.ToUInt32(allSegmentBytes.Array, indexByteOffset + 4);
 
                 if (indexChunkDataLength == 0)
                 {
-                    throw new FormatException($"[IDX] Chunk.DataLength: {indexChunkDataLength}");
+                    ThrowHelper.ThrowFormatException($"[IDX] Chunk.DataLength: {indexChunkDataLength}");
                 }
 
                 int elementSize = Marshal.SizeOf(typeof(VgoIndexChunkDataElement));
 
                 if ((indexChunkDataLength % elementSize) != 0)
                 {
-                    throw new FormatException($"[IDX] Chunk.DataLength: {indexChunkDataLength}");
+                    ThrowHelper.ThrowFormatException($"[IDX] Chunk.DataLength: {indexChunkDataLength}");
                 }
 
                 int elementCount = (int)indexChunkDataLength / elementSize;
@@ -230,29 +234,29 @@ namespace NewtonVgo
 
                 if (count == 0)
                 {
-                    throw new FormatException($"{chunkTypeId} is not define in IDX chunk.");
+                    ThrowHelper.ThrowFormatException($"{chunkTypeId} is not define in IDX chunk.");
                 }
 
                 if (count >= 2)
                 {
-                    throw new FormatException($"{chunkTypeId} is defined more than once in IDX chunk.");
+                    ThrowHelper.ThrowFormatException($"{chunkTypeId} is defined more than once in IDX chunk.");
                 }
 
                 VgoIndexChunkDataElement chunkInfo = chunkIndexMap.Where(x => x.ChunkTypeId == chunkTypeId).First();
 
                 if (chunkInfo.ByteOffset == 0)
                 {
-                    throw new FormatException($"[{chunkTypeId}] Chunk.ByteOffset: {chunkInfo.ByteOffset}");
+                    ThrowHelper.ThrowFormatException($"[{chunkTypeId}] Chunk.ByteOffset: {chunkInfo.ByteOffset}");
                 }
 
                 if (chunkInfo.ByteLength == 0)
                 {
-                    //throw new FormatException($"[{chunkTypeId}] Chunk.ByteLength: {chunkInfo.ByteLength}");
+                    //ThrowHelper.ThrowFormatException($"[{chunkTypeId}] Chunk.ByteLength: {chunkInfo.ByteLength}");
                 }
 
                 //if ((chunkInfo.ByteOffset + chunkInfo.ByteLength) > allBytes.Length)
                 //{
-                //    throw new FormatException($"[{chunkTypeId}] Chunk.ByteLength: {chunkInfo.ByteLength} is out of the range.");
+                //    ThrowHelper.ThrowFormatException($"[{chunkTypeId}] Chunk.ByteLength: {chunkInfo.ByteLength} is out of the range.");
                 //}
 
                 return chunkInfo;
@@ -278,14 +282,14 @@ namespace NewtonVgo
 
             if (chunkChunkTypeId != (uint)chunkIndexInfo.ChunkTypeId)
             {
-                throw new FormatException($"[{chunkIndexInfo.ChunkTypeId}] Chunk.ChunkTypeId: {chunkChunkTypeId}");
+                ThrowHelper.ThrowFormatException($"[{chunkIndexInfo.ChunkTypeId}] Chunk.ChunkTypeId: {chunkChunkTypeId}");
             }
 
             uint chunkDataLength = BitConverter.ToUInt32(allSegmentBytes.Array, (int)chunkIndexInfo.ByteOffset + 4);
 
             if (chunkDataLength == 0)
             {
-                throw new FormatException($"[{chunkIndexInfo.ChunkTypeId}] Chunk.DataLength: {chunkDataLength}");
+                ThrowHelper.ThrowFormatException($"[{chunkIndexInfo.ChunkTypeId}] Chunk.DataLength: {chunkDataLength}");
             }
 
             ArraySegment<byte> chunkData = allSegmentBytes.Slice(
@@ -327,7 +331,9 @@ namespace NewtonVgo
                 }
                 else
                 {
-                    throw new FormatException($"[COMP] AssetInfoChunkTypeId: {composerChunkData.AssetInfoChunkTypeId}");
+                    ThrowHelper.ThrowFormatException($"[COMP] AssetInfoChunkTypeId: {composerChunkData.AssetInfoChunkTypeId}");
+
+                    return default;
                 }
 
                 return vgoAssetInfo;
@@ -373,12 +379,24 @@ namespace NewtonVgo
                 }
                 else
                 {
+#if NET_STANDARD_2_1
+                    ThrowHelper.ThrowFormatException($"[COMP] LayoutChunkTypeId: {composerChunkData.LayoutChunkTypeId}");
+
+                    return default;
+#else
                     throw new FormatException($"[COMP] LayoutChunkTypeId: {composerChunkData.LayoutChunkTypeId}");
+#endif
                 }
 
                 if (vgoLayout is null)
                 {
+#if NET_STANDARD_2_1
+                    ThrowHelper.ThrowFormatException();
+
+                    return default;
+#else
                     throw new FormatException();
+#endif
                 }
 
                 return vgoLayout;
@@ -417,7 +435,8 @@ namespace NewtonVgo
                 case VgoChunkTypeID.RACB:
                     break;
                 default:
-                    throw new FormatException($"[COMP] ResourceAccessorChunkTypeId: {raChunkTypeId}");
+                    ThrowHelper.ThrowFormatException($"[COMP] ResourceAccessorChunkTypeId: {raChunkTypeId}");
+                    break;
             }
 
             ArraySegment<byte> raChunkData = ExtractChunkData(raChunkTypeId, chunkIndexMap, allSegmentBytes);
@@ -440,7 +459,9 @@ namespace NewtonVgo
 
                 if (vgoCrypt is null)
                 {
-                    throw new FormatException($" ResourceAccessorChunkTypeId: {raChunkTypeId}");
+                    ThrowHelper.ThrowFormatException($" ResourceAccessorChunkTypeId: {raChunkTypeId}");
+
+                    return null;
                 }
 
                 try
@@ -462,7 +483,9 @@ namespace NewtonVgo
                         {
                             if (string.IsNullOrEmpty(vgoCrypt.key))
                             {
-                                throw new Exception("crypt key is unknown.");
+                                ThrowHelper.ThrowException("crypt key is unknown.");
+
+                                return default;
                             }
                             else
                             {
@@ -476,12 +499,16 @@ namespace NewtonVgo
 
                         if (key == null)
                         {
-                            throw new Exception("crypt key is unknown.");
+                            ThrowHelper.ThrowException("crypt key is unknown.");
+
+                            return default;
                         }
 
                         if (string.IsNullOrEmpty(vgoCrypt.iv))
                         {
-                            throw new Exception("iv is unknown.");
+                            ThrowHelper.ThrowException("iv is unknown.");
+
+                            return default;
                         }
 
                         byte[] iv = Convert.FromBase64String(vgoCrypt.iv);
@@ -497,7 +524,9 @@ namespace NewtonVgo
                     }
                     else
                     {
-                        throw new NotSupportedException($"CryptographyAlgorithms: {vgoCrypt.algorithms}");
+                        ThrowHelper.ThrowNotSupportedException($"CryptographyAlgorithms: {vgoCrypt.algorithms}");
+
+                        return default;
                     }
 
                 }
@@ -512,7 +541,9 @@ namespace NewtonVgo
             }
             else
             {
-                throw new FormatException($"[COMP] ResourceAccessorChunkTypeId: {raChunkTypeId}");
+                ThrowHelper.ThrowFormatException($"[COMP] ResourceAccessorChunkTypeId: {raChunkTypeId}");
+
+                return default;
             }
 
             List<VgoResourceAccessor>? vgoResourceAccessors = null;
@@ -582,12 +613,16 @@ namespace NewtonVgo
                 }
                 else
                 {
-                    throw new FormatException($"[COMP] ResourceChunkTypeId: {resourceChunkTypeId}");
+                    ThrowHelper.ThrowFormatException($"[COMP] ResourceChunkTypeId: {resourceChunkTypeId}");
+
+                    return default;
                 }
 
                 if (vgoResource is null)
                 {
-                    throw new FormatException($"[{resourceChunkTypeId}] resource is null.");
+                    ThrowHelper.ThrowFormatException($"[{resourceChunkTypeId}] resource is null.");
+
+                    return default;
                 }
             }
             catch (JsonSerializationException)
@@ -601,12 +636,14 @@ namespace NewtonVgo
 
             if (vgoResource.uri is null || vgoResource.uri == string.Empty)
             {
-                throw new FormatException($"[{resourceChunkTypeId}] uri is null or empty.");
+                ThrowHelper.ThrowFormatException($"[{resourceChunkTypeId}] uri is null or empty.");
+
+                return default;
             }
 
             if (vgoResource.byteLength == 0)
             {
-                //throw new FormatException($"[{chunkTypeId}] byteLength: {vgoResource.byteLength}");
+                //ThrowHelper.ThrowFormatException($"[{chunkTypeId}] byteLength: {vgoResource.byteLength}");
             }
 
             byte[] resourceBytes = GetUriData(vgoResource.uri);
@@ -645,7 +682,9 @@ namespace NewtonVgo
                 }
                 else
                 {
-                    throw new Exception($"{nameof(cryptChunkTypeId)}: {cryptChunkTypeId}");
+                    ThrowHelper.ThrowFormatException($"{nameof(cryptChunkTypeId)}: {cryptChunkTypeId}");
+
+                    return default;
                 }
 
                 return vgoCrypt;
@@ -671,14 +710,13 @@ namespace NewtonVgo
         /// <returns>An byte array of uri data.</returns>
         protected virtual byte[] GetUriData(string uri)
         {
-            if (uri == null)
-            {
-                throw new ArgumentNullException(uri);
-            }
+            ThrowHelper.ThrowExceptionIfArgumentIsNull(nameof(uri), uri);
 
             if (uri.StartsWith("data:"))
             {
-                throw new NotSupportedException(uri);
+                ThrowHelper.ThrowNotSupportedException(uri);
+
+                return Array.Empty<byte>();
             }
             else if (
                 uri.StartsWith("http://") ||
@@ -696,26 +734,37 @@ namespace NewtonVgo
                     }
                     else
                     {
-                        throw new Exception(response.StatusCode.ToString());
+                        ThrowHelper.ThrowHttpRequestException(response.StatusCode.ToString());
+
+                        return Array.Empty<byte>();
                     }
                 }
             }
             else if (uri.StartsWith("file://"))
             {
-                throw new NotSupportedException(uri);
+                ThrowHelper.ThrowNotSupportedException(uri);
+
+                return Array.Empty<byte>();
             }
             else
             {
                 if (DirectoryPath == null)
                 {
-                    throw new Exception();
+                    ThrowHelper.ThrowException();
+
+                    return Array.Empty<byte>();
+                }
+
+                if (Directory.Exists(DirectoryPath) == false)
+                {
+                    ThrowHelper.ThrowDirectoryNotFoundException(DirectoryPath);
                 }
 
                 string binFilePath = Path.Combine(DirectoryPath, uri);
 
                 if (File.Exists(binFilePath) == false)
                 {
-                    throw new FileNotFoundException(binFilePath);
+                    ThrowHelper.ThrowFileNotFoundException(binFilePath);
                 }
 
                 byte[] binData = File.ReadAllBytes(binFilePath);

@@ -5,6 +5,7 @@
 #nullable enable
 namespace UniVgo2.Converters
 {
+    using NewtonVgo;
     using NewtonVgo.Schema.ParticleSystems;
     using System;
     using static UnityEngine.ParticleSystem;
@@ -56,7 +57,13 @@ namespace UniVgo2.Converters
                     };
 
                 default:
-                    throw new IndexOutOfRangeException($"{minMaxCurve.mode}");
+#if NET_STANDARD_2_1
+                    ThrowHelper.ThrowIndexOutOfRangeException("minMaxCurve.mode", (int)minMaxCurve.mode);
+                    return default;
+#else
+                    throw new IndexOutOfRangeException("minMaxCurve.mode");
+#endif
+
             }
         }
 

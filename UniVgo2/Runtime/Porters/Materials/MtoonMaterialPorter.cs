@@ -125,16 +125,6 @@ namespace UniVgo2.Porters
         {
             //Material material = base.CreateMaterialAsset(vgoMaterial, shader);
 
-            if (vgoMaterial == null)
-            {
-                throw new ArgumentNullException(nameof(vgoMaterial));
-            }
-
-            if (shader == null)
-            {
-                throw new ArgumentNullException(nameof(shader));
-            }
-
             var material = new Material(shader)
             {
                 name = vgoMaterial.name

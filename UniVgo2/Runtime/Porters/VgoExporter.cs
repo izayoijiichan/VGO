@@ -206,7 +206,9 @@ namespace UniVgo2
         {
             if (modelAsset.ColliderList == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             if (modelAsset.ColliderList.Any() == false)
@@ -224,10 +226,16 @@ namespace UniVgo2
 
                 if (vgoCollider is null)
                 {
-                    throw new Exception($"Collider create error. {collider.name}");
-                }
+                    //ThrowHelper.ThrowException($"Collider create error. {collider.name}");
 
-                vgoLayout.colliders.Add(vgoCollider);
+                    Debug.LogWarning($"The collider type is not supported. {collider.name}");
+
+                    vgoLayout.colliders.Add(null);
+                }
+                else
+                {
+                    vgoLayout.colliders.Add(vgoCollider);
+                }
             }
         }
 
@@ -244,7 +252,9 @@ namespace UniVgo2
         {
             if (modelAsset.MaterialList == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             if (modelAsset.MaterialList.Any() == false)
@@ -390,7 +400,9 @@ namespace UniVgo2
         {
             if (modelAsset.MeshAssetList == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             _MeshExporter.ExportMeshes(vgoStorage, modelAsset.MeshAssetList, modelAsset.MaterialList);
@@ -409,12 +421,16 @@ namespace UniVgo2
         {
             if (modelAsset.SkinnedMeshRendererList == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             if (modelAsset.TransformList == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             vgoStorage.Layout.skins = new List<VgoSkin?>(modelAsset.SkinnedMeshRendererList.Count);
@@ -425,7 +441,9 @@ namespace UniVgo2
             {
                 if (renderer.sharedMesh is null)
                 {
-                    throw new Exception("SkinnedMeshRenderer.sharedMesh is null.");
+                    ThrowHelper.ThrowException();
+
+                    return;
                 }
 
                 if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
@@ -490,17 +508,23 @@ namespace UniVgo2
         {
             if (modelAsset.TransformList == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             if (modelAsset.MeshAssetList == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             if (modelAsset.SkinnedMeshRendererList == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             vgoStorage.Layout.nodes = new List<VgoNode?>(modelAsset.TransformList.Count);
@@ -633,7 +657,7 @@ namespace UniVgo2
 
                         if (meshIndex == -1)
                         {
-                            throw new IndexOutOfRangeException();
+                            ThrowHelper.ThrowIndexOutOfRangeException(nameof(meshIndex), meshIndex, min: 0, max: modelAsset.MeshList.Count);
                         }
 
                         var vgoMeshRenderer = new VgoMeshRenderer()
@@ -755,12 +779,16 @@ namespace UniVgo2
         {
             if (modelAsset.TransformList == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             if (modelAsset.TransformList.Any() == false)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             var matrixes = new System.Numerics.Matrix4x4[modelAsset.TransformList.Count];
@@ -797,7 +825,9 @@ namespace UniVgo2
         {
             if (modelAsset.AnimationClipList == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             if (modelAsset.AnimationClipList.Any())
@@ -832,7 +862,9 @@ namespace UniVgo2
         {
             if (modelAsset.ClothList == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             if (modelAsset.ClothList.Any() == false)
@@ -865,7 +897,9 @@ namespace UniVgo2
         {
             if (modelAsset.LightList == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             if (modelAsset.LightList.Any() == false)
@@ -899,7 +933,9 @@ namespace UniVgo2
         {
             if (modelAsset.ParticleSystemAssetList == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             if (modelAsset.ParticleSystemAssetList.Any() == false)

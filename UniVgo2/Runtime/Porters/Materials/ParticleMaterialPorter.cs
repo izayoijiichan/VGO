@@ -117,16 +117,6 @@ namespace UniVgo2.Porters
         /// <returns>A particle material.</returns>
         public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
         {
-            if (vgoMaterial == null)
-            {
-                throw new ArgumentNullException(nameof(vgoMaterial));
-            }
-
-            if (shader == null)
-            {
-                throw new ArgumentNullException(nameof(shader));
-            }
-
             var material = new Material(shader)
             {
                 name = vgoMaterial.name

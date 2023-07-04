@@ -25,7 +25,7 @@ namespace UniVgo2.Converters
 
             if (encoder == null)
             {
-                throw new Exception("UniGLTF/NormalMapEncoder");
+                ThrowHelper.ThrowFileNotFoundException("UniGLTF/NormalMapEncoder.shader");
             }
 
             Material converter = new Material(encoder);
@@ -55,7 +55,7 @@ namespace UniVgo2.Converters
 
             if (decoder == null)
             {
-                throw new Exception("UniGLTF/NormalMapDecoder");
+                ThrowHelper.ThrowFileNotFoundException("UniGLTF/NormalMapDecoder.shader");
             }
 
             Material converter = new Material(decoder);

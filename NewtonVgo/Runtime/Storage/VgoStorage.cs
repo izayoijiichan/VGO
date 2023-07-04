@@ -87,14 +87,18 @@ namespace NewtonVgo
         {
             if (vgoFilePath == null)
             {
+#if NET_STANDARD_2_1
+                ThrowHelper.ThrowArgumentNullException(nameof(vgoFilePath));
+#else
                 throw new ArgumentNullException(nameof(vgoFilePath));
+#endif
             }
 
             FileInfo vgoFileInfo = new FileInfo(vgoFilePath);
 
             if (vgoFileInfo.Exists == false)
             {
-                throw new FileNotFoundException(vgoFilePath);
+                ThrowHelper.ThrowFileNotFoundException(vgoFilePath);
             }
 
             DirectoryPath = vgoFileInfo.DirectoryName;
@@ -109,7 +113,7 @@ namespace NewtonVgo
 
                 if (vgkFileInfo.Exists == false)
                 {
-                    throw new FileNotFoundException(vgkFilePath);
+                    ThrowHelper.ThrowFileNotFoundException(vgkFilePath);
                 }
 
                 vgkBytes = File.ReadAllBytes(vgkFilePath);
@@ -142,6 +146,8 @@ namespace NewtonVgo
         /// <remarks>for Export</remarks>
         public VgoStorage(IByteBuffer resource, VgoGeometryCoordinate geometryCoordinate, VgoUVCoordinate uvCoordinate)
         {
+            ThrowHelper.ThrowExceptionIfArgumentIsNull(nameof(resource), resource);
+
             Header.Magic = (uint)VgoChunkTypeID.Vgo;
             Header.DataLength = 8;
             Header.MajorVersion = SpecMajorVersion;
@@ -153,7 +159,7 @@ namespace NewtonVgo
 
             ResourceAccessors = new List<VgoResourceAccessor>();
 
-            Resource = resource ?? throw new ArgumentNullException(nameof(resource));
+            Resource = resource;
         }
 
         #endregion
@@ -171,7 +177,7 @@ namespace NewtonVgo
         {
             if (value == null)
             {
-                throw new ArgumentNullException(nameof(value));
+                ThrowHelper.ThrowArgumentNullException(nameof(value));
             }
 
             try

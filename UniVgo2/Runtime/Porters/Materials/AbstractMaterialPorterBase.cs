@@ -145,7 +145,7 @@ namespace UniVgo2.Porters
                     break;
 
                 case ShaderPropertyType.Texture:
-                    //throw new NotSupportedException($"{nameof(propertyName)}: {propertyName}, {nameof(ShaderPropertyType)}: {propertyType} ");
+                    //ThrowHelper.ThrowNotSupportedException($"{nameof(propertyName)}: {propertyName}, {nameof(ShaderPropertyType)}: {propertyType} ");
                     return true;
 
 #if UNITY_2021_1_OR_NEWER
@@ -295,7 +295,8 @@ namespace UniVgo2.Porters
                     break;
 
                 case VgoMaterialPropertyType.Texture:
-                    throw new Exception();
+                    ThrowHelper.ThrowException();
+                    break;
 
                 case VgoMaterialPropertyType.TextureOffset:
                     if (vgoMaterial.textureOffsetProperties == null)
@@ -565,16 +566,6 @@ namespace UniVgo2.Porters
         /// <returns>A unity material.</returns>
         public virtual Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
         {
-            if (vgoMaterial == null)
-            {
-                throw new ArgumentNullException(nameof(vgoMaterial));
-            }
-
-            if (shader == null)
-            {
-                throw new ArgumentNullException(nameof(shader));
-            }
-
             var material = new Material(shader)
             {
                 name = vgoMaterial.name

@@ -89,7 +89,11 @@ namespace UniVgo2.Converters
 
                 if (vgoHumanBone is null)
                 {
+#if NET_STANDARD_2_1
+                    ThrowHelper.ThrowFormatException($"vgoAvatar.humanBones[{humanBoneIndex}] is null.");
+#else
                     throw new FormatException($"vgoAvatar.humanBones[{humanBoneIndex}] is null.");
+#endif
                 }
 
                 humanBones[humanBoneIndex] = new HumanBone

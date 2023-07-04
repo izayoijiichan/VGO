@@ -52,22 +52,9 @@ namespace UniVgo2.Porters
         /// <param name="unityMaterialList">List of unity material.</param>
         public virtual void ExportMeshes(IVgoStorage vgoStorage, IList<MeshAsset> unityMeshAssetList, IList<Material>? unityMaterialList = null)
         {
-            if (vgoStorage == null)
-            {
-                throw new ArgumentNullException(nameof(vgoStorage));
-            }
-
-            if (unityMeshAssetList == null)
-            {
-                throw new ArgumentNullException(nameof(unityMeshAssetList));
-            }
-
             if (vgoStorage.IsSpecVersion_2_4_orLower)
             {
-                if (unityMaterialList == null)
-                {
-                    throw new ArgumentNullException(nameof(unityMaterialList));
-                }
+                ThrowHelper.ThrowExceptionIfArgumentIsNull(nameof(unityMaterialList), unityMaterialList);
             }
 
             vgoStorage.Layout.meshes = new List<VgoMesh?>(unityMeshAssetList.Count);
@@ -543,7 +530,7 @@ namespace UniVgo2.Porters
                     //if ((sparseIndexList.Count != sparseCount) ||
                     //    (sparseValueList.Count != sparseCount))
                     //{
-                    //    throw new Exception($"{sparseCount}, {sparseIndexList.Count}, {sparseValueList.Count}");
+                    //    ThrowHelper.ThrowException($"{sparseCount}, {sparseIndexList.Count}, {sparseValueList.Count}");
                     //}
 
                     accessorIndex = vgoStorage.AddAccessorWithSparse(VgoResourceAccessorSparseType.General, sparseIndices, sparseValues,
@@ -585,7 +572,7 @@ namespace UniVgo2.Porters
                     //if ((sparseIndexList.Count != sparseCount) ||
                     //    (sparseValueList.Count != sparseCount))
                     //{
-                    //    throw new Exception($"{sparseCount}, {sparseIndexList.Count}, {sparseValueList.Count}");
+                    //    ThrowHelper.ThrowException($"{sparseCount}, {sparseIndexList.Count}, {sparseValueList.Count}");
                     //}
 
                     accessorIndex = vgoStorage.AddAccessorWithSparse(VgoResourceAccessorSparseType.Powerful, sparseIndices, sparseValues,
@@ -595,7 +582,7 @@ namespace UniVgo2.Porters
                 }
                 else
                 {
-                    throw new Exception();
+                    ThrowHelper.ThrowException();
                 }
             }
             else

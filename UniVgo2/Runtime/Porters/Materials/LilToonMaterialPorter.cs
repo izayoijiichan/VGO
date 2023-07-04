@@ -178,7 +178,12 @@ namespace UniVgo2.Porters
                 case ShaderName.Lil_LilToonPassDummy:
                 case ShaderName.Lil_LilToonOtherBaker:
                 default:
+#if NET_STANDARD_2_1
+                    ThrowHelper.ThrowNotSupportedException(material.shader.name);
+                    return default;
+#else
                     throw new NotSupportedException(material.shader.name);
+#endif
             }
         }
 
@@ -570,7 +575,11 @@ namespace UniVgo2.Porters
             if ((shader.name.Contains("lilToon") == false) &&
                 (shader.name.StartsWith("Hidden/ltspass") == false))
             {
-                throw new NotSupportedException(vgoMaterial.shaderName);
+#if NET_STANDARD_2_1
+                ThrowHelper.ThrowNotSupportedException(vgoMaterial?.shaderName ?? string.Empty);
+#else
+                throw new NotSupportedException(vgoMaterial.shaderName ?? string.Empty);
+#endif
             }
 
             Material material = base.CreateMaterialAsset(vgoMaterial, shader, allTexture2dList);

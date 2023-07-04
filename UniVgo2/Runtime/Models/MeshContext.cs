@@ -5,7 +5,6 @@
 #nullable enable
 namespace UniVgo2
 {
-    using System;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -105,7 +104,7 @@ namespace UniVgo2
         /// <param name="name"></param>
         public MeshContext(string name)
         {
-            _Name = name ?? throw new ArgumentNullException(nameof(name));
+            _Name = name;
         }
 
         /// <summary>

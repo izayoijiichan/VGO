@@ -158,7 +158,9 @@ namespace UniVgo2.Porters
         {
             if (vgoStorage.ResourceAccessors is null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return null;
             }
 
             if (vgoTexture.source.IsInRangeOf(vgoStorage.ResourceAccessors) == false)
@@ -217,7 +219,9 @@ namespace UniVgo2.Porters
         {
             if (vgoStorage.ResourceAccessors is null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return null;
             }
 
             if (vgoTexture.source.IsInRangeOf(vgoStorage.ResourceAccessors) == false)

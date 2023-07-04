@@ -55,7 +55,9 @@ namespace NewtonVgo.Buffers
         /// <returns>Returns the size of the appended data.</returns>
         public int Append<T>(ArraySegment<T> data, int stride = 0) where T : struct
         {
-            throw new NotImplementedException();
+            ThrowHelper.ThrowNotImplementedException();
+
+            return default;
         }
 
         /// <summary>

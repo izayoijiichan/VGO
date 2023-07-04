@@ -251,7 +251,11 @@ namespace UniVgo2
         {
             if (vgoStorage.Layout.nodes is null)
             {
+#if NET_STANDARD_2_1
+                ThrowHelper.ThrowException();
+#else
                 throw new Exception();
+#endif
             }
 
             var nodes = new List<Transform>(vgoStorage.Layout.nodes.Count);
@@ -296,19 +300,23 @@ namespace UniVgo2
         {
             if (vgoLayout.nodes is null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             var rootNode = vgoLayout.nodes[0];
 
             if (rootNode is null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             if (rootNode.isRoot == false)
             {
-                throw new FormatException("nodes[0].isRoot: false");
+                ThrowHelper.ThrowFormatException("nodes[0].isRoot: false");
             }
 
             for (int nodeIndex = 0; nodeIndex < nodes.Count; nodeIndex++)
@@ -816,11 +824,6 @@ namespace UniVgo2
         /// </remarks>
         protected virtual List<Collider?> CreateUnityColliderList(List<Transform> nodes)
         {
-            if (nodes == null)
-            {
-                throw new Exception();
-            }
-
             var colliderList = new List<Collider?>();
 
             for (int index = 0; index < nodes.Count; index++)
@@ -1072,17 +1075,21 @@ namespace UniVgo2
         {
             if (skinnedMeshRenderer.sharedMesh == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             if (vgoStorage.Layout.skins == null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return;
             }
 
             if (vgoStorage.Layout.skins.TryGetValue(skinIndex, out var vgoSkin) == false)
             {
-                throw new IndexOutOfRangeException($"skins[{skinIndex}] is out of the range.");
+                ThrowHelper.ThrowIndexOutOfRangeException("skins[i]", skinIndex, min: 0, max: vgoStorage.Layout.skins.Count);
             }
 
             if (vgoSkin is null)
@@ -1111,8 +1118,9 @@ namespace UniVgo2
                     }
                     else
                     {
-                        Debug.LogWarning($"skins[{skinIndex}].joints[{jointIndex}] is out of the range.");
-                        //throw new IndexOutOfRangeException($"skins[{skinIndex}].joints[{jointIndex}] is out of the range.");
+                        Debug.LogWarning($"skins[{skinIndex}].joints[{jointIndex}] is out of the range. 0 <= x < {nodes.Count}");
+
+                        //ThrowHelper.ThrowIndexOutOfRangeException($"skins[{skinIndex}].joints[i]", jointIndex, min: 0, max: nodes.Count);
                     }
                 }
 
@@ -1299,12 +1307,20 @@ namespace UniVgo2
         {
             if (vgoStorage.ResourceAccessors.Where(x => x.kind == VgoResourceAccessorKind.NodeTransform).Count() != 1)
             {
+#if NET_STANDARD_2_1
+                ThrowHelper.ThrowException();
+#else
                 throw new Exception();
+#endif
             }
 
             if (vgoStorage.Layout.nodes is null)
             {
+#if NET_STANDARD_2_1
+                ThrowHelper.ThrowException();
+#else
                 throw new Exception();
+#endif
             }
 
             VgoResourceAccessor accessor = vgoStorage.ResourceAccessors.Where(x => x.kind == VgoResourceAccessorKind.NodeTransform).First();

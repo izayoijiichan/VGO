@@ -93,7 +93,7 @@ namespace NewtonVgo
         /// <param name="jsonSerializerSettings"></param>
         /// <returns>Returns the value associated with the specified key.</returns>
         public T GetValue<T>(string key, JsonSerializerSettings? jsonSerializerSettings = null)
-            where T : class
+            where T : class, new()
         {
             ExModel model = this[key];
 
@@ -106,7 +106,9 @@ namespace NewtonVgo
 
             if (value is null)
             {
-                throw new Exception();
+                ThrowHelper.ThrowException();
+
+                return new T();
             }
 
             return value;
@@ -123,7 +125,7 @@ namespace NewtonVgo
         /// otherwise, the default value for the type of the value parameter. 
         /// </returns>
         public T? GetValueOrDefault<T>(string key, JsonSerializerSettings? jsonSerializerSettings = null)
-            where T : class
+            where T : class, new()
         {
             try
             {
@@ -177,7 +179,7 @@ namespace NewtonVgo
         /// <param name="jsonSerializerSettings"></param>
         /// <returns>true if the collection contains an element with the specified key; otherwise, false.</returns>
         public bool TryGetValue<T>(string key, out T value, JsonSerializerSettings jsonSerializerSettings = null)
-            where T : class
+            where T : class, new()
         {
             try
             {

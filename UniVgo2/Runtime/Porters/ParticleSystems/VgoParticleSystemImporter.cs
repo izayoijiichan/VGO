@@ -726,7 +726,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoModule"></param>
         protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_CollisionModule vgoModule)
         {
-            throw new NotImplementedException();
+            ThrowHelper.ThrowNotImplementedException();
         }
 
         /// <summary>
@@ -736,7 +736,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoModule"></param>
         protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_TriggerModule vgoModule)
         {
-            throw new NotImplementedException();
+            ThrowHelper.ThrowNotImplementedException();
         }
 
         /// <summary>
@@ -746,7 +746,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoModule"></param>
         protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_SubEmittersModule vgoModule)
         {
-            throw new NotImplementedException();
+            ThrowHelper.ThrowNotImplementedException();
         }
 
         /// <summary>
@@ -756,7 +756,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoModule"></param>
         protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_TextureSheetAnimationModule vgoModule)
         {
-            throw new NotImplementedException();
+            ThrowHelper.ThrowNotImplementedException();
         }
 
         /// <summary>
@@ -855,7 +855,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoModule"></param>
         protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_CustomDataModule vgoModule)
         {
-            throw new NotImplementedException();
+            ThrowHelper.ThrowNotImplementedException();
         }
 
         #endregion

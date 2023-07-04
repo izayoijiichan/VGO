@@ -32,8 +32,11 @@ namespace NewtonVgo
         /// <param name="json"></param>
         public ExModel(string key, string json)
         {
-            this.key = key ?? throw new ArgumentNullException(nameof(key));
-            this.json = json ?? throw new ArgumentNullException(nameof(json));
+            ThrowHelper.ThrowExceptionIfArgumentIsNull(nameof(key), key);
+            ThrowHelper.ThrowExceptionIfArgumentIsNull(nameof(json), json);
+
+            this.key = key;
+            this.json = json;
         }
 
         #endregion
