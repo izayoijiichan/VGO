@@ -48,6 +48,15 @@ namespace UniVgo2.Porters
         /// <returns>A material porter instanse.</returns>
         IMaterialPorter GetPorterOrStandard(string shaderName, RenderPipelineType renderPipelineType);
 
+        /// <summary>
+        /// Get a porter or standard.
+        /// </summary>
+        /// <param name="shaderName">The shader name.</param>
+        /// <param name="vgoMaterial">The vgo material.</param>
+        /// <param name="renderPipelineType">Type of render pipeline.</param>
+        /// <returns>A material porter instanse.</returns>
+        IMaterialPorter GetPorterOrStandard(string shaderName, VgoMaterial vgoMaterial, RenderPipelineType renderPipelineType);
+
         #endregion
     }
 }

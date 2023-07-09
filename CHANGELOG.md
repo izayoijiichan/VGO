@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.5.9] - 2023-07-10
+
+- Features
+  - MToon 1.0 `VRM10/MToon10` shader will be available.
+- Changes
+  - The minimum version of `com.vrmc.vrmshaders` is now `0.79.0`. Recommended version is `0.104.0` or higher.
+
 ## [2.5.8] - 2023-07-05
 
 - Improvements

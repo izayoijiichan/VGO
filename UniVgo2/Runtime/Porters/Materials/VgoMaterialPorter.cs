@@ -117,7 +117,8 @@ namespace UniVgo2.Porters
             Shader shader = ShaderStore.GetShaderOrStandard(vgoMaterial, RenderPipelineType);
 
             //IMaterialPorter materialPorter = MaterialPorterStore.GetPorterOrStandard(vgoMaterial, RenderPipelineType);
-            IMaterialPorter materialPorter = MaterialPorterStore.GetPorterOrStandard(shader.name, RenderPipelineType);
+            //IMaterialPorter materialPorter = MaterialPorterStore.GetPorterOrStandard(shader.name, RenderPipelineType);
+            IMaterialPorter materialPorter = MaterialPorterStore.GetPorterOrStandard(shader.name, vgoMaterial, RenderPipelineType);
 
             Material material = materialPorter.CreateMaterialAsset(vgoMaterial, shader, texture2dList);
 

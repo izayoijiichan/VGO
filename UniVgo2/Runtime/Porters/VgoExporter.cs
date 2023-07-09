@@ -14,13 +14,6 @@ namespace UniVgo2
     using UniVgo2.Converters;
     using UniVgo2.Porters;
 
-    #region Delegates
-
-    /// <summary>The delegate to ExportTexture method.</summary>
-    public delegate int ExportTextureDelegate(IVgoStorage vgoStorage, Texture srcTexture, VgoTextureMapType textureMapType = VgoTextureMapType.Default, VgoColorSpaceType colorSpaceType = VgoColorSpaceType.Srgb, float metallicSmoothness = -1.0f);
-
-    #endregion
-
     /// <summary>
     /// VGO Exporter
     /// </summary>
@@ -40,18 +33,8 @@ namespace UniVgo2
         /// <summary>The particle system exporter.</summary>
         protected readonly IVgoParticleSystemExporter _ParticleSystemExporter;
 
-        /// <summary>The texture converter.</summary>
-        protected readonly ITextureConverter _TextureConverter;
-
-        /// <summary>The texture type.</summary>
-        protected ImageType _TextureType;
-
-        #endregion
-
-        #region Delegates
-
-        /// <summary>The delegate to ExportTexture method.</summary>
-        protected readonly ExportTextureDelegate _ExporterTexture;
+        /// <summary>The texture exporter.</summary>
+        protected readonly IVgoTextureExporter _TextureExporter;
 
         #endregion
 
@@ -70,19 +53,17 @@ namespace UniVgo2
         {
             _Option = option;
 
+            _TextureExporter = new VgoTextureExporter();
+
             _MaterialExporter = new VgoMaterialPorter()
             {
                 MaterialPorterStore = new VgoMaterialPorterStore(),
-                ExportTexture = ExportTexture
+                ExportTexture = _TextureExporter.ExportTextureDelegate
             };
 
             _MeshExporter = new VgoMeshExporter(new MeshExporterOption());
 
             _ParticleSystemExporter = new VgoParticleSystemExporter();
-
-            _TextureConverter = new TextureConverter();
-
-            _ExporterTexture = new ExportTextureDelegate(ExportTexture);
         }
 
         #endregion
@@ -103,7 +84,7 @@ namespace UniVgo2
             VgoUVCoordinate uvCoordinate = VgoUVCoordinate.TopLeft,
             ImageType textureType = ImageType.PNG)
         {
-            _TextureType = textureType;
+            _TextureExporter.TextureType = textureType;
 
             int initialResourceSize = 10 * 1024 * 1024;  // 10MB
 
@@ -277,114 +258,6 @@ namespace UniVgo2
 
                 vgoStorage.Layout.materials.Add(vgoMaterial);
             }
-        }
-
-        #endregion
-
-        #region layout.textures
-
-        /// <summary>
-        /// Export a texture to vgo storage.
-        /// </summary>
-        /// <param name="vgoStorage">A vgo storage.</param>
-        /// <param name="texture">A unity texture.</param>
-        /// <param name="textureMapType">The map type of texture.</param>
-        /// <param name="colorSpaceType">The color space type of image.</param>
-        /// <param name="metallicRoughness">The metallic-roughness value.</param>
-        /// <returns>The index of layout.texture.</returns>
-        protected virtual int ExportTexture(IVgoStorage vgoStorage, Texture texture, VgoTextureMapType textureMapType = VgoTextureMapType.Default, VgoColorSpaceType colorSpaceType = VgoColorSpaceType.Srgb, float metallicRoughness = -1.0f)
-        {
-            if (texture == null)
-            {
-                return -1;
-            }
-
-            if (!(texture is Texture2D srcTexture2d))
-            {
-                return -1;
-            }
-
-            if (vgoStorage.Layout.textures == null)
-            {
-                vgoStorage.Layout.textures = new List<VgoTexture?>();
-            }
-
-            int srcTextureInstanceId = srcTexture2d.GetInstanceID();
-
-            VgoTexture? vgoTexture = vgoStorage.Layout.textures
-                .FirstOrDefault(x => x?.id == srcTextureInstanceId);
-
-            if (vgoTexture != null)
-            {
-                return vgoStorage.Layout.textures.IndexOf(vgoTexture);
-            }
-
-            float metallicSmoothness = (metallicRoughness == -1.0f) ? -1.0f : (1.0f - metallicRoughness);
-
-            Texture2D convertedTexture2d = _TextureConverter.GetExportTexture(srcTexture2d, textureMapType, colorSpaceType, metallicSmoothness);
-
-            int width = convertedTexture2d.width;
-
-            int height = convertedTexture2d.height;
-
-            string mimeType;
-
-            byte[] imageBytes;
-
-            if (_TextureType == ImageType.JPEG)
-            {
-                mimeType = MimeType.Image_Jpeg;
-
-                byte[] textureData = convertedTexture2d.GetRawTextureData();
-
-                byte[]? jpgBytes = ImageConversion.EncodeArrayToJPG(textureData, convertedTexture2d.graphicsFormat, (uint)width, (uint)height, quality: 100);
-
-                if (jpgBytes == null)
-                {
-                    return -1;
-                }
-
-                imageBytes = jpgBytes;
-            }
-            else
-            {
-                mimeType = MimeType.Image_Png;
-
-                byte[] textureData = convertedTexture2d.GetRawTextureData();
-
-                byte[]? pngBytes = ImageConversion.EncodeArrayToPNG(textureData, convertedTexture2d.graphicsFormat, (uint)width, (uint)height);
-
-                if (pngBytes == null)
-                {
-                    return -1;
-                }
-
-                imageBytes = pngBytes;
-            }
-
-            int accessorIndex = vgoStorage.AddAccessorWithoutSparse(imageBytes, VgoResourceAccessorDataType.UnsignedByte, VgoResourceAccessorKind.ImageData);
-
-            vgoTexture = new VgoTexture
-            {
-                id = srcTextureInstanceId,
-                name = convertedTexture2d.name,
-                source = accessorIndex,
-                dimensionType = (TextureDimension)srcTexture2d.dimension,
-                mapType = textureMapType,
-                colorSpace = colorSpaceType,
-                mimeType = mimeType,
-                filterMode = (NewtonVgo.FilterMode)srcTexture2d.filterMode,
-                wrapMode = (NewtonVgo.TextureWrapMode)srcTexture2d.wrapMode,
-                wrapModeU = (NewtonVgo.TextureWrapMode)srcTexture2d.wrapModeU,
-                wrapModeV = (NewtonVgo.TextureWrapMode)srcTexture2d.wrapModeV,
-                metallicRoughness = metallicRoughness,
-            };
-
-            vgoStorage.Layout.textures.Add(vgoTexture);
-
-            int textureIndex = vgoStorage.Layout.textures.Count - 1;
-
-            return textureIndex;
         }
 
         #endregion
@@ -957,7 +830,7 @@ namespace UniVgo2
                     particleSystemAsset.ParticleSystem,
                     particleSystemAsset.ParticleSystemRenderer,
                     vgoStorage,
-                    _ExporterTexture
+                    _TextureExporter.ExportTextureDelegate
                 );
 
                 vgoStorage.Layout.particles.Add(vgoParticleSystem);

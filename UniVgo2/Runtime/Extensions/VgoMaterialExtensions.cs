@@ -33,7 +33,28 @@ namespace UniVgo2
             }
 
             return self.intProperties[propertyName];
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="propertyName"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static float GetFloatOrDefault(this VgoMaterial self, string propertyName, float defaultValue = 0.0f)
+        {
+            if (self.floatProperties == null)
+            {
+                return defaultValue;
+            }
+
+            if (self.floatProperties.ContainsKey(propertyName) == false)
+            {
+                return defaultValue;
+            }
+
+            return self.floatProperties[propertyName];
         }
 
         /// <summary>
@@ -267,6 +288,76 @@ namespace UniVgo2
             }
 
             return self.textureIndexProperties[propertyName];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
+        public static Vector2? GetTextureOffsetOrNull(this VgoMaterial self, string propertyName)
+        {
+            if (self.textureOffsetProperties == null)
+            {
+                return null;
+            }
+
+            if (self.textureOffsetProperties.ContainsKey(propertyName) == false)
+            {
+                return null;
+            }
+
+            float[]? offsetArray = self.textureOffsetProperties[propertyName];
+
+            if (offsetArray == null)
+            {
+                return null;
+            }
+
+            if (offsetArray.Length != 2)
+            {
+                return null;
+            }
+
+            Vector2 offsetVector = ArrayConverter.ToVector2(offsetArray);
+
+            return offsetVector;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
+        public static Vector2? GetTextureScaleOrNull(this VgoMaterial self, string propertyName)
+        {
+            if (self.textureScaleProperties == null)
+            {
+                return null;
+            }
+
+            if (self.textureScaleProperties.ContainsKey(propertyName) == false)
+            {
+                return null;
+            }
+
+            float[]? scaleArray = self.textureScaleProperties[propertyName];
+
+            if (scaleArray == null)
+            {
+                return null;
+            }
+
+            if (scaleArray.Length != 2)
+            {
+                return null;
+            }
+
+            Vector2 scaleVector = ArrayConverter.ToVector2(scaleArray);
+
+            return scaleVector;
         }
     }
 }

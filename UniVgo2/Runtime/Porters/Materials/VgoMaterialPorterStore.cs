@@ -35,6 +35,13 @@ namespace UniVgo2.Porters
         protected MtoonMaterialPorter MtoonMaterialPorter
             => _MtoonMaterialPorter ??= new MtoonMaterialPorter();
 
+        /// <summary>MToon 1.0 Material Porter</summary>
+        protected Mtoon10MaterialPorter? _Mtoon10MaterialPorter;
+
+        /// <summary>MToon 1.0 Material Porter</summary>
+        protected Mtoon10MaterialPorter Mtoon10MaterialPorter
+            => _Mtoon10MaterialPorter ??= new Mtoon10MaterialPorter();
+
         /// <summary>Particle Material Porter</summary>
         protected ParticleMaterialPorter? _ParticleMaterialPorter;
 
@@ -202,9 +209,6 @@ namespace UniVgo2.Porters
                 case ShaderName.VRM_UnlitTransparentZWrite:
                     return UnlitMaterialPorter;
 
-                case ShaderName.VRM_MToon:
-                    return MtoonMaterialPorter;
-
                 case ShaderName.URP_Lit:
                 case ShaderName.URP_SimpleLit:
                 case ShaderName.URP_Unlit:
@@ -280,6 +284,12 @@ namespace UniVgo2.Porters
                 case ShaderName.Lil_LilToonPassLiteTransparent:
                     return LilToonMaterialPorter;
 
+                case ShaderName.VRM_MToon:
+                    return MtoonMaterialPorter;
+
+                case ShaderName.VRM_MToon10:
+                    return Mtoon10MaterialPorter;
+
                 default:
                     return default;
             }
@@ -309,6 +319,52 @@ namespace UniVgo2.Porters
                 {
                     porter = StandardMaterialPorter;
                 }
+            }
+
+            return porter;
+        }
+
+        /// <summary>
+        /// Get a porter or standard.
+        /// </summary>
+        /// <param name="shaderName">The shader name.</param>
+        /// <param name="vgoMaterial">The vgo material.</param>
+        /// <param name="renderPipelineType">Type of render pipeline.</param>
+        /// <returns>A material porter instanse.</returns>
+        public virtual IMaterialPorter GetPorterOrStandard(string shaderName, VgoMaterial vgoMaterial, RenderPipelineType renderPipelineType)
+        {
+            IMaterialPorter? porter = GetPorterOrDefault(shaderName);
+
+            if (porter == default)
+            {
+                if (renderPipelineType == RenderPipelineType.URP)
+                {
+                    porter = UrpMaterialPorter;
+                }
+                else if (renderPipelineType == RenderPipelineType.HDRP)
+                {
+                    porter = HdrpMaterialPorter;
+                }
+                else  // BRP
+                {
+                    porter = StandardMaterialPorter;
+                }
+            }
+            else
+            {
+                if (renderPipelineType == RenderPipelineType.URP)
+                {
+                    if (vgoMaterial.shaderName == ShaderName.VRM_MToon)
+                    {
+                        porter = MtoonMaterialPorter;
+                    }
+                }
+
+                // @test
+                //if (vgoMaterial.shaderName == ShaderName.VRM_MToon)
+                //{
+                //    porter = MtoonMaterialPorter;
+                //}
             }
 
             return porter;

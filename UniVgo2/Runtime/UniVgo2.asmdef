@@ -16,8 +16,8 @@
         "UniShader.URP.Utility",
         "UniShader.HDRP.Utility",
         "MToon",
-        "ShaderProperty.Runtime",
         "VRMShaders.GLTF.UniUnlit.Runtime",
+        "VRMShaders.VRM10.MToon10.Runtime",
         "UniTask",
         "VgoSpringBone"
     ],
@@ -37,13 +37,23 @@
         },
         {
             "name": "com.vrmc.vrmshaders",
-            "expression": "[0.72.0,0.84.0]",
+            "expression": "[0.72.0,0.79.0]",
             "define": "VRMC_VRMSHADERS_0_72_OR_NEWER"
         },
         {
             "name": "com.vrmc.vrmshaders",
-            "expression": "0.85.0",
+            "expression": "[0.79.0,0.84.0]",
+            "define": "VRMC_VRMSHADERS_0_79_OR_NEWER"
+        },
+        {
+            "name": "com.vrmc.vrmshaders",
+            "expression": "[0.85.0,0.103.0]",
             "define": "VRMC_VRMSHADERS_0_85_OR_NEWER"
+        },
+        {
+            "name": "com.vrmc.vrmshaders",
+            "expression": "0.104",
+            "define": "VRMC_VRMSHADERS_0_104_OR_NEWER"
         },
         {
             "name": "jp.lilxyzw.liltoon",

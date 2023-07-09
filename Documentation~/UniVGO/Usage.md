@@ -13,7 +13,7 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2022.3|
-|2|UniVGO version|2.5.7|
+|2|UniVGO version|2.5.9|
 |3|VGO spec version|2.5|
 
 ### Supported Unity components
@@ -53,14 +53,15 @@ The supported shaders are as follows.
 |10|BRP|Unlit/Transparent Cutout||
 |11|BRP|UniGLTF/StandardVColor|Vertex Color shader|
 |12|BRP|UniGLTF/Unlit||
-|13|BRP|VRM/MToon||
-|14|URP|Universal Render Pipeline/Lit|Universal Render Pipeline Lit shader|
-|15|URP|Universal Render Pipeline/Simple Lit|Universal Render Pipeline Simple Lit shader|
-|16|URP|Universal Render Pipeline/Unlit|Universal Render Pipeline Unlit shader|
-|17|HDRP|HDRP/Lit|HD Render Pipeline Lit shader|
-|18|HDRP|HDRP/Eye|HD Render Pipeline Eye shader|
-|19|HDRP|HDRP/Hair|HD Render Pipeline Hair shader|
-|20|BRP/URP/HDRP|lilToon|lilToon shader|
+|13|BRP|VRM/MToon|MToon 0.x shader|
+|14|BRP/URP|VRM10/MToon10|MToon 1.0 shader|
+|15|URP|Universal Render Pipeline/Lit|Universal Render Pipeline Lit shader|
+|16|URP|Universal Render Pipeline/Simple Lit|Universal Render Pipeline Simple Lit shader|
+|17|URP|Universal Render Pipeline/Unlit|Universal Render Pipeline Unlit shader|
+|18|HDRP|HDRP/Lit|HD Render Pipeline Lit shader|
+|19|HDRP|HDRP/Eye|HD Render Pipeline Eye shader|
+|20|HDRP|HDRP/Hair|HD Render Pipeline Hair shader|
+|21|BRP/URP/HDRP|lilToon|lilToon shader|
 
 - Unlit shaders are not affected by light sources. Instead, the processing load is reduced.
 - Skybox / Cubemap is not supported.
@@ -122,7 +123,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.5.7|
+|2|Version|Version of the generation tool.|2.5.9|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -274,7 +275,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.5.7|
+|2|Version|Version of the generation tool.|2.5.9|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -519,7 +520,7 @@ or the VGO (avatar or world) that others have set to be available in the linked 
 https://vgohub.azurewebsites.net
 
 ___
-Last updated: 1 July, 2023  
+Last updated: 10 July, 2023  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

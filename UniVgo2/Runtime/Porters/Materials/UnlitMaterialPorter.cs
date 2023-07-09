@@ -8,8 +8,12 @@ namespace UniVgo2.Porters
     using NewtonVgo;
     using UnityEngine;
 
-#if VRMC_VRMSHADERS_0_85_OR_NEWER
+#if VRMC_VRMSHADERS_0_104_OR_NEWER
     using UniGLTF.UniUnlit;
+#elif VRMC_VRMSHADERS_0_85_OR_NEWER
+    using UniGLTF.UniUnlit;
+#elif VRMC_VRMSHADERS_0_79_OR_NEWER
+    using UniUnlitUtil = UniGLTF.UniUnlit.Utils;
 #elif VRMC_VRMSHADERS_0_72_OR_NEWER
     using UniUnlitUtil = UniGLTF.UniUnlit.Utils;
 #else

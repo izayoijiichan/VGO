@@ -336,6 +336,19 @@ namespace UniVgo2.Porters
         }
 
         /// <summary>
+        /// Export a property.
+        /// </summary>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="material">A unity material.</param>
+        /// <param name="type">The type of property.</param>
+        /// <param name="propertyName">A property name.</param>
+        /// <returns></returns>
+        protected virtual bool ExportProperty(VgoMaterial vgoMaterial, Material material, VgoMaterialPropertyType type, string propertyName)
+        {
+            return ExportProperty(vgoMaterial, material, type, propertyName);
+        }
+
+        /// <summary>
         /// Export keywords.
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
@@ -428,7 +441,7 @@ namespace UniVgo2.Porters
         /// <param name="colorSpace">The color space.</param>
         /// <param name="metallicSmoothness">The metallic smoothness.</param>
         /// <returns></returns>
-        public virtual bool ExportTextureProperty(IVgoStorage vgoStorage, VgoMaterial vgoMaterial, Material material, string propertyName, VgoTextureMapType textureMapType = VgoTextureMapType.Default, VgoColorSpaceType colorSpace = VgoColorSpaceType.Srgb, float metallicSmoothness = -1.0f)
+        protected virtual bool ExportTextureProperty(IVgoStorage vgoStorage, VgoMaterial vgoMaterial, Material material, string propertyName, VgoTextureMapType textureMapType = VgoTextureMapType.Default, VgoColorSpaceType colorSpace = VgoColorSpaceType.Srgb, float metallicSmoothness = -1.0f)
         {
             if (material.HasProperty(propertyName) == false)
             {
@@ -488,7 +501,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A unity material.</param>
         /// <param name="propertyName">A property name.</param>
         /// <returns></returns>
-        public virtual bool ExportTextureOffset(VgoMaterial vgoMaterial, Material material, string propertyName)
+        protected virtual bool ExportTextureOffset(VgoMaterial vgoMaterial, Material material, string propertyName)
         {
             if (material.HasProperty(propertyName) == false)
             {
@@ -524,7 +537,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A unity material.</param>
         /// <param name="propertyName">A property name.</param>
         /// <returns></returns>
-        public virtual bool ExportTextureScale(VgoMaterial vgoMaterial, Material material, string propertyName)
+        protected virtual bool ExportTextureScale(VgoMaterial vgoMaterial, Material material, string propertyName)
         {
             if (material.HasProperty(propertyName) == false)
             {
@@ -576,37 +589,315 @@ namespace UniVgo2.Porters
                 material.renderQueue = vgoMaterial.renderQueue;
             }
 
-            if (vgoMaterial.tagMap != null)
+            ImportTagMap(material, vgoMaterial);
+
+            ImportKeywords(material, vgoMaterial);
+
+            ImportIntProperties(material, vgoMaterial);
+
+            ImportFloatProperties(material, vgoMaterial);
+
+            ImportMatrixProperties(material, vgoMaterial);
+
+            ImportVectorProperties(material, vgoMaterial);
+
+            ImportColorProperties(material, vgoMaterial);
+
+            ImportTextureProperties(material, vgoMaterial, allTexture2dList);
+
+            return material;
+        }
+
+        /// <summary>
+        /// Import keywords.
+        /// </summary>
+        /// <param name="material">A unity material.</param>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        protected virtual void ImportKeywords(Material material, VgoMaterial vgoMaterial)
+        {
+            if (vgoMaterial.keywordMap == null)
             {
-                foreach ((string tagName, string value) in vgoMaterial.tagMap)
-                {
-                    if (string.IsNullOrEmpty(value) == false)
-                    {
-                        try
-                        {
-                            material.SetOverrideTag(tagName, value);
-                        }
-                        catch
-                        {
-                            //
-                        }
-                    }
-                }
+                return;
             }
 
-            if (vgoMaterial.keywordMap != null)
+            foreach ((string propertyName, bool value) in vgoMaterial.keywordMap)
             {
-                foreach ((string propertyName, bool value) in vgoMaterial.keywordMap)
+                try
                 {
+                    if (value == true)
+                    {
+                        material.EnableKeyword(propertyName);
+                    }
+                    else
+                    {
+                        material.DisableKeyword(propertyName);
+                    }
+                }
+                catch
+                {
+                    //
+                }
+            }
+        }
+
+        /// <summary>
+        /// Import tag map.
+        /// </summary>
+        /// <param name="material">A unity material.</param>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        protected virtual void ImportTagMap(Material material, VgoMaterial vgoMaterial)
+        {
+            if (vgoMaterial.tagMap == null)
+            {
+                return;
+            }
+
+            foreach ((string tagName, string value) in vgoMaterial.tagMap)
+            {
+                if (string.IsNullOrEmpty(tagName))
+                {
+                    continue;
+                }
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    continue;
+                }
+
+                try
+                {
+                    material.SetOverrideTag(tagName, value);
+                }
+                catch
+                {
+                    //
+                }
+            }
+        }
+
+        /// <summary>
+        /// Import color properties.
+        /// </summary>
+        /// <param name="material">A unity material.</param>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        protected virtual void ImportColorProperties(Material material, VgoMaterial vgoMaterial)
+        {
+            if (vgoMaterial.colorProperties == null)
+            {
+                return;
+            }
+
+            foreach ((string propertyName, float[] value) in vgoMaterial.colorProperties)
+            {
+                if (value == null)
+                {
+                    continue;
+                }
+
+                if (material.HasProperty(propertyName)  == false)
+                {
+                    continue;
+                }
+
+                try
+                {
+                    if ((value.Length == 3) ||
+                        (value.Length == 4))
+                    {
+                        material.SetColor(propertyName, ArrayConverter.ToColor(value, gamma: true));
+                    }
+                    else
+                    {
+                        //
+                    }
+                }
+                catch
+                {
+                    //
+                }
+            }
+        }
+
+        /// <summary>
+        /// Import float properties.
+        /// </summary>
+        /// <param name="material">A unity material.</param>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        protected virtual void ImportFloatProperties(Material material, VgoMaterial vgoMaterial)
+        {
+            if (vgoMaterial.floatProperties == null)
+            {
+                return;
+            }
+
+            foreach ((string propertyName, float value) in vgoMaterial.floatProperties)
+            {
+
+                if (material.HasProperty(propertyName) == false)
+                {
+                    continue;
+                }
+
+                try
+                {
+                    material.SetFloat(propertyName, value);
+                }
+                catch
+                {
+                    //
+                }
+            }
+        }
+
+        /// <summary>
+        /// Import int properties.
+        /// </summary>
+        /// <param name="material">A unity material.</param>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        protected virtual void ImportIntProperties(Material material, VgoMaterial vgoMaterial)
+        {
+            if (vgoMaterial.intProperties == null)
+            {
+                return;
+            }
+
+            foreach ((string propertyName, int value) in vgoMaterial.intProperties)
+            {
+                if (material.HasProperty(propertyName) == false)
+                {
+                    continue;
+                }
+
+                try
+                {
+                    material.SetInt(propertyName, value);
+                }
+                catch
+                {
+                    //
+                }
+            }
+        }
+
+        /// <summary>
+        /// Import matrix properties.
+        /// </summary>
+        /// <param name="material">A unity material.</param>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        protected virtual void ImportMatrixProperties(Material material, VgoMaterial vgoMaterial)
+        {
+            if (vgoMaterial.matrixProperties == null)
+            {
+                return;
+            }
+
+            foreach ((string propertyName, float[] value) in vgoMaterial.matrixProperties)
+            {
+                if (value == null)
+                {
+                    continue;
+                }
+
+                if (material.HasProperty(propertyName) == false)
+                {
+                    continue;
+                }
+
+                try
+                {
+                    if (value.Length == 16)
+                    {
+                        material.SetMatrix(propertyName, ArrayConverter.ToMatrix4x4(value));
+                    }
+                    else
+                    {
+                        //
+                    }
+                }
+                catch
+                {
+                    //
+                }
+            }
+        }
+
+        /// <summary>
+        /// Import vector properties.
+        /// </summary>
+        /// <param name="material">A unity material.</param>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        protected virtual void ImportVectorProperties(Material material, VgoMaterial vgoMaterial)
+        {
+            if (vgoMaterial.vectorProperties == null)
+            {
+                return;
+            }
+
+            foreach ((string propertyName, float[] value) in vgoMaterial.vectorProperties)
+            {
+                if (value == null)
+                {
+                    continue;
+                }
+
+                if (material.HasProperty(propertyName) == false)
+                {
+                    continue;
+                }
+
+                try
+                {
+                    if (value.Length == 2)
+                    {
+                        material.SetVector(propertyName, ArrayConverter.ToVector2(value));
+                    }
+                    else if (value.Length == 3)
+                    {
+                        material.SetVector(propertyName, ArrayConverter.ToVector3(value));
+                    }
+                    else if (value.Length == 4)
+                    {
+                        material.SetVector(propertyName, ArrayConverter.ToVector4(value));
+                    }
+                    else
+                    {
+                        //
+                    }
+                }
+                catch
+                {
+                    //
+                }
+            }
+        }
+
+        /// <summary>
+        /// Import texture properties.
+        /// </summary>
+        /// <param name="material">A unity material.</param>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        protected virtual void ImportTextureProperties(Material material, VgoMaterial vgoMaterial, List<Texture2D?> allTexture2dList)
+        {
+            if (vgoMaterial.textureIndexProperties != null)
+            {
+                foreach ((string propertyName, int textureIndex) in vgoMaterial.textureIndexProperties)
+                {
+                    if (material.HasProperty(propertyName) == false)
+                    {
+                        continue;
+                    }
+
                     try
                     {
-                        if (value == true)
+                        //if (allTexture2dList.TryGetValue(textureIndex, out Texture2D texture))
+                        //{
+                        //    material.SetTexture(propertyName, texture);
+                        //}
+
+                        if (textureIndex.IsInRangeOf(allTexture2dList))
                         {
-                            material.EnableKeyword(propertyName);
-                        }
-                        else
-                        {
-                            material.DisableKeyword(propertyName);
+                            material.SetTexture(propertyName, allTexture2dList[textureIndex]);
                         }
                     }
                     catch
@@ -616,163 +907,34 @@ namespace UniVgo2.Porters
                 }
             }
 
-            if (vgoMaterial.intProperties != null)
-            {
-                foreach ((string propertyName, int value) in vgoMaterial.intProperties)
-                {
-                    if (material.HasProperty(propertyName))
-                    {
-                        try
-                        {
-                            material.SetInt(propertyName, value);
-                        }
-                        catch
-                        {
-                            //
-                        }
-                    }
-                }
-            }
-
-            if (vgoMaterial.floatProperties != null)
-            {
-                foreach ((string propertyName, float value) in vgoMaterial.floatProperties)
-                {
-                    if (material.HasProperty(propertyName))
-                    {
-                        try
-                        {
-                            material.SetFloat(propertyName, value);
-                        }
-                        catch
-                        {
-                            //
-                        }
-                    }
-                }
-            }
-
-            if (vgoMaterial.colorProperties != null)
-            {
-                foreach ((string propertyName, float[] value) in vgoMaterial.colorProperties)
-                {
-                    if (material.HasProperty(propertyName))
-                    {
-                        if (value == null)
-                        {
-                            continue;
-                        }
-
-                        try
-                        {
-                            if ((value.Length == 3) ||
-                                (value.Length == 4))
-                            {
-                                material.SetColor(propertyName, ArrayConverter.ToColor(value, gamma: true));
-                            }
-                            else
-                            {
-                                //
-                            }
-                        }
-                        catch
-                        {
-                            //
-                        }
-                    }
-                }
-            }
-
-            if (vgoMaterial.vectorProperties != null)
-            {
-                foreach ((string propertyName, float[] value) in vgoMaterial.vectorProperties)
-                {
-                    if (material.HasProperty(propertyName))
-                    {
-                        if (value == null)
-                        {
-                            continue;
-                        }
-
-                        try
-                        {
-                            if (value.Length == 2)
-                            {
-                                material.SetVector(propertyName, ArrayConverter.ToVector2(value));
-                            }
-                            else if (value.Length == 3)
-                            {
-                                material.SetVector(propertyName, ArrayConverter.ToVector3(value));
-                            }
-                            else if (value.Length == 4)
-                            {
-                                material.SetVector(propertyName, ArrayConverter.ToVector4(value));
-                            }
-                            else
-                            {
-                                //
-                            }
-                        }
-                        catch
-                        {
-                            //
-                        }
-                    }
-                }
-            }
-
-            if (vgoMaterial.textureIndexProperties != null)
-            {
-                foreach ((string propertyName, int textureIndex) in vgoMaterial.textureIndexProperties)
-                {
-                    if (material.HasProperty(propertyName))
-                    {
-                        try
-                        {
-                            //if (allTexture2dList.TryGetValue(textureIndex, out Texture2D texture))
-                            //{
-                            //    material.SetTexture(propertyName, texture);
-                            //}
-
-                            if (textureIndex.IsInRangeOf(allTexture2dList))
-                            {
-                                material.SetTexture(propertyName, allTexture2dList[textureIndex]);
-                            }
-                        }
-                        catch
-                        {
-                            //
-                        }
-                    }
-                }
-            }
-
             if (vgoMaterial.textureOffsetProperties != null)
             {
                 foreach ((string propertyName, float[] value) in vgoMaterial.textureOffsetProperties)
                 {
-                    if (material.HasProperty(propertyName))
+                    if (value == null)
                     {
-                        if (value == null)
-                        {
-                            continue;
-                        }
+                        continue;
+                    }
 
-                        try
+                    if (material.HasProperty(propertyName) == false)
+                    {
+                        continue;
+                    }
+
+                    try
+                    {
+                        if (value.Length == 2)
                         {
-                            if (value.Length == 2)
-                            {
-                                material.SetTextureOffset(propertyName, ArrayConverter.ToVector2(value));
-                            }
-                            else
-                            {
-                                //
-                            }
+                            material.SetTextureOffset(propertyName, ArrayConverter.ToVector2(value));
                         }
-                        catch
+                        else
                         {
                             //
                         }
+                    }
+                    catch
+                    {
+                        //
                     }
                 }
             }
@@ -781,63 +943,33 @@ namespace UniVgo2.Porters
             {
                 foreach ((string propertyName, float[] value) in vgoMaterial.textureScaleProperties)
                 {
-                    if (material.HasProperty(propertyName))
+                    if (value == null)
                     {
-                        if (value == null)
-                        {
-                            continue;
-                        }
+                        continue;
+                    }
 
-                        try
+                    if (material.HasProperty(propertyName) == false)
+                    {
+                        continue;
+                    }
+
+                    try
+                    {
+                        if (value.Length == 2)
                         {
-                            if (value.Length == 2)
-                            {
-                                material.SetTextureScale(propertyName, ArrayConverter.ToVector2(value));
-                            }
-                            else
-                            {
-                                //
-                            }
+                            material.SetTextureScale(propertyName, ArrayConverter.ToVector2(value));
                         }
-                        catch
+                        else
                         {
                             //
                         }
                     }
-                }
-            }
-
-            if (vgoMaterial.matrixProperties != null)
-            {
-                foreach ((string propertyName, float[] value) in vgoMaterial.matrixProperties)
-                {
-                    if (material.HasProperty(propertyName))
+                    catch
                     {
-                        if (value == null)
-                        {
-                            continue;
-                        }
-
-                        try
-                        {
-                            if (value.Length == 16)
-                            {
-                                material.SetMatrix(propertyName, ArrayConverter.ToMatrix4x4(value));
-                            }
-                            else
-                            {
-                                //
-                            }
-                        }
-                        catch
-                        {
-                            //
-                        }
+                        //
                     }
                 }
             }
-
-            return material;
         }
 
         /// <summary>

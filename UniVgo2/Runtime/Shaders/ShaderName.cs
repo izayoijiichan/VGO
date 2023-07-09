@@ -63,9 +63,6 @@ namespace UniVgo2
         /// <summary>VRM/UnlitTransparentZWrite</summary>
         public const string VRM_UnlitTransparentZWrite = "VRM/UnlitTransparentZWrite";
 
-        /// <summary>VRM/MToon</summary>
-        public const string VRM_MToon = "VRM/MToon";
-
         #endregion
 
         #region URP (Universal Render Pipeline)
@@ -347,6 +344,16 @@ namespace UniVgo2
         /// <summary>lilToon Pass Lite Transparent</summary>
         /// <remarks>ltspass_lite_transparent.shader</remarks>
         public const string Lil_LilToonPassLiteTransparent = "Hidden/ltspass_lite_transparent";
+
+        #endregion
+
+        #region MToon
+
+        /// <summary>VRM/MToon</summary>
+        public const string VRM_MToon = "VRM/MToon";
+
+        /// <summary>VRM10/MToon10</summary>
+        public const string VRM_MToon10 = "VRM10/MToon10";
 
         #endregion
     }

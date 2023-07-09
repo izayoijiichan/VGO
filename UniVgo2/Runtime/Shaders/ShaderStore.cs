@@ -168,15 +168,6 @@ namespace UniVgo2
             = _VrmUnlitTransparentZWrite != null
             ? _VrmUnlitTransparentZWrite : Shader.Find(ShaderName.VRM_UnlitTransparentZWrite);
 
-        /// <summary>VRM/MToon</summary>
-        protected Shader? _VrmMtoon;
-
-        /// <summary>VRM/MToon</summary>
-        protected Shader VrmMtoon
-            => _VrmMtoon
-            = _VrmMtoon != null
-            ? _VrmMtoon : Shader.Find(ShaderName.VRM_MToon);
-
         #endregion
 
         #region Fields & Properties (URP)
@@ -963,6 +954,27 @@ namespace UniVgo2
             => _Lil_LilToonPassLiteTransparent
             = _Lil_LilToonPassLiteTransparent != null
             ? _Lil_LilToonPassLiteTransparent : Shader.Find(ShaderName.Lil_LilToonPassLiteTransparent);
+        #endregion
+
+        #region Fields & Properties (MToon)
+
+        /// <summary>VRM/MToon</summary>
+        protected Shader? _VrmMtoon;
+
+        /// <summary>VRM/MToon</summary>
+        protected Shader VrmMtoon
+            => _VrmMtoon
+            = _VrmMtoon != null
+            ? _VrmMtoon : Shader.Find(ShaderName.VRM_MToon);
+
+        /// <summary>VRM10/MToon10</summary>
+        protected Shader? _VrmMtoon10;
+
+        /// <summary>VRM10/MToon10</summary>
+        protected Shader VrmMtoon10
+            => _VrmMtoon10
+            = _VrmMtoon10 != null
+            ? _VrmMtoon10 : Shader.Find(ShaderName.VRM_MToon10);
 
         #endregion
 
@@ -1032,9 +1044,6 @@ namespace UniVgo2
 
                 case ShaderName.VRM_UnlitTransparentZWrite:
                     return VrmUnlitTransparentZWrite;
-
-                case ShaderName.VRM_MToon:
-                    return VrmMtoon;
 
                 case ShaderName.URP_Lit:
                     return UrpLit;
@@ -1243,6 +1252,12 @@ namespace UniVgo2
                 case ShaderName.Lil_LilToonPassLiteTransparent:
                     return Lil_LilToonPassLiteTransparent;
 
+                case ShaderName.VRM_MToon:
+                    return VrmMtoon;
+
+                case ShaderName.VRM_MToon10:
+                    return VrmMtoon10;
+
                 default:
                     return default;
             }
@@ -1333,6 +1348,22 @@ namespace UniVgo2
                         shader = Standard;
                     }
                 }
+            }
+            else
+            {
+                if (renderPipelineType == RenderPipelineType.URP)
+                {
+                    if (vgoMaterial.shaderName == ShaderName.VRM_MToon)
+                    {
+                        shader = VrmMtoon10;
+                    }
+                }
+
+                // @test
+                //if (vgoMaterial.shaderName == ShaderName.VRM_MToon)
+                //{
+                //    shader = VrmMtoon10;
+                //}
             }
 
             return shader;
