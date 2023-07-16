@@ -13,7 +13,7 @@ ___
 |No|項目|値|
 |:---:|:---|:---:|
 |1|Unity バージョン|2022.3|
-|2|UniVGO バージョン|2.5.9|
+|2|UniVGO バージョン|2.5.10|
 |3|VGO 仕様バージョン|2.5|
 
 ### 対応 Unity コンポーネント
@@ -58,10 +58,12 @@ VGOが対応する Unity コンポーネントは以下の通りです
 |15|URP|Universal Render Pipeline/Lit|ユニバーサル レンダーパイプライン Lit シェーダー|
 |16|URP|Universal Render Pipeline/Simple Lit|ユニバーサル レンダーパイプライン Simple Lit シェーダー|
 |17|URP|Universal Render Pipeline/Unlit|ユニバーサル レンダーパイプライン Unlit シェーダー|
-|18|HDRP|HDRP/Lit|HD レンダーパイプライン Lit シェーダー|
-|19|HDRP|HDRP/Eye|HD レンダーパイプライン Eye シェーダー|
-|20|HDRP|HDRP/Hair|HD レンダーパイプライン Hair シェーダー|
-|21|BRP/URP/HDRP|lilToon|lilToon シェーダー|
+|18|URP|Universal Render Pipeline/Particles/Lit|ユニバーサル レンダーパイプライン Particle Lit シェーダー|
+|19|URP|Universal Render Pipeline/Particles/Unlit|ユニバーサル レンダーパイプライン Particle Unlit シェーダー|
+|20|HDRP|HDRP/Lit|HD レンダーパイプライン Lit シェーダー|
+|21|HDRP|HDRP/Eye|HD レンダーパイプライン Eye シェーダー|
+|22|HDRP|HDRP/Hair|HD レンダーパイプライン Hair シェーダー|
+|23|BRP/URP/HDRP|lilToon|lilToon シェーダー|
 
 - Unlit系のシェーダーは光源の影響を受けません。その代わり処理負荷が小さくなります。
 - Skybox/Cubemap には対応していません。
@@ -123,7 +125,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Name|生成ツールの名前です。|UniVGO|
-|2|Version|生成ツールのバージョンです。|2.5.9|
+|2|Version|生成ツールのバージョンです。|2.5.10|
 
 ユーザーが設定可能な項目はありません。  
 ジェネレーター情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -275,7 +277,7 @@ UniVGO サンプル プロジェクトを使用する場合は`ExportScene`を�
 |No|項目|説明|値|
 |:---:|:---|:---|:---:|
 |1|Generator Name|生成ツールの名前です。|UniVGO|
-|2|Generator Version|生成ツールのバージョンです。|2.5.9|
+|2|Generator Version|生成ツールのバージョンです。|2.5.10|
 
 ユーザーが設定可能な項目はありません。  
 メタ情報が古い場合にはコンポーネントを一度削除して、再度付与してください。
@@ -525,7 +527,7 @@ VGOファイルをアップロードし管理することができるサービ�
 https://vgohub.azurewebsites.net
 
 ___
-最終更新日：2023年7月10日  
+最終更新日：2023年7月17日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

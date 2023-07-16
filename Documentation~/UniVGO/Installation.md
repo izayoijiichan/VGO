@@ -42,9 +42,9 @@ This package is required for any Unity version.
 |com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|13.0.2|3.2.1|2 May, 2023|
 |com.vrmc.vrmshaders|vrm-c|GitHub||0.105.0|7 Oct, 2022|
 |com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub||1.4.0|30 May, 2023|
-|com.izayoi.unishaders|IzayoiJiichan|GitHub||1.4.0|20 May, 2022|
+|com.izayoi.unishaders|IzayoiJiichan|GitHub||1.5.0|17 Jul, 2023|
 |com.izayoi.vgospringbone|IzayoiJiichan|GitHub||1.1.2|24 Aug, 2022|
-|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.9|10 Jul, 2023|
+|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.10|17 Jul, 2023|
 
 #### Additional Packages
 
@@ -140,8 +140,8 @@ To use UniVGO, add the following settings.
 {
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.4.0",
-    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.9",
+    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.5.0",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.10",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.ugui": "1.0.0",
@@ -219,9 +219,11 @@ When the package is installed in the project, the script is automatically compil
 |NewtonVgo|for Newton.JSON vgo program|*|*|
 |ShaderProperty.Runtime|Shader property information|*|*|
 |UniShader.Hdrp.Utility|HDRP shader utility|*|*|
+|UniShader.Shared|Unity shader shared utility|*|*|
 |UniShader.Skybox.Utility|Skybox shader utility|*|*|
-|UniShader.Standard.Particle.Utility|Particle shader utility|*|*|
+|UniShader.Standard.Particle.Utility|Standard Particle shader utility|*|*|
 |UniShader.Standard.Utility|Standard shader utility|*|*|
+|UniShader.Urp.Particle.Utility|URP Particle shader utility|*|*|
 |UniShader.Urp.Utility|URP shader utility|*|*|
 |UniVgo2|VGO2 main program|*|*|
 |UniVgo2.Editor|VGO2 import / export|-|*|
@@ -241,19 +243,19 @@ The version combinations are as follows.
 
 |UniVRM|UniVGO|min Unity|
 |:---:|:---:|:---:|
-|0.100.0|2.5.9|2020.3|
-|0.101.0|2.5.9|2020.3|
-|0.102.0|2.5.9|2020.3|
-|0.103.2|2.5.9|2020.3|
-|0.104.2|2.5.9|2020.3|
-|0.105.0|2.5.9|2020.3|
-|0.106.0|2.5.9|2020.3|
-|0.107.2|2.5.9|2020.3|
-|0.108.0|2.5.9|2020.3|
-|0.109.0|2.5.9|2020.3|
-|0.110.0|2.5.9|2020.3|
-|0.111.0|2.5.9|2020.3|
-|0.112.0|2.5.9|2020.3|
+|0.100.0|2.5.10|2020.3|
+|0.101.0|2.5.10|2020.3|
+|0.102.0|2.5.10|2020.3|
+|0.103.2|2.5.10|2020.3|
+|0.104.2|2.5.10|2020.3|
+|0.105.0|2.5.10|2020.3|
+|0.106.0|2.5.10|2020.3|
+|0.107.2|2.5.10|2020.3|
+|0.108.0|2.5.10|2020.3|
+|0.109.0|2.5.10|2020.3|
+|0.110.0|2.5.10|2020.3|
+|0.111.0|2.5.10|2020.3|
+|0.112.0|2.5.10|2020.3|
 
 Write the following in `<Project> /Packages/package.json`.
 
@@ -283,7 +285,7 @@ https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 |2022.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2022.3.brp.univrm)|
 
 ___
-Last updated: 10 July, 2023  
+Last updated: 17 July, 2023  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

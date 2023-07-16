@@ -18,8 +18,13 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="light"></param>
         /// <returns></returns>
-        public static VgoLight CreateFrom(Light light)
+        public static VgoLight? CreateFrom(Light? light)
         {
+            if (light == null)
+            {
+                return null;
+            }
+
             var vgoLight = new VgoLight()
             {
                 enabled = light.enabled,

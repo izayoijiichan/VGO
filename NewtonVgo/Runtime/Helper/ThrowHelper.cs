@@ -3,29 +3,28 @@
 // @Class     : ThrowHelper
 // ----------------------------------------------------------------------
 #nullable enable
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-#if NET_STANDARD_2_1
-using System.Diagnostics.CodeAnalysis;
-#endif
-using System.Globalization;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-#if NET_STANDARD_2_1
-using System.Runtime;
-#endif
-using System.Runtime.Serialization;
-using System.Security;
-using System.Security.Authentication;
-using System.Security.Cryptography;
-using System.Threading;
-
 namespace NewtonVgo
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+#if NET_STANDARD_2_1
+    using System.Diagnostics.CodeAnalysis;
+#endif
+    using System.Globalization;
+    using System.IO;
+    using System.Net;
+    using System.Net.Http;
+#if NET_STANDARD_2_1
+    using System.Runtime;
+#endif
+    using System.Runtime.Serialization;
+    using System.Security;
+    using System.Security.Authentication;
+    using System.Security.Cryptography;
+    using System.Threading;
+
     /// <summary>
     /// Throw Helper
     /// </summary>

@@ -1,5 +1,14 @@
 # Change Log
 
+## [2.5.10] - 2023-07-17
+
+- Features
+  - Unity URP (Universal Render Pipeline) Particle shaders will be available.
+- Changes
+  - The minimum version of `com.izayoi.unishaders` is now `1.5.0`.
+- Fixes
+  - Fixed a bug that caused Export to fail when certain shaders were used.
+
 ## [2.5.9] - 2023-07-10
 
 - Features

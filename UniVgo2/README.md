@@ -31,7 +31,6 @@ ___
 |org.nuget.system.buffers|Microsoft|NuGet|[link](https://www.nuget.org/packages/System.Buffers/)|
 |org.nuget.system.memory|Microsoft|NuGet|[link](https://www.nuget.org/packages/System.Memory/)|
 |org.nuget.system.numerics.vectors|Microsoft|NuGet|[link](https://www.nuget.org/packages/System.Numerics.Vectors/)|
-|org.nuget.system.runtime.compilerservices.unsafe|Microsoft|NuGet|[link](https://www.nuget.org/packages/System.Runtime.CompilerServices.Unsafe/)|
 |com.unity.nuget.newtonsoft-json|Unity Technologies|NuGet|[link](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.0)|
 |com.vrmc.vrmshaders|vrm-c|GitHub|[link](https://github.com/vrm-c/UniVRM/tree/master/Assets/VRMShaders)|
 |com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub|[link](https://github.com/izayoijiichan/lilToonShaderUtility.git)|
@@ -55,7 +54,7 @@ and other related people.
 I would like to take this opportunity to thank you.
 
 ___
-Last updated: 11 July, 2022  
+Last updated: 17 July, 2023  
 Editor: Izayoi Jiichan
 
-*Copyright (C) 2020-2022 Izayoi Jiichan. All Rights Reserved.*
+*Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

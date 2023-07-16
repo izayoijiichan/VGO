@@ -4,9 +4,9 @@ VGO is a new type of 3D data format.
 
 ## Features
 
-- You can save basic information of 3D model such as `Node`, `Transform`, `Rigidbody`, `Collider`, `Mesh`, `BlendShape`, `Material`, `Texture`.
-- You can also save the information of `Human Avatar`, `SpringBone`, `Animation`, `Cloth`, `Light`, `ParticleSystem`, `Skybox` for use in Unity.
-- You can also save the information of `BlendShapePreset` for use in the application.
+- You can save basic information of 3D model such as `Node`, `Transform`, `Rigidbody`, `Collider`, `Mesh`, `Blend Shape`, `Material`, `Texture`.
+- You can also save the information of `Human Avatar`, `Spring Bone`, `Animation`, `Cloth`, `Light`, `Particle System`, `Skybox` for use in Unity.
+- You can also save the information of `Blend Shape Preset` for use in the application.
 - The file format uses IFF chunk as the base.
 - Use `JSON`, `BSON`, `Binary` as internal data.
 - The geometry coordinate system can have both right-handed and left-handed data.
@@ -64,6 +64,7 @@ VGO is a new type of 3D data format.
     - skybox
     - light
     - right
+    - extensions
   - skins
   - meshes
   - materials
@@ -103,7 +104,7 @@ You can easily export a VGO file with the click of a button.
 [Wiki](https://github.com/izayoijiichan/VGO/wiki)
 
 ___
-Last updated: 15 September, 2022  
+Last updated: 17 July, 2023  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

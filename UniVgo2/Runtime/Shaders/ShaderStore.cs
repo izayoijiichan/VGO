@@ -199,6 +199,24 @@ namespace UniVgo2
             = _UrpUnlit != null
             ? _UrpUnlit : Shader.Find(ShaderName.URP_Unlit);
 
+        /// <summary>Universal Render Pipeline/Particles/Lit</summary>
+        protected Shader? _UrpParticlesLit;
+
+        /// <summary>Universal Render Pipeline/Particles/Lit</summary>
+        protected Shader UrpParticlesLit
+            => _UrpParticlesLit
+            = _UrpParticlesLit != null
+            ? _UrpParticlesLit : Shader.Find(ShaderName.URP_Particles_Lit);
+
+        /// <summary>Universal Render Pipeline/Particles/Unlit</summary>
+        protected Shader? _UrpParticlesUnlit;
+
+        /// <summary>Universal Render Pipeline/Particles/Unlit</summary>
+        protected Shader UrpParticlesUnlit
+            => _UrpParticlesUnlit
+            = _UrpParticlesUnlit != null
+            ? _UrpParticlesUnlit : Shader.Find(ShaderName.URP_Particles_Unlit);
+
         #endregion
 
         #region Fields & Properties (HDRP)
@@ -1054,6 +1072,12 @@ namespace UniVgo2
                 case ShaderName.URP_Unlit:
                     return UrpUnlit;
 
+                case ShaderName.URP_Particles_Lit:
+                    return UrpParticlesLit;
+
+                case ShaderName.URP_Particles_Unlit:
+                    return UrpParticlesUnlit;
+
                 case ShaderName.HDRP_Eye:
                     return HDRPEye;
 
@@ -1353,9 +1377,20 @@ namespace UniVgo2
             {
                 if (renderPipelineType == RenderPipelineType.URP)
                 {
-                    if (vgoMaterial.shaderName == ShaderName.VRM_MToon)
+                    // BRP to URP Convertable
+                    switch (vgoMaterial.shaderName)
                     {
-                        shader = VrmMtoon10;
+                        case ShaderName.Particles_Standard_Surface:
+                            shader = UrpParticlesLit;
+                            break;
+                        case ShaderName.Particles_Standard_Unlit:
+                            shader = UrpParticlesUnlit;
+                            break;
+                        case ShaderName.VRM_MToon:
+                            shader = VrmMtoon10;
+                            break;
+                        default:
+                            break;
                     }
                 }
 

@@ -42,9 +42,9 @@ Unity 2021.1 以下のバージョンを使用する場合
 |com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|13.0.2|3.2.1|2023年5月2日|
 |com.vrmc.vrmshaders|vrm-c|GitHub||0.105.0|2022年10月7日|
 |com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub||1.4.0|2023年5月30日|
-|com.izayoi.unishaders|IzayoiJiichan|GitHub||1.4.0|2022年5月20日|
+|com.izayoi.unishaders|IzayoiJiichan|GitHub||1.5.0|2023年7月17日|
 |com.izayoi.vgospringbone|IzayoiJiichan|GitHub||1.1.2|2022年8月24日|
-|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.9|2023年7月10日|
+|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.10|2023年7月17日|
 
 #### 追加パッケージ
 
@@ -141,8 +141,8 @@ UniVGOを使用するために、以下の設定を追加してください。
 {
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.4.0",
-    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.4.0",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.9",
+    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.5.0",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.10",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.ugui": "1.0.0",
@@ -221,9 +221,11 @@ ___
 |NewtonVgo|Newton.JSON向け VGOプログラム|*|*|
 |ShaderProperty.Runtime|シェーダーのプロパティー情報|*|*|
 |UniShader.Hdrp.Utility|HDRP シェーダー ユーティリティー|*|*|
+|UniShader.Shared|Unity シェーダー 共有 ユーティリティー|*|*|
 |UniShader.Skybox.Utility|Skybox シェーダー ユーティリティー|*|*|
-|UniShader.Standard.Particle.Utility|Particle シェーダー ユーティリティー|*|*|
+|UniShader.Standard.Particle.Utility|Standard Particle シェーダー ユーティリティー|*|*|
 |UniShader.Standard.Utility|Standard シェーダー ユーティリティー|*|*|
+|UniShader.Urp.Particle.Utility|URP Particle シェーダー ユーティリティー|*|*|
 |UniShader.Urp.Utility|URP シェーダー ユーティリティー|*|*|
 |UniVgo2|VGO2 メインプログラム|*|*|
 |UniVgo2.Editor|VGO2 のエディター上での入出力操作|-|*|
@@ -243,19 +245,19 @@ ___
 
 |UniVRM|UniVGO|min Unity|
 |:---:|:---:|:---:|
-|0.100.0|2.5.9|2020.3|
-|0.101.0|2.5.9|2020.3|
-|0.102.0|2.5.9|2020.3|
-|0.103.2|2.5.9|2020.3|
-|0.104.2|2.5.9|2020.3|
-|0.105.0|2.5.9|2020.3|
-|0.106.0|2.5.9|2020.3|
-|0.107.2|2.5.9|2020.3|
-|0.108.0|2.5.9|2020.3|
-|0.109.0|2.5.9|2020.3|
-|0.110.0|2.5.9|2020.3|
-|0.111.0|2.5.9|2020.3|
-|0.112.0|2.5.9|2020.3|
+|0.100.0|2.5.10|2020.3|
+|0.101.0|2.5.10|2020.3|
+|0.102.0|2.5.10|2020.3|
+|0.103.2|2.5.10|2020.3|
+|0.104.2|2.5.10|2020.3|
+|0.105.0|2.5.10|2020.3|
+|0.106.0|2.5.10|2020.3|
+|0.107.2|2.5.10|2020.3|
+|0.108.0|2.5.10|2020.3|
+|0.109.0|2.5.10|2020.3|
+|0.110.0|2.5.10|2020.3|
+|0.111.0|2.5.10|2020.3|
+|0.112.0|2.5.10|2020.3|
 
 `<Project>/Packages/package.json` に以下の記述を行います。  
 
@@ -286,7 +288,7 @@ https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 |2022.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2022.3.brp.univrm)|
 
 ___
-最終更新日：2023年7月10日  
+最終更新日：2023年7月17日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

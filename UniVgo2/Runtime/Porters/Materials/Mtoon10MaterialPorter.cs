@@ -472,7 +472,7 @@ namespace UniVgo2.Porters
 
             float value = vgoMaterial.GetFloatOrDefault(propertyName, defaultValue);
 
-            material.SetSafeFloat(propertyName, value);
+            material.SetSafeFloat(propertyName, value, minValue: null, maxValue: null);
         }
 
         protected virtual void SetSafeValue(Material material, VgoMaterial vgoMaterial, MToon10Prop property, float min, float max, float defaultValue = default)
@@ -481,7 +481,7 @@ namespace UniVgo2.Porters
 
             float value = vgoMaterial.GetSafeFloat(propertyName, min, max, defaultValue);
 
-            material.SetSafeFloat(propertyName, value);
+            material.SetSafeFloat(propertyName, value, minValue: null, maxValue: null);
         }
 
         protected virtual void SetColor(Material material, VgoMaterial vgoMaterial, MToon10Prop property, Color defaultValue = default)

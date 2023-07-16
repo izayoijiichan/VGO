@@ -19,8 +19,13 @@ namespace UniVgo2.Converters
         /// <param name="transform"></param>
         /// <param name="geometryCoordinate"></param>
         /// <returns></returns>
-        public static VgoTransform CreateFrom(Transform transform, VgoGeometryCoordinate geometryCoordinate)
+        public static VgoTransform? CreateFrom(Transform? transform, VgoGeometryCoordinate geometryCoordinate)
         {
+            if (transform == null)
+            {
+                return null;
+            }
+
             VgoTransform vgoTransform = new VgoTransform()
             {
                 position = transform.localPosition.ToNullableNumericsVector3(Vector3.zero, geometryCoordinate),

@@ -5,9 +5,9 @@ VGOとは、新しい形の3Dデータフォーマットです。
 ___
 ## 特徴
 
-- `Node`, `Transform`, `Rigidbody`, `Collider`, `Mesh`, `BlendShape`, `Material`, `Texture` といった3Dモデルの基本情報を保存することができます。
-- Unityでの使用を意識して `Human Avatar`, `SpringBone`, `Animation`, `Cloth`, `Light`, `ParticleSystem`, `Skybox` の情報も保存することができます。
-- アプリケーションでの使用を意識して `BlendShapePreset` の情報も保存することができます。
+- `Node`, `Transform`, `Rigidbody`, `Collider`, `Mesh`, `Blend Shape`, `Material`, `Texture` といった3Dモデルの基本情報を保存することができます。
+- Unityでの使用を意識して `Human Avatar`, `Spring Bone`, `Animation`, `Cloth`, `Light`, `Particle System`, `Skybox` の情報も保存することができます。
+- アプリケーションでの使用を意識して `Blend Shape Preset` の情報も保存することができます。
 - ファイルフォーマットはベースにIFFチャンクを採用しています。
 - 内部データとして `JSON`, `BSON`, `Binary` を使用します。
 - 座標系は右手系、左手系のどちらのデータも持つことができます。
@@ -16,7 +16,7 @@ ___
 - リソースはファイル内に含めることを基本としていますが、別ファイルに切り出すこともできます。
 - リソースは sparse でデータを圧縮することができ、またより強力な sparse を独自に定義しています。
 - glTFとの直接の互換性はありません。
-- Unity Editorへデータを展開することでglTFを含む他の形式への変換は可能です。
+- Unity Editorへデータを展開することで glTF を含む他の形式への変換は可能です。
 
 ## 翻訳
 
@@ -65,6 +65,7 @@ ___
     - skybox
     - light
     - right
+    - extensions
   - skins
   - meshes
   - materials
@@ -104,7 +105,7 @@ VGOファイルを生成／出力／取り込み／ロードするためのツ�
 [Wiki](https://github.com/izayoijiichan/VGO/wiki)
 
 ___
-最終更新日：2022年9月15日  
+最終更新日：2023年7月17日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -10,10 +10,12 @@
     "references": [
         "NewtonVgo",
         "LilToonShader.Utility",
+        "UniShader.Shared",
         "UniShader.Standard.Utility",
         "UniShader.Standard.Particle.Utility",
         "UniShader.Skybox.Utility",
         "UniShader.URP.Utility",
+        "UniShader.URP.Particle.Utility",
         "UniShader.HDRP.Utility",
         "MToon",
         "VRMShaders.GLTF.UniUnlit.Runtime",

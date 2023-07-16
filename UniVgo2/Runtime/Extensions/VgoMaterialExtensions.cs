@@ -6,6 +6,8 @@
 namespace UniVgo2
 {
     using NewtonVgo;
+    using System;
+    using UniShader.Shared;
     using UnityEngine;
 
     /// <summary>
@@ -13,6 +15,61 @@ namespace UniVgo2
     /// </summary>
     public static class VgoMaterialExtensions
     {
+        /// <summary>
+        /// Gets enum value.
+        /// </summary>
+        /// <typeparam name="TEnum"></typeparam>
+        /// <param name="self">A vgo material.</param>
+        /// <param name="propertyName">A material property name.</param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static TEnum GetEnumOrDefault<TEnum>(this VgoMaterial self, string propertyName, TEnum? defaultValue = null) where TEnum : struct
+        {
+            int? propertyValue = null;
+
+            if (self.intProperties != null)
+            {
+                if (self.intProperties.ContainsKey(propertyName))
+                {
+                    propertyValue = self.intProperties[propertyName];
+                }
+            }
+
+            if (propertyValue == null)
+            {
+                if (self.floatProperties != null)
+                {
+                    if (self.floatProperties.ContainsKey(propertyName))
+                    {
+                        float floatValue = self.floatProperties[propertyName];
+
+                        if (int.TryParse(floatValue.ToString(), out int intValue))
+                        {
+                            propertyValue = intValue;
+                        }
+                    }
+                }
+            }
+
+            if (propertyValue == null)
+            {
+                return default;
+            }
+
+            if (Enum.TryParse(propertyValue.ToString(), out TEnum result))
+            {
+                return result;
+            }
+            else if (defaultValue.HasValue)
+            {
+                return defaultValue.Value;
+            }
+            else
+            {
+                return default;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -95,6 +152,17 @@ namespace UniVgo2
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="propertyName"></param>
+        /// <param name="range"></param>
+        /// <returns></returns>
+        public static int GetSafeInt(this VgoMaterial self, string propertyName, IntRangeDefault range)
+        {
+            return GetSafeInt(self, propertyName, range.minValue, range.maxValue, range.defaultValue);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="self"></param>
         /// <param name="propertyName"></param>
         /// <param name="min"></param>
@@ -126,6 +194,18 @@ namespace UniVgo2
             }
 
             return value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="propertyName"></param>
+        /// <param name="range"></param>
+        /// <returns></returns>
+        public static float GetSafeFloat(this VgoMaterial self, string propertyName, FloatRangeDefault range)
+        {
+            return GetSafeFloat(self, propertyName, range.minValue, range.maxValue, range.defaultValue);
         }
 
         /// <summary>
@@ -295,6 +375,25 @@ namespace UniVgo2
         /// </summary>
         /// <param name="self"></param>
         /// <param name="propertyName"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static Vector2 GetTextureOffsetOrDefault(this VgoMaterial self, string propertyName, Vector2 defaultValue = default)
+        {
+            Vector2? offsetVector = self.GetTextureOffsetOrNull(propertyName);
+
+            if (offsetVector.HasValue)
+            {
+                return offsetVector.Value;
+            }
+
+            return defaultValue;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="propertyName"></param>
         /// <returns></returns>
         public static Vector2? GetTextureOffsetOrNull(this VgoMaterial self, string propertyName)
         {
@@ -323,6 +422,25 @@ namespace UniVgo2
             Vector2 offsetVector = ArrayConverter.ToVector2(offsetArray);
 
             return offsetVector;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="propertyName"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static Vector2 GetTextureScaleOrDefault(this VgoMaterial self, string propertyName, Vector2 defaultValue = default)
+        {
+            Vector2? scaleVector = self.GetTextureScaleOrNull(propertyName);
+
+            if (scaleVector.HasValue)
+            {
+                return scaleVector.Value;
+            }
+
+            return defaultValue;
         }
 
         /// <summary>

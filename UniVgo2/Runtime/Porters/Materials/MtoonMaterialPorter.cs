@@ -389,7 +389,7 @@ namespace UniVgo2.Porters
                 // Shading Shift
                 float shadingShift = MToon10Migrator.MigrateToShadingShift(mtoon0x.Lighting.LitAndShadeMixing.ShadingToonyValue, mtoon0x.Lighting.LitAndShadeMixing.ShadingShiftValue);
 
-                SetSafeValue(material, vgoMaterial, MToon10Prop.ShadingShiftFactor, shadingShift, - 1.0f, 1.0f, -0.05f);
+                SetSafeValue(material, vgoMaterial, MToon10Prop.ShadingShiftFactor, shadingShift, -1.0f, 1.0f, -0.05f);
 
                 SetTexture(material, vgoMaterial, MToon10Prop.ShadingShiftTexture, null);  // @notice
                 SetSafeValue(material, vgoMaterial, MToon10Prop.ShadingShiftTextureScale, 1.0f, 0.0f, float.MaxValue, 1.0f);  // @notice
@@ -438,7 +438,7 @@ namespace UniVgo2.Porters
                 // Parametric Rim
                 SetColor(material, vgoMaterial, MToon10Prop.ParametricRimColorFactor, mtoon0x.Rim.RimColor);
                 SetSafeValue(material, vgoMaterial, MToon10Prop.ParametricRimFresnelPowerFactor, mtoon0x.Rim.RimFresnelPowerValue, 0.0f, 100.0f, 5.0f);
-                SetSafeValue(material, vgoMaterial, MToon10Prop.ParametricRimLiftFactor, mtoon0x.Rim.RimLiftValue, 0.0f, 1.0f, 0.0f);
+                SetSafeValue(material, vgoMaterial, MToon10Prop.ParametricRimLiftFactor, mtoon0x.Rim.RimLiftValue, 0.0f, 1.0f);
             }
 
             // Outline
@@ -466,7 +466,7 @@ namespace UniVgo2.Porters
                 }
 
                 SetSafeValue(material, vgoMaterial, MToon10Prop.OutlineWidthMode, (int)outlineWidthMode);
-                SetSafeValue(material, vgoMaterial, MToon10Prop.OutlineWidthFactor, mtoon0x.Outline.OutlineWidthValue, 0.0f, 0.05f, 0.0f);
+                SetSafeValue(material, vgoMaterial, MToon10Prop.OutlineWidthFactor, mtoon0x.Outline.OutlineWidthValue, 0.0f, 0.05f);
                 SetTexture(material, vgoMaterial, MToon10Prop.OutlineWidthMultiplyTexture, mtoon0x.Outline.OutlineWidthMultiplyTexture);
                 SetColor(material, vgoMaterial, MToon10Prop.OutlineColorFactor, mtoon0x.Outline.OutlineColor);
                 SetSafeValue(material, vgoMaterial, MToon10Prop.OutlineLightingMixFactor, mtoon0x.Outline.OutlineLightingMixValue, 0.0f, 1.0f, 1.0f);
@@ -591,7 +591,7 @@ namespace UniVgo2.Porters
         {
             string propertyName = property.ToUnityShaderLabName();
 
-            material.SetSafeFloat(propertyName, value);
+            material.SetSafeFloat(propertyName, value, minValue: null, maxValue: null);
         }
 
         protected virtual void SetSafeValue(Material material, VgoMaterial vgoMaterial, MToon10Prop property, float value, float min, float max, float defaultValue = default)

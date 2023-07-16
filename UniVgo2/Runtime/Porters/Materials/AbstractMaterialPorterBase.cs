@@ -345,7 +345,7 @@ namespace UniVgo2.Porters
         /// <returns></returns>
         protected virtual bool ExportProperty(VgoMaterial vgoMaterial, Material material, VgoMaterialPropertyType type, string propertyName)
         {
-            return ExportProperty(vgoMaterial, material, type, propertyName);
+            return ExportProperty(vgoMaterial, material, propertyName, type);
         }
 
         /// <summary>

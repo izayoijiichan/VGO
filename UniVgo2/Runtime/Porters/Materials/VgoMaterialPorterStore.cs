@@ -84,6 +84,13 @@ namespace UniVgo2.Porters
         protected UrpMaterialPorter UrpMaterialPorter
             => _UrpMaterialPorter ??= new UrpMaterialPorter();
 
+        /// <summary>URP Particle Material Porter</summary>
+        protected UrpParticleMaterialPorter? _UrpParticleMaterialPorter;
+
+        /// <summary>URP Particle Material Porter</summary>
+        protected UrpParticleMaterialPorter UrpParticleMaterialPorter
+            => _UrpParticleMaterialPorter ??= new UrpParticleMaterialPorter();
+
         #endregion
 
         #region Public Methods (VgoMaterial)
@@ -213,6 +220,10 @@ namespace UniVgo2.Porters
                 case ShaderName.URP_SimpleLit:
                 case ShaderName.URP_Unlit:
                     return UrpMaterialPorter;
+
+                case ShaderName.URP_Particles_Lit:
+                case ShaderName.URP_Particles_Unlit:
+                    return UrpParticleMaterialPorter;
 
                 case ShaderName.HDRP_Eye:
                 case ShaderName.HDRP_Hair:
@@ -354,9 +365,17 @@ namespace UniVgo2.Porters
             {
                 if (renderPipelineType == RenderPipelineType.URP)
                 {
-                    if (vgoMaterial.shaderName == ShaderName.VRM_MToon)
+                    switch (vgoMaterial.shaderName)
                     {
-                        porter = MtoonMaterialPorter;
+                        case ShaderName.Particles_Standard_Surface:
+                        case ShaderName.Particles_Standard_Unlit:
+                            porter = ParticleMaterialPorter;
+                            break;
+                        case ShaderName.VRM_MToon:
+                            porter = MtoonMaterialPorter;
+                            break;
+                        default:
+                            break;
                     }
                 }
 
