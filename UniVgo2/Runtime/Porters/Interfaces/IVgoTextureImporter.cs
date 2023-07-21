@@ -30,7 +30,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>List of unity texture2D.</returns>
-        List<Texture2D?> CreateTextureAssets(IVgoStorage vgoStorage);
+        List<Texture2D?> CreateTextureAssets(in IVgoStorage vgoStorage);
 
         /// <summary>
         /// Create texture assets.

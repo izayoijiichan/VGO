@@ -18,7 +18,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="animationCurve"></param>
         /// <returns></returns>
-        public static VgoAnimationCurve CreateFrom(AnimationCurve animationCurve)
+        public static VgoAnimationCurve CreateFrom(in AnimationCurve animationCurve)
         {
             var vgoAnimationCurve = new VgoAnimationCurve()
             {
@@ -44,7 +44,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="animationCurve"></param>
         /// <returns></returns>
-        public static VgoAnimationCurve? CreateOrDefaultFrom(AnimationCurve? animationCurve)
+        public static VgoAnimationCurve? CreateOrDefaultFrom(in AnimationCurve? animationCurve)
         {
             if (animationCurve == null)
             {
@@ -59,7 +59,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="vgoAnimationCurve"></param>
         /// <returns></returns>
-        public static AnimationCurve CreateAnimationCurve(VgoAnimationCurve vgoAnimationCurve)
+        public static AnimationCurve CreateAnimationCurve(in VgoAnimationCurve vgoAnimationCurve)
         {
             var animationCurve = new AnimationCurve()
             {
@@ -88,7 +88,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="vgoAnimationCurve"></param>
         /// <returns></returns>
-        public static AnimationCurve? CreateAnimationCurveOrDefault(VgoAnimationCurve? vgoAnimationCurve)
+        public static AnimationCurve? CreateAnimationCurveOrDefault(in VgoAnimationCurve? vgoAnimationCurve)
         {
             if (vgoAnimationCurve is null)
             {

@@ -18,7 +18,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="keyframe"></param>
         /// <returns></returns>
-        public static VgoKeyframe CreateFrom(Keyframe keyframe)
+        public static VgoKeyframe CreateFrom(in Keyframe keyframe)
         {
             return new VgoKeyframe()
             {
@@ -37,7 +37,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="vgoKeyframe"></param>
         /// <returns></returns>
-        public static Keyframe CreateKeyframe(VgoKeyframe vgoKeyframe)
+        public static Keyframe CreateKeyframe(in VgoKeyframe vgoKeyframe)
         {
             if (vgoKeyframe == null)
             {

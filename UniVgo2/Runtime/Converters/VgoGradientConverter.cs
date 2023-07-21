@@ -18,7 +18,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="gradient"></param>
         /// <returns></returns>
-        public static VgoGradient CreateFrom(Gradient gradient)
+        public static VgoGradient CreateFrom(in Gradient gradient)
         {
             var vgoGradient = new VgoGradient()
             {
@@ -63,7 +63,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="gradient"></param>
         /// <returns></returns>
-        public static VgoGradient? CreateOrDefaultFrom(Gradient? gradient)
+        public static VgoGradient? CreateOrDefaultFrom(in Gradient? gradient)
         {
             if (gradient == null)
             {
@@ -78,7 +78,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="vgoGradient"></param>
         /// <returns></returns>
-        public static Gradient CreateGradient(VgoGradient vgoGradient)
+        public static Gradient CreateGradient(in VgoGradient vgoGradient)
         {
             var gradient = new Gradient()
             {
@@ -125,7 +125,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="vgoGradient"></param>
         /// <returns></returns>
-        public static Gradient? CreateGradientOrDefault(VgoGradient? vgoGradient)
+        public static Gradient? CreateGradientOrDefault(in VgoGradient? vgoGradient)
         {
             if (vgoGradient == null)
             {

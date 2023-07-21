@@ -32,7 +32,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A MToon material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
+        public override VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage)
         {
             var mtoonContext = new MToon10Context(material);
 
@@ -160,7 +160,7 @@ namespace UniVgo2.Porters
         /// <param name="property">A MToon 1.0 property.</param>
         /// <param name="type">The type of property.</param>
         /// <returns></returns>
-        protected virtual bool ExportProperty(VgoMaterial vgoMaterial, Material material, MToon10Prop property, VgoMaterialPropertyType type)
+        protected virtual bool ExportProperty(in VgoMaterial vgoMaterial, in Material material, in MToon10Prop property, in VgoMaterialPropertyType type)
         {
             return ExportProperty(vgoMaterial, material, property.ToUnityShaderLabName(), type);
         }
@@ -173,7 +173,7 @@ namespace UniVgo2.Porters
         /// <param name="type">The type of property.</param>
         /// <param name="property">A MToon 1.0 property.</param>
         /// <returns></returns>
-        protected virtual bool ExportProperty(VgoMaterial vgoMaterial, Material material, VgoMaterialPropertyType type, MToon10Prop property)
+        protected virtual bool ExportProperty(in VgoMaterial vgoMaterial, in Material material, in VgoMaterialPropertyType type, in MToon10Prop property)
         {
             return ExportProperty(vgoMaterial, material, property, type);
         }
@@ -189,7 +189,14 @@ namespace UniVgo2.Porters
         /// <param name="colorSpace">The color space.</param>
         /// <param name="metallicSmoothness">The metallic smoothness.</param>
         /// <returns></returns>
-        protected virtual bool ExportTextureProperty(IVgoStorage vgoStorage, VgoMaterial vgoMaterial, Material material, MToon10Prop property, VgoTextureMapType textureMapType = VgoTextureMapType.Default, VgoColorSpaceType colorSpace = VgoColorSpaceType.Srgb, float metallicSmoothness = -1.0f)
+        protected virtual bool ExportTextureProperty(
+            IVgoStorage vgoStorage,
+            VgoMaterial vgoMaterial,
+            in Material material,
+            in MToon10Prop property,
+            in VgoTextureMapType textureMapType = VgoTextureMapType.Default,
+            in VgoColorSpaceType colorSpace = VgoColorSpaceType.Srgb,
+            in float metallicSmoothness = -1.0f)
         {
             return ExportTextureProperty(vgoStorage, vgoMaterial, material, property.ToUnityShaderLabName(), textureMapType, colorSpace, metallicSmoothness);
         }
@@ -205,7 +212,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A MToon shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A MToon material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
         {
             if (vgoMaterial.shaderName != ShaderName.VRM_MToon10)
             {
@@ -448,7 +455,14 @@ namespace UniVgo2.Porters
             material.SetInt(MToon10Prop.RenderQueueOffsetNumber, renderQueueOffset);
         }
 
-        protected virtual void SetSafeValue(Material material, VgoMaterial vgoMaterial, MToon10Prop property, int defaultValue = default)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="vgoMaterial"></param>
+        /// <param name="property"></param>
+        /// <param name="defaultValue"></param>
+        protected virtual void SetSafeValue(Material material, in VgoMaterial vgoMaterial, in MToon10Prop property, int defaultValue = default)
         {
             string propertyName = property.ToUnityShaderLabName();
 
@@ -457,7 +471,16 @@ namespace UniVgo2.Porters
             material.SetSafeInt(propertyName, value);
         }
 
-        protected virtual void SetSafeValue(Material material, VgoMaterial vgoMaterial, MToon10Prop property, int min, int max, int defaultValue = default)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="vgoMaterial"></param>
+        /// <param name="property"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="defaultValue"></param>
+        protected virtual void SetSafeValue(Material material, in VgoMaterial vgoMaterial, in MToon10Prop property, int min, int max, int defaultValue = default)
         {
             string propertyName = property.ToUnityShaderLabName();
 
@@ -466,7 +489,14 @@ namespace UniVgo2.Porters
             material.SetSafeInt(propertyName, value);
         }
 
-        protected virtual void SetSafeValue(Material material, VgoMaterial vgoMaterial, MToon10Prop property, float defaultValue = default)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="vgoMaterial"></param>
+        /// <param name="property"></param>
+        /// <param name="defaultValue"></param>
+        protected virtual void SetSafeValue(Material material, in VgoMaterial vgoMaterial, in MToon10Prop property, float defaultValue = default)
         {
             string propertyName = property.ToUnityShaderLabName();
 
@@ -475,7 +505,16 @@ namespace UniVgo2.Porters
             material.SetSafeFloat(propertyName, value, minValue: null, maxValue: null);
         }
 
-        protected virtual void SetSafeValue(Material material, VgoMaterial vgoMaterial, MToon10Prop property, float min, float max, float defaultValue = default)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="vgoMaterial"></param>
+        /// <param name="property"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="defaultValue"></param>
+        protected virtual void SetSafeValue(Material material, in VgoMaterial vgoMaterial, in MToon10Prop property, float min, float max, float defaultValue = default)
         {
             string propertyName = property.ToUnityShaderLabName();
 
@@ -484,7 +523,14 @@ namespace UniVgo2.Porters
             material.SetSafeFloat(propertyName, value, minValue: null, maxValue: null);
         }
 
-        protected virtual void SetColor(Material material, VgoMaterial vgoMaterial, MToon10Prop property, Color defaultValue = default)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="vgoMaterial"></param>
+        /// <param name="property"></param>
+        /// <param name="defaultValue"></param>
+        protected virtual void SetColor(Material material, in VgoMaterial vgoMaterial, in MToon10Prop property, Color defaultValue = default)
         {
             string propertyName = property.ToUnityShaderLabName();
 
@@ -493,7 +539,14 @@ namespace UniVgo2.Porters
             material.SetSafeColor(propertyName, color);
         }
 
-        protected virtual void SetTexture(Material material, VgoMaterial vgoMaterial, List<Texture2D?> allTexture2dList, MToon10Prop property)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="vgoMaterial"></param>
+        /// <param name="allTexture2dList"></param>
+        /// <param name="property"></param>
+        protected virtual void SetTexture(Material material, in VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList, in MToon10Prop property)
         {
             string propertyName = property.ToUnityShaderLabName();
 

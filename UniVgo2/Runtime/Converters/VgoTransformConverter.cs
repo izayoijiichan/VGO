@@ -19,13 +19,8 @@ namespace UniVgo2.Converters
         /// <param name="transform"></param>
         /// <param name="geometryCoordinate"></param>
         /// <returns></returns>
-        public static VgoTransform? CreateFrom(Transform? transform, VgoGeometryCoordinate geometryCoordinate)
+        public static VgoTransform CreateFrom(in Transform transform, in VgoGeometryCoordinate geometryCoordinate)
         {
-            if (transform == null)
-            {
-                return null;
-            }
-
             VgoTransform vgoTransform = new VgoTransform()
             {
                 position = transform.localPosition.ToNullableNumericsVector3(Vector3.zero, geometryCoordinate),
@@ -37,13 +32,29 @@ namespace UniVgo2.Converters
         }
 
         /// <summary>
+        /// Create VgoTransform from Transform.
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="geometryCoordinate"></param>
+        /// <returns></returns>
+        public static VgoTransform? CreateOrDefaultFrom(in Transform? transform, in VgoGeometryCoordinate geometryCoordinate)
+        {
+            if (transform == null)
+            {
+                return default;
+            }
+
+            return CreateFrom(transform, geometryCoordinate);
+        }
+
+        /// <summary>
         /// Create Transform from VgoTransform.
         /// </summary>
         /// <param name="transform"></param>
         /// <param name="vgoTransform"></param>
         /// <param name="geometryCoordinate"></param>
         /// <returns></returns>
-        public static void SetComponentValue(Transform transform, VgoTransform vgoTransform, VgoGeometryCoordinate geometryCoordinate)
+        public static void SetComponentValue(Transform transform, in VgoTransform vgoTransform, in VgoGeometryCoordinate geometryCoordinate)
         {
             transform.localPosition = vgoTransform.position.ToUnityVector3(Vector3.zero, geometryCoordinate);
             transform.localRotation = vgoTransform.rotation.ToUnityQuaternion(Quaternion.identity, geometryCoordinate);

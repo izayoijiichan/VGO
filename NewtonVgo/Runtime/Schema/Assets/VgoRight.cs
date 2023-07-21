@@ -71,7 +71,7 @@ namespace NewtonVgo
         /// Create a new instance of VgoRight by specifying VgoRight.
         /// </summary>
         /// <param name="right"></param>
-        public VgoRight(VgoRight right)
+        public VgoRight(in VgoRight right)
         {
             if (right != null)
             {

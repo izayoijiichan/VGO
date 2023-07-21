@@ -22,7 +22,7 @@ namespace UniVgo2.Converters
         /// <param name="textureMapType">The texture map type.</param>
         /// <param name="metallicRoughness">The metallic roughness.</param>
         /// <returns></returns>
-        Texture2D GetImportTexture(Texture2D source, VgoTextureMapType textureMapType, float metallicRoughness = -1.0f);
+        Texture2D GetImportTexture(in Texture2D source, in VgoTextureMapType textureMapType, in float metallicRoughness = -1.0f);
 
         /// <summary>
         /// Get export texture.
@@ -32,7 +32,7 @@ namespace UniVgo2.Converters
         /// <param name="colorSpaceType">The color space type.</param>
         /// <param name="metallicSmoothness">The metallic smoothness.</param>
         /// <returns></returns>
-        Texture2D GetExportTexture(Texture2D source, VgoTextureMapType textureMapType, VgoColorSpaceType colorSpaceType, float metallicSmoothness = -1.0f);
+        Texture2D GetExportTexture(in Texture2D source, in VgoTextureMapType textureMapType, in VgoColorSpaceType colorSpaceType, in float metallicSmoothness = -1.0f);
 
         #endregion
     }

@@ -28,7 +28,11 @@ namespace UniVgo2.Porters
         /// <param name="vgoStorage"></param>
         /// <param name="exportTexture"></param>
         /// <returns></returns>
-        public virtual VgoParticleSystem Create(ParticleSystem particleSystem, ParticleSystemRenderer particleSystemRenderer, IVgoStorage vgoStorage, ExportTextureDelegate exportTexture)
+        public virtual VgoParticleSystem Create(
+            in ParticleSystem particleSystem,
+            in ParticleSystemRenderer particleSystemRenderer,
+            in IVgoStorage vgoStorage,
+            in ExportTextureDelegate exportTexture)
         {
             var vgoParticleSystem = new VgoParticleSystem()
             {
@@ -70,7 +74,7 @@ namespace UniVgo2.Porters
         /// <param name="module"></param>
         /// <param name="geometryCoordinate"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_MainModule CreateVgoModule(MainModule module, VgoGeometryCoordinate geometryCoordinate)
+        protected virtual VGO_PS_MainModule CreateVgoModule(in MainModule module, in VgoGeometryCoordinate geometryCoordinate)
         {
             var vgoModule = new VGO_PS_MainModule()
             {
@@ -91,7 +95,7 @@ namespace UniVgo2.Porters
                 gravityModifierMultiplier = module.gravityModifierMultiplier,
                 simulationSpace = (NewtonVgo.ParticleSystemSimulationSpace)module.simulationSpace,
                 simulationSpeed = module.simulationSpeed,
-                customSimulationSpace = VgoTransformConverter.CreateFrom(module.customSimulationSpace, geometryCoordinate),
+                customSimulationSpace = VgoTransformConverter.CreateOrDefaultFrom(module.customSimulationSpace, geometryCoordinate),
                 useUnscaledTime = module.useUnscaledTime,
                 scalingMode = (NewtonVgo.ParticleSystemScalingMode)module.scalingMode,
                 playOnAwake = module.playOnAwake,
@@ -145,7 +149,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_EmissionModule CreateVgoModule(EmissionModule module)
+        protected virtual VGO_PS_EmissionModule CreateVgoModule(in EmissionModule module)
         {
             var vgoModule = new VGO_PS_EmissionModule()
             {
@@ -184,7 +188,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoStorage"></param>
         /// <param name="exportTexture"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_ShapeModule CreateVgoModule(ShapeModule module, IVgoStorage vgoStorage, ExportTextureDelegate exportTexture)
+        protected virtual VGO_PS_ShapeModule CreateVgoModule(in ShapeModule module, in IVgoStorage vgoStorage, in ExportTextureDelegate exportTexture)
         {
             var vgoShapeModule = new VGO_PS_ShapeModule()
             {
@@ -248,7 +252,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_VelocityOverLifetimeModule CreateVgoModule(VelocityOverLifetimeModule module)
+        protected virtual VGO_PS_VelocityOverLifetimeModule CreateVgoModule(in VelocityOverLifetimeModule module)
         {
             return new VGO_PS_VelocityOverLifetimeModule()
             {
@@ -284,7 +288,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_LimitVelocityOverLifetimeModule CreateVgoModule(LimitVelocityOverLifetimeModule module)
+        protected virtual VGO_PS_LimitVelocityOverLifetimeModule CreateVgoModule(in LimitVelocityOverLifetimeModule module)
         {
             var vgoModule = new VGO_PS_LimitVelocityOverLifetimeModule()
             {
@@ -321,7 +325,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_InheritVelocityModule CreateVgoModule(InheritVelocityModule module)
+        protected virtual VGO_PS_InheritVelocityModule CreateVgoModule(in InheritVelocityModule module)
         {
             return new VGO_PS_InheritVelocityModule()
             {
@@ -358,7 +362,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_ColorOverLifetimeModule CreateVgoModule(ColorOverLifetimeModule module)
+        protected virtual VGO_PS_ColorOverLifetimeModule CreateVgoModule(in ColorOverLifetimeModule module)
         {
             return new VGO_PS_ColorOverLifetimeModule()
             {
@@ -372,7 +376,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_ColorBySpeedModule CreateVgoModule(ColorBySpeedModule module)
+        protected virtual VGO_PS_ColorBySpeedModule CreateVgoModule(in ColorBySpeedModule module)
         {
             return new VGO_PS_ColorBySpeedModule()
             {
@@ -387,7 +391,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_SizeOverLifetimeModule CreateVgoModule(SizeOverLifetimeModule module)
+        protected virtual VGO_PS_SizeOverLifetimeModule CreateVgoModule(in SizeOverLifetimeModule module)
         {
             if (module.separateAxes)
             {
@@ -420,7 +424,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_SizeBySpeedModule CreateVgoModule(SizeBySpeedModule module)
+        protected virtual VGO_PS_SizeBySpeedModule CreateVgoModule(in SizeBySpeedModule module)
         {
             if (module.separateAxes)
             {
@@ -455,7 +459,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_RotationOverLifetimeModule CreateVgoModule(RotationOverLifetimeModule module)
+        protected virtual VGO_PS_RotationOverLifetimeModule CreateVgoModule(in RotationOverLifetimeModule module)
         {
             if (module.separateAxes)
             {
@@ -488,7 +492,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_RotationBySpeedModule CreateVgoModule(RotationBySpeedModule module)
+        protected virtual VGO_PS_RotationBySpeedModule CreateVgoModule(in RotationBySpeedModule module)
         {
             if (module.separateAxes)
             {
@@ -523,7 +527,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_ExternalForcesModule CreateVgoModule(ExternalForcesModule module)
+        protected virtual VGO_PS_ExternalForcesModule CreateVgoModule(in ExternalForcesModule module)
         {
             return new VGO_PS_ExternalForcesModule()
             {
@@ -599,14 +603,14 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_LightsModule CreateVgoModule(LightsModule module)
+        protected virtual VGO_PS_LightsModule CreateVgoModule(in LightsModule module)
         {
             return new VGO_PS_LightsModule()
             {
                 enabled = module.enabled,
                 ratio = module.ratio,
                 useRandomDistribution = module.useRandomDistribution,
-                light = VgoLightConverter.CreateFrom(module.light),
+                light = VgoLightConverter.CreateOrDefaultFrom(module.light),
                 useParticleColor = module.useParticleColor,
                 sizeAffectsRange = module.sizeAffectsRange,
                 alphaAffectsIntensity = module.alphaAffectsIntensity,
@@ -623,7 +627,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_CollisionModule CreateVgoModule(CollisionModule module)
+        protected virtual VGO_PS_CollisionModule CreateVgoModule(in CollisionModule module)
         {
 #if NET_STANDARD_2_1
             ThrowHelper.ThrowNotImplementedException();
@@ -639,7 +643,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_TriggerModule CreateVgoModule(TriggerModule module)
+        protected virtual VGO_PS_TriggerModule CreateVgoModule(in TriggerModule module)
         {
 #if NET_STANDARD_2_1
             ThrowHelper.ThrowNotImplementedException();
@@ -655,7 +659,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_SubEmittersModule CreateVgoModule(SubEmittersModule module)
+        protected virtual VGO_PS_SubEmittersModule CreateVgoModule(in SubEmittersModule module)
         {
 #if NET_STANDARD_2_1
             ThrowHelper.ThrowNotImplementedException();
@@ -671,7 +675,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_TextureSheetAnimationModule CreateVgoModule(TextureSheetAnimationModule module)
+        protected virtual VGO_PS_TextureSheetAnimationModule CreateVgoModule(in TextureSheetAnimationModule module)
         {
 #if NET_STANDARD_2_1
             ThrowHelper.ThrowNotImplementedException();
@@ -687,7 +691,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_TrailModule CreateVgoModule(TrailModule module)
+        protected virtual VGO_PS_TrailModule CreateVgoModule(in TrailModule module)
         {
             return new VGO_PS_TrailModule()
             {
@@ -720,7 +724,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_CustomDataModule CreateVgoModule(CustomDataModule module)
+        protected virtual VGO_PS_CustomDataModule CreateVgoModule(in CustomDataModule module)
         {
 #if NET_STANDARD_2_1
             ThrowHelper.ThrowNotImplementedException();
@@ -738,7 +742,7 @@ namespace UniVgo2.Porters
         /// <param name="geometryCoordinate"></param>
         /// <param name="vgoLayout"></param>
         /// <returns></returns>
-        protected virtual VGO_PS_Renderer CreateVgoPsRenderer(ParticleSystemRenderer particleSystemRenderer, VgoGeometryCoordinate geometryCoordinate, VgoLayout vgoLayout)
+        protected virtual VGO_PS_Renderer CreateVgoPsRenderer(in ParticleSystemRenderer particleSystemRenderer, in VgoGeometryCoordinate geometryCoordinate, in VgoLayout vgoLayout)
         {
             return new VGO_PS_Renderer()
             {
@@ -771,7 +775,7 @@ namespace UniVgo2.Porters
                 sortingOrder = particleSystemRenderer.sortingOrder,
                 lightProbeUsage = (LightProbeUsage)particleSystemRenderer.lightProbeUsage,
                 reflectionProbeUsage = (ReflectionProbeUsage)particleSystemRenderer.reflectionProbeUsage,
-                probeAnchor = VgoTransformConverter.CreateFrom(particleSystemRenderer.probeAnchor, geometryCoordinate),
+                probeAnchor = VgoTransformConverter.CreateOrDefaultFrom(particleSystemRenderer.probeAnchor, geometryCoordinate),
             };
         }
 
@@ -785,7 +789,7 @@ namespace UniVgo2.Porters
         /// <param name="material"></param>
         /// <param name="vgoLayout"></param>
         /// <returns></returns>
-        protected virtual int GetMaterialIndex(Material material, VgoLayout vgoLayout)
+        protected virtual int GetMaterialIndex(in Material material, in VgoLayout vgoLayout)
         {
             if (material == null)
             {
@@ -797,7 +801,9 @@ namespace UniVgo2.Porters
                 return -1;
             }
 
-            var vgoMaterial = vgoLayout.materials.FirstOrDefault(m => m?.name != null && m.name.Equals(material.name));
+            var mat = material;
+
+            var vgoMaterial = vgoLayout.materials.FirstOrDefault(m => m?.name != null && m.name.Equals(mat.name));
 
             if (vgoMaterial == null)
             {

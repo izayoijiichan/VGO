@@ -127,7 +127,7 @@ namespace UniVgo2.Editor
         /// <typeparam name="T"></typeparam>
         /// <param name="title"></param>
         /// <param name="importer"></param>
-        protected virtual void DrawRemapGUI<T>(string title, VgoScriptedImporter importer) where T : UnityEngine.Object
+        protected virtual void DrawRemapGUI<T>(in string title, in VgoScriptedImporter importer) where T : UnityEngine.Object
         {
             EditorGUILayout.Foldout(_isOpen, title);
             EditorGUI.indentLevel++;

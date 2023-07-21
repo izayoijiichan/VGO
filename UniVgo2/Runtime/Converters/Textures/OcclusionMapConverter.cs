@@ -16,9 +16,9 @@ namespace UniVgo2.Converters
         /// <summary>
         /// Get import texture.
         /// </summary>
-        /// <param name="source">The source texture.</param>
+        /// <param name="texture">The source texture.</param>
         /// <returns></returns>
-        public Texture2D GetImportTexture(Texture2D texture)
+        public Texture2D GetImportTexture(in Texture2D texture)
         {
             Texture2D copyTexture = CopyTexture2d(texture, VgoColorSpaceType.Linear);
 
@@ -39,9 +39,9 @@ namespace UniVgo2.Converters
         /// <summary>
         /// Get export texture.
         /// </summary>
-        /// <param name="source">The source texture.</param>
+        /// <param name="texture">The source texture.</param>
         /// <returns></returns>
-        public Texture2D GetExportTexture(Texture2D texture)
+        public Texture2D GetExportTexture(in Texture2D texture)
         {
             Texture2D copyTexture = CopyTexture2d(texture, VgoColorSpaceType.Linear);
 

@@ -100,7 +100,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">The vgo material.</param>
         /// <returns>A material porter instanse.</returns>
-        public virtual IMaterialPorter? GetPorterOrDefault(VgoMaterial vgoMaterial)
+        public virtual IMaterialPorter? GetPorterOrDefault(in VgoMaterial vgoMaterial)
         {
             if (vgoMaterial == null)
             {
@@ -139,7 +139,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoMaterial">The vgo material.</param>
         /// <param name="renderPipelineType">Type of render pipeline.</param>
         /// <returns>A material porter instanse.</returns>
-        public virtual IMaterialPorter GetPorterOrStandard(VgoMaterial vgoMaterial, RenderPipelineType renderPipelineType)
+        public virtual IMaterialPorter GetPorterOrStandard(in VgoMaterial vgoMaterial, in RenderPipelineType renderPipelineType)
         {
             IMaterialPorter? porter = GetPorterOrDefault(vgoMaterial);
 
@@ -178,7 +178,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="shaderName">The shader name.</param>
         /// <returns>A material porter instanse.</returns>
-        public virtual IMaterialPorter? GetPorterOrDefault(string shaderName)
+        public virtual IMaterialPorter? GetPorterOrDefault(in string shaderName)
         {
             if (string.IsNullOrEmpty(shaderName))
             {
@@ -312,7 +312,7 @@ namespace UniVgo2.Porters
         /// <param name="shaderName">The shader name.</param>
         /// <param name="renderPipelineType">Type of render pipeline.</param>
         /// <returns>A material porter instanse.</returns>
-        public virtual IMaterialPorter GetPorterOrStandard(string shaderName, RenderPipelineType renderPipelineType)
+        public virtual IMaterialPorter GetPorterOrStandard(in string shaderName, in RenderPipelineType renderPipelineType)
         {
             IMaterialPorter? porter = GetPorterOrDefault(shaderName);
 
@@ -342,7 +342,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoMaterial">The vgo material.</param>
         /// <param name="renderPipelineType">Type of render pipeline.</param>
         /// <returns>A material porter instanse.</returns>
-        public virtual IMaterialPorter GetPorterOrStandard(string shaderName, VgoMaterial vgoMaterial, RenderPipelineType renderPipelineType)
+        public virtual IMaterialPorter GetPorterOrStandard(in string shaderName, in VgoMaterial vgoMaterial, in RenderPipelineType renderPipelineType)
         {
             IMaterialPorter? porter = GetPorterOrDefault(shaderName);
 

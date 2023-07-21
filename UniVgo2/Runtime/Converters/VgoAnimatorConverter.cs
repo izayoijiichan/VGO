@@ -18,7 +18,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="animator"></param>
         /// <returns></returns>
-        public static VgoAnimator CreateFrom(Animator animator)
+        public static VgoAnimator CreateFrom(in Animator animator)
         {
             var vgoAnimator = new VgoAnimator()
             {
@@ -38,7 +38,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="animator"></param>
         /// <param name="vgoAnimator"></param>
-        public static void SetComponentValue(Animator animator, VgoAnimator vgoAnimator)
+        public static void SetComponentValue(Animator animator, in VgoAnimator vgoAnimator)
         {
             animator.name = vgoAnimator.name;
             animator.enabled = vgoAnimator.enabled;

@@ -26,7 +26,7 @@ namespace UniVgo2.Porters
         /// <param name="materialList"></param>
         /// <param name="texture2dList"></param>
         /// <returns>Returns ParticleSystem component.</returns>
-        ParticleSystem AddComponent(GameObject go, VgoParticleSystem vgoParticleSystem, VgoGeometryCoordinate geometryCoordinate, IList<Material?>? materialList, IList<Texture2D?>? texture2dList);
+        ParticleSystem AddComponent(GameObject go, in VgoParticleSystem vgoParticleSystem, in VgoGeometryCoordinate geometryCoordinate, in IList<Material?>? materialList, in IList<Texture2D?>? texture2dList);
 
         /// <summary>
         /// Set particleSystemRenderer field value.
@@ -35,7 +35,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoRenderer"></param>
         /// <param name="geometryCoordinate"></param>
         /// <param name="materialList"></param>
-        void SetComponentValue(ParticleSystemRenderer particleSystemRenderer, VGO_PS_Renderer vgoRenderer, VgoGeometryCoordinate geometryCoordinate, IList<Material?>? materialList);
+        void SetComponentValue(ParticleSystemRenderer particleSystemRenderer, in VGO_PS_Renderer vgoRenderer, in VgoGeometryCoordinate geometryCoordinate, in IList<Material?>? materialList);
 
         #endregion
     }

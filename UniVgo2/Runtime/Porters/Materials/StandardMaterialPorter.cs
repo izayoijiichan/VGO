@@ -32,7 +32,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A standard material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
+        public override VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage)
         {
             //StandardDefinition definition = UniStandardShader.Utils.GetParametersFromMaterial(material);
 
@@ -118,7 +118,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A standard shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A standard material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
         {
             Material material = base.CreateMaterialAsset(vgoMaterial, shader, allTexture2dList);
 

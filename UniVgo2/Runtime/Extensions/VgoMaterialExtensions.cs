@@ -23,7 +23,7 @@ namespace UniVgo2
         /// <param name="propertyName">A material property name.</param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static TEnum GetEnumOrDefault<TEnum>(this VgoMaterial self, string propertyName, TEnum? defaultValue = null) where TEnum : struct
+        public static TEnum GetEnumOrDefault<TEnum>(this VgoMaterial self, in string propertyName, TEnum? defaultValue = null) where TEnum : struct
         {
             int? propertyValue = null;
 
@@ -77,7 +77,7 @@ namespace UniVgo2
         /// <param name="propertyName"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static int GetIntOrDefault(this VgoMaterial self, string propertyName, int defaultValue = 0)
+        public static int GetIntOrDefault(this VgoMaterial self, in string propertyName, int defaultValue = 0)
         {
             if (self.intProperties == null)
             {
@@ -99,7 +99,7 @@ namespace UniVgo2
         /// <param name="propertyName"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static float GetFloatOrDefault(this VgoMaterial self, string propertyName, float defaultValue = 0.0f)
+        public static float GetFloatOrDefault(this VgoMaterial self, in string propertyName, float defaultValue = 0.0f)
         {
             if (self.floatProperties == null)
             {
@@ -117,12 +117,13 @@ namespace UniVgo2
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="self"></param>
         /// <param name="propertyName"></param>
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static int GetSafeInt(this VgoMaterial self, string propertyName, int min, int max, int defaultValue = 0)
+        public static int GetSafeInt(this VgoMaterial self, in string propertyName, in int min, in int max, int defaultValue = 0)
         {
             if (self.intProperties == null)
             {
@@ -152,10 +153,11 @@ namespace UniVgo2
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="self"></param>
         /// <param name="propertyName"></param>
         /// <param name="range"></param>
         /// <returns></returns>
-        public static int GetSafeInt(this VgoMaterial self, string propertyName, IntRangeDefault range)
+        public static int GetSafeInt(this VgoMaterial self, in string propertyName, in IntRangeDefault range)
         {
             return GetSafeInt(self, propertyName, range.minValue, range.maxValue, range.defaultValue);
         }
@@ -169,7 +171,7 @@ namespace UniVgo2
         /// <param name="max"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static float GetSafeFloat(this VgoMaterial self, string propertyName, float min, float max, float defaultValue = 0.0f)
+        public static float GetSafeFloat(this VgoMaterial self, in string propertyName, in float min, in float max, float defaultValue = 0.0f)
         {
             if (self.floatProperties == null)
             {
@@ -203,7 +205,7 @@ namespace UniVgo2
         /// <param name="propertyName"></param>
         /// <param name="range"></param>
         /// <returns></returns>
-        public static float GetSafeFloat(this VgoMaterial self, string propertyName, FloatRangeDefault range)
+        public static float GetSafeFloat(this VgoMaterial self, in string propertyName, in FloatRangeDefault range)
         {
             return GetSafeFloat(self, propertyName, range.minValue, range.maxValue, range.defaultValue);
         }
@@ -215,7 +217,7 @@ namespace UniVgo2
         /// <param name="propertyName"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static Color GetColorOrDefault(this VgoMaterial self, string propertyName, Color defaultValue)
+        public static Color GetColorOrDefault(this VgoMaterial self, in string propertyName, Color defaultValue)
         {
             if (self.colorProperties == null)
             {
@@ -254,7 +256,7 @@ namespace UniVgo2
         /// <param name="propertyName"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static Vector2 GetVector2OrDefault(this VgoMaterial self, string propertyName, Vector2 defaultValue)
+        public static Vector2 GetVector2OrDefault(this VgoMaterial self, in string propertyName, Vector2 defaultValue)
         {
             if (self.vectorProperties == null)
             {
@@ -288,7 +290,7 @@ namespace UniVgo2
         /// <param name="propertyName"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static Vector3 GetVector3OrDefault(this VgoMaterial self, string propertyName, Vector3 defaultValue)
+        public static Vector3 GetVector3OrDefault(this VgoMaterial self, in string propertyName, Vector3 defaultValue)
         {
             if (self.vectorProperties == null)
             {
@@ -322,7 +324,7 @@ namespace UniVgo2
         /// <param name="propertyName"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static Vector4 GetVector4OrDefault(this VgoMaterial self, string propertyName, Vector4 defaultValue)
+        public static Vector4 GetVector4OrDefault(this VgoMaterial self, in string propertyName, Vector4 defaultValue)
         {
             if (self.vectorProperties == null)
             {
@@ -355,7 +357,7 @@ namespace UniVgo2
         /// <param name="self"></param>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        public static int GetTextureIndexOrDefault(this VgoMaterial self, string propertyName)
+        public static int GetTextureIndexOrDefault(this VgoMaterial self, in string propertyName)
         {
             if (self.textureIndexProperties == null)
             {
@@ -377,7 +379,7 @@ namespace UniVgo2
         /// <param name="propertyName"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static Vector2 GetTextureOffsetOrDefault(this VgoMaterial self, string propertyName, Vector2 defaultValue = default)
+        public static Vector2 GetTextureOffsetOrDefault(this VgoMaterial self, in string propertyName, Vector2 defaultValue = default)
         {
             Vector2? offsetVector = self.GetTextureOffsetOrNull(propertyName);
 
@@ -395,7 +397,7 @@ namespace UniVgo2
         /// <param name="self"></param>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        public static Vector2? GetTextureOffsetOrNull(this VgoMaterial self, string propertyName)
+        public static Vector2? GetTextureOffsetOrNull(this VgoMaterial self, in string propertyName)
         {
             if (self.textureOffsetProperties == null)
             {
@@ -431,7 +433,7 @@ namespace UniVgo2
         /// <param name="propertyName"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static Vector2 GetTextureScaleOrDefault(this VgoMaterial self, string propertyName, Vector2 defaultValue = default)
+        public static Vector2 GetTextureScaleOrDefault(this VgoMaterial self, in string propertyName, Vector2 defaultValue = default)
         {
             Vector2? scaleVector = self.GetTextureScaleOrNull(propertyName);
 
@@ -449,7 +451,7 @@ namespace UniVgo2
         /// <param name="self"></param>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        public static Vector2? GetTextureScaleOrNull(this VgoMaterial self, string propertyName)
+        public static Vector2? GetTextureScaleOrNull(this VgoMaterial self, in string propertyName)
         {
             if (self.textureScaleProperties == null)
             {

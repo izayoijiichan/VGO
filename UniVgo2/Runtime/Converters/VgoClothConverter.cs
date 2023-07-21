@@ -23,7 +23,7 @@ namespace UniVgo2.Converters
         /// <param name="colliderList"></param>
         /// <param name="vgoStorage"></param>
         /// <returns></returns>
-        public static VgoCloth CreateFrom(Cloth cloth, VgoGeometryCoordinate geometryCoordinate, IList<Collider> colliderList, IVgoStorage vgoStorage)
+        public static VgoCloth CreateFrom(in Cloth cloth, in VgoGeometryCoordinate geometryCoordinate, IList<Collider> colliderList, in IVgoStorage vgoStorage)
         {
             var vgoCloth = new VgoCloth()
             {
@@ -82,7 +82,7 @@ namespace UniVgo2.Converters
         /// <param name="colliderList"></param>
         /// <param name="vgoStorage"></param>
         /// <returns></returns>
-        public static VgoCloth? CreateOrDefaultFrom(Cloth? cloth, VgoGeometryCoordinate geometryCoordinate, IList<Collider> colliderList, IVgoStorage vgoStorage)
+        public static VgoCloth? CreateOrDefaultFrom(in Cloth? cloth, in VgoGeometryCoordinate geometryCoordinate, IList<Collider> colliderList, in IVgoStorage vgoStorage)
         {
             if (cloth == null)
             {
@@ -100,7 +100,7 @@ namespace UniVgo2.Converters
         /// <param name="geometryCoordinate"></param>
         /// <param name="colliderList"></param>
         /// <param name="vgoStorage"></param>
-        public static void SetComponentValue(Cloth cloth, VgoCloth vgoCloth, VgoGeometryCoordinate geometryCoordinate, List<Collider?> colliderList, IVgoStorage vgoStorage)
+        public static void SetComponentValue(Cloth cloth, in VgoCloth vgoCloth, in VgoGeometryCoordinate geometryCoordinate, List<Collider?> colliderList, in IVgoStorage vgoStorage)
         {
             //cloth.enabled = vgoCloth.enabled;
             cloth.enabled = false;

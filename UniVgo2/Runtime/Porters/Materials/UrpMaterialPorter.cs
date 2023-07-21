@@ -33,7 +33,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A URP material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
+        public override VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage)
         {
             switch (material.shader.name)
             {
@@ -59,7 +59,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A URP/Lit material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        protected VgoMaterial CreateVgoMaterialFromUrpLit(Material material, IVgoStorage vgoStorage)
+        protected VgoMaterial CreateVgoMaterialFromUrpLit(in Material material, in IVgoStorage vgoStorage)
         {
             //UrpLitDefinition definition = UniUrpShader.Utils.GetParametersFromMaterial<UrpLitDefinition>(material);
 
@@ -109,7 +109,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A URP/Simple Lit material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        protected VgoMaterial CreateVgoMaterialFromUrpSimpleLit(Material material, IVgoStorage vgoStorage)
+        protected VgoMaterial CreateVgoMaterialFromUrpSimpleLit(in Material material, in IVgoStorage vgoStorage)
         {
             UrpSimpleLitDefinition definition = UniUrpShader.Utils.GetParametersFromMaterial<UrpSimpleLitDefinition>(material);
 
@@ -155,7 +155,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A URP/Unlit material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        protected VgoMaterial CreateVgoMaterialFromUrpUnlit(Material material, IVgoStorage vgoStorage)
+        protected VgoMaterial CreateVgoMaterialFromUrpUnlit(in Material material, in IVgoStorage vgoStorage)
         {
             UrpUnlitDefinition definition = UniUrpShader.Utils.GetParametersFromMaterial<UrpUnlitDefinition>(material);
 
@@ -187,7 +187,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A URP shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A URP material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
         {
             switch (vgoMaterial.shaderName)
             {

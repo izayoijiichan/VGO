@@ -33,7 +33,7 @@ namespace NewtonVgo
         /// <param name="list">The list.</param>
         /// <param name="index">The index of the list.</param>
         /// <returns></returns>
-        public static T? GetValueOrDefault<T>(this IList<T> list, int index) where T : class
+        public static T? GetValueOrDefault<T>(this IList<T> list, in int index) where T : class
         {
             if (index < 0)
             {
@@ -54,7 +54,7 @@ namespace NewtonVgo
         /// <param name="list">The list.</param>
         /// <param name="index">The index of the list.</param>
         /// <returns></returns>
-        public static T? GetNullableValueOrDefault<T>(this IList<T?> list, int index) where T : class
+        public static T? GetNullableValueOrDefault<T>(this IList<T?> list, in int index) where T : class
         {
             if (index < 0)
             {
@@ -77,7 +77,7 @@ namespace NewtonVgo
         /// <param name="index">The index of the list.</param>
         /// <param name="item"></param>
         /// <returns>true if the list contains a item with the specified index; otherwise, false.</returns>
-        public static bool TryGetValue<T>(this IList<T> list, int index, out T item) where T : class
+        public static bool TryGetValue<T>(this IList<T> list, in int index, out T item) where T : class
         {
             item = default;
 

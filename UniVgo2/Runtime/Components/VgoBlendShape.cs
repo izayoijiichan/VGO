@@ -40,7 +40,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="blinkType"></param>
         /// <returns></returns>
-        public int GetVgoBlendShapeIndex(VgoBlendShapeBlinkType blinkType)
+        public int GetVgoBlendShapeIndex(in VgoBlendShapeBlinkType blinkType)
         {
             if (blinkType == VgoBlendShapeBlinkType.None)
             {
@@ -52,14 +52,16 @@ namespace UniVgo2
                 return -1;
             }
 
-            BlendShapeBlink? blendShapeBlink = BlendShapeConfiguration.blinks.FirstOrDefault(x => x.type == blinkType);
+            var type = blinkType;
+
+            BlendShapeBlink? blendShapeBlink = BlendShapeConfiguration.Blinks.FirstOrDefault(x => x.Type == type);
 
             if (blendShapeBlink == null)
             {
                 return -1;
             }
 
-            return blendShapeBlink.index;
+            return blendShapeBlink.Index;
         }
 
         /// <summary>
@@ -67,7 +69,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="visemeType"></param>
         /// <returns></returns>
-        public int GetVgoBlendShapeIndex(VgoBlendShapeVisemeType visemeType)
+        public int GetVgoBlendShapeIndex(in VgoBlendShapeVisemeType visemeType)
         {
             if (visemeType == VgoBlendShapeVisemeType.None)
             {
@@ -79,14 +81,16 @@ namespace UniVgo2
                 return -1;
             }
 
-            BlendShapeViseme? blendShapeViseme = BlendShapeConfiguration.visemes.FirstOrDefault(x => x.type == visemeType);
+            var type = visemeType;
+
+            BlendShapeViseme? blendShapeViseme = BlendShapeConfiguration.Visemes.FirstOrDefault(x => x.Type == type);
 
             if (blendShapeViseme == null)
             {
                 return -1;
             }
 
-            return blendShapeViseme.index;
+            return blendShapeViseme.Index;
         }
 
         /// <summary>
@@ -94,7 +98,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="index">The index of the BlendShape whose weight you want to retrieve.</param>
         /// <returns>The weight of the BlendShape.</returns>
-        public float GetBlendShapeWeight(int index)
+        public float GetBlendShapeWeight(in int index)
         {
             if (_SkinnedMeshRenderer == null)
             {
@@ -109,7 +113,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="index">The index of the BlendShape to modify.</param>
         /// <param name="value">The weight for this BlendShape.</param>
-        public void SetBlendShapeWeight(int index, float value)
+        public void SetBlendShapeWeight(in int index, in float value)
         {
             if (_SkinnedMeshRenderer == null)
             {
@@ -124,7 +128,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="blinkType">The type of blink.</param>
         /// <param name="value">The weight for this BlendShape.</param>
-        public void SetBlendShapeWeight(VgoBlendShapeBlinkType blinkType, float value)
+        public void SetBlendShapeWeight(in VgoBlendShapeBlinkType blinkType, in float value)
         {
             if (_SkinnedMeshRenderer == null)
             {
@@ -136,14 +140,16 @@ namespace UniVgo2
                 return;
             }
 
-            BlendShapeBlink? vgoBlink = BlendShapeConfiguration.blinks.FirstOrDefault(x => x.type == blinkType);
+            var type = blinkType;
+
+            BlendShapeBlink? vgoBlink = BlendShapeConfiguration.Blinks.FirstOrDefault(x => x.Type == type);
 
             if (vgoBlink == null)
             {
                 return;
             }
 
-            _SkinnedMeshRenderer.SetBlendShapeWeight(vgoBlink.index, value);
+            _SkinnedMeshRenderer.SetBlendShapeWeight(vgoBlink.Index, value);
         }
 
         /// <summary>
@@ -151,7 +157,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="visemeType">The type of viseme.</param>
         /// <param name="value">The weight for this BlendShape.</param>
-        public void SetBlendShapeWeight(VgoBlendShapeVisemeType visemeType, float value)
+        public void SetBlendShapeWeight(in VgoBlendShapeVisemeType visemeType, in float value)
         {
             if (_SkinnedMeshRenderer == null)
             {
@@ -163,14 +169,16 @@ namespace UniVgo2
                 return;
             }
 
-            BlendShapeViseme? vgoViseme = BlendShapeConfiguration.visemes.FirstOrDefault(x => x.type == visemeType);
+            var type = visemeType;
+
+            BlendShapeViseme? vgoViseme = BlendShapeConfiguration.Visemes.FirstOrDefault(x => x.Type == type);
 
             if (vgoViseme == null)
             {
                 return;
             }
 
-            _SkinnedMeshRenderer.SetBlendShapeWeight(vgoViseme.index, value);
+            _SkinnedMeshRenderer.SetBlendShapeWeight(vgoViseme.Index, value);
         }
 
         /// <summary>
@@ -179,7 +187,7 @@ namespace UniVgo2
         /// <param name="presetType">The preset type.</param>
         /// <param name="ignoreEyelid">Whether to ignore the eyelids.</param>
         /// <param name="ignoreMouth">Whether to ignore the mouth.</param>
-        public void SetBlendShapeWeight(VgoBlendShapePresetType presetType, bool ignoreEyelid = false, bool ignoreMouth = false)
+        public void SetBlendShapeWeight(in VgoBlendShapePresetType presetType, in bool ignoreEyelid = false, in bool ignoreMouth = false)
         {
             if (_SkinnedMeshRenderer == null)
             {
@@ -191,7 +199,9 @@ namespace UniVgo2
                 return;
             }
 
-            VgoMeshBlendShapePreset? preset = BlendShapeConfiguration.presets.FirstOrDefault(x => x.type == presetType);
+            var type = presetType;
+
+            VgoMeshBlendShapePreset? preset = BlendShapeConfiguration.Presets.FirstOrDefault(x => x.type == type);
 
             if (preset == null)
             {
@@ -204,7 +214,7 @@ namespace UniVgo2
                 {
                     if (ignoreEyelid)
                     {
-                        BlendShapeBlink? blink = BlendShapeConfiguration.blinks.FirstOrDefault(x => x.index == binding.index);
+                        BlendShapeBlink? blink = BlendShapeConfiguration.Blinks.FirstOrDefault(x => x.Index == binding.index);
 
                         if (blink != null)
                         {
@@ -214,7 +224,7 @@ namespace UniVgo2
 
                     if (ignoreMouth)
                     {
-                        BlendShapeViseme? visume = BlendShapeConfiguration.visemes.FirstOrDefault(x => x.index == binding.index);
+                        BlendShapeViseme? visume = BlendShapeConfiguration.Visemes.FirstOrDefault(x => x.Index == binding.index);
 
                         if (visume != null)
                         {
@@ -222,18 +232,18 @@ namespace UniVgo2
                         }
                     }
 
-                    BlendShapeFacePart? facePart = BlendShapeConfiguration.faceParts.FirstOrDefault(x => x.index == binding.index);
+                    BlendShapeFacePart? facePart = BlendShapeConfiguration.FaceParts.FirstOrDefault(x => x.Index == binding.index);
 
                     if (facePart != null)
                     {
-                        if (facePart.type == VgoBlendShapeFacePartsType.Eyelid)
+                        if (facePart.Type == VgoBlendShapeFacePartsType.Eyelid)
                         {
                             if (ignoreEyelid)
                             {
                                 continue;
                             }
                         }
-                        else if (facePart.type == VgoBlendShapeFacePartsType.Mouth)
+                        else if (facePart.Type == VgoBlendShapeFacePartsType.Mouth)
                         {
                             if (ignoreMouth)
                             {

@@ -41,10 +41,8 @@ namespace UniVgo2.Porters
         {
             get
             {
-                if (_RenderPipelineType == null)
-                {
-                    _RenderPipelineType = GetRenderPipelineType();
-                }
+                _RenderPipelineType ??= GetRenderPipelineType();
+
                 return (RenderPipelineType)_RenderPipelineType;
             }
         }
@@ -59,7 +57,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A unity material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
+        public VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage)
         {
             if (MaterialPorterStore == null)
             {
@@ -94,7 +92,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="texture2dList">List of Texture2D.</param>
         /// <returns>A unity material.</returns>
-        public virtual Material CreateMaterialAsset(VgoMaterial vgoMaterial, List<Texture2D?> texture2dList)
+        public virtual Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in List<Texture2D?> texture2dList)
         {
             if (MaterialPorterStore == null)
             {

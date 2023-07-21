@@ -19,7 +19,7 @@ namespace NewtonVgo
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <param name="defaultValue"></param>
-        public static int SafeValue(this int value, int min, int max, int defaultValue = 0)
+        public static int SafeValue(this int value, in int min, in int max, in int defaultValue = 0)
         {
             if (value < min)
             {
@@ -41,7 +41,7 @@ namespace NewtonVgo
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <param name="defaultValue"></param>
-        public static float SafeValue(this float value, float min, float max, float defaultValue = 0.0f)
+        public static float SafeValue(this float value, in float min, in float max, in float defaultValue = 0.0f)
         {
             if (value < min)
             {
@@ -62,7 +62,7 @@ namespace NewtonVgo
         /// <param name="index"></param>
         /// <param name="collection"></param>
         /// <returns>Returns true if the index is in the range of the collection, false otherwise.</returns>
-        public static bool IsInRangeOf<T>(this int index, ICollection<T> collection)
+        public static bool IsInRangeOf<T>(this int index, in ICollection<T> collection)
         {
             if (collection == null)
             {

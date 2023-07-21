@@ -7,6 +7,7 @@ namespace UniVgo2
 {
     using NewtonVgo;
     using System;
+    using UnityEngine;
 
     /// <summary>
     /// BlendShape Viseme
@@ -15,9 +16,25 @@ namespace UniVgo2
     public class BlendShapeViseme
     {
         /// <summary>The type of viseme.</summary>
-        public VgoBlendShapeVisemeType type;
+        [SerializeField]
+        private VgoBlendShapeVisemeType type;
+
+        /// <summary>The type of viseme.</summary>
+        public VgoBlendShapeVisemeType Type
+        {
+            get => type;
+            set => type = value;
+        }
 
         /// <summary>The index of the BlendShape.</summary>
-        public int index;
+        [SerializeField]
+        private int index;
+
+        /// <summary>The index of the BlendShape.</summary>
+        public int Index
+        {
+            get => index;
+            set => index = value;
+        }
     }
 }

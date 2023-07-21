@@ -42,7 +42,7 @@ namespace UniVgo2.Editor
         /// </summary>
         /// <param name="serializedProperty"></param>
         /// <param name="fieldName"></param>
-        protected virtual void SetPropertyField(SerializedProperty serializedProperty, string fieldName)
+        protected virtual void SetPropertyField(in SerializedProperty serializedProperty, in string fieldName)
         {
             var property = serializedProperty.FindPropertyRelative(fieldName);
 
@@ -61,7 +61,7 @@ namespace UniVgo2.Editor
         /// </summary>
         /// <param name="serializedProperty"></param>
         /// <param name="fieldNames"></param>
-        protected virtual void SetPropertyFields(SerializedProperty serializedProperty, IEnumerable<string> fieldNames)
+        protected virtual void SetPropertyFields(in SerializedProperty serializedProperty, in IEnumerable<string> fieldNames)
         {
             foreach (string fieldName in fieldNames)
             {

@@ -18,13 +18,8 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="light"></param>
         /// <returns></returns>
-        public static VgoLight? CreateFrom(Light? light)
+        public static VgoLight CreateFrom(in Light light)
         {
-            if (light == null)
-            {
-                return null;
-            }
-
             var vgoLight = new VgoLight()
             {
                 enabled = light.enabled,
@@ -127,7 +122,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="light"></param>
         /// <returns></returns>
-        public static VgoLight? CreateOrDefaultFrom(Light? light)
+        public static VgoLight? CreateOrDefaultFrom(in Light? light)
         {
             if (light == null)
             {
@@ -142,7 +137,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="light"></param>
         /// <param name="vgoLight"></param>
-        public static void SetComponentValue(Light light, VgoLight vgoLight)
+        public static void SetComponentValue(Light light, in VgoLight vgoLight)
         {
             if (light == null)
             {

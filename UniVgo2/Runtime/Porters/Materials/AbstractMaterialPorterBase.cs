@@ -44,7 +44,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A unity material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public abstract VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage);
+        public abstract VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage);
 
         #endregion
 
@@ -84,7 +84,7 @@ namespace UniVgo2.Porters
         /// <param name="excludeColor">Whether to exclude property of type color.</param>
         /// <param name="excludeVector">Whether to exclude property of type vector.</param>
         /// <returns></returns>
-        protected virtual bool ExportProperty(VgoMaterial vgoMaterial, Material material, int propertyIndex, bool excludeColor = false, bool excludeVector = false)
+        protected virtual bool ExportProperty(VgoMaterial vgoMaterial, Material material, in int propertyIndex, bool excludeColor = false, bool excludeVector = false)
         {
             string propertyName = material.shader.GetPropertyName(propertyIndex);
 
@@ -95,10 +95,8 @@ namespace UniVgo2.Porters
                 case ShaderPropertyType.Color:
                     if (excludeColor == false)
                     {
-                        if (vgoMaterial.colorProperties == null)
-                        {
-                            vgoMaterial.colorProperties = new Dictionary<string, float[]>();
-                        }
+                        vgoMaterial.colorProperties ??= new Dictionary<string, float[]>();
+
                         if (vgoMaterial.colorProperties.ContainsKey(propertyName))
                         {
                             Debug.LogFormat($"vgoMaterial.colorProperties {propertyName}");
@@ -113,10 +111,8 @@ namespace UniVgo2.Porters
                 case ShaderPropertyType.Vector:
                     if (excludeVector == false)
                     {
-                        if (vgoMaterial.vectorProperties == null)
-                        {
-                            vgoMaterial.vectorProperties = new Dictionary<string, float[]>();
-                        }
+                        vgoMaterial.vectorProperties ??= new Dictionary<string, float[]>();
+
                         if (vgoMaterial.vectorProperties.ContainsKey(propertyName))
                         {
                             Debug.LogFormat($"vgoMaterial.vectorProperties {propertyName}");
@@ -130,17 +126,17 @@ namespace UniVgo2.Porters
 
                 case ShaderPropertyType.Float:
                 case ShaderPropertyType.Range:
-                    if (vgoMaterial.floatProperties == null)
                     {
-                        vgoMaterial.floatProperties = new Dictionary<string, float>();
-                    }
-                    if (vgoMaterial.floatProperties.ContainsKey(propertyName))
-                    {
-                        Debug.LogFormat($"vgoMaterial.floatProperties {propertyName}");
-                    }
-                    else
-                    {
-                        vgoMaterial.floatProperties.Add(propertyName, material.GetFloat(propertyName));
+                        vgoMaterial.floatProperties ??= new Dictionary<string, float>();
+
+                        if (vgoMaterial.floatProperties.ContainsKey(propertyName))
+                        {
+                            Debug.LogFormat($"vgoMaterial.floatProperties {propertyName}");
+                        }
+                        else
+                        {
+                            vgoMaterial.floatProperties.Add(propertyName, material.GetFloat(propertyName));
+                        }
                     }
                     break;
 
@@ -150,17 +146,17 @@ namespace UniVgo2.Porters
 
 #if UNITY_2021_1_OR_NEWER
                 case ShaderPropertyType.Int:
-                    if (vgoMaterial.intProperties == null)
                     {
-                        vgoMaterial.intProperties = new Dictionary<string, int>();
-                    }
-                    if (vgoMaterial.intProperties.ContainsKey(propertyName))
-                    {
-                        Debug.LogFormat($"vgoMaterial.intProperties {propertyName}");
-                    }
-                    else
-                    {
-                        vgoMaterial.intProperties.Add(propertyName, material.GetInt(propertyName));
+                        vgoMaterial.intProperties ??= new Dictionary<string, int>();
+
+                        if (vgoMaterial.intProperties.ContainsKey(propertyName))
+                        {
+                            Debug.LogFormat($"vgoMaterial.intProperties {propertyName}");
+                        }
+                        else
+                        {
+                            vgoMaterial.intProperties.Add(propertyName, material.GetInt(propertyName));
+                        }
                     }
                     break;
 #endif
@@ -180,7 +176,7 @@ namespace UniVgo2.Porters
         /// <param name="propertyName">A property name.</param>
         /// <param name="type">The type of property.</param>
         /// <returns></returns>
-        protected virtual bool ExportProperty(VgoMaterial vgoMaterial, Material material, string propertyName, VgoMaterialPropertyType type)
+        protected virtual bool ExportProperty(VgoMaterial vgoMaterial, Material material, in string propertyName, in VgoMaterialPropertyType type)
         {
             if (material.HasProperty(propertyName) == false)
             {
@@ -190,107 +186,107 @@ namespace UniVgo2.Porters
             switch (type)
             {
                 case VgoMaterialPropertyType.Int:
-                    if (vgoMaterial.intProperties == null)
                     {
-                        vgoMaterial.intProperties = new Dictionary<string, int>();
-                    }
-                    if (vgoMaterial.intProperties.ContainsKey(propertyName))
-                    {
-                        Debug.LogFormat($"vgoMaterial.intProperties {propertyName}");
-                    }
-                    else
-                    {
-                        vgoMaterial.intProperties.Add(propertyName, material.GetInt(propertyName));
+                        vgoMaterial.intProperties ??= new Dictionary<string, int>();
+
+                        if (vgoMaterial.intProperties.ContainsKey(propertyName))
+                        {
+                            Debug.LogFormat($"vgoMaterial.intProperties {propertyName}");
+                        }
+                        else
+                        {
+                            vgoMaterial.intProperties.Add(propertyName, material.GetInt(propertyName));
+                        }
                     }
                     break;
 
                 case VgoMaterialPropertyType.Float:
-                    if (vgoMaterial.floatProperties == null)
                     {
-                        vgoMaterial.floatProperties = new Dictionary<string, float>();
-                    }
-                    if (vgoMaterial.floatProperties.ContainsKey(propertyName))
-                    {
-                        Debug.LogFormat($"vgoMaterial.floatProperties {propertyName}");
-                    }
-                    else
-                    {
-                        vgoMaterial.floatProperties.Add(propertyName, material.GetFloat(propertyName));
+                        vgoMaterial.floatProperties ??= new Dictionary<string, float>();
+
+                        if (vgoMaterial.floatProperties.ContainsKey(propertyName))
+                        {
+                            Debug.LogFormat($"vgoMaterial.floatProperties {propertyName}");
+                        }
+                        else
+                        {
+                            vgoMaterial.floatProperties.Add(propertyName, material.GetFloat(propertyName));
+                        }
                     }
                     break;
 
                 case VgoMaterialPropertyType.Color3:
-                    if (vgoMaterial.colorProperties == null)
                     {
-                        vgoMaterial.colorProperties = new Dictionary<string, float[]>();
-                    }
-                    if (vgoMaterial.colorProperties.ContainsKey(propertyName))
-                    {
-                        Debug.LogFormat($"vgoMaterial.colorProperties {propertyName}");
-                    }
-                    else
-                    {
-                        vgoMaterial.colorProperties.Add(propertyName, material.GetColor(propertyName).linear.ToArray3());
+                        vgoMaterial.colorProperties ??= new Dictionary<string, float[]>();
+
+                        if (vgoMaterial.colorProperties.ContainsKey(propertyName))
+                        {
+                            Debug.LogFormat($"vgoMaterial.colorProperties {propertyName}");
+                        }
+                        else
+                        {
+                            vgoMaterial.colorProperties.Add(propertyName, material.GetColor(propertyName).linear.ToArray3());
+                        }
                     }
                     break;
 
                 case VgoMaterialPropertyType.Color4:
-                    if (vgoMaterial.colorProperties == null)
                     {
-                        vgoMaterial.colorProperties = new Dictionary<string, float[]>();
-                    }
-                    if (vgoMaterial.colorProperties.ContainsKey(propertyName))
-                    {
-                        Debug.LogFormat($"vgoMaterial.colorProperties {propertyName}");
-                    }
-                    else
-                    {
-                        vgoMaterial.colorProperties.Add(propertyName, material.GetColor(propertyName).linear.ToArray4());
+                        vgoMaterial.colorProperties ??= new Dictionary<string, float[]>();
+
+                        if (vgoMaterial.colorProperties.ContainsKey(propertyName))
+                        {
+                            Debug.LogFormat($"vgoMaterial.colorProperties {propertyName}");
+                        }
+                        else
+                        {
+                            vgoMaterial.colorProperties.Add(propertyName, material.GetColor(propertyName).linear.ToArray4());
+                        }
                     }
                     break;
 
                 case VgoMaterialPropertyType.Vector2:
-                    if (vgoMaterial.vectorProperties == null)
                     {
-                        vgoMaterial.vectorProperties = new Dictionary<string, float[]>();
-                    }
-                    if (vgoMaterial.vectorProperties.ContainsKey(propertyName))
-                    {
-                        Debug.LogFormat($"vgoMaterial.vectorProperties {propertyName}");
-                    }
-                    else
-                    {
-                        vgoMaterial.vectorProperties.Add(propertyName, material.GetVector(propertyName).ToArray2());
+                        vgoMaterial.vectorProperties ??= new Dictionary<string, float[]>();
+
+                        if (vgoMaterial.vectorProperties.ContainsKey(propertyName))
+                        {
+                            Debug.LogFormat($"vgoMaterial.vectorProperties {propertyName}");
+                        }
+                        else
+                        {
+                            vgoMaterial.vectorProperties.Add(propertyName, material.GetVector(propertyName).ToArray2());
+                        }
                     }
                     break;
 
                 case VgoMaterialPropertyType.Vector3:
-                    if (vgoMaterial.vectorProperties == null)
                     {
-                        vgoMaterial.vectorProperties = new Dictionary<string, float[]>();
-                    }
-                    if (vgoMaterial.vectorProperties.ContainsKey(propertyName))
-                    {
-                        Debug.LogFormat($"vgoMaterial.vectorProperties {propertyName}");
-                    }
-                    else
-                    {
-                        vgoMaterial.vectorProperties.Add(propertyName, material.GetVector(propertyName).ToArray3());
+                        vgoMaterial.vectorProperties ??= new Dictionary<string, float[]>();
+
+                        if (vgoMaterial.vectorProperties.ContainsKey(propertyName))
+                        {
+                            Debug.LogFormat($"vgoMaterial.vectorProperties {propertyName}");
+                        }
+                        else
+                        {
+                            vgoMaterial.vectorProperties.Add(propertyName, material.GetVector(propertyName).ToArray3());
+                        }
                     }
                     break;
 
                 case VgoMaterialPropertyType.Vector4:
-                    if (vgoMaterial.vectorProperties == null)
                     {
-                        vgoMaterial.vectorProperties = new Dictionary<string, float[]>();
-                    }
-                    if (vgoMaterial.vectorProperties.ContainsKey(propertyName))
-                    {
-                        Debug.LogFormat($"vgoMaterial.vectorProperties {propertyName}");
-                    }
-                    else
-                    {
-                        vgoMaterial.vectorProperties.Add(propertyName, material.GetVector(propertyName).ToArray());
+                        vgoMaterial.vectorProperties ??= new Dictionary<string, float[]>();
+
+                        if (vgoMaterial.vectorProperties.ContainsKey(propertyName))
+                        {
+                            Debug.LogFormat($"vgoMaterial.vectorProperties {propertyName}");
+                        }
+                        else
+                        {
+                            vgoMaterial.vectorProperties.Add(propertyName, material.GetVector(propertyName).ToArray());
+                        }
                     }
                     break;
 
@@ -299,32 +295,32 @@ namespace UniVgo2.Porters
                     break;
 
                 case VgoMaterialPropertyType.TextureOffset:
-                    if (vgoMaterial.textureOffsetProperties == null)
                     {
-                        vgoMaterial.textureOffsetProperties = new Dictionary<string, float[]>();
-                    }
-                    if (vgoMaterial.textureOffsetProperties.ContainsKey(propertyName))
-                    {
-                        Debug.LogFormat($"vgoMaterial.textureOffsetProperties {propertyName}");
-                    }
-                    else
-                    {
-                        vgoMaterial.textureOffsetProperties.Add(propertyName, material.GetTextureOffset(propertyName).ToArray());
+                        vgoMaterial.textureOffsetProperties ??= new Dictionary<string, float[]>();
+
+                        if (vgoMaterial.textureOffsetProperties.ContainsKey(propertyName))
+                        {
+                            Debug.LogFormat($"vgoMaterial.textureOffsetProperties {propertyName}");
+                        }
+                        else
+                        {
+                            vgoMaterial.textureOffsetProperties.Add(propertyName, material.GetTextureOffset(propertyName).ToArray());
+                        }
                     }
                     break;
 
                 case VgoMaterialPropertyType.TextureScale:
-                    if (vgoMaterial.textureScaleProperties == null)
                     {
-                        vgoMaterial.textureScaleProperties = new Dictionary<string, float[]>();
-                    }
-                    if (vgoMaterial.textureScaleProperties.ContainsKey(propertyName))
-                    {
-                        Debug.LogFormat($"vgoMaterial.textureScaleProperties {propertyName}");
-                    }
-                    else
-                    {
-                        vgoMaterial.textureScaleProperties.Add(propertyName, material.GetTextureScale(propertyName).ToArray());
+                        vgoMaterial.textureScaleProperties ??= new Dictionary<string, float[]>();
+
+                        if (vgoMaterial.textureScaleProperties.ContainsKey(propertyName))
+                        {
+                            Debug.LogFormat($"vgoMaterial.textureScaleProperties {propertyName}");
+                        }
+                        else
+                        {
+                            vgoMaterial.textureScaleProperties.Add(propertyName, material.GetTextureScale(propertyName).ToArray());
+                        }
                     }
                     break;
 
@@ -343,7 +339,7 @@ namespace UniVgo2.Porters
         /// <param name="type">The type of property.</param>
         /// <param name="propertyName">A property name.</param>
         /// <returns></returns>
-        protected virtual bool ExportProperty(VgoMaterial vgoMaterial, Material material, VgoMaterialPropertyType type, string propertyName)
+        protected virtual bool ExportProperty(VgoMaterial vgoMaterial, Material material, in VgoMaterialPropertyType type, in string propertyName)
         {
             return ExportProperty(vgoMaterial, material, propertyName, type);
         }
@@ -378,12 +374,9 @@ namespace UniVgo2.Porters
         /// <param name="material">A unity material.</param>
         /// <param name="keyword">keyword.</param>
         /// <returns></returns>
-        protected virtual bool ExportKeyword(VgoMaterial vgoMaterial, Material material, string keyword)
+        protected virtual bool ExportKeyword(VgoMaterial vgoMaterial, Material material, in string keyword)
         {
-            if (vgoMaterial.keywordMap == null)
-            {
-                vgoMaterial.keywordMap = new Dictionary<string, bool>();
-            }
+            vgoMaterial.keywordMap ??= new Dictionary<string, bool>();
 
             if (material.IsKeywordEnabled(keyword))
             {
@@ -409,14 +402,11 @@ namespace UniVgo2.Porters
         /// </param>
         /// <param name="defaultValue">If the material's shader does not define the tag, defaultValue is returned.</param>
         /// <returns></returns>
-        protected virtual bool ExportTag(VgoMaterial vgoMaterial, Material material, string tagName, bool searchFallbacks = false, string? defaultValue = null)
+        protected virtual bool ExportTag(VgoMaterial vgoMaterial, Material material, in string tagName, in bool searchFallbacks = false, in string? defaultValue = null)
         {
             string tagValue = material.GetTag(tagName, searchFallbacks, defaultValue);
 
-            if (vgoMaterial.tagMap == null)
-            {
-                vgoMaterial.tagMap = new Dictionary<string, string>();
-            }
+            vgoMaterial.tagMap ??= new Dictionary<string, string>();
 
             if (vgoMaterial.tagMap.ContainsKey(tagName))
             {
@@ -441,7 +431,14 @@ namespace UniVgo2.Porters
         /// <param name="colorSpace">The color space.</param>
         /// <param name="metallicSmoothness">The metallic smoothness.</param>
         /// <returns></returns>
-        protected virtual bool ExportTextureProperty(IVgoStorage vgoStorage, VgoMaterial vgoMaterial, Material material, string propertyName, VgoTextureMapType textureMapType = VgoTextureMapType.Default, VgoColorSpaceType colorSpace = VgoColorSpaceType.Srgb, float metallicSmoothness = -1.0f)
+        protected virtual bool ExportTextureProperty(
+            IVgoStorage vgoStorage,
+            VgoMaterial vgoMaterial,
+            Material material,
+            in string propertyName,
+            in VgoTextureMapType textureMapType = VgoTextureMapType.Default,
+            in VgoColorSpaceType colorSpace = VgoColorSpaceType.Srgb,
+            in float metallicSmoothness = -1.0f)
         {
             if (material.HasProperty(propertyName) == false)
             {
@@ -474,10 +471,7 @@ namespace UniVgo2.Porters
                 return false;
             }
 
-            if (vgoMaterial.textureIndexProperties == null)
-            {
-                vgoMaterial.textureIndexProperties = new Dictionary<string, int>();
-            }
+            vgoMaterial.textureIndexProperties ??= new Dictionary<string, int>();
 
             if (vgoMaterial.textureIndexProperties.ContainsKey(propertyName))
             {
@@ -501,7 +495,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A unity material.</param>
         /// <param name="propertyName">A property name.</param>
         /// <returns></returns>
-        protected virtual bool ExportTextureOffset(VgoMaterial vgoMaterial, Material material, string propertyName)
+        protected virtual bool ExportTextureOffset(VgoMaterial vgoMaterial, Material material, in string propertyName)
         {
             if (material.HasProperty(propertyName) == false)
             {
@@ -512,10 +506,7 @@ namespace UniVgo2.Porters
 
             if (textureOffset != Vector2.zero)
             {
-                if (vgoMaterial.textureOffsetProperties == null)
-                {
-                    vgoMaterial.textureOffsetProperties = new Dictionary<string, float[]>();
-                }
+                vgoMaterial.textureOffsetProperties ??= new Dictionary<string, float[]>();
 
                 if (vgoMaterial.textureOffsetProperties.ContainsKey(propertyName))
                 {
@@ -537,7 +528,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A unity material.</param>
         /// <param name="propertyName">A property name.</param>
         /// <returns></returns>
-        protected virtual bool ExportTextureScale(VgoMaterial vgoMaterial, Material material, string propertyName)
+        protected virtual bool ExportTextureScale(VgoMaterial vgoMaterial, Material material, in string propertyName)
         {
             if (material.HasProperty(propertyName) == false)
             {
@@ -548,10 +539,7 @@ namespace UniVgo2.Porters
 
             if (textureScale != Vector2.one)
             {
-                if (vgoMaterial.textureScaleProperties == null)
-                {
-                    vgoMaterial.textureScaleProperties = new Dictionary<string, float[]>();
-                }
+                vgoMaterial.textureScaleProperties ??= new Dictionary<string, float[]>();
 
                 if (vgoMaterial.textureScaleProperties.ContainsKey(propertyName))
                 {
@@ -577,7 +565,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A unity material.</returns>
-        public virtual Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
+        public virtual Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
         {
             var material = new Material(shader)
             {
@@ -613,7 +601,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="material">A unity material.</param>
         /// <param name="vgoMaterial">A vgo material.</param>
-        protected virtual void ImportKeywords(Material material, VgoMaterial vgoMaterial)
+        protected virtual void ImportKeywords(Material material, in VgoMaterial vgoMaterial)
         {
             if (vgoMaterial.keywordMap == null)
             {
@@ -645,7 +633,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="material">A unity material.</param>
         /// <param name="vgoMaterial">A vgo material.</param>
-        protected virtual void ImportTagMap(Material material, VgoMaterial vgoMaterial)
+        protected virtual void ImportTagMap(Material material, in VgoMaterial vgoMaterial)
         {
             if (vgoMaterial.tagMap == null)
             {
@@ -680,7 +668,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="material">A unity material.</param>
         /// <param name="vgoMaterial">A vgo material.</param>
-        protected virtual void ImportColorProperties(Material material, VgoMaterial vgoMaterial)
+        protected virtual void ImportColorProperties(Material material, in VgoMaterial vgoMaterial)
         {
             if (vgoMaterial.colorProperties == null)
             {
@@ -723,7 +711,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="material">A unity material.</param>
         /// <param name="vgoMaterial">A vgo material.</param>
-        protected virtual void ImportFloatProperties(Material material, VgoMaterial vgoMaterial)
+        protected virtual void ImportFloatProperties(Material material, in VgoMaterial vgoMaterial)
         {
             if (vgoMaterial.floatProperties == null)
             {
@@ -754,7 +742,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="material">A unity material.</param>
         /// <param name="vgoMaterial">A vgo material.</param>
-        protected virtual void ImportIntProperties(Material material, VgoMaterial vgoMaterial)
+        protected virtual void ImportIntProperties(Material material, in VgoMaterial vgoMaterial)
         {
             if (vgoMaterial.intProperties == null)
             {
@@ -784,7 +772,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="material">A unity material.</param>
         /// <param name="vgoMaterial">A vgo material.</param>
-        protected virtual void ImportMatrixProperties(Material material, VgoMaterial vgoMaterial)
+        protected virtual void ImportMatrixProperties(Material material, in VgoMaterial vgoMaterial)
         {
             if (vgoMaterial.matrixProperties == null)
             {
@@ -826,7 +814,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="material">A unity material.</param>
         /// <param name="vgoMaterial">A vgo material.</param>
-        protected virtual void ImportVectorProperties(Material material, VgoMaterial vgoMaterial)
+        protected virtual void ImportVectorProperties(Material material, in VgoMaterial vgoMaterial)
         {
             if (vgoMaterial.vectorProperties == null)
             {
@@ -877,7 +865,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A unity material.</param>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
-        protected virtual void ImportTextureProperties(Material material, VgoMaterial vgoMaterial, List<Texture2D?> allTexture2dList)
+        protected virtual void ImportTextureProperties(Material material, in VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList)
         {
             if (vgoMaterial.textureIndexProperties != null)
             {
@@ -977,7 +965,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="material">A unity material.</param>
         /// <returns>List of the property name.</returns>
-        protected List<string> GetPropertyNameList(Material material)
+        protected List<string> GetPropertyNameList(in Material material)
         {
             int propertyCount = material.shader.GetPropertyCount();
 

@@ -34,7 +34,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A MToon material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
+        public override VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage)
         {
             //MToonDefinition definition = MToon.Utils.GetMToonParametersFromMaterial(material);
 
@@ -122,7 +122,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A MToon shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A MToon material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
         {
             if (vgoMaterial.shaderName != ShaderName.VRM_MToon)
             {
@@ -166,7 +166,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A MToon definition.</returns>
-        protected virtual MToonDefinition CreateMToonDefinition(VgoMaterial vgoMaterial, List<Texture2D?> allTexture2dList)
+        protected virtual MToonDefinition CreateMToonDefinition(in VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList)
         {
             MToonDefinition mtoonDefinition = new MToonDefinition();
 
@@ -286,7 +286,7 @@ namespace UniVgo2.Porters
         /// <remarks>
         /// Migrate from MToon 0.x setting to MToon 1.0 material.
         /// </remarks>
-        protected virtual Material CreateMaterialAssetAsMtoon10(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
+        protected virtual Material CreateMaterialAssetAsMtoon10(in VgoMaterial vgoMaterial, Shader shader, in List<Texture2D?> allTexture2dList)
         {
             var material = new Material(shader)
             {
@@ -580,35 +580,75 @@ namespace UniVgo2.Porters
             material.SetInt(MToon10Prop.RenderQueueOffsetNumber, renderQueueOffset);
         }
 
-        protected virtual void SetSafeValue(Material material, VgoMaterial vgoMaterial, MToon10Prop property, int value)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="vgoMaterial"></param>
+        /// <param name="property"></param>
+        /// <param name="value"></param>
+        protected virtual void SetSafeValue(Material material, in VgoMaterial vgoMaterial, in MToon10Prop property, int value)
         {
             string propertyName = property.ToUnityShaderLabName();
 
             material.SetSafeInt(propertyName, value);
         }
 
-        protected virtual void SetSafeValue(Material material, VgoMaterial vgoMaterial, MToon10Prop property, float value)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="vgoMaterial"></param>
+        /// <param name="property"></param>
+        /// <param name="value"></param>
+        protected virtual void SetSafeValue(Material material, in VgoMaterial vgoMaterial, in MToon10Prop property, float value)
         {
             string propertyName = property.ToUnityShaderLabName();
 
             material.SetSafeFloat(propertyName, value, minValue: null, maxValue: null);
         }
 
-        protected virtual void SetSafeValue(Material material, VgoMaterial vgoMaterial, MToon10Prop property, float value, float min, float max, float defaultValue = default)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="vgoMaterial"></param>
+        /// <param name="property"></param>
+        /// <param name="value"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="defaultValue"></param>
+        protected virtual void SetSafeValue(Material material, in VgoMaterial vgoMaterial, in MToon10Prop property, float value, float min, float max, float defaultValue = default)
         {
             string propertyName = property.ToUnityShaderLabName();
 
             material.SetSafeFloat(propertyName, value, min, max, defaultValue);
         }
 
-        protected virtual void SetColor(Material material, VgoMaterial vgoMaterial, MToon10Prop property, Color color)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="vgoMaterial"></param>
+        /// <param name="property"></param>
+        /// <param name="color"></param>
+        protected virtual void SetColor(Material material, in VgoMaterial vgoMaterial, in MToon10Prop property, Color color)
         {
             string propertyName = property.ToUnityShaderLabName();
 
             material.SetSafeColor(propertyName, color);
         }
 
-        protected virtual void SetTexture(Material material, VgoMaterial vgoMaterial, MToon10Prop property, Texture2D? texture, Vector2? offset = null, Vector2? scale = null)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="material"></param>
+        /// <param name="vgoMaterial"></param>
+        /// <param name="property"></param>
+        /// <param name="texture"></param>
+        /// <param name="offset"></param>
+        /// <param name="scale"></param>
+        protected virtual void SetTexture(Material material, in VgoMaterial vgoMaterial, in MToon10Prop property, Texture2D? texture, Vector2? offset = null, Vector2? scale = null)
         {
             string propertyName = property.ToUnityShaderLabName();
 

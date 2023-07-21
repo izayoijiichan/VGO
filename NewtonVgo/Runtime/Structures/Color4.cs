@@ -91,7 +91,7 @@ namespace NewtonVgo
         /// <exception cref="IndexOutOfRangeException"></exception>
         public float this[int index]
         {
-            get
+            readonly get
             {
                 switch (index)
                 {
@@ -143,7 +143,7 @@ namespace NewtonVgo
         /// <param name="g"></param>
         /// <param name="b"></param>
         /// <param name="a"></param>
-        public void Deconstruct(out float r, out float g, out float b, out float a)
+        public readonly void Deconstruct(out float r, out float g, out float b, out float a)
         {
             r = R;
             g = G;
@@ -156,7 +156,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="other"></param>
         /// <returns>true if the specified object is equal to the current object; otherwise, false.</returns>
-        public bool Equals(Color4 other)
+        public readonly bool Equals(in Color4 other)
         {
             return
                 R.Equals(other.R) &&
@@ -170,7 +170,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="other"></param>
         /// <returns>true if the specified object is equal to the current object; otherwise, false.</returns>
-        public override bool Equals(object? other)
+        public override readonly bool Equals(object? other)
         {
             if (other is Color4 otherColor4)
             {
@@ -184,7 +184,7 @@ namespace NewtonVgo
         /// Serves as the default hash function.
         /// </summary>
         /// <returns>A hash code for the current object.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return
                 R.GetHashCode() ^
@@ -212,7 +212,7 @@ namespace NewtonVgo
         /// Convert Color4 to Color3.
         /// </summary>
         /// <returns></returns>
-        public Color3 ToColor3()
+        public readonly Color3 ToColor3()
         {
             return new Color3(this);
         }
@@ -221,12 +221,24 @@ namespace NewtonVgo
 
         #region Operators
 
-        public static bool operator ==(Color4 c1, Color4 c2)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="c1"></param>
+        /// <param name="c2"></param>
+        /// <returns></returns>
+        public static bool operator ==(in Color4 c1, in Color4 c2)
         {
             return c1.Equals(c2);
         }
 
-        public static bool operator !=(Color4 c1, Color4 c2)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="c1"></param>
+        /// <param name="c2"></param>
+        /// <returns></returns>
+        public static bool operator !=(in Color4 c1, in Color4 c2)
         {
             return c1.Equals(c2) == false;
         }

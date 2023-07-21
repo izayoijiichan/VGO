@@ -33,7 +33,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A skybox material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
+        public override VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage)
         {
             var vgoMaterial = new VgoMaterial
             {
@@ -116,7 +116,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A skybox shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A skybox material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
         {
             var material = new Material(shader)
             {

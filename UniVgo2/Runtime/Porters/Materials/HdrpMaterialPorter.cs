@@ -33,7 +33,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A HDRP material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
+        public override VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage)
         {
             switch (material.shader.name)
             {
@@ -63,7 +63,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A HDRP/Eye material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        protected VgoMaterial CreateVgoMaterialFromHdrpEye(Material material, IVgoStorage vgoStorage)
+        protected VgoMaterial CreateVgoMaterialFromHdrpEye(in Material material, in IVgoStorage vgoStorage)
         {
             //HdrpEyeDefinition definition = UniHdrpShader.Utils.GetParametersFromMaterial<HdrpEyeDefinition>(material);
 
@@ -93,7 +93,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A HDRP/Hair material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        protected VgoMaterial CreateVgoMaterialFromHdrpHair(Material material, IVgoStorage vgoStorage)
+        protected VgoMaterial CreateVgoMaterialFromHdrpHair(in Material material, in IVgoStorage vgoStorage)
         {
             //HdrpHairDefinition definition = UniHdrpShader.Utils.GetParametersFromMaterial<HdrpHairDefinition>(material);
 
@@ -123,7 +123,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A HDRP/Lit material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        protected VgoMaterial CreateVgoMaterialFromHdrpLit(Material material, IVgoStorage vgoStorage)
+        protected VgoMaterial CreateVgoMaterialFromHdrpLit(in Material material, in IVgoStorage vgoStorage)
         {
             //HdrpLitDefinition definition = UniHdrpShader.Utils.GetParametersFromMaterial<HdrpLitDefinition>(material);
 
@@ -173,7 +173,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A HDRP shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A HDRP material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
         {
             switch (vgoMaterial.shaderName)
             {

@@ -11,7 +11,7 @@ namespace UniVgo2.Porters
     #region Delegates
 
     /// <summary>The delegate to ExportTexture method.</summary>
-    public delegate int ExportTextureDelegate(IVgoStorage vgoStorage, Texture srcTexture, VgoTextureMapType textureMapType = VgoTextureMapType.Default, VgoColorSpaceType colorSpaceType = VgoColorSpaceType.Srgb, float metallicSmoothness = -1.0f);
+    public delegate int ExportTextureDelegate(IVgoStorage vgoStorage, Texture srcTexture, in VgoTextureMapType textureMapType = VgoTextureMapType.Default, in VgoColorSpaceType colorSpaceType = VgoColorSpaceType.Srgb, in float metallicSmoothness = -1.0f);
 
     #endregion
 

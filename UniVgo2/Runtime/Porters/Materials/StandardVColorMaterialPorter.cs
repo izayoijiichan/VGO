@@ -30,7 +30,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A standard material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
+        public override VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage)
         {
             VgoMaterial vgoMaterial = new VgoMaterial()
             {

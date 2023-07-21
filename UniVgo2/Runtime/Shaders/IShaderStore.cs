@@ -20,7 +20,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoMaterial">The vgo material.</param>
         /// <returns></returns>
-        Shader? GetShaderOrDefault(VgoMaterial vgoMaterial);
+        Shader? GetShaderOrDefault(in VgoMaterial vgoMaterial);
 
         /// <summary>
         /// Get a shader or standard.
@@ -28,7 +28,7 @@ namespace UniVgo2
         /// <param name="vgoMaterial">The vgo material.</param>
         /// <param name="renderPipelineType">Type of render pipeline.</param>
         /// <returns></returns>
-        Shader GetShaderOrStandard(VgoMaterial vgoMaterial, RenderPipelineType renderPipelineType);
+        Shader GetShaderOrStandard(in VgoMaterial vgoMaterial, in RenderPipelineType renderPipelineType);
 
         ///// <summary>
         ///// Try get a shader.
@@ -36,7 +36,7 @@ namespace UniVgo2
         ///// <param name="materialInfo"></param>
         ///// <param name="shader"></param>
         ///// <returns></returns>
-        //bool TryGetShader(MaterialInfo materialInfo, out Shader shader);
+        //bool TryGetShader(in MaterialInfo materialInfo, out Shader shader);
 
         #endregion
     }

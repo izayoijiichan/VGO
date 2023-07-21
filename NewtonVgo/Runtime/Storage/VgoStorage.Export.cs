@@ -27,7 +27,7 @@ namespace NewtonVgo
         /// <param name="filePath">The full path of the file.</param>
         /// <param name="exportSetting">A vgo export setting.</param>
         /// <returns>Returns true if the export was successful, false otherwise.</returns>
-        public virtual bool ExportVgoFile(string filePath, VgoExportSetting exportSetting)
+        public virtual bool ExportVgoFile(in string filePath, in VgoExportSetting exportSetting)
         {
             ThrowHelper.ThrowExceptionIfArgumentIsNull(nameof(filePath), filePath);
 
@@ -158,7 +158,7 @@ namespace NewtonVgo
             {
                 string keyFileName = fileInfo.Name.Substring(0, fileInfo.Name.Length - fileInfo.Extension.Length) + ".vgk";
 
-                string keyFullPath = Path.Combine(fileInfo.DirectoryName, keyFileName);
+                string keyFullPath = Path.Combine(fileInfo.DirectoryName!, keyFileName);
 
                 // Output (.vgk)
                 using (var stream = new FileStream(keyFullPath, FileMode.Create, FileAccess.Write, FileShare.None))
@@ -172,7 +172,14 @@ namespace NewtonVgo
 
             if (exportSetting.ResourceTypeId != VgoChunkTypeID.REPb)
             {
-                string binFullPath = Path.Combine(fileInfo.DirectoryName, exportSetting.BinFileName);  // @notice binFileName
+                if (exportSetting.BinFileName is null)
+                {
+                    ThrowHelper.ThrowArgumentException(nameof(exportSetting), "exportSetting.BinFileName is null.");
+
+                    return false;
+                }
+
+                string binFullPath = Path.Combine(fileInfo.DirectoryName!, exportSetting.BinFileName);  // @notice binFileName
 
                 // Output (.bin)
                 using (var stream = new FileStream(binFullPath, FileMode.Create, FileAccess.Write, FileShare.None))
@@ -196,7 +203,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="assetInfoTypeId">The asset info chunk type ID.</param>
         /// <returns>An asset info chunk.</returns>
-        public virtual VgoChunk CreateAssetInfoChunk(VgoChunkTypeID assetInfoTypeId)
+        public virtual VgoChunk CreateAssetInfoChunk(in VgoChunkTypeID assetInfoTypeId)
         {
             IByteBuffer assetInfoChunkData;
 
@@ -250,7 +257,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="layoutTypeId">The layout chunk type ID.</param>
         /// <returns>A layout chunk.</returns>
-        protected virtual VgoChunk CreateLayoutChunk(VgoChunkTypeID layoutTypeId)
+        protected virtual VgoChunk CreateLayoutChunk(in VgoChunkTypeID layoutTypeId)
         {
             IByteBuffer layoutChunkData;
 
@@ -308,10 +315,10 @@ namespace NewtonVgo
         /// <param name="cryptKey">The crypt key.</param>
         /// <returns>A resource accessor chunk and a crypt chunk.</returns>
         protected virtual (VgoChunk, VgoChunk?) CreateResourceAccessorChunk(
-            VgoChunkTypeID resourceAccessorTypeId,
-            VgoChunkTypeID resourceAccessorCryptTypeId,
-            string? cryptAlgorithm = null,
-            byte[]? cryptKey = null)
+            in VgoChunkTypeID resourceAccessorTypeId,
+            in VgoChunkTypeID resourceAccessorCryptTypeId,
+            in string? cryptAlgorithm = null,
+            in byte[]? cryptKey = null)
         {
             IByteBuffer resourceAccessorChunkData;
             IByteBuffer? resourceAccessorCryptChunkData = null;
@@ -478,17 +485,11 @@ namespace NewtonVgo
         /// <param name="binFileName">The resource binary file name.</param>
         /// <param name="resourceUri">The resource URI.</param>
         /// <returns>A resouce chunk.</returns>
-        protected virtual VgoChunk CreateResourceChunk(VgoChunkTypeID resourceTypeId, FileInfo fileInfo, string? binFileName = null, string? resourceUri = null)
+        protected virtual VgoChunk CreateResourceChunk(in VgoChunkTypeID resourceTypeId, in FileInfo fileInfo, string? binFileName = null, string? resourceUri = null)
         {
-            if (binFileName == null)
-            {
-                binFileName = fileInfo.Name.Substring(0, fileInfo.Name.Length - fileInfo.Extension.Length) + ".bin";
-            }
+            binFileName ??= fileInfo.Name.Substring(0, fileInfo.Name.Length - fileInfo.Extension.Length) + ".bin";
 
-            if (resourceUri == null)
-            {
-                resourceUri = binFileName;
-            }
+            resourceUri ??= binFileName;
 
             if (Resource == null)
             {
@@ -567,11 +568,11 @@ namespace NewtonVgo
         /// <param name="resourceTypeId">The resourse chunk type ID.</param>
         /// <returns>A composer chunk.</returns>
         public virtual VgoChunk CreateComposerChunk(
-            VgoChunkTypeID assetInfoTypeId,
-            VgoChunkTypeID layoutTypeId,
-            VgoChunkTypeID resourceAccessorTypeId,
-            VgoChunkTypeID resourceAccessorCryptTypeId,
-            VgoChunkTypeID resourceTypeId)
+            in VgoChunkTypeID assetInfoTypeId,
+            in VgoChunkTypeID layoutTypeId,
+            in VgoChunkTypeID resourceAccessorTypeId,
+            in VgoChunkTypeID resourceAccessorCryptTypeId,
+            in VgoChunkTypeID resourceTypeId)
         {
             VgoComposerChunkData composerChunkData = new VgoComposerChunkData
             {
@@ -601,7 +602,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="chunkList">List of chunk.</param>
         /// <returns>A index chunk.</returns>
-        protected virtual VgoChunk CreateIndexChunk(List<VgoChunk> chunkList)
+        protected virtual VgoChunk CreateIndexChunk(in List<VgoChunk> chunkList)
         {
             VgoIndexChunkDataElement[] indexChunkDataArray = new VgoIndexChunkDataElement[chunkList.Count];
 

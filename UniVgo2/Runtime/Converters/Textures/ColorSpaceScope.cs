@@ -11,7 +11,7 @@ namespace UniVgo2.Converters
     /// <summary>
     /// Color Space Scope
     /// </summary>
-    public struct ColorSpaceScope : IDisposable
+    public readonly struct ColorSpaceScope : IDisposable
     {
         /// <summary>Controls whether Linear-to-sRGB color conversion is performed while rendering.</summary>
         private readonly bool sRGBWrite;
@@ -30,7 +30,7 @@ namespace UniVgo2.Converters
         /// Create a new instance of ColorSpaceScope with colorSpace.
         /// </summary>
         /// <param name="colorSpace"></param>
-        public ColorSpaceScope(RenderTextureReadWrite colorSpace)
+        public ColorSpaceScope(in RenderTextureReadWrite colorSpace)
         {
             sRGBWrite = GL.sRGBWrite;
             GL.sRGBWrite = colorSpace != RenderTextureReadWrite.Linear;
@@ -39,7 +39,7 @@ namespace UniVgo2.Converters
         /// <summary>
         /// Restore Linear-to-sRGB color conversion state.
         /// </summary>
-        public void Dispose()
+        public readonly void Dispose()
         {
             GL.sRGBWrite = sRGBWrite;
         }

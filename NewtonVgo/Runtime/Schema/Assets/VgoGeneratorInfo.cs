@@ -37,8 +37,8 @@ namespace NewtonVgo
         /// <summary>
         /// Create a new instance of VgoGeneratorInfo by specifying VgoGeneratorInfo.
         /// </summary>
-        /// <param name="meta"></param>
-        public VgoGeneratorInfo(VgoGeneratorInfo generatorInfo)
+        /// <param name="generatorInfo"></param>
+        public VgoGeneratorInfo(in VgoGeneratorInfo generatorInfo)
         {
             if (generatorInfo != null)
             {

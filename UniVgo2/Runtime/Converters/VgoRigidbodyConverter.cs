@@ -18,7 +18,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="rigidbody"></param>
         /// <returns></returns>
-        public static VgoRigidbody CreateFrom(Rigidbody rigidbody)
+        public static VgoRigidbody CreateFrom(in Rigidbody rigidbody)
         {
             return new VgoRigidbody()
             {
@@ -38,7 +38,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="rigidbody"></param>
         /// <param name="vgoRigidbody"></param>
-        public static void SetComponentValue(Rigidbody rigidbody, VgoRigidbody vgoRigidbody)
+        public static void SetComponentValue(Rigidbody rigidbody, in VgoRigidbody vgoRigidbody)
         {
             rigidbody.mass = vgoRigidbody.mass;
             rigidbody.drag = vgoRigidbody.drag;

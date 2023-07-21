@@ -20,7 +20,7 @@ namespace UniVgo2.Converters
         /// <param name="textureMapType">The texture map type.</param>
         /// <param name="metallicRoughness">The metallic roughness.</param>
         /// <returns></returns>
-        public virtual Texture2D GetImportTexture(Texture2D source, VgoTextureMapType textureMapType, float metallicRoughness = -1.0f)
+        public virtual Texture2D GetImportTexture(in Texture2D source, in VgoTextureMapType textureMapType, in float metallicRoughness = -1.0f)
         {
             if (textureMapType == VgoTextureMapType.NormalMap)
             {
@@ -52,7 +52,7 @@ namespace UniVgo2.Converters
         /// <param name="colorSpaceType">The color space type.</param>
         /// <param name="metallicSmoothness">The metallic smoothness.</param>
         /// <returns></returns>
-        public virtual Texture2D GetExportTexture(Texture2D source, VgoTextureMapType textureMapType, VgoColorSpaceType colorSpaceType, float metallicSmoothness = -1.0f)
+        public virtual Texture2D GetExportTexture(in Texture2D source, in VgoTextureMapType textureMapType, in VgoColorSpaceType colorSpaceType, in float metallicSmoothness = -1.0f)
         {
             if (textureMapType == VgoTextureMapType.NormalMap)
             {
@@ -79,7 +79,7 @@ namespace UniVgo2.Converters
         /// <param name="colorSpaceType">The color space type.</param>
         /// <param name="converter">The converter.</param>
         /// <returns>The copied Texture2D.</returns>
-        protected virtual Texture2D CopyTexture2d(Texture2D source, VgoColorSpaceType colorSpaceType, Material? converter = null)
+        protected virtual Texture2D CopyTexture2d(in Texture2D source, in VgoColorSpaceType colorSpaceType, in Material? converter = null)
         {
             RenderTextureReadWrite readWrite =
                 (colorSpaceType == VgoColorSpaceType.Linear) ? RenderTextureReadWrite.Linear : RenderTextureReadWrite.sRGB;

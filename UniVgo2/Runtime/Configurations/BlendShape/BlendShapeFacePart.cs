@@ -7,6 +7,7 @@ namespace UniVgo2
 {
     using NewtonVgo;
     using System;
+    using UnityEngine;
 
     /// <summary>
     /// VGO BlendShape Face Part
@@ -15,9 +16,25 @@ namespace UniVgo2
     public class BlendShapeFacePart
     {
         /// <summary>The index of the BlendShape.</summary>
-        public int index;
+        [SerializeField]
+        private int index;
+
+        /// <summary>The index of the BlendShape.</summary>
+        public int Index
+        {
+            get => index;
+            set => index = value;
+        }
 
         /// <summary>The type of the face parts.</summary>
-        public VgoBlendShapeFacePartsType type;
+        [SerializeField]
+        private VgoBlendShapeFacePartsType type;
+
+        /// <summary>The type of the face parts.</summary>
+        public VgoBlendShapeFacePartsType Type
+        {
+            get => type;
+            set => type = value;
+        }
     }
 }

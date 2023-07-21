@@ -169,7 +169,7 @@ namespace UniVgo2.Editor
 
             EditorGUILayout.PrefixLabel("Kind");
 
-            _BlendShapeConfiguration.kind = (VgoBlendShapeKind)EditorGUILayout.EnumPopup(_BlendShapeConfiguration.kind);
+            _BlendShapeConfiguration.Kind = (VgoBlendShapeKind)EditorGUILayout.EnumPopup(_BlendShapeConfiguration.Kind);
 
             EditorGUILayout.EndHorizontal();
         }
@@ -184,7 +184,7 @@ namespace UniVgo2.Editor
                 return;
             }
 
-            List<BlendShapeFacePart> confFaceParts = _BlendShapeConfiguration.faceParts;
+            List<BlendShapeFacePart> confFaceParts = _BlendShapeConfiguration.FaceParts;
 
             int listCount = confFaceParts.Count;
 
@@ -227,9 +227,9 @@ namespace UniVgo2.Editor
 
                     using (new EditorGUILayout.VerticalScope(boxStyle, GUILayout.ExpandWidth(true)))
                     {
-                        facePart.index = EditorGUILayout.IntPopup("Index", facePart.index, _BlendShapeNames, _BlendShapeIndices);
+                        facePart.Index = EditorGUILayout.IntPopup("Index", facePart.Index, _BlendShapeNames, _BlendShapeIndices);
 
-                        facePart.type = (VgoBlendShapeFacePartsType)EditorGUILayout.EnumPopup("Type", facePart.type);
+                        facePart.Type = (VgoBlendShapeFacePartsType)EditorGUILayout.EnumPopup("Type", facePart.Type);
                     }
                 }
 
@@ -249,7 +249,7 @@ namespace UniVgo2.Editor
                 return;
             }
 
-            List<BlendShapeBlink> confBlinks = _BlendShapeConfiguration.blinks;
+            List<BlendShapeBlink> confBlinks = _BlendShapeConfiguration.Blinks;
 
             int listCount = confBlinks.Count;
 
@@ -290,9 +290,9 @@ namespace UniVgo2.Editor
 
                     using (new EditorGUILayout.VerticalScope(boxStyle, GUILayout.ExpandWidth(true)))
                     {
-                        blink.type = (VgoBlendShapeBlinkType)EditorGUILayout.EnumPopup("Type", blink.type);
+                        blink.Type = (VgoBlendShapeBlinkType)EditorGUILayout.EnumPopup("Type", blink.Type);
 
-                        blink.index = EditorGUILayout.IntPopup("Index", blink.index, _BlendShapeNames, _BlendShapeIndices);
+                        blink.Index = EditorGUILayout.IntPopup("Index", blink.Index, _BlendShapeNames, _BlendShapeIndices);
                     }
                 }
             }
@@ -310,7 +310,7 @@ namespace UniVgo2.Editor
                 return;
             }
 
-            List<BlendShapeViseme> confVisemes = _BlendShapeConfiguration.visemes;
+            List<BlendShapeViseme> confVisemes = _BlendShapeConfiguration.Visemes;
 
             int listCount = confVisemes.Count;
 
@@ -351,9 +351,9 @@ namespace UniVgo2.Editor
 
                     using (new EditorGUILayout.VerticalScope(boxStyle, GUILayout.ExpandWidth(true)))
                     {
-                        viseme.type = (VgoBlendShapeVisemeType)EditorGUILayout.EnumPopup("Type", viseme.type);
+                        viseme.Type = (VgoBlendShapeVisemeType)EditorGUILayout.EnumPopup("Type", viseme.Type);
 
-                        viseme.index = EditorGUILayout.IntPopup("Index", viseme.index, _BlendShapeNames, _BlendShapeIndices);
+                        viseme.Index = EditorGUILayout.IntPopup("Index", viseme.Index, _BlendShapeNames, _BlendShapeIndices);
                     }
                 }
             }
@@ -371,7 +371,7 @@ namespace UniVgo2.Editor
                 return;
             }
 
-            List<VgoMeshBlendShapePreset> confPresets = _BlendShapeConfiguration.presets;
+            List<VgoMeshBlendShapePreset> confPresets = _BlendShapeConfiguration.Presets;
 
             int listCount = confPresets.Count;
 

@@ -28,7 +28,8 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="vgoBytes">The vgo bytes.</param>
         /// <param name="vgkBytes">The vgk bytes.</param>
-        protected virtual void ParseVgo(byte[] vgoBytes, byte[]? vgkBytes, out VgoLayout layout)
+        /// <param name="layout">The vgo layout.</param>
+        protected virtual void ParseVgo(in byte[] vgoBytes, in byte[]? vgkBytes, out VgoLayout layout)
         {
             if (vgoBytes == null)
             {
@@ -121,7 +122,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="allSegmentBytes">The all segment bytes.</param>
         /// <returns>The header chunk.</returns>
-        protected virtual VgoHeader GetHeader(ArraySegment<byte> allSegmentBytes)
+        protected virtual VgoHeader GetHeader(in ArraySegment<byte> allSegmentBytes)
         {
             try
             {
@@ -129,7 +130,7 @@ namespace NewtonVgo
 
                 ArraySegment<byte> headerSegment = allSegmentBytes.Slice(offset: 0, count: headerSize);
 
-                VgoHeader header = headerSegment.Array.ConvertToStructure<VgoHeader>();
+                VgoHeader header = headerSegment.ToArray().ConvertToStructure<VgoHeader>();
 
                 if (header.Magic != (uint)VgoChunkTypeID.Vgo)
                 {
@@ -179,8 +180,20 @@ namespace NewtonVgo
         /// <remarks>
         /// Index chunk (8 + 16 * n byte)
         /// </remarks>
-        protected virtual VgoIndexChunkDataElement[] GetChunkIndexMap(ArraySegment<byte> allSegmentBytes, int indexByteOffset)
+        protected virtual VgoIndexChunkDataElement[] GetChunkIndexMap(in ArraySegment<byte> allSegmentBytes, in int indexByteOffset)
         {
+            if (allSegmentBytes.Array is null)
+            {
+                ThrowHelper.ThrowArgumentException(nameof(allSegmentBytes));
+
+                return Array.Empty<VgoIndexChunkDataElement>();
+            }
+
+            if (allSegmentBytes.Count == 0)
+            {
+                ThrowHelper.ThrowArgumentOutOfRangeException(nameof(allSegmentBytes));
+            }
+
             try
             {
                 uint indexChunkTypeId = BitConverter.ToUInt32(allSegmentBytes.Array, indexByteOffset);
@@ -226,11 +239,11 @@ namespace NewtonVgo
         /// <param name="chunkTypeId">The chunk type ID.</param>
         /// <param name="chunkIndexMap">The chunk index map.</param>
         /// <returns></returns>
-        protected virtual VgoIndexChunkDataElement GetIndexChunkDataElement(VgoChunkTypeID chunkTypeId, VgoIndexChunkDataElement[] chunkIndexMap)
+        protected virtual VgoIndexChunkDataElement GetIndexChunkDataElement(VgoChunkTypeID chunkTypeId, in VgoIndexChunkDataElement[] chunkIndexMap)
         {
             try
             {
-                int count = chunkIndexMap.Where(x => x.ChunkTypeId == chunkTypeId).Count();
+                int count = chunkIndexMap.Count(x => x.ChunkTypeId == chunkTypeId);
 
                 if (count == 0)
                 {
@@ -242,7 +255,7 @@ namespace NewtonVgo
                     ThrowHelper.ThrowFormatException($"{chunkTypeId} is defined more than once in IDX chunk.");
                 }
 
-                VgoIndexChunkDataElement chunkInfo = chunkIndexMap.Where(x => x.ChunkTypeId == chunkTypeId).First();
+                VgoIndexChunkDataElement chunkInfo = chunkIndexMap.First(x => x.ChunkTypeId == chunkTypeId);
 
                 if (chunkInfo.ByteOffset == 0)
                 {
@@ -274,8 +287,20 @@ namespace NewtonVgo
         /// <param name="chunkIndexMap">The chunk index map.</param>
         /// <param name="allSegmentBytes">The all segment bytes.</param>
         /// <returns>The chunk data bytes.</returns>
-        protected virtual ArraySegment<byte> ExtractChunkData(VgoChunkTypeID chunkTypeId, VgoIndexChunkDataElement[] chunkIndexMap, ArraySegment<byte> allSegmentBytes)
+        protected virtual ArraySegment<byte> ExtractChunkData(in VgoChunkTypeID chunkTypeId, in VgoIndexChunkDataElement[] chunkIndexMap, in ArraySegment<byte> allSegmentBytes)
         {
+            if (allSegmentBytes.Array is null)
+            {
+                ThrowHelper.ThrowArgumentException(nameof(allSegmentBytes));
+
+                return new ArraySegment<byte>(Array.Empty<byte>());
+            }
+
+            if (allSegmentBytes.Count == 0)
+            {
+                ThrowHelper.ThrowArgumentOutOfRangeException(nameof(allSegmentBytes));
+            }
+
             VgoIndexChunkDataElement chunkIndexInfo = GetIndexChunkDataElement(chunkTypeId, chunkIndexMap);
 
             uint chunkChunkTypeId = BitConverter.ToUInt32(allSegmentBytes.Array, (int)chunkIndexInfo.ByteOffset);
@@ -311,7 +336,7 @@ namespace NewtonVgo
         /// <param name="chunkIndexMap">The chunk index map.</param>
         /// <param name="allSegmentBytes">The all segment bytes.</param>
         /// <returns>The asset info.</returns>
-        protected virtual VgoAssetInfo? ExtractAssetInfo(VgoComposerChunkData composerChunkData, VgoIndexChunkDataElement[] chunkIndexMap, ArraySegment<byte> allSegmentBytes)
+        protected virtual VgoAssetInfo? ExtractAssetInfo(in VgoComposerChunkData composerChunkData, in VgoIndexChunkDataElement[] chunkIndexMap, in ArraySegment<byte> allSegmentBytes)
         {
             try
             {
@@ -359,7 +384,7 @@ namespace NewtonVgo
         /// <param name="chunkIndexMap">The chunk index map.</param>
         /// <param name="allSegmentBytes">The all segment bytes.</param>
         /// <returns>The layout.</returns>
-        protected virtual VgoLayout ExtractLayout(VgoComposerChunkData composerChunkData, VgoIndexChunkDataElement[] chunkIndexMap, ArraySegment<byte> allSegmentBytes)
+        protected virtual VgoLayout ExtractLayout(in VgoComposerChunkData composerChunkData, in VgoIndexChunkDataElement[] chunkIndexMap, in ArraySegment<byte> allSegmentBytes)
         {
             try
             {
@@ -423,7 +448,7 @@ namespace NewtonVgo
         /// <param name="allSegmentBytes">The all segment bytes.</param>
         /// <param name="cryptKey">The crypt key.</param>
         /// <returns>List of the resource accessor.</returns>
-        protected virtual List<VgoResourceAccessor>? ExtractResourceAccessor(VgoComposerChunkData composerChunkData, VgoIndexChunkDataElement[] chunkIndexMap, ArraySegment<byte> allSegmentBytes, byte[]? cryptKey = null)
+        protected virtual List<VgoResourceAccessor>? ExtractResourceAccessor(in VgoComposerChunkData composerChunkData, in VgoIndexChunkDataElement[] chunkIndexMap, in ArraySegment<byte> allSegmentBytes, in byte[]? cryptKey = null)
         {
             VgoChunkTypeID raChunkTypeId = composerChunkData.ResourceAccessorChunkTypeId;
 
@@ -528,7 +553,6 @@ namespace NewtonVgo
 
                         return default;
                     }
-
                 }
                 catch (JsonSerializationException)
                 {
@@ -587,7 +611,7 @@ namespace NewtonVgo
         /// <param name="chunkIndexMap">The chunk index map.</param>
         /// <param name="allSegmentBytes">The all segment bytes.</param>
         /// <returns>The resouce bytes.</returns>
-        protected virtual ArraySegment<byte> ExtractResource(VgoComposerChunkData composerChunkData, VgoIndexChunkDataElement[] chunkIndexMap, ArraySegment<byte> allSegmentBytes)
+        protected virtual ArraySegment<byte> ExtractResource(in VgoComposerChunkData composerChunkData, in VgoIndexChunkDataElement[] chunkIndexMap, in ArraySegment<byte> allSegmentBytes)
         {
             VgoChunkTypeID resourceChunkTypeId = composerChunkData.ResourceChunkTypeId;
 
@@ -662,7 +686,7 @@ namespace NewtonVgo
         /// <param name="chunkIndexMap">The chunk index map.</param>
         /// <param name="allSegmentBytes">The all segment bytes.</param>
         /// <returns>The vgo crypt.</returns>
-        protected virtual VgoCryptV0? GetVgoCrypt(VgoChunkTypeID cryptChunkTypeId, VgoIndexChunkDataElement[] chunkIndexMap, ArraySegment<byte> allSegmentBytes)
+        protected virtual VgoCryptV0? GetVgoCrypt(in VgoChunkTypeID cryptChunkTypeId, in VgoIndexChunkDataElement[] chunkIndexMap, in ArraySegment<byte> allSegmentBytes)
         {
             try
             {
@@ -708,7 +732,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="uri">The uri.</param>
         /// <returns>An byte array of uri data.</returns>
-        protected virtual byte[] GetUriData(string uri)
+        protected virtual byte[] GetUriData(in string uri)
         {
             ThrowHelper.ThrowExceptionIfArgumentIsNull(nameof(uri), uri);
 
@@ -722,22 +746,21 @@ namespace NewtonVgo
                 uri.StartsWith("http://") ||
                 uri.StartsWith("https://"))
             {
-                using (HttpClient httpClient = new HttpClient() { Timeout = TimeSpan.FromSeconds(HttpTimeoutSeconds) })
-                using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri))
-                using (HttpResponseMessage response = httpClient.SendAsync(request).GetAwaiter().GetResult())
+                using HttpClient httpClient = new HttpClient() { Timeout = TimeSpan.FromSeconds(HttpTimeoutSeconds) };
+                using HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri);
+                using HttpResponseMessage response = httpClient.SendAsync(request).GetAwaiter().GetResult();
+
+                if (response.IsSuccessStatusCode)
                 {
-                    if (response.IsSuccessStatusCode)
-                    {
-                        byte[] byteArray = response.Content.ReadAsByteArrayAsync().GetAwaiter().GetResult();
+                    byte[] byteArray = response.Content.ReadAsByteArrayAsync().GetAwaiter().GetResult();
 
-                        return byteArray;
-                    }
-                    else
-                    {
-                        ThrowHelper.ThrowHttpRequestException(response.StatusCode.ToString());
+                    return byteArray;
+                }
+                else
+                {
+                    ThrowHelper.ThrowHttpRequestException(response.StatusCode.ToString());
 
-                        return Array.Empty<byte>();
-                    }
+                    return Array.Empty<byte>();
                 }
             }
             else if (uri.StartsWith("file://"))

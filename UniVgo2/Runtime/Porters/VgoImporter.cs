@@ -48,7 +48,7 @@ namespace UniVgo2
         /// Create a new instance of VgoImporter with option.
         /// </summary>
         /// <param name="option">The vgo importer option.</param>
-        public VgoImporter(VgoImporterOption option)
+        public VgoImporter(in VgoImporterOption option)
         {
             _Option = option;
 
@@ -75,7 +75,7 @@ namespace UniVgo2
         /// <param name="vgoFilePath">The file path of the vgo.</param>
         /// <param name="vgkFilePath">The file path of the crypt key.</param>
         /// <returns>A vgo model asset.</returns>
-        public virtual VgoModelAsset Load(string vgoFilePath, string? vgkFilePath = null)
+        public virtual VgoModelAsset Load(in string vgoFilePath, in string? vgkFilePath = null)
         {
             var vgoStorage = new VgoStorage(vgoFilePath, vgkFilePath);
 
@@ -88,7 +88,7 @@ namespace UniVgo2
         /// <param name="vgoBytes">The vgo bytes.</param>
         /// <param name="vgkBytes">The vgk bytes.</param>
         /// <returns>A vgo model asset.</returns>
-        public virtual VgoModelAsset Load(byte[] vgoBytes, byte[]? vgkBytes = null)
+        public virtual VgoModelAsset Load(in byte[] vgoBytes, in byte[]? vgkBytes = null)
         {
             var vgoStorage = new VgoStorage(vgoBytes, vgkBytes);
 
@@ -100,7 +100,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo model asset.</returns>
-        public virtual VgoModelAsset Load(IVgoStorage vgoStorage)
+        public virtual VgoModelAsset Load(in IVgoStorage vgoStorage)
         {
             var vgoModelAsset = new VgoModelAsset();
 
@@ -154,7 +154,7 @@ namespace UniVgo2
         /// <param name="vgkFilePath">The file path of the vgk.</param>
         /// <returns>A vgo model asset.</returns>
         /// <remarks>for ScriptedImporter</remarks>
-        public virtual VgoModelAsset Extract(string vgoFilePath, string? vgkFilePath = null)
+        public virtual VgoModelAsset Extract(in string vgoFilePath, in string? vgkFilePath = null)
         {
             var vgoStorage = new VgoStorage(vgoFilePath, vgkFilePath);
 
@@ -181,7 +181,7 @@ namespace UniVgo2
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="texture2dList">List of unity texture 2D.</param>
         /// <returns>List of unity material.</returns>
-        protected virtual List<Material?> CreateMaterialAssets(IVgoStorage vgoStorage, List<Texture2D?> texture2dList)
+        protected virtual List<Material?> CreateMaterialAssets(in IVgoStorage vgoStorage, in List<Texture2D?> texture2dList)
         {
             var materialList = new List<Material?>();
 
@@ -218,7 +218,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoLayout">A vgo layout.</param>
         /// <returns>An array of vgo spring bone collider group.</returns>
-        protected virtual VgoSpringBone.VgoSpringBoneColliderGroup[]? CreateSpringBoneColliderGroupArray(VgoLayout vgoLayout)
+        protected virtual VgoSpringBone.VgoSpringBoneColliderGroup[]? CreateSpringBoneColliderGroupArray(in VgoLayout vgoLayout)
         {
             if (vgoLayout.springBoneInfo == null)
             {
@@ -247,7 +247,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>List of transform.</returns>
-        protected virtual List<Transform> CreateNodes(IVgoStorage vgoStorage)
+        protected virtual List<Transform> CreateNodes(in IVgoStorage vgoStorage)
         {
             if (vgoStorage.Layout.nodes is null)
             {
@@ -296,7 +296,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="nodes">List of node.</param>
         /// <param name="vgoLayout">A vgo layout.</param>
-        protected virtual void CreateNodeHierarchy(List<Transform> nodes, VgoLayout vgoLayout)
+        protected virtual void CreateNodeHierarchy(List<Transform> nodes, in VgoLayout vgoLayout)
         {
             if (vgoLayout.nodes is null)
             {
@@ -365,7 +365,7 @@ namespace UniVgo2
         /// <param name="nodes">List of node.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="vgoModelAsset">A vgo model asset.</param>
-        protected virtual void SetupNodes(List<Transform> nodes, IVgoStorage vgoStorage, VgoModelAsset vgoModelAsset)
+        protected virtual void SetupNodes(List<Transform> nodes, in IVgoStorage vgoStorage, VgoModelAsset vgoModelAsset)
         {
             if (vgoStorage.Layout.nodes is null)
             {
@@ -426,7 +426,12 @@ namespace UniVgo2
         /// <param name="vgoLayout">A vgo layout.</param>
         /// <param name="geometryCoordinate"></param>
         /// <param name="vgoModelAsset">A vgo model asset.</param>
-        protected virtual void SetupNode(List<Transform> nodes, int nodeIndex, VgoLayout vgoLayout, VgoGeometryCoordinate geometryCoordinate, VgoModelAsset vgoModelAsset)
+        protected virtual void SetupNode(
+            List<Transform> nodes,
+            in int nodeIndex,
+            in VgoLayout vgoLayout,
+            in VgoGeometryCoordinate geometryCoordinate, 
+            VgoModelAsset vgoModelAsset)
         {
             if (vgoLayout.nodes is null)
             {
@@ -674,7 +679,12 @@ namespace UniVgo2
         /// <param name="vgoLayout">A vgo layout.</param>
         /// <param name="geometryCoordinate"></param>
         /// <param name="vgoModelAsset">A vgo model asset.</param>
-        protected virtual void SetupNodeSpringBone(List<Transform> nodes, int nodeIndex, VgoLayout vgoLayout, VgoGeometryCoordinate geometryCoordinate, VgoModelAsset vgoModelAsset)
+        protected virtual void SetupNodeSpringBone(
+            List<Transform> nodes,
+            in int nodeIndex,
+            in VgoLayout vgoLayout,
+            in VgoGeometryCoordinate geometryCoordinate,
+            VgoModelAsset vgoModelAsset)
         {
             if (vgoLayout.nodes is null)
             {
@@ -772,7 +782,7 @@ namespace UniVgo2
         /// <param name="nodeIndex">The index of layout.nodes.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="colliderList">List of collider.</param>
-        protected virtual void SetupNodeCloth(List<Transform> nodes, int nodeIndex, IVgoStorage vgoStorage, List<Collider?> colliderList)
+        protected virtual void SetupNodeCloth(List<Transform> nodes, in int nodeIndex, in IVgoStorage vgoStorage, in List<Collider?> colliderList)
         {
             if (vgoStorage.Layout.nodes is null)
             {
@@ -822,7 +832,7 @@ namespace UniVgo2
         /// <remarks>
         /// VgoExporter.CreateUnityColliderList is same logic.
         /// </remarks>
-        protected virtual List<Collider?> CreateUnityColliderList(List<Transform> nodes)
+        protected virtual List<Collider?> CreateUnityColliderList(in List<Transform> nodes)
         {
             var colliderList = new List<Collider?>();
 
@@ -853,10 +863,17 @@ namespace UniVgo2
         /// </summary>
         /// <param name="nodes">List of node.</param>
         /// <param name="nodeIndex">The index of layout.node.</param>
+        /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="vgoModelAsset">A vgo model asset.</param>
         /// <param name="showMesh">Whether show mesh renderer.</param>
         /// <param name="updateWhenOffscreen">Whether update skinned mesh renderer when off screen.</param>
-        protected virtual void AttachMeshAndRenderer(List<Transform> nodes, int nodeIndex, IVgoStorage vgoStorage, VgoModelAsset vgoModelAsset, bool showMesh = true, bool updateWhenOffscreen = false)
+        protected virtual void AttachMeshAndRenderer(
+            List<Transform> nodes,
+            in int nodeIndex,
+            in IVgoStorage vgoStorage,
+            VgoModelAsset vgoModelAsset,
+            in bool showMesh = true,
+            in bool updateWhenOffscreen = false)
         {
             if (vgoStorage.Layout.nodes is null)
             {
@@ -931,12 +948,12 @@ namespace UniVgo2
 
                     BlendShapeConfiguration blendShapeConfiguration = ScriptableObject.CreateInstance<BlendShapeConfiguration>();
 
-                    blendShapeConfiguration.name = meshAsset.BlendShapeConfig.Name;
-                    blendShapeConfiguration.kind = meshAsset.BlendShapeConfig.Kind;
-                    blendShapeConfiguration.faceParts = meshAsset.BlendShapeConfig.FaceParts;
-                    blendShapeConfiguration.blinks = meshAsset.BlendShapeConfig.Blinks;
-                    blendShapeConfiguration.visemes = meshAsset.BlendShapeConfig.Visemes;
-                    blendShapeConfiguration.presets = meshAsset.BlendShapeConfig.Presets;
+                    blendShapeConfiguration.Name = meshAsset.BlendShapeConfig.Name ?? string.Empty;
+                    blendShapeConfiguration.Kind = meshAsset.BlendShapeConfig.Kind;
+                    blendShapeConfiguration.FaceParts = meshAsset.BlendShapeConfig.FaceParts;
+                    blendShapeConfiguration.Blinks = meshAsset.BlendShapeConfig.Blinks;
+                    blendShapeConfiguration.Visemes = meshAsset.BlendShapeConfig.Visemes;
+                    blendShapeConfiguration.Presets = meshAsset.BlendShapeConfig.Presets;
 
                     vgoBlendShape.BlendShapeConfiguration = blendShapeConfiguration;
 
@@ -963,8 +980,10 @@ namespace UniVgo2
                     vgoModelAsset.MaterialList != null &&
                     vgoModelAsset.MaterialList.Any())
                 {
+                    var materialList = vgoModelAsset.MaterialList;
+
                     materials = vgoMeshRenderer.materials
-                        .Select(materialIndex => vgoModelAsset.MaterialList[materialIndex])
+                        .Select(materialIndex => materialList[materialIndex])
                         .ToArray();
                 }
 
@@ -1034,18 +1053,18 @@ namespace UniVgo2
 
                     BlendShapeConfiguration blendShapeConfiguration = ScriptableObject.CreateInstance<BlendShapeConfiguration>();
 
-                    blendShapeConfiguration.name = meshAsset.BlendShapeConfig.Name;
+                    blendShapeConfiguration.Name = meshAsset.BlendShapeConfig.Name ?? string.Empty;
 
-                    blendShapeConfiguration.kind = vgoMeshRenderer.blendShapeKind.Value;
+                    blendShapeConfiguration.Kind = vgoMeshRenderer.blendShapeKind.Value;
 
-                    blendShapeConfiguration.faceParts = meshAsset.BlendShapeConfig.FaceParts;
-                    blendShapeConfiguration.blinks = meshAsset.BlendShapeConfig.Blinks;
-                    blendShapeConfiguration.visemes = meshAsset.BlendShapeConfig.Visemes;
+                    blendShapeConfiguration.FaceParts = meshAsset.BlendShapeConfig.FaceParts;
+                    blendShapeConfiguration.Blinks = meshAsset.BlendShapeConfig.Blinks;
+                    blendShapeConfiguration.Visemes = meshAsset.BlendShapeConfig.Visemes;
 
                     if (vgoMeshRenderer.blendShapePesets != null &&
                         vgoMeshRenderer.blendShapePesets.Any())
                     {
-                        blendShapeConfiguration.presets.AddRange(vgoMeshRenderer.blendShapePesets);
+                        blendShapeConfiguration.Presets.AddRange(vgoMeshRenderer.blendShapePesets);
                     }
 
                     vgoBlendShape.BlendShapeConfiguration = blendShapeConfiguration;
@@ -1071,7 +1090,7 @@ namespace UniVgo2
         /// <param name="skinIndex">The index of gltf.skin.</param>
         /// <param name="nodes">List of node.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
-        protected virtual void SetupSkin(SkinnedMeshRenderer skinnedMeshRenderer, int skinIndex, List<Transform> nodes, IVgoStorage vgoStorage)
+        protected virtual void SetupSkin(SkinnedMeshRenderer skinnedMeshRenderer, in int skinIndex, in List<Transform> nodes, in IVgoStorage vgoStorage)
         {
             if (skinnedMeshRenderer.sharedMesh == null)
             {
@@ -1189,7 +1208,7 @@ namespace UniVgo2
         /// <param name="vgoLayout">A vgo layout.</param>
         /// <param name="geometryCoordinate"></param>
         /// <returns>List of unity animation clip.</returns>
-        protected virtual List<AnimationClip?> CreateAnimationClipAssets(VgoLayout vgoLayout, VgoGeometryCoordinate geometryCoordinate)
+        protected virtual List<AnimationClip?> CreateAnimationClipAssets(in VgoLayout vgoLayout, in VgoGeometryCoordinate geometryCoordinate)
         {
             var animationClipList = new List<AnimationClip?>();
 
@@ -1219,7 +1238,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="vgoModelAsset">A vgo model asset.</param>
-        protected virtual void SetupAssetInfo(IVgoStorage vgoStorage, VgoModelAsset vgoModelAsset)
+        protected virtual void SetupAssetInfo(in IVgoStorage vgoStorage, VgoModelAsset vgoModelAsset)
         {
             if (vgoStorage.AssetInfo == null)
             {
@@ -1285,12 +1304,12 @@ namespace UniVgo2
         /// Create and add avatar configuration.
         /// </summary>
         /// <param name="vgoHumanAvatar">The vgo human avatar.</param>
-        protected virtual AvatarConfiguration CreateAvatarConfiguration(VgoHumanAvatar vgoHumanAvatar)
+        protected virtual AvatarConfiguration CreateAvatarConfiguration(in VgoHumanAvatar vgoHumanAvatar)
         {
             var avatarConfiguration = ScriptableObject.CreateInstance<AvatarConfiguration>();
 
-            avatarConfiguration.name = vgoHumanAvatar.name;
-            avatarConfiguration.humanBones = vgoHumanAvatar.humanBones
+            avatarConfiguration.Name = vgoHumanAvatar.name ?? string.Empty;
+            avatarConfiguration.HumanBones = vgoHumanAvatar.humanBones
                 .Where(x => x != null)
                 .Select(x => x!)
                 .ToList();
@@ -1303,9 +1322,9 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>An array of matrix.</returns>
-        protected virtual System.Numerics.Matrix4x4[] GetVgoNodeTransforms(IVgoStorage vgoStorage)
+        protected virtual System.Numerics.Matrix4x4[] GetVgoNodeTransforms(in IVgoStorage vgoStorage)
         {
-            if (vgoStorage.ResourceAccessors.Where(x => x.kind == VgoResourceAccessorKind.NodeTransform).Count() != 1)
+            if (vgoStorage.ResourceAccessors.Count(x => x.kind == VgoResourceAccessorKind.NodeTransform) != 1)
             {
 #if NET_STANDARD_2_1
                 ThrowHelper.ThrowException();
@@ -1323,7 +1342,7 @@ namespace UniVgo2
 #endif
             }
 
-            VgoResourceAccessor accessor = vgoStorage.ResourceAccessors.Where(x => x.kind == VgoResourceAccessorKind.NodeTransform).First();
+            VgoResourceAccessor accessor = vgoStorage.ResourceAccessors.First(x => x.kind == VgoResourceAccessorKind.NodeTransform);
 
             ArraySegment<byte> transformBytes = vgoStorage.GetAccessorBytes(accessor);
 

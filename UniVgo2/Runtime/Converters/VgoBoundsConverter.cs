@@ -18,7 +18,7 @@ namespace UniVgo2.Converters
         /// <param name="bounds"></param>
         /// <param name="geometryCoordinate"></param>
         /// <returns></returns>
-        public static NewtonVgo.Bounds? CreateFrom(UnityEngine.Bounds bounds, VgoGeometryCoordinate geometryCoordinate)
+        public static NewtonVgo.Bounds? CreateFrom(in UnityEngine.Bounds bounds, in VgoGeometryCoordinate geometryCoordinate)
         {
             if (bounds == default)
             {
@@ -36,7 +36,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="vgoBounds"></param>
         /// <param name="geometryCoordinate"></param>
-        public static UnityEngine.Bounds CreateBounds(NewtonVgo.Bounds? vgoBounds, VgoGeometryCoordinate geometryCoordinate)
+        public static UnityEngine.Bounds CreateBounds(in NewtonVgo.Bounds? vgoBounds, in VgoGeometryCoordinate geometryCoordinate)
         {
             if (vgoBounds == null)
             {

@@ -16,9 +16,9 @@ namespace UniVgo2.Converters
         /// <summary>
         /// Create VGO_PS_Burst from Burst.
         /// </summary>
-        /// <param name="minMaxCurve"></param>
+        /// <param name="burst"></param>
         /// <returns></returns>
-        public static VGO_PS_Burst CreateFrom(Burst burst)
+        public static VGO_PS_Burst CreateFrom(in Burst burst)
         {
             return new VGO_PS_Burst()
             {
@@ -35,7 +35,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="vgoBurst"></param>
         /// <returns></returns>
-        public static Burst CreateBurst(VGO_PS_Burst vgoBurst)
+        public static Burst CreateBurst(in VGO_PS_Burst vgoBurst)
         {
             if (vgoBurst == null)
             {
@@ -77,14 +77,15 @@ namespace UniVgo2.Converters
                 probability = vgoBurst.probability;
             }
 
-            Burst burst = new Burst(
+            var burst = new Burst(
                 _time: time,
                 _count: count,
                 _cycleCount: cycleCount,
                 _repeatInterval: repeatInterval
-            );
-
-            burst.probability = probability;
+            )
+            {
+                probability = probability,
+            };
 
             return burst;
         }

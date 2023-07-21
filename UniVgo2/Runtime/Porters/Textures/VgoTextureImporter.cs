@@ -52,7 +52,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>List of unity texture2D.</returns>
-        public virtual List<Texture2D?> CreateTextureAssets(IVgoStorage vgoStorage)
+        public virtual List<Texture2D?> CreateTextureAssets(in IVgoStorage vgoStorage)
         {
             if ((vgoStorage.Layout.textures == null) || (vgoStorage.Layout.textures.Any() == false))
             {
@@ -154,7 +154,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoTexture">A vgo texture.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A unity texture 2D.</returns>
-        protected virtual Texture2D? CreateTexture2D(VgoTexture vgoTexture, IVgoStorage vgoStorage)
+        protected virtual Texture2D? CreateTexture2D(in VgoTexture vgoTexture, in IVgoStorage vgoStorage)
         {
             if (vgoStorage.ResourceAccessors is null)
             {

@@ -21,7 +21,7 @@ namespace UniVgo2
         /// <param name="material">A material.</param>
         /// <param name="propertyNameId">A material property name ID.</param>
         /// <returns></returns>
-        public static bool GetSafeBool(this Material material, int propertyNameId)
+        public static bool GetSafeBool(this Material material, in int propertyNameId)
         {
 #if UNITY_2021_2_OR_NEWER
             if (material.HasInt(propertyNameId))
@@ -54,7 +54,7 @@ namespace UniVgo2
         /// <param name="material">A material.</param>
         /// <param name="propertyName">A material property name.</param>
         /// <returns></returns>
-        public static bool GetSafeBool(this Material material, string propertyName)
+        public static bool GetSafeBool(this Material material, in string propertyName)
         {
 #if UNITY_2021_2_OR_NEWER
             if (material.HasInt(propertyName))
@@ -87,7 +87,7 @@ namespace UniVgo2
         /// <param name="material">A material.</param>
         /// <param name="propertyNameId">A material property name ID.</param>
         /// <returns></returns>
-        public static Color GetSafeColor(this Material material, int propertyNameId)
+        public static Color GetSafeColor(this Material material, in int propertyNameId)
         {
 #if UNITY_2021_2_OR_NEWER
             if (material.HasColor(propertyNameId))
@@ -118,9 +118,9 @@ namespace UniVgo2
         /// Gets color value.
         /// </summary>
         /// <param name="material">A material.</param>
-        /// <param name="propertyNameId">A material property name.</param>
+        /// <param name="propertyName">A material property name.</param>
         /// <returns></returns>
-        public static Color GetSafeColor(this Material material, string propertyName)
+        public static Color GetSafeColor(this Material material, in string propertyName)
         {
 #if UNITY_2021_2_OR_NEWER
             if (material.HasColor(propertyName))
@@ -155,7 +155,7 @@ namespace UniVgo2
         /// <param name="propertyNameId">A material property name ID.</param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static TEnum GetSafeEnum<TEnum>(this Material material, int propertyNameId, TEnum? defaultValue = null) where TEnum : struct
+        public static TEnum GetSafeEnum<TEnum>(this Material material, in int propertyNameId, in TEnum? defaultValue = null) where TEnum : struct
         {
             int propertyValue = material.GetSafeInt(propertyNameId);
 
@@ -181,7 +181,7 @@ namespace UniVgo2
         /// <param name="propertyName">A material property name.</param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static TEnum GetSafeEnum<TEnum>(this Material material, string propertyName, TEnum? defaultValue = null) where TEnum : struct
+        public static TEnum GetSafeEnum<TEnum>(this Material material, in string propertyName, in TEnum? defaultValue = null) where TEnum : struct
         {
             int propertyValue = material.GetSafeInt(propertyName);
 
@@ -205,7 +205,7 @@ namespace UniVgo2
         /// <param name="material">A material.</param>
         /// <param name="propertyNameId">A material property name ID.</param>
         /// <returns></returns>
-        public static float GetSafeFloat(this Material material, int propertyNameId)
+        public static float GetSafeFloat(this Material material, in int propertyNameId)
         {
 #if UNITY_2021_2_OR_NEWER
             if (material.HasFloat(propertyNameId))
@@ -238,7 +238,7 @@ namespace UniVgo2
         /// <param name="material">A material.</param>
         /// <param name="propertyName">A material property name.</param>
         /// <returns></returns>
-        public static float GetSafeFloat(this Material material, string propertyName)
+        public static float GetSafeFloat(this Material material, in string propertyName)
         {
 #if UNITY_2021_2_OR_NEWER
             if (material.HasFloat(propertyName))
@@ -271,7 +271,7 @@ namespace UniVgo2
         /// <param name="material">A material.</param>
         /// <param name="propertyNameId">A material property name ID.</param>
         /// <returns></returns>
-        public static int GetSafeInt(this Material material, int propertyNameId)
+        public static int GetSafeInt(this Material material, in int propertyNameId)
         {
             //return material.GetSafeInteger(propertyNameId);
 
@@ -306,7 +306,7 @@ namespace UniVgo2
         /// <param name="material">A material.</param>
         /// <param name="propertyName">A material property name.</param>
         /// <returns></returns>
-        public static int GetSafeInt(this Material material, string propertyName)
+        public static int GetSafeInt(this Material material, in string propertyName)
         {
             //return material.GetSafeInteger(propertyName);
 
@@ -341,7 +341,7 @@ namespace UniVgo2
         /// <param name="material">A material.</param>
         /// <param name="propertyNameId">A material property name ID.</param>
         /// <returns></returns>
-        public static int GetSafeInteger(this Material material, int propertyNameId)
+        public static int GetSafeInteger(this Material material, in int propertyNameId)
         {
 #if UNITY_2021_2_OR_NEWER
             if (material.HasInteger(propertyNameId))
@@ -371,7 +371,7 @@ namespace UniVgo2
         /// <param name="material">A material.</param>
         /// <param name="propertyName">A material property name.</param>
         /// <returns></returns>
-        public static int GetSafeInteger(this Material material, string propertyName)
+        public static int GetSafeInteger(this Material material, in string propertyName)
         {
 #if UNITY_2021_2_OR_NEWER
             if (material.HasInteger(propertyName))
@@ -401,7 +401,7 @@ namespace UniVgo2
         /// <param name="material">A material.</param>
         /// <param name="propertyNameId">A material property name ID.</param>
         /// <returns></returns>
-        public static Texture2D? GetSafeTexture(this Material material, int propertyNameId)
+        public static Texture2D? GetSafeTexture(this Material material, in int propertyNameId)
         {
 #if UNITY_2021_2_OR_NEWER
             if (material.HasTexture(propertyNameId))
@@ -441,7 +441,7 @@ namespace UniVgo2
         /// <param name="material">A material.</param>
         /// <param name="propertyName">A material property name.</param>
         /// <returns></returns>
-        public static Texture2D? GetSafeTexture(this Material material, string propertyName)
+        public static Texture2D? GetSafeTexture(this Material material, in string propertyName)
         {
 #if UNITY_2021_2_OR_NEWER
             if (material.HasTexture(propertyName))
@@ -481,7 +481,7 @@ namespace UniVgo2
         /// <param name="material">A material.</param>
         /// <param name="propertyNameId">A material property name ID.</param>
         /// <returns></returns>
-        public static Vector3 GetSafeVector3(this Material material, int propertyNameId)
+        public static Vector3 GetSafeVector3(this Material material, in int propertyNameId)
         {
             return material.GetSafeVector4(propertyNameId);
         }
@@ -492,7 +492,7 @@ namespace UniVgo2
         /// <param name="material">A material.</param>
         /// <param name="propertyName">A material property name.</param>
         /// <returns></returns>
-        public static Vector3 GetSafeVector3(this Material material, string propertyName)
+        public static Vector3 GetSafeVector3(this Material material, in string propertyName)
         {
             return material.GetSafeVector4(propertyName);
         }
@@ -503,7 +503,7 @@ namespace UniVgo2
         /// <param name="material">A material.</param>
         /// <param name="propertyNameId">A material property name ID.</param>
         /// <returns></returns>
-        public static Vector4 GetSafeVector4(this Material material, int propertyNameId)
+        public static Vector4 GetSafeVector4(this Material material, in int propertyNameId)
         {
 #if UNITY_2021_2_OR_NEWER
             if (material.HasVector(propertyNameId))
@@ -536,7 +536,7 @@ namespace UniVgo2
         /// <param name="material">A material.</param>
         /// <param name="propertyName">A material property name.</param>
         /// <returns></returns>
-        public static Vector4 GetSafeVector4(this Material material, string propertyName)
+        public static Vector4 GetSafeVector4(this Material material, in string propertyName)
         {
 #if UNITY_2021_2_OR_NEWER
             if (material.HasVector(propertyName))
@@ -574,7 +574,7 @@ namespace UniVgo2
         /// <param name="propertyNameId">A material property name ID.</param>
         /// <param name="value"></param>
         /// <returns>Whether it could be set.</returns>
-        public static bool SetSafeBool(this Material material, int propertyNameId, bool value)
+        public static bool SetSafeBool(this Material material, in int propertyNameId, bool value)
         {
             if (material.HasProperty(propertyNameId))
             {
@@ -597,7 +597,7 @@ namespace UniVgo2
         /// <param name="propertyName">A material property name.</param>
         /// <param name="value"></param>
         /// <returns>Whether it could be set.</returns>
-        public static bool SetSafeBool(this Material material, string propertyName, bool value)
+        public static bool SetSafeBool(this Material material, in string propertyName, bool value)
         {
             if (material.HasProperty(propertyName))
             {
@@ -622,7 +622,7 @@ namespace UniVgo2
         /// <param name="minValue"></param>
         /// <param name="maxValue"></param>
         /// <returns>Whether it could be set.</returns>
-        public static bool SetSafeInt(this Material material, int propertyNameId, int value, int? minValue = null, int? maxValue = null)
+        public static bool SetSafeInt(this Material material, in int propertyNameId, int value, int? minValue = null, int? maxValue = null)
         {
             //return material.SetSafeInteger(propertyName, value, minValue, maxValue);
 
@@ -660,7 +660,7 @@ namespace UniVgo2
         /// <param name="minValue"></param>
         /// <param name="maxValue"></param>
         /// <returns>Whether it could be set.</returns>
-        public static bool SetSafeInt(this Material material, string propertyName, int value, int? minValue = null, int? maxValue = null)
+        public static bool SetSafeInt(this Material material, in string propertyName, int value, int? minValue = null, int? maxValue = null)
         {
             //return material.SetSafeInteger(propertyName, value, minValue, maxValue);
 
@@ -698,7 +698,7 @@ namespace UniVgo2
         /// <param name="minValue"></param>
         /// <param name="maxValue"></param>
         /// <returns>Whether it could be set.</returns>
-        public static bool SetSafeInteger(this Material material, int propertyNameId, int value, int? minValue = null, int? maxValue = null)
+        public static bool SetSafeInteger(this Material material, in int propertyNameId, int value, int? minValue = null, int? maxValue = null)
         {
             if (material.HasProperty(propertyNameId))
             {
@@ -737,7 +737,7 @@ namespace UniVgo2
         /// <param name="minValue"></param>
         /// <param name="maxValue"></param>
         /// <returns>Whether it could be set.</returns>
-        public static bool SetSafeInteger(this Material material, string propertyName, int value, int? minValue = null, int? maxValue = null)
+        public static bool SetSafeInteger(this Material material, in string propertyName, int value, int? minValue = null, int? maxValue = null)
         {
             if (material.HasProperty(propertyName))
             {
@@ -776,7 +776,7 @@ namespace UniVgo2
         /// <param name="minValue"></param>
         /// <param name="maxValue"></param>
         /// <returns>Whether it could be set.</returns>
-        public static bool SetSafeFloat(this Material material, int propertyNameId, float value, float? minValue = null, float? maxValue = null)
+        public static bool SetSafeFloat(this Material material, in int propertyNameId, float value, float? minValue = null, float? maxValue = null)
         {
             if (material.HasProperty(propertyNameId))
             {
@@ -813,7 +813,7 @@ namespace UniVgo2
         /// <param name="maxValue"></param>
         /// <param name="defaultValue"></param>
         /// <returns>Whether it could be set.</returns>
-        public static bool SetSafeFloat(this Material material, int propertyNameId, float value, float? minValue = null, float? maxValue = null, float defaultValue = default)
+        public static bool SetSafeFloat(this Material material, in int propertyNameId, float value, float? minValue = null, float? maxValue = null, float defaultValue = default)
         {
             if (material.HasProperty(propertyNameId))
             {
@@ -850,7 +850,7 @@ namespace UniVgo2
         /// <param name="maxValue"></param>
         /// <param name="defaultValue"></param>
         /// <returns>Whether it could be set.</returns>
-        public static bool SetSafeFloat(this Material material, string propertyName, float value, float? minValue = null, float? maxValue = null, float defaultValue = default)
+        public static bool SetSafeFloat(this Material material, in string propertyName, float value, float? minValue = null, float? maxValue = null, float defaultValue = default)
         {
             if (material.HasProperty(propertyName))
             {
@@ -886,7 +886,7 @@ namespace UniVgo2
         /// <param name="minValue"></param>
         /// <param name="maxValue"></param>
         /// <returns>Whether it could be set.</returns>
-        public static bool SetSafeFloat(this Material material, string propertyName, float value, float? minValue = null, float? maxValue = null)
+        public static bool SetSafeFloat(this Material material, in string propertyName, float value, float? minValue = null, float? maxValue = null)
         {
             if (material.HasProperty(propertyName))
             {
@@ -920,7 +920,7 @@ namespace UniVgo2
         /// <param name="propertyNameId">A material property name ID.</param>
         /// <param name="color"></param>
         /// <returns>Whether it could be set.</returns>
-        public static bool SetSafeColor(this Material material, int propertyNameId, Color color)
+        public static bool SetSafeColor(this Material material, in int propertyNameId, Color color)
         {
             if (material.HasProperty(propertyNameId))
             {
@@ -943,7 +943,7 @@ namespace UniVgo2
         /// <param name="propertyName">A material property name.</param>
         /// <param name="color"></param>
         /// <returns>Whether it could be set.</returns>
-        public static bool SetSafeColor(this Material material, string propertyName, Color color)
+        public static bool SetSafeColor(this Material material, in string propertyName, Color color)
         {
             if (material.HasProperty(propertyName))
             {
@@ -966,7 +966,7 @@ namespace UniVgo2
         /// <param name="propertyNameId">A material property name ID.</param>
         /// <param name="texture"></param>
         /// <returns>Whether it could be set.</returns>
-        public static bool SetSafeTexture(this Material material, int propertyNameId, Texture2D texture)
+        public static bool SetSafeTexture(this Material material, in int propertyNameId, Texture2D texture)
         {
             if (material.HasProperty(propertyNameId))
             {
@@ -989,7 +989,7 @@ namespace UniVgo2
         /// <param name="propertyName">A material property name.</param>
         /// <param name="texture"></param>
         /// <returns>Whether it could be set.</returns>
-        public static bool SetSafeTexture(this Material material, string propertyName, Texture2D texture)
+        public static bool SetSafeTexture(this Material material, in string propertyName, Texture2D texture)
         {
             if (material.HasProperty(propertyName))
             {
@@ -1012,7 +1012,7 @@ namespace UniVgo2
         /// <param name="propertyNameId">A material property name ID.</param>
         /// <param name="vector"></param>
         /// <returns>Whether it could be set.</returns>
-        public static bool SetSafeVector(this Material material, int propertyNameId, Vector4 vector)
+        public static bool SetSafeVector(this Material material, in int propertyNameId, Vector4 vector)
         {
             if (material.HasProperty(propertyNameId))
             {
@@ -1035,7 +1035,7 @@ namespace UniVgo2
         /// <param name="propertyName">A material property name.</param>
         /// <param name="vector"></param>
         /// <returns>Whether it could be set.</returns>
-        public static bool SetSafeVector(this Material material, string propertyName, Vector4 vector)
+        public static bool SetSafeVector(this Material material, in string propertyName, Vector4 vector)
         {
             if (material.HasProperty(propertyName))
             {
@@ -1057,7 +1057,7 @@ namespace UniVgo2
         /// <param name="material">A material.</param>
         /// <param name="keyword">A material keyword.</param>
         /// <param name="enable"></param>
-        public static void SetKeyword(this Material material, string keyword, bool enable)
+        public static void SetKeyword(this Material material, in string keyword, in bool enable)
         {
             if (enable)
             {

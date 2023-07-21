@@ -30,7 +30,12 @@ namespace UniVgo2.Porters
         /// <param name="materialList"></param>
         /// <param name="texture2dList"></param>
         /// <returns>Returns ParticleSystem component.</returns>
-        public virtual ParticleSystem AddComponent(GameObject go, VgoParticleSystem vgoParticleSystem, VgoGeometryCoordinate geometryCoordinate, IList<Material?>? materialList, IList<Texture2D?>? texture2dList)
+        public virtual ParticleSystem AddComponent(
+            GameObject go,
+            in VgoParticleSystem vgoParticleSystem,
+            in VgoGeometryCoordinate geometryCoordinate,
+            in IList<Material?>? materialList,
+            in IList<Texture2D?>? texture2dList)
         {
             if (go.TryGetComponentEx<ParticleSystem>(out var particleSystem) == false)
             {
@@ -142,7 +147,7 @@ namespace UniVgo2.Porters
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
         /// <param name="geometryCoordinate"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_MainModule vgoModule, VgoGeometryCoordinate geometryCoordinate)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_MainModule vgoModule, in VgoGeometryCoordinate geometryCoordinate)
         {
             if (vgoModule == null)
             {
@@ -233,7 +238,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_EmissionModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_EmissionModule vgoModule)
         {
             if (vgoModule == null)
             {
@@ -267,7 +272,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoModule"></param>
         /// <param name="texture2dList"></param>
         /// <param name="geometryCoordinate"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_ShapeModule vgoModule, IList<Texture2D?>? texture2dList, VgoGeometryCoordinate geometryCoordinate)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_ShapeModule vgoModule, in IList<Texture2D?>? texture2dList, in VgoGeometryCoordinate geometryCoordinate)
         {
             if (vgoModule == null)
             {
@@ -334,7 +339,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_VelocityOverLifetimeModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_VelocityOverLifetimeModule vgoModule)
         {
             if (vgoModule == null)
             {
@@ -380,7 +385,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_LimitVelocityOverLifetimeModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_LimitVelocityOverLifetimeModule vgoModule)
         {
             if (vgoModule == null)
             {
@@ -419,8 +424,8 @@ namespace UniVgo2.Porters
         /// Set ParticleSystem inhelitVelocity field value.
         /// </summary>
         /// <param name="particleSystem"></param>
-        /// <param name="vgoForceOverLifetimeModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_InheritVelocityModule vgoModule)
+        /// <param name="vgoModule"></param>
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_InheritVelocityModule vgoModule)
         {
             if (vgoModule == null)
             {
@@ -440,7 +445,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_ForceOverLifetimeModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_ForceOverLifetimeModule vgoModule)
         {
             if (vgoModule == null)
             {
@@ -465,7 +470,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_ColorOverLifetimeModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_ColorOverLifetimeModule vgoModule)
         {
             if (vgoModule == null)
             {
@@ -483,7 +488,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_ColorBySpeedModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_ColorBySpeedModule vgoModule)
         {
             if (vgoModule == null)
             {
@@ -502,7 +507,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_SizeOverLifetimeModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_SizeOverLifetimeModule vgoModule)
         {
             if (vgoModule == null)
             {
@@ -535,7 +540,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_SizeBySpeedModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_SizeBySpeedModule vgoModule)
         {
             if (vgoModule == null)
             {
@@ -570,7 +575,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_RotationOverLifetimeModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_RotationOverLifetimeModule vgoModule)
         {
             if (vgoModule == null)
             {
@@ -603,7 +608,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_RotationBySpeedModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_RotationBySpeedModule vgoModule)
         {
             if (vgoModule == null)
             {
@@ -638,7 +643,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_ExternalForcesModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_ExternalForcesModule vgoModule)
         {
             if (vgoModule == null)
             {
@@ -659,7 +664,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_NoiseModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_NoiseModule vgoModule)
         {
             if (vgoModule == null)
             {
@@ -724,7 +729,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_CollisionModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_CollisionModule vgoModule)
         {
             ThrowHelper.ThrowNotImplementedException();
         }
@@ -734,7 +739,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_TriggerModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_TriggerModule vgoModule)
         {
             ThrowHelper.ThrowNotImplementedException();
         }
@@ -744,7 +749,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_SubEmittersModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_SubEmittersModule vgoModule)
         {
             ThrowHelper.ThrowNotImplementedException();
         }
@@ -754,7 +759,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_TextureSheetAnimationModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_TextureSheetAnimationModule vgoModule)
         {
             ThrowHelper.ThrowNotImplementedException();
         }
@@ -764,7 +769,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_LightsModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_LightsModule vgoModule)
         {
             if (vgoModule == null)
             {
@@ -811,7 +816,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_TrailModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_TrailModule vgoModule)
         {
             if (vgoModule == null)
             {
@@ -853,7 +858,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, VGO_PS_CustomDataModule vgoModule)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_CustomDataModule vgoModule)
         {
             ThrowHelper.ThrowNotImplementedException();
         }
@@ -869,7 +874,11 @@ namespace UniVgo2.Porters
         /// <param name="vgoRenderer"></param>
         /// <param name="geometryCoordinate"></param>
         /// <param name="materialList"></param>
-        public virtual void SetComponentValue(ParticleSystemRenderer particleSystemRenderer, VGO_PS_Renderer vgoRenderer, VgoGeometryCoordinate geometryCoordinate, IList<Material?>? materialList)
+        public virtual void SetComponentValue(
+            ParticleSystemRenderer particleSystemRenderer, 
+            in VGO_PS_Renderer vgoRenderer,
+            in VgoGeometryCoordinate geometryCoordinate, 
+            in IList<Material?>? materialList)
         {
             if (vgoRenderer == null)
             {
@@ -949,7 +958,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystemRenderer"></param>
         /// <param name="material"></param>
-        protected virtual void SetVertexStream(ParticleSystemRenderer particleSystemRenderer, Material material)
+        protected virtual void SetVertexStream(ParticleSystemRenderer particleSystemRenderer, in Material material)
         {
             bool useLighting = (material.GetFloat(UniParticleShader.Property.LightingEnabled) > 0.0f);
             bool useFlipbookBlending = (material.GetFloat(UniParticleShader.Property.FlipbookMode) > 0.0f);

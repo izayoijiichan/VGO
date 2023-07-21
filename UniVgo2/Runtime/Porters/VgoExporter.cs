@@ -49,7 +49,7 @@ namespace UniVgo2
         /// Create a new instance of VgoExporter with option.
         /// </summary>
         /// <param name="option">The vgo exporter option.</param>
-        public VgoExporter(VgoExporterOption option)
+        public VgoExporter(in VgoExporterOption option)
         {
             _Option = option;
 
@@ -61,7 +61,7 @@ namespace UniVgo2
                 ExportTexture = _TextureExporter.ExportTextureDelegate
             };
 
-            _MeshExporter = new VgoMeshExporter(new MeshExporterOption());
+            _MeshExporter = new VgoMeshExporter(_Option.MeshExporterOption);
 
             _ParticleSystemExporter = new VgoParticleSystemExporter();
         }
@@ -79,16 +79,16 @@ namespace UniVgo2
         /// <param name="textureType"></param>
         /// <returns>A vgo storage.</returns>
         public virtual IVgoStorage CreateVgoStorage(
-            GameObject root,
-            VgoGeometryCoordinate geometryCoordinate = VgoGeometryCoordinate.RightHanded,
-            VgoUVCoordinate uvCoordinate = VgoUVCoordinate.TopLeft,
-            ImageType textureType = ImageType.PNG)
+            in GameObject root,
+            in VgoGeometryCoordinate geometryCoordinate = VgoGeometryCoordinate.RightHanded,
+            in VgoUVCoordinate uvCoordinate = VgoUVCoordinate.TopLeft,
+            in ImageType textureType = ImageType.PNG)
         {
             _TextureExporter.TextureType = textureType;
 
-            int initialResourceSize = 10 * 1024 * 1024;  // 10MB
+            int initialResourceCapacity = 10 * 1024 * 1024;  // 10MB
 
-            IByteBuffer resource = new ArraySegmentByteBuffer(initialResourceSize);
+            IByteBuffer resource = new ArraySegmentByteBuffer(initialResourceCapacity);
 
             IVgoStorage vgoStorage = new VgoStorage(resource, geometryCoordinate, uvCoordinate);
 
@@ -135,7 +135,14 @@ namespace UniVgo2
             finally
             {
 #if UNITY_EDITOR
-                GameObject.DestroyImmediate(copy);
+                if (Application.isPlaying)
+                {
+                    GameObject.Destroy(copy);
+                }
+                else
+                {
+                    GameObject.DestroyImmediate(copy);
+                }
 #else
                 GameObject.Destroy(copy);
 #endif
@@ -153,7 +160,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="modelAsset">A model asset.</param>
-        protected virtual void SetVgoAssetInfo(IVgoStorage vgoStorage, ExportModelAsset modelAsset)
+        protected virtual void SetVgoAssetInfo(IVgoStorage vgoStorage, in ExportModelAsset modelAsset)
         {
             vgoStorage.AssetInfo = new VgoAssetInfo
             {
@@ -183,7 +190,7 @@ namespace UniVgo2
         /// <param name="vgoLayout">A vgo layout.</param>
         /// <param name="modelAsset">A model asset.</param>
         /// <param name="geometryCoordinate"></param>
-        protected virtual void CreateVgoColliders(VgoLayout vgoLayout, ExportModelAsset modelAsset, VgoGeometryCoordinate geometryCoordinate)
+        protected virtual void CreateVgoColliders(VgoLayout vgoLayout, in ExportModelAsset modelAsset, in VgoGeometryCoordinate geometryCoordinate)
         {
             if (modelAsset.ColliderList == null)
             {
@@ -229,7 +236,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="modelAsset">A model asset.</param>
-        protected virtual void CreateVgoMaterialsAndExportTextures(IVgoStorage vgoStorage, ExportModelAsset modelAsset)
+        protected virtual void CreateVgoMaterialsAndExportTextures(IVgoStorage vgoStorage, in ExportModelAsset modelAsset)
         {
             if (modelAsset.MaterialList == null)
             {
@@ -269,7 +276,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="modelAsset">A model asset.</param>
-        protected virtual void CreateVgoMeshes(IVgoStorage vgoStorage, ExportModelAsset modelAsset)
+        protected virtual void CreateVgoMeshes(IVgoStorage vgoStorage, in ExportModelAsset modelAsset)
         {
             if (modelAsset.MeshAssetList == null)
             {
@@ -290,7 +297,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="modelAsset">A model asset.</param>
-        protected virtual void CreateVgoSkins(IVgoStorage vgoStorage, ExportModelAsset modelAsset)
+        protected virtual void CreateVgoSkins(IVgoStorage vgoStorage, in ExportModelAsset modelAsset)
         {
             if (modelAsset.SkinnedMeshRendererList == null)
             {
@@ -377,7 +384,7 @@ namespace UniVgo2
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="modelAsset">A model asset.</param>
         /// <param name="geometryCoordinate"></param>
-        protected virtual void CreateVgoNodes(IVgoStorage vgoStorage, ExportModelAsset modelAsset, VgoGeometryCoordinate geometryCoordinate)
+        protected virtual void CreateVgoNodes(IVgoStorage vgoStorage, in ExportModelAsset modelAsset, in VgoGeometryCoordinate geometryCoordinate)
         {
             if (modelAsset.TransformList == null)
             {
@@ -418,7 +425,7 @@ namespace UniVgo2
         /// <param name="modelAsset">A model asset.</param>
         /// <param name="geometryCoordinate"></param>
         /// <returns>A layout.node.</returns>
-        protected virtual VgoNode CreateVgoNode(int nodeIndex, IVgoStorage vgoStorage, ExportModelAsset modelAsset, VgoGeometryCoordinate geometryCoordinate)
+        protected virtual VgoNode CreateVgoNode(in int nodeIndex, in IVgoStorage vgoStorage, in ExportModelAsset modelAsset, in VgoGeometryCoordinate geometryCoordinate)
         {
             GameObject gameObject = modelAsset.TransformList[nodeIndex].gameObject;
 
@@ -462,8 +469,10 @@ namespace UniVgo2
             // Colliders
             if (gameObject.TryGetComponentsEx(out Collider[] colliders))
             {
+                var colliderList = modelAsset.ColliderList;
+
                 vgoNode.colliders = colliders
-                    .Select(collider => modelAsset.ColliderList.IndexOf(collider))
+                    .Select(collider => colliderList.IndexOf(collider))
                     .Where(index => index != -1)
                     .ToList();
             }
@@ -533,20 +542,22 @@ namespace UniVgo2
                             ThrowHelper.ThrowIndexOutOfRangeException(nameof(meshIndex), meshIndex, min: 0, max: modelAsset.MeshList.Count);
                         }
 
+                        var materialList = modelAsset.MaterialList;
+
                         var vgoMeshRenderer = new VgoMeshRenderer()
                         {
                             name = renderer.name,
                             enabled = renderer.enabled,
                             mesh = meshIndex,
-                            materials = renderer.sharedMaterials.Select(m => modelAsset.MaterialList.IndexOf(m)).ToList(),
+                            materials = renderer.sharedMaterials.Select(m => materialList.IndexOf(m)).ToList(),
                         };
 
                         if (gameObject.TryGetComponentEx(out VgoBlendShape vgoBlendShapeComponent))
                         {
                             if (vgoBlendShapeComponent.BlendShapeConfiguration != null)
                             {
-                                vgoMeshRenderer.blendShapeKind = vgoBlendShapeComponent.BlendShapeConfiguration.kind;
-                                vgoMeshRenderer.blendShapePesets = vgoBlendShapeComponent.BlendShapeConfiguration.presets;
+                                vgoMeshRenderer.blendShapeKind = vgoBlendShapeComponent.BlendShapeConfiguration.Kind;
+                                vgoMeshRenderer.blendShapePesets = vgoBlendShapeComponent.BlendShapeConfiguration.Presets;
                             }
                         }
 
@@ -648,7 +659,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="modelAsset">A model asset.</param>
-        protected virtual void ExportNodeTransforms(IVgoStorage vgoStorage, ExportModelAsset modelAsset)
+        protected virtual void ExportNodeTransforms(IVgoStorage vgoStorage, in ExportModelAsset modelAsset)
         {
             if (modelAsset.TransformList == null)
             {
@@ -694,7 +705,7 @@ namespace UniVgo2
         /// <param name="vgoLayout">A vgo layout.</param>
         /// <param name="modelAsset">A model asset.</param>
         /// <param name="geometryCoordinate"></param>
-        protected virtual void CreateVgoAnimationClips(VgoLayout vgoLayout, ExportModelAsset modelAsset, VgoGeometryCoordinate geometryCoordinate)
+        protected virtual void CreateVgoAnimationClips(VgoLayout vgoLayout, in ExportModelAsset modelAsset, in VgoGeometryCoordinate geometryCoordinate)
         {
             if (modelAsset.AnimationClipList == null)
             {
@@ -731,7 +742,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="modelAsset">A model asset.</param>
-        protected virtual void CreateVgoClothes(IVgoStorage vgoStorage, ExportModelAsset modelAsset)
+        protected virtual void CreateVgoClothes(IVgoStorage vgoStorage, in ExportModelAsset modelAsset)
         {
             if (modelAsset.ClothList == null)
             {
@@ -766,7 +777,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoLayout">A vgo layout.</param>
         /// <param name="modelAsset">A model asset.</param>
-        protected virtual void CreateVgoLights(VgoLayout vgoLayout, ExportModelAsset modelAsset)
+        protected virtual void CreateVgoLights(VgoLayout vgoLayout, in ExportModelAsset modelAsset)
         {
             if (modelAsset.LightList == null)
             {
@@ -802,7 +813,7 @@ namespace UniVgo2
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="modelAsset">A model asset.</param>
         /// <param name="geometryCoordinate"></param>
-        protected virtual void CreateVgoParticlesAndExportTextures(IVgoStorage vgoStorage, ExportModelAsset modelAsset, VgoGeometryCoordinate geometryCoordinate)
+        protected virtual void CreateVgoParticlesAndExportTextures(IVgoStorage vgoStorage, in ExportModelAsset modelAsset, in VgoGeometryCoordinate geometryCoordinate)
         {
             if (modelAsset.ParticleSystemAssetList == null)
             {
@@ -847,7 +858,7 @@ namespace UniVgo2
         /// <param name="vgoLayout">A vgo layout.</param>
         /// <param name="modelAsset">A model asset.</param>
         /// <param name="geometryCoordinate"></param>
-        protected virtual void CreateSpringBoneInfo(VgoLayout vgoLayout, ExportModelAsset modelAsset, VgoGeometryCoordinate geometryCoordinate)
+        protected virtual void CreateSpringBoneInfo(VgoLayout vgoLayout, in ExportModelAsset modelAsset, in VgoGeometryCoordinate geometryCoordinate)
         {
             if (((modelAsset.VgoSpringBoneGroupList == null) || modelAsset.VgoSpringBoneGroupList.Any() == false) &&
                 ((modelAsset.VgoSpringBoneColliderGroupList == null) || modelAsset.VgoSpringBoneColliderGroupList.Any() == false))

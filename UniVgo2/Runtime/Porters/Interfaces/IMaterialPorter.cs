@@ -30,7 +30,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A unity material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage);
+        VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage);
 
         #endregion
 
@@ -43,7 +43,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A unity material.</returns>
-        Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList);
+        Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList);
 
         #endregion
     }

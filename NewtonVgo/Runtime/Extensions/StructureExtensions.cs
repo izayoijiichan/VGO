@@ -67,8 +67,8 @@ namespace NewtonVgo
             {
                 Marshal.Copy(source: source, startIndex: 0, destination: structurePointer, length: structureSize);
 
-                //structure = Marshal.PtrToStructure<T>(structurePointer);
-                structure = (T)Marshal.PtrToStructure(structurePointer, structureType);
+                structure = Marshal.PtrToStructure<T>(structurePointer);
+                //T? structure = (T?)Marshal.PtrToStructure(structurePointer, structureType);
             }
             catch (Exception)
             {

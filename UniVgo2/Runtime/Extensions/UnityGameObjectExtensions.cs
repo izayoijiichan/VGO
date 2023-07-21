@@ -23,7 +23,7 @@ namespace UniVgo2
         /// <param name="type">The type of the component to retrieve.</param>
         /// <param name="component">The output argument that will contain the component or null.</param>
         /// <returns>Returns true if the component is found, false otherwise.</returns>
-        public static bool TryGetComponentEx(this GameObject go, Type type, out Component component)
+        public static bool TryGetComponentEx(this GameObject go, in Type type, out Component component)
         {
 #if UNITY_2019_2_OR_NEWER
             return go.TryGetComponent(type, out component);

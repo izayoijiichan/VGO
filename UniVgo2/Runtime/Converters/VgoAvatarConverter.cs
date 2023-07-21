@@ -23,7 +23,7 @@ namespace UniVgo2.Converters
         /// <param name="nodeName"></param>
         /// <param name="nodes"></param>
         /// <returns></returns>
-        public static VgoHumanAvatar? CreateVgoAvatarOrDefault(Animator animator, string nodeName, IList<Transform> nodes)
+        public static VgoHumanAvatar? CreateVgoAvatarOrDefault(in Animator animator, in string nodeName, in IList<Transform> nodes)
         {
             if (animator.avatar is null)
             {
@@ -77,7 +77,7 @@ namespace UniVgo2.Converters
         /// <param name="vgoAvatar"></param>
         /// <param name="go"></param>
         /// <param name="nodes"></param>
-        public static Avatar CreateHumanAvatar(VgoHumanAvatar vgoAvatar, GameObject go, List<Transform> nodes)
+        public static Avatar CreateHumanAvatar(in VgoHumanAvatar vgoAvatar, in GameObject go, in List<Transform> nodes)
         {
             //string[] humanNames = HumanTrait.BoneName;
 

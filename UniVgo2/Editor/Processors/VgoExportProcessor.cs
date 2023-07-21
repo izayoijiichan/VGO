@@ -37,12 +37,12 @@ namespace UniVgo2.Editor
         /// <param name="isBson">Whether type is BSON, otherwise JSON.</param>
         /// <param name="cryptAlgorithms">The crypt algorithm.</param>
         public static void ExportVgo(
-            GameObject gameObject,
-            VgoGeometryCoordinate geometryCoordinate = VgoGeometryCoordinate.RightHanded,
-            VgoUVCoordinate uvCoordinate = VgoUVCoordinate.TopLeft,
-            ImageType textureType = ImageType.PNG,
-            bool isBson = false,
-            string? cryptAlgorithms = null)
+            in GameObject gameObject,
+            in VgoGeometryCoordinate geometryCoordinate = VgoGeometryCoordinate.RightHanded,
+            in VgoUVCoordinate uvCoordinate = VgoUVCoordinate.TopLeft,
+            in ImageType textureType = ImageType.PNG,
+            in bool isBson = false,
+            in string? cryptAlgorithms = null)
         {
             try
             {
@@ -149,7 +149,7 @@ namespace UniVgo2.Editor
         /// <param name="gameObject">The target.</param>
         /// <param name="errorMessage"></param>
         /// <returns>Returns true if validation is successful, false otherwise.</returns>
-        private static bool Validate(GameObject gameObject, out string errorMessage)
+        private static bool Validate(in GameObject gameObject, out string errorMessage)
         {
             //if (gameObject.TryGetComponent<VgoGenerator>(out _) == false)
             //{

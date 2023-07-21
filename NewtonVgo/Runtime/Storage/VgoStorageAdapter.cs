@@ -32,7 +32,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="accessorIndex">The index of the accessor.</param>
         /// <returns>An accessor.</returns>
-        public VgoResourceAccessor GetAccessor(int accessorIndex)
+        public VgoResourceAccessor GetAccessor(in int accessorIndex)
         {
             if (ResourceAccessors == null)
             {
@@ -61,7 +61,7 @@ namespace NewtonVgo
         /// <typeparam name="T">Type of data.</typeparam>
         /// <param name="accessorIndex">The index of the accessor.</param>
         /// <returns>Array data.</returns>
-        public T[] GetAccessorArrayData<T>(int accessorIndex) where T : struct
+        public T[] GetAccessorArrayData<T>(in int accessorIndex) where T : struct
         {
             VgoResourceAccessor accessor = GetAccessor(accessorIndex);
 
@@ -89,7 +89,7 @@ namespace NewtonVgo
         /// <typeparam name="T">Type of data.</typeparam>
         /// <param name="accessorIndex">The index of the accessor.</param>
         /// <returns>Span data.</returns>
-        public ReadOnlySpan<T> GetAccessorSpan<T>(int accessorIndex) where T : struct
+        public ReadOnlySpan<T> GetAccessorSpan<T>(in int accessorIndex) where T : struct
         {
             VgoResourceAccessor accessor = GetAccessor(accessorIndex);
 
@@ -114,7 +114,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="accessorIndex">The index of the accessor.</param>
         /// <returns>Array segment byte.</returns>
-        public ArraySegment<byte> GetAccessorBytes(int accessorIndex)
+        public ArraySegment<byte> GetAccessorBytes(in int accessorIndex)
         {
             VgoResourceAccessor accessor = GetAccessor(accessorIndex);
 
@@ -126,7 +126,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="accessor">An accessor.</param>
         /// <returns>Array segment byte.</returns>
-        public ArraySegment<byte> GetAccessorBytes(VgoResourceAccessor accessor)
+        public ArraySegment<byte> GetAccessorBytes(in VgoResourceAccessor accessor)
         {
             if (accessor.sparseType == VgoResourceAccessorSparseType.None)
             {
@@ -143,7 +143,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="accessor">An accessor.</param>
         /// <returns>Array segment byte.</returns>
-        protected ArraySegment<byte> GetAccessorBytesWithoutSparse(VgoResourceAccessor accessor)
+        protected ArraySegment<byte> GetAccessorBytesWithoutSparse(in VgoResourceAccessor accessor)
         {
             if (accessor.count <= 0)
             {
@@ -182,7 +182,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="accessor">An accessor.</param>
         /// <returns>Array segment byte.</returns>
-        protected ArraySegment<byte> GetAccessorBytesWithSparse(VgoResourceAccessor accessor)
+        protected ArraySegment<byte> GetAccessorBytesWithSparse(in VgoResourceAccessor accessor)
         {
             if (accessor.count <= 0)
             {
@@ -295,7 +295,7 @@ namespace NewtonVgo
         /// <typeparam name="TValue">The data type of sparse value.</typeparam>
         /// <param name="accessor">An accessor.</param>
         /// <returns>Array segment byte.</returns>
-        protected ArraySegment<byte> RestoreArraySegmentFromSparse<TValue>(VgoResourceAccessor accessor)
+        protected ArraySegment<byte> RestoreArraySegmentFromSparse<TValue>(in VgoResourceAccessor accessor)
             where TValue : struct
         {
             return RestoreArraySegmentFromSparse<TValue, TValue>(accessor);
@@ -308,7 +308,7 @@ namespace NewtonVgo
         /// <typeparam name="TData">The data type of accessor.</typeparam>
         /// <param name="accessor">An accessor.</param>
         /// <returns>Array segment byte.</returns>
-        protected ArraySegment<byte> RestoreArraySegmentFromSparse<TValue, TData>(VgoResourceAccessor accessor)
+        protected ArraySegment<byte> RestoreArraySegmentFromSparse<TValue, TData>(in VgoResourceAccessor accessor)
             where TValue : struct
             where TData : struct
         {
@@ -408,7 +408,7 @@ namespace NewtonVgo
         /// <param name="dataType">The type of data.</param>
         /// <param name="kind">The kind of the accessor.</param>
         /// <returns>The index of the accessor.</returns>
-        public int AddAccessorWithoutSparse<T>(T[] arrayData, VgoResourceAccessorDataType dataType, VgoResourceAccessorKind kind)
+        public int AddAccessorWithoutSparse<T>(in T[] arrayData, in VgoResourceAccessorDataType dataType, in VgoResourceAccessorKind kind)
             where T : struct
         {
             if (arrayData == null)
@@ -472,7 +472,14 @@ namespace NewtonVgo
         /// <param name="accessorCount">The number of attributes referenced by this accessor.</param>
         /// <param name="kind">The kind of the accessor.</param>
         /// <returns>The index of the accessor.</returns>
-        public int AddAccessorWithSparse<TValue>(VgoResourceAccessorSparseType sparseType, in int[] sparseIndices, in TValue[] sparseValues, VgoResourceAccessorDataType sparseValueDataType, VgoResourceAccessorDataType accessorDataType, int accessorCount, VgoResourceAccessorKind kind)
+        public int AddAccessorWithSparse<TValue>(
+            in VgoResourceAccessorSparseType sparseType,
+            in int[] sparseIndices,
+            in TValue[] sparseValues,
+            in VgoResourceAccessorDataType sparseValueDataType,
+            in VgoResourceAccessorDataType accessorDataType,
+            in int accessorCount,
+            in VgoResourceAccessorKind kind)
             where TValue : struct
         {
             if (accessorCount == 0)

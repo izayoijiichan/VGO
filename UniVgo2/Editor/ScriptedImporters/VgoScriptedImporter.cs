@@ -182,7 +182,7 @@ namespace UniVgo2.Editor
                                 continue;
                             }
 
-                            blendShapeConfiguration.name = blendShapeConfiguration.kind + "BlendShapeConfiguration";
+                            blendShapeConfiguration.name = blendShapeConfiguration.Kind + "BlendShapeConfiguration";
                             ctx.AddObjectToAsset(blendShapeConfiguration.name, blendShapeConfiguration);
                         }
                     }
@@ -206,7 +206,7 @@ namespace UniVgo2.Editor
         /// </summary>
         /// <param name="vgoFilePath">The file path of the vgo.</param>
         /// <returns>A vgo model asset.</returns>
-        protected virtual VgoModelAsset LoadModel(string vgoFilePath)
+        protected virtual VgoModelAsset LoadModel(in string vgoFilePath)
         {
             string? vgkFilePath = FindVgkFilePath(vgoFilePath);
 
@@ -220,7 +220,7 @@ namespace UniVgo2.Editor
         /// </summary>
         /// <param name="vgoFilePath">The file path of the vgo.</param>
         /// <returns>A vgo model asset.</returns>
-        protected virtual VgoModelAsset ExtractModel(string vgoFilePath)
+        protected virtual VgoModelAsset ExtractModel(in string vgoFilePath)
         {
             string? vgkFilePath = FindVgkFilePath(vgoFilePath);
 
@@ -234,7 +234,7 @@ namespace UniVgo2.Editor
         /// </summary>
         /// <param name="vgoFilePath">The file path of the vgo.</param>
         /// <returns>The file path of the vgk.</returns>
-        protected virtual string? FindVgkFilePath(string vgoFilePath)
+        protected virtual string? FindVgkFilePath(in string vgoFilePath)
         {
             var vgoFileInfo = new FileInfo(vgoFilePath);
 
@@ -363,7 +363,7 @@ namespace UniVgo2.Editor
         /// <param name="dirName"></param>
         /// <param name="ExtractModel"></param>
         /// <param name="continueMaterial"></param>
-        public virtual void ExtractTextures(string dirName, Func<string, VgoModelAsset> ExtractModel, bool continueMaterial = false)
+        public virtual void ExtractTextures(in string dirName, in Func<string, VgoModelAsset> ExtractModel, bool continueMaterial = false)
         {
             if (string.IsNullOrEmpty(assetPath))
             {
@@ -529,7 +529,7 @@ namespace UniVgo2.Editor
         /// <typeparam name="T"></typeparam>
         /// <param name="dirName"></param>
         /// <param name="extension"></param>
-        public virtual void ExtractAssets<T>(string dirName, string extension) where T : UnityEngine.Object
+        public virtual void ExtractAssets<T>(in string dirName, in string extension) where T : UnityEngine.Object
         {
             if (string.IsNullOrEmpty(assetPath))
             {
@@ -558,7 +558,7 @@ namespace UniVgo2.Editor
         /// <param name="subAsset"></param>
         /// <param name="destinationPath"></param>
         /// <param name="isForceUpdate"></param>
-        protected virtual void ExtractFromAsset(UnityEngine.Object subAsset, string destinationPath, bool isForceUpdate)
+        protected virtual void ExtractFromAsset(in UnityEngine.Object subAsset, in string destinationPath, in bool isForceUpdate)
         {
             string assetPath = AssetDatabase.GetAssetPath(subAsset);
 
@@ -594,7 +594,7 @@ namespace UniVgo2.Editor
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public virtual void SetExternalUnityObject<T>(SourceAssetIdentifier sourceAssetIdentifier, T obj) where T : UnityEngine.Object
+        public virtual void SetExternalUnityObject<T>(in SourceAssetIdentifier sourceAssetIdentifier, T obj) where T : UnityEngine.Object
         {
             AddRemap(sourceAssetIdentifier, obj);
             AssetDatabase.WriteImportSettingsIfDirty(assetPath);
@@ -607,7 +607,7 @@ namespace UniVgo2.Editor
         /// <typeparam name="T"></typeparam>
         /// <param name="assetPath"></param>
         /// <returns></returns>
-        protected virtual IEnumerable<T> GetSubAssets<T>(string assetPath) where T : UnityEngine.Object
+        protected virtual IEnumerable<T> GetSubAssets<T>(in string assetPath) where T : UnityEngine.Object
         {
             return AssetDatabase
                 .LoadAllAssetsAtPath(assetPath)
@@ -621,7 +621,7 @@ namespace UniVgo2.Editor
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        protected virtual DirectoryInfo CreateDirectoryIfNotExists(string path)
+        protected virtual DirectoryInfo CreateDirectoryIfNotExists(in string path)
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
 

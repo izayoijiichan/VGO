@@ -12,7 +12,12 @@ namespace UniVgo2
     {
         #region UnityEngine -> System.Numerics
 
-        public static System.Numerics.Vector2 ToNumericsVector2(this UnityEngine.Vector2 unityVector)
+        /// <summary>
+        /// Convert UnityEngine.Vector2 to System.Numerics.Vector2.
+        /// </summary>
+        /// <param name="unityVector"></param>
+        /// <returns></returns>
+        public static System.Numerics.Vector2 ToNumericsVector2(this in UnityEngine.Vector2 unityVector)
         {
             return new System.Numerics.Vector2(
                 unityVector.x,
@@ -20,7 +25,12 @@ namespace UniVgo2
             );
         }
 
-        public static System.Numerics.Vector3 ToNumericsVector3(this UnityEngine.Vector3 unityVector)
+        /// <summary>
+        /// Convert UnityEngine.Vector3 to System.Numerics.Vector3.
+        /// </summary>
+        /// <param name="unityVector"></param>
+        /// <returns></returns>
+        public static System.Numerics.Vector3 ToNumericsVector3(this in UnityEngine.Vector3 unityVector)
         {
             return new System.Numerics.Vector3(
                 unityVector.x,
@@ -29,7 +39,13 @@ namespace UniVgo2
             );
         }
 
-        public static System.Numerics.Vector3 ToNumericsVector3(this UnityEngine.Vector3 unityVector, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
+        /// <summary>
+        /// Convert UnityEngine.Vector3 to System.Numerics.Vector3.
+        /// </summary>
+        /// <param name="unityVector"></param>
+        /// <param name="geometryCoordinate"></param>
+        /// <returns></returns>
+        public static System.Numerics.Vector3 ToNumericsVector3(this in UnityEngine.Vector3 unityVector, in NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
         {
             if (geometryCoordinate == NewtonVgo.VgoGeometryCoordinate.RightHanded)
             {
@@ -41,12 +57,23 @@ namespace UniVgo2
             }
         }
 
-        public static System.Numerics.Vector4 ToNumericsVector4(this UnityEngine.Vector4 unityVector)
+        /// <summary>
+        /// Convert UnityEngine.Vector4 to System.Numerics.Vector4.
+        /// </summary>
+        /// <param name="unityVector"></param>
+        /// <returns></returns>
+        public static System.Numerics.Vector4 ToNumericsVector4(this in UnityEngine.Vector4 unityVector)
         {
             return new System.Numerics.Vector4(unityVector.x, unityVector.y, unityVector.z, unityVector.w);
         }
 
-        public static System.Numerics.Vector4 ToNumericsVector4(this UnityEngine.Vector4 unityVector, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
+        /// <summary>
+        /// Convert UnityEngine.Vector4 to System.Numerics.Vector4.
+        /// </summary>
+        /// <param name="unityVector"></param>
+        /// <param name="geometryCoordinate"></param>
+        /// <returns></returns>
+        public static System.Numerics.Vector4 ToNumericsVector4(this in UnityEngine.Vector4 unityVector, in NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
         {
             if (geometryCoordinate == NewtonVgo.VgoGeometryCoordinate.RightHanded)
             {
@@ -58,7 +85,12 @@ namespace UniVgo2
             }
         }
 
-        public static System.Numerics.Quaternion ToNumericsQuaternion(this UnityEngine.Quaternion unityQuaternion)
+        /// <summary>
+        /// Convert UnityEngine.Quaternion to System.Numerics.Quaternion.
+        /// </summary>
+        /// <param name="unityQuaternion"></param>
+        /// <returns></returns>
+        public static System.Numerics.Quaternion ToNumericsQuaternion(this in UnityEngine.Quaternion unityQuaternion)
         {
             return new System.Numerics.Quaternion(
                 unityQuaternion.x,
@@ -68,7 +100,13 @@ namespace UniVgo2
             );
         }
 
-        public static System.Numerics.Quaternion ToNumericsQuaternion(this UnityEngine.Quaternion unityQuaternion, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
+        /// <summary>
+        /// Convert UnityEngine.Quaternion to System.Numerics.Quaternion.
+        /// </summary>
+        /// <param name="unityQuaternion"></param>
+        /// <param name="geometryCoordinate"></param>
+        /// <returns></returns>
+        public static System.Numerics.Quaternion ToNumericsQuaternion(this in UnityEngine.Quaternion unityQuaternion, in NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
         {
             if (geometryCoordinate == NewtonVgo.VgoGeometryCoordinate.RightHanded)
             {
@@ -80,7 +118,12 @@ namespace UniVgo2
             }
         }
 
-        public static System.Numerics.Matrix4x4 ToNumericsMatrix(this UnityEngine.Matrix4x4 unityMatrix)
+        /// <summary>
+        /// Convert UnityEngine.Matrix4x4 to System.Numerics.Matrix4x4.
+        /// </summary>
+        /// <param name="unityMatrix"></param>
+        /// <returns></returns>
+        public static System.Numerics.Matrix4x4 ToNumericsMatrix(this in UnityEngine.Matrix4x4 unityMatrix)
         {
             return new System.Numerics.Matrix4x4()
             {
@@ -103,7 +146,13 @@ namespace UniVgo2
             };
         }
 
-        public static System.Numerics.Vector3? ToNullableNumericsVector3(this UnityEngine.Vector3 unityVector, UnityEngine.Vector3 defaultValue)
+        /// <summary>
+        /// Convert UnityEngine.Vector3 to System.Numerics.Vector3.
+        /// </summary>
+        /// <param name="unityVector"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static System.Numerics.Vector3? ToNullableNumericsVector3(this in UnityEngine.Vector3 unityVector, in UnityEngine.Vector3 defaultValue)
         {
             if (unityVector == defaultValue)
             {
@@ -115,7 +164,14 @@ namespace UniVgo2
             }
         }
 
-        public static System.Numerics.Vector3? ToNullableNumericsVector3(this UnityEngine.Vector3 unityVector, UnityEngine.Vector3 defaultValue, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
+        /// <summary>
+        /// Convert UnityEngine.Vector3 to System.Numerics.Vector3.
+        /// </summary>
+        /// <param name="unityVector"></param>
+        /// <param name="defaultValue"></param>
+        /// <param name="geometryCoordinate"></param>
+        /// <returns></returns>
+        public static System.Numerics.Vector3? ToNullableNumericsVector3(this in UnityEngine.Vector3 unityVector, in UnityEngine.Vector3 defaultValue, in NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
         {
             if (unityVector == defaultValue)
             {
@@ -127,7 +183,14 @@ namespace UniVgo2
             }
         }
 
-        public static System.Numerics.Quaternion? ToNullableNumericsQuaternion(this UnityEngine.Quaternion unityQuaternion, UnityEngine.Quaternion defaultValue, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
+        /// <summary>
+        /// Convert UnityEngine.Quaternion to System.Numerics.Quaternion.
+        /// </summary>
+        /// <param name="unityQuaternion"></param>
+        /// <param name="defaultValue"></param>
+        /// <param name="geometryCoordinate"></param>
+        /// <returns></returns>
+        public static System.Numerics.Quaternion? ToNullableNumericsQuaternion(this in UnityEngine.Quaternion unityQuaternion, in UnityEngine.Quaternion defaultValue, in NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
         {
             if (unityQuaternion == defaultValue)
             {
@@ -143,7 +206,12 @@ namespace UniVgo2
 
         #region System.Numerics -> UnityEngine
 
-        public static UnityEngine.Vector2 ToUnityVector2(this System.Numerics.Vector2 numericsVector)
+        /// <summary>
+        /// Convert System.Numerics.Vector2 to UnityEngine.Vector2.
+        /// </summary>
+        /// <param name="numericsVector"></param>
+        /// <returns></returns>
+        public static UnityEngine.Vector2 ToUnityVector2(this in System.Numerics.Vector2 numericsVector)
         {
             return new UnityEngine.Vector2(
                 numericsVector.X,
@@ -151,7 +219,12 @@ namespace UniVgo2
             );
         }
 
-        public static UnityEngine.Vector3 ToUnityVector3(this System.Numerics.Vector3 numericsVector)
+        /// <summary>
+        /// Convert System.Numerics.Vector3 to UnityEngine.Vector3.
+        /// </summary>
+        /// <param name="numericsVector"></param>
+        /// <returns></returns>
+        public static UnityEngine.Vector3 ToUnityVector3(this in System.Numerics.Vector3 numericsVector)
         {
             return new UnityEngine.Vector3(
                 numericsVector.X,
@@ -160,7 +233,13 @@ namespace UniVgo2
             );
         }
 
-        public static UnityEngine.Vector3 ToUnityVector3(this System.Numerics.Vector3 numericsVector, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
+        /// <summary>
+        /// Convert System.Numerics.Vector3 to UnityEngine.Vector3.
+        /// </summary>
+        /// <param name="numericsVector"></param>
+        /// <param name="geometryCoordinate"></param>
+        /// <returns></returns>
+        public static UnityEngine.Vector3 ToUnityVector3(this in System.Numerics.Vector3 numericsVector, in NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
         {
             if (geometryCoordinate == NewtonVgo.VgoGeometryCoordinate.RightHanded)
             {
@@ -172,7 +251,13 @@ namespace UniVgo2
             }
         }
 
-        public static UnityEngine.Vector3 ToUnityVector3(this System.Numerics.Vector3? numericsVector, UnityEngine.Vector3 defaultValue)
+        /// <summary>
+        /// Convert System.Numerics.Vector3 to UnityEngine.Vector3.
+        /// </summary>
+        /// <param name="numericsVector"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static UnityEngine.Vector3 ToUnityVector3(this in System.Numerics.Vector3? numericsVector, in UnityEngine.Vector3 defaultValue)
         {
             if (numericsVector.HasValue)
             {
@@ -184,7 +269,14 @@ namespace UniVgo2
             }
         }
 
-        public static UnityEngine.Vector3 ToUnityVector3(this System.Numerics.Vector3? numericsVector, UnityEngine.Vector3 defaultValue, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
+        /// <summary>
+        /// Convert System.Numerics.Vector3 to UnityEngine.Vector3.
+        /// </summary>
+        /// <param name="numericsVector"></param>
+        /// <param name="defaultValue"></param>
+        /// <param name="geometryCoordinate"></param>
+        /// <returns></returns>
+        public static UnityEngine.Vector3 ToUnityVector3(this in System.Numerics.Vector3? numericsVector, in UnityEngine.Vector3 defaultValue, in NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
         {
             if (numericsVector.HasValue)
             {
@@ -196,7 +288,12 @@ namespace UniVgo2
             }
         }
 
-        public static UnityEngine.Vector4 ToUnityVector4(this System.Numerics.Vector4 numericsVector)
+        /// <summary>
+        /// Convert System.Numerics.Vector4 to UnityEngine.Vector4.
+        /// </summary>
+        /// <param name="numericsVector"></param>
+        /// <returns></returns>
+        public static UnityEngine.Vector4 ToUnityVector4(this in System.Numerics.Vector4 numericsVector)
         {
             return new UnityEngine.Vector4(
                 numericsVector.X,
@@ -206,7 +303,13 @@ namespace UniVgo2
             );
         }
 
-        public static UnityEngine.Vector4 ToUnityVector4(this System.Numerics.Vector4 numericsVector, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
+        /// <summary>
+        /// Convert System.Numerics.Vector4 to UnityEngine.Vector4.
+        /// </summary>
+        /// <param name="numericsVector"></param>
+        /// <param name="geometryCoordinate"></param>
+        /// <returns></returns>
+        public static UnityEngine.Vector4 ToUnityVector4(this in System.Numerics.Vector4 numericsVector, in NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
         {
             if (geometryCoordinate == NewtonVgo.VgoGeometryCoordinate.RightHanded)
             {
@@ -218,7 +321,12 @@ namespace UniVgo2
             }
         }
 
-        public static UnityEngine.Quaternion ToUnityQuaternion(this System.Numerics.Quaternion numericsQuaternion)
+        /// <summary>
+        /// Convert System.Numerics.Quaternion to UnityEngine.Quaternion.
+        /// </summary>
+        /// <param name="numericsQuaternion"></param>
+        /// <returns></returns>
+        public static UnityEngine.Quaternion ToUnityQuaternion(this in System.Numerics.Quaternion numericsQuaternion)
         {
             return new UnityEngine.Quaternion(
                 numericsQuaternion.X,
@@ -228,7 +336,13 @@ namespace UniVgo2
             );
         }
 
-        public static UnityEngine.Quaternion ToUnityQuaternion(this System.Numerics.Quaternion numericsQuaternion, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
+        /// <summary>
+        /// Convert System.Numerics.Quaternion to UnityEngine.Quaternion.
+        /// </summary>
+        /// <param name="numericsQuaternion"></param>
+        /// <param name="geometryCoordinate"></param>
+        /// <returns></returns>
+        public static UnityEngine.Quaternion ToUnityQuaternion(this in System.Numerics.Quaternion numericsQuaternion, in NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
         {
             if (geometryCoordinate == NewtonVgo.VgoGeometryCoordinate.RightHanded)
             {
@@ -240,7 +354,14 @@ namespace UniVgo2
             }
         }
 
-        public static UnityEngine.Quaternion ToUnityQuaternion(this System.Numerics.Quaternion? numericsQuaternion, UnityEngine.Quaternion defaultValue, NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
+        /// <summary>
+        /// Convert System.Numerics.Quaternion to UnityEngine.Quaternion.
+        /// </summary>
+        /// <param name="numericsQuaternion"></param>
+        /// <param name="defaultValue"></param>
+        /// <param name="geometryCoordinate"></param>
+        /// <returns></returns>
+        public static UnityEngine.Quaternion ToUnityQuaternion(this in System.Numerics.Quaternion? numericsQuaternion, in UnityEngine.Quaternion defaultValue, in NewtonVgo.VgoGeometryCoordinate geometryCoordinate)
         {
             if (numericsQuaternion.HasValue)
             {
@@ -252,7 +373,12 @@ namespace UniVgo2
             }
         }
 
-        public static UnityEngine.Matrix4x4 ToUnityMatrix(this System.Numerics.Matrix4x4 numericsMatrix)
+        /// <summary>
+        /// Convert System.Numerics.Matrix4x4 to UnityEngine.Matrix4x4.
+        /// </summary>
+        /// <param name="numericsMatrix"></param>
+        /// <returns></returns>
+        public static UnityEngine.Matrix4x4 ToUnityMatrix(this in System.Numerics.Matrix4x4 numericsMatrix)
         {
             return new UnityEngine.Matrix4x4()
             {

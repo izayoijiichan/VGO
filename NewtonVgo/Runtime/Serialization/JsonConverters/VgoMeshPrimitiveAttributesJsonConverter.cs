@@ -39,16 +39,21 @@ namespace NewtonVgo.Serialization.JsonConverters
 
             if (reader.TokenType == JsonToken.StartArray)
             {
-                dictionary = serializer
-                    .Deserialize<KeyValuePair<string, int>[]>(reader)
-                    .ToDictionary(x => x.Key, x => x.Value);
+                var kvp = serializer.Deserialize<KeyValuePair<string, int>[]>(reader);
+
+                if (kvp is null)
+                {
+                    return null;
+                }
+
+                dictionary = kvp.ToDictionary(x => x.Key, x => x.Value);
             }
             else
             {
                 dictionary = serializer.Deserialize<Dictionary<string, int>>(reader);
             }
 
-            if (dictionary == null)
+            if (dictionary is null)
             {
                 return null;
             }

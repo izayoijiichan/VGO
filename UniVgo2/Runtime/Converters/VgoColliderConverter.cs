@@ -20,7 +20,7 @@ namespace UniVgo2.Converters
         /// <param name="collider"></param>
         /// <param name="geometryCoordinate"></param>
         /// <returns></returns>
-        public static VgoCollider CreateFrom(Collider collider, VgoGeometryCoordinate geometryCoordinate)
+        public static VgoCollider CreateFrom(in Collider collider, in VgoGeometryCoordinate geometryCoordinate)
         {
             if (collider is BoxCollider boxCollider)
             {
@@ -77,7 +77,7 @@ namespace UniVgo2.Converters
         /// <param name="collider"></param>
         /// <param name="geometryCoordinate"></param>
         /// <returns></returns>
-        public static VgoCollider? CreateOrDefaultFrom(Collider? collider, VgoGeometryCoordinate geometryCoordinate)
+        public static VgoCollider? CreateOrDefaultFrom(in Collider? collider, in VgoGeometryCoordinate geometryCoordinate)
         {
             if (collider == null)
             {
@@ -102,7 +102,7 @@ namespace UniVgo2.Converters
         /// <param name="collider"></param>
         /// <param name="vgoCollider"></param>
         /// <param name="geometryCoordinate"></param>
-        public static void SetComponentValue(Collider collider, VgoCollider vgoCollider, VgoGeometryCoordinate geometryCoordinate)
+        public static void SetComponentValue(Collider collider, in VgoCollider vgoCollider, in VgoGeometryCoordinate geometryCoordinate)
         {
             if (collider == null)
             {

@@ -31,7 +31,6 @@ namespace NewtonVgo
         /// <summary>
         /// Create a new instance of VgoExtensions.
         /// </summary>
-        /// <param name="jsonSerializerSettings"></param>
         public VgoExtensions()
         {
             JsonSerializerSettings = new VgoJsonSerializerSettings();
@@ -41,7 +40,7 @@ namespace NewtonVgo
         /// Create a new instance of VgoExtensions with jsonSerializerSettings.
         /// </summary>
         /// <param name="jsonSerializerSettings"></param>
-        public VgoExtensions(JsonSerializerSettings jsonSerializerSettings)
+        public VgoExtensions(in JsonSerializerSettings jsonSerializerSettings)
         {
             JsonSerializerSettings = jsonSerializerSettings;
         }
@@ -71,12 +70,9 @@ namespace NewtonVgo
         /// <param name="key">The key of the element to add.</param>
         /// <param name="value">The value of the element to add.</param>
         /// <param name="jsonSerializerSettings"></param>
-        public void Add<T>(string key, T value, JsonSerializerSettings? jsonSerializerSettings = null)
+        public void Add<T>(in string key, in T value, JsonSerializerSettings? jsonSerializerSettings = null)
         {
-            if (jsonSerializerSettings == null)
-            {
-                jsonSerializerSettings = JsonSerializerSettings;
-            }
+            jsonSerializerSettings ??= JsonSerializerSettings;
 
             string json = JsonConvert.SerializeObject(value, jsonSerializerSettings);
 
@@ -92,15 +88,12 @@ namespace NewtonVgo
         /// <param name="key">The key of the element to get.</param>
         /// <param name="jsonSerializerSettings"></param>
         /// <returns>Returns the value associated with the specified key.</returns>
-        public T GetValue<T>(string key, JsonSerializerSettings? jsonSerializerSettings = null)
+        public T GetValue<T>(in string key, JsonSerializerSettings? jsonSerializerSettings = null)
             where T : class, new()
         {
             ExModel model = this[key];
 
-            if (jsonSerializerSettings == null)
-            {
-                jsonSerializerSettings = JsonSerializerSettings;
-            }
+            jsonSerializerSettings ??= JsonSerializerSettings;
 
             T? value = JsonConvert.DeserializeObject<T>(model.json, jsonSerializerSettings);
 
@@ -124,7 +117,7 @@ namespace NewtonVgo
         /// If the key is found, returns the value associated with the specified key.
         /// otherwise, the default value for the type of the value parameter. 
         /// </returns>
-        public T? GetValueOrDefault<T>(string key, JsonSerializerSettings? jsonSerializerSettings = null)
+        public T? GetValueOrDefault<T>(in string key, JsonSerializerSettings? jsonSerializerSettings = null)
             where T : class, new()
         {
             try
@@ -150,7 +143,7 @@ namespace NewtonVgo
         /// <param name="value">The value of the element to add.</param>
         /// <param name="jsonSerializerSettings"></param>
         /// <returns></returns>
-        public bool TryAdd<T>(string key, T value, JsonSerializerSettings? jsonSerializerSettings = null)
+        public bool TryAdd<T>(in string key, in T value, JsonSerializerSettings? jsonSerializerSettings = null)
         {
             if (Contains(key))
             {
@@ -178,7 +171,7 @@ namespace NewtonVgo
         /// <param name="value">When this method returns true, contains the value associated with the specified key; otherwise, the default value for the type of the value parameter.</param>
         /// <param name="jsonSerializerSettings"></param>
         /// <returns>true if the collection contains an element with the specified key; otherwise, false.</returns>
-        public bool TryGetValue<T>(string key, out T value, JsonSerializerSettings jsonSerializerSettings = null)
+        public bool TryGetValue<T>(in string key, out T value, JsonSerializerSettings jsonSerializerSettings = null)
             where T : class, new()
         {
             try
@@ -234,7 +227,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="src"></param>
         /// <remarks>for JsonConverter</remarks>
-        public void SetConverterDictionary(Dictionary<string, JRaw>? src)
+        public void SetConverterDictionary(in IDictionary<string, JRaw>? src)
         {
             if (src == null)
             {

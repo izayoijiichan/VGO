@@ -23,7 +23,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoStorage"></param>
         /// <param name="exportTexture"></param>
         /// <returns></returns>
-        VgoParticleSystem Create(ParticleSystem particleSystem, ParticleSystemRenderer particleSystemRenderer, IVgoStorage vgoStorage, ExportTextureDelegate exportTexture);
+        VgoParticleSystem Create(in ParticleSystem particleSystem, in ParticleSystemRenderer particleSystemRenderer, in IVgoStorage vgoStorage, in ExportTextureDelegate exportTexture);
 
         #endregion
     }

@@ -31,7 +31,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="materialList">List of unity material.</param>
         /// <returns>List of mesh asset.</returns>
-        List<MeshAsset> CreateMeshAssets(IVgoStorage vgoStorage, IList<Material?>? materialList = null);
+        List<MeshAsset> CreateMeshAssets(in IVgoStorage vgoStorage, in IList<Material?>? materialList = null);
 
         /// <summary>
         /// Create mesh assets.
@@ -70,7 +70,7 @@ namespace UniVgo2.Porters
         ///// <param name="meshIndex">The index of vgo mesh.</param>
         ///// <param name="unityMaterialList">List of unity material.</param>
         ///// <returns>A mesh asset.</returns>
-        //MeshAsset CreateMeshAsset(IVgoStorage vgoStorage, int meshIndex, IList<Material?>? unityMaterialList = null);
+        //MeshAsset CreateMeshAsset(in IVgoStorage vgoStorage, in int meshIndex, in IList<Material?>? unityMaterialList = null);
 
         ///// <summary>
         ///// Create a mesh asset.
@@ -87,7 +87,6 @@ namespace UniVgo2.Porters
 #else
         //Task<MeshAsset> CreateMeshAssetAsync(IVgoStorage vgoStorage, int meshIndex, IList<Material?>? unityMaterialList, CancellationToken cancellationToken);
 #endif
-
 
         #endregion
     }

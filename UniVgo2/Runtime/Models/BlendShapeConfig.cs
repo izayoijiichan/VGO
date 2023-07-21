@@ -13,7 +13,7 @@ namespace UniVgo2
     /// </summary>
     public class BlendShapeConfig
     {
-        /// <summary>The name of this info.</summary>
+        /// <summary>The name of this configuration.</summary>
         private string? _Name;
 
         /// <summary>The kind of the BlendShape.</summary>

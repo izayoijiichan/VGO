@@ -34,7 +34,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A URP material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
+        public override VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage)
         {
             switch (material.shader.name)
             {
@@ -200,14 +200,14 @@ namespace UniVgo2.Porters
         /// <param name="isTessellation"></param>
         /// <returns>A vgo material.</returns>
         protected virtual VgoMaterial CreateVgoMaterialFromLilToon(
-            Material material,
-            IVgoStorage vgoStorage,
-            LilShaderType shaderType = LilShaderType.Normal,
-            LilRenderingMode renderingMode = LilRenderingMode.Opaque,
-            LilTransparentMode transparentMode = LilTransparentMode.Normal,
-            bool isOverlay = false,
-            bool isOutline = false,
-            bool isTessellation = false)
+            in Material material,
+            in IVgoStorage vgoStorage,
+            in LilShaderType shaderType = LilShaderType.Normal,
+            in LilRenderingMode renderingMode = LilRenderingMode.Opaque,
+            in LilTransparentMode transparentMode = LilTransparentMode.Normal,
+            in bool isOverlay = false,
+            in bool isOutline = false,
+            in bool isTessellation = false)
         {
             var vgoMaterial = new VgoMaterial()
             {
@@ -232,7 +232,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A lilToon FakeShadow material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        protected virtual VgoMaterial CreateVgoMaterialFromLilToonFakeShadow(Material material, IVgoStorage vgoStorage)
+        protected virtual VgoMaterial CreateVgoMaterialFromLilToonFakeShadow(in Material material, in IVgoStorage vgoStorage)
         {
             var vgoMaterial = new VgoMaterial()
             {
@@ -262,7 +262,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A lilToon Multi material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        protected virtual VgoMaterial CreateVgoMaterialFromLilToonMulti(Material material, IVgoStorage vgoStorage)
+        protected virtual VgoMaterial CreateVgoMaterialFromLilToonMulti(in Material material, in IVgoStorage vgoStorage)
         {
             // @notice Multi.TransparentMode is RenderingMode
             LilRenderingMode renderingMode = material.GetSafeEnum<LilRenderingMode>(LilToonShader.PropertyName.TransparentMode);
@@ -288,10 +288,10 @@ namespace UniVgo2.Porters
         protected virtual void ExportLilTextureProperties(
             IVgoStorage vgoStorage,
             VgoMaterial vgoMaterial,
-            Material material,
-            LilShaderType shaderType = LilShaderType.Normal,
-            LilRenderingMode renderingMode = LilRenderingMode.Opaque,
-            bool isOutline = false)
+            in Material material,
+            in LilShaderType shaderType = LilShaderType.Normal,
+            in LilRenderingMode renderingMode = LilRenderingMode.Opaque,
+            in bool isOutline = false)
         {
             int lilToonVersion = material.GetLilToonVersion();
 
@@ -570,7 +570,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A lilToon shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A lilToon material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
         {
             if ((shader.name.Contains("lilToon") == false) &&
                 (shader.name.StartsWith("Hidden/ltspass") == false))

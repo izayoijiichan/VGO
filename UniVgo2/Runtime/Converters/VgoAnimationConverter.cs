@@ -21,7 +21,7 @@ namespace UniVgo2.Converters
         /// <param name="animationClips"></param>
         /// <param name="geometryCoordinate"></param>
         /// <returns></returns>
-        public static VgoAnimation CreateFrom(Animation animation, IList<AnimationClip> animationClips, VgoGeometryCoordinate geometryCoordinate)
+        public static VgoAnimation CreateFrom(in Animation animation, in IList<AnimationClip> animationClips, in VgoGeometryCoordinate geometryCoordinate)
         {
             var vgoAnimation = new VgoAnimation()
             {
@@ -45,7 +45,7 @@ namespace UniVgo2.Converters
         /// <param name="vgoAnimation"></param>
         /// <param name="animationClips"></param>
         /// <param name="geometryCoordinate"></param>
-        public static void SetComponentValue(Animation animation, VgoAnimation vgoAnimation, List<AnimationClip?>? animationClips, VgoGeometryCoordinate geometryCoordinate)
+        public static void SetComponentValue(in Animation animation, in VgoAnimation vgoAnimation, in List<AnimationClip?>? animationClips, in VgoGeometryCoordinate geometryCoordinate)
         {
             animation.name = vgoAnimation.name;
             animation.enabled = vgoAnimation.enabled;

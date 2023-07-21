@@ -14,7 +14,7 @@ namespace UniVgo2.Converters
     public class MetallicRoughnessMapConverter : TextureConverter
     {
         /// <summary>The smoothness or roughness.</summary>
-        private float _SmoothnessOrRoughness;
+        private readonly float _SmoothnessOrRoughness;
 
         /// <summary>
         /// Create a new instance of MetallicRoughnessMapConverter with smoothnessOrRoughness.
@@ -28,9 +28,9 @@ namespace UniVgo2.Converters
         /// <summary>
         /// Get import texture.
         /// </summary>
-        /// <param name="source">The source texture.</param>
+        /// <param name="texture">The source texture.</param>
         /// <returns></returns>
-        public Texture2D GetImportTexture(Texture2D texture)
+        public Texture2D GetImportTexture(in Texture2D texture)
         {
             Texture2D copyTexture = CopyTexture2d(texture, VgoColorSpaceType.Linear);
 
@@ -51,9 +51,9 @@ namespace UniVgo2.Converters
         /// <summary>
         /// Get export texture.
         /// </summary>
-        /// <param name="source">The source texture.</param>
+        /// <param name="texture">The source texture.</param>
         /// <returns></returns>
-        public Texture2D GetExportTexture(Texture2D texture)
+        public Texture2D GetExportTexture(in Texture2D texture)
         {
             Texture2D copyTexture = CopyTexture2d(texture, VgoColorSpaceType.Linear);
 
@@ -82,7 +82,7 @@ namespace UniVgo2.Converters
         /// 
         /// https://github.com/dwango/UniVRM/issues/212.
         /// </remarks>
-        public Color32 Import(Color32 src)
+        public Color32 Import(in Color32 src)
         {
             float pixelRoughnessFactor = (src.g * _SmoothnessOrRoughness) / 255.0f; // roughness
             float pixelSmoothness = 1.0f - Mathf.Sqrt(pixelRoughnessFactor);
@@ -108,7 +108,7 @@ namespace UniVgo2.Converters
         /// https://blogs.unity3d.com/jp/2016/01/25/ggx-in-unity-5-3/
         /// https://github.com/dwango/UniVRM/issues/212.
         /// </remarks>
-        public Color32 Export(Color32 src)
+        public Color32 Export(in Color32 src)
         {
             float pixelSmoothness = (src.a * _SmoothnessOrRoughness) / 255.0f; // smoothness
             float pixelRoughnessFactorSqrt = (1.0f - pixelSmoothness);

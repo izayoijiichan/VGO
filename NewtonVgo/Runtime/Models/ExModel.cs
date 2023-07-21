@@ -30,7 +30,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="key"></param>
         /// <param name="json"></param>
-        public ExModel(string key, string json)
+        public ExModel(in string key, in string json)
         {
             ThrowHelper.ThrowExceptionIfArgumentIsNull(nameof(key), key);
             ThrowHelper.ThrowExceptionIfArgumentIsNull(nameof(json), json);
@@ -48,7 +48,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="other"></param>
         /// <returns>true if the value is the same; otherwise, false.</returns>
-        public bool Equals(ExModel other)
+        public bool Equals(in ExModel other)
         {
             if ((key == other.key) &&
                 (json == other.json))

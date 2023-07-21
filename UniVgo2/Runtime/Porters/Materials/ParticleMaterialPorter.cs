@@ -35,7 +35,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A particle material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
+        public override VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage)
         {
             //ParticleDefinition particleDefinition = UniParticleShader.Utils.GetParametersFromMaterial(material);
 
@@ -50,10 +50,7 @@ namespace UniVgo2.Porters
 
             // Properties
 
-            if (vgoMaterial.intProperties is null)
-            {
-                vgoMaterial.intProperties = new Dictionary<string, int>();
-            }
+            vgoMaterial.intProperties ??= new Dictionary<string, int>();
 
             ExportProperty(vgoMaterial, material, Property.BlendMode, VgoMaterialPropertyType.Int);
 
@@ -136,7 +133,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A particle shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A particle material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
         {
             if ((vgoMaterial.shaderName != UniVgo2.ShaderName.Particles_Standard_Surface) &&
                 (vgoMaterial.shaderName != UniVgo2.ShaderName.Particles_Standard_Unlit))
@@ -178,7 +175,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A particle definition.</returns>
-        protected virtual ParticleDefinition CreateParticleDefinition(VgoMaterial vgoMaterial, List<Texture2D?> allTexture2dList)
+        protected virtual ParticleDefinition CreateParticleDefinition(in VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList)
         {
             var particleDefinition = new ParticleDefinition
             {
@@ -263,7 +260,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A URP Particle shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A URP Particle material.</returns>
-        public virtual Material CreateMaterialAssetAsUrp(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
+        public virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, Shader shader, in List<Texture2D?> allTexture2dList)
         {
             var material = new Material(shader)
             {
@@ -299,7 +296,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="brpParticleDefinition">A BRP particle definition.</param>
         /// <returns>A URP particle definition.</returns>
-        protected virtual UniUrpParticleShader.UrpParticleDefinition ConvertDefinitionBrpToUrp(ParticleDefinition brpParticleDefinition)
+        protected virtual UniUrpParticleShader.UrpParticleDefinition ConvertDefinitionBrpToUrp(in ParticleDefinition brpParticleDefinition)
         {
             var urpParticleDefinition = new UniUrpParticleShader.UrpParticleDefinition
             {

@@ -18,7 +18,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="physicMaterial"></param>
         /// <returns></returns>
-        public static VgoPhysicMaterial CreateFrom(PhysicMaterial physicMaterial)
+        public static VgoPhysicMaterial CreateFrom(in PhysicMaterial physicMaterial)
         {
             return new VgoPhysicMaterial
             {
@@ -35,7 +35,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="physicMaterial"></param>
         /// <returns></returns>
-        public static VgoPhysicMaterial? CreateOrDefaultFrom(PhysicMaterial? physicMaterial)
+        public static VgoPhysicMaterial? CreateOrDefaultFrom(in PhysicMaterial? physicMaterial)
         {
             if (physicMaterial == null)
             {
@@ -50,7 +50,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="vgoPhysicMaterial"></param>
         /// <returns>PhysicMaterial</returns>
-        public static PhysicMaterial ToPhysicMaterial(VgoPhysicMaterial vgoPhysicMaterial)
+        public static PhysicMaterial ToPhysicMaterial(in VgoPhysicMaterial vgoPhysicMaterial)
         {
             return new PhysicMaterial()
             {

@@ -362,7 +362,7 @@ namespace UniVgo2
         /// <summary>
         /// Get list of unity mesh.
         /// </summary>
-        /// <param name="rendererAssetList">List of export mesh renderer asset.</param>
+        /// <param name="meshRendererAssetList">List of export mesh renderer asset.</param>
         /// <returns>List of export mesh asset.</returns>
         protected virtual List<MeshAsset> GetMeshAssetList(List<ExportMeshRendererAsset> meshRendererAssetList)
         {
@@ -408,12 +408,12 @@ namespace UniVgo2
 
                             meshAsset.BlendShapeConfig = new BlendShapeConfig
                             {
-                                Name = blendShapeConfiguration.name ?? string.Empty,
-                                Kind = blendShapeConfiguration.kind,
-                                FaceParts = blendShapeConfiguration.faceParts,
-                                Blinks = blendShapeConfiguration.blinks,
-                                Visemes = blendShapeConfiguration.visemes,
-                                Presets = blendShapeConfiguration.presets,
+                                Name = blendShapeConfiguration.Name,
+                                Kind = blendShapeConfiguration.Kind,
+                                FaceParts = blendShapeConfiguration.FaceParts,
+                                Blinks = blendShapeConfiguration.Blinks,
+                                Visemes = blendShapeConfiguration.Visemes,
+                                Presets = blendShapeConfiguration.Presets,
                             };
                         }
                     }
@@ -428,7 +428,7 @@ namespace UniVgo2
         /// <summary>
         /// Get list of unity mesh.
         /// </summary>
-        /// <param name="rendererAssetList">List of mesh renderer asset.</param>
+        /// <param name="meshRendererAssetList">List of mesh renderer asset.</param>
         /// <returns>List of unity mesh.</returns>
         protected virtual List<Mesh> GetMeshList(List<ExportMeshRendererAsset> meshRendererAssetList)
         {

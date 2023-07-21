@@ -7,15 +7,15 @@ namespace NewtonVgo
 {
     using System;
 
-    /// <summary></summary>
+    /// <summary>Determines which faces Unity culls.</summary>
     public enum CullMode
     {
-        /// <summary></summary>
-        Off,
-        /// <summary></summary>
-        Front,
-        /// <summary></summary>
-        Back,
+        /// <summary>Disable culling.</summary>
+        Off = 0,
+        /// <summary>Cull front-facing geometry.</summary>
+        Front = 1,
+        /// <summary>Cull back-facing geometry.</summary>
+        Back = 2,
     }
 
     /// <summary>Enum describing what part of a light contribution can be baked.</summary>
@@ -155,16 +155,16 @@ namespace NewtonVgo
         CubeArray = 6,
     }
 
-    /// <summary></summary>
+    /// <summary>A flag representing each UV channel.</summary>
     public enum UVChannelFlags
     {
-        /// <summary></summary>
+        /// <summary>First UV channel.</summary>
         UV0 = 0,
-        /// <summary></summary>
+        /// <summary>Second UV channel.</summary>
         UV1 = 1,
-        /// <summary></summary>
+        /// <summary>Third UV channel.</summary>
         UV2 = 2,
-        /// <summary></summary>
+        /// <summary>Fourth UV channel.</summary>
         UV3 = 3,
     }
 }

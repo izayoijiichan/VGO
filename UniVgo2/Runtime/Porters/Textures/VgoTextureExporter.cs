@@ -61,7 +61,12 @@ namespace UniVgo2.Porters
         /// <param name="colorSpaceType">The color space type of image.</param>
         /// <param name="metallicRoughness">The metallic-roughness value.</param>
         /// <returns>The index of layout.texture.</returns>
-        protected virtual int ExportTexture(IVgoStorage vgoStorage, Texture texture, VgoTextureMapType textureMapType = VgoTextureMapType.Default, VgoColorSpaceType colorSpaceType = VgoColorSpaceType.Srgb, float metallicRoughness = -1.0f)
+        protected virtual int ExportTexture(
+            IVgoStorage vgoStorage,
+            Texture texture,
+            in VgoTextureMapType textureMapType = VgoTextureMapType.Default,
+            in VgoColorSpaceType colorSpaceType = VgoColorSpaceType.Srgb,
+            in float metallicRoughness = -1.0f)
         {
             if (texture == null)
             {

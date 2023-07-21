@@ -32,7 +32,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A unity material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage);
+        VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage);
 
         #endregion
     }

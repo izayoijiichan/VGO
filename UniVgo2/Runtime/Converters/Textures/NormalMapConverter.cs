@@ -19,7 +19,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="source">The source texture.</param>
         /// <returns></returns>
-        public Texture2D GetImportTexture(Texture2D source)
+        public Texture2D GetImportTexture(in Texture2D source)
         {
             Shader? encoder = Shader.Find("UniGLTF/NormalMapEncoder");
 
@@ -49,7 +49,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="source">The source texture.</param>
         /// <returns></returns>
-        public Texture2D GetExportTexture(Texture2D source)
+        public Texture2D GetExportTexture(in Texture2D source)
         {
             Shader? decoder = Shader.Find("UniGLTF/NormalMapDecoder");
 

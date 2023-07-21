@@ -6,8 +6,8 @@
 namespace UniVgo2.Converters
 {
     using NewtonVgo;
-    using System.Collections.Generic;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
 
@@ -22,7 +22,7 @@ namespace UniVgo2.Converters
         /// <param name="animationClip"></param>
         /// <param name="geometryCoordinate"></param>
         /// <returns></returns>
-        public static VgoAnimationClip CreateFrom(AnimationClip animationClip, VgoGeometryCoordinate geometryCoordinate)
+        public static VgoAnimationClip CreateFrom(in AnimationClip animationClip, in VgoGeometryCoordinate geometryCoordinate)
         {
             var vgoAnimationClip = new VgoAnimationClip()
             {
@@ -86,7 +86,7 @@ namespace UniVgo2.Converters
         /// <param name="animationClip"></param>
         /// <param name="geometryCoordinate"></param>
         /// <returns></returns>
-        public static VgoAnimationClip? CreateOrDefaultFrom(AnimationClip? animationClip, VgoGeometryCoordinate geometryCoordinate)
+        public static VgoAnimationClip? CreateOrDefaultFrom(in AnimationClip? animationClip, in VgoGeometryCoordinate geometryCoordinate)
         {
             if (animationClip == null)
             {
@@ -101,7 +101,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="vgoAnimationClip"></param>
         /// <param name="geometryCoordinate"></param>
-        public static AnimationClip CreateAnimationClip(VgoAnimationClip vgoAnimationClip, VgoGeometryCoordinate geometryCoordinate)
+        public static AnimationClip CreateAnimationClip(in VgoAnimationClip vgoAnimationClip, in VgoGeometryCoordinate geometryCoordinate)
         {
             var animationClip = new AnimationClip()
             {
@@ -195,7 +195,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="vgoAnimationClip"></param>
         /// <param name="geometryCoordinate"></param>
-        public static AnimationClip? CreateAnimationClipOrDefault(VgoAnimationClip? vgoAnimationClip, VgoGeometryCoordinate geometryCoordinate)
+        public static AnimationClip? CreateAnimationClipOrDefault(in VgoAnimationClip? vgoAnimationClip, in VgoGeometryCoordinate geometryCoordinate)
         {
             if (vgoAnimationClip == null)
             {

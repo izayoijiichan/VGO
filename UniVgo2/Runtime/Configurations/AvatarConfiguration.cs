@@ -20,7 +20,22 @@ namespace UniVgo2
         ///// <summary>The name of this human avatar.</summary>
         //public string name;
 
+        /// <summary>The name of this human avatar.</summary>
+        public string Name
+        {
+            get => name;
+            set => name = value;
+        }
+
         /// <summary>List of the human bone.</summary>
-        public List<VgoHumanBone> humanBones = new List<VgoHumanBone>();
+        [SerializeField]
+        private List<VgoHumanBone> humanBones = new List<VgoHumanBone>();
+
+        /// <summary>List of the human bone.</summary>
+        public List<VgoHumanBone> HumanBones
+        {
+            get => humanBones;
+            set => humanBones = value;
+        }
     }
 }

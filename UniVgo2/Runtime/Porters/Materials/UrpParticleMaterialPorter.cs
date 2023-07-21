@@ -35,7 +35,7 @@ namespace UniVgo2.Porters
         /// <param name="material">A HDRP material.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <returns>A vgo material.</returns>
-        public override VgoMaterial CreateVgoMaterial(Material material, IVgoStorage vgoStorage)
+        public override VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage)
         {
             var vgoMaterial = new VgoMaterial()
             {
@@ -125,7 +125,7 @@ namespace UniVgo2.Porters
         /// <param name="shader">A URP Particle shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A URP Particle material.</returns>
-        public override Material CreateMaterialAsset(VgoMaterial vgoMaterial, Shader shader, List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
         {
             switch (vgoMaterial.shaderName)
             {
@@ -171,7 +171,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A URP particle definition.</returns>
-        protected virtual UrpParticleDefinition CreateUrpParticleDefinition(VgoMaterial vgoMaterial, List<Texture2D?> allTexture2dList)
+        protected virtual UrpParticleDefinition CreateUrpParticleDefinition(in VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList)
         {
             var urpParticleDefinition = new UrpParticleDefinition
             {

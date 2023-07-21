@@ -53,7 +53,7 @@ namespace NewtonVgo
         /// <param name="filePath">The full path of the file.</param>
         /// <param name="exportSetting">A vgo export setting.</param>
         /// <returns>Returns true if the export was successful, false otherwise.</returns>
-        bool ExportVgoFile(string filePath, VgoExportSetting exportSetting);
+        bool ExportVgoFile(in string filePath, in VgoExportSetting exportSetting);
 
         #endregion
 
@@ -64,7 +64,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="accessorIndex">The index of the accessor.</param>
         /// <returns>An accessor.</returns>
-        VgoResourceAccessor GetAccessor(int accessorIndex);
+        VgoResourceAccessor GetAccessor(in int accessorIndex);
 
         /// <summary>
         /// Gets array data from the resource through the accessor.
@@ -72,7 +72,7 @@ namespace NewtonVgo
         /// <typeparam name="T">Type of data.</typeparam>
         /// <param name="accessorIndex">The index of the accessor.</param>
         /// <returns>Array data.</returns>
-        T[] GetAccessorArrayData<T>(int accessorIndex) where T : struct;
+        T[] GetAccessorArrayData<T>(in int accessorIndex) where T : struct;
 
         /// <summary>
         /// Gets span data from the resource through the accessor.
@@ -80,21 +80,21 @@ namespace NewtonVgo
         /// <typeparam name="T">Type of data.</typeparam>
         /// <param name="accessorIndex">The index of the accessor.</param>
         /// <returns>Span data.</returns>
-        ReadOnlySpan<T> GetAccessorSpan<T>(int accessorIndex) where T : struct;
+        ReadOnlySpan<T> GetAccessorSpan<T>(in int accessorIndex) where T : struct;
 
         /// <summary>
         /// Gets array segment data from the resource through the accessor.
         /// </summary>
         /// <param name="accessorIndex">The index of the accessor.</param>
         /// <returns>Array segment byte.</returns>
-        ArraySegment<byte> GetAccessorBytes(int accessorIndex);
+        ArraySegment<byte> GetAccessorBytes(in int accessorIndex);
 
         /// <summary>
         /// Gets array segment data from the resource through the accessor.
         /// </summary>
         /// <param name="accessor">An accessor.</param>
         /// <returns>Array segment byte.</returns>
-        ArraySegment<byte> GetAccessorBytes(VgoResourceAccessor accessor);
+        ArraySegment<byte> GetAccessorBytes(in VgoResourceAccessor accessor);
 
         /// <summary>
         /// Add an accessor (non sparse) to resource.
@@ -105,9 +105,9 @@ namespace NewtonVgo
         /// <param name="kind">The kind of the accessor.</param>
         /// <returns>The index of the accessor.</returns>
         int AddAccessorWithoutSparse<T>(
-            T[] arrayData,
-            VgoResourceAccessorDataType dataType,
-            VgoResourceAccessorKind kind
+            in T[] arrayData,
+            in VgoResourceAccessorDataType dataType,
+            in VgoResourceAccessorKind kind
         ) where T : struct;
 
         /// <summary>
@@ -123,13 +123,13 @@ namespace NewtonVgo
         /// <param name="kind">The kind of the accessor.</param>
         /// <returns>The index of the accessor.</returns>
         int AddAccessorWithSparse<TValue>(
-            VgoResourceAccessorSparseType sparseType,
+            in VgoResourceAccessorSparseType sparseType,
             in int[] sparseIndices,
             in TValue[] sparseValues,
-            VgoResourceAccessorDataType sparseValueDataType,
-            VgoResourceAccessorDataType accessorDataType,
-            int accessorCount,
-            VgoResourceAccessorKind kind
+            in VgoResourceAccessorDataType sparseValueDataType,
+            in VgoResourceAccessorDataType accessorDataType,
+            in int accessorCount,
+            in VgoResourceAccessorKind kind
         ) where TValue : struct;
 
         #endregion

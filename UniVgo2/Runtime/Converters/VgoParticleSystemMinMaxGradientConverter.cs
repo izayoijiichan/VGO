@@ -20,7 +20,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="minMaxGradient"></param>
         /// <returns></returns>
-        public static VGO_PS_MinMaxGradient CreateFrom(MinMaxGradient minMaxGradient)
+        public static VGO_PS_MinMaxGradient CreateFrom(in MinMaxGradient minMaxGradient)
         {
             switch (minMaxGradient.mode)
             {
@@ -80,7 +80,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="vgoMinMaxGradient"></param>
         /// <returns></returns>
-        public static MinMaxGradient CreateMinMaxGradient(VGO_PS_MinMaxGradient? vgoMinMaxGradient)
+        public static MinMaxGradient CreateMinMaxGradient(in VGO_PS_MinMaxGradient? vgoMinMaxGradient)
         {
             if (vgoMinMaxGradient == null)
             {
@@ -116,8 +116,10 @@ namespace UniVgo2.Converters
                     var minMaxGradient = new MinMaxGradient(
                         min: vgoMinMaxGradient.colorMin.ToUnityColor().gamma,
                         max: vgoMinMaxGradient.colorMax.ToUnityColor().gamma
-                    );
-                    minMaxGradient.mode = UnityEngine.ParticleSystemGradientMode.RandomColor;
+                    )
+                    {
+                        mode = UnityEngine.ParticleSystemGradientMode.RandomColor
+                    };
                     return minMaxGradient;
 
                 default:

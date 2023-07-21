@@ -1,5 +1,14 @@
 # Change Log
 
+## [2.5.11] - 2023-07-22
+
+- Changes
+  - ScriptableObject fields are now accessed by properties.
+- Improvements
+  - Program safety is enhanced.
+- Fixes
+  - The MeshExporter export option was not done correctly.
+
 ## [2.5.10] - 2023-07-17
 
 - Features

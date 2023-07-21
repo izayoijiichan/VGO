@@ -18,7 +18,7 @@ namespace UniVgo2
         /// <param name="values"></param>
         /// <param name="gamma"></param>
         /// <returns></returns>
-        public static Color ToColor(float[] values, bool gamma = false)
+        public static Color ToColor(in float[] values, in bool gamma = false)
         {
             if (values == null)
             {
@@ -56,7 +56,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        public static Quaternion ToQuaternion(float[] values)
+        public static Quaternion ToQuaternion(in float[] values)
         {
             if (values == null)
             {
@@ -76,7 +76,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        public static Vector2 ToVector2(float[] values)
+        public static Vector2 ToVector2(in float[] values)
         {
             if (values == null)
             {
@@ -96,7 +96,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        public static Vector3 ToVector3(float[] values)
+        public static Vector3 ToVector3(in float[] values)
         {
             if (values == null)
             {
@@ -116,7 +116,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        public static Vector4 ToVector4(float[] values)
+        public static Vector4 ToVector4(in float[] values)
         {
             if (values == null)
             {
@@ -136,7 +136,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        public static Matrix4x4 ToMatrix4x4(float[] values)
+        public static Matrix4x4 ToMatrix4x4(in float[] values)
         {
             if (values == null)
             {

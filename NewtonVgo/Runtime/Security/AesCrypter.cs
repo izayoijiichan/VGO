@@ -33,21 +33,19 @@ namespace NewtonVgo.Security.Cryptography
         /// <param name="key">The key to be used for the algorithm.</param>
         /// <param name="iv">The initialization vector to be used for the algorithm.</param>
         /// <returns></returns>
-        public byte[] Encrypt(byte[] src, byte[] key, byte[] iv)
+        public byte[] Encrypt(in byte[] src, in byte[] key, in byte[] iv)
         {
-            using (Aes aes = Aes.Create())
-            {
-                aes.Mode = CipherMode;
-                aes.Padding = PaddingMode;
+            using Aes aes = Aes.Create();
 
-                aes.Key = key;
-                aes.IV = iv;
+            aes.Mode = CipherMode;
+            aes.Padding = PaddingMode;
 
-                using (ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV))
-                {
-                    return encryptor.TransformFinalBlock(src, 0, src.Length);
-                }
-            }
+            aes.Key = key;
+            aes.IV = iv;
+
+            using ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+            return encryptor.TransformFinalBlock(src, 0, src.Length);
         }
 
         /// <summary>
@@ -59,27 +57,25 @@ namespace NewtonVgo.Security.Cryptography
         /// <param name="iv">The initialization vector.</param>
         /// <param name="ivString">The initialization vector string (Base64).</param>
         /// <returns></returns>
-        public byte[] Encrypt(byte[] src, byte[] key, int blockSize, out byte[] iv, out string ivString)
+        public byte[] Encrypt(in byte[] src, in byte[] key, in int blockSize, out byte[] iv, out string ivString)
         {
-            using (Aes aes = Aes.Create())
-            {
-                aes.Mode = CipherMode;
-                aes.Padding = PaddingMode;
+            using Aes aes = Aes.Create();
 
-                aes.BlockSize = blockSize;
+            aes.Mode = CipherMode;
+            aes.Padding = PaddingMode;
 
-                aes.Key = key;
-                aes.GenerateIV();
+            aes.BlockSize = blockSize;
 
-                iv = aes.IV;
+            aes.Key = key;
+            aes.GenerateIV();
 
-                ivString = Convert.ToBase64String(iv);
+            iv = aes.IV;
 
-                using (ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV))
-                {
-                    return encryptor.TransformFinalBlock(src, 0, src.Length);
-                }
-            }
+            ivString = Convert.ToBase64String(iv);
+
+            using ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+            return encryptor.TransformFinalBlock(src, 0, src.Length);
         }
 
         /// <summary>
@@ -93,30 +89,28 @@ namespace NewtonVgo.Security.Cryptography
         /// <param name="iv">The initialization vector.</param>
         /// <param name="ivString">The initialization vector string (Base64).</param>
         /// <returns></returns>
-        public byte[] Encrypt(byte[] src, int keySize, int blockSize, out byte[] key, out string keyString, out byte[] iv, out string ivString)
+        public byte[] Encrypt(in byte[] src, in int keySize, in int blockSize, out byte[] key, out string keyString, out byte[] iv, out string ivString)
         {
-            using (Aes aes = Aes.Create())
-            {
-                aes.Mode = CipherMode;
-                aes.Padding = PaddingMode;
+            using Aes aes = Aes.Create();
 
-                aes.KeySize = keySize;
-                aes.BlockSize = blockSize;
+            aes.Mode = CipherMode;
+            aes.Padding = PaddingMode;
 
-                aes.GenerateKey();
-                aes.GenerateIV();
+            aes.KeySize = keySize;
+            aes.BlockSize = blockSize;
 
-                key = aes.Key;
-                iv = aes.IV;
+            aes.GenerateKey();
+            aes.GenerateIV();
 
-                keyString = Convert.ToBase64String(key);
-                ivString = Convert.ToBase64String(iv);
+            key = aes.Key;
+            iv = aes.IV;
 
-                using (ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV))
-                {
-                    return encryptor.TransformFinalBlock(src, 0, src.Length);
-                }
-            }
+            keyString = Convert.ToBase64String(key);
+            ivString = Convert.ToBase64String(iv);
+
+            using ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+            return encryptor.TransformFinalBlock(src, 0, src.Length);
         }
 
         /// <summary>
@@ -126,7 +120,7 @@ namespace NewtonVgo.Security.Cryptography
         /// <param name="key">The key string (Base64) to be used for the algorithm.</param>
         /// <param name="iv">The initialization vector string (Base64) to be used for the algorithm..</param>
         /// <returns></returns>
-        public byte[] Decrypt(byte[] src, string key, string iv)
+        public byte[] Decrypt(in byte[] src, in string key, in string iv)
         {
             byte[] keyBytes = Convert.FromBase64String(key);
             byte[] ivBytes = Convert.FromBase64String(iv);
@@ -141,18 +135,16 @@ namespace NewtonVgo.Security.Cryptography
         /// <param name="key">The key to be used for the algorithm.</param>
         /// <param name="iv">The initialization vector to be used for the algorithm..</param>
         /// <returns></returns>
-        public byte[] Decrypt(byte[] src, byte[] key, byte[] iv)
+        public byte[] Decrypt(in byte[] src, in byte[] key, in byte[] iv)
         {
-            using (Aes aes = Aes.Create())
-            {
-                aes.Key = key;
-                aes.IV = iv;
+            using Aes aes = Aes.Create();
 
-                using (ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV))
-                {
-                    return decryptor.TransformFinalBlock(src, 0, src.Length);
-                }
-            }
+            aes.Key = key;
+            aes.IV = iv;
+
+            using ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+            return decryptor.TransformFinalBlock(src, 0, src.Length);
         }
 
         #endregion
@@ -163,13 +155,13 @@ namespace NewtonVgo.Security.Cryptography
         /// Generate a random key.
         /// </summary>
         /// <param name="keySize"></param>
-        public byte[] GenerateRandomKey(int keySize)
+        public byte[] GenerateRandomKey(in int keySize)
         {
             int keyByteSize = keySize / 8;
 
-            var bytes = new byte[32];
+            byte[] bytes = new byte[32];
 
-            using (var rng = RNGCryptoServiceProvider.Create())
+            using (var rng = RandomNumberGenerator.Create())
             {
                 rng.GetBytes(bytes);
             }
@@ -181,10 +173,12 @@ namespace NewtonVgo.Security.Cryptography
                 sb.Append(Convert.ToChar(b));
             }
 
-            using (Rfc2898DeriveBytes deriveBytes = new Rfc2898DeriveBytes(password: sb.ToString(), saltSize: 16, iterations: 1000))
-            {
-                return deriveBytes.GetBytes(keyByteSize);
-            }
+#if UNITY_2021_2_OR_NEWER  // CSHARP_8_OR_LATER
+            using var deriveBytes = new Rfc2898DeriveBytes(password: sb.ToString(), saltSize: 16, iterations: 1000, hashAlgorithm: HashAlgorithmName.SHA1);
+#else
+            using var deriveBytes = new Rfc2898DeriveBytes(password: sb.ToString(), saltSize: 16, iterations: 1000);
+#endif
+            return deriveBytes.GetBytes(keyByteSize);
         }
 
         #endregion

@@ -35,7 +35,7 @@ namespace UniVgo2.Porters
         /// Create a new instance of VgoMeshExporter with option.
         /// </summary>
         /// <param name="option">The mesh exporter option.</param>
-        public VgoMeshExporter(MeshExporterOption option)
+        public VgoMeshExporter(in MeshExporterOption option)
         {
             _Option = option;
         }
@@ -50,7 +50,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="unityMeshAssetList">List of unity mesh asset.</param>
         /// <param name="unityMaterialList">List of unity material.</param>
-        public virtual void ExportMeshes(IVgoStorage vgoStorage, IList<MeshAsset> unityMeshAssetList, IList<Material>? unityMaterialList = null)
+        public virtual void ExportMeshes(IVgoStorage vgoStorage, in IList<MeshAsset> unityMeshAssetList, in IList<Material>? unityMaterialList = null)
         {
             if (vgoStorage.IsSpecVersion_2_4_orLower)
             {
@@ -78,13 +78,13 @@ namespace UniVgo2.Porters
         /// <param name="meshAsset">A mesh asset.</param>
         /// <param name="unityMaterialList">List of unity material.</param>
         /// <returns>A vgo mesh.</returns>
-        protected virtual VgoMesh CreateVgoMesh(IVgoStorage vgoStorage, MeshAsset meshAsset, IList<Material>? unityMaterialList)
+        protected virtual VgoMesh CreateVgoMesh(IVgoStorage vgoStorage, in MeshAsset meshAsset, in IList<Material>? unityMaterialList)
         {
             Mesh mesh = meshAsset.Mesh;
 
             BlendShapeConfig? blendShapeConfig = meshAsset.BlendShapeConfig;
 
-            VgoMesh vgoMesh = new VgoMesh(mesh.name);
+            var vgoMesh = new VgoMesh(mesh.name);
 
             // Attribetes
             vgoMesh.attributes = CreatePrimitiveAttributes(vgoStorage, mesh);
@@ -113,10 +113,7 @@ namespace UniVgo2.Porters
 
                             if (materialIndex >= 0)
                             {
-                                if (vgoMesh.materials == null)
-                                {
-                                    vgoMesh.materials = new List<int>();
-                                }
+                                vgoMesh.materials ??= new List<int>();
 
                                 vgoMesh.materials.Add(materialIndex);
                             }
@@ -144,25 +141,25 @@ namespace UniVgo2.Porters
 
                     if (blendShapeConfig != null)
                     {
-                        BlendShapeFacePart? facePart = blendShapeConfig.FaceParts.FirstOrDefault(x => x.index == shapeIndex);
+                        BlendShapeFacePart? facePart = blendShapeConfig.FaceParts.FirstOrDefault(x => x.Index == shapeIndex);
 
                         if (facePart != null)
                         {
-                            vgoMeshBlendShape.facePartsType = facePart.type;
+                            vgoMeshBlendShape.facePartsType = facePart.Type;
                         }
 
-                        BlendShapeBlink? blink = blendShapeConfig.Blinks.FirstOrDefault(x => x.index == shapeIndex);
+                        BlendShapeBlink? blink = blendShapeConfig.Blinks.FirstOrDefault(x => x.Index == shapeIndex);
 
                         if (blink != null)
                         {
-                            vgoMeshBlendShape.blinkType = blink.type;
+                            vgoMeshBlendShape.blinkType = blink.Type;
                         }
 
-                        BlendShapeViseme? viseme = blendShapeConfig.Visemes.FirstOrDefault(x => x.index == shapeIndex);
+                        BlendShapeViseme? viseme = blendShapeConfig.Visemes.FirstOrDefault(x => x.Index == shapeIndex);
 
                         if (viseme != null)
                         {
-                            vgoMeshBlendShape.visemeType = viseme.type;
+                            vgoMeshBlendShape.visemeType = viseme.Type;
                         }
                     }
 
@@ -192,7 +189,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="mesh">A unity mesh.</param>
         /// <returns>A vgo mesh primitive attributes.</returns>
-        protected virtual VgoMeshPrimitiveAttributes CreatePrimitiveAttributes(IVgoStorage vgoStorage, Mesh mesh)
+        protected virtual VgoMeshPrimitiveAttributes CreatePrimitiveAttributes(in IVgoStorage vgoStorage, in Mesh mesh)
         {
             var attributes = new VgoMeshPrimitiveAttributes();
 
@@ -344,7 +341,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="meshIndices">The mesh indices.</param>
         /// <returns>The index of accessor.</returns>
-        protected virtual int AddAccessorForSubMesh(IVgoStorage vgoStorage, int[] meshIndices)
+        protected virtual int AddAccessorForSubMesh(IVgoStorage vgoStorage, in int[] meshIndices)
         {
             int accessorIndex = -1;
 
@@ -397,7 +394,7 @@ namespace UniVgo2.Porters
         /// index is byte(1) or ushort(2) or uint(4)
         /// value is uint(4)
         /// </remarks>
-        protected virtual bool JudgeSparseForSubMesh(int[] meshIndices)
+        protected virtual bool JudgeSparseForSubMesh(in int[] meshIndices)
         {
             int sparseValuesCount = meshIndices.Count(x => x != 0);
 
@@ -433,7 +430,7 @@ namespace UniVgo2.Porters
         /// <param name="mesh">A unity mesh.</param>
         /// <param name="blendShapeIndex">The index of blend shape.</param>
         /// <returns>A vgo blend shape attributes.</returns>
-        protected virtual VgoMeshPrimitiveAttributes CreateBlendShapeAttributes(IVgoStorage vgoStorage, Mesh mesh, int blendShapeIndex)
+        protected virtual VgoMeshPrimitiveAttributes CreateBlendShapeAttributes(IVgoStorage vgoStorage, in Mesh mesh, in int blendShapeIndex)
         {
             int frameIndex = mesh.GetBlendShapeFrameCount(blendShapeIndex) - 1;
 
@@ -597,12 +594,14 @@ namespace UniVgo2.Porters
         /// Judge if accessor sparse should be applied.
         /// </summary>
         /// <param name="vertexes">The vertexes.</param>
+        /// <param name="sparseType">The sparse type.</param>
+        /// <param name="sparseCount">The sparse count.</param>
         /// <returns>Returns true if sparse should be applied, false otherwise.</returns>
         /// <remarks>
         /// index is byte(1) or ushort(2) or uint(4)
         /// value is Vector3(12) [General] or float(4) [Powerful]
         /// </remarks>
-        protected virtual bool JudgeSparseForBlendShape(Vector3[] vertexes, out VgoResourceAccessorSparseType sparseType, out int sparseCount)
+        protected virtual bool JudgeSparseForBlendShape(in Vector3[] vertexes, out VgoResourceAccessorSparseType sparseType, out int sparseCount)
         {
             sparseType = VgoResourceAccessorSparseType.None;
             sparseCount = 0;

@@ -60,7 +60,7 @@ namespace NewtonVgo
         /// <exception cref="IndexOutOfRangeException"></exception>
         public byte this[int index]
         {
-            get
+            readonly get
             {
                 switch (index)
                 {
@@ -112,7 +112,7 @@ namespace NewtonVgo
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <param name="w"></param>
-        public void Deconstruct(out byte x, out byte y, out byte z, out byte w)
+        public readonly void Deconstruct(out byte x, out byte y, out byte z, out byte w)
         {
             x = X;
             y = Y;
@@ -125,7 +125,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="other"></param>
         /// <returns>true if the specified object is equal to the current object; otherwise, false.</returns>
-        public bool Equals(Vector4Ubyte other)
+        public readonly bool Equals(in Vector4Ubyte other)
         {
             return
                 X.Equals(other.X) &&
@@ -139,7 +139,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="other"></param>
         /// <returns>true if the specified object is equal to the current object; otherwise, false.</returns>
-        public override bool Equals(object? other)
+        public override readonly bool Equals(object? other)
         {
             if (other is Vector4Ubyte otherVector4)
             {
@@ -153,7 +153,7 @@ namespace NewtonVgo
         /// Serves as the default hash function.
         /// </summary>
         /// <returns>A hash code for the current object.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return
                 X.GetHashCode() ^
@@ -181,7 +181,7 @@ namespace NewtonVgo
         /// Convert Vector4Ubyte to Vector4Uint.
         /// </summary>
         /// <returns></returns>
-        public Vector4Uint ToVector4Uint()
+        public readonly Vector4Uint ToVector4Uint()
         {
             return new Vector4Uint(this);
         }
@@ -190,7 +190,7 @@ namespace NewtonVgo
         /// Convert Vector4Ubyte to Vector4Ushort.
         /// </summary>
         /// <returns></returns>
-        public Vector4Ushort ToVector4Ushort()
+        public readonly Vector4Ushort ToVector4Ushort()
         {
             return new Vector4Ushort(this);
         }
@@ -199,11 +199,23 @@ namespace NewtonVgo
 
         #region Operators
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns></returns>
         public static bool operator ==(Vector4Ubyte v1, Vector4Ubyte v2)
         {
             return v1.Equals(v2);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns></returns>
         public static bool operator !=(Vector4Ubyte v1, Vector4Ubyte v2)
         {
             return v1.Equals(v2) == false;

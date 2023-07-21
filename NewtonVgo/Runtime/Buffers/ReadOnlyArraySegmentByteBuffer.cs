@@ -75,6 +75,16 @@ namespace NewtonVgo.Buffers
         /// <returns>A new byte array.</returns>
         public byte[] ToArray()
         {
+            if (_Bytes.Array is null)
+            {
+                return Array.Empty<byte>();
+            }
+
+            if (_Bytes.Count == 0)
+            {
+                return Array.Empty<byte>();
+            }
+
             byte[] destinationArray = new byte[_Bytes.Count];
 
             Array.Copy(sourceArray: _Bytes.Array, _Bytes.Offset, destinationArray, 0, _Bytes.Count);

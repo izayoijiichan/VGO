@@ -53,7 +53,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="center"></param>
         /// <param name="size"></param>
-        public void Deconstruct(out Vector3 center, out Vector3 size)
+        public readonly void Deconstruct(out Vector3 center, out Vector3 size)
         {
             center = this.center;
             size = this.size;
@@ -64,7 +64,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="other"></param>
         /// <returns>true if the specified object is equal to the current object; otherwise, false.</returns>
-        public bool Equals(Bounds other)
+        public readonly bool Equals(in Bounds other)
         {
             return
                 center.Equals(other.center) &&
@@ -76,7 +76,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="other"></param>
         /// <returns>true if the specified object is equal to the current object; otherwise, false.</returns>
-        public override bool Equals(object? other)
+        public override readonly bool Equals(object? other)
         {
             if (other is Bounds otherBounds)
             {
@@ -90,7 +90,7 @@ namespace NewtonVgo
         /// Serves as the default hash function.
         /// </summary>
         /// <returns>A hash code for the current object.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return
                 center.GetHashCode() ^
@@ -101,12 +101,24 @@ namespace NewtonVgo
 
         #region Operators
 
-        public static bool operator ==(Bounds b1, Bounds b2)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="b1"></param>
+        /// <param name="b2"></param>
+        /// <returns></returns>
+        public static bool operator ==(in Bounds b1, in Bounds b2)
         {
             return b1.Equals(b2);
         }
 
-        public static bool operator !=(Bounds b1, Bounds b2)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="b1"></param>
+        /// <param name="b2"></param>
+        /// <returns></returns>
+        public static bool operator !=(in Bounds b1, in Bounds b2)
         {
             return b1.Equals(b2) == false;
         }

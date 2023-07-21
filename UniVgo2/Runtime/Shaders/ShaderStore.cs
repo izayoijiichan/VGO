@@ -19,19 +19,17 @@ namespace UniVgo2
         protected Shader? _Standard;
 
         /// <summary>Standard</summary>
-        protected Shader Standard
-            => _Standard
-            = _Standard != null
-            ? _Standard : Shader.Find(ShaderName.Standard);
+        protected Shader Standard 
+            => _Standard 
+            ??= Shader.Find(ShaderName.Standard);
 
         /// <summary>Particles/Standard Surface</summary>
         protected Shader? _ParticlesStandardSurface;
 
         /// <summary>Particles/Standard Surface</summary>
         protected Shader ParticlesStandardSurface
-            => _ParticlesStandardSurface
-            = _ParticlesStandardSurface != null
-            ? _ParticlesStandardSurface : Shader.Find(ShaderName.Particles_Standard_Surface);
+            => _ParticlesStandardSurface 
+            ??= Shader.Find(ShaderName.Particles_Standard_Surface);
 
         /// <summary>Particles/Standard Unlit</summary>
         protected Shader? _ParticlesStandardUnlit;
@@ -39,17 +37,15 @@ namespace UniVgo2
         /// <summary>Particles/Standard Unlit</summary>
         protected Shader ParticlesStandardUnlit
             => _ParticlesStandardUnlit
-            = _ParticlesStandardUnlit != null
-            ? _ParticlesStandardUnlit : Shader.Find(ShaderName.Particles_Standard_Unlit);
+            ??= Shader.Find(ShaderName.Particles_Standard_Unlit);
 
         /// <summary>Skybox/6 Sided</summary>
         protected Shader? _Skybox6Sided;
 
         /// <summary>Skybox/6 Sided</summary>
-        protected Shader Skybox6Sided
+        protected Shader Skybox6Sided 
             => _Skybox6Sided
-            = _Skybox6Sided != null
-            ? _Skybox6Sided : Shader.Find(ShaderName.Skybox_6_Sided);
+            ??= Shader.Find(ShaderName.Skybox_6_Sided);
 
         /// <summary>Skybox/Cubemap</summary>
         protected Shader? _SkyboxCubemap;
@@ -57,8 +53,7 @@ namespace UniVgo2
         /// <summary>Skybox/Cubemap</summary>
         protected Shader SkyboxCubemap
             => _SkyboxCubemap
-            = _SkyboxCubemap != null
-            ? _SkyboxCubemap : Shader.Find(ShaderName.Skybox_Cubemap);
+            ??= Shader.Find(ShaderName.Skybox_Cubemap);
 
         /// <summary>Skybox/Panoramic</summary>
         protected Shader? _SkyboxPanoramic;
@@ -66,8 +61,7 @@ namespace UniVgo2
         /// <summary>Skybox/Panoramic</summary>
         protected Shader SkyboxPanoramic
             => _SkyboxPanoramic
-            = _SkyboxPanoramic != null
-            ? _SkyboxPanoramic : Shader.Find(ShaderName.Skybox_Panoramic);
+            ??= Shader.Find(ShaderName.Skybox_Panoramic);
 
         /// <summary>Skybox/Procedural</summary>
         protected Shader? _SkyboxProcedural;
@@ -75,8 +69,7 @@ namespace UniVgo2
         /// <summary>Skybox/Procedural</summary>
         protected Shader SkyboxProcedural
             => _SkyboxProcedural
-            = _SkyboxProcedural != null
-            ? _SkyboxProcedural : Shader.Find(ShaderName.Skybox_Procedural);
+            ??= Shader.Find(ShaderName.Skybox_Procedural);
 
         /// <summary>Unlit/Texture</summary>
         protected Shader? _UnlitTexture;
@@ -84,8 +77,7 @@ namespace UniVgo2
         /// <summary>Unlit/Texture</summary>
         protected Shader UnlitTexture
             => _UnlitTexture
-            = _UnlitTexture != null
-            ? _UnlitTexture : Shader.Find(ShaderName.Unlit_Texture);
+            ??= Shader.Find(ShaderName.Unlit_Texture);
 
         /// <summary>Unlit/Color</summary>
         protected Shader? _UnlitColor;
@@ -93,8 +85,7 @@ namespace UniVgo2
         /// <summary>Unlit/Color</summary>
         protected Shader UnlitColor
             => _UnlitColor
-            = _UnlitColor != null
-            ? _UnlitColor : Shader.Find(ShaderName.Unlit_Color);
+            ??= Shader.Find(ShaderName.Unlit_Color);
 
         /// <summary>Unlit/Transparent</summary>
         protected Shader? _UnlitTransparent;
@@ -102,8 +93,7 @@ namespace UniVgo2
         /// <summary>Unlit/Transparent</summary>
         protected Shader UnlitTransparent
             => _UnlitTransparent
-            = _UnlitTransparent != null
-            ? _UnlitTransparent : Shader.Find(ShaderName.Unlit_Transparent);
+            ??= Shader.Find(ShaderName.Unlit_Transparent);
 
         /// <summary>Unlit/Transparent Cutout</summary>
         protected Shader? _UnlitTransparentCutout;
@@ -111,8 +101,7 @@ namespace UniVgo2
         /// <summary>Unlit/Transparent Cutout</summary>
         protected Shader UnlitTransparentCutout
             => _UnlitTransparentCutout
-            = _UnlitTransparentCutout != null
-            ? _UnlitTransparentCutout : Shader.Find(ShaderName.Unlit_Transparent_Cutout);
+            ??= Shader.Find(ShaderName.Unlit_Transparent_Cutout);
 
         /// <summary>UniGLTF/UniUnlit</summary>
         protected Shader? _UniGLTFUniUnlit;
@@ -120,8 +109,7 @@ namespace UniVgo2
         /// <summary>UniGLTF/UniUnlit</summary>
         protected Shader UniGLTFUniUnlit
             => _UniGLTFUniUnlit
-            = _UniGLTFUniUnlit != null
-            ? _UniGLTFUniUnlit : Shader.Find(ShaderName.UniGLTF_UniUnlit);
+            ??= Shader.Find(ShaderName.UniGLTF_UniUnlit);
 
         /// <summary>UniGLTF/StandardVColor</summary>
         protected Shader? _UniGLTFStandardVColor;
@@ -129,8 +117,7 @@ namespace UniVgo2
         /// <summary>UniGLTF/StandardVColor</summary>
         protected Shader UniGLTFStandardVColor
             => _UniGLTFStandardVColor
-            = _UniGLTFStandardVColor != null
-            ? _UniGLTFStandardVColor : Shader.Find(ShaderName.UniGLTF_StandardVColor);
+            ??= Shader.Find(ShaderName.UniGLTF_StandardVColor);
 
         /// <summary>VRM/UnlitTexture</summary>
         protected Shader? _VrmUnlitTexture;
@@ -138,8 +125,7 @@ namespace UniVgo2
         /// <summary>VRM/UnlitTexture</summary>
         protected Shader VrmUnlitTexture
             => _VrmUnlitTexture
-            = _VrmUnlitTexture != null
-            ? _VrmUnlitTexture : Shader.Find(ShaderName.VRM_UnlitTexture);
+            ??= Shader.Find(ShaderName.VRM_UnlitTexture);
 
         /// <summary>VRM/UnlitTransparent</summary>
         protected Shader? _VrmUnlitTransparent;
@@ -147,8 +133,7 @@ namespace UniVgo2
         /// <summary>VRM/UnlitTransparent</summary>
         protected Shader VrmUnlitTransparent
             => _VrmUnlitTransparent
-            = _VrmUnlitTransparent != null
-            ? _VrmUnlitTransparent : Shader.Find(ShaderName.VRM_UnlitTransparent);
+            ??= Shader.Find(ShaderName.VRM_UnlitTransparent);
 
         /// <summary>VRM/UnlitCutout</summary>
         protected Shader? _VrmUnlitCutout;
@@ -156,8 +141,7 @@ namespace UniVgo2
         /// <summary>VRM/UnlitCutout</summary>
         protected Shader VrmUnlitCutout
             => _VrmUnlitCutout
-            = _VrmUnlitCutout != null
-            ? _VrmUnlitCutout : Shader.Find(ShaderName.VRM_UnlitCutout);
+            ??= Shader.Find(ShaderName.VRM_UnlitCutout);
 
         /// <summary>VRM/UnlitTransparentZWrite</summary>
         protected Shader? _VrmUnlitTransparentZWrite;
@@ -165,8 +149,7 @@ namespace UniVgo2
         /// <summary>VRM/UnlitTransparentZWrite</summary>
         protected Shader VrmUnlitTransparentZWrite
             => _VrmUnlitTransparentZWrite
-            = _VrmUnlitTransparentZWrite != null
-            ? _VrmUnlitTransparentZWrite : Shader.Find(ShaderName.VRM_UnlitTransparentZWrite);
+            ??= Shader.Find(ShaderName.VRM_UnlitTransparentZWrite);
 
         #endregion
 
@@ -178,8 +161,7 @@ namespace UniVgo2
         /// <summary>Universal Render Pipeline/Lit</summary>
         protected Shader UrpLit
             => _UrpLit
-            = _UrpLit != null
-            ? _UrpLit : Shader.Find(ShaderName.URP_Lit);
+            ??= Shader.Find(ShaderName.URP_Lit);
 
         /// <summary>Universal Render Pipeline/Simple Lit</summary>
         protected Shader? _UrpSimpleLit;
@@ -187,8 +169,7 @@ namespace UniVgo2
         /// <summary>Universal Render Pipeline/Simple Lit</summary>
         protected Shader UrpSimpleLit
             => _UrpSimpleLit
-            = _UrpSimpleLit != null
-            ? _UrpSimpleLit : Shader.Find(ShaderName.URP_SimpleLit);
+            ??= Shader.Find(ShaderName.URP_SimpleLit);
 
         /// <summary>Universal Render Pipeline/Unlit</summary>
         protected Shader? _UrpUnlit;
@@ -196,8 +177,7 @@ namespace UniVgo2
         /// <summary>Universal Render Pipeline/Unlit</summary>
         protected Shader UrpUnlit
             => _UrpUnlit
-            = _UrpUnlit != null
-            ? _UrpUnlit : Shader.Find(ShaderName.URP_Unlit);
+            ??= Shader.Find(ShaderName.URP_Unlit);
 
         /// <summary>Universal Render Pipeline/Particles/Lit</summary>
         protected Shader? _UrpParticlesLit;
@@ -205,8 +185,7 @@ namespace UniVgo2
         /// <summary>Universal Render Pipeline/Particles/Lit</summary>
         protected Shader UrpParticlesLit
             => _UrpParticlesLit
-            = _UrpParticlesLit != null
-            ? _UrpParticlesLit : Shader.Find(ShaderName.URP_Particles_Lit);
+            ??= Shader.Find(ShaderName.URP_Particles_Lit);
 
         /// <summary>Universal Render Pipeline/Particles/Unlit</summary>
         protected Shader? _UrpParticlesUnlit;
@@ -214,8 +193,7 @@ namespace UniVgo2
         /// <summary>Universal Render Pipeline/Particles/Unlit</summary>
         protected Shader UrpParticlesUnlit
             => _UrpParticlesUnlit
-            = _UrpParticlesUnlit != null
-            ? _UrpParticlesUnlit : Shader.Find(ShaderName.URP_Particles_Unlit);
+            ??= Shader.Find(ShaderName.URP_Particles_Unlit);
 
         #endregion
 
@@ -227,8 +205,7 @@ namespace UniVgo2
         /// <summary>HDRP/Eye</summary>
         protected Shader HDRPEye
             => _HDRPEye
-            = _HDRPEye != null
-            ? _HDRPEye : Shader.Find(ShaderName.HDRP_Eye);
+            ??= Shader.Find(ShaderName.HDRP_Eye);
 
         /// <summary>HDRP/Hair</summary>
         protected Shader? _HDRPHair;
@@ -236,8 +213,7 @@ namespace UniVgo2
         /// <summary>HDRP/Hair</summary>
         protected Shader HDRPHair
             => _HDRPHair
-            = _HDRPHair != null
-            ? _HDRPHair : Shader.Find(ShaderName.HDRP_Hair);
+            ??= Shader.Find(ShaderName.HDRP_Hair);
 
         /// <summary>HDRP/Lit</summary>
         protected Shader? _HDRPLit;
@@ -245,8 +221,7 @@ namespace UniVgo2
         /// <summary>HDRP/Lit</summary>
         protected Shader HDRPLit
             => _HDRPLit
-            = _HDRPLit != null
-            ? _HDRPLit : Shader.Find(ShaderName.HDRP_Lit);
+            ??= Shader.Find(ShaderName.HDRP_Lit);
 
         #endregion
 
@@ -260,8 +235,7 @@ namespace UniVgo2
         /// <remarks>lilToon</remarks>
         protected Shader Lil_LilToon
             => _Lil_LilToon
-            = _Lil_LilToon != null
-            ? _Lil_LilToon : Shader.Find(ShaderName.Lil_LilToon);
+            ??= Shader.Find(ShaderName.Lil_LilToon);
 
         /// <summary>lilToon Outline</summary>
         /// <remarks>Hidden/lilToonOutline</remarks>
@@ -271,8 +245,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonOutline</remarks>
         protected Shader Lil_LilToonOutline
             => _Lil_LilToonOutline
-            = _Lil_LilToonOutline != null
-            ? _Lil_LilToonOutline : Shader.Find(ShaderName.Lil_LilToonOutline);
+            ??= Shader.Find(ShaderName.Lil_LilToonOutline);
 
         /// <summary>lilToon Outline only</summary>
         /// <remarks>_lil/[Optional] lilToonOutlineOnly</remarks>
@@ -282,8 +255,7 @@ namespace UniVgo2
         /// <remarks>_lil/[Optional] lilToonOutlineOnly</remarks>
         protected Shader Lil_LilToonOutlineOnly
             => _Lil_LilToonOutlineOnly
-            = _Lil_LilToonOutlineOnly != null
-            ? _Lil_LilToonOutlineOnly : Shader.Find(ShaderName.Lil_LilToonOutlineOnly);
+            ??= Shader.Find(ShaderName.Lil_LilToonOutlineOnly);
 
         /// <summary>lilToon Outline only Cutout</summary>
         /// <remarks>_lil/[Optional] lilToonOutlineOnlyCutout</remarks>
@@ -293,8 +265,7 @@ namespace UniVgo2
         /// <remarks>_lil/[Optional] lilToonOutlineOnlyCutout</remarks>
         protected Shader Lil_LilToonOutlineOnlyCutout
             => _Lil_LilToonOutlineOnlyCutout
-            = _Lil_LilToonOutlineOnlyCutout != null
-            ? _Lil_LilToonOutlineOnlyCutout : Shader.Find(ShaderName.Lil_LilToonOutlineOnlyCutout);
+            ??= Shader.Find(ShaderName.Lil_LilToonOutlineOnlyCutout);
 
         /// <summary>lilToon Outline only Transparent</summary>
         /// <remarks>_lil/[Optional] lilToonOutlineOnlyTransparent</remarks>
@@ -304,8 +275,7 @@ namespace UniVgo2
         /// <remarks>_lil/[Optional] lilToonOutlineOnlyTransparent</remarks>
         protected Shader Lil_LilToonOutlineOnlyTransparent
             => _Lil_LilToonOutlineOnlyTransparent
-            = _Lil_LilToonOutlineOnlyTransparent != null
-            ? _Lil_LilToonOutlineOnlyTransparent : Shader.Find(ShaderName.Lil_LilToonOutlineOnlyTransparent);
+            ??= Shader.Find(ShaderName.Lil_LilToonOutlineOnlyTransparent);
 
         /// <summary>lilToon Cutout</summary>
         /// <remarks>Hidden/lilToonCutout</remarks>
@@ -315,8 +285,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonCutout</remarks>
         protected Shader Lil_LilToonCutout
             => _Lil_LilToonCutout
-            = _Lil_LilToonCutout != null
-            ? _Lil_LilToonCutout : Shader.Find(ShaderName.Lil_LilToonCutout);
+            ??= Shader.Find(ShaderName.Lil_LilToonCutout);
 
         /// <summary>lilToon Cutout Outline</summary>
         /// <remarks>Hidden/lilToonCutoutOutline</remarks>
@@ -326,8 +295,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonCutoutOutline</remarks>
         protected Shader Lil_LilToonCutoutOutline
             => _Lil_LilToonCutoutOutline
-            = _Lil_LilToonCutoutOutline != null
-            ? _Lil_LilToonCutoutOutline : Shader.Find(ShaderName.Lil_LilToonCutoutOutline);
+            ??= Shader.Find(ShaderName.Lil_LilToonCutoutOutline);
 
         /// <summary>lilToon Transparent</summary>
         /// <remarks>Hidden/lilToonTransparent</remarks>
@@ -337,8 +305,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonTransparent</remarks>
         protected Shader Lil_LilToonTransparent
             => _Lil_LilToonTransparent
-            = _Lil_LilToonTransparent != null
-            ? _Lil_LilToonTransparent : Shader.Find(ShaderName.Lil_LilToonTransparent);
+            ??= Shader.Find(ShaderName.Lil_LilToonTransparent);
 
         /// <summary>lilToon Transparent Outline</summary>
         /// <remarks>Hidden/lilToonTransparentOutline</remarks>
@@ -348,8 +315,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonTransparentOutline</remarks>
         protected Shader Lil_LilToonTransparentOutline
             => _Lil_LilToonTransparentOutline
-            = _Lil_LilToonTransparentOutline != null
-            ? _Lil_LilToonTransparentOutline : Shader.Find(ShaderName.Lil_LilToonTransparentOutline);
+            ??= Shader.Find(ShaderName.Lil_LilToonTransparentOutline);
 
         /// <summary>lilToon OnePass Transparent</summary>
         /// <remarks>Hidden/lilToonOnePassTransparent</remarks>
@@ -359,8 +325,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonOnePassTransparent</remarks>
         protected Shader Lil_LilToonOnePassTransparent
             => _Lil_LilToonOnePassTransparent
-            = _Lil_LilToonOnePassTransparent != null
-            ? _Lil_LilToonOnePassTransparent : Shader.Find(ShaderName.Lil_LilToonOnePassTransparent);
+            ??= Shader.Find(ShaderName.Lil_LilToonOnePassTransparent);
 
         /// <summary>lilToon OnePass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonOnePassTransparentOutline</remarks>
@@ -370,8 +335,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonOnePassTransparentOutline</remarks>
         protected Shader Lil_LilToonOnePassTransparentOutline
             => _Lil_LilToonOnePassTransparentOutline
-            = _Lil_LilToonOnePassTransparentOutline != null
-            ? _Lil_LilToonOnePassTransparentOutline : Shader.Find(ShaderName.Lil_LilToonOnePassTransparentOutline);
+            ??= Shader.Find(ShaderName.Lil_LilToonOnePassTransparentOutline);
 
         /// <summary>lilToon TwoPass Transparent</summary>
         /// <remarks>Hidden/lilToonTwoPassTransparent</remarks>
@@ -381,8 +345,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonTwoPassTransparent</remarks>
         protected Shader Lil_LilToonTwoPassTransparent
             => _Lil_LilToonTwoPassTransparent
-            = _Lil_LilToonTwoPassTransparent != null
-            ? _Lil_LilToonTwoPassTransparent : Shader.Find(ShaderName.Lil_LilToonTwoPassTransparent);
+            ??= Shader.Find(ShaderName.Lil_LilToonTwoPassTransparent);
 
         /// <summary>lilToon TwoPass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonTwoPassTransparentOutline</remarks>
@@ -392,8 +355,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonTwoPassTransparentOutline</remarks>
         protected Shader Lil_LilToonTwoPassTransparentOutline
             => _Lil_LilToonTwoPassTransparentOutline
-            = _Lil_LilToonTwoPassTransparentOutline != null
-            ? _Lil_LilToonTwoPassTransparentOutline : Shader.Find(ShaderName.Lil_LilToonTwoPassTransparentOutline);
+            ??= Shader.Find(ShaderName.Lil_LilToonTwoPassTransparentOutline);
 
         /// <summary>lilToon Overlay</summary>
         /// <remarks>_lil/[Optional] lilToonOverlay</remarks>
@@ -403,8 +365,7 @@ namespace UniVgo2
         /// <remarks>_lil/[Optional] lilToonOverlay</remarks>
         protected Shader Lil_LilToonOverlay
             => _Lil_LilToonOverlay
-            = _Lil_LilToonOverlay != null
-            ? _Lil_LilToonOverlay : Shader.Find(ShaderName.Lil_LilToonOverlay);
+            ??= Shader.Find(ShaderName.Lil_LilToonOverlay);
 
         /// <summary>lilToon Overlay OnePass</summary>
         /// <remarks>_lil/[Optional] lilToonOverlayOnePass</remarks>
@@ -414,8 +375,7 @@ namespace UniVgo2
         /// <remarks>_lil/[Optional] lilToonOverlayOnePass</remarks>
         protected Shader Lil_LilToonOverlayOnePass
             => _Lil_LilToonOverlayOnePass
-            = _Lil_LilToonOverlayOnePass != null
-            ? _Lil_LilToonOverlayOnePass : Shader.Find(ShaderName.Lil_LilToonOverlayOnePass);
+            ??= Shader.Find(ShaderName.Lil_LilToonOverlayOnePass);
 
         /// <summary>lilToon Refraction</summary>
         /// <remarks>Hidden/lilToonRefraction</remarks>
@@ -425,8 +385,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonRefraction</remarks>
         protected Shader Lil_LilToonRefraction
             => _Lil_LilToonRefraction
-            = _Lil_LilToonRefraction != null
-            ? _Lil_LilToonRefraction : Shader.Find(ShaderName.Lil_LilToonRefraction);
+            ??= Shader.Find(ShaderName.Lil_LilToonRefraction);
 
         /// <summary>lilToon Refraction Blur</summary>
         /// <remarks>Hidden/lilToonRefractionBlur</remarks>
@@ -436,8 +395,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonRefractionBlur</remarks>
         protected Shader Lil_LilToonRefractionBlur
             => _Lil_LilToonRefractionBlur
-            = _Lil_LilToonRefractionBlur != null
-            ? _Lil_LilToonRefractionBlur : Shader.Find(ShaderName.Lil_LilToonRefractionBlur);
+            ??= Shader.Find(ShaderName.Lil_LilToonRefractionBlur);
 
         #endregion
 
@@ -451,8 +409,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonFur</remarks>
         protected Shader Lil_LilToonFur
             => _Lil_LilToonFur
-            = _Lil_LilToonFur != null
-            ? _Lil_LilToonFur : Shader.Find(ShaderName.Lil_LilToonFur);
+            ??= Shader.Find(ShaderName.Lil_LilToonFur);
 
         /// <summary>lilToon Fur Cutout</summary>
         /// <remarks>Hidden/lilToonFurCutout</remarks>
@@ -462,8 +419,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonFurCutout</remarks>
         protected Shader Lil_LilToonFurCutout
             => _Lil_LilToonFurCutout
-            = _Lil_LilToonFurCutout != null
-            ? _Lil_LilToonFurCutout : Shader.Find(ShaderName.Lil_LilToonFurCutout);
+            ??= Shader.Find(ShaderName.Lil_LilToonFurCutout);
 
         /// <summary>lilToon Fur TwoPass</summary>
         /// <remarks>Hidden/lilToonFurTwoPass</remarks>
@@ -473,8 +429,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonFurTwoPass</remarks>
         protected Shader Lil_LilToonFurTwoPass
             => _Lil_LilToonFurTwoPass
-            = _Lil_LilToonFurTwoPass != null
-            ? _Lil_LilToonFurTwoPass : Shader.Find(ShaderName.Lil_LilToonFurTwoPass);
+            ??= Shader.Find(ShaderName.Lil_LilToonFurTwoPass);
 
         /// <summary>lilToon Fur only</summary>
         /// <remarks>_lil/[Optional] lilToonFurOnly</remarks>
@@ -484,8 +439,7 @@ namespace UniVgo2
         /// <remarks>_lil/[Optional] lilToonFurOnly</remarks>
         protected Shader Lil_LilToonFurOnly
             => _Lil_LilToonFurOnly
-            = _Lil_LilToonFurOnly != null
-            ? _Lil_LilToonFurOnly : Shader.Find(ShaderName.Lil_LilToonFurOnly);
+            ??= Shader.Find(ShaderName.Lil_LilToonFurOnly);
 
         /// <summary>lilToon Fur only Cutout</summary>
         /// <remarks>_lil/[Optional] lilToonFurOnlyCutout</remarks>
@@ -495,8 +449,7 @@ namespace UniVgo2
         /// <remarks>_lil/[Optional] lilToonFurOnlyCutout</remarks>
         protected Shader Lil_LilToonFurOnlyCutout
             => _Lil_LilToonFurOnlyCutout
-            = _Lil_LilToonFurOnlyCutout != null
-            ? _Lil_LilToonFurOnlyCutout : Shader.Find(ShaderName.Lil_LilToonFurOnlyCutout);
+            ??= Shader.Find(ShaderName.Lil_LilToonFurOnlyCutout);
 
         /// <summary>lilToon Fur only TwoPass</summary>
         /// <remarks>_lil/[Optional] lilToonFurOnlyTwoPass</remarks>
@@ -506,8 +459,7 @@ namespace UniVgo2
         /// <remarks>_lil/[Optional] lilToonFurOnlyTwoPass</remarks>
         protected Shader Lil_LilToonFurOnlyTwoPass
             => _Lil_LilToonFurOnlyTwoPass
-            = _Lil_LilToonFurOnlyTwoPass != null
-            ? _Lil_LilToonFurOnlyTwoPass : Shader.Find(ShaderName.Lil_LilToonFurOnlyTwoPass);
+            ??= Shader.Find(ShaderName.Lil_LilToonFurOnlyTwoPass);
 
         #endregion
 
@@ -521,8 +473,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonGem</remarks>
         protected Shader Lil_LilToonGem
             => _Lil_LilToonGem
-            = _Lil_LilToonGem != null
-            ? _Lil_LilToonGem : Shader.Find(ShaderName.Lil_LilToonGem);
+            ??= Shader.Find(ShaderName.Lil_LilToonGem);
 
         #endregion
 
@@ -536,8 +487,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonTessellation</remarks>
         protected Shader Lil_LilToonTessellation
             => _Lil_LilToonTessellation
-            = _Lil_LilToonTessellation != null
-            ? _Lil_LilToonTessellation : Shader.Find(ShaderName.Lil_LilToonTessellation);
+            ??= Shader.Find(ShaderName.Lil_LilToonTessellation);
 
         /// <summary>lilToon Tessellation Outline</summary>
         /// <remarks>Hidden/lilToonTessellationOutline</remarks>
@@ -547,8 +497,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonTessellationOutline</remarks>
         protected Shader Lil_LilToonTessellationOutline
             => _Lil_LilToonTessellationOutline
-            = _Lil_LilToonTessellationOutline != null
-            ? _Lil_LilToonTessellationOutline : Shader.Find(ShaderName.Lil_LilToonTessellationOutline);
+            ??= Shader.Find(ShaderName.Lil_LilToonTessellationOutline);
 
         /// <summary>lilToon Tessellation Cutout</summary>
         /// <remarks>Hidden/lilToonTessellationCutout</remarks>
@@ -558,8 +507,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonTessellationCutout</remarks>
         protected Shader Lil_LilToonTessellationCutout
             => _Lil_LilToonTessellationCutout
-            = _Lil_LilToonTessellationCutout != null
-            ? _Lil_LilToonTessellationCutout : Shader.Find(ShaderName.Lil_LilToonTessellationCutout);
+            ??= Shader.Find(ShaderName.Lil_LilToonTessellationCutout);
 
         /// <summary>lilToon Tessellation Cutout Outline</summary>
         /// <remarks>Hidden/lilToonTessellationCutoutOutline</remarks>
@@ -569,8 +517,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonTessellationCutoutOutline</remarks>
         protected Shader Lil_LilToonTessellationCutoutOutline
             => _Lil_LilToonTessellationCutoutOutline
-            = _Lil_LilToonTessellationCutoutOutline != null
-            ? _Lil_LilToonTessellationCutoutOutline : Shader.Find(ShaderName.Lil_LilToonTessellationCutoutOutline);
+            ??= Shader.Find(ShaderName.Lil_LilToonTessellationCutoutOutline);
 
         /// <summary>lilToon Tessellation Transparent</summary>
         /// <remarks>Hidden/lilToonTessellationTransparent</remarks>
@@ -580,8 +527,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonTessellationTransparent</remarks>
         protected Shader Lil_LilToonTessellationTransparent
             => _Lil_LilToonTessellationTransparent
-            = _Lil_LilToonTessellationTransparent != null
-            ? _Lil_LilToonTessellationTransparent : Shader.Find(ShaderName.Lil_LilToonTessellationTransparent);
+            ??= Shader.Find(ShaderName.Lil_LilToonTessellationTransparent);
 
         /// <summary>lilToon Tessellation Transparent Outline</summary>
         /// <remarks>Hidden/lilToonTessellationTransparentOutline</remarks>
@@ -591,8 +537,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonTessellationTransparentOutline</remarks>
         protected Shader Lil_LilToonTessellationTransparentOutline
             => _Lil_LilToonTessellationTransparentOutline
-            = _Lil_LilToonTessellationTransparentOutline != null
-            ? _Lil_LilToonTessellationTransparentOutline : Shader.Find(ShaderName.Lil_LilToonTessellationTransparentOutline);
+            ??= Shader.Find(ShaderName.Lil_LilToonTessellationTransparentOutline);
 
         /// <summary>lilToon Tessellation OnePass Transparent</summary>
         /// <remarks>Hidden/lilToonTessellationOnePassTransparent</remarks>
@@ -602,8 +547,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonTessellationOnePassTransparent</remarks>
         protected Shader Lil_LilToonTessellationOnePassTransparent
             => _Lil_LilToonTessellationOnePassTransparent
-            = _Lil_LilToonTessellationOnePassTransparent != null
-            ? _Lil_LilToonTessellationOnePassTransparent : Shader.Find(ShaderName.Lil_LilToonTessellationOnePassTransparent);
+            ??= Shader.Find(ShaderName.Lil_LilToonTessellationOnePassTransparent);
 
         /// <summary>lilToon Tessellation OnePass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonTessellationOnePassTransparentOutline</remarks>
@@ -613,8 +557,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonTessellationOnePassTransparentOutline</remarks>
         protected Shader Lil_LilToonTessellationOnePassTransparentOutline
             => _Lil_LilToonTessellationOnePassTransparentOutline
-            = _Lil_LilToonTessellationOnePassTransparentOutline != null
-            ? _Lil_LilToonTessellationOnePassTransparentOutline : Shader.Find(ShaderName.Lil_LilToonTessellationOnePassTransparentOutline);
+            ??= Shader.Find(ShaderName.Lil_LilToonTessellationOnePassTransparentOutline);
 
         /// <summary>lilToon Tessellation TwoPass Transparent</summary>
         /// <remarks>Hidden/lilToonTessellationTwoPassTransparent</remarks>
@@ -624,8 +567,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonTessellationTwoPassTransparent</remarks>
         protected Shader Lil_LilToonTessellationTwoPassTransparent
             => _Lil_LilToonTessellationTwoPassTransparent
-            = _Lil_LilToonTessellationTwoPassTransparent != null
-            ? _Lil_LilToonTessellationTwoPassTransparent : Shader.Find(ShaderName.Lil_LilToonTessellationTwoPassTransparent);
+            ??= Shader.Find(ShaderName.Lil_LilToonTessellationTwoPassTransparent);
 
         /// <summary>lilToon Tessellation TwoPass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonTessellationTwoPassTransparentOutline</remarks>
@@ -635,8 +577,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonTessellationTwoPassTransparentOutline</remarks>
         protected Shader Lil_LilToonTessellationTwoPassTransparentOutline
             => _Lil_LilToonTessellationTwoPassTransparentOutline
-            = _Lil_LilToonTessellationTwoPassTransparentOutline != null
-            ? _Lil_LilToonTessellationTwoPassTransparentOutline : Shader.Find(ShaderName.Lil_LilToonTessellationTwoPassTransparentOutline);
+            ??= Shader.Find(ShaderName.Lil_LilToonTessellationTwoPassTransparentOutline);
 
         #endregion
 
@@ -650,8 +591,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonLite</remarks>
         protected Shader Lil_LilToonLite
             => _Lil_LilToonLite
-            = _Lil_LilToonLite != null
-            ? _Lil_LilToonLite : Shader.Find(ShaderName.Lil_LilToonLite);
+            ??= Shader.Find(ShaderName.Lil_LilToonLite);
 
         /// <summary>lilToon Lite Outline</summary>
         /// <remarks>Hidden/lilToonLiteOutline</remarks>
@@ -661,8 +601,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonLiteOutline</remarks>
         protected Shader Lil_LilToonLiteOutline
             => _Lil_LilToonLiteOutline
-            = _Lil_LilToonLiteOutline != null
-            ? _Lil_LilToonLiteOutline : Shader.Find(ShaderName.Lil_LilToonLiteOutline);
+            ??= Shader.Find(ShaderName.Lil_LilToonLiteOutline);
 
         /// <summary>lilToon Lite Cutout</summary>
         /// <remarks>Hidden/lilToonLiteCutout</remarks>
@@ -672,8 +611,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonLiteCutout</remarks>
         protected Shader Lil_LilToonLiteCutout
             => _Lil_LilToonLiteCutout
-            = _Lil_LilToonLiteCutout != null
-            ? _Lil_LilToonLiteCutout : Shader.Find(ShaderName.Lil_LilToonLiteCutout);
+            ??= Shader.Find(ShaderName.Lil_LilToonLiteCutout);
 
         /// <summary>lilToon Lite Cutout Outline</summary>
         /// <remarks>Hidden/lilToonLiteCutoutOutline</remarks>
@@ -683,8 +621,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonLiteCutoutOutline</remarks>
         protected Shader Lil_LilToonLiteCutoutOutline
             => _Lil_LilToonLiteCutoutOutline
-            = _Lil_LilToonLiteCutoutOutline != null
-            ? _Lil_LilToonLiteCutoutOutline : Shader.Find(ShaderName.Lil_LilToonLiteCutoutOutline);
+            ??= Shader.Find(ShaderName.Lil_LilToonLiteCutoutOutline);
 
         /// <summary>lilToon Lite Transparent</summary>
         /// <remarks>Hidden/lilToonLiteTransparent</remarks>
@@ -694,8 +631,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonLiteTransparent</remarks>
         protected Shader Lil_LilToonLiteTransparent
             => _Lil_LilToonLiteTransparent
-            = _Lil_LilToonLiteTransparent != null
-            ? _Lil_LilToonLiteTransparent : Shader.Find(ShaderName.Lil_LilToonLiteTransparent);
+            ??= Shader.Find(ShaderName.Lil_LilToonLiteTransparent);
 
         /// <summary>lilToon Lite Transparent Outline</summary>
         /// <remarks>Hidden/lilToonLiteTransparentOutline</remarks>
@@ -705,8 +641,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonLiteTransparentOutline</remarks>
         protected Shader Lil_LilToonLiteTransparentOutline
             => _Lil_LilToonLiteTransparentOutline
-            = _Lil_LilToonLiteTransparentOutline != null
-            ? _Lil_LilToonLiteTransparentOutline : Shader.Find(ShaderName.Lil_LilToonLiteTransparentOutline);
+            ??= Shader.Find(ShaderName.Lil_LilToonLiteTransparentOutline);
 
         /// <summary>lilToon Lite OnePass Transparent</summary>
         /// <remarks>Hidden/lilToonLiteOnePassTransparent</remarks>
@@ -716,8 +651,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonLiteOnePassTransparent</remarks>
         protected Shader Lil_LilToonLiteOnePassTransparent
             => _Lil_LilToonLiteOnePassTransparent
-            = _Lil_LilToonLiteOnePassTransparent != null
-            ? _Lil_LilToonLiteOnePassTransparent : Shader.Find(ShaderName.Lil_LilToonLiteOnePassTransparent);
+            ??= Shader.Find(ShaderName.Lil_LilToonLiteOnePassTransparent);
 
         /// <summary>lilToon Lite OnePass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonLiteOnePassTransparentOutline</remarks>
@@ -727,8 +661,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonLiteOnePassTransparentOutline</remarks>
         protected Shader Lil_LilToonLiteOnePassTransparentOutline
             => _Lil_LilToonLiteOnePassTransparentOutline
-            = _Lil_LilToonLiteOnePassTransparentOutline != null
-            ? _Lil_LilToonLiteOnePassTransparentOutline : Shader.Find(ShaderName.Lil_LilToonLiteOnePassTransparentOutline);
+            ??= Shader.Find(ShaderName.Lil_LilToonLiteOnePassTransparentOutline);
 
         /// <summary>lilToon Lite TwoPass Transparent</summary>
         /// <remarks>Hidden/lilToonLiteTransparent</remarks>
@@ -738,8 +671,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonLiteTransparent</remarks>
         protected Shader Lil_LilToonLiteTwoPassTransparent
             => _Lil_LilToonLiteTwoPassTransparent
-            = _Lil_LilToonLiteTwoPassTransparent != null
-            ? _Lil_LilToonLiteTwoPassTransparent : Shader.Find(ShaderName.Lil_LilToonLiteTwoPassTransparent);
+            ??= Shader.Find(ShaderName.Lil_LilToonLiteTwoPassTransparent);
 
         /// <summary>lilToon Lite TwoPass Transparent Outline</summary>
         /// <remarks>Hidden/lilToonLiteTwoPassTransparentOutline</remarks>
@@ -749,8 +681,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonLiteTwoPassTransparentOutline</remarks>
         protected Shader Lil_LilToonLiteTwoPassTransparentOutline
             => _Lil_LilToonLiteTwoPassTransparentOutline
-            = _Lil_LilToonLiteTwoPassTransparentOutline != null
-            ? _Lil_LilToonLiteTwoPassTransparentOutline : Shader.Find(ShaderName.Lil_LilToonLiteTwoPassTransparentOutline);
+            ??= Shader.Find(ShaderName.Lil_LilToonLiteTwoPassTransparentOutline);
 
         /// <summary>lilToon Lite Overlay</summary>
         /// <remarks>_lil/[Optional] lilToonLiteOverlay</remarks>
@@ -760,8 +691,7 @@ namespace UniVgo2
         /// <remarks>_lil/[Optional] lilToonLiteOverlay</remarks>
         protected Shader Lil_LilToonLiteOverlay
             => _Lil_LilToonLiteOverlay
-            = _Lil_LilToonLiteOverlay != null
-            ? _Lil_LilToonLiteOverlay : Shader.Find(ShaderName.Lil_LilToonLiteOverlay);
+            ??= Shader.Find(ShaderName.Lil_LilToonLiteOverlay);
 
         /// <summary>lilToon Lite Overlay OnePass</summary>
         /// <remarks>_lil/[Optional] lilToonLiteOverlayOnePass</remarks>
@@ -771,8 +701,7 @@ namespace UniVgo2
         /// <remarks>_lil/[Optional] lilToonLiteOverlayOnePass</remarks>
         protected Shader Lil_LilToonLiteOverlayOnePass
             => _Lil_LilToonLiteOverlayOnePass
-            = _Lil_LilToonLiteOverlayOnePass != null
-            ? _Lil_LilToonLiteOverlayOnePass : Shader.Find(ShaderName.Lil_LilToonLiteOverlayOnePass);
+            ??= Shader.Find(ShaderName.Lil_LilToonLiteOverlayOnePass);
 
         #endregion
 
@@ -786,8 +715,7 @@ namespace UniVgo2
         /// <remarks>_lil/lilToonMulti</remarks>
         protected Shader Lil_LilToonMulti
             => _Lil_LilToonMulti
-            = _Lil_LilToonMulti != null
-            ? _Lil_LilToonMulti : Shader.Find(ShaderName.Lil_LilToonMulti);
+            ??= Shader.Find(ShaderName.Lil_LilToonMulti);
 
         /// <summary>lilToon Multi Outline</summary>
         /// <remarks>Hidden/lilToonMultiOutline</remarks>
@@ -797,8 +725,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonMultiOutline</remarks>
         protected Shader Lil_LilToonMultiOutline
             => _Lil_LilToonMultiOutline
-            = _Lil_LilToonMultiOutline != null
-            ? _Lil_LilToonMultiOutline : Shader.Find(ShaderName.Lil_LilToonMultiOutline);
+            ??= Shader.Find(ShaderName.Lil_LilToonMultiOutline);
 
         /// <summary>lilToon Multi Refraction</summary>
         /// <remarks>Hidden/lilToonMultiRefraction</remarks>
@@ -808,8 +735,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonMultiRefraction</remarks>
         protected Shader Lil_LilToonMultiRefraction
             => _Lil_LilToonMultiRefraction
-            = _Lil_LilToonMultiRefraction != null
-            ? _Lil_LilToonMultiRefraction : Shader.Find(ShaderName.Lil_LilToonMultiRefraction);
+            ??= Shader.Find(ShaderName.Lil_LilToonMultiRefraction);
 
         /// <summary>lilToon Multi Fur</summary>
         /// <remarks>Hidden/lilToonMultiFur</remarks>
@@ -819,8 +745,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonMultiFur</remarks>
         protected Shader Lil_LilToonMultiFur
             => _Lil_LilToonMultiFur
-            = _Lil_LilToonMultiFur != null
-            ? _Lil_LilToonMultiFur : Shader.Find(ShaderName.Lil_LilToonMultiFur);
+            ??= Shader.Find(ShaderName.Lil_LilToonMultiFur);
 
         /// <summary>lilToon Multi Gem</summary>
         /// <remarks>Hidden/lilToonMultiGem</remarks>
@@ -830,8 +755,7 @@ namespace UniVgo2
         /// <remarks>Hidden/lilToonMultiGem</remarks>
         protected Shader Lil_LilToonMultiGem
             => _Lil_LilToonMultiGem
-            = _Lil_LilToonMultiGem != null
-            ? _Lil_LilToonMultiGem : Shader.Find(ShaderName.Lil_LilToonMultiGem);
+            ??= Shader.Find(ShaderName.Lil_LilToonMultiGem);
 
         #endregion
 
@@ -845,8 +769,7 @@ namespace UniVgo2
         /// <remarks>_lil/[Optional] lilToonFakeShadow</remarks>
         protected Shader Lil_LilToonFakeShadow
             => _Lil_LilToonFakeShadow
-            = _Lil_LilToonFakeShadow != null
-            ? _Lil_LilToonFakeShadow : Shader.Find(ShaderName.Lil_LilToonFakeShadow);
+            ??= Shader.Find(ShaderName.Lil_LilToonFakeShadow);
 
         #endregion
 
@@ -860,8 +783,7 @@ namespace UniVgo2
         /// <remarks>Hidden/ltsother_baker</remarks>
         protected Shader Lil_LilToonOtherBaker
             => _Lil_LilToonOtherBaker
-            = _Lil_LilToonOtherBaker != null
-            ? _Lil_LilToonOtherBaker : Shader.Find(ShaderName.Lil_LilToonOtherBaker);
+            ??= Shader.Find(ShaderName.Lil_LilToonOtherBaker);
 
         /// <summary>lilToon Pass Dummy</summary>
         /// <remarks>Hidden/ltspass_dummy</remarks>
@@ -871,8 +793,7 @@ namespace UniVgo2
         /// <remarks>Hidden/ltspass_dummy</remarks>
         protected Shader Lil_LilToonPassDummy
             => _Lil_LilToonPassDummy
-            = _Lil_LilToonPassDummy != null
-            ? _Lil_LilToonPassDummy : Shader.Find(ShaderName.Lil_LilToonPassDummy);
+            ??= Shader.Find(ShaderName.Lil_LilToonPassDummy);
 
         /// <summary>lilToon Pass Opaque</summary>
         /// <remarks>Hidden/ltspass_opaque</remarks>
@@ -882,8 +803,7 @@ namespace UniVgo2
         /// <remarks>Hidden/ltspass_opaque</remarks>
         protected Shader Lil_LilToonPassOpaque
             => _Lil_LilToonPassOpaque
-            = _Lil_LilToonPassOpaque != null
-            ? _Lil_LilToonPassOpaque : Shader.Find(ShaderName.Lil_LilToonPassOpaque);
+            ??= Shader.Find(ShaderName.Lil_LilToonPassOpaque);
 
         /// <summary>lilToon Pass Cutout</summary>
         /// <remarks>Hidden/ltspass_cutout</remarks>
@@ -893,8 +813,7 @@ namespace UniVgo2
         /// <remarks>Hidden/ltspass_cutout</remarks>
         protected Shader Lil_LilToonPassCutout
             => _Lil_LilToonPassCutout
-            = _Lil_LilToonPassCutout != null
-            ? _Lil_LilToonPassCutout : Shader.Find(ShaderName.Lil_LilToonPassCutout);
+            ??= Shader.Find(ShaderName.Lil_LilToonPassCutout);
 
         /// <summary>lilToon Pass Transparent</summary>
         /// <remarks>Hidden/ltspass_transparent</remarks>
@@ -904,8 +823,7 @@ namespace UniVgo2
         /// <remarks>Hidden/ltspass_transparent</remarks>
         protected Shader Lil_LilToonPassTransparent
             => _Lil_LilToonPassTransparent
-            = _Lil_LilToonPassTransparent != null
-            ? _Lil_LilToonPassTransparent : Shader.Find(ShaderName.Lil_LilToonPassTransparent);
+            ??= Shader.Find(ShaderName.Lil_LilToonPassTransparent);
 
         /// <summary>lilToon Pass Tessellation Opaque</summary>
         /// <remarks>Hidden/ltspass_tess_opaque</remarks>
@@ -915,8 +833,7 @@ namespace UniVgo2
         /// <remarks>Hidden/ltspass_tess_opaque</remarks>
         protected Shader Lil_LilToonPassTessOpaque
             => _Lil_LilToonPassTessOpaque
-            = _Lil_LilToonPassTessOpaque != null
-            ? _Lil_LilToonPassTessOpaque : Shader.Find(ShaderName.Lil_LilToonPassTessOpaque);
+            ??= Shader.Find(ShaderName.Lil_LilToonPassTessOpaque);
 
         /// <summary>lilToon Pass Tessellation Cutout</summary>
         /// <remarks>Hidden/ltspass_tess_cutout</remarks>
@@ -926,8 +843,7 @@ namespace UniVgo2
         /// <remarks>Hidden/ltspass_tess_cutout</remarks>
         protected Shader Lil_LilToonPassTessCutout
             => _Lil_LilToonPassTessCutout
-            = _Lil_LilToonPassTessCutout != null
-            ? _Lil_LilToonPassTessCutout : Shader.Find(ShaderName.Lil_LilToonPassTessCutout);
+            ??= Shader.Find(ShaderName.Lil_LilToonPassTessCutout);
 
         /// <summary>lilToon Pass Tessellation Transparent</summary>
         /// <remarks>Hidden/ltspass_tess_transparent</remarks>
@@ -937,8 +853,7 @@ namespace UniVgo2
         /// <remarks>Hidden/ltspass_tess_transparent</remarks>
         protected Shader Lil_LilToonPassTessTransparent
             => _Lil_LilToonPassTessTransparent
-            = _Lil_LilToonPassTessTransparent != null
-            ? _Lil_LilToonPassTessTransparent : Shader.Find(ShaderName.Lil_LilToonPassTessTransparent);
+            ??= Shader.Find(ShaderName.Lil_LilToonPassTessTransparent);
 
         /// <summary>lilToon Pass Lite Opaque</summary>
         /// <remarks>Hidden/ltspass_lite_opaque</remarks>
@@ -948,8 +863,7 @@ namespace UniVgo2
         /// <remarks>Hidden/ltspass_lite_opaque</remarks>
         protected Shader Lil_LilToonPassLiteOpaque
             => _Lil_LilToonPassLiteOpaque
-            = _Lil_LilToonPassLiteOpaque != null
-            ? _Lil_LilToonPassLiteOpaque : Shader.Find(ShaderName.Lil_LilToonPassLiteOpaque);
+            ??= Shader.Find(ShaderName.Lil_LilToonPassLiteOpaque);
 
         /// <summary>lilToon Pass Lite Cutout</summary>
         /// <remarks>Hidden/ltspass_lite_cutout</remarks>
@@ -959,8 +873,7 @@ namespace UniVgo2
         /// <remarks>Hidden/ltspass_lite_cutout</remarks>
         protected Shader Lil_LilToonPassLiteCutout
             => _Lil_LilToonPassLiteCutout
-            = _Lil_LilToonPassLiteCutout != null
-            ? _Lil_LilToonPassLiteCutout : Shader.Find(ShaderName.Lil_LilToonPassLiteCutout);
+            ??= Shader.Find(ShaderName.Lil_LilToonPassLiteCutout);
 
         /// <summary>lilToon Pass Lite Transparent</summary>
         /// <remarks>Hidden/ltspass_lite_transparent</remarks>
@@ -970,8 +883,8 @@ namespace UniVgo2
         /// <remarks>Hidden/ltspass_lite_transparent</remarks>
         protected Shader Lil_LilToonPassLiteTransparent
             => _Lil_LilToonPassLiteTransparent
-            = _Lil_LilToonPassLiteTransparent != null
-            ? _Lil_LilToonPassLiteTransparent : Shader.Find(ShaderName.Lil_LilToonPassLiteTransparent);
+            ??= Shader.Find(ShaderName.Lil_LilToonPassLiteTransparent);
+
         #endregion
 
         #region Fields & Properties (MToon)
@@ -982,8 +895,7 @@ namespace UniVgo2
         /// <summary>VRM/MToon</summary>
         protected Shader VrmMtoon
             => _VrmMtoon
-            = _VrmMtoon != null
-            ? _VrmMtoon : Shader.Find(ShaderName.VRM_MToon);
+            ??= Shader.Find(ShaderName.VRM_MToon);
 
         /// <summary>VRM10/MToon10</summary>
         protected Shader? _VrmMtoon10;
@@ -991,8 +903,7 @@ namespace UniVgo2
         /// <summary>VRM10/MToon10</summary>
         protected Shader VrmMtoon10
             => _VrmMtoon10
-            = _VrmMtoon10 != null
-            ? _VrmMtoon10 : Shader.Find(ShaderName.VRM_MToon10);
+            ??= Shader.Find(ShaderName.VRM_MToon10);
 
         #endregion
 
@@ -1003,7 +914,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="shaderName">The shader name.</param>
         /// <returns>A shader instanse or default.</returns>
-        public virtual Shader? GetShaderOrDefault(string shaderName)
+        public virtual Shader? GetShaderOrDefault(in string shaderName)
         {
             if (string.IsNullOrEmpty(shaderName))
             {
@@ -1292,7 +1203,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoMaterial">The vgo material.</param>
         /// <returns>A shader instanse or default.</returns>
-        public virtual Shader? GetShaderOrDefault(VgoMaterial vgoMaterial)
+        public virtual Shader? GetShaderOrDefault(in VgoMaterial vgoMaterial)
         {
             if (vgoMaterial == null)
             {
@@ -1331,7 +1242,7 @@ namespace UniVgo2
         /// <param name="vgoMaterial">The vgo material.</param>
         /// <param name="renderPipelineType">Type of render pipeline.</param>
         /// <returns>A shader instanse.</returns>
-        public virtual Shader GetShaderOrStandard(VgoMaterial vgoMaterial, RenderPipelineType renderPipelineType)
+        public virtual Shader GetShaderOrStandard(in VgoMaterial vgoMaterial, in RenderPipelineType renderPipelineType)
         {
             Shader? shader = GetShaderOrDefault(vgoMaterial);
 

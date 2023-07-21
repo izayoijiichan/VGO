@@ -17,11 +17,30 @@ namespace UniVgo2
     [Serializable]
     public class BlendShapeConfiguration : ScriptableObject
     {
-        ///// <summary>The name of this info.</summary>
+        ///// <summary>The name of this configuration.</summary>
         //public string name;
 
+        /// <summary>The name of this configuration.</summary>
+        public string Name
+        {
+            get => name;
+            set => name = value;
+        }
+
         /// <summary>The kind of the BlendShape.</summary>
-        public VgoBlendShapeKind kind;
+        [SerializeField]
+        private VgoBlendShapeKind kind;
+
+        /// <summary>The kind of the BlendShape.</summary>
+        public VgoBlendShapeKind Kind
+        {
+            get => kind;
+            set => kind = value;
+        }
+
+        /// <summary>List of face parts.</summary>
+        [SerializeField]
+        private List<BlendShapeFacePart> faceParts = new List<BlendShapeFacePart>();
 
         /// <summary>List of face parts.</summary>
         /// <remarks>
@@ -29,15 +48,43 @@ namespace UniVgo2
         /// it becomes possible for the application to control such as ignoring changes in the eyelids and mouth when using FaceRig or microphone.
         /// The ones included in blinks and visemes will work without being set here.
         /// </remarks>
-        public List<BlendShapeFacePart> faceParts = new List<BlendShapeFacePart>();
+        public List<BlendShapeFacePart> FaceParts
+        {
+            get => faceParts;
+            set => faceParts = value;
+        }
 
         /// <summary>List of blink.</summary>
-        public List<BlendShapeBlink> blinks = new List<BlendShapeBlink>();
+        [SerializeField]
+        private List<BlendShapeBlink> blinks = new List<BlendShapeBlink>();
+
+        /// <summary>List of blink.</summary>
+        public List<BlendShapeBlink> Blinks
+        {
+            get => blinks;
+            set => blinks = value;
+        }
 
         /// <summary>Visemes.</summary>
-        public List<BlendShapeViseme> visemes = new List<BlendShapeViseme>();
+        [SerializeField]
+        private List<BlendShapeViseme> visemes = new List<BlendShapeViseme>();
+
+        /// <summary>Visemes.</summary>
+        public List<BlendShapeViseme> Visemes
+        {
+            get => visemes;
+            set => visemes = value;
+        }
 
         /// <summary>List of preset.</summary>
-        public List<VgoMeshBlendShapePreset> presets = new List<VgoMeshBlendShapePreset>();
+        [SerializeField]
+        private List<VgoMeshBlendShapePreset> presets = new List<VgoMeshBlendShapePreset>();
+
+        /// <summary>List of preset.</summary>
+        public List<VgoMeshBlendShapePreset> Presets
+        {
+            get => presets;
+            set => presets = value;
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="minMaxCurve"></param>
         /// <returns></returns>
-        public static VGO_PS_MinMaxCurve CreateFrom(MinMaxCurve minMaxCurve)
+        public static VGO_PS_MinMaxCurve CreateFrom(in MinMaxCurve minMaxCurve)
         {
             switch (minMaxCurve.mode)
             {
@@ -72,7 +72,7 @@ namespace UniVgo2.Converters
         /// </summary>
         /// <param name="vgoMinMaxCurve"></param>
         /// <returns></returns>
-        public static MinMaxCurve CreateMinMaxCurve(VGO_PS_MinMaxCurve? vgoMinMaxCurve)
+        public static MinMaxCurve CreateMinMaxCurve(in VGO_PS_MinMaxCurve? vgoMinMaxCurve)
         {
             if (vgoMinMaxCurve == null)
             {

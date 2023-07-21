@@ -84,7 +84,7 @@ namespace NewtonVgo
         /// <exception cref="IndexOutOfRangeException"></exception>
         public uint this[int index]
         {
-            get
+            readonly get
             {
                 switch (index)
                 {
@@ -136,7 +136,7 @@ namespace NewtonVgo
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <param name="w"></param>
-        public void Deconstruct(out uint x, out uint y, out uint z, out uint w)
+        public readonly void Deconstruct(out uint x, out uint y, out uint z, out uint w)
         {
             x = X;
             y = Y;
@@ -149,7 +149,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="other"></param>
         /// <returns>true if the specified object is equal to the current object; otherwise, false.</returns>
-        public bool Equals(Vector4Uint other)
+        public readonly bool Equals(in Vector4Uint other)
         {
             return
                 X.Equals(other.X) &&
@@ -163,7 +163,7 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="other"></param>
         /// <returns>true if the specified object is equal to the current object; otherwise, false.</returns>
-        public override bool Equals(object? other)
+        public override readonly bool Equals(object? other)
         {
             if (other is Vector4Uint otherVector4)
             {
@@ -177,7 +177,7 @@ namespace NewtonVgo
         /// Serves as the default hash function.
         /// </summary>
         /// <returns>A hash code for the current object.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return
                 X.GetHashCode() ^
@@ -205,7 +205,7 @@ namespace NewtonVgo
         /// Try convert Vector4Uint to Vector4Ubyte.
         /// </summary>
         /// <returns>true if the operation is successful; otherwise, false.</returns>
-        public bool TryConvertTo(out Vector4Ubyte destination)
+        public readonly bool TryConvertTo(out Vector4Ubyte destination)
         {
             if ((X <= byte.MaxValue) &&
                 (Y <= byte.MaxValue) &&
@@ -231,7 +231,7 @@ namespace NewtonVgo
         /// Try convert Vector4Uint to Vector4Ushort.
         /// </summary>
         /// <returns>true if the operation is successful; otherwise, false.</returns>
-        public bool TryConvertTo(out Vector4Ushort destination)
+        public readonly bool TryConvertTo(out Vector4Ushort destination)
         {
             if ((X <= ushort.MaxValue) &&
                 (Y <= ushort.MaxValue) &&
@@ -257,12 +257,24 @@ namespace NewtonVgo
 
         #region Operators
 
-        public static bool operator ==(Vector4Uint v1, Vector4Uint v2)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns></returns>
+        public static bool operator ==(in Vector4Uint v1, in Vector4Uint v2)
         {
             return v1.Equals(v2);
         }
 
-        public static bool operator !=(Vector4Uint v1, Vector4Uint v2)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns></returns>
+        public static bool operator !=(in Vector4Uint v1, in Vector4Uint v2)
         {
             return v1.Equals(v2) == false;
         }

@@ -19,7 +19,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">The vgo material.</param>
         /// <returns>A material porter instanse.</returns>
-        IMaterialPorter? GetPorterOrDefault(VgoMaterial vgoMaterial);
+        IMaterialPorter? GetPorterOrDefault(in VgoMaterial vgoMaterial);
 
         /// <summary>
         /// Get a porter or standard.
@@ -27,7 +27,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoMaterial">The vgo material.</param>
         /// <param name="renderPipelineType">Type of render pipeline.</param>
         /// <returns>A material porter instanse.</returns>
-        IMaterialPorter GetPorterOrStandard(VgoMaterial vgoMaterial, RenderPipelineType renderPipelineType);
+        IMaterialPorter GetPorterOrStandard(in VgoMaterial vgoMaterial, in RenderPipelineType renderPipelineType);
 
         #endregion
 
@@ -38,7 +38,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="shaderName">The shader name.</param>
         /// <returns>A material porter instanse.</returns>
-        IMaterialPorter? GetPorterOrDefault(string shaderName);
+        IMaterialPorter? GetPorterOrDefault(in string shaderName);
 
         /// <summary>
         /// Get a porter or standard.
@@ -46,7 +46,7 @@ namespace UniVgo2.Porters
         /// <param name="shaderName">The shader name.</param>
         /// <param name="renderPipelineType">Type of render pipeline.</param>
         /// <returns>A material porter instanse.</returns>
-        IMaterialPorter GetPorterOrStandard(string shaderName, RenderPipelineType renderPipelineType);
+        IMaterialPorter GetPorterOrStandard(in string shaderName, in RenderPipelineType renderPipelineType);
 
         /// <summary>
         /// Get a porter or standard.
@@ -55,7 +55,7 @@ namespace UniVgo2.Porters
         /// <param name="vgoMaterial">The vgo material.</param>
         /// <param name="renderPipelineType">Type of render pipeline.</param>
         /// <returns>A material porter instanse.</returns>
-        IMaterialPorter GetPorterOrStandard(string shaderName, VgoMaterial vgoMaterial, RenderPipelineType renderPipelineType);
+        IMaterialPorter GetPorterOrStandard(in string shaderName, in VgoMaterial vgoMaterial, in RenderPipelineType renderPipelineType);
 
         #endregion
     }
