@@ -6,12 +6,15 @@
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
+    using System.Collections.Generic;
+    using UniGLTF.UniUnlit;
+    using UniShader.Shared;
     using UnityEngine;
 
 #if VRMC_VRMSHADERS_0_104_OR_NEWER
-    using UniGLTF.UniUnlit;
+    //
 #elif VRMC_VRMSHADERS_0_85_OR_NEWER
-    using UniGLTF.UniUnlit;
+    //
 #elif VRMC_VRMSHADERS_0_79_OR_NEWER
     using UniUnlitUtil = UniGLTF.UniUnlit.Utils;
 #elif VRMC_VRMSHADERS_0_72_OR_NEWER
@@ -31,23 +34,6 @@ namespace UniVgo2.Porters
         /// Create a new instance of UnlitMaterialPorter.
         /// </summary>
         public UnlitMaterialPorter() : base() { }
-
-        #endregion
-
-        #region Enums
-
-        /// <summary>Blend Mode</summary>
-        protected enum BlendMode
-        {
-            /// <summary>Opaque</summary>
-            Opaque,
-            /// <summary>Cutout</summary>
-            Cutout,
-            /// <summary>Fade</summary>
-            Fade,
-            /// <summary>Transparent</summary>
-            Transparent
-        }
 
         #endregion
 
@@ -87,9 +73,12 @@ namespace UniVgo2.Porters
             ExportTag(vgoMaterial, material, UniUnlitUtil.TagRenderTypeKey);
 
             // Keywords
-            ExportKeyword(vgoMaterial, material, UniUnlitUtil.KeywordAlphaTestOn);
-            ExportKeyword(vgoMaterial, material, UniUnlitUtil.KeywordAlphaBlendOn);
-            ExportKeyword(vgoMaterial, material, UniUnlitUtil.KeywordVertexColMul);
+            if (material.shader.name == ShaderName.UniGLTF_UniUnlit)
+            {
+                ExportKeyword(vgoMaterial, material, UniUnlitUtil.KeywordAlphaTestOn);
+                ExportKeyword(vgoMaterial, material, UniUnlitUtil.KeywordAlphaBlendOn);
+                ExportKeyword(vgoMaterial, material, UniUnlitUtil.KeywordVertexColMul);
+            }
 
             return vgoMaterial;
         }
@@ -98,65 +87,88 @@ namespace UniVgo2.Porters
 
         #region Public Methods (Import)
 
-        ///// <summary>
-        ///// Create a unlit material.
-        ///// </summary>
-        ///// <param name="vgoMaterial">A vgo material.</param>
-        ///// <param name="shader">A unlit shader.</param>
-        ///// <param name="allTexture2dList">List of all texture 2D.</param>
-        ///// <returns>A unlit material.</returns>
-        //public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D> allTexture2dList)
-        //{
-        //    Material material = base.CreateMaterialAsset(vgoMaterial, shader, allTexture2dList);
+        /// <summary>
+        /// Create a unlit material.
+        /// </summary>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="shader">A unlit shader.</param>
+        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <returns>A unlit material.</returns>
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
+        {
+            if (shader.name == ShaderName.URP_Unlit)
+            {
+                return CreateMaterialAssetAsUrp(vgoMaterial, shader, allTexture2dList);
+            }
 
-        //    if (material.shader.name == ShaderName.UniGLTF_UniUnlit)
-        //    {
-        //        UniUnlitUtil.ValidateProperties(material, true);
+            if (vgoMaterial.shaderName == ShaderName.UniGLTF_UniUnlit)
+            {
+                UniGltfUnlitDefinition vgoMaterialParameter = vgoMaterial.ToUniGltfUnlitDefinition(allTexture2dList);
 
-        //        return material;
-        //    }
+                var material = new Material(shader)
+                {
+                    name = vgoMaterial.name
+                };
 
-        //    if (vgoMaterial.tagMap.ContainsKey(UniUnlitUtil.TagRenderTypeKey))
-        //    {
-        //        string renderType = vgoMaterial.tagMap[UniUnlitUtil.TagRenderTypeKey];
+                material.SetSafeColor(UniUnlitUtil.PropNameColor, vgoMaterialParameter.Color);
 
-        //        switch (renderType)
-        //        {
-        //            case UniUnlitUtil.TagRenderTypeValueTransparent:
-        //                material.SetInt(UniUnlitUtil.PropNameBlendMode, (int)BlendMode.Fade);
-        //                material.SetInt(UniUnlitUtil.PropNameSrcBlend, (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        //                material.SetInt(UniUnlitUtil.PropNameDstBlend, (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        //                material.SetInt(UniUnlitUtil.PropNameZWrite, 0);
-        //                material.DisableKeyword(UniUnlitUtil.KeywordAlphaTestOn);
-        //                material.EnableKeyword(UniUnlitUtil.KeywordAlphaBlendOn);
-        //                material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
-        //                break;
+                if (vgoMaterialParameter.MainTex != null)
+                {
+                    material.SetTexture(UniUnlitUtil.PropNameMainTex, vgoMaterialParameter.MainTex);
+                }
 
-        //            case UniUnlitUtil.TagRenderTypeValueTransparentCutout:
-        //                material.SetInt(UniUnlitUtil.PropNameBlendMode, (int)BlendMode.Cutout);
-        //                material.SetInt(UniUnlitUtil.PropNameSrcBlend, (int)UnityEngine.Rendering.BlendMode.One);
-        //                material.SetInt(UniUnlitUtil.PropNameDstBlend, (int)UnityEngine.Rendering.BlendMode.Zero);
-        //                material.SetInt(UniUnlitUtil.PropNameZWrite, 1);
-        //                material.EnableKeyword(UniUnlitUtil.KeywordAlphaTestOn);
-        //                material.DisableKeyword(UniUnlitUtil.KeywordAlphaBlendOn);
-        //                material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
-        //                break;
+                material.SetSafeFloat(UniUnlitUtil.PropNameCutoff, vgoMaterialParameter.Cutoff);
 
-        //            case UniUnlitUtil.TagRenderTypeValueOpaque:
-        //            default:
-        //                material.SetInt(UniUnlitUtil.PropNameBlendMode, (int)BlendMode.Opaque);
-        //                material.SetInt(UniUnlitUtil.PropNameSrcBlend, (int)UnityEngine.Rendering.BlendMode.One);
-        //                material.SetInt(UniUnlitUtil.PropNameDstBlend, (int)UnityEngine.Rendering.BlendMode.Zero);
-        //                material.SetInt(UniUnlitUtil.PropNameZWrite, 1);
-        //                material.DisableKeyword(UniUnlitUtil.KeywordAlphaTestOn);
-        //                material.DisableKeyword(UniUnlitUtil.KeywordAlphaBlendOn);
-        //                material.renderQueue = -1;
-        //                break;
-        //        }
-        //    }
+                material.SetSafeInt(UniUnlitUtil.PropNameCullMode, (int)vgoMaterialParameter.CullMode);
 
-        //    return material;
-        //}
+                material.SetSafeInt(UniUnlitUtil.PropNameBlendMode, (int)vgoMaterialParameter.BlendMode);
+
+                material.SetSafeInt(UniUnlitUtil.PropNameVColBlendMode, (int)vgoMaterialParameter.VColBlendMode);
+
+                material.SetSafeInt(UniUnlitUtil.PropNameSrcBlend, (int)vgoMaterialParameter.SrcBlend);
+
+                material.SetSafeInt(UniUnlitUtil.PropNameDstBlend, (int)vgoMaterialParameter.DstBlend);
+
+                material.SetSafeInt(UniUnlitUtil.PropNameZWrite, vgoMaterialParameter.ZWrite ? 1 : 0);
+
+                UniUnlitUtil.ValidateProperties(material, true);
+
+                return material;
+            }
+
+            return base.CreateMaterialAsset(vgoMaterial, shader, allTexture2dList);
+        }
+
+        #endregion
+
+        #region Protected Methods (Import) BRP to URP
+
+        /// <summary>
+        /// Create a URP unlit material.
+        /// </summary>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="shader">A URP unlit shader.</param>
+        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <returns>A URP unlit material.</returns>
+        protected virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, Shader shader, in List<Texture2D?> allTexture2dList)
+        {
+            var material = new Material(shader)
+            {
+                name = vgoMaterial.name
+            };
+
+            UniUrpShader.UrpUnlitDefinition urpUnlitMaterialParameter = vgoMaterial.ToUrpUnlitDefinition(allTexture2dList);
+
+            UniUrpShader.Utils.SetParametersToMaterial(material, urpUnlitMaterialParameter);
+
+            // @notice
+            if (vgoMaterial.shaderName == ShaderName.VRM_UnlitTransparentZWrite)
+            {
+                material.SetInt(UniUrpShader.Property.ZWrite, 1);
+            }
+
+            return material;
+        }
 
         #endregion
     }

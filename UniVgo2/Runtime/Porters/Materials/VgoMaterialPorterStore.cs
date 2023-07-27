@@ -367,6 +367,23 @@ namespace UniVgo2.Porters
                 {
                     switch (vgoMaterial.shaderName)
                     {
+                        case ShaderName.Standard:
+                            porter = StandardMaterialPorter;
+                            break;
+                        case ShaderName.UniGLTF_StandardVColor:
+                            porter = StandardVColorMaterialPorter;
+                            break;
+                        case ShaderName.UniGLTF_UniUnlit:
+                        case ShaderName.Unlit_Color:
+                        case ShaderName.Unlit_Texture:
+                        case ShaderName.Unlit_Transparent:
+                        case ShaderName.Unlit_Transparent_Cutout:
+                        case ShaderName.VRM_UnlitTexture:
+                        case ShaderName.VRM_UnlitCutout:
+                        case ShaderName.VRM_UnlitTransparent:
+                        case ShaderName.VRM_UnlitTransparentZWrite:
+                            porter = UnlitMaterialPorter;
+                            break;
                         case ShaderName.Particles_Standard_Surface:
                         case ShaderName.Particles_Standard_Unlit:
                             porter = ParticleMaterialPorter;

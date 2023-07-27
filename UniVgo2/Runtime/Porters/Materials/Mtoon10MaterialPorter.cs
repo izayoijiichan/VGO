@@ -381,7 +381,11 @@ namespace UniVgo2.Porters
         /// <param name="alphaMode">An alpha mode.</param>
         /// <param name="zWriteMode">A z-write mode.</param>
         /// <param name="renderQueueOffsetNumber">A render queue offset number.</param>
-        protected virtual void SetUnityShaderPassSettings(Material material, in MToon10AlphaMode alphaMode, in MToon10TransparentWithZWriteMode zWriteMode, in int renderQueueOffsetNumber)
+        protected virtual void SetUnityShaderPassSettings(
+            Material material,
+            in MToon10AlphaMode alphaMode,
+            in MToon10TransparentWithZWriteMode zWriteMode,
+            in int renderQueueOffsetNumber)
         {
             int renderQueueOffset = 0;
 
@@ -602,6 +606,5 @@ namespace UniVgo2.Porters
         }
 
         #endregion
-
     }
 }

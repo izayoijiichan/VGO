@@ -1291,6 +1291,23 @@ namespace UniVgo2
                     // BRP to URP Convertable
                     switch (vgoMaterial.shaderName)
                     {
+                        case ShaderName.Standard:
+                            shader = UrpLit;
+                            break;
+                        case ShaderName.UniGLTF_StandardVColor:
+                            shader = UrpLit;  // @notice
+                            break;
+                        case ShaderName.UniGLTF_UniUnlit:
+                        case ShaderName.Unlit_Color:
+                        case ShaderName.Unlit_Texture:
+                        case ShaderName.Unlit_Transparent:
+                        case ShaderName.Unlit_Transparent_Cutout:
+                        case ShaderName.VRM_UnlitTexture:
+                        case ShaderName.VRM_UnlitCutout:
+                        case ShaderName.VRM_UnlitTransparent:
+                        case ShaderName.VRM_UnlitTransparentZWrite:
+                            shader = UrpUnlit;
+                            break;
                         case ShaderName.Particles_Standard_Surface:
                             shader = UrpParticlesLit;
                             break;

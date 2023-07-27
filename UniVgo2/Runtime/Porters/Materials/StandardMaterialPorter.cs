@@ -7,6 +7,7 @@ namespace UniVgo2.Porters
 {
     using NewtonVgo;
     using System.Collections.Generic;
+    using UniShader.Shared;
     using UniStandardShader;
     using UnityEngine;
 
@@ -84,7 +85,7 @@ namespace UniVgo2.Porters
 
             // Detail @notice
             ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.DetailMask, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
-            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.DetailAlbedoMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+            ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.DetailAlbedoMap, VgoTextureMapType.Default, VgoColorSpaceType.Linear);
             ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.DetailNormalMap, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
             ExportProperty(vgoMaterial, material, Property.DetailNormalMapScale, VgoMaterialPropertyType.Float);
             ExportProperty(vgoMaterial, material, Property.UVSec, VgoMaterialPropertyType.Int);
@@ -120,14 +121,71 @@ namespace UniVgo2.Porters
         /// <returns>A standard material.</returns>
         public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
         {
-            Material material = base.CreateMaterialAsset(vgoMaterial, shader, allTexture2dList);
+            // Accept all shaders
+            //if (vgoMaterial.shaderName != UniVgo2.ShaderName.Standard)
+            //{
+            //    ThrowHelper.ThrowArgumentException($"vgoMaterial.shaderName: {vgoMaterial.shaderName}");
+            //}
 
-            if (vgoMaterial.intProperties != null)
+            if (shader.name == UniVgo2.ShaderName.URP_Lit)
             {
-                if (vgoMaterial.intProperties.TryGetValue(Property.Mode, out int mode))
-                {
-                    UniStandardShader.Utils.SetMode(material, (AlphaMode)mode);
-                }
+                return CreateMaterialAssetAsUrp(vgoMaterial, shader, allTexture2dList);
+            }
+
+            var material = new Material(shader)
+            {
+                name = vgoMaterial.name
+            };
+
+            StandardDefinition standardDefinition = vgoMaterial.ToStandardDefinition(allTexture2dList);
+
+            UniStandardShader.Utils.SetParametersToMaterial(material, standardDefinition);
+
+            if (vgoMaterial.TryGetKeyword(Keyword.Emission, out bool enableEmission))
+            {
+                material.SetSafeKeyword(Keyword.Emission, enableEmission);
+            }
+
+            return material;
+        }
+
+        #endregion
+
+        #region Protected Methods (Import) BRP to URP
+
+        /// <summary>
+        /// Create a URP lit material.
+        /// </summary>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="shader">A URP lit shader.</param>
+        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <returns>A URP lit material.</returns>
+        protected virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, Shader shader, in List<Texture2D?> allTexture2dList)
+        {
+            if (shader.name != UniVgo2.ShaderName.URP_Lit)
+            {
+                ThrowHelper.ThrowArgumentException($"shader.name: {shader.name}");
+            }
+
+            var material = new Material(shader)
+            {
+                name = vgoMaterial.name
+            };
+
+            if (vgoMaterial.renderQueue >= 0)
+            {
+                material.renderQueue = vgoMaterial.renderQueue;
+            }
+
+            StandardDefinition brpStandardDefinition = vgoMaterial.ToStandardDefinition(allTexture2dList);
+
+            UniUrpShader.UrpLitDefinition urpLitDefinition = brpStandardDefinition.ToUrpLitDefinition();
+
+            UniUrpShader.Utils.SetParametersToMaterial(material, urpLitDefinition);
+
+            if (vgoMaterial.TryGetKeyword(Keyword.Emission, out bool enableEmission))
+            {
+                material.SetSafeKeyword(UniUrpShader.Keyword.Emission, enableEmission);
             }
 
             return material;

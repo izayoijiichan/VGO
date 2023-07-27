@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.5.12] - 2023-07-28
+
+- Features
+  - In the URP environment, BRP shaders are converted to URP shaders as much as possible and loaded.
+- Changes
+  - The minimum version of `com.izayoi.unishaders` is now `1.6.0`.
+
 ## [2.5.11] - 2023-07-22
 
 - Changes

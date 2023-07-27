@@ -6,10 +6,12 @@
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
+    using System.Collections.Generic;
+    using UniShader.Shared;
     using UnityEngine;
 
     /// <summary>
-    /// StandardVColor Material Porter
+    /// Standard Vertex Color Material Porter
     /// </summary>
     public class StandardVColorMaterialPorter : AbstractMaterialPorterBase
     {
@@ -36,6 +38,7 @@ namespace UniVgo2.Porters
             {
                 name = material.name,
                 shaderName = material.shader.name,
+                renderQueue = material.renderQueue,
                 isUnlit = false,
             };
 
@@ -50,6 +53,89 @@ namespace UniVgo2.Porters
             ExportProperty(vgoMaterial, material, UniStandardShader.Property.Glossiness, VgoMaterialPropertyType.Float);
 
             return vgoMaterial;
+        }
+
+        #endregion
+
+        #region Public Methods (Import)
+
+        /// <summary>
+        /// Create a standard vertex color material.
+        /// </summary>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="shader">A standard shader.</param>
+        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <returns>A standard vertex color material.</returns>
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
+        {
+            if (shader.name == ShaderName.URP_Lit)
+            {
+                return CreateMaterialAssetAsUrp(vgoMaterial, shader, allTexture2dList);
+            }
+
+            if (vgoMaterial.shaderName != ShaderName.UniGLTF_StandardVColor)
+            {
+                ThrowHelper.ThrowArgumentException($"vgoMaterial.shaderName: {vgoMaterial.shaderName}");
+            }
+
+            if (shader.name != ShaderName.UniGLTF_StandardVColor)
+            {
+                ThrowHelper.ThrowArgumentException($"shader.name: {shader.name}");
+            }
+
+            StandardVColorDefinition vgoMaterialParameter = vgoMaterial.ToStandardVColorDefinition(allTexture2dList);
+
+            var material = new Material(shader)
+            {
+                name = vgoMaterial.name
+            };
+
+            material.SetSafeColor(UniStandardShader.Property.Color, vgoMaterialParameter.Color);
+
+            if (vgoMaterialParameter.MainTex != null)
+            {
+                material.SetTexture(UniStandardShader.Property.MainTex, vgoMaterialParameter.MainTex);
+            }
+
+            material.SetTextureScale(UniStandardShader.Property.MainTex, vgoMaterialParameter.MainTexScale);
+
+            material.SetTextureOffset(UniStandardShader.Property.MainTex, vgoMaterialParameter.MainTexOffset);
+
+            material.SetSafeFloat(UniStandardShader.Property.Metallic, vgoMaterialParameter.Metallic, minValue: null, maxValue: null);
+
+            material.SetSafeFloat(UniStandardShader.Property.Glossiness, vgoMaterialParameter.Glossiness, minValue: null, maxValue: null);
+
+            return material;
+        }
+
+        #endregion
+
+        #region Protected Methods (Import) BRP to URP
+
+        /// <summary>
+        /// Create a URP lit material.
+        /// </summary>
+        /// <param name="vgoMaterial">A vgo material.</param>
+        /// <param name="shader">A URP lit shader.</param>
+        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <returns>A URP lit material.</returns>
+        /// <remarks>
+        /// @notice Universal Render Pipeline/Lit shader is not support vertex color.
+        /// </remarks>
+        protected virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, Shader shader, in List<Texture2D?> allTexture2dList)
+        {
+            var material = new Material(shader)
+            {
+                name = vgoMaterial.name
+            };
+
+            StandardVColorDefinition standardVColorDefinition = vgoMaterial.ToStandardVColorDefinition(allTexture2dList);
+
+            UniUrpShader.UrpLitDefinition urpLitDefinition = standardVColorDefinition.ToUrpLitDefinition();
+
+            UniUrpShader.Utils.SetParametersToMaterial(material, urpLitDefinition);
+
+            return material;
         }
 
         #endregion

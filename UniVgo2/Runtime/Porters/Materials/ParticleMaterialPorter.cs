@@ -6,12 +6,10 @@
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
-    using System;
     using System.Collections.Generic;
     using UniParticleShader;
     using UniShader.Shared;
     using UnityEngine;
-    using UnityEngine.Rendering;
 
     /// <summary>
     /// Particle Material Porter
@@ -158,7 +156,7 @@ namespace UniVgo2.Porters
                 name = vgoMaterial.name
             };
 
-            ParticleDefinition particleDefinition = CreateParticleDefinition(vgoMaterial, allTexture2dList);
+            ParticleDefinition particleDefinition = vgoMaterial.ToBrpParticleDefinition(allTexture2dList);
 
             UniParticleShader.Utils.SetParametersToMaterial(material, particleDefinition);
 
@@ -170,97 +168,13 @@ namespace UniVgo2.Porters
         #region Protected Methods (Import)
 
         /// <summary>
-        /// Create a particle definition.
-        /// </summary>
-        /// <param name="vgoMaterial">A vgo material.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
-        /// <returns>A particle definition.</returns>
-        protected virtual ParticleDefinition CreateParticleDefinition(in VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList)
-        {
-            var particleDefinition = new ParticleDefinition
-            {
-                RenderMode = vgoMaterial.GetEnumOrDefault<UniParticleShader.BlendMode>(Property.BlendMode, UniParticleShader.BlendMode.Opaque),
-                ColorMode = vgoMaterial.GetEnumOrDefault<ColorMode>(Property.ColorMode, ColorMode.Multiply),
-                FlipBookMode = vgoMaterial.GetEnumOrDefault<FlipBookMode>(Property.FlipbookMode, FlipBookMode.Simple),
-                Cull = vgoMaterial.GetEnumOrDefault<UnityEngine.Rendering.CullMode>(Property.Cull, UnityEngine.Rendering.CullMode.Back),
-                TwoSided = false,
-                Cutoff = vgoMaterial.GetSafeFloat(Property.Cutoff, PropertyRange.Cutoff),
-                LightingEnabled = vgoMaterial.GetIntOrDefault(Property.LightingEnabled, 0) == 1,
-
-                // Base
-                Color = vgoMaterial.GetColorOrDefault(Property.Color, Color.white).gamma,
-                ColorAddSubDiff = vgoMaterial.GetColorOrDefault(Property.ColorAddSubDiff, Color.black).gamma,
-                MainTex = null,
-                MainTexSt = vgoMaterial.GetVector4OrDefault(Property.MainTexSt, new Vector4(1.0f, 1.0f, 0.0f, 0.0f)),
-                MainTexScale = Vector2.one,
-                MainTexOffset = Vector2.zero,
-
-                // Metallic Gloss Map
-                MetallicGlossMap = null,
-                Metallic = vgoMaterial.GetSafeFloat(Property.Metallic, PropertyRange.Metallic),
-                Glossiness = vgoMaterial.GetSafeFloat(Property.Glossiness, PropertyRange.Glossiness),
-
-                // Normal Map
-                BumpMap = null,
-                BumpScale = vgoMaterial.GetSafeFloat(Property.BumpScale, PropertyRange.BumpScale),
-
-                // Emission Map
-                EmissionEnabled = vgoMaterial.GetIntOrDefault(Property.EmissionEnabled, 0) == 1,
-                EmissionColor = vgoMaterial.GetColorOrDefault(Property.EmissionColor, Color.black).gamma,
-                EmissionMap = null,
-
-                // Soft Particles
-                SoftParticlesEnabled = vgoMaterial.GetIntOrDefault(Property.SoftParticlesEnabled, 0) == 1,
-                SoftParticleFadeParams = vgoMaterial.GetVector4OrDefault(Property.SoftParticleFadeParams, new Vector4(0.0f, 1.0f, 0.0f, 0.0f)),
-                SoftParticlesNearFadeDistance = vgoMaterial.GetSafeFloat(Property.SoftParticlesNearFadeDistance, PropertyRange.SoftParticlesNearFadeDistance),
-                SoftParticlesFarFadeDistance = vgoMaterial.GetSafeFloat(Property.SoftParticlesFarFadeDistance, PropertyRange.SoftParticlesFarFadeDistance),
-
-                // Camera Fading
-                CameraFadingEnabled = vgoMaterial.GetIntOrDefault(Property.CameraFadingEnabled, 0) == 1,
-                CameraFadeParams = vgoMaterial.GetVector4OrDefault(Property.CameraFadeParams, new Vector4(1.0f, 2.0f, 0.0f, 0.0f)),
-                CameraNearFadeDistance = vgoMaterial.GetSafeFloat(Property.CameraNearFadeDistance, PropertyRange.CameraNearFadeDistance),
-                CameraFarFadeDistance = vgoMaterial.GetSafeFloat(Property.CameraFarFadeDistance, PropertyRange.CameraFarFadeDistance),
-
-                // Distortion
-                DistortionEnabled = vgoMaterial.GetIntOrDefault(Property.DistortionEnabled, 0) == 1,
-                DistortionBlend = vgoMaterial.GetSafeFloat(Property.DistortionBlend, PropertyRange.DistortionBlend),
-                DistortionStrengthScaled = vgoMaterial.GetSafeFloat(Property.DistortionStrengthScaled, PropertyRange.DistortionStrengthScaled),
-
-                BlendOp = vgoMaterial.GetEnumOrDefault<BlendOp>(Property.BlendOp, BlendOp.Add),
-                SrcBlend = vgoMaterial.GetEnumOrDefault<UnityEngine.Rendering.BlendMode>(Property.SrcBlend, UnityEngine.Rendering.BlendMode.One),
-                DstBlend = vgoMaterial.GetEnumOrDefault<UnityEngine.Rendering.BlendMode>(Property.DstBlend, UnityEngine.Rendering.BlendMode.Zero),
-                ZWrite = vgoMaterial.GetIntOrDefault(Property.ZWrite, 1) == 1,
-
-                GrabTexture = null,
-            };
-
-            particleDefinition.TwoSided = particleDefinition.Cull == UnityEngine.Rendering.CullMode.Off;
-
-            // Textures
-            particleDefinition.MainTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MainTex));
-            particleDefinition.MetallicGlossMap = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MetallicGlossMap));
-            particleDefinition.BumpMap = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BumpMap));
-            particleDefinition.EmissionMap = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.EmissionMap));
-            particleDefinition.GrabTexture = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.GrabTexture));
-
-            particleDefinition.MainTexScale = new Vector2(particleDefinition.MainTexSt.x, particleDefinition.MainTexSt.y);
-            particleDefinition.MainTexOffset = new Vector2(particleDefinition.MainTexSt.z, particleDefinition.MainTexSt.w);
-
-            return particleDefinition;
-        }
-
-        #endregion
-
-        #region Public Methods (Import)
-
-        /// <summary>
         /// Create a URP Particle material.
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A URP Particle shader.</param>
         /// <param name="allTexture2dList">List of all texture 2D.</param>
         /// <returns>A URP Particle material.</returns>
-        public virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, Shader shader, in List<Texture2D?> allTexture2dList)
+        protected virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, Shader shader, in List<Texture2D?> allTexture2dList)
         {
             var material = new Material(shader)
             {
@@ -272,9 +186,9 @@ namespace UniVgo2.Porters
                 material.renderQueue = vgoMaterial.renderQueue;
             }
 
-            ParticleDefinition brpParticleDefinition = CreateParticleDefinition(vgoMaterial, allTexture2dList);
+            ParticleDefinition brpParticleDefinition = vgoMaterial.ToBrpParticleDefinition(allTexture2dList);
 
-            UniUrpParticleShader.UrpParticleDefinition urpParticleDefinition = ConvertDefinitionBrpToUrp(brpParticleDefinition);
+            UniUrpParticleShader.UrpParticleDefinition urpParticleDefinition = brpParticleDefinition.ToUrpParticleDefinition();
 
             UniUrpParticleShader.Utils.SetParametersToMaterial(material, urpParticleDefinition);
 
@@ -285,113 +199,6 @@ namespace UniVgo2.Porters
             }
 
             return material;
-        }
-
-        #endregion
-
-        #region Protected Methods (Import)
-
-        /// <summary>
-        /// Convert BRP particle definition to URP particle definition.
-        /// </summary>
-        /// <param name="brpParticleDefinition">A BRP particle definition.</param>
-        /// <returns>A URP particle definition.</returns>
-        protected virtual UniUrpParticleShader.UrpParticleDefinition ConvertDefinitionBrpToUrp(in ParticleDefinition brpParticleDefinition)
-        {
-            var urpParticleDefinition = new UniUrpParticleShader.UrpParticleDefinition
-            {
-                Surface = default,
-                Blend = default,
-                ColorMode = (UniUrpParticleShader.ColorMode)brpParticleDefinition.ColorMode,
-                Cull = brpParticleDefinition.Cull,
-                AlphaClip = brpParticleDefinition.RenderMode == UniParticleShader.BlendMode.Cutout,
-                Cutoff = brpParticleDefinition.Cutoff,
-                ReceiveShadows = brpParticleDefinition.LightingEnabled,
-
-                // Base
-                BaseColor = brpParticleDefinition.Color,
-                BaseColorAddSubDiff = brpParticleDefinition.ColorAddSubDiff,
-                BaseMap = brpParticleDefinition.MainTex,
-                BaseMapScale = brpParticleDefinition.MainTexScale,
-                BaseMapOffset = brpParticleDefinition.MainTexOffset,
-
-                // Metallic Gloss Map
-                MetallicGlossMap = brpParticleDefinition.MetallicGlossMap,
-                Metallic = brpParticleDefinition.Metallic,
-                Smoothness = 1.0f - brpParticleDefinition.Glossiness,
-
-                // Normal Map
-                BumpScale = brpParticleDefinition.BumpScale,
-                BumpMap = brpParticleDefinition.BumpMap,
-
-                // Emission Map
-                //EmissionEnabled = brpParticleDefinition.EmissionEnabled,
-                EmissionColor = brpParticleDefinition.EmissionColor,
-                EmissionMap = brpParticleDefinition.EmissionMap,
-
-                FlipbookBlending = brpParticleDefinition.FlipBookMode == FlipBookMode.Blended,
-
-                // Soft Particles
-                SoftParticlesEnabled = brpParticleDefinition.SoftParticlesEnabled,
-                SoftParticleFadeParams = brpParticleDefinition.SoftParticleFadeParams,
-                SoftParticlesNearFadeDistance = brpParticleDefinition.SoftParticlesNearFadeDistance,
-                SoftParticlesFarFadeDistance = brpParticleDefinition.SoftParticlesFarFadeDistance,
-
-                // Camera Fading
-                CameraFadingEnabled = brpParticleDefinition.CameraFadingEnabled,
-                CameraFadeParams = brpParticleDefinition.CameraFadeParams,
-                CameraNearFadeDistance = brpParticleDefinition.CameraNearFadeDistance,
-                CameraFarFadeDistance = brpParticleDefinition.CameraFarFadeDistance,
-
-                // Distortion
-                DistortionEnabled = brpParticleDefinition.DistortionEnabled,
-                DistortionBlend = brpParticleDefinition.DistortionBlend,
-                DistortionStrength = UniUrpParticleShader.PropertyRange.DistortionStrength.defaultValue,
-                DistortionStrengthScaled = brpParticleDefinition.DistortionStrengthScaled,
-
-                BlendOp = brpParticleDefinition.BlendOp,
-                SrcBlend = brpParticleDefinition.SrcBlend,
-                DstBlend = brpParticleDefinition.DstBlend,
-                ZWrite = brpParticleDefinition.ZWrite,
-
-                //Mode = materialProxy.Mode,
-                //FlipBookMode = materialProxy.FlipBookMode,
-                //Color = materialProxy.Color,
-                //Glossiness = materialProxy.Glossiness,
-
-                //MainTex = materialProxy.MainTex,
-                //MainTexSt = materialProxy.MainTexSt,
-            };
-
-            urpParticleDefinition.Surface = brpParticleDefinition.RenderMode switch
-            {
-                UniParticleShader.BlendMode.Opaque => UniUrpParticleShader.SurfaceType.Opaque,
-                UniParticleShader.BlendMode.Cutout => UniUrpParticleShader.SurfaceType.Opaque,
-                UniParticleShader.BlendMode.Fade => UniUrpParticleShader.SurfaceType.Transparent,
-                UniParticleShader.BlendMode.Transparent => UniUrpParticleShader.SurfaceType.Transparent,
-                UniParticleShader.BlendMode.Additive => UniUrpParticleShader.SurfaceType.Transparent,
-                UniParticleShader.BlendMode.Subtractive => UniUrpParticleShader.SurfaceType.Transparent,
-                UniParticleShader.BlendMode.Modulate => UniUrpParticleShader.SurfaceType.Transparent,
-                _ => UniUrpParticleShader.SurfaceType.Opaque,
-            };
-
-            urpParticleDefinition.Blend = brpParticleDefinition.RenderMode switch
-            {
-                UniParticleShader.BlendMode.Opaque => UniUrpParticleShader.BlendMode.Alpha,   // @todo
-                UniParticleShader.BlendMode.Cutout => UniUrpParticleShader.BlendMode.Alpha,
-                UniParticleShader.BlendMode.Fade => UniUrpParticleShader.BlendMode.Additive,  // @notice
-                UniParticleShader.BlendMode.Transparent => UniUrpParticleShader.BlendMode.Premultiply,
-                UniParticleShader.BlendMode.Additive => UniUrpParticleShader.BlendMode.Additive,
-                UniParticleShader.BlendMode.Subtractive => UniUrpParticleShader.BlendMode.Additive, // @notice
-                UniParticleShader.BlendMode.Modulate => UniUrpParticleShader.BlendMode.Additive,    // @notice
-                _ => UniUrpParticleShader.BlendMode.Alpha,
-            };
-            
-            urpParticleDefinition.BlendModePreserveSpecular = false;  // @todo
-
-            urpParticleDefinition.AlphaToMask = false;  // @todo
-
-            return urpParticleDefinition;
         }
 
         #endregion

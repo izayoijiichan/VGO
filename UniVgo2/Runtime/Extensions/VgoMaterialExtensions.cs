@@ -53,7 +53,14 @@ namespace UniVgo2
 
             if (propertyValue == null)
             {
-                return default;
+                if (defaultValue.HasValue)
+                {
+                    return defaultValue.Value;
+                }
+                else
+                {
+                    return default;
+                }
             }
 
             if (Enum.TryParse(propertyValue.ToString(), out TEnum result))
@@ -478,6 +485,25 @@ namespace UniVgo2
             Vector2 scaleVector = ArrayConverter.ToVector2(scaleArray);
 
             return scaleVector;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="keyword"></param>
+        /// <param name="enabled"></param>
+        /// <returns></returns>
+        public static bool TryGetKeyword(this VgoMaterial self, in string keyword, out bool enabled)
+        {
+            if (self.keywordMap == null)
+            {
+                enabled = false;
+
+                return false;
+            }
+
+            return self.keywordMap.TryGetValue(keyword, out enabled);
         }
     }
 }

@@ -6,7 +6,6 @@
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
-    using System;
     using System.Collections.Generic;
     using UniSkyboxShader;
     using UnityEngine;
@@ -131,55 +130,35 @@ namespace UniVgo2.Porters
             switch (shader.name)
             {
                 case ShaderName.Skybox_6_Sided:
-                    UniSkyboxShader.Utils.SetParametersToMaterial(material, new Skybox6SidedDefinition()
                     {
-                        Tint = vgoMaterial.GetColorOrDefault(Property.Tint, Color.white).gamma,
-                        Exposure = vgoMaterial.GetSafeFloat(Property.Exposure, 0.0f, 8.0f, 1.0f),
-                        Rotation = vgoMaterial.GetSafeInt(Property.Rotation, 0, 360, 0),
-                        FrontTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.FrontTex)),
-                        BackTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BackTex)),
-                        LeftTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.LeftTex)),
-                        RightTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.RightTex)),
-                        UpTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.UpTex)),
-                        DownTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.DownTex)),
-                    });
+                        var skyboxParameter = vgoMaterial.ToSkybox6SidedDefinition(allTexture2dList);
+
+                        UniSkyboxShader.Utils.SetParametersToMaterial(material, skyboxParameter);
+                    }
                     break;
 
                 case ShaderName.Skybox_Cubemap:  // @todo Tex (Cubemap)
-                    UniSkyboxShader.Utils.SetParametersToMaterial(material, new SkyboxCubemapDefinition()
                     {
-                        Tint = vgoMaterial.GetColorOrDefault(Property.Tint, Color.white).gamma,
-                        Exposure = vgoMaterial.GetSafeFloat(Property.Exposure, 0.0f, 8.0f, 1.0f),
-                        Rotation = vgoMaterial.GetSafeInt(Property.Rotation, 0, 360, 0),
-                        //Tex = AllTextureCubeMapList.GetValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.Tex)),
-                    });
+                        var skyboxParameter = vgoMaterial.ToSkyboxCubemapDefinition();
+
+                        UniSkyboxShader.Utils.SetParametersToMaterial(material, skyboxParameter);
+                    }
                     break;
 
                 case ShaderName.Skybox_Panoramic:
-                    UniSkyboxShader.Utils.SetParametersToMaterial(material, new SkyboxPanoramicDefinition()
                     {
-                        Tint = vgoMaterial.GetColorOrDefault(Property.Tint, Color.white).gamma,
-                        Exposure = vgoMaterial.GetSafeFloat(Property.Exposure, 0.0f, 8.0f, 1.0f),
-                        Rotation = vgoMaterial.GetSafeInt(Property.Rotation, 0, 360, 0),
-                        MainTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MainTex)),
-                        Mapping = (Mapping)vgoMaterial.GetIntOrDefault(Property.Mapping),
-                        ImageType = (ImageType)vgoMaterial.GetIntOrDefault(Property.ImageType),
-                        MirrorOnBack = vgoMaterial.GetIntOrDefault(Property.MirrorOnBack) == 1,
-                        Layout = (Layout)vgoMaterial.GetIntOrDefault(Property.Layout),
-                    });
+                        var skyboxParameter = vgoMaterial.ToSkyboxPanoramicDefinition(allTexture2dList);
+
+                        UniSkyboxShader.Utils.SetParametersToMaterial(material, skyboxParameter);
+                    }
                     break;
 
                 case ShaderName.Skybox_Procedural:
-                    UniSkyboxShader.Utils.SetParametersToMaterial(material, new SkyboxProceduralDefinition()
                     {
-                        SunDisk = (SunDisk)vgoMaterial.GetIntOrDefault(Property.SunDisk),
-                        SunSize = vgoMaterial.GetSafeFloat(Property.SunSize, 0.0f, 1.0f, 0.04f),
-                        SunSizeConvergence = vgoMaterial.GetSafeInt(Property.SunSizeConvergence, 1, 10, 5),
-                        AtmosphereThickness = vgoMaterial.GetSafeFloat(Property.AtmosphereThickness, 0.0f, 5.0f, 1.0f),
-                        SkyTint = vgoMaterial.GetColorOrDefault(Property.SkyTint, Color.white).gamma,
-                        GroundColor = vgoMaterial.GetColorOrDefault(Property.GroundColor, Color.white).gamma,
-                        Exposure = vgoMaterial.GetSafeFloat(Property.Exposure, 0.0f, 8.0f, 1.3f),
-                    });
+                        var skyboxParameter = vgoMaterial.ToSkyboxProceduralDefinition();
+
+                        UniSkyboxShader.Utils.SetParametersToMaterial(material, skyboxParameter);
+                    }
                     break;
 
                 default:
