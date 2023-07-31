@@ -6,14 +6,43 @@
 namespace UniVgo2.Converters
 {
     using NewtonVgo;
-    using System;
     using UnityEngine;
 
     /// <summary>
     /// Normal Map Converter
     /// </summary>
-    public class NormalMapConverter : TextureConverter
+    public class NormalMapConverter : TextureConverterBase
     {
+        #region Fields
+
+        /// <summary>Normal Map Encoder</summary>
+        private Shader? _Encoder;
+
+        /// <summary>Normal Map Decoder</summary>
+        private Shader? _Decoder;
+
+        /// <summary>Normal Map Exporter</summary>
+        /// <remarks>VRMShader 0.84.0 or higher</remarks>
+        private Shader? _Exporter;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>Normal Map Encoder</summary>
+        private Shader? Encoder => _Encoder ??= Shader.Find("UniGLTF/NormalMapEncoder");
+
+        /// <summary>Normal Map Decoder</summary>
+        private Shader? Decoder => _Decoder ??= Shader.Find("UniGLTF/NormalMapDecoder");
+
+        /// <summary>Normal Map Exporter</summary>
+        /// <remarks>VRMShader 0.84.0 or higher</remarks>
+        private Shader? Exporter => _Exporter ??= Shader.Find("Hidden/UniGLTF/NormalMapExporter");
+
+        #endregion
+
+        #region Public Methods
+
         /// <summary>
         /// Get import texture.
         /// </summary>
@@ -21,14 +50,12 @@ namespace UniVgo2.Converters
         /// <returns></returns>
         public Texture2D GetImportTexture(in Texture2D source)
         {
-            Shader? encoder = Shader.Find("UniGLTF/NormalMapEncoder");
-
-            if (encoder == null)
+            if (Encoder == null)
             {
                 ThrowHelper.ThrowFileNotFoundException("UniGLTF/NormalMapEncoder.shader");
             }
 
-            Material converter = new Material(encoder);
+            var converter = new Material(Encoder);
 
             Texture2D copyTexture = CopyTexture2d(source, VgoColorSpaceType.Linear, converter);
 
@@ -51,14 +78,19 @@ namespace UniVgo2.Converters
         /// <returns></returns>
         public Texture2D GetExportTexture(in Texture2D source)
         {
-            Shader? decoder = Shader.Find("UniGLTF/NormalMapDecoder");
+            Shader? exporter = Exporter;
 
-            if (decoder == null)
+            if (exporter == null)
             {
-                ThrowHelper.ThrowFileNotFoundException("UniGLTF/NormalMapDecoder.shader");
+                if (Decoder == null)
+                {
+                    ThrowHelper.ThrowFileNotFoundException("UniGLTF/NormalMapDecoder.shader");
+                }
+
+                exporter = Decoder;
             }
 
-            Material converter = new Material(decoder);
+            var converter = new Material(exporter);
 
             Texture2D copyTexture = CopyTexture2d(source, VgoColorSpaceType.Linear, converter);
 
@@ -73,5 +105,7 @@ namespace UniVgo2.Converters
 
             return copyTexture;
         }
+
+        #endregion
     }
 }

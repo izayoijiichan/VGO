@@ -361,6 +361,10 @@ namespace UniVgo2
         /// <summary>VRM10/MToon10</summary>
         public const string VRM_MToon10 = "VRM10/MToon10";
 
+        /// <summary>VRM10/Universal Render Pipeline/MToon10</summary>
+        public const string VRM_URP_MToon10 = "VRM10/Universal Render Pipeline/MToon10";
+       
+
         #endregion
     }
 }

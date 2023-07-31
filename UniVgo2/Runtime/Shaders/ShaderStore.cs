@@ -905,6 +905,14 @@ namespace UniVgo2
             => _VrmMtoon10
             ??= Shader.Find(ShaderName.VRM_MToon10);
 
+        /// <summary>VRM10/Universal Render Pipeline/MToon10</summary>
+        protected Shader? _VrmUrpMtoon10;
+
+        /// <summary>VRM10/Universal Render Pipeline/MToon10</summary>
+        protected Shader VrmUrpMtoon10
+            => _VrmUrpMtoon10
+            ??= Shader.Find(ShaderName.VRM_URP_MToon10);
+
         #endregion
 
         #region Methods
@@ -1193,6 +1201,9 @@ namespace UniVgo2
                 case ShaderName.VRM_MToon10:
                     return VrmMtoon10;
 
+                case ShaderName.VRM_URP_MToon10:
+                    return VrmUrpMtoon10;
+
                 default:
                     return default;
             }
@@ -1315,7 +1326,8 @@ namespace UniVgo2
                             shader = UrpParticlesUnlit;
                             break;
                         case ShaderName.VRM_MToon:
-                            shader = VrmMtoon10;
+                        case ShaderName.VRM_MToon10:
+                            shader = VrmUrpMtoon10;
                             break;
                         default:
                             break;

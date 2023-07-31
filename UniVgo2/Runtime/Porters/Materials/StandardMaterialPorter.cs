@@ -98,12 +98,13 @@ namespace UniVgo2.Porters
             //ExportKeyword(vgoMaterial, material, Keyword.AlphaTestOn);
             //ExportKeyword(vgoMaterial, material, Keyword.AlphaBlendOn);
             //ExportKeyword(vgoMaterial, material, Keyword.AlphaPreMultiplyOn);
-            ExportKeyword(vgoMaterial, material, Keyword.NormalMap);
-            ExportKeyword(vgoMaterial, material, Keyword.ParallaxMap);
-            ExportKeyword(vgoMaterial, material, Keyword.Emission);
-            ExportKeyword(vgoMaterial, material, Keyword.DetailMulx2);
-            ExportKeyword(vgoMaterial, material, Keyword.MetallicGlossMap);
+            //ExportKeyword(vgoMaterial, material, Keyword.NormalMap);
+            //ExportKeyword(vgoMaterial, material, Keyword.ParallaxMap);
+            //ExportKeyword(vgoMaterial, material, Keyword.Emission);
+            //ExportKeyword(vgoMaterial, material, Keyword.DetailMulx2);
+            //ExportKeyword(vgoMaterial, material, Keyword.MetallicGlossMap);
             //ExportKeyword(vgoMaterial, material, Keyword.SpecGlossMap);
+            ExportKeywords(vgoMaterial, material);
 
             return vgoMaterial;
         }

@@ -13,7 +13,7 @@ namespace UniVgo2
     /// <summary>
     /// Vgo Material MToon 0x Definition Extensions
     /// </summary>
-    public static class VgoMaterialMToon0XDefinitionExtensions
+    public static class VgoMaterialMToon0xDefinitionExtensions
     {
         /// <summary>
         /// Convert vgo material to MToon 0x definition.
@@ -40,8 +40,8 @@ namespace UniVgo2
             // Rendering
             mtoonDefinition.Rendering = new RenderingDefinition
             {
-                RenderMode = (MToon.RenderMode)vgoMaterial.GetIntOrDefault(MToon.Utils.PropBlendMode),
-                CullMode = (MToon.CullMode)vgoMaterial.GetIntOrDefault(MToon.Utils.PropCullMode),
+                RenderMode = vgoMaterial.GetEnumOrDefault<MToon.RenderMode>(MToon.Utils.PropBlendMode, MToon.RenderMode.Opaque),
+                CullMode = vgoMaterial.GetEnumOrDefault<MToon.CullMode>(MToon.Utils.PropCullMode, MToon.CullMode.Back),
                 //RenderQueueOffsetNumber = vrmcMtoon.renderQueueOffsetNumber,
             };
 
@@ -109,11 +109,11 @@ namespace UniVgo2
             // Outline
             mtoonDefinition.Outline = new OutlineDefinition()
             {
-                OutlineWidthMode = (MToon.OutlineWidthMode)vgoMaterial.GetIntOrDefault(MToon.Utils.PropOutlineWidthMode),
+                OutlineWidthMode = vgoMaterial.GetEnumOrDefault<MToon.OutlineWidthMode>(MToon.Utils.PropOutlineWidthMode, MToon.OutlineWidthMode.None),
                 OutlineWidthValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropOutlineWidth, 0.0f, 1.0f, 0.5f),
                 OutlineWidthMultiplyTexture = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(MToon.Utils.PropOutlineWidthTexture)),
                 OutlineScaledMaxDistanceValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropOutlineScaledMaxDistance, 1.0f, 10.0f, 1.0f),
-                OutlineColorMode = (MToon.OutlineColorMode)vgoMaterial.GetIntOrDefault(MToon.Utils.PropOutlineColorMode),
+                OutlineColorMode = vgoMaterial.GetEnumOrDefault<MToon.OutlineColorMode>(MToon.Utils.PropOutlineColorMode, MToon.OutlineColorMode.FixedColor),
                 OutlineColor = vgoMaterial.GetColorOrDefault(MToon.Utils.PropOutlineColor, Color.black).gamma,
                 OutlineLightingMixValue = vgoMaterial.GetSafeFloat(MToon.Utils.PropOutlineLightingMix, 0.0f, 1.0f, 1.0f),
             };

@@ -98,6 +98,12 @@ namespace UniVgo2.Porters
             ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.DetailAlbedoMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
             ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.DetailNormalMap, VgoTextureMapType.NormalMap, VgoColorSpaceType.Linear);
 
+            // Tags
+            ExportTag(vgoMaterial, material, Tag.RenderType);
+            ExportTag(vgoMaterial, material, Tag.RenderPipeline);
+            ExportTag(vgoMaterial, material, Tag.UniversalMaterialType);
+            ExportTag(vgoMaterial, material, Tag.IgnoreProjector);
+
             ExportKeywords(vgoMaterial, material);
 
             return vgoMaterial;
@@ -144,6 +150,12 @@ namespace UniVgo2.Porters
 
             ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.SpecGlossMap, VgoTextureMapType.SpecularGlossinessMap, VgoColorSpaceType.Linear, smoothness);
 
+            // Tags
+            ExportTag(vgoMaterial, material, Tag.RenderType);
+            ExportTag(vgoMaterial, material, Tag.RenderPipeline);
+            ExportTag(vgoMaterial, material, Tag.UniversalMaterialType);
+            ExportTag(vgoMaterial, material, Tag.IgnoreProjector);
+
             ExportKeywords(vgoMaterial, material);
 
             return vgoMaterial;
@@ -157,7 +169,7 @@ namespace UniVgo2.Porters
         /// <returns>A vgo material.</returns>
         protected VgoMaterial CreateVgoMaterialFromUrpUnlit(in Material material, in IVgoStorage vgoStorage)
         {
-           // UrpUnlitDefinition definition = UniUrpShader.Utils.GetParametersFromMaterial<UrpUnlitDefinition>(material);
+            //UrpUnlitDefinition definition = UniUrpShader.Utils.GetParametersFromMaterial<UrpUnlitDefinition>(material);
 
             var vgoMaterial = new VgoMaterial()
             {
@@ -170,6 +182,11 @@ namespace UniVgo2.Porters
             ExportProperties(vgoMaterial, material);
 
             ExportTextureProperty(vgoStorage, vgoMaterial, material, Property.BaseMap, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+
+            // Tags
+            ExportTag(vgoMaterial, material, Tag.RenderType);
+            ExportTag(vgoMaterial, material, Tag.RenderPipeline);
+            ExportTag(vgoMaterial, material, Tag.IgnoreProjector);
 
             ExportKeywords(vgoMaterial, material);
 

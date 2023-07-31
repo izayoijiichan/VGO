@@ -37,7 +37,7 @@ namespace UniVgo2.Porters
         {
             //MToonDefinition definition = MToon.Utils.GetMToonParametersFromMaterial(material);
 
-            VgoMaterial vgoMaterial = new VgoMaterial()
+            var vgoMaterial = new VgoMaterial()
             {
                 name = material.name,
                 shaderName = material.shader.name,
@@ -107,6 +107,12 @@ namespace UniVgo2.Porters
             ExportProperty(vgoMaterial, material, MToon.Utils.PropUvAnimScrollY, VgoMaterialPropertyType.Float);
             ExportProperty(vgoMaterial, material, MToon.Utils.PropUvAnimRotation, VgoMaterialPropertyType.Float);
 
+            // Tags
+            ExportTag(vgoMaterial, material, MToon.Utils.TagRenderTypeKey);
+
+            // Keywords
+            ExportKeywords(vgoMaterial, material);
+
             return vgoMaterial;
         }
 
@@ -128,7 +134,7 @@ namespace UniVgo2.Porters
                 ThrowHelper.ThrowArgumentException($"vgoMaterial.shaderName: {vgoMaterial.shaderName}");
             }
 
-            if (shader.name == ShaderName.VRM_MToon10)
+            if ((shader.name == ShaderName.VRM_MToon10) || (shader.name == ShaderName.VRM_URP_MToon10))
             {
                 return CreateMaterialAssetAsMtoon10(vgoMaterial, shader, allTexture2dList);
             }
@@ -180,6 +186,9 @@ namespace UniVgo2.Porters
 
             MToon10Definition mtoon10 = mtoon0x.ToMToon10Definition(destructiveMigration: true);
 
+            mtoon10.BaseColorTextureScale = vgoMaterial.GetTextureScaleOrDefault(MToon.Utils.PropMainTex, Vector2.one);
+            mtoon10.BaseColorTextureOffset = vgoMaterial.GetTextureOffsetOrDefault(MToon.Utils.PropMainTex, Vector2.zero);
+
             mtoon10.UnitySrcBlend = vgoMaterial.GetEnumOrDefault<UnityEngine.Rendering.BlendMode>(MToon.Utils.PropSrcBlend, UnityEngine.Rendering.BlendMode.One);
             mtoon10.UnityDstBlend = vgoMaterial.GetEnumOrDefault<UnityEngine.Rendering.BlendMode>(MToon.Utils.PropDstBlend, UnityEngine.Rendering.BlendMode.Zero);
             mtoon10.UnityZWrite = vgoMaterial.GetIntOrDefault(MToon.Utils.PropZWrite, (int)UnityZWriteMode.On) == 1;
@@ -190,9 +199,7 @@ namespace UniVgo2.Porters
                 SetSafeValue(material, MToon10Prop.AlphaMode, (int)mtoon10.AlphaMode);
                 SetSafeValue(material, MToon10Prop.TransparentWithZWrite, (int)mtoon10.TransparentWithZWrite);
                 SetSafeValue(material, MToon10Prop.AlphaCutoff, mtoon10.AlphaCutoff);
-
-                //SetSafeValue(material, MToon10Prop.RenderQueueOffsetNumber, mtoon10.RenderQueueOffsetNumber);
-
+                SetSafeValue(material, MToon10Prop.RenderQueueOffsetNumber, mtoon10.RenderQueueOffsetNumber);
                 SetSafeValue(material, MToon10Prop.DoubleSided, (int)mtoon10.DoubleSided);
             }
 
@@ -203,26 +210,15 @@ namespace UniVgo2.Porters
                 SetSafeValue(material, MToon10Prop.UnityDstBlend, (int)mtoon10.UnityDstBlend);
                 SetSafeValue(material, MToon10Prop.UnityZWrite, mtoon10.UnityZWrite ? 1 : 0);
                 SetSafeValue(material, MToon10Prop.UnityAlphaToMask, mtoon10.UnityAlphaToMask ? 1 : 0);
-
-                SetUnityShaderPassSettingsAsMtoon10(material, mtoon10.AlphaMode, mtoon10.TransparentWithZWrite, mtoon10.RenderQueueOffsetNumber);
-            }
-
-            // Keywords
-            {
-                material.SetKeyword(MToon10NormalMapKeyword.On, mtoon10.NormalTexture != null);
-
-                material.SetKeyword(MToon10EmissiveMapKeyword.On, mtoon10.EmissiveTexture != null);
-
-                material.SetKeyword(MToon10RimMapKeyword.On, (mtoon10.RimMultiplyTexture != null) || (mtoon10.MatcapTexture != null));
-
-                material.SetKeyword(MToon10ParameterMapKeyword.On, (mtoon10.OutlineWidthMultiplyTexture != null) || (mtoon10.UvAnimationMaskTexture != null));
             }
 
             // Color
             {
                 // Base (Main)
                 SetColor(material, MToon10Prop.BaseColorFactor, mtoon10.BaseColorFactor);
-                SetTexture(material, MToon10Prop.BaseColorTexture, mtoon10.BaseColorTexture, vgoMaterial, MToon.Utils.PropMainTex);
+                SetTexture(material, MToon10Prop.BaseColorTexture, mtoon10.BaseColorTexture);
+                SetTextureScale(material, MToon10Prop.BaseColorTexture, mtoon10.BaseColorTextureScale);
+                SetTextureOffset(material, MToon10Prop.BaseColorTexture, mtoon10.BaseColorTextureOffset);
 
                 // Shade
                 SetColor(material, MToon10Prop.ShadeColorFactor, mtoon10.ShadeColorFactor);
@@ -272,23 +268,6 @@ namespace UniVgo2.Porters
 
             // Outline
             {
-                switch (mtoon10.OutlineWidthMode)
-                {
-                    case MToon10OutlineMode.World:
-                        material.SetKeyword(MToon10OutlineModeKeyword.World, true);
-                        material.SetKeyword(MToon10OutlineModeKeyword.Screen, false);
-                        break;
-                    case MToon10OutlineMode.Screen:
-                        material.SetKeyword(MToon10OutlineModeKeyword.World, false);
-                        material.SetKeyword(MToon10OutlineModeKeyword.Screen, true);
-                        break;
-                    case MToon10OutlineMode.None:
-                    default:
-                        material.SetKeyword(MToon10OutlineModeKeyword.World, false);
-                        material.SetKeyword(MToon10OutlineModeKeyword.Screen, false);
-                        break;
-                }
-
                 SetSafeValue(material, MToon10Prop.OutlineWidthMode, (int)mtoon10.OutlineWidthMode);
                 SetSafeValue(material, MToon10Prop.OutlineWidthFactor, mtoon10.OutlineWidthFactor);
                 SetTexture(material, MToon10Prop.OutlineWidthMultiplyTexture, mtoon10.OutlineWidthMultiplyTexture, vgoMaterial, MToon.Utils.PropOutlineWidthTexture);
@@ -309,6 +288,10 @@ namespace UniVgo2.Porters
                 SetSafeValue(material, MToon10Prop.EditorEditMode, mtoon10.EditorEditMode);
             }
 
+            var mtoonValidator = new MToonValidator(material);
+
+            mtoonValidator.Validate();
+
             return material;
         }
 
@@ -317,95 +300,10 @@ namespace UniVgo2.Porters
         #region Protected Methods (Import)
 
         /// <summary>
-        /// Sets unity shader pass settings.
-        /// </summary>
-        /// <param name="material">A MToon material.</param>
-        /// <param name="alphaMode">An alpha mode.</param>
-        /// <param name="zWriteMode">A z-write mode.</param>
-        /// <param name="renderQueueOffsetNumber">A render queue offset number.</param>
-        protected virtual void SetUnityShaderPassSettingsAsMtoon10(
-            Material material,
-            in MToon10AlphaMode alphaMode,
-            in MToon10TransparentWithZWriteMode zWriteMode,
-            in int renderQueueOffsetNumber)
-        {
-            int renderQueueOffset = 0;
-
-            switch (alphaMode)
-            {
-                case MToon10AlphaMode.Opaque:
-                    material.SetOverrideTag(UnityRenderTag.Key, UnityRenderTag.OpaqueValue);
-
-                    material.SetInt(MToon10Prop.UnitySrcBlend, (int)UnityEngine.Rendering.BlendMode.One);
-                    material.SetInt(MToon10Prop.UnityDstBlend, (int)UnityEngine.Rendering.BlendMode.Zero);
-                    material.SetInt(MToon10Prop.UnityZWrite, (int)UnityZWriteMode.On);
-                    material.SetInt(MToon10Prop.UnityAlphaToMask, (int)UnityAlphaToMaskMode.Off);
-
-                    material.SetKeyword(UnityAlphaModeKeyword.AlphaTest, false);
-                    material.SetKeyword(UnityAlphaModeKeyword.AlphaBlend, false);
-                    material.SetKeyword(UnityAlphaModeKeyword.AlphaPremultiply, false);
-
-                    renderQueueOffset = 0;
-
-                    material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
-                    break;
-                case MToon10AlphaMode.Cutout:
-                    material.SetOverrideTag(UnityRenderTag.Key, UnityRenderTag.TransparentCutoutValue);
-
-                    material.SetInt(MToon10Prop.UnitySrcBlend, (int)UnityEngine.Rendering.BlendMode.One);
-                    material.SetInt(MToon10Prop.UnityDstBlend, (int)UnityEngine.Rendering.BlendMode.Zero);
-                    material.SetInt(MToon10Prop.UnityZWrite, (int)UnityZWriteMode.On);
-                    material.SetInt(MToon10Prop.UnityAlphaToMask, (int)UnityAlphaToMaskMode.On);
-
-                    material.SetKeyword(UnityAlphaModeKeyword.AlphaTest, true);
-                    material.SetKeyword(UnityAlphaModeKeyword.AlphaBlend, false);
-                    material.SetKeyword(UnityAlphaModeKeyword.AlphaPremultiply, false);
-
-                    renderQueueOffset = 0;
-
-                    material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
-                    break;
-                case MToon10AlphaMode.Transparent:
-                    material.SetOverrideTag(UnityRenderTag.Key, UnityRenderTag.TransparentValue);
-
-                    material.SetInt(MToon10Prop.UnitySrcBlend, (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-                    material.SetInt(MToon10Prop.UnityDstBlend, (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-                    material.SetInt(MToon10Prop.UnityAlphaToMask, (int)UnityAlphaToMaskMode.Off);
-
-                    material.SetKeyword(UnityAlphaModeKeyword.AlphaTest, false);
-                    material.SetKeyword(UnityAlphaModeKeyword.AlphaBlend, true);
-                    material.SetKeyword(UnityAlphaModeKeyword.AlphaPremultiply, false);
-
-                    if (zWriteMode == MToon10TransparentWithZWriteMode.On)
-                    {
-                        material.SetInt(MToon10Prop.UnityZWrite, (int)UnityZWriteMode.On);
-
-                        renderQueueOffset = Mathf.Clamp(renderQueueOffsetNumber, 0, +9);
-
-                        material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.GeometryLast + 1 + renderQueueOffset; // Transparent First + N
-                    }
-                    else
-                    {
-                        material.SetInt(MToon10Prop.UnityZWrite, (int)UnityZWriteMode.Off);
-
-                        renderQueueOffset = Mathf.Clamp(renderQueueOffsetNumber, -9, 0);
-
-                        material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent + renderQueueOffset;
-                    }
-                    break;
-                default:
-                    //ThrowHelper.ThrowArgumentOutOfRangeException(nameof(alphaMode), alphaMode);
-                    break;
-            }
-
-            material.SetInt(MToon10Prop.RenderQueueOffsetNumber, renderQueueOffset);
-        }
-
-        /// <summary>
         /// 
         /// </summary>
-        /// <param name="material"></param>
-        /// <param name="property"></param>
+        /// <param name="material">A material.</param>
+        /// <param name="property">A material property.</param>
         /// <param name="value"></param>
         protected virtual void SetSafeValue(Material material, in MToon10Prop property, int value)
         {
@@ -430,8 +328,8 @@ namespace UniVgo2.Porters
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="material"></param>
-        /// <param name="property"></param>
+        /// <param name="material">A material.</param>
+        /// <param name="property">A material property.</param>
         /// <param name="color"></param>
         protected virtual void SetColor(Material material, in MToon10Prop property, Color color)
         {
@@ -443,10 +341,10 @@ namespace UniVgo2.Porters
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="material"></param>
-        /// <param name="property"></param>
+        /// <param name="material">A material.</param>
+        /// <param name="property">A material property.</param>
         /// <param name="texture"></param>
-        /// <param name="vgoMaterial"></param>
+        /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="mtoon0xPropertyName"></param>
         protected virtual void SetTexture(Material material, in MToon10Prop property, Texture2D? texture, in VgoMaterial vgoMaterial, in string mtoon0xPropertyName)
         {
@@ -478,6 +376,60 @@ namespace UniVgo2.Porters
                     material.SetTextureScale(propertyName, textureScale.Value);
                 }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="material">A material.</param>
+        /// <param name="property">A material property.</param>
+        /// <param name="texture"></param>
+        protected virtual void SetTexture(Material material, in MToon10Prop property, Texture2D? texture)
+        {
+            string propertyName = property.ToUnityShaderLabName();
+
+            if (material.HasProperty(propertyName) == false)
+            {
+                return;
+            }
+
+            material.SetTexture(propertyName, texture);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="material">A material.</param>
+        /// <param name="property">A material property.</param>
+        /// <param name="textureScale"></param>
+        protected virtual void SetTextureScale(Material material, in MToon10Prop property, Vector2 textureScale)
+        {
+            string propertyName = property.ToUnityShaderLabName();
+
+            if (material.HasProperty(propertyName) == false)
+            {
+                return;
+            }
+
+            material.SetTextureScale(propertyName, textureScale);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="material">A material.</param>
+        /// <param name="property">A material property.</param>
+        /// <param name="textureOffset"></param>
+        protected virtual void SetTextureOffset(Material material, in MToon10Prop property, Vector2 textureOffset)
+        {
+            string propertyName = property.ToUnityShaderLabName();
+
+            if (material.HasProperty(propertyName) == false)
+            {
+                return;
+            }
+
+            material.SetTextureOffset(propertyName, textureOffset);
         }
 
         #endregion

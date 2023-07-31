@@ -91,6 +91,13 @@ namespace UniVgo2.Porters
         protected UrpParticleMaterialPorter UrpParticleMaterialPorter
             => _UrpParticleMaterialPorter ??= new UrpParticleMaterialPorter();
 
+        /// <summary>URP MToon 1.0 Material Porter</summary>
+        protected UrpMtoon10MaterialPorter? _UrpMtoon10MaterialPorter;
+
+        /// <summary>URP MToon 1.0 Material Porter</summary>
+        protected UrpMtoon10MaterialPorter UrpMtoon10MaterialPorter
+            => _UrpMtoon10MaterialPorter ??= new UrpMtoon10MaterialPorter();
+
         #endregion
 
         #region Public Methods (VgoMaterial)
@@ -301,6 +308,9 @@ namespace UniVgo2.Porters
                 case ShaderName.VRM_MToon10:
                     return Mtoon10MaterialPorter;
 
+                case ShaderName.VRM_URP_MToon10:
+                    return UrpMtoon10MaterialPorter;
+
                 default:
                     return default;
             }
@@ -390,6 +400,9 @@ namespace UniVgo2.Porters
                             break;
                         case ShaderName.VRM_MToon:
                             porter = MtoonMaterialPorter;
+                            break;
+                        case ShaderName.VRM_MToon10:
+                            porter = Mtoon10MaterialPorter;
                             break;
                         default:
                             break;

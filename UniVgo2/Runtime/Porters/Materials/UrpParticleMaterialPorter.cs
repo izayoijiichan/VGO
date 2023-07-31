@@ -100,14 +100,15 @@ namespace UniVgo2.Porters
             ExportTag(vgoMaterial, material, Tag.RenderType);
 
             // Keywords
-            ExportKeyword(vgoMaterial, material, Keyword.AlphaTestOn);
-            ExportKeyword(vgoMaterial, material, Keyword.AlphaBlendOn);
-            ExportKeyword(vgoMaterial, material, Keyword.AlphaPremultiplyOn);
-            ExportKeyword(vgoMaterial, material, Keyword.AlphaOverlayOn);
-            ExportKeyword(vgoMaterial, material, Keyword.AlphaModulateOn);
-            ExportKeyword(vgoMaterial, material, Keyword.ColorOverlayOn);
-            ExportKeyword(vgoMaterial, material, Keyword.ColorColorOn);
-            ExportKeyword(vgoMaterial, material, Keyword.ColorAddSubDiffOn);
+            //ExportKeyword(vgoMaterial, material, Keyword.AlphaTestOn);
+            //ExportKeyword(vgoMaterial, material, Keyword.AlphaBlendOn);
+            //ExportKeyword(vgoMaterial, material, Keyword.AlphaPremultiplyOn);
+            //ExportKeyword(vgoMaterial, material, Keyword.AlphaOverlayOn);
+            //ExportKeyword(vgoMaterial, material, Keyword.AlphaModulateOn);
+            //ExportKeyword(vgoMaterial, material, Keyword.ColorOverlayOn);
+            //ExportKeyword(vgoMaterial, material, Keyword.ColorColorOn);
+            //ExportKeyword(vgoMaterial, material, Keyword.ColorAddSubDiffOn);
+            ExportKeywords(vgoMaterial, material);
 
             return vgoMaterial;
         }

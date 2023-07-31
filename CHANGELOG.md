@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.5.13] - 2023-08-01
+
+- Improvements
+  - Improved import and export handling of some materials.
+- Changes
+  - The conversion processes of Occulusion map and Metallic Roughness map were integrated as the conversion process of ORM map.
+
 ## [2.5.12] - 2023-07-28
 
 - Features
