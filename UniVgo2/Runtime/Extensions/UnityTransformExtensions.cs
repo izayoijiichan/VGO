@@ -15,6 +15,19 @@ namespace UniVgo2
     public static class UnityTransformExtensions
     {
         /// <summary>
+        /// Get the children.
+        /// </summary>
+        /// <param name="self"></param>
+        /// <returns></returns>
+        public static IEnumerable<Transform> GetChildren(this Transform self)
+        {
+            foreach (Transform child in self)
+            {
+                yield return child;
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="t"></param>

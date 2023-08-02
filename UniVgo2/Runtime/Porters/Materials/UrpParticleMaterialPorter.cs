@@ -39,6 +39,7 @@ namespace UniVgo2.Porters
             {
                 name = material.name,
                 shaderName = material.shader.name,
+                renderQueue = material.renderQueue,
                 isUnlit = material.shader.name == ShaderName.URP_Particles_Unlit,
             };
 

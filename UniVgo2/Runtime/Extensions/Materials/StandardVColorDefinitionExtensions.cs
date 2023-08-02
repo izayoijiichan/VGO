@@ -77,7 +77,7 @@ namespace UniVgo2
                 Smoothness = 1.0f - standardVColorDefinition.Glossiness,
                 SmoothnessTextureChannel = UniUrpShader.SmoothnessTextureChannel.MetallicAlpha,
 
-                // Supecular Gloss Map
+                // Specular Gloss Map
                 SpecColor = new Color(0.2f, 0.2f, 0.2f),
                 SpecGlossMap = null,
                 SpecularHighlights = false,

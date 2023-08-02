@@ -56,7 +56,7 @@ namespace NewtonVgo
 
         #endregion
 
-        #region Propetties
+        #region Properties
 
         /// <summary>Black</summary>
         public static Color3 Black => new Color3(0.0f, 0.0f, 0.0f);

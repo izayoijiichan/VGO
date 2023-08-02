@@ -605,12 +605,12 @@ namespace NewtonVgo
         #region Protected Methods (Import) Resource chunk
 
         /// <summary>
-        /// Extract resouce bytes from resouce chunk.
+        /// Extract resource bytes from resource chunk.
         /// </summary>
         /// <param name="composerChunkData">The composer chunk data.</param>
         /// <param name="chunkIndexMap">The chunk index map.</param>
         /// <param name="allSegmentBytes">The all segment bytes.</param>
-        /// <returns>The resouce bytes.</returns>
+        /// <returns>The resource bytes.</returns>
         protected virtual ArraySegment<byte> ExtractResource(in VgoComposerChunkData composerChunkData, in VgoIndexChunkDataElement[] chunkIndexMap, in ArraySegment<byte> allSegmentBytes)
         {
             VgoChunkTypeID resourceChunkTypeId = composerChunkData.ResourceChunkTypeId;

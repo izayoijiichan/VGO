@@ -101,6 +101,14 @@ namespace UniVgo2.Porters
                     return vgoMaterial;
             }
 
+            // Tags
+            //ExportTag(vgoMaterial, material, Tag.Queue);
+            //ExportTag(vgoMaterial, material, Tag.RenderType);
+            //ExportTag(vgoMaterial, material, Tag.PreviewType);
+
+            // Keywords
+            ExportKeywords(vgoMaterial, material);
+
             return vgoMaterial;
         }
 
@@ -126,6 +134,8 @@ namespace UniVgo2.Porters
             {
                 material.renderQueue = vgoMaterial.renderQueue;
             }
+
+            ImportKeywords(material, vgoMaterial);
 
             switch (shader.name)
             {

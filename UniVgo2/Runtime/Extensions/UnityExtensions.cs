@@ -142,7 +142,7 @@ namespace UniVgo2
         public static Matrix4x4 ReverseZ(this in Matrix4x4 m)
         {
             m.SetTRS(
-                m.ExtractTransration().ReverseZ(),
+                m.ExtractTranslation().ReverseZ(),
                 m.ExtractRotation().ReverseZ(),
                 m.ExtractScale());
 
@@ -150,19 +150,19 @@ namespace UniVgo2
         }
 
         /// <summary>
-        /// Extract the transration from the matrix.
+        /// Extract the translation from the matrix.
         /// </summary>
         /// <param name="matrix"></param>
-        /// <returns>transration</returns>
-        public static Vector3 ExtractTransration(this in Matrix4x4 matrix)
+        /// <returns>translation</returns>
+        public static Vector3 ExtractTranslation(this in Matrix4x4 matrix)
         {
-            Vector3 transration;
+            Vector3 translation;
 
-            transration.x = matrix.m03;
-            transration.y = matrix.m13;
-            transration.z = matrix.m23;
+            translation.x = matrix.m03;
+            translation.y = matrix.m13;
+            translation.z = matrix.m23;
 
-            return transration;
+            return translation;
         }
 
         /// <summary>

@@ -12,7 +12,7 @@ namespace UniVgo2.Converters
     using UnityEngine;
 
     /// <summary>
-    /// VGO Avator Converter
+    /// VGO Avatar Converter
     /// </summary>
     public class VgoAvatarConverter
     {

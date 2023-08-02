@@ -51,7 +51,7 @@ namespace NewtonVgo
         [DefaultValue(CollisionDetectionMode.Discrete)]
         public CollisionDetectionMode collisionDetectionMode;
 
-        /// <summary>Cconstraints</summary>
+        /// <summary>Constraints</summary>
         [JsonProperty("constraints")]
         [DefaultValue(0)]
         public RigidbodyConstraints constraints = 0;

@@ -16,10 +16,10 @@ namespace NewtonVgo
     {
         #region Properties
 
-        /// <summary>The type of the geometry coodinates.</summary>
+        /// <summary>The type of the geometry coordinates.</summary>
         VgoGeometryCoordinate GeometryCoordinate { get; }
 
-        /// <summary>The type of the UV coodinates.</summary>
+        /// <summary>The type of the UV coordinates.</summary>
         VgoUVCoordinate UVCoordinate { get; }
 
         /// <summary>The asset info.</summary>
@@ -115,8 +115,8 @@ namespace NewtonVgo
         /// </summary>
         /// <typeparam name="TValue">Type of the sparse values.</typeparam>
         /// <param name="sparseType">The type of the sparse.</param>
-        /// <param name="sparseIndices">Array data of sparce indeces.</param>
-        /// <param name="sparseValues">Array data of sparce values.</param>
+        /// <param name="sparseIndices">Array data of sparse indices.</param>
+        /// <param name="sparseValues">Array data of sparse values.</param>
         /// <param name="sparseValueDataType">The data type of the sparse values.</param>
         /// <param name="accessorDataType">The data type of the accessor.</param>
         /// <param name="accessorCount">The number of attributes referenced by this accessor.</param>

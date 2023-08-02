@@ -1,5 +1,14 @@
 # Change Log
 
+## [2.5.14] - 2023-08-03
+
+- Features
+  - Added some methods to `VgoModelAsset` that can be used after runtime loading.
+- Changes
+  - The version of `com.izayoi.unishaders` is now `1.6.1`.
+- Fixes
+  - Fixed typo.
+
 ## [2.5.13] - 2023-08-01
 
 - Improvements

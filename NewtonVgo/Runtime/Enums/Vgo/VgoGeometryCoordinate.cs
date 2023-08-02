@@ -5,7 +5,7 @@
 #nullable enable
 namespace NewtonVgo
 {
-    /// <summary>The type of the geometry coodinates.</summary>
+    /// <summary>The type of the geometry coordinates.</summary>
     public enum VgoGeometryCoordinate : byte
     {
         /// <summary></summary>

@@ -36,7 +36,7 @@ namespace NewtonVgo
         /// <remarks>4-byte</remarks>
         public VgoChunkTypeID ResourceAccessorChunkTypeId;
 
-        /// <summary>Resource accessor crypto chunk type ID.</summary>
+        /// <summary>Resource accessor crypt chunk type ID.</summary>
         /// <remarks>4-byte</remarks>
         public VgoChunkTypeID ResourceAccessorCryptChunkTypeId;
 

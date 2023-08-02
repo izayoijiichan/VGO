@@ -5,7 +5,7 @@
 #nullable enable
 namespace NewtonVgo
 {
-    /// <summary>This enum controlls culling of Animation component.</summary>
+    /// <summary>This enum controls culling of Animation component.</summary>
     public enum AnimationCullingType
     {
         /// <summary>Animation culling is disabled - object is animated even when offscreen.</summary>

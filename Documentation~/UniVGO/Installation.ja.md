@@ -42,9 +42,9 @@ Unity 2021.1 以下のバージョンを使用する場合
 |com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|13.0.2|3.2.1|2023年5月2日|
 |com.vrmc.vrmshaders|vrm-c|GitHub||0.105.0|2022年10月7日|
 |com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub||1.4.0|2023年5月30日|
-|com.izayoi.unishaders|IzayoiJiichan|GitHub||1.6.0|2023年7月28日|
+|com.izayoi.unishaders|IzayoiJiichan|GitHub||1.6.1|2023年8月1日|
 |com.izayoi.vgospringbone|IzayoiJiichan|GitHub||1.1.2|2022年8月24日|
-|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.13|2023年8月1日|
+|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.14|2023年8月3日|
 
 #### 追加パッケージ
 
@@ -53,8 +53,8 @@ Unity 2021.1 以下のバージョンを使用する場合
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|備考|
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
 |jp.lilxyzw.liltoon|lilxyzw|GitHub||1.4.0|2023年5月12日||
-|com.unity.render-pipelines.universal|Unity Technologies|Unity Registry||11.0.0|2021年10月26日|URP only|
-|com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||11.0.0|2021年10月26日|HDRP only|
+|com.unity.render-pipelines.universal|Unity Technologies|Unity Registry||14.0.0|2021年11月17日|URP only|
+|com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||14.0.0|2021年11月17日|HDRP only|
 
 ___
 
@@ -141,8 +141,8 @@ UniVGOを使用するために、以下の設定を追加してください。
 {
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.4.0",
-    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.6.0",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.13",
+    "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.6.1",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.14",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.ugui": "1.0.0",
@@ -168,20 +168,30 @@ URPを使用する場合、"com.unity.render-pipelines.universal" の行を追�
 ```json
 {
   "dependencies": {
-    "com.unity.render-pipelines.universal": "11.0.0",
+    "com.unity.render-pipelines.universal": "14.0.0",
   }
 }
 ```
+
+- [Universal RP 10.10 for Unity 2020.3](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@10.10/changelog/CHANGELOG.html)
+- [Universal RP 12.1 for Unity 2021.3](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@12.1/changelog/CHANGELOG.html)
+- [Universal RP 14.0 for Unity 2022.3](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@14.0/changelog/CHANGELOG.html)
+- [Universal RP 15.0 for Unity 2023.1](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@15.0/changelog/CHANGELOG.html)
 
 HDRPを使用する場合、"com.unity.render-pipelines.high-definition" の行を追加してください。
 
 ```json
 {
   "dependencies": {
-    "com.unity.render-pipelines.high-definition": "11.0.0",
+    "com.unity.render-pipelines.high-definition": "14.0.0",
   }
 }
 ```
+
+- [High Definition RP 10.10 for Unity 2020.3](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@10.10/changelog/CHANGELOG.html)
+- [High Definition RP 12.1 for Unity 2021.3](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@12.1/changelog/CHANGELOG.html)
+- [High Definition RP 14.0 for Unity 2022.3](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@14.0/changelog/CHANGELOG.html)
+- [High Definition RP 15.0 for Unity 2023.1](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@15.0/changelog/CHANGELOG.html)
 
 ### インストール完了の確認
 
@@ -245,19 +255,20 @@ ___
 
 |UniVRM|UniVGO|min Unity|
 |:---:|:---:|:---:|
-|0.100.0|2.5.13|2020.3|
-|0.101.0|2.5.13|2020.3|
-|0.102.0|2.5.13|2020.3|
-|0.103.2|2.5.13|2020.3|
-|0.104.2|2.5.13|2020.3|
-|0.105.0|2.5.13|2020.3|
-|0.106.0|2.5.13|2020.3|
-|0.107.2|2.5.13|2020.3|
-|0.108.0|2.5.13|2020.3|
-|0.109.0|2.5.13|2020.3|
-|0.110.0|2.5.13|2020.3|
-|0.111.0|2.5.13|2020.3|
-|0.112.0|2.5.13|2020.3|
+|0.100.0|2.5.14|2020.3|
+|0.101.0|2.5.14|2020.3|
+|0.102.0|2.5.14|2020.3|
+|0.103.2|2.5.14|2020.3|
+|0.104.2|2.5.14|2020.3|
+|0.105.0|2.5.14|2020.3|
+|0.106.0|2.5.14|2020.3|
+|0.107.2|2.5.14|2020.3|
+|0.108.0|2.5.14|2020.3|
+|0.109.0|2.5.14|2020.3|
+|0.110.0|2.5.14|2020.3|
+|0.111.0|2.5.14|2020.3|
+|0.112.0|2.5.14|2020.3|
+|0.113.0|2.5.14|2020.3|
 
 `<Project>/Packages/package.json` に以下の記述を行います。  
 
@@ -288,7 +299,7 @@ https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 |2022.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2022.3.brp.univrm)|
 
 ___
-最終更新日：2023年8月1日  
+最終更新日：2023年8月3日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

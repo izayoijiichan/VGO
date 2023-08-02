@@ -77,7 +77,7 @@ namespace NewtonVgo
         [JsonProperty("extensions")]
         public VgoExtensions? extensions = null;
 
-        /// <summary>Whehter the color space is linear.</summary>
+        /// <summary>Whether the color space is linear.</summary>
         [JsonIgnore]
         public bool IsLinear => (colorSpace == VgoColorSpaceType.Linear);
 

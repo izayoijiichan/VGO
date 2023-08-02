@@ -30,7 +30,7 @@ namespace NewtonVgo
         [DefaultValue(-1)]
         public int clipIndex = -1;
 
-        /// <summary>AABB of this Animation animation component in local space.</summary>
+        /// <summary>AABB of this animation component in local space.</summary>
         [JsonProperty("localBounds")]
         public Bounds? localBounds;
 

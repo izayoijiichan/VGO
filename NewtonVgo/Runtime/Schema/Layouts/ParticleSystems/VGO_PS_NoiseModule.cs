@@ -16,7 +16,7 @@ namespace NewtonVgo.Schema.ParticleSystems
     [JsonObject("vgo.ps.noiseModule")]
     public class VGO_PS_NoiseModule
     {
-        /// <summary>Specifies whether the the NoiseModule is enabled or disabled.</summary>
+        /// <summary>Specifies whether the NoiseModule is enabled or disabled.</summary>
         [JsonProperty("enabled")]
         public bool enabled;
 

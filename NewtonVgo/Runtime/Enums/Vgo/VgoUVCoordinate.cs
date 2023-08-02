@@ -5,7 +5,7 @@
 #nullable enable
 namespace NewtonVgo
 {
-    /// <summary>The type of the UV coodinates.</summary>
+    /// <summary>The type of the UV coordinates.</summary>
     public enum VgoUVCoordinate : byte
     {
         /// <summary></summary>

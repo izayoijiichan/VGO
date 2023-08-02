@@ -59,7 +59,7 @@ namespace UniVgo2
                 Smoothness = UniUrpShader.PropertyRange.Smoothness.defaultValue,  // @notice
                 SmoothnessTextureChannel = (UniUrpShader.SmoothnessTextureChannel)brpStandardDefinition.SmoothnessTextureChannel,
 
-                // Supecular Gloss Map
+                // Specular Gloss Map
                 SpecColor = new Color(0.2f, 0.2f, 0.2f),
                 SpecGlossMap = null,
                 SpecularHighlights = brpStandardDefinition.SpecularHighlights,

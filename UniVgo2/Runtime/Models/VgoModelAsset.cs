@@ -8,6 +8,7 @@ namespace UniVgo2
     using NewtonVgo;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
 #if UNITY_EDITOR
     using UnityEditor;
@@ -88,14 +89,235 @@ namespace UniVgo2
 
         #region Constructors
 
-        // ~ModelAsset()
+        // ~VgoModelAsset()
         // {
         //     Dispose(disposing: false);
         // }
 
         #endregion
 
-        #region Methods (Dispose)
+        #region Public Methods (Blend Shape)
+
+        /// <summary>
+        /// Gets the first components of the VgoBlendShape type, if it exists.
+        /// </summary>
+        /// <param name="faceOnly"></param>
+        /// <param name="includeInactive">Whether to include inactive child GameObjects in the search.</param>
+        /// <param name="vgoBlendShapes"></param>
+        /// <returns>Returns true if the components is found, false otherwise.</returns>
+        /// <remarks>breadth-first search</remarks>
+        public bool TryGetVgoBlendShapeComponents(in bool faceOnly, in bool includeInactive, out List<VgoBlendShape> vgoBlendShapes)
+        {
+            if (_Root == null)
+            {
+                vgoBlendShapes = new List<VgoBlendShape>(0);
+
+                return false;
+            }
+
+            if (faceOnly)
+            {
+                bool isFound = _Root.TryGetComponentsInChildren(includeInactive, out vgoBlendShapes);
+
+                if (isFound == false)
+                {
+                    return false;
+                }
+
+                vgoBlendShapes = vgoBlendShapes
+                    .Where(x => (x.BlendShapeConfiguration != null) &&
+                        ((x.BlendShapeConfiguration.Kind == VgoBlendShapeKind.Face) ||
+                        (x.BlendShapeConfiguration.Kind == VgoBlendShapeKind.Face_2)))
+                    .ToList();
+
+                return vgoBlendShapes.Any();
+            }
+            else
+            {
+                return _Root.TryGetComponentsInChildren(includeInactive, out vgoBlendShapes);
+            }
+        }
+
+        /// <summary>
+        /// Gets the first component of the VgoBlendShape type, if it exists.
+        /// </summary>
+        /// <param name="faceOnly">Only the kind Face or Face_2 is retrieved.</param>
+        /// <param name="vgoBlendShape"></param>
+        /// <returns>Returns true if the components is found, false otherwise.</returns>
+        /// <remarks>breadth-first search</remarks>
+        public bool TryGetFirstVgoBlendShapeComponent(in bool faceOnly, out VgoBlendShape vgoBlendShape)
+        {
+            return TryGetFirstVgoBlendShapeComponent(faceOnly, includeInactive: false, out vgoBlendShape);
+        }
+
+        /// <summary>
+        /// Gets the first component of the VgoBlendShape type, if it exists.
+        /// </summary>
+        /// <param name="faceOnly">Only the kind Face or Face_2 is retrieved.</param>
+        /// <param name="includeInactive">Whether to include inactive child GameObjects in the search.</param>
+        /// <param name="vgoBlendShape"></param>
+        /// <returns>Returns true if the components is found, false otherwise.</returns>
+        /// <remarks>breadth-first search</remarks>
+        public bool TryGetFirstVgoBlendShapeComponent(in bool faceOnly, in bool includeInactive, out VgoBlendShape vgoBlendShape)
+        {
+#pragma warning disable CS8625
+            vgoBlendShape = default;
+#pragma warning restore CS8625
+
+            if (_Root == null)
+            {
+                return false;
+            }
+
+            if (faceOnly)
+            {
+                if (TryGetFirstVgoBlendShapeComponentRecursive(_Root, includeInactive, VgoBlendShapeKind.Face, out vgoBlendShape))
+                {
+                    return true;
+                }
+
+                if (TryGetFirstVgoBlendShapeComponentRecursive(_Root, includeInactive, VgoBlendShapeKind.Face_2, out vgoBlendShape))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+            return _Root.TryGetFirstComponentInChildren(includeInactive, out vgoBlendShape);
+        }
+
+        /// <summary>
+        /// Gets the first component of the VgoBlendShape type, if it exists.
+        /// </summary>
+        /// <param name="go"></param>
+        /// <param name="includeInactive">Whether to include inactive child GameObjects in the search.</param>
+        /// <param name="vgoBendShapeKind"></param>
+        /// <param name="vgoBlendShape"></param>
+        /// <returns>Returns true if the components is found, false otherwise.</returns>
+        /// <remarks>breadth-first search</remarks>
+        private bool TryGetFirstVgoBlendShapeComponentRecursive(in GameObject go, in bool includeInactive, in VgoBlendShapeKind vgoBendShapeKind, out VgoBlendShape vgoBlendShape)
+        {
+            GameObject[] children = go.GetChildren().ToArray();
+
+            VgoBlendShapeKind kind = vgoBendShapeKind;
+
+            // Sibling
+            for (int index = 0; index < children.Length; index++)
+            {
+                GameObject child = children[index];
+
+                if (includeInactive)
+                {
+                    if (child.activeSelf == false)
+                    {
+                        continue;
+                    }
+                }
+
+                if (child.TryGetComponentsEx(out VgoBlendShape[] vgoBlendShapes) == false)
+                {
+                    continue;
+                }
+
+                VgoBlendShape? faceBlendShape = vgoBlendShapes
+                    .FirstOrDefault(x =>
+                        x.BlendShapeConfiguration != null &&
+                        x.BlendShapeConfiguration.Kind == kind);
+
+                if (faceBlendShape != null)
+                {
+                    vgoBlendShape = faceBlendShape;
+
+                    return true;
+                }
+            }
+
+            // Child
+            for (int index = 0; index < children.Length; index++)
+            {
+                GameObject child = children[index];
+
+                if (includeInactive)
+                {
+                    if (child.activeSelf == false)
+                    {
+                        continue;
+                    }
+                }
+
+                if (TryGetFirstVgoBlendShapeComponentRecursive(child, includeInactive, vgoBendShapeKind, out vgoBlendShape))
+                {
+                    return true;
+                }
+            }
+
+#pragma warning disable CS8625
+            vgoBlendShape = default;
+#pragma warning restore CS8625
+
+            return false;
+        }
+
+        #endregion
+
+        #region Public Methods (Skybox)
+
+        /// <summary>
+        /// Gets the first component of the Skybox type, if it exists.
+        /// </summary>
+        /// <param name="skybox"></param>
+        /// <returns>Returns true if the components is found, false otherwise.</returns>
+        public bool TryGetFirstSkyboxComponent(out Skybox skybox)
+        {
+            return TryGetFirstSkyboxComponent(includeInactive: false, out skybox);
+        }
+
+        /// <summary>
+        /// Gets the first component of the Skybox type, if it exists.
+        /// </summary>
+        /// <param name="includeInactive">Whether to include inactive child GameObjects in the search.</param>
+        /// <param name="skybox"></param>
+        /// <returns>Returns true if the components is found, false otherwise.</returns>
+        public bool TryGetFirstSkyboxComponent(in bool includeInactive, out Skybox skybox)
+        {
+#pragma warning disable CS8625
+            skybox = default;
+#pragma warning restore CS8625
+
+            if (_Root == null)
+            {
+                return false;
+            }
+
+            return _Root.TryGetFirstComponentInChildren(includeInactive, out skybox);
+        }
+
+        #endregion
+
+        #region Public Methods (Helper)
+
+        /// <summary>
+        /// Reflect VGO skybox to Camera skybox.
+        /// </summary>
+        /// <param name="camera">A scene main camera.</param>
+        /// <param name="includeInactive">Whether to include inactive child GameObjects in the search.</param>
+        public void ReflectSkybox(Camera camera, in bool includeInactive = false)
+        {
+            if (TryGetFirstSkyboxComponent(includeInactive, out Skybox vgoSkybox))
+            {
+                if (camera.gameObject.TryGetComponentEx(out Skybox cameraSkybox) == false)
+                {
+                    cameraSkybox = camera.gameObject.AddComponent<Skybox>();
+                }
+
+                cameraSkybox.material = vgoSkybox.material;
+            }
+        }
+
+        #endregion
+
+        #region Public Methods (Dispose)
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

@@ -484,7 +484,7 @@ namespace NewtonVgo
         /// <param name="fileInfo">The file info.</param>
         /// <param name="binFileName">The resource binary file name.</param>
         /// <param name="resourceUri">The resource URI.</param>
-        /// <returns>A resouce chunk.</returns>
+        /// <returns>A resource chunk.</returns>
         protected virtual VgoChunk CreateResourceChunk(in VgoChunkTypeID resourceTypeId, in FileInfo fileInfo, string? binFileName = null, string? resourceUri = null)
         {
             binFileName ??= fileInfo.Name.Substring(0, fileInfo.Name.Length - fileInfo.Extension.Length) + ".bin";
@@ -563,9 +563,9 @@ namespace NewtonVgo
         /// </summary>
         /// <param name="assetInfoTypeId">The asset info chunk type ID.</param>
         /// <param name="layoutTypeId">The layout chunk type ID.</param>
-        /// <param name="resourceAccessorTypeId">The resourse accessor chunk type ID.</param>
-        /// <param name="resourceAccessorCryptTypeId">The resourse accessor crypt chunk type ID.</param>
-        /// <param name="resourceTypeId">The resourse chunk type ID.</param>
+        /// <param name="resourceAccessorTypeId">The resource accessor chunk type ID.</param>
+        /// <param name="resourceAccessorCryptTypeId">The resource accessor crypt chunk type ID.</param>
+        /// <param name="resourceTypeId">The resource chunk type ID.</param>
         /// <returns>A composer chunk.</returns>
         public virtual VgoChunk CreateComposerChunk(
             in VgoChunkTypeID assetInfoTypeId,

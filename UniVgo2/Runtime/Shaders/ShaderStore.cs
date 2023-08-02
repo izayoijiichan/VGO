@@ -921,7 +921,7 @@ namespace UniVgo2
         /// Get a shader or default.
         /// </summary>
         /// <param name="shaderName">The shader name.</param>
-        /// <returns>A shader instanse or default.</returns>
+        /// <returns>A shader instance or default.</returns>
         public virtual Shader? GetShaderOrDefault(in string shaderName)
         {
             if (string.IsNullOrEmpty(shaderName))
@@ -1213,7 +1213,7 @@ namespace UniVgo2
         /// Get a shader or default.
         /// </summary>
         /// <param name="vgoMaterial">The vgo material.</param>
-        /// <returns>A shader instanse or default.</returns>
+        /// <returns>A shader instance or default.</returns>
         public virtual Shader? GetShaderOrDefault(in VgoMaterial vgoMaterial)
         {
             if (vgoMaterial == null)
@@ -1252,7 +1252,7 @@ namespace UniVgo2
         /// </summary>
         /// <param name="vgoMaterial">The vgo material.</param>
         /// <param name="renderPipelineType">Type of render pipeline.</param>
-        /// <returns>A shader instanse.</returns>
+        /// <returns>A shader instance.</returns>
         public virtual Shader GetShaderOrStandard(in VgoMaterial vgoMaterial, in RenderPipelineType renderPipelineType)
         {
             Shader? shader = GetShaderOrDefault(vgoMaterial);
@@ -1299,7 +1299,7 @@ namespace UniVgo2
             {
                 if (renderPipelineType == RenderPipelineType.URP)
                 {
-                    // BRP to URP Convertable
+                    // BRP to URP Convertible
                     switch (vgoMaterial.shaderName)
                     {
                         case ShaderName.Standard:

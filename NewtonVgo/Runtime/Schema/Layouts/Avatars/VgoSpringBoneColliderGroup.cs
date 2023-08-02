@@ -14,7 +14,7 @@ namespace NewtonVgo
     [Serializable]
     public class VgoSpringBoneColliderGroup
     {
-        /// <summary>An array of the srping bone collider.</summary>
+        /// <summary>An array of the spring bone collider.</summary>
         [JsonProperty("colliders")]
         public VgoSpringBoneCollider?[]? colliders;
 

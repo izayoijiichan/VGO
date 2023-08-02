@@ -86,7 +86,7 @@ namespace UniVgo2.Porters
 
             var vgoMesh = new VgoMesh(mesh.name);
 
-            // Attribetes
+            // Attributes
             vgoMesh.attributes = CreatePrimitiveAttributes(vgoStorage, mesh);
 
             // SubMeshes
@@ -308,7 +308,7 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="attributes">The primitive attributes.</param>
-        /// <param name="texcoordKey">The Texture coord key.</param>
+        /// <param name="texcoordKey">The Texture coordinate key.</param>
         /// <param name="uvs">An array of UV.</param>
         protected void SetUV(IVgoStorage vgoStorage, VgoMeshPrimitiveAttributes attributes, string texcoordKey, Vector2[] uvs)
         {
@@ -424,7 +424,7 @@ namespace UniVgo2.Porters
         #region BlendShape
 
         /// <summary>
-        /// Creat a blend shape attributes.
+        /// Create a blend shape attributes.
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="mesh">A unity mesh.</param>

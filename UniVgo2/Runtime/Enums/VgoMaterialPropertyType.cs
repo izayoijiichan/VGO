@@ -5,7 +5,7 @@
 #nullable enable
 namespace UniVgo2
 {
-    /// <summary>The data type of the matarial property.</summary>
+    /// <summary>The data type of the material property.</summary>
     public enum VgoMaterialPropertyType
     {
         /// <summary></summary>

@@ -683,7 +683,7 @@ namespace UniVgo2.Porters
         /// Read UV.
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
-        /// <param name="texcoord">The accessor index of texture coord.</param>
+        /// <param name="texcoord">The accessor index of texture coordinate.</param>
         /// <param name="positionsCount">The positions count.</param>
         /// <returns>An array of UV.</returns>
         protected virtual Vector2[]? ReadUV(in IVgoStorage vgoStorage, in int texcoord, in int positionsCount)

@@ -5,7 +5,7 @@
 #nullable enable
 namespace NewtonVgo
 {
-    /// <summary>The kind of the resoure accessor.</summary>
+    /// <summary>The kind of the resource accessor.</summary>
     public enum VgoResourceAccessorKind
     {
         /// <summary></summary>

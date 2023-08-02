@@ -66,7 +66,7 @@ namespace NewtonVgo.Schema.ParticleSystems
         [JsonProperty("frameOverTime")]
         public VGO_PS_MinMaxCurve? frameOverTime;
 
-        /// <summary>The frame over time mutiplier.</summary>
+        /// <summary>The frame over time multiplier.</summary>
         [JsonProperty("frameOverTimeMultiplier")]
         public float frameOverTimeMultiplier;
 

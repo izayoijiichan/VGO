@@ -13,7 +13,7 @@ namespace NewtonVgo
     using System.Collections.ObjectModel;
 
     /// <summary>
-    /// VGO Exensions.
+    /// VGO Extensions.
     /// </summary>
     [Serializable]
     public class VgoExtensions : KeyedCollection<string, ExModel>

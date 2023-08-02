@@ -41,6 +41,7 @@ namespace UniVgo2.Porters
             {
                 name = material.name,
                 shaderName = material.shader.name,
+                renderQueue = material.renderQueue,
                 isUnlit = material.shader.name == ShaderName.Particles_Standard_Unlit,
             };
 
@@ -55,7 +56,7 @@ namespace UniVgo2.Porters
             // @notice for old UniVGO
             vgoMaterial.intProperties.Add("_BlendMode", (int)UniParticleShader.Utils.GetBlendMode(material));
 
-            // @notice for Unity 2020 builtin shader
+            // @notice for Unity 2020 built-in shader
             vgoMaterial.intProperties.Add(Property.ColorMode, (int)UniParticleShader.Utils.GetColorMode(material));
 
             //ExportProperty(vgoMaterial, material, Property.ColorMode, VgoMaterialPropertyType.Int);

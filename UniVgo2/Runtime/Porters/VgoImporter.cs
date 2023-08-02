@@ -281,7 +281,7 @@ namespace UniVgo2
                 // Transform
                 Matrix4x4 matrix = matrixes[nodeIndex].ToUnityMatrix();
 
-                go.transform.localPosition = matrix.ExtractTransration();
+                go.transform.localPosition = matrix.ExtractTranslation();
                 go.transform.localRotation = matrix.ExtractRotation();
                 go.transform.localScale = matrix.ExtractScale();
 
@@ -1086,7 +1086,7 @@ namespace UniVgo2
         /// <summary>
         /// Set up a skin.
         /// </summary>
-        /// <param name="skinnedMeshRenderer">A skinnedned mesh renderer.</param>
+        /// <param name="skinnedMeshRenderer">A skinned mesh renderer.</param>
         /// <param name="skinIndex">The index of gltf.skin.</param>
         /// <param name="nodes">List of node.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
@@ -1167,7 +1167,7 @@ namespace UniVgo2
                 }
                 else
                 {
-                    // calc default matrices
+                    // calculate default matrices
                     // https://docs.unity3d.com/ScriptReference/Mesh-bindposes.html
 
                     Transform meshCoords = skinnedMeshRenderer.transform; // ?
@@ -1278,22 +1278,7 @@ namespace UniVgo2
         /// <param name="vgoModelAsset">A vgo model asset.</param>
         public virtual void ReflectSkybox(Camera camera, VgoModelAsset vgoModelAsset)
         {
-            if (vgoModelAsset.Root == null)
-            {
-                return;
-            }
-
-            var vgoSkybox = vgoModelAsset.Root.GetComponentInChildren<Skybox>(includeInactive: false);
-
-            if (vgoSkybox != null)
-            {
-                if (camera.gameObject.TryGetComponentEx(out Skybox cameraSkybox) == false)
-                {
-                    cameraSkybox = camera.gameObject.AddComponent<Skybox>();
-                }
-
-                cameraSkybox.material = vgoSkybox.material;
-            }
+            vgoModelAsset.ReflectSkybox(camera);
         }
 
         #endregion

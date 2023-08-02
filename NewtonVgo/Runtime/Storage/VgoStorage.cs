@@ -46,10 +46,10 @@ namespace NewtonVgo
 
         #region Properties
 
-        /// <summary>The type of the geometry coodinates.</summary>
+        /// <summary>The type of the geometry coordinates.</summary>
         public VgoGeometryCoordinate GeometryCoordinate => Header.GeometryCoordinate;
 
-        /// <summary>The type of the UV coodinates.</summary>
+        /// <summary>The type of the UV coordinates.</summary>
         public VgoUVCoordinate UVCoordinate => Header.UVCoordinate;
 
         /// <summary>The asset info.</summary>
@@ -141,8 +141,8 @@ namespace NewtonVgo
         /// Create a new instance of VgoStorage with resource.
         /// </summary>
         /// <param name="resource">The resource.</param>
-        /// <param name="geometryCoordinate">The type of the geometry coodinates.</param>
-        /// <param name="uvCoordinate">The type of the UV coodinates.</param>
+        /// <param name="geometryCoordinate">The type of the geometry coordinates.</param>
+        /// <param name="uvCoordinate">The type of the UV coordinates.</param>
         /// <remarks>for Export</remarks>
         public VgoStorage(IByteBuffer resource, VgoGeometryCoordinate geometryCoordinate, VgoUVCoordinate uvCoordinate)
         {
