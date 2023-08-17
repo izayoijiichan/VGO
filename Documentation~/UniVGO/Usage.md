@@ -13,7 +13,7 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2022.3|
-|2|UniVGO version|2.5.10|
+|2|UniVGO version|2.5.15|
 |3|VGO spec version|2.5|
 
 ### Supported Unity components
@@ -125,7 +125,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.5.10|
+|2|Version|Version of the generation tool.|2.5.15|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -277,7 +277,7 @@ The order of the components does not matter.
 |No|item|description|value|
 |:---:|:---|:---|:---:|
 |1|Name|The name of the generation tool.|UniVGO|
-|2|Version|Version of the generation tool.|2.5.10|
+|2|Version|Version of the generation tool.|2.5.15|
 
 There are no user-configurable items.  
 If the meta information is old, delete the component once and attach it again.
@@ -496,7 +496,9 @@ If you write your own script, write as follows.
         {
             VgoModelAsset vgoModelAsset = _VgoImporter.Load(filePath);
 
-            _VgoImporter.ReflectSkybox(Camera.main, vgoModelAsset);
+            //_VgoImporter.ReflectSkybox(Camera.main, vgoModelAsset);
+
+            vgoModelAsset.ReflectSkybox(Camera.main);
 
             _VgoModelAssetDisposer = vgoModelAsset;
         }
@@ -522,7 +524,7 @@ or the VGO (avatar or world) that others have set to be available in the linked 
 https://vgohub.azurewebsites.net
 
 ___
-Last updated: 17 July, 2023  
+Last updated: 18 August, 2023  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

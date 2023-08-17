@@ -872,8 +872,14 @@ namespace UniVgo2
             in int nodeIndex,
             in IVgoStorage vgoStorage,
             VgoModelAsset vgoModelAsset,
+#if UNITY_2021_2_OR_NEWER
             in bool showMesh = true,
-            in bool updateWhenOffscreen = false)
+            in bool updateWhenOffscreen = false
+#else
+            bool showMesh = true,
+            bool updateWhenOffscreen = false
+#endif
+            )
         {
             if (vgoStorage.Layout.nodes is null)
             {

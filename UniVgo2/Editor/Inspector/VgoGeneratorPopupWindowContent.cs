@@ -72,10 +72,10 @@ namespace UniVgo2.Editor
         /// <summary>The target GameObject.</summary>
         private readonly GameObject _TargetGameObject;
 
-        /// <summary>The selected index of the geometry coodinate.</summary>
+        /// <summary>The selected index of the geometry coordinate.</summary>
         private int _GeometryCoordinateIndex = 0;
 
-        /// <summary>The selected index of the UV coodinate.</summary>
+        /// <summary>The selected index of the UV coordinate.</summary>
         private int _UVCoordinateIndex = 0;
 
         /// <summary>The selected index of the JSON or BSON.</summary>

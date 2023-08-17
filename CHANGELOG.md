@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.5.15] - 2023-08-18
+
+- Fixes
+  - Fixed a bug that caused an error when building IL2CPP with Unity 2021.1 or lower.
+  - Fixed a bug that processing was interrupted when an error occurred in BlendShape when importing in Editor.
+  - Fixed typo.
+
 ## [2.5.14] - 2023-08-03
 
 - Features

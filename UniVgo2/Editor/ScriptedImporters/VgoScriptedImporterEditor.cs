@@ -25,7 +25,7 @@ namespace UniVgo2.Editor
         protected bool _isOpen = true;
 
         /// <summary>
-        /// Override this method to create your own Inpsector GUI for a ScriptedImporter.
+        /// Override this method to create your own Inspector GUI for a ScriptedImporter.
         /// </summary>
         public override void OnInspectorGUI()
         {
@@ -51,7 +51,7 @@ namespace UniVgo2.Editor
             GUI.enabled = !GUI.enabled;
             if (GUILayout.Button("Clear"))
             {
-                importer.ClearExtarnalObjects<AnimationClip>();
+                importer.ClearExternalObjects<AnimationClip>();
                 GUIUtility.ExitGUI();
             }
             GUI.enabled = true;
@@ -68,7 +68,7 @@ namespace UniVgo2.Editor
             GUI.enabled = !GUI.enabled;
             if (GUILayout.Button("Clear"))
             {
-                importer.ClearExtarnalObjects<Avatar>();
+                importer.ClearExternalObjects<Avatar>();
                 GUIUtility.ExitGUI();
             }
             GUI.enabled = true;
@@ -85,7 +85,7 @@ namespace UniVgo2.Editor
             GUI.enabled = !GUI.enabled;
             if (GUILayout.Button("Clear"))
             {
-                importer.ClearExtarnalObjects<BlendShapeConfiguration>();
+                importer.ClearExternalObjects<BlendShapeConfiguration>();
                 GUIUtility.ExitGUI();
             }
             GUI.enabled = true;
@@ -104,8 +104,8 @@ namespace UniVgo2.Editor
             GUI.enabled = !GUI.enabled;
             if (GUILayout.Button("Clear"))
             {
-                importer.ClearExtarnalObjects<Material>();
-                importer.ClearExtarnalObjects<Texture2D>();
+                importer.ClearExternalObjects<Material>();
+                importer.ClearExternalObjects<Texture2D>();
                 GUIUtility.ExitGUI();
             }
             GUI.enabled = true;

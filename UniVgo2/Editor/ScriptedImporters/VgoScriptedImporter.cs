@@ -80,7 +80,14 @@ namespace UniVgo2.Editor
                                 continue;
                             }
 
-                            ctx.AddObjectToAsset(animationClip.name, animationClip);
+                            try
+                            {
+                                ctx.AddObjectToAsset(animationClip.name, animationClip);
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.LogException(ex);
+                            }
                         }
                     }
 
@@ -91,7 +98,14 @@ namespace UniVgo2.Editor
 
                         if (externalObjects.ContainsValue(modelAsset.Avatar) == false)
                         {
-                            ctx.AddObjectToAsset(modelAsset.Avatar.name ?? "avatar", modelAsset.Avatar);
+                            try
+                            {
+                                ctx.AddObjectToAsset(modelAsset.Avatar.name ?? "avatar", modelAsset.Avatar);
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.LogException(ex);
+                            }
                         }
                     }
 
@@ -112,7 +126,14 @@ namespace UniVgo2.Editor
                                 continue;
                             }
 
-                            ctx.AddObjectToAsset(material.name, material);
+                            try
+                            {
+                                ctx.AddObjectToAsset(material.name, material);
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.LogException(ex);
+                            }
                         }
                     }
 
@@ -133,7 +154,14 @@ namespace UniVgo2.Editor
                                 continue;
                             }
 
-                            ctx.AddObjectToAsset(meshAsset.Mesh.name, meshAsset.Mesh);
+                            try
+                            {
+                                ctx.AddObjectToAsset(meshAsset.Mesh.name, meshAsset.Mesh);
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.LogException(ex);
+                            }
                         }
                     }
 
@@ -154,7 +182,14 @@ namespace UniVgo2.Editor
                                 continue;
                             }
 
-                            ctx.AddObjectToAsset(texture.name, texture);
+                            try
+                            {
+                                ctx.AddObjectToAsset(texture.name, texture);
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.LogException(ex);
+                            }
                         }
                     }
 
@@ -182,16 +217,30 @@ namespace UniVgo2.Editor
                                 continue;
                             }
 
-                            blendShapeConfiguration.name = blendShapeConfiguration.Kind + "BlendShapeConfiguration";
-                            ctx.AddObjectToAsset(blendShapeConfiguration.name, blendShapeConfiguration);
+                            try
+                            {
+                                blendShapeConfiguration.name = blendShapeConfiguration.Kind + "BlendShapeConfiguration";
+                                ctx.AddObjectToAsset(blendShapeConfiguration.name, blendShapeConfiguration);
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.LogException(ex);
+                            }
                         }
                     }
 
                     // Root
                     if (modelAsset.Root != null)
                     {
-                        ctx.AddObjectToAsset(modelAsset.Root.name, modelAsset.Root);
-                        ctx.SetMainObject(modelAsset.Root);
+                        try
+                        {
+                            ctx.AddObjectToAsset(modelAsset.Root.name, modelAsset.Root);
+                            ctx.SetMainObject(modelAsset.Root);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.LogException(ex);
+                        }
                     }
                 }
             }
@@ -499,7 +548,7 @@ namespace UniVgo2.Editor
         /// <summary>
         /// Clear external objects.
         /// </summary>
-        public virtual void ClearExtarnalObjects()
+        public virtual void ClearExternalObjects()
         {
             foreach (var extarnalObject in GetExternalObjectMap())
             {
@@ -513,7 +562,7 @@ namespace UniVgo2.Editor
         /// Clear external objects.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public virtual void ClearExtarnalObjects<T>() where T : UnityEngine.Object
+        public virtual void ClearExternalObjects<T>() where T : UnityEngine.Object
         {
             foreach (var extarnalObject in GetExternalObjectMap().Where(x => x.Key.type == typeof(T)))
             {

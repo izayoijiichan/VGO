@@ -2,7 +2,14 @@
 
 VGOとは、新しい形の3Dデータフォーマットです。
 
-___
+![3D Model](https://img.shields.io/badge/3D%20Model-VGO-B89A13.svg?style=flat)
+![VGO](https://img.shields.io/badge/VGO-2.5-8EAC50.svg?style=flat)
+[![UniVGO](https://img.shields.io/github/v/release/izayoijiichan/VGO?label=UniVGO)](https://github.com/izayoijiichan/VGO/releases)
+![Unity](https://img.shields.io/badge/Unity-2020%7e2023-2196F3.svg?logo=unity&style=flat)
+![C#](https://img.shields.io/badge/C%23-8.0%7e9.0-058E0C.svg?logo=csharp&style=flat)
+![license](https://img.shields.io/github/license/izayoijiichan/VGO)
+[![wiki](https://img.shields.io/badge/GitHub-wiki-181717.svg?logo=github&style=flat)](https://github.com/izayoijiichan/VGO/wiki)
+
 ## 特徴
 
 - `Node`, `Transform`, `Rigidbody`, `Collider`, `Mesh`, `Blend Shape`, `Material`, `Texture` といった3Dモデルの基本情報を保存することができます。
@@ -30,68 +37,6 @@ ___
 |.vgk|暗号化したVGOファイルを復号するためのキーファイルです。|任意|
 |(.bin)|リソース ファイルです。|任意|
 
-## チャンク
-
-|タイプ|名前|説明|
-|:--|:--|:--|
-|VGO|Header|ファイルヘッダーです。|
-|IDX|Index|チャンクのインデックスを保持します。|
-|COMP|Composer|3Dモデルを構築するためのチャンクの組み合わせを保持します。|
-|AIXX|Asset Info|アセット情報を保持します。|
-|LAXX|Layout|3Dモデル設計情報を保持します。|
-|RAXX|Resource Accessor|リソースへのアクセス情報を保持します。|
-|REXX|Resource|リソースを保持します。|
-|CXXX|Crypt|暗号情報を保持します。|
-
-[チャンク詳細](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/chunk.md)
-
-## データ スキーマ
-
-- assetInfo
-  - generator
-  - right
-  - extensions
-  - extensionsUsed
-
-- layout
-  - nodes
-    - animator
-      - humanAvatar
-    - animation
-    - rigidbody
-    - colliders
-      - collider
-    - meshRenderer
-    - skybox
-    - light
-    - right
-    - extensions
-  - skins
-  - meshes
-  - materials
-  - textures
-  - animationClips
-  - colliders
-  - clothes
-  - lights
-  - particles
-  - springBoneInfo
-  - extensions
-
-## データ スキーマの説明
-
-- [アセット情報](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.assetInfo.json.md)
-- [レイアウト](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.layout.json.md)
-- [レイアウト（アニメーション）](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.layout.animation.json.md)
-- [レイアウト（クロス）](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.layout.cloth.json.md)
-- [レイアウト（パーティクル）](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.layout.particle.json.md)
-- [レイアウト（スプリングボーン）](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.layout.springBoneInfo.json.md)
-- [リソース](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/VGO/instructions/schema.resource.json.md)
-
-## JSON 仕様
-
-- VGO JSON Schema: [2.5](https://github.com/izayoijiichan/VGO/tree/main/Documentation~/VGO/specification/2.5/schema)
-
 ## ツール
 
 ### UniVGO
@@ -102,10 +47,43 @@ VGOファイルを生成／出力／取り込み／ロードするためのツ�
 
 ![image1](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/UniVGO/Images/500_Export.png)
 
+VGOファイルをアセット内に配置するだけで簡単に取り込み、復元することができます。
+
+![image2](https://github.com/izayoijiichan/VGO/blob/main/Documentation~/UniVGO/Images/620_Import.png)
+
+少しのスクリプトを書くだけでVGOファイルをランタイムロードすることができます。
+
+
+~~~csharp
+    using System;
+    using UnityEngine;
+    using UniVgo2;
+
+    public class VgoRuntimeLoader : MonoBehaviour
+    {
+        private readonly VgoImporter _VgoImporter = new();
+
+        [SerializeField]
+        private string _FilePath = string.Empty;
+
+        private VgoModelAsset? _VgoModelAsset;
+
+        private void Start()
+        {
+            _VgoModelAsset = _VgoImporter.Load(_FilePath);
+        }
+
+        private void OnDestroy()
+        {
+            _VgoModelAsset?.Dispose();
+        }
+    }
+~~~
+
 [Wiki](https://github.com/izayoijiichan/VGO/wiki)
 
 ___
-最終更新日：2023年7月17日  
+最終更新日：2023年8月18日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

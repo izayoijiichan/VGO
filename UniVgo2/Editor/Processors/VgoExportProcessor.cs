@@ -31,8 +31,8 @@ namespace UniVgo2.Editor
         /// Export VGO.
         /// </summary>
         /// <param name="gameObject">The target.</param>
-        /// <param name="geometryCoordinate">The type of the geometry coodinates.</param>
-        /// <param name="uvCoordinate">The type of the UV coodinates.</param>
+        /// <param name="geometryCoordinate">The type of the geometry coordinates.</param>
+        /// <param name="uvCoordinate">The type of the UV coordinates.</param>
         /// <param name="textureType">The type of the texture.</param>
         /// <param name="isBson">Whether type is BSON, otherwise JSON.</param>
         /// <param name="cryptAlgorithms">The crypt algorithm.</param>

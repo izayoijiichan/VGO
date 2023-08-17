@@ -32,7 +32,11 @@ namespace UniVgo2.Converters
         /// <param name="textureMapType">The texture map type.</param>
         /// <param name="metallicRoughness">The metallic roughness.</param>
         /// <returns></returns>
+#if UNITY_2021_2_OR_NEWER
         public virtual Texture2D GetImportTexture(in Texture2D source, in VgoTextureMapType textureMapType, in float metallicRoughness = -1.0f)
+#else
+        public virtual Texture2D GetImportTexture(in Texture2D source, in VgoTextureMapType textureMapType, float metallicRoughness = -1.0f)
+#endif
         {
             if (textureMapType == VgoTextureMapType.NormalMap)
             {
@@ -62,7 +66,11 @@ namespace UniVgo2.Converters
         /// <param name="colorSpaceType">The color space type.</param>
         /// <param name="metallicSmoothness">The metallic smoothness.</param>
         /// <returns></returns>
+#if UNITY_2021_2_OR_NEWER
         public virtual Texture2D GetExportTexture(in Texture2D source, in VgoTextureMapType textureMapType, in VgoColorSpaceType colorSpaceType, in float metallicSmoothness = -1.0f)
+#else
+        public virtual Texture2D GetExportTexture(in Texture2D source, in VgoTextureMapType textureMapType, in VgoColorSpaceType colorSpaceType, float metallicSmoothness = -1.0f)
+#endif
         {
             if (textureMapType == VgoTextureMapType.NormalMap)
             {
