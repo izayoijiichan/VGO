@@ -1,6 +1,6 @@
 {
     "title": "Blend Shape",
-    "description": "A mesh blned shape.",
+    "description": "A mesh blend shape.",
     "type": "object",
     "properties": {
         "name": {
@@ -234,7 +234,7 @@
                 }
             ],
             "default": -1
-        },
+        }
     },
     "required": [
         "name",

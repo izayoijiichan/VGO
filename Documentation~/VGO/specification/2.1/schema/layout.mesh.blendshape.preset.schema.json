@@ -101,7 +101,7 @@
             "items": {
                 "$ref": "layout.mesh.blendshape.binding.schema.json"
             }
-        },
+        }
     },
     "required": [
         "type",

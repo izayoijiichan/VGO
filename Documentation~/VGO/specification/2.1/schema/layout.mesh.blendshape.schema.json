@@ -234,7 +234,7 @@
                 }
             ],
             "default": -1
-        },
+        }
     },
     "required": [
         "name",

@@ -28,13 +28,13 @@
                 },
                 {
                     "enum": [ 4 ],
-                    "description": "Loop",
+                    "description": "PingPong",
                     "type": "integer"
                 },
                 {
                     "enum": [ 8 ],
-                    "description": "PingPong",
-                    "type": "ClampForever"
+                    "description": "ClampForever",
+                    "type": "integer"
                 }
             ]
         },
@@ -57,13 +57,13 @@
                 },
                 {
                     "enum": [ 4 ],
-                    "description": "Loop",
+                    "description": "PingPong",
                     "type": "integer"
                 },
                 {
                     "enum": [ 8 ],
-                    "description": "PingPong",
-                    "type": "ClampForever"
+                    "description": "ClampForever",
+                    "type": "integer"
                 }
             ]
         }

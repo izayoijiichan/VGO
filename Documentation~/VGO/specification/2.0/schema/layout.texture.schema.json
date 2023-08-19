@@ -59,7 +59,7 @@
             "default": 2
         },
         "mapType": {
-            "description": "The texture type.",
+            "description": "The texture map type.",
             "anyOf": [
                 {
                     "enum": [ -1 ],
@@ -232,7 +232,7 @@
             "description": "The metallic-roughness of the material.",
             "type": "number",
             "minimum": 0.0,
-            "maximum": 1.0,
+            "maximum": 1.0
         },
         "extensions": { }
     },

@@ -20,9 +20,8 @@
         },
         "bursts": {
             "type": "array",
-                "items": {
-                    "$ref": "vgo.ps.burst.schema.json"
-                }
+            "items": {
+                "$ref": "vgo.ps.burst.schema.json"
             }
         }
     }

@@ -32,8 +32,8 @@
             }
         },
         "textures": {
-            "type": "array",
             "description": "An array of textures.",
+            "type": "array",
             "items": {
                 "$ref": "layout.texture.schema.json"
             },
@@ -46,7 +46,7 @@
                 "$ref": "vgo.particleSystem.schema.json"
             }
         },
-        "extensions": { },
+        "extensions": { }
     },
     "required": [
         "nodes"

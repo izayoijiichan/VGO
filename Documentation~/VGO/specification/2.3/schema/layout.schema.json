@@ -32,16 +32,16 @@
             }
         },
         "textures": {
-            "type": "array",
             "description": "An array of textures.",
+            "type": "array",
             "items": {
                 "$ref": "layout.texture.schema.json"
             },
             "minItems": 1
         },
         "animationClips": {
-            "type": "array",
             "description": "An array of animation clips.",
+            "type": "array",
             "items": {
                 "$ref": "vgo.animationClip.schema.json"
             },
@@ -57,7 +57,7 @@
         "springBoneInfo": {
             "$ref": "vgo.springBoneInfo.schema.json"
         },
-        "extensions": { },
+        "extensions": { }
     },
     "required": [
         "nodes"

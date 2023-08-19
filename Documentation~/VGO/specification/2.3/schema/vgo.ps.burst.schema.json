@@ -10,7 +10,7 @@
             "type": [
                 "object",
                 "null"
-            ],
+            ]
         },
         "cycleCount": {
             "type": "integer"

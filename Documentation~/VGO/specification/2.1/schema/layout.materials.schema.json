@@ -52,6 +52,6 @@
         "extensions": {
             "description": "Dictionary object with extension-specific objects.",
             "type": "object"
-        },
+        }
     }
 }

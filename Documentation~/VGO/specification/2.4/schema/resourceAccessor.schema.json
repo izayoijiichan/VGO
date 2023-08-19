@@ -154,7 +154,7 @@
         "count": {
             "description": "The number of attributes referenced by this accessor.",
             "type": "integer",
-            "minimum": 1,
+            "minimum": 1
         },
         "sparseType": {
             "description": "The type of the sparse.",
@@ -179,7 +179,7 @@
         "sparseCount": {
             "description": "Number of entries stored in the sparse array.",
             "type": "integer",
-            "minimum": 0,
+            "minimum": 0
         },
         "sparseIndexDataType": {
             "description": "The indices data type.",
@@ -304,8 +304,8 @@
         "sparseValueByteOffset": {
             "description": "The relative offset for this accessor of sparse value.",
             "type": "integer",
-            "minimum": 0,
-        },
+            "minimum": 0
+        }
     },
     "required": [
         "byteOffset",
