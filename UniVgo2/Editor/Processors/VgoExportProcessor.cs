@@ -62,6 +62,10 @@ namespace UniVgo2.Editor
                     return;
                 }
 
+                var stopwatch = new System.Diagnostics.Stopwatch();
+
+                stopwatch.Start();
+
                 var exporter = new VgoExporter();
 
                 IVgoStorage vgoStorage = exporter.CreateVgoStorage(gameObject, geometryCoordinate, uvCoordinate, textureType);
@@ -135,7 +139,9 @@ namespace UniVgo2.Editor
 
                 vgoStorage.ExportVgoFile(vgoFilePath, vgoExportSetting);
 
-                Debug.Log($"Export VGO file.\nGameObject: {gameObject.name}, output: {vgoFilePath}");
+                stopwatch.Stop();
+
+                Debug.LogFormat("Export VGO file.\nGameObject: {0}, output: {1}, {2:#,0}ms", gameObject.name, vgoFilePath, stopwatch.ElapsedMilliseconds);
             }
             catch
             {

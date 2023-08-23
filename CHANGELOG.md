@@ -1,5 +1,10 @@
 # Change Log
 
+## [2.5.16] - 2023-08-24
+
+- Experiments
+  - Support `WebP` format for image type (media type / MIME type) in texture.
+
 ## [2.5.15] - 2023-08-18
 
 - Fixes

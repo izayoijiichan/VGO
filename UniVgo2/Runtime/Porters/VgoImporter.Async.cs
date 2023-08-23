@@ -126,7 +126,8 @@ namespace UniVgo2
 
             // UnityEngine.Texture2D
             //vgoModelAsset.Texture2dList = _TextureImporter.CreateTextureAssets(vgoStorage);
-            vgoModelAsset.Texture2dList = await _TextureImporter.CreateTextureAssetsAsync(vgoStorage, cancellationToken);
+            //vgoModelAsset.Texture2dList = await _TextureImporter.CreateTextureAssetsAsync(vgoStorage, cancellationToken);
+            vgoModelAsset.Texture2dList = await _TextureImporter.CreateTextureAssetsParallelAsync(vgoStorage, cancellationToken);
 
             // UnityEngine.Material
             vgoModelAsset.MaterialList = CreateMaterialAssets(vgoStorage, vgoModelAsset.Texture2dList);
@@ -183,37 +184,67 @@ namespace UniVgo2
 
         #region Public Methods
 
-        ///// <summary>
-        ///// Extract a 3D model asset from the specified file.
-        ///// </summary>
-        ///// <param name="vgoFilePath">The file path of the vgo.</param>
-        ///// <param name="vgkFilePath">The file path of the vgk.</param>
-        ///// <param name="cancellationToken"></param>
-        ///// <returns>A vgo model asset.</returns>
-        ///// <remarks>for ScriptedImporter</remarks>
+        /// <summary>
+        /// Extract a 3D model asset from the specified file.
+        /// </summary>
+        /// <param name="vgoFilePath">The file path of the vgo.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>A vgo model asset.</returns>
+        /// <remarks>for ScriptedImporter</remarks>
 #if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
-        //public virtual async Awaitable<VgoModelAsset> ExtractAsync(string vgoFilePath, string? vgkFilePath, CancellationToken cancellationToken)
+        public virtual async Awaitable<VgoModelAsset> ExtractAsync(string vgoFilePath, CancellationToken cancellationToken)
 #elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
-        //public virtual async UniTask<VgoModelAsset> ExtractAsync(string vgoFilePath, string? vgkFilePath, CancellationToken cancellationToken)
+        public virtual async UniTask<VgoModelAsset> ExtractAsync(string vgoFilePath, CancellationToken cancellationToken)
 #else
-        //public virtual async Task<VgoModelAsset> ExtractAsync(string vgoFilePath, string? vgkFilePath, CancellationToken cancellationToken)
+        public virtual async Task<VgoModelAsset> ExtractAsync(string vgoFilePath, CancellationToken cancellationToken)
 #endif
-        //{
-        //    var vgoStorage = new VgoStorage(vgoFilePath, vgkFilePath);
+        {
+            var vgoStorage = new VgoStorage(vgoFilePath);
 
-        //    var vgoModelAsset = new VgoModelAsset();
+            var vgoModelAsset = new VgoModelAsset();
 
-        //    vgoModelAsset.Layout = vgoStorage.Layout;
+            vgoModelAsset.Layout = vgoStorage.Layout;
 
-        //    // UnityEngine.Texture2D
-        //    vgoModelAsset.Texture2dList = await _TextureImporter.CreateTextureAssetsAsync(vgoStorage, cancellationToken);
+            // UnityEngine.Texture2D
+            vgoModelAsset.Texture2dList = await _TextureImporter.CreateTextureAssetsAsync(vgoStorage, cancellationToken);
 
-        //    // UnityEngine.Material
-        //    vgoModelAsset.MaterialList = CreateMaterialAssets(vgoStorage, modelAsset.Texture2dList);
+            // UnityEngine.Material
+            vgoModelAsset.MaterialList = CreateMaterialAssets(vgoStorage, vgoModelAsset.Texture2dList);
 
-        //    return vgoModelAsset;
-        //}
+            return vgoModelAsset;
+        }
 
-        #endregion
-    }
+        /// <summary>
+        /// Extract a 3D model asset from the specified file.
+        /// </summary>
+        /// <param name="vgoFilePath">The file path of the vgo.</param>
+        /// <param name="vgkFilePath">The file path of the vgk.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>A vgo model asset.</returns>
+        /// <remarks>for ScriptedImporter</remarks>
+#if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
+        public virtual async Awaitable<VgoModelAsset> ExtractAsync(string vgoFilePath, string vgkFilePath, CancellationToken cancellationToken)
+#elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
+        public virtual async UniTask<VgoModelAsset> ExtractAsync(string vgoFilePath, string vgkFilePath, CancellationToken cancellationToken)
+#else
+        public virtual async Task<VgoModelAsset> ExtractAsync(string vgoFilePath, string vgkFilePath, CancellationToken cancellationToken)
+#endif
+        {
+            var vgoStorage = new VgoStorage(vgoFilePath, vgkFilePath);
+
+            var vgoModelAsset = new VgoModelAsset();
+
+            vgoModelAsset.Layout = vgoStorage.Layout;
+
+            // UnityEngine.Texture2D
+            vgoModelAsset.Texture2dList = await _TextureImporter.CreateTextureAssetsAsync(vgoStorage, cancellationToken);
+
+            // UnityEngine.Material
+            vgoModelAsset.MaterialList = CreateMaterialAssets(vgoStorage, vgoModelAsset.Texture2dList);
+
+            return vgoModelAsset;
+        }
+
+    #endregion
+}
 }

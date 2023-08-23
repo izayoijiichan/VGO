@@ -13,5 +13,8 @@ namespace UniVgo2
 
         /// <summary>image/png</summary>
         public const string Image_Png = "image/png";
+
+        /// <summary>image/webp</summary>
+        public const string Image_WebP = "image/webp";
     }
 }

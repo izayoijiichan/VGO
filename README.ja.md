@@ -25,6 +25,10 @@ VGOとは、新しい形の3Dデータフォーマットです。
 - glTFとの直接の互換性はありません。
 - Unity Editorへデータを展開することで glTF を含む他の形式への変換は可能です。
 
+## 実験
+
+- テクスチャー内のイメージ タイプ (メディア タイプ / MIME タイプ) として、通常の`PNG`、`JPEG`に加えて`WebP`形式をサポートします。
+
 ## 翻訳
 
 [English](https://github.com/izayoijiichan/VGO/blob/main/README.md).
@@ -83,7 +87,7 @@ VGOファイルをアセット内に配置するだけで簡単に取り込み�
 [Wiki](https://github.com/izayoijiichan/VGO/wiki)
 
 ___
-最終更新日：2023年8月18日  
+最終更新日：2023年8月24日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

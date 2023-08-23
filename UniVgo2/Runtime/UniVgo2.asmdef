@@ -27,7 +27,8 @@
         "Newtonsoft.Json.dll",
         "System.Buffers.dll",
         "System.Memory.dll",
-        "System.Numerics.Vectors.dll"
+        "System.Numerics.Vectors.dll",
+        "SixLabors.ImageSharp.dll"
     ],
     "optionalUnityReferences": [],
     "defineConstraints": [],
@@ -54,7 +55,7 @@
         },
         {
             "name": "com.vrmc.vrmshaders",
-            "expression": "0.104",
+            "expression": "[0.104,1.0)",
             "define": "VRMC_VRMSHADERS_0_104_OR_NEWER"
         },
         {
@@ -64,13 +65,18 @@
         },
         {
             "name": "jp.lilxyzw.liltoon",
-            "expression": "[1.3.0,1.3.7]",
+            "expression": "[1.3,1.4)",
             "define": "LILTOON_1_3_0_OR_NEWER"
         },
         {
             "name": "jp.lilxyzw.liltoon",
-            "expression": "1.4.0",
+            "expression": "[1.4,1.5)",
             "define": "LILTOON_1_4_0_OR_NEWER"
+        },
+        {
+            "name": "org.nuget.sixlabors.imagesharp",
+            "expression": "[2.0,3.0)",
+            "define": "SIXLABORS_IMAGESHARP_2_OR_NEWER"
         }
     ]
 }

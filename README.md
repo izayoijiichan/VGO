@@ -25,6 +25,10 @@ VGO is a new type of 3D data format.
 - There is no direct compatibility with glTF.
 - It is possible to convert to other formats including glTF by expanding the data in Unity Editor.
 
+## Experiments
+
+- Supports `WebP` format in addition to normal `PNG`, `JPEG` for image type (media type / MIME type) in textures.
+
 ## Translation
 
 [Japanese](https://github.com/izayoijiichan/VGO/blob/main/README.ja.md).
@@ -83,7 +87,7 @@ You can easily run-time load a VGO file by writing a few scripts.
 [Wiki](https://github.com/izayoijiichan/VGO/wiki)
 
 ___
-Last updated: 18 August, 2023  
+Last updated: 24 August, 2023  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

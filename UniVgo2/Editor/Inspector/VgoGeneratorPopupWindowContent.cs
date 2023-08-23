@@ -56,6 +56,14 @@ namespace UniVgo2.Editor
         ///// <summary>An array of resource type radio button text.</summary>
         //private readonly string[] _ResourceTypeRadioTexts = new string[] { " Combine", " Separate" };
 
+#if SIXLABORS_IMAGESHARP_2_OR_NEWER && UNIVGO_EXPORT_WEBP_TEXTURE_ENABLE
+        /// <summary>A label text of texture type.</summary>
+        private readonly string _TextureTypeLabelText = "Texture Type";
+
+        /// <summary>An array of texture type radio button text.</summary>
+        private readonly string[] _TextureTypeRadioTexts = new string[] { " PNG", " WebP (expt)" };
+#endif
+
         /// <summary>A content of export button.</summary>
         private readonly GUIContent _ExportButtonContent = new GUIContent("Export");
 
@@ -67,7 +75,12 @@ namespace UniVgo2.Editor
         };
 
         /// <summary>Size of this window.</summary>
-        private readonly Vector2 _WindowSize = new Vector2(400, 180);
+        private readonly Vector2 _WindowSize
+#if SIXLABORS_IMAGESHARP_2_OR_NEWER && UNIVGO_EXPORT_WEBP_TEXTURE_ENABLE
+            = new Vector2(400, 200);
+#else
+            = new Vector2(400, 180);
+#endif
 
         /// <summary>The target GameObject.</summary>
         private readonly GameObject _TargetGameObject;
@@ -77,6 +90,9 @@ namespace UniVgo2.Editor
 
         /// <summary>The selected index of the UV coordinate.</summary>
         private int _UVCoordinateIndex = 0;
+
+        /// <summary>The selected index of the texture type.</summary>
+        private int _TextureTypeIndex = 0;
 
         /// <summary>The selected index of the JSON or BSON.</summary>
         private int _JsonOrBsonIndex = 0;
@@ -160,6 +176,19 @@ namespace UniVgo2.Editor
 
                 EditorGUILayout.EndHorizontal();
             }
+
+#if SIXLABORS_IMAGESHARP_2_OR_NEWER && UNIVGO_EXPORT_WEBP_TEXTURE_ENABLE
+            // Texture Type
+            {
+                EditorGUILayout.BeginHorizontal();
+
+                EditorGUILayout.PrefixLabel(_TextureTypeLabelText);
+
+                _TextureTypeIndex = GUILayout.SelectionGrid(_TextureTypeIndex, _TextureTypeRadioTexts, xCount: 2, _RadioButtonStyte);
+
+                EditorGUILayout.EndHorizontal();
+            }
+#endif
 
             // JSON or BSON
             {
@@ -249,6 +278,10 @@ namespace UniVgo2.Editor
                 ? VgoUVCoordinate.BottomLeft
                 : VgoUVCoordinate.TopLeft;
 
+            ImageType textureType = _TextureTypeIndex == 0
+                ? ImageType.PNG
+                : ImageType.WebP;
+
             bool isBson = _JsonOrBsonIndex == 1;
 
             string? cryptographyAlgorithms
@@ -257,7 +290,7 @@ namespace UniVgo2.Editor
                 : _CryptAlgorithmsIndex == 2 ? VgoCryptographyAlgorithms.Base64
                 : null;
 
-            VgoExportProcessor.ExportVgo(_TargetGameObject, geometryCoordinate, uvCoordinate, ImageType.PNG, isBson, cryptographyAlgorithms);
+            VgoExportProcessor.ExportVgo(_TargetGameObject, geometryCoordinate, uvCoordinate, textureType, isBson, cryptographyAlgorithms);
         }
     }
 }

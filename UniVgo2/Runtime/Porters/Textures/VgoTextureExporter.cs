@@ -6,6 +6,7 @@
 namespace UniVgo2.Porters
 {
     using NewtonVgo;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -24,6 +25,9 @@ namespace UniVgo2.Porters
         /// <summary>The delegate to ExportTexture method.</summary>
         protected readonly ExportTextureDelegate _ExporterTextureDelegate;
 
+        /// <summary>The image converter.</summary>
+        protected IImageConverter? _ImageConverter;
+
         #endregion
 
         #region Properties
@@ -33,6 +37,9 @@ namespace UniVgo2.Porters
 
         /// <summary>The texture type.</summary>
         public ImageType TextureType { get; set; }
+
+        /// <summary>The image converter.</summary>
+        protected IImageConverter ImageConverter => _ImageConverter ??= new ImageConverter();
 
         #endregion
 
@@ -104,7 +111,43 @@ namespace UniVgo2.Porters
             string mimeType;
             byte[] imageBytes;
 
-            if (TextureType == ImageType.JPEG)
+            if (TextureType == ImageType.WebP)
+            {
+                mimeType = MimeType.Image_WebP;
+
+                byte[] webpBytes;
+
+                try
+                {
+                    byte[] textureData = convertedTexture2d.GetRawTextureData();
+
+                    byte[]? pngBytes = ImageConversion.EncodeArrayToPNG(textureData, convertedTexture2d.graphicsFormat, (uint)width, (uint)height);
+
+                    if (pngBytes == null)
+                    {
+                        ThrowHelper.ThrowBadImageFormatException(srcTexture2d.name);
+
+                        return -1;
+                    }
+
+                    // @heavy
+                    webpBytes = ImageConverter.ConvertToWebp(pngBytes, ImageType.PNG, srcTexture2d.name, flipVertical: false);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogException(ex);
+
+                    return -1;
+                }
+
+                if (webpBytes.Any() == false)
+                {
+                    return -1;
+                }
+
+                imageBytes = webpBytes;
+            }
+            else if (TextureType == ImageType.JPEG)
             {
                 mimeType = MimeType.Image_Jpeg;
 

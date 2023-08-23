@@ -14,10 +14,10 @@ ___
 |Unity 2021.1|OK|OK|OK|OK|unconfirmed|OK|
 |Unity 2021.2|OK|OK|OK|OK|unconfirmed|OK|
 |Unity 2021.3|OK|OK|OK|OK|unconfirmed|OK|
-|Unity 2022.1|OK|OK|unconfirmed|unconfirmed|unconfirmed|OK|
-|Unity 2022.2|OK|OK|unconfirmed|unconfirmed|unconfirmed|OK|
-|Unity 2022.3|OK|OK|unconfirmed|unconfirmed|unconfirmed|unconfirmed|
-|Unity 2023.1|OK|OK|unconfirmed|unconfirmed|unconfirmed|unconfirmed|
+|Unity 2022.1|OK|OK|OK|unconfirmed|unconfirmed|OK|
+|Unity 2022.2|OK|OK|OK|unconfirmed|unconfirmed|OK|
+|Unity 2022.3|OK|OK|OK|unconfirmed|unconfirmed|OK|
+|Unity 2023.1|OK|OK|OK|OK|unconfirmed|OK|
 
 As of August of 2023, we are developing and confirming in `Unity 2023.1`, `Windows`, `.NET Standard 2.1` environment.
 
@@ -44,7 +44,7 @@ This package is required for any Unity version.
 |com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub||1.4.0|30 May, 2023|
 |com.izayoi.unishaders|IzayoiJiichan|GitHub||1.6.1|1 Aug, 2023|
 |com.izayoi.vgospringbone|IzayoiJiichan|GitHub||1.1.2|24 Aug, 2022|
-|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.15|18 Aug, 2023|
+|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.16|24 Aug, 2023|
 
 #### Additional Packages
 
@@ -53,6 +53,7 @@ Add if necessary.
 |package name|owner|Repository|specification version|program version|release date|remarks|
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
 |jp.lilxyzw.liltoon|lilxyzw|GitHub||1.4.0|12 May, 2023||
+|org.nuget.sixlabors.imagesharp|SixLabors|Unity NuGet||2.1.5|14 Aug, 2023|for WebP|
 |com.unity.render-pipelines.universal|Unity Technologies|Unity Registry||14.0.0|17 Nov, 2021|URP only|
 |com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||14.0.0|17 Nov, 2021|HDRP only|
 
@@ -141,7 +142,7 @@ To use UniVGO, add the following settings.
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.4.0",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.6.1",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.15",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.16",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.ugui": "1.0.0",
@@ -158,6 +159,22 @@ If you want to use lilToon, append the line "jp.lilxyzw.liltoon".
 {
   "dependencies": {
     "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.4.0",
+  }
+}
+```
+If you are using Unity 2021.2 or higher and you want to use WebP, append the line "org.nuget.sixlabors.imagesharp".
+
+```json
+{
+  "scopedRegistries": [
+    {
+      "name": "Unity NuGet",
+      "url": "https://unitynuget-registry.azurewebsites.net",
+      "scopes": ["org.nuget"]
+    }
+  ],
+  "dependencies": {
+    "org.nuget.sixlabors.imagesharp": "2.1.5",
   }
 }
 ```
@@ -208,7 +225,7 @@ Possible causes of the error are as follows.
 - `asmdef` settings have been changed
 - `asmdef.meta` settings have been changed
 - The `.meta` guid of the component has changed
-- `System.Buffers.dll`, `System.Memory.dll`, `System.Numerics.Vectors.dll`, `System.Runtime.CompilerServices.Unsage.dll` is duplicated.
+- `System.Buffers.dll`, `System.Memory.dll`, `System.Numerics.Vectors.dll` is duplicated.
 - `NewtonSoft.Json.dll` is duplicated.
 - Not getting `LFS` data from GitHub.
 
@@ -253,20 +270,20 @@ The version combinations are as follows.
 
 |UniVRM|UniVGO|min Unity|
 |:---:|:---:|:---:|
-|0.100.0|2.5.15|2020.3|
-|0.101.0|2.5.15|2020.3|
-|0.102.0|2.5.15|2020.3|
-|0.103.2|2.5.15|2020.3|
-|0.104.2|2.5.15|2020.3|
-|0.105.0|2.5.15|2020.3|
-|0.106.0|2.5.15|2020.3|
-|0.107.2|2.5.15|2020.3|
-|0.108.0|2.5.15|2020.3|
-|0.109.0|2.5.15|2020.3|
-|0.110.0|2.5.15|2020.3|
-|0.111.0|2.5.15|2020.3|
-|0.112.0|2.5.15|2020.3|
-|0.113.0|2.5.15|2020.3|
+|0.100.0|2.5.16|2020.3|
+|0.101.0|2.5.16|2020.3|
+|0.102.0|2.5.16|2020.3|
+|0.103.2|2.5.16|2020.3|
+|0.104.2|2.5.16|2020.3|
+|0.105.0|2.5.16|2020.3|
+|0.106.0|2.5.16|2020.3|
+|0.107.2|2.5.16|2020.3|
+|0.108.0|2.5.16|2020.3|
+|0.109.0|2.5.16|2020.3|
+|0.110.0|2.5.16|2020.3|
+|0.111.0|2.5.16|2020.3|
+|0.112.0|2.5.16|2021.3|
+|0.113.0|2.5.16|2021.3|
 
 Write the following in `<Project> /Packages/package.json`.
 
@@ -296,7 +313,7 @@ https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 |2022.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2022.3.brp.univrm)|
 
 ___
-Last updated: 18 August, 2023  
+Last updated: 24 August, 2023  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -12,5 +12,7 @@ namespace UniVgo2
         JPEG = 1,
         /// <summary>image/png</summary>
         PNG = 0,
+        /// <summary>image/webp</summary>
+        WebP = 2,
     }
 }

@@ -11,6 +11,8 @@ namespace UniVgo2.Editor
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
     using UnityEditor;
 #if UNITY_2020_2_OR_NEWER
     using UnityEditor.AssetImporters;
@@ -18,6 +20,7 @@ namespace UniVgo2.Editor
     using UnityEditor.Experimental.AssetImporters;
 #endif
     using UnityEngine;
+    using UniVgo2.Converters;
 
     /// <summary>
     /// VGO Scripted Importer
@@ -29,6 +32,8 @@ namespace UniVgo2.Editor
 #endif
     public class VgoScriptedImporter : ScriptedImporter
     {
+        #region Fields
+
         /// <summary>The animation directory name.</summary>
         protected readonly string AnimationDirectoryName = "Animations";
 
@@ -50,6 +55,28 @@ namespace UniVgo2.Editor
         /// <summary>The vgo importer.</summary>
         protected readonly VgoImporter _VgoImporter = new VgoImporter();
 
+        /// <summary>Whether to force extraction of textures as png.</summary>
+        protected readonly bool _ExtractTexturePngForce
+#if UNIVGO_SCRIPTED_IMPORTER_FORCE_PNG
+            = true;
+#else
+            = false;
+#endif
+
+        /// <summary>The image converter.</summary>
+        protected IImageConverter? _ImageConverter;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>The image converter.</summary>
+        protected IImageConverter ImageConverter => _ImageConverter ??= new ImageConverter();
+
+        #endregion
+
+        #region Public Methods
+
         /// <summary>
         /// This method must by overriden by the derived class and is called by the Asset pipeline to import files.
         /// </summary>
@@ -61,8 +88,21 @@ namespace UniVgo2.Editor
         {
             try
             {
+                var stopwatch = new System.Diagnostics.Stopwatch();
+
+                stopwatch.Start();
+
                 VgoModelAsset modelAsset = LoadModel(ctx.assetPath);
                 {
+#if !SIXLABORS_IMAGESHARP_2_OR_NEWER
+                    if (modelAsset.Layout?.textures != null)
+                    {
+                        if (modelAsset.Layout.textures.Any(t => t?.mimeType == MimeType.Image_WebP))
+                        {
+                            Debug.LogWarningFormat("{0} contains WebP texture. (require SixLabors.ImageSharp)", ctx.assetPath);
+                        }
+                    }
+#endif
                     // Animation
                     if (modelAsset.AnimationClipList != null)
                     {
@@ -243,12 +283,20 @@ namespace UniVgo2.Editor
                         }
                     }
                 }
+
+                stopwatch.Stop();
+
+                Debug.LogFormat("Import VGO file.\nGameObject: {0}, input: {1}, {2:#,0}ms", modelAsset.Root?.name, ctx.assetPath, stopwatch.ElapsedMilliseconds);
             }
             catch (Exception ex)
             {
                 Debug.LogException(ex);
             }
         }
+
+        #endregion
+
+        #region Protected Methods
 
         /// <summary>
         /// Load 3D model.
@@ -265,6 +313,30 @@ namespace UniVgo2.Editor
         }
 
         /// <summary>
+        /// Load 3D model.
+        /// </summary>
+        /// <param name="vgoFilePath">The file path of the vgo.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>A vgo model asset.</returns>
+        protected virtual async Task<VgoModelAsset> LoadModelAsync(string vgoFilePath, CancellationToken cancellationToken)
+        {
+            string? vgkFilePath = FindVgkFilePath(vgoFilePath);
+
+            VgoModelAsset vgoModelAsset;
+
+            if (vgkFilePath is null || vgkFilePath == string.Empty)
+            {
+                vgoModelAsset = await _VgoImporter.LoadAsync(vgoFilePath, cancellationToken);
+            }
+            else
+            {
+                vgoModelAsset = await _VgoImporter.LoadAsync(vgoFilePath, vgkFilePath, cancellationToken);
+            }
+
+            return vgoModelAsset;
+        }
+
+        /// <summary>
         /// Extract 3D model.
         /// </summary>
         /// <param name="vgoFilePath">The file path of the vgo.</param>
@@ -274,6 +346,30 @@ namespace UniVgo2.Editor
             string? vgkFilePath = FindVgkFilePath(vgoFilePath);
 
             VgoModelAsset vgoModelAsset = _VgoImporter.Extract(vgoFilePath, vgkFilePath);
+
+            return vgoModelAsset;
+        }
+
+        /// <summary>
+        /// Extract 3D model.
+        /// </summary>
+        /// <param name="vgoFilePath">The file path of the vgo.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>A vgo model asset.</returns>
+        protected virtual async Task<VgoModelAsset> ExtractModelAsync(string vgoFilePath, CancellationToken cancellationToken)
+        {
+            string? vgkFilePath = FindVgkFilePath(vgoFilePath);
+
+            VgoModelAsset vgoModelAsset;
+
+            if (vgkFilePath is null || vgkFilePath == string.Empty)
+            {
+                vgoModelAsset = await _VgoImporter.ExtractAsync(vgoFilePath, cancellationToken);
+            }
+            else
+            {
+                vgoModelAsset = await _VgoImporter.ExtractAsync(vgoFilePath, vgkFilePath, cancellationToken);
+            }
 
             return vgoModelAsset;
         }
@@ -300,6 +396,10 @@ namespace UniVgo2.Editor
 
             return vgkFilePath;
         }
+
+        #endregion
+
+        #region Public Methods (for Inspector)
 
         /// <summary>
         /// Extract animation clips.
@@ -393,7 +493,7 @@ namespace UniVgo2.Editor
         /// </summary>
         public virtual void ExtractTexturesAndMaterials()
         {
-            ExtractTextures(TextureDirectoryName, (path) => { return ExtractModel(path); }, continueMaterial: true);
+            ExtractTextures(TextureDirectoryName, continueMaterial: true);
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
@@ -402,7 +502,7 @@ namespace UniVgo2.Editor
         /// </summary>
         public virtual void ExtractTextures()
         {
-            ExtractTextures(TextureDirectoryName, (path) => { return ExtractModel(path); });
+            ExtractTextures(TextureDirectoryName);
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
@@ -410,9 +510,8 @@ namespace UniVgo2.Editor
         /// Extract textures.
         /// </summary>
         /// <param name="dirName"></param>
-        /// <param name="ExtractModel"></param>
         /// <param name="continueMaterial"></param>
-        public virtual void ExtractTextures(in string dirName, in Func<string, VgoModelAsset> ExtractModel, bool continueMaterial = false)
+        public virtual void ExtractTextures(in string dirName, bool continueMaterial = false)
         {
             if (string.IsNullOrEmpty(assetPath))
             {
@@ -460,20 +559,7 @@ namespace UniVgo2.Editor
 
                         byte[] imageBytes;
 
-                        if (vgoTexture.mimeType == MimeType.Image_Jpeg)
-                        {
-                            fileExt = ".jpg";
-
-                            byte[]? jpgBytes = ImageConversion.EncodeToJPG(texture2d, quality: 100);
-
-                            if (jpgBytes == null)
-                            {
-                                continue;
-                            }
-
-                            imageBytes = jpgBytes;
-                        }
-                        else if (vgoTexture.mimeType == MimeType.Image_Png)
+                        if (vgoTexture.mimeType == MimeType.Image_Png || _ExtractTexturePngForce)
                         {
                             fileExt = ".png";
 
@@ -486,22 +572,72 @@ namespace UniVgo2.Editor
 
                             imageBytes = pngBytes;
                         }
+                        else if (vgoTexture.mimeType == MimeType.Image_Jpeg)
+                        {
+                            fileExt = ".jpg";
+
+                            byte[]? jpgBytes = ImageConversion.EncodeToJPG(texture2d, quality: 100);
+
+                            if (jpgBytes == null)
+                            {
+                                continue;
+                            }
+
+                            imageBytes = jpgBytes;
+                        }
+                        else if (vgoTexture.mimeType == MimeType.Image_WebP)
+                        {
+                            fileExt = ".webp";
+
+                            byte[]? pngBytes = ImageConversion.EncodeToPNG(texture2d);
+
+                            if (pngBytes == null)
+                            {
+                                continue;
+                            }
+
+                            try
+                            {
+                                string fileName = vgoTexture.name is null || vgoTexture.name == string.Empty
+                                    ? string.Format("Image_{0:000}", textureIndex)
+                                    : vgoTexture.name;
+
+                                // @heavy
+                                ImageConverter.SaveAsWebp(pngBytes, ImageType.PNG, path, fileName);
+
+                                string targetPath = Path.Combine(path, fileName + fileExt);
+
+                                AssetDatabase.ImportAsset(targetPath);
+
+                                targetPaths.Add(vgoTexture, targetPath);
+
+                                continue;
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.LogException(ex);
+
+                                continue;
+                            }
+                        }
                         else
                         {
                             continue;
                         }
 
-                        string fileName = vgoTexture.name is null || vgoTexture.name == string.Empty
-                            ? string.Format("Image_{0:000}", textureIndex)
-                            : vgoTexture.name;
+                        {
+                            string fileName = vgoTexture.name is null || vgoTexture.name == string.Empty
+                                ? string.Format("Image_{0:000}", textureIndex)
+                                : vgoTexture.name;
 
-                        string targetPath = Path.Combine(path, fileName + fileExt);
+                            string targetPath = Path.Combine(path, fileName + fileExt);
 
-                        File.WriteAllBytes(targetPath, imageBytes);
+                            File.WriteAllBytes(targetPath, imageBytes);
 
-                        AssetDatabase.ImportAsset(targetPath);
+                            AssetDatabase.ImportAsset(targetPath);
 
-                        targetPaths.Add(vgoTexture, targetPath);
+                            targetPaths.Add(vgoTexture, targetPath);
+                        }
                     }
                 }
             }
@@ -578,7 +714,7 @@ namespace UniVgo2.Editor
         /// <typeparam name="T"></typeparam>
         /// <param name="dirName"></param>
         /// <param name="extension"></param>
-        public virtual void ExtractAssets<T>(in string dirName, in string extension) where T : UnityEngine.Object
+        protected virtual void ExtractAssets<T>(in string dirName, in string extension) where T : UnityEngine.Object
         {
             if (string.IsNullOrEmpty(assetPath))
             {
@@ -650,6 +786,10 @@ namespace UniVgo2.Editor
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
+        #endregion
+
+        #region Protected Methods
+
         /// <summary>
         /// Gets the sub assets.
         /// </summary>
@@ -681,6 +821,8 @@ namespace UniVgo2.Editor
 
             return directoryInfo;
         }
+
+        #endregion
     }
 }
 #endif
