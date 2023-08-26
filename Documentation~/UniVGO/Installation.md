@@ -44,7 +44,7 @@ This package is required for any Unity version.
 |com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub||1.4.0|30 May, 2023|
 |com.izayoi.unishaders|IzayoiJiichan|GitHub||1.6.1|1 Aug, 2023|
 |com.izayoi.vgospringbone|IzayoiJiichan|GitHub||1.1.2|24 Aug, 2022|
-|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.16|24 Aug, 2023|
+|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.17|27 Aug, 2023|
 
 #### Additional Packages
 
@@ -142,7 +142,7 @@ To use UniVGO, add the following settings.
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.4.0",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.6.1",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.16",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.17",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.ugui": "1.0.0",
@@ -270,20 +270,20 @@ The version combinations are as follows.
 
 |UniVRM|UniVGO|min Unity|
 |:---:|:---:|:---:|
-|0.100.0|2.5.16|2020.3|
-|0.101.0|2.5.16|2020.3|
-|0.102.0|2.5.16|2020.3|
-|0.103.2|2.5.16|2020.3|
-|0.104.2|2.5.16|2020.3|
-|0.105.0|2.5.16|2020.3|
-|0.106.0|2.5.16|2020.3|
-|0.107.2|2.5.16|2020.3|
-|0.108.0|2.5.16|2020.3|
-|0.109.0|2.5.16|2020.3|
-|0.110.0|2.5.16|2020.3|
-|0.111.0|2.5.16|2020.3|
-|0.112.0|2.5.16|2021.3|
-|0.113.0|2.5.16|2021.3|
+|0.100.0|2.5.17|2020.3|
+|0.101.0|2.5.17|2020.3|
+|0.102.0|2.5.17|2020.3|
+|0.103.2|2.5.17|2020.3|
+|0.104.2|2.5.17|2020.3|
+|0.105.0|2.5.17|2020.3|
+|0.106.0|2.5.17|2020.3|
+|0.107.2|2.5.17|2020.3|
+|0.108.0|2.5.17|2020.3|
+|0.109.0|2.5.17|2020.3|
+|0.110.0|2.5.17|2020.3|
+|0.111.0|2.5.17|2020.3|
+|0.112.0|2.5.17|2021.3|
+|0.113.0|2.5.17|2021.3|
 
 Write the following in `<Project> /Packages/package.json`.
 
@@ -313,7 +313,7 @@ https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 |2022.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2022.3.brp.univrm)|
 
 ___
-Last updated: 24 August, 2023  
+Last updated: 27 August, 2023  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

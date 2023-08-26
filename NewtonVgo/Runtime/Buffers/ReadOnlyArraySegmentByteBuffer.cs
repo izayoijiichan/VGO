@@ -25,7 +25,7 @@ namespace NewtonVgo.Buffers
         public int Capacity => _Bytes.Count;
 
         /// <summary>Gets or sets the current length of the buffer in bytes.</summary>
-        public int Length { get; private set; }
+        public int Length => _Bytes.Count;
 
         #endregion
 
@@ -35,11 +35,18 @@ namespace NewtonVgo.Buffers
         /// Create a new instance of ReadOnlyArraySegmentByteBuffer with bytes.
         /// </summary>
         /// <param name="bytes">The data to store in the buffer.</param>
+        public ReadOnlyArraySegmentByteBuffer(byte[] bytes)
+        {
+            _Bytes = new ArraySegment<byte>(bytes);
+        }
+
+        /// <summary>
+        /// Create a new instance of ReadOnlyArraySegmentByteBuffer with bytes.
+        /// </summary>
+        /// <param name="bytes">The data to store in the buffer.</param>
         public ReadOnlyArraySegmentByteBuffer(ArraySegment<byte> bytes)
         {
             _Bytes = bytes;
-
-            Length = bytes.Count;
         }
 
         #endregion

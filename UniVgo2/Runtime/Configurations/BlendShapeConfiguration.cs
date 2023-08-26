@@ -28,8 +28,10 @@ namespace UniVgo2
         }
 
         /// <summary>The kind of the BlendShape.</summary>
+        /// <remarks>For VgoScriptedImporter it is set to public.</remarks>
         [SerializeField]
-        private VgoBlendShapeKind kind;
+        public VgoBlendShapeKind kind;
+        //private VgoBlendShapeKind kind;
 
         /// <summary>The kind of the BlendShape.</summary>
         public VgoBlendShapeKind Kind
@@ -39,8 +41,10 @@ namespace UniVgo2
         }
 
         /// <summary>List of face parts.</summary>
+        /// <remarks>For VgoScriptedImporter it is set to public.</remarks>
         [SerializeField]
-        private List<BlendShapeFacePart> faceParts = new List<BlendShapeFacePart>();
+        public List<BlendShapeFacePart> faceParts = new List<BlendShapeFacePart>();
+        //private List<BlendShapeFacePart> faceParts = new List<BlendShapeFacePart>();
 
         /// <summary>List of face parts.</summary>
         /// <remarks>
@@ -55,8 +59,10 @@ namespace UniVgo2
         }
 
         /// <summary>List of blink.</summary>
+        /// <remarks>For VgoScriptedImporter it is set to public.</remarks>
         [SerializeField]
-        private List<BlendShapeBlink> blinks = new List<BlendShapeBlink>();
+        public List<BlendShapeBlink> blinks = new List<BlendShapeBlink>();
+        //private List<BlendShapeBlink> blinks = new List<BlendShapeBlink>();
 
         /// <summary>List of blink.</summary>
         public List<BlendShapeBlink> Blinks
@@ -66,8 +72,10 @@ namespace UniVgo2
         }
 
         /// <summary>Visemes.</summary>
+        /// <remarks>For VgoScriptedImporter it is set to public.</remarks>
         [SerializeField]
-        private List<BlendShapeViseme> visemes = new List<BlendShapeViseme>();
+        public List<BlendShapeViseme> visemes = new List<BlendShapeViseme>();
+        //private List<BlendShapeViseme> visemes = new List<BlendShapeViseme>();
 
         /// <summary>Visemes.</summary>
         public List<BlendShapeViseme> Visemes
@@ -77,8 +85,10 @@ namespace UniVgo2
         }
 
         /// <summary>List of preset.</summary>
+        /// <remarks>For VgoScriptedImporter it is set to public.</remarks>
         [SerializeField]
-        private List<VgoMeshBlendShapePreset> presets = new List<VgoMeshBlendShapePreset>();
+        public List<VgoMeshBlendShapePreset> presets = new List<VgoMeshBlendShapePreset>();
+        //private List<VgoMeshBlendShapePreset> presets = new List<VgoMeshBlendShapePreset>();
 
         /// <summary>List of preset.</summary>
         public List<VgoMeshBlendShapePreset> Presets

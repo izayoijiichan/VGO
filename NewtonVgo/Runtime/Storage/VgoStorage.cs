@@ -8,9 +8,7 @@ namespace NewtonVgo
     using Newtonsoft.Json;
     using NewtonVgo.Buffers;
     using NewtonVgo.Serialization;
-    using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Text;
 
     /// <summary>
@@ -64,12 +62,6 @@ namespace NewtonVgo
         /// <summary>The resource.</summary>
         public IByteBuffer? Resource { get; protected set; }
 
-        /// <summary>The directory path.</summary>
-        public string? DirectoryPath { get; protected set; }
-
-        /// <summary>The timeout seconds of http request.</summary>
-        public int HttpTimeoutSeconds { get; set; } = 30;
-
         /// <summary>Whether spec version is 2.4 or lower.</summary>
         public bool IsSpecVersion_2_4_orLower => (Header.MajorVersion == 2) && (Header.MinorVersion <= 4);
 
@@ -78,63 +70,12 @@ namespace NewtonVgo
         #region Constructors
 
         /// <summary>
-        /// Create a new instance of VgoStorage with filePath.
+        /// Create a new instance of VgoStorage.
         /// </summary>
-        /// <param name="vgoFilePath">The file path of the vgo.</param>
-        /// <param name="vgkFilePath">The file path of the crypt key.</param>
         /// <remarks>for Import</remarks>
-        public VgoStorage(string vgoFilePath, string? vgkFilePath = null)
+        public VgoStorage()
         {
-            if (vgoFilePath == null)
-            {
-#if NET_STANDARD_2_1
-                ThrowHelper.ThrowArgumentNullException(nameof(vgoFilePath));
-#else
-                throw new ArgumentNullException(nameof(vgoFilePath));
-#endif
-            }
-
-            FileInfo vgoFileInfo = new FileInfo(vgoFilePath);
-
-            if (vgoFileInfo.Exists == false)
-            {
-                ThrowHelper.ThrowFileNotFoundException(vgoFilePath);
-            }
-
-            DirectoryPath = vgoFileInfo.DirectoryName;
-
-            byte[] vgoBytes = File.ReadAllBytes(vgoFilePath);
-
-            byte[]? vgkBytes = null;
-
-            if (vgkFilePath != null)
-            {
-                FileInfo vgkFileInfo = new FileInfo(vgkFilePath);
-
-                if (vgkFileInfo.Exists == false)
-                {
-                    ThrowHelper.ThrowFileNotFoundException(vgkFilePath);
-                }
-
-                vgkBytes = File.ReadAllBytes(vgkFilePath);
-            }
-
-            ParseVgo(vgoBytes, vgkBytes, out var layout);
-
-            Layout = layout;
-        }
-
-        /// <summary>
-        /// Create a new instance of VgoStorage with bytes.
-        /// </summary>
-        /// <param name="vgoBytes">The vgo bytes.</param>
-        /// <param name="vgkBytes">The vgk bytes.</param>
-        /// <remarks>for Import</remarks>
-        public VgoStorage(byte[] vgoBytes, byte[]? vgkBytes = null)
-        {
-            ParseVgo(vgoBytes, vgkBytes, out var layout);
-
-            Layout = layout;
+            Layout = new VgoLayout();
         }
 
         /// <summary>
@@ -207,6 +148,7 @@ namespace NewtonVgo
             }
         }
 
+#if false
         /// <summary>
         /// Deserialize JSON or BSON to a object.
         /// </summary>
@@ -243,6 +185,7 @@ namespace NewtonVgo
                 throw;
             }
         }
+#endif
 
         #endregion
     }

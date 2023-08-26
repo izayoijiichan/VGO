@@ -1,5 +1,13 @@
 # Change Log
 
+## [2.5.17] - 2023-08-27
+
+- Features
+  - Enabled to use Stream argument for Load method of VgoImporter.
+- Fixes
+  - [Editor] Fixed a bug that occurred in BlendShape of Scripted Importer.
+  - [Editor] Fixed a bug in v2.5.16 that caused error when declaring `UNIVGO_USE_UNITASK`.
+
 ## [2.5.16] - 2023-08-24
 
 - Experiments

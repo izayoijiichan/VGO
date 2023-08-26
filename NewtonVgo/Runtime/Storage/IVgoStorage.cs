@@ -1,6 +1,6 @@
 ﻿// ----------------------------------------------------------------------
 // @Namespace : NewtonVgo
-// @Class     : IVgoStorage
+// @Interface : IVgoStorage
 // ----------------------------------------------------------------------
 #nullable enable
 namespace NewtonVgo
@@ -8,6 +8,9 @@ namespace NewtonVgo
     using NewtonVgo.Buffers;
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Threading.Tasks;
+    using System.Threading;
 
     /// <summary>
     /// VGO Storage Interface
@@ -34,12 +37,6 @@ namespace NewtonVgo
         /// <summary>The resource.</summary>
         IByteBuffer? Resource { get; }
 
-        /// <summary>The directory path.</summary>
-        string? DirectoryPath { get; }
-
-        /// <summary>The timeout seconds of http request.</summary>
-        int HttpTimeoutSeconds { get; set; }
-
         /// <summary>Whether spec version is 2.4 or lower.</summary>
         bool IsSpecVersion_2_4_orLower { get; }
 
@@ -54,6 +51,74 @@ namespace NewtonVgo
         /// <param name="exportSetting">A vgo export setting.</param>
         /// <returns>Returns true if the export was successful, false otherwise.</returns>
         bool ExportVgoFile(in string filePath, in VgoExportSetting exportSetting);
+
+        #endregion
+
+        #region Methods (Export)
+
+        /// <summary>
+        /// Parse vgo.
+        /// </summary>
+        /// <param name="vgoFilePath">The file path of the vgo.</param>
+        /// <param name="vgkFilePath">The file path of the crypt key.</param>
+        void ParseVgo(in string vgoFilePath, in string? vgkFilePath);
+
+        /// <summary>
+        /// Parse vgo.
+        /// </summary>
+        /// <param name="vgoBytes">The vgo bytes.</param>
+        /// <param name="vgkBytes">The vgk bytes.</param>
+        void ParseVgo(in byte[] vgoBytes, in byte[]? vgkBytes);
+
+        /// <summary>
+        /// Parse vgo.
+        /// </summary>
+        /// <param name="vgoStream">The vgo stream.</param>
+        /// <param name="vgkBytes">The vgk bytes.</param>
+        void ParseVgo(in Stream vgoStream, in byte[]? vgkBytes);
+
+        /// <summary>
+        /// Parse vgo.
+        /// </summary>
+        /// <param name="vgoStream">The vgo stream.</param>
+        /// <param name="vgkStream">The vgk stream.</param>
+        void ParseVgo(in Stream vgoStream, in Stream? vgkStream);
+
+        /// <summary>
+        /// Parse vgo.
+        /// </summary>
+        /// <param name="vgoFilePath">The file path of the vgo.</param>
+        /// <param name="vgkFilePath">The file path of the crypt key.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns></returns>
+        Task ParseVgoAsync(string vgoFilePath, string? vgkFilePath, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Parse vgo.
+        /// </summary>
+        /// <param name="vgoBytes">The vgo bytes.</param>
+        /// <param name="vgkBytes">The vgk bytes.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns></returns>
+        Task ParseVgoAsync(byte[] vgoBytes, byte[]? vgkBytes, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Parse vgo.
+        /// </summary>
+        /// <param name="vgoStream">The vgo stream.</param>
+        /// <param name="vgkBytes">The vgk bytes.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns></returns>
+        Task ParseVgoAsync(Stream vgoStream, byte[]? vgkBytes, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Parse vgo.
+        /// </summary>
+        /// <param name="vgoStream">The vgo stream.</param>
+        /// <param name="vgkStream">The vgk stream.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns></returns>
+        Task ParseVgoAsync(Stream vgoStream, Stream? vgkStream, CancellationToken cancellationToken);
 
         #endregion
 

@@ -106,7 +106,7 @@ namespace UniVgo2.Editor
                     // Animation
                     if (modelAsset.AnimationClipList != null)
                     {
-                        Dictionary<string, AnimationClip> externalObjects = GetExternalUnityObjects<AnimationClip>();
+                        Dictionary<SourceAssetIdentifier, AnimationClip> externalObjects = GetExternalUnityObjects<AnimationClip>();
 
                         foreach (AnimationClip? animationClip in modelAsset.AnimationClipList)
                         {
@@ -134,7 +134,7 @@ namespace UniVgo2.Editor
                     // Avatar
                     if (modelAsset.Avatar != null)
                     {
-                        var externalObjects = GetExternalUnityObjects<Avatar>();
+                        Dictionary<SourceAssetIdentifier, Avatar> externalObjects = GetExternalUnityObjects<Avatar>();
 
                         if (externalObjects.ContainsValue(modelAsset.Avatar) == false)
                         {
@@ -152,7 +152,7 @@ namespace UniVgo2.Editor
                     // Material
                     if (modelAsset.MaterialList != null)
                     {
-                        Dictionary<string, Material> externalObjects = GetExternalUnityObjects<Material>();
+                        Dictionary<SourceAssetIdentifier, Material> externalObjects = GetExternalUnityObjects<Material>();
 
                         foreach (Material? material in modelAsset.MaterialList)
                         {
@@ -180,7 +180,7 @@ namespace UniVgo2.Editor
                     // Mesh
                     if (modelAsset.MeshAssetList != null)
                     {
-                        Dictionary<string, Mesh> externalObjects = GetExternalUnityObjects<Mesh>();
+                        Dictionary<SourceAssetIdentifier, Mesh> externalObjects = GetExternalUnityObjects<Mesh>();
 
                         foreach (MeshAsset meshAsset in modelAsset.MeshAssetList)
                         {
@@ -208,7 +208,7 @@ namespace UniVgo2.Editor
                     // Texture
                     if (modelAsset.Texture2dList != null)
                     {
-                        Dictionary<string, Texture2D> externalObjects = GetExternalUnityObjects<Texture2D>();
+                        Dictionary<SourceAssetIdentifier, Texture2D> externalObjects = GetExternalUnityObjects<Texture2D>();
 
                         foreach (Texture2D? texture in modelAsset.Texture2dList)
                         {
@@ -243,7 +243,8 @@ namespace UniVgo2.Editor
                             .Select(x => x as BlendShapeConfiguration)
                             .ToList();
 
-                        var externals = GetExternalUnityObjects<BlendShapeConfiguration>();
+                        Dictionary<SourceAssetIdentifier, BlendShapeConfiguration> externals
+                            = GetExternalUnityObjects<BlendShapeConfiguration>();
 
                         foreach (BlendShapeConfiguration? blendShapeConfiguration in blendShapeConfigurationList)
                         {
@@ -260,6 +261,7 @@ namespace UniVgo2.Editor
                             try
                             {
                                 blendShapeConfiguration.name = blendShapeConfiguration.Kind + "BlendShapeConfiguration";
+
                                 ctx.AddObjectToAsset(blendShapeConfiguration.name, blendShapeConfiguration);
                             }
                             catch (Exception ex)
@@ -362,14 +364,7 @@ namespace UniVgo2.Editor
 
             VgoModelAsset vgoModelAsset;
 
-            if (vgkFilePath is null || vgkFilePath == string.Empty)
-            {
-                vgoModelAsset = await _VgoImporter.ExtractAsync(vgoFilePath, cancellationToken);
-            }
-            else
-            {
-                vgoModelAsset = await _VgoImporter.ExtractAsync(vgoFilePath, vgkFilePath, cancellationToken);
-            }
+            vgoModelAsset = await _VgoImporter.ExtractAsync(vgoFilePath, vgkFilePath, cancellationToken);
 
             return vgoModelAsset;
         }
@@ -408,7 +403,7 @@ namespace UniVgo2.Editor
         {
             ExtractAssets<AnimationClip>(AnimationDirectoryName, ".anim");
 
-            Dictionary<string, AnimationClip> externalObjects = GetExternalUnityObjects<AnimationClip>();
+            Dictionary<SourceAssetIdentifier, AnimationClip> externalObjects = GetExternalUnityObjects<AnimationClip>();
 
             foreach ((_, AnimationClip animationClip) in externalObjects)
             {
@@ -417,6 +412,7 @@ namespace UniVgo2.Editor
                 if (string.IsNullOrEmpty(assetPath) == false)
                 {
                     EditorUtility.SetDirty(animationClip);
+
                     AssetDatabase.WriteImportSettingsIfDirty(assetPath);
                 }
             }
@@ -431,7 +427,7 @@ namespace UniVgo2.Editor
         {
             ExtractAssets<Avatar>(AvatarDirectoryName, ".asset");
 
-            Dictionary<string, Avatar> externalObjects = GetExternalUnityObjects<Avatar>();
+            Dictionary<SourceAssetIdentifier, Avatar> externalObjects = GetExternalUnityObjects<Avatar>();
 
             foreach ((_, Avatar avatar) in externalObjects)
             {
@@ -440,6 +436,7 @@ namespace UniVgo2.Editor
                 if (string.IsNullOrEmpty(assetPath) == false)
                 {
                     EditorUtility.SetDirty(avatar);
+
                     AssetDatabase.WriteImportSettingsIfDirty(assetPath);
                 }
             }
@@ -454,7 +451,7 @@ namespace UniVgo2.Editor
         {
             ExtractAssets<BlendShapeConfiguration>(BlendShapeDirectoryName, ".asset");
 
-            Dictionary<string, BlendShapeConfiguration> externalObjects = GetExternalUnityObjects<BlendShapeConfiguration>();
+            Dictionary<SourceAssetIdentifier, BlendShapeConfiguration> externalObjects = GetExternalUnityObjects<BlendShapeConfiguration>();
 
             foreach ((_, BlendShapeConfiguration blendShapeConfiguration) in externalObjects)
             {
@@ -463,6 +460,7 @@ namespace UniVgo2.Editor
                 if (string.IsNullOrEmpty(assetPath) == false)
                 {
                     EditorUtility.SetDirty(blendShapeConfiguration);
+
                     AssetDatabase.WriteImportSettingsIfDirty(assetPath);
                 }
             }
@@ -476,6 +474,7 @@ namespace UniVgo2.Editor
         public virtual void ExtractMaterials()
         {
             ExtractAssets<Material>(MaterialDirectoryName, ".mat");
+
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
@@ -485,6 +484,7 @@ namespace UniVgo2.Editor
         public void ExtractMeshes()
         {
             ExtractAssets<Mesh>(MeshDirectoryName, ".mesh");
+
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
@@ -494,6 +494,7 @@ namespace UniVgo2.Editor
         public virtual void ExtractTexturesAndMaterials()
         {
             ExtractTextures(TextureDirectoryName, continueMaterial: true);
+
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
@@ -503,6 +504,7 @@ namespace UniVgo2.Editor
         public virtual void ExtractTextures()
         {
             ExtractTextures(TextureDirectoryName);
+
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
@@ -524,7 +526,7 @@ namespace UniVgo2.Editor
                 Path.GetDirectoryName(assetPath),
                 Path.GetFileNameWithoutExtension(assetPath),
                 dirName
-                );
+            );
 
             CreateDirectoryIfNotExists(path);
 
@@ -690,7 +692,9 @@ namespace UniVgo2.Editor
             {
                 RemoveRemap(extarnalObject.Key);
             }
+
             AssetDatabase.WriteImportSettingsIfDirty(assetPath);
+
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
@@ -700,11 +704,13 @@ namespace UniVgo2.Editor
         /// <typeparam name="T"></typeparam>
         public virtual void ClearExternalObjects<T>() where T : UnityEngine.Object
         {
-            foreach (var extarnalObject in GetExternalObjectMap().Where(x => x.Key.type == typeof(T)))
+            foreach (var extarnalObject in GetExternalUnityObjects<T>())
             {
                 RemoveRemap(extarnalObject.Key);
             }
+
             AssetDatabase.WriteImportSettingsIfDirty(assetPath);
+
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
@@ -727,7 +733,7 @@ namespace UniVgo2.Editor
                 Path.GetDirectoryName(assetPath),
                 Path.GetFileNameWithoutExtension(assetPath),
                 dirName
-                );
+            );
 
             CreateDirectoryIfNotExists(path);
 
@@ -758,6 +764,7 @@ namespace UniVgo2.Editor
             if (isForceUpdate)
             {
                 AssetDatabase.WriteImportSettingsIfDirty(assetPath);
+
                 AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
             }
         }
@@ -767,11 +774,11 @@ namespace UniVgo2.Editor
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public virtual Dictionary<string, T> GetExternalUnityObjects<T>() where T : UnityEngine.Object
+        public virtual Dictionary<SourceAssetIdentifier, T> GetExternalUnityObjects<T>() where T : UnityEngine.Object
         {
             return GetExternalObjectMap()
                 .Where(x => x.Key.type == typeof(T))
-                .ToDictionary(x => x.Key.name, x => (T)x.Value);
+                .ToDictionary(x => x.Key, x => (T)x.Value);
         }
 
         /// <summary>
@@ -782,7 +789,9 @@ namespace UniVgo2.Editor
         public virtual void SetExternalUnityObject<T>(in SourceAssetIdentifier sourceAssetIdentifier, T obj) where T : UnityEngine.Object
         {
             AddRemap(sourceAssetIdentifier, obj);
+
             AssetDatabase.WriteImportSettingsIfDirty(assetPath);
+
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
         }
 
@@ -798,8 +807,10 @@ namespace UniVgo2.Editor
         /// <returns></returns>
         protected virtual IEnumerable<T> GetSubAssets<T>(in string assetPath) where T : UnityEngine.Object
         {
-            return AssetDatabase
-                .LoadAllAssetsAtPath(assetPath)
+            UnityEngine.Object[] allAssets = AssetDatabase.LoadAllAssetsAtPath(assetPath);
+
+            return allAssets
+                .Where(x => x != null)
                 .Where(x => AssetDatabase.IsSubAsset(x))
                 .Where(x => x is T)
                 .Select(x => (T)x);
@@ -812,7 +823,7 @@ namespace UniVgo2.Editor
         /// <returns></returns>
         protected virtual DirectoryInfo CreateDirectoryIfNotExists(in string path)
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            var directoryInfo = new DirectoryInfo(path);
 
             if (directoryInfo.Exists == false)
             {

@@ -11,7 +11,8 @@
     "overrideReferences": false,
     "references": [
         "NewtonVgo",
-        "UniVgo2"
+        "UniVgo2",
+        "UniTask"
     ],
     "precompiledReferences": [],
     "optionalUnityReferences": [],

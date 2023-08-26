@@ -28,8 +28,10 @@ namespace UniVgo2
         }
 
         /// <summary>List of the human bone.</summary>
+        /// <remarks>For VgoScriptedImporter it is set to public.</remarks>
         [SerializeField]
-        private List<VgoHumanBone> humanBones = new List<VgoHumanBone>();
+        public List<VgoHumanBone> humanBones = new List<VgoHumanBone>();
+        //private List<VgoHumanBone> humanBones = new List<VgoHumanBone>();
 
         /// <summary>List of the human bone.</summary>
         public List<VgoHumanBone> HumanBones
