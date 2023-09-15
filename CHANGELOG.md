@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.5.18] - 2023-09-16
+
+- Improvements
+  - Reduced the amount of memory used temporarily when loading.
+- Changes
+  - `VgoImporter.ReflectSkybox()` method has been deprecated. Use `VgoModelAsset.ReflectSkybox()` method instead.
+
 ## [2.5.17] - 2023-08-27
 
 - Features

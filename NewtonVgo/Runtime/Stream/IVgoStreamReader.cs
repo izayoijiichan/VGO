@@ -71,6 +71,21 @@ namespace NewtonVgo
         /// <returns>The resource chunk data.</returns>
         Task<byte[]> ReadResourceAsync(CancellationToken cancellationToken);
 
+        /// <summary>
+        /// Read resource chunk.
+        /// </summary>
+        /// <param name="resourceAccessors">List of resource accessor.</param>
+        /// <returns>The resource chunk data.</returns>
+        VgoResourceDataCollection? ReadSegmentResource(List<VgoResourceAccessor>? resourceAccessors = null);
+
+        /// <summary>
+        /// Read resource chunk.
+        /// </summary>
+        /// <param name="resourceAccessors">List of resource accessor.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>The resource chunk data.</returns>
+        Task<VgoResourceDataCollection?> ReadSegmentResourceAsync(List<VgoResourceAccessor>? resourceAccessors, CancellationToken cancellationToken);
+
         #endregion
     }
 }

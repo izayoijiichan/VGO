@@ -31,9 +31,6 @@ namespace NewtonVgo
         /// <summary>The file header.</summary>
         protected VgoHeader Header = default;
 
-        /// <summary>The index map of chunks.</summary>
-        protected VgoIndexChunkDataElement[]? ChunkIndexMap;
-
         /// <summary>Vgo BSON Serializer.</summary>
         protected readonly VgoBsonSerializer _VgoBsonSerializer = new VgoBsonSerializer();
 
@@ -50,6 +47,9 @@ namespace NewtonVgo
         /// <summary>The type of the UV coordinates.</summary>
         public VgoUVCoordinate UVCoordinate => Header.UVCoordinate;
 
+        /// <summary>The index map of chunks.</summary>
+        protected VgoIndexChunkDataElement[]? ChunkIndexMap { get; set; }
+
         /// <summary>The asset info.</summary>
         public VgoAssetInfo? AssetInfo { get; set; }
 
@@ -60,7 +60,12 @@ namespace NewtonVgo
         public List<VgoResourceAccessor>? ResourceAccessors { get; protected set; }
 
         /// <summary>The resource.</summary>
-        public IByteBuffer? Resource { get; protected set; }
+        /// <remarks>for export.</remarks>
+        protected IByteBuffer? Resource { get; set; }
+
+        /// <summary>The segmented resource data.</summary>
+        /// <remarks>for import.</remarks>
+        protected VgoResourceDataCollection? SegmentResourceData { get; set; }
 
         /// <summary>Whether spec version is 2.4 or lower.</summary>
         public bool IsSpecVersion_2_4_orLower => (Header.MajorVersion == 2) && (Header.MinorVersion <= 4);

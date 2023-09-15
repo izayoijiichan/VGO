@@ -5,7 +5,6 @@
 #nullable enable
 namespace NewtonVgo
 {
-    using NewtonVgo.Buffers;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -34,9 +33,6 @@ namespace NewtonVgo
         /// <summary>List of the resource accessor.</summary>
         List<VgoResourceAccessor>? ResourceAccessors { get; }
 
-        /// <summary>The resource.</summary>
-        IByteBuffer? Resource { get; }
-
         /// <summary>Whether spec version is 2.4 or lower.</summary>
         bool IsSpecVersion_2_4_orLower { get; }
 
@@ -54,7 +50,7 @@ namespace NewtonVgo
 
         #endregion
 
-        #region Methods (Export)
+        #region Methods (Import)
 
         /// <summary>
         /// Parse vgo.
@@ -132,34 +128,27 @@ namespace NewtonVgo
         VgoResourceAccessor GetAccessor(in int accessorIndex);
 
         /// <summary>
+        /// Gets byte array data from the resource through the accessor.
+        /// </summary>
+        /// <param name="accessorIndex">The index of the accessor.</param>
+        /// <returns>Byte array.</returns>
+        byte[] GetResourceDataAsByteArray(in int accessorIndex);
+
+        /// <summary>
         /// Gets array data from the resource through the accessor.
         /// </summary>
         /// <typeparam name="T">Type of data.</typeparam>
         /// <param name="accessorIndex">The index of the accessor.</param>
-        /// <returns>Array data.</returns>
-        T[] GetAccessorArrayData<T>(in int accessorIndex) where T : struct;
+        /// <returns>Typed array data.</returns>
+        T[] GetResourceDataAsArray<T>(in int accessorIndex) where T : struct;
 
         /// <summary>
         /// Gets span data from the resource through the accessor.
         /// </summary>
         /// <typeparam name="T">Type of data.</typeparam>
         /// <param name="accessorIndex">The index of the accessor.</param>
-        /// <returns>Span data.</returns>
-        ReadOnlySpan<T> GetAccessorSpan<T>(in int accessorIndex) where T : struct;
-
-        /// <summary>
-        /// Gets array segment data from the resource through the accessor.
-        /// </summary>
-        /// <param name="accessorIndex">The index of the accessor.</param>
-        /// <returns>Array segment byte.</returns>
-        ArraySegment<byte> GetAccessorBytes(in int accessorIndex);
-
-        /// <summary>
-        /// Gets array segment data from the resource through the accessor.
-        /// </summary>
-        /// <param name="accessor">An accessor.</param>
-        /// <returns>Array segment byte.</returns>
-        ArraySegment<byte> GetAccessorBytes(in VgoResourceAccessor accessor);
+        /// <returns>Typed span data.</returns>
+        ReadOnlySpan<T> GetResourceDataAsSpan<T>(in int accessorIndex) where T : struct;
 
         /// <summary>
         /// Add an accessor (non sparse) to resource.

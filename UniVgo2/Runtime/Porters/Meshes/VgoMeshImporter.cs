@@ -521,7 +521,7 @@ namespace UniVgo2.Porters
             // Positions
             if (attributes.POSITION != -1)
             {
-                Vector3[] positions = vgoStorage.GetAccessorArrayData<Vector3>(attributes.POSITION);
+                Vector3[] positions = vgoStorage.GetResourceDataAsArray<Vector3>(attributes.POSITION);
 
                 if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                 {
@@ -543,7 +543,7 @@ namespace UniVgo2.Porters
             // Normals
             if (attributes.NORMAL != -1)
             {
-                Vector3[] normals = vgoStorage.GetAccessorArrayData<Vector3>(attributes.NORMAL);
+                Vector3[] normals = vgoStorage.GetResourceDataAsArray<Vector3>(attributes.NORMAL);
 
                 if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                 {
@@ -571,7 +571,7 @@ namespace UniVgo2.Porters
 
                     if (tangentAccessor.dataType == VgoResourceAccessorDataType.Vector4Float)
                     {
-                        tangents = vgoStorage.GetAccessorArrayData<Vector4>(attributes.TANGENT);
+                        tangents = vgoStorage.GetResourceDataAsArray<Vector4>(attributes.TANGENT);
                     }
                     else
                     {
@@ -612,14 +612,14 @@ namespace UniVgo2.Porters
                 if (colorAccessor.dataType == VgoResourceAccessorDataType.Vector4UInt8)
                 {
                     // @notice Vector4(byte) = Color32
-                    Color32[] colors = vgoStorage.GetAccessorArrayData<Color32>(attributes.COLOR_0);
+                    Color32[] colors = vgoStorage.GetResourceDataAsArray<Color32>(attributes.COLOR_0);
 
                     meshContext.Color32s = colors;
                 }
                 else if (colorAccessor.dataType == VgoResourceAccessorDataType.Vector4Float)
                 {
                     // @notice Vector4(float) = Color
-                    Color[] colors = vgoStorage.GetAccessorArrayData<Color>(attributes.COLOR_0);
+                    Color[] colors = vgoStorage.GetResourceDataAsArray<Color>(attributes.COLOR_0);
 
                     meshContext.Colors = colors;
                 }
@@ -639,7 +639,7 @@ namespace UniVgo2.Porters
 
                 if (jointsAccessor.dataType == VgoResourceAccessorDataType.Vector4UInt8)
                 {
-                    ReadOnlySpan<Vector4Ubyte> vec4byteSpan = vgoStorage.GetAccessorSpan<Vector4Ubyte>(attributes.JOINTS_0);
+                    ReadOnlySpan<Vector4Ubyte> vec4byteSpan = vgoStorage.GetResourceDataAsSpan<Vector4Ubyte>(attributes.JOINTS_0);
 
                     joints = new Vector4Ushort[vec4byteSpan.Length];
 
@@ -654,7 +654,7 @@ namespace UniVgo2.Porters
                 }
                 else if (jointsAccessor.dataType == VgoResourceAccessorDataType.Vector4UInt16)
                 {
-                    joints = vgoStorage.GetAccessorArrayData<Vector4Ushort>(attributes.JOINTS_0);
+                    joints = vgoStorage.GetResourceDataAsArray<Vector4Ushort>(attributes.JOINTS_0);
                 }
                 else
                 {
@@ -664,7 +664,7 @@ namespace UniVgo2.Porters
                 }
 
                 // Weights
-                Vector4[] weights = vgoStorage.GetAccessorArrayData<Vector4>(attributes.WEIGHTS_0);
+                Vector4[] weights = vgoStorage.GetResourceDataAsArray<Vector4>(attributes.WEIGHTS_0);
 
                 // BoneWeights
                 if (joints.Length == weights.Length)
@@ -703,7 +703,7 @@ namespace UniVgo2.Porters
             }
             else
             {
-                Vector2[] resourceUvs = vgoStorage.GetAccessorArrayData<Vector2>(texcoord);
+                Vector2[] resourceUvs = vgoStorage.GetResourceDataAsArray<Vector2>(texcoord);
 
                 if (vgoStorage.UVCoordinate == VgoUVCoordinate.TopLeft)
                 {
@@ -782,7 +782,7 @@ namespace UniVgo2.Porters
                 case VgoResourceAccessorDataType.UnsignedByte:
                     //indices = vgoStorage.GetAccessorArrayData<byte>(accessorIndex).Select(x => (int)x);
                     {
-                        ReadOnlySpan<byte> indexSpan = vgoStorage.GetAccessorSpan<byte>(accessorIndex);
+                        ReadOnlySpan<byte> indexSpan = vgoStorage.GetResourceDataAsSpan<byte>(accessorIndex);
 
                         indices = new int[indexSpan.Length];
 
@@ -796,7 +796,7 @@ namespace UniVgo2.Porters
                 case VgoResourceAccessorDataType.UnsignedShort:
                     //indices = vgoStorage.GetAccessorArrayData<ushort>(accessorIndex).Select(x => (int)x);
                     {
-                        ReadOnlySpan<ushort> indexSpan = vgoStorage.GetAccessorSpan<ushort>(accessorIndex);
+                        ReadOnlySpan<ushort> indexSpan = vgoStorage.GetResourceDataAsSpan<ushort>(accessorIndex);
 
                         indices = new int[indexSpan.Length];
 
@@ -810,7 +810,7 @@ namespace UniVgo2.Porters
                 case VgoResourceAccessorDataType.UnsignedInt:
                     //indices = vgoStorage.GetAccessorArrayData<uint>(accessorIndex).Select(x => (int)x);
                     {
-                        ReadOnlySpan<uint> indexSpan = vgoStorage.GetAccessorSpan<uint>(accessorIndex);
+                        ReadOnlySpan<uint> indexSpan = vgoStorage.GetResourceDataAsSpan<uint>(accessorIndex);
 
                         indices = new int[indexSpan.Length];
 
@@ -871,7 +871,7 @@ namespace UniVgo2.Porters
 
                 if (attributes.POSITION != -1)
                 {
-                    Vector3[] positions = vgoStorage.GetAccessorArrayData<Vector3>(attributes.POSITION);
+                    Vector3[] positions = vgoStorage.GetResourceDataAsArray<Vector3>(attributes.POSITION);
 
                     if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                     {
@@ -890,7 +890,7 @@ namespace UniVgo2.Porters
 
                 if (attributes.NORMAL != -1)
                 {
-                    Vector3[] normals = vgoStorage.GetAccessorArrayData<Vector3>(attributes.NORMAL);
+                    Vector3[] normals = vgoStorage.GetResourceDataAsArray<Vector3>(attributes.NORMAL);
 
                     if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                     {
@@ -909,7 +909,7 @@ namespace UniVgo2.Porters
 
                 if (attributes.TANGENT != -1)
                 {
-                    Vector3[] tangents = vgoStorage.GetAccessorArrayData<Vector3>(attributes.TANGENT);
+                    Vector3[] tangents = vgoStorage.GetResourceDataAsArray<Vector3>(attributes.TANGENT);
 
                     if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                     {

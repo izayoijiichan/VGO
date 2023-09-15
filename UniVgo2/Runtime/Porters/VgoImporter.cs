@@ -14,6 +14,7 @@ namespace UniVgo2
 #endif
 
     using NewtonVgo;
+    using System;
     using System.IO;
     using System.Threading;
     using UnityEngine;
@@ -22,7 +23,7 @@ namespace UniVgo2
     /// <summary>
     /// VGO Importer
     /// </summary>
-    public partial class VgoImporter
+    public partial class VgoImporter : IVgoImporter
     {
         #region Fields
 
@@ -404,8 +405,9 @@ namespace UniVgo2
         /// <summary>
         /// Reflect VGO skybox to Camera skybox.
         /// </summary>
-        /// <param name="camera">A scene main camera.</param>
+        /// <param name="camera">A scene camera.</param>
         /// <param name="vgoModelAsset">A vgo model asset.</param>
+        [Obsolete("Please change to use method VgoModelAsset.ReflectSkybox().")]
         public virtual void ReflectSkybox(Camera camera, VgoModelAsset vgoModelAsset)
         {
             vgoModelAsset.ReflectSkybox(camera);

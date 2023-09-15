@@ -266,7 +266,12 @@ namespace UniVgo2.Porters
                 return null;
             }
 
-            byte[] imageBytes = vgoStorage.GetAccessorBytes(vgoTexture.source).ToArray();
+            byte[] imageBytes = vgoStorage.GetResourceDataAsByteArray(vgoTexture.source);
+
+            if (imageBytes.Any() == false)
+            {
+                return null;
+            }
 
             if (vgoTexture.mimeType == MimeType.Image_WebP)
             {
@@ -426,7 +431,7 @@ namespace UniVgo2.Porters
                 return null;
             }
 
-            byte[] imageBytes = vgoStorage.GetAccessorBytes(vgoTexture.source).ToArray();
+            byte[] imageBytes = vgoStorage.GetResourceDataAsByteArray(vgoTexture.source);
 
             if (imageBytes.Any() == false)
             {

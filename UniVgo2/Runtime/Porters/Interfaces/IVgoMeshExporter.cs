@@ -1,6 +1,6 @@
 ﻿// ----------------------------------------------------------------------
 // @Namespace : UniVgo2.Porters
-// @Class     : IVgoMeshExporter
+// @Interface : IVgoMeshExporter
 // ----------------------------------------------------------------------
 #nullable enable
 namespace UniVgo2.Porters

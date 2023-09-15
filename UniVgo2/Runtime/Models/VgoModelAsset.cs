@@ -18,7 +18,7 @@ namespace UniVgo2
     /// VGO Model Asset
     /// </summary>
     [Serializable]
-    public class VgoModelAsset : IDisposable
+    public class VgoModelAsset : IVgoModelAsset, IDisposable
     {
         #region Fields
 
@@ -54,6 +54,10 @@ namespace UniVgo2
 
         /// <summary></summary>
         protected bool disposed;
+
+        #endregion
+
+        #region Properties
 
         /// <summary>A game object of root.</summary>
         public GameObject? Root { get => _Root; set => _Root = value; }
@@ -187,6 +191,10 @@ namespace UniVgo2
             return _Root.TryGetFirstComponentInChildren(includeInactive, out vgoBlendShape);
         }
 
+        #endregion
+
+        #region Protected Methods (Blend Shape)
+
         /// <summary>
         /// Gets the first component of the VgoBlendShape type, if it exists.
         /// </summary>
@@ -196,7 +204,7 @@ namespace UniVgo2
         /// <param name="vgoBlendShape"></param>
         /// <returns>Returns true if the components is found, false otherwise.</returns>
         /// <remarks>breadth-first search</remarks>
-        private bool TryGetFirstVgoBlendShapeComponentRecursive(in GameObject go, in bool includeInactive, in VgoBlendShapeKind vgoBendShapeKind, out VgoBlendShape vgoBlendShape)
+        protected virtual bool TryGetFirstVgoBlendShapeComponentRecursive(in GameObject go, in bool includeInactive, in VgoBlendShapeKind vgoBendShapeKind, out VgoBlendShape vgoBlendShape)
         {
             GameObject[] children = go.GetChildren().ToArray();
 
@@ -300,7 +308,7 @@ namespace UniVgo2
         /// <summary>
         /// Reflect VGO skybox to Camera skybox.
         /// </summary>
-        /// <param name="camera">A scene main camera.</param>
+        /// <param name="camera">A scene camera.</param>
         /// <param name="includeInactive">Whether to include inactive child GameObjects in the search.</param>
         public void ReflectSkybox(Camera camera, in bool includeInactive = false)
         {
@@ -328,6 +336,10 @@ namespace UniVgo2
             //GC.SuppressFinalize(this);
         }
 
+        #endregion
+
+        #region Protected Methods (Dispose)
+
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
@@ -353,7 +365,7 @@ namespace UniVgo2
         /// <summary>
         /// Destroy root GameObject and unity resources.
         /// </summary>
-        public virtual void DestroyRootAndResources()
+        protected virtual void DestroyRootAndResources()
         {
             if (Application.isPlaying == false)
             {
@@ -442,7 +454,7 @@ namespace UniVgo2
         /// <summary>
         /// Destroy root GameObject and unity resources.
         /// </summary>
-        public void DestroyRootAndResourcesForEditor()
+        protected void DestroyRootAndResourcesForEditor()
         {
             if (Application.isPlaying)
             {

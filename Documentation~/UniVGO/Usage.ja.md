@@ -13,7 +13,7 @@ ___
 |No|項目|値|
 |:---:|:---|:---:|
 |1|Unity バージョン|2022.3|
-|2|UniVGO バージョン|2.5.15|
+|2|UniVGO バージョン|2.5.18|
 |3|VGO 仕様バージョン|2.5|
 
 ### 対応 Unity コンポーネント
@@ -490,26 +490,25 @@ VGOファイルが読み込まれることを確認します。
     using UnityEngine;
     using UniVgo2;
 
-    public class RuntimeLoadBehaviour : MonoBehaviour
+    public class RuntimeLoader : MonoBehaviour
     {
+        [SerializeField]
+        private string _FilePath = string.Empty;
+
         private readonly VgoImporter _VgoImporter = new();
 
-        private IDisposable _VgoModelAssetDisposer;
+        private VgoModelAsset? _VgoModelAsset;
 
         private void Start()
         {
-            VgoModelAsset vgoModelAsset = _VgoImporter.Load(filePath);
+            _VgoModelAsset = _VgoImporter.Load(_FilePath);
 
-            //_VgoImporter.ReflectSkybox(Camera.main, vgoModelAsset);
-
-            vgoModelAsset.ReflectSkybox(Camera.main);
-
-            _VgoModelAssetDisposer = vgoModelAsset;
+            _VgoModelAsset.ReflectSkybox(Camera.main);
         }
 
         private void OnDestroy()
         {
-            _VgoModelAssetDisposer?.Dispose();
+            _VgoModelAsset?.Dispose();
         }
     }
 ~~~
@@ -529,7 +528,7 @@ VGOファイルをアップロードし管理することができるサービ�
 https://vgohub.azurewebsites.net
 
 ___
-最終更新日：2023年8月18日  
+最終更新日：2023年9月16日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

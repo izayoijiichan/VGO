@@ -44,7 +44,7 @@ Unity 2021.1 以下のバージョンを使用する場合
 |com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub||1.4.0|2023年5月30日|
 |com.izayoi.unishaders|IzayoiJiichan|GitHub||1.6.1|2023年8月1日|
 |com.izayoi.vgospringbone|IzayoiJiichan|GitHub||1.1.2|2022年8月24日|
-|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.17|2023年8月27日|
+|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.18|2023年9月16日|
 
 #### 追加パッケージ
 
@@ -143,7 +143,7 @@ UniVGOを使用するために、以下の設定を追加してください。
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.4.0",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.6.1",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.17",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.18",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.ugui": "1.0.0",
@@ -317,7 +317,7 @@ https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 |2022.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2022.3.brp.univrm)|
 
 ___
-最終更新日：2023年8月27日  
+最終更新日：2023年9月16日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

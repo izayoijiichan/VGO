@@ -1,6 +1,6 @@
 ﻿// ----------------------------------------------------------------------
 // @Namespace : UniVgo2
-// @Class     : IShaderStore
+// @Interface : IShaderStore
 // ----------------------------------------------------------------------
 #nullable enable
 namespace UniVgo2

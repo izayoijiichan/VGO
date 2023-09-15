@@ -271,7 +271,7 @@ namespace UniVgo2.Converters
             // coefficients
             if (vgoCloth.coefficients > -1)
             {
-                cloth.coefficients = vgoStorage.GetAccessorArrayData<ClothSkinningCoefficient>(vgoCloth.coefficients);
+                cloth.coefficients = vgoStorage.GetResourceDataAsArray<ClothSkinningCoefficient>(vgoCloth.coefficients);
             }
 
             cloth.enabled = vgoCloth.enabled;

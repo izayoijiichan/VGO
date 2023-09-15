@@ -1190,7 +1190,7 @@ namespace UniVgo2
                 {
                     if (vgoStorage.GeometryCoordinate == VgoGeometryCoordinate.RightHanded)
                     {
-                        ReadOnlySpan<Matrix4x4> matrixSpan = vgoStorage.GetAccessorSpan<Matrix4x4>(vgoSkin.inverseBindMatrices);
+                        ReadOnlySpan<Matrix4x4> matrixSpan = vgoStorage.GetResourceDataAsSpan<Matrix4x4>(vgoSkin.inverseBindMatrices);
 
                         var bindPoses = new Matrix4x4[matrixSpan.Length];
 
@@ -1203,7 +1203,7 @@ namespace UniVgo2
                     }
                     else
                     {
-                        mesh.bindposes = vgoStorage.GetAccessorArrayData<Matrix4x4>(vgoSkin.inverseBindMatrices);
+                        mesh.bindposes = vgoStorage.GetResourceDataAsArray<Matrix4x4>(vgoSkin.inverseBindMatrices);
                     }
                 }
                 else
@@ -1336,31 +1336,47 @@ namespace UniVgo2
         /// <returns>An array of matrix.</returns>
         protected virtual System.Numerics.Matrix4x4[] GetVgoNodeTransforms(in IVgoStorage vgoStorage)
         {
-            if (vgoStorage.ResourceAccessors.Count(x => x.kind == VgoResourceAccessorKind.NodeTransform) != 1)
-            {
-#if NET_STANDARD_2_1
-                ThrowHelper.ThrowException();
-#else
-                throw new Exception();
-#endif
-            }
-
             if (vgoStorage.Layout.nodes is null)
             {
-#if NET_STANDARD_2_1
                 ThrowHelper.ThrowException();
-#else
-                throw new Exception();
-#endif
+
+                return Array.Empty<System.Numerics.Matrix4x4>();
             }
 
-            VgoResourceAccessor accessor = vgoStorage.ResourceAccessors.First(x => x.kind == VgoResourceAccessorKind.NodeTransform);
+            if (vgoStorage.ResourceAccessors is null)
+            {
+                ThrowHelper.ThrowException();
 
-            ArraySegment<byte> transformBytes = vgoStorage.GetAccessorBytes(accessor);
+                return Array.Empty<System.Numerics.Matrix4x4>();
+            }
 
-            var transforms = new System.Numerics.Matrix4x4[vgoStorage.Layout.nodes.Count];
+            int resourceAccessorCount = vgoStorage.ResourceAccessors.Count(x => x.kind == VgoResourceAccessorKind.NodeTransform);
 
-            transformBytes.MarshalCopyTo(transforms);
+            if (resourceAccessorCount == 0)
+            {
+                ThrowHelper.ThrowFormatException("Resource accessor is not found. kind: NodeTransform");
+
+                return Array.Empty<System.Numerics.Matrix4x4>();
+            }
+            else if (resourceAccessorCount >= 2)
+            {
+                ThrowHelper.ThrowFormatException("Multiple resource accessors found.. kind: NodeTransform");
+
+                return Array.Empty<System.Numerics.Matrix4x4>();
+            }
+
+            VgoResourceAccessor resourceAccessor = vgoStorage.ResourceAccessors.First(x => x.kind == VgoResourceAccessorKind.NodeTransform);
+
+            int resourceAccessorIndex = vgoStorage.ResourceAccessors.IndexOf(resourceAccessor);
+
+            System.Numerics.Matrix4x4[] transforms = vgoStorage.GetResourceDataAsArray<System.Numerics.Matrix4x4>(resourceAccessorIndex);
+
+            if (transforms.Length != vgoStorage.Layout.nodes.Count)
+            {
+                ThrowHelper.ThrowFormatException();
+
+                return Array.Empty<System.Numerics.Matrix4x4>();
+            }
 
             return transforms;
         }

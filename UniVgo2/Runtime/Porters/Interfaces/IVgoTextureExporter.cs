@@ -1,6 +1,6 @@
 ﻿// ----------------------------------------------------------------------
 // @Namespace : UniVgo2.Porters
-// @Class     : IVgoTextureExporter
+// @Interface : IVgoTextureExporter
 // ----------------------------------------------------------------------
 #nullable enable
 namespace UniVgo2.Porters

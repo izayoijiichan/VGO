@@ -1,6 +1,6 @@
 ﻿// ----------------------------------------------------------------------
 // @Namespace : UniVgo2.Porters
-// @Class     : IVgoParticleSystemImporter
+// @Interface : IVgoParticleSystemImporter
 // ----------------------------------------------------------------------
 #nullable enable
 namespace UniVgo2.Porters

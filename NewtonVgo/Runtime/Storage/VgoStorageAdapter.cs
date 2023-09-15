@@ -8,7 +8,6 @@ namespace NewtonVgo
     using NewtonVgo;
     using System;
     using System.Linq;
-    using System.Numerics;
     using System.Runtime.InteropServices;
 
 #if false
@@ -56,31 +55,52 @@ namespace NewtonVgo
         #region Accessor (Import)
 
         /// <summary>
+        /// Gets byte array data from the resource through the accessor.
+        /// </summary>
+        /// <param name="accessorIndex">The index of the accessor.</param>
+        /// <returns>Byte array.</returns>
+        public byte[] GetResourceDataAsByteArray(in int accessorIndex)
+        {
+            if (SegmentResourceData is null)
+            {
+                ThrowHelper.ThrowFormatException($"resource data is null.");
+
+                return Array.Empty<byte>();
+            }
+
+            if (SegmentResourceData.TryGetValue(accessorIndex, out VgoResourceData vgoResource) == false)
+            {
+                ThrowHelper.ThrowFormatException($"resource data is not found. {nameof(accessorIndex)}: {accessorIndex}");
+
+                return Array.Empty<byte>();
+            }
+
+            return vgoResource.GetDataAsByteArray();
+        }
+
+        /// <summary>
         /// Gets array data from the resource through the accessor.
         /// </summary>
         /// <typeparam name="T">Type of data.</typeparam>
         /// <param name="accessorIndex">The index of the accessor.</param>
-        /// <returns>Array data.</returns>
-        public T[] GetAccessorArrayData<T>(in int accessorIndex) where T : struct
+        /// <returns>Typed array data.</returns>
+        public T[] GetResourceDataAsArray<T>(in int accessorIndex) where T : struct
         {
-            VgoResourceAccessor accessor = GetAccessor(accessorIndex);
-
-            ArraySegment<byte> accessorBytes;
-
-            if (accessor.sparseType == VgoResourceAccessorSparseType.None)
+            if (SegmentResourceData is null)
             {
-                accessorBytes = GetAccessorBytesWithoutSparse(accessor);
-            }
-            else
-            {
-                accessorBytes = GetAccessorBytesWithSparse(accessor);
+                ThrowHelper.ThrowFormatException($"resource data is null.");
+
+                return Array.Empty<T>();
             }
 
-            T[] data = new T[accessor.count];
+            if (SegmentResourceData.TryGetValue(accessorIndex, out VgoResourceData vgoResource) == false)
+            {
+                ThrowHelper.ThrowFormatException($"resource data is not found. {nameof(accessorIndex)}: {accessorIndex}");
 
-            accessorBytes.MarshalCopyTo(data);
+                return Array.Empty<T>();
+            }
 
-            return data;
+            return vgoResource.GetDataAsArray<T>();
         }
 
         /// <summary>
@@ -88,312 +108,24 @@ namespace NewtonVgo
         /// </summary>
         /// <typeparam name="T">Type of data.</typeparam>
         /// <param name="accessorIndex">The index of the accessor.</param>
-        /// <returns>Span data.</returns>
-        public ReadOnlySpan<T> GetAccessorSpan<T>(in int accessorIndex) where T : struct
+        /// <returns>Typed span data.</returns>
+        public ReadOnlySpan<T> GetResourceDataAsSpan<T>(in int accessorIndex) where T : struct
         {
-            VgoResourceAccessor accessor = GetAccessor(accessorIndex);
-
-            ArraySegment<byte> accessorBytes;
-
-            if (accessor.sparseType == VgoResourceAccessorSparseType.None)
+            if (SegmentResourceData is null)
             {
-                accessorBytes = GetAccessorBytesWithoutSparse(accessor);
-            }
-            else
-            {
-                accessorBytes = GetAccessorBytesWithSparse(accessor);
+                ThrowHelper.ThrowFormatException($"resource data is null.");
+
+                return Array.Empty<T>().AsSpan();
             }
 
-            ReadOnlySpan<T> accessorTypedSpan = MemoryMarshal.Cast<byte, T>(accessorBytes.AsSpan());
-
-            return accessorTypedSpan;
-        }
-
-        /// <summary>
-        /// Gets array segment data from the resource through the accessor.
-        /// </summary>
-        /// <param name="accessorIndex">The index of the accessor.</param>
-        /// <returns>Array segment byte.</returns>
-        public ArraySegment<byte> GetAccessorBytes(in int accessorIndex)
-        {
-            VgoResourceAccessor accessor = GetAccessor(accessorIndex);
-
-            return GetAccessorBytes(accessor);
-        }
-
-        /// <summary>
-        /// Gets array segment data from the resource through the accessor.
-        /// </summary>
-        /// <param name="accessor">An accessor.</param>
-        /// <returns>Array segment byte.</returns>
-        public ArraySegment<byte> GetAccessorBytes(in VgoResourceAccessor accessor)
-        {
-            if (accessor.sparseType == VgoResourceAccessorSparseType.None)
+            if (SegmentResourceData.TryGetValue(accessorIndex, out VgoResourceData vgoResource) == false)
             {
-                return GetAccessorBytesWithoutSparse(accessor);
-            }
-            else
-            {
-                return GetAccessorBytesWithSparse(accessor);
-            }
-        }
+                ThrowHelper.ThrowFormatException($"resource data is not found. {nameof(accessorIndex)}: {accessorIndex}");
 
-        /// <summary>
-        /// Gets array segment byte from the resource through the accessor (non sparse).
-        /// </summary>
-        /// <param name="accessor">An accessor.</param>
-        /// <returns>Array segment byte.</returns>
-        protected ArraySegment<byte> GetAccessorBytesWithoutSparse(in VgoResourceAccessor accessor)
-        {
-            if (accessor.count <= 0)
-            {
-                ThrowHelper.ThrowFormatException("accessor.count: 0");
+                return Array.Empty<T>().AsSpan();
             }
 
-            int byteStride = accessor.byteStride;
-
-            if (byteStride == 0)
-            {
-                byteStride = accessor.dataType.ByteSize();
-            }
-
-            int byteLength = accessor.byteLength;
-
-            if (byteLength == 0)
-            {
-                byteLength = byteStride * accessor.count;
-            }
-
-            if (Resource is null)
-            {
-                ThrowHelper.ThrowFormatException("resource is null.");
-
-                return default;
-            }
-
-            ArraySegment<byte> accessorBytes = Resource.GetBytes()
-                .Slice(accessor.byteOffset, byteLength);
-
-            return accessorBytes;
-        }
-
-        /// <summary>
-        /// Gets array segment byte from the resource through the accessor with sparse.
-        /// </summary>
-        /// <param name="accessor">An accessor.</param>
-        /// <returns>Array segment byte.</returns>
-        protected ArraySegment<byte> GetAccessorBytesWithSparse(in VgoResourceAccessor accessor)
-        {
-            if (accessor.count <= 0)
-            {
-                ThrowHelper.ThrowFormatException("accessor.count: 0");
-            }
-
-            if (accessor.sparseCount <= 0)
-            {
-                ThrowHelper.ThrowFormatException($"accessor.sparseCount: {accessor.sparseCount}");
-            }
-
-            ArraySegment<byte> restoreBytes;
-
-            // @notice
-            //  - uint: sub mesh
-            //  - Vector3: morph target
-            if (accessor.sparseType == VgoResourceAccessorSparseType.General)
-            {
-                if (accessor.sparseCount > accessor.count)
-                {
-                    ThrowHelper.ThrowFormatException($"accessor.sparseCount: {accessor.sparseCount}, accessor.count: {accessor.count}");
-                }
-
-                if (accessor.dataType != accessor.sparseValueDataType)
-                {
-                    ThrowHelper.ThrowFormatException($"accessorDataType: {accessor.dataType} != SparseValueDataType: {accessor.sparseValueDataType}");
-                }
-
-                if (accessor.dataType == VgoResourceAccessorDataType.UnsignedInt)
-                {
-                    restoreBytes = RestoreArraySegmentFromSparse<uint>(accessor);
-                }
-                else if (accessor.dataType == VgoResourceAccessorDataType.Vector2Float)
-                {
-                    restoreBytes = RestoreArraySegmentFromSparse<Vector2>(accessor);
-                }
-                else if (accessor.dataType == VgoResourceAccessorDataType.Vector3Float)
-                {
-                    restoreBytes = RestoreArraySegmentFromSparse<Vector3>(accessor);
-                }
-                else if (accessor.dataType == VgoResourceAccessorDataType.Vector4Float)
-                {
-                    restoreBytes = RestoreArraySegmentFromSparse<Vector4>(accessor);
-                }
-                else
-                {
-                    // @todo
-                    ThrowHelper.ThrowNotImplementedException($"SparseValueDataType: {accessor.dataType}");
-
-                    return default;
-                }
-            }
-            else if (accessor.sparseType == VgoResourceAccessorSparseType.Powerful)
-            {
-                if (accessor.dataType == accessor.sparseValueDataType)
-                {
-                    ThrowHelper.ThrowFormatException($"accessorDataType: {accessor.dataType} == SparseValueDataType: {accessor.sparseValueDataType}");
-                }
-
-                if (
-                    (accessor.dataType == VgoResourceAccessorDataType.Vector2Float) ||
-                    (accessor.dataType == VgoResourceAccessorDataType.Vector3Float) ||
-                    (accessor.dataType == VgoResourceAccessorDataType.Vector4Float))
-                {
-                    if (accessor.sparseValueDataType != VgoResourceAccessorDataType.Float)
-                    {
-                        ThrowHelper.ThrowFormatException($"SparseValueDataType: {accessor.sparseValueDataType}");
-                    }
-
-                    if (accessor.dataType == VgoResourceAccessorDataType.Vector2Float)
-                    {
-                        restoreBytes = RestoreArraySegmentFromSparse<float, Vector2>(accessor);
-                    }
-                    else if (accessor.dataType == VgoResourceAccessorDataType.Vector3Float)
-                    {
-                        restoreBytes = RestoreArraySegmentFromSparse<float, Vector3>(accessor);
-                    }
-                    else if (accessor.dataType == VgoResourceAccessorDataType.Vector4Float)
-                    {
-                        restoreBytes = RestoreArraySegmentFromSparse<float, Vector4>(accessor);
-                    }
-                    else
-                    {
-                        ThrowHelper.ThrowException($"SparseValueDataType: {accessor.dataType}");
-
-                        return default;
-                    }
-                }
-                else
-                {
-                    // @todo
-                    ThrowHelper.ThrowNotImplementedException($"SparseValueDataType: {accessor.dataType}");
-
-                    return default;
-                }
-            }
-            else
-            {
-                ThrowHelper.ThrowFormatException($"SparseType: {accessor.sparseType}");
-
-                return new ArraySegment<byte>();
-            }
-
-            return restoreBytes;
-        }
-
-        /// <summary>
-        /// Restore the array segment from sparse.
-        /// </summary>
-        /// <typeparam name="TValue">The data type of sparse value.</typeparam>
-        /// <param name="accessor">An accessor.</param>
-        /// <returns>Array segment byte.</returns>
-        protected ArraySegment<byte> RestoreArraySegmentFromSparse<TValue>(in VgoResourceAccessor accessor)
-            where TValue : struct
-        {
-            return RestoreArraySegmentFromSparse<TValue, TValue>(accessor);
-        }
-
-        /// <summary>
-        /// Restore the array segment from sparse.
-        /// </summary>
-        /// <typeparam name="TValue">The data type of sparse value.</typeparam>
-        /// <typeparam name="TData">The data type of accessor.</typeparam>
-        /// <param name="accessor">An accessor.</param>
-        /// <returns>Array segment byte.</returns>
-        protected ArraySegment<byte> RestoreArraySegmentFromSparse<TValue, TData>(in VgoResourceAccessor accessor)
-            where TValue : struct
-            where TData : struct
-        {
-            int dataByteSize = accessor.dataType.ByteSize();
-
-            int marshalDataByteSize = Marshal.SizeOf<TData>();
-
-            if (dataByteSize != marshalDataByteSize)
-            {
-                ThrowHelper.ThrowFormatException($"accessorDataTypeByteSize: {dataByteSize} != marshalDataByteSize: {marshalDataByteSize}");
-            }
-
-            int totalDataSize = dataByteSize * accessor.count;
-
-            int totalSparseIndexSize = accessor.sparseIndexDataType.ByteSize() * accessor.sparseCount;
-            int totalSparseValueSize = accessor.sparseValueDataType.ByteSize() * accessor.sparseCount;
-
-            if (totalSparseIndexSize != accessor.sparseValueOffset)
-            {
-                ThrowHelper.ThrowFormatException($"totalSparseIndexSize: {totalSparseIndexSize} != sparseValueOffset: {accessor.sparseValueOffset}");
-            }
-
-            if (totalSparseIndexSize + totalSparseValueSize != accessor.byteLength)
-            {
-                ThrowHelper.ThrowFormatException($"totalSparseIndexSize + totalSparseValueSize: {totalSparseIndexSize + totalSparseValueSize} != accessor.byteLength: {accessor.byteLength}");
-            }
-
-            if (Resource is null)
-            {
-                ThrowHelper.ThrowException("resource is null.");
-
-                return default;
-            }
-
-            ArraySegment<byte> indexByteArraySegment = Resource.GetBytes().Slice(
-                offset: accessor.byteOffset,
-                count: totalSparseIndexSize
-            );
-
-            ArraySegment<byte> valueByteArraySegment = Resource.GetBytes().Slice(
-                offset: accessor.byteOffset + accessor.sparseValueOffset,
-                count: totalSparseValueSize
-            );
-
-            byte[] restoreByteArray = new byte[totalDataSize];
-
-            var restoreByteArraySegment = new ArraySegment<byte>(restoreByteArray);
-
-            Span<TValue> restoreTypedSpan = MemoryMarshal.Cast<byte, TValue>(restoreByteArraySegment.AsSpan());
-
-            Span<TValue> valueTypedSpan = MemoryMarshal.Cast<byte, TValue>(valueByteArraySegment.AsSpan());
-
-            if (accessor.sparseIndexDataType == VgoResourceAccessorDataType.UnsignedByte)
-            {
-                Span<byte> indexTypedSpan = indexByteArraySegment.AsSpan();
-
-                for (int sparseIndex = 0; sparseIndex < accessor.sparseCount; sparseIndex++)
-                {
-                    restoreTypedSpan[indexTypedSpan[sparseIndex]] = valueTypedSpan[sparseIndex];
-                }
-            }
-            else if (accessor.sparseIndexDataType == VgoResourceAccessorDataType.UnsignedShort)
-            {
-                Span<ushort> indexTypedSpan = MemoryMarshal.Cast<byte, ushort>(indexByteArraySegment.AsSpan());
-
-                for (int sparseIndex = 0; sparseIndex < accessor.sparseCount; sparseIndex++)
-                {
-                    restoreTypedSpan[indexTypedSpan[sparseIndex]] = valueTypedSpan[sparseIndex];
-                }
-            }
-            else if (accessor.sparseIndexDataType == VgoResourceAccessorDataType.UnsignedInt)
-            {
-                Span<uint> indexTypedSpan = MemoryMarshal.Cast<byte, uint>(indexByteArraySegment.AsSpan());
-
-                for (int sparseIndex = 0; sparseIndex < accessor.sparseCount; sparseIndex++)
-                {
-                    restoreTypedSpan[(int)indexTypedSpan[sparseIndex]] = valueTypedSpan[sparseIndex];
-                }
-            }
-            else
-            {
-                ThrowHelper.ThrowNotSupportedException($"accessor.sparseIndexDataType: {accessor.sparseIndexDataType}");
-            }
-
-            return restoreByteArraySegment;
+            return vgoResource.GetDataAsSpan<T>();
         }
 
         #endregion

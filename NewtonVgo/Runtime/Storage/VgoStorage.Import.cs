@@ -5,8 +5,6 @@
 #nullable enable
 namespace NewtonVgo
 {
-    using NewtonVgo.Buffers;
-    using System;
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
@@ -225,9 +223,7 @@ namespace NewtonVgo
             ResourceAccessors = vgoStreamReader.ReadResourceAccessor();
 
             // Resource chunk
-            byte[] resourceBytes = vgoStreamReader.ReadResource();
-
-            Resource = new ReadOnlyArraySegmentByteBuffer(resourceBytes);
+            SegmentResourceData = vgoStreamReader.ReadSegmentResource(ResourceAccessors);
         }
 
         /// <summary>
@@ -263,9 +259,7 @@ namespace NewtonVgo
             ResourceAccessors = vgoStreamReader.ReadResourceAccessor();
 
             // Resource chunk
-            byte[] resourceBytes = await vgoStreamReader.ReadResourceAsync(cancellationToken);
-
-            Resource = new ReadOnlyArraySegmentByteBuffer(resourceBytes);
+            SegmentResourceData = await vgoStreamReader.ReadSegmentResourceAsync(ResourceAccessors, cancellationToken);
         }
 
         #endregion

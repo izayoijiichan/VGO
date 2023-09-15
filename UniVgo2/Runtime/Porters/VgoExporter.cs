@@ -17,7 +17,7 @@ namespace UniVgo2
     /// <summary>
     /// VGO Exporter
     /// </summary>
-    public class VgoExporter
+    public class VgoExporter : IVgoExporter
     {
         #region Fields
 

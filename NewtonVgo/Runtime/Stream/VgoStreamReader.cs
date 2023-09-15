@@ -827,7 +827,8 @@ namespace NewtonVgo
                     case VgoChunkTypeID.REPB:
                         break;
                     default:
-                        throw new FormatException($"[COMP] ResourceChunkTypeId: {resourceChunkTypeId}");
+                        ThrowHelper.ThrowFormatException($"[COMP] ResourceChunkTypeId: {resourceChunkTypeId}");
+                        break;
                 }
 
                 VgoReadChunk resourceChunk = ReadChunk(resourceChunkTypeId);
@@ -922,7 +923,8 @@ namespace NewtonVgo
                     case VgoChunkTypeID.REPB:
                         break;
                     default:
-                        throw new FormatException($"[COMP] ResourceChunkTypeId: {resourceChunkTypeId}");
+                        ThrowHelper.ThrowFormatException($"[COMP] ResourceChunkTypeId: {resourceChunkTypeId}");
+                        break;
                 }
 
                 VgoReadChunk resourceChunk = await ReadChunkAsync(resourceChunkTypeId, cancellationToken);
@@ -984,6 +986,291 @@ namespace NewtonVgo
             catch
             {
                 throw;
+            }
+        }
+
+        /// <summary>
+        /// Read resource chunk.
+        /// </summary>
+        /// <param name="resourceAccessors">List of resource accessor.</param>
+        /// <returns>The resource chunk data.</returns>
+        public virtual VgoResourceDataCollection? ReadSegmentResource(List<VgoResourceAccessor>? resourceAccessors)
+        {
+            if (resourceAccessors == null)
+            {
+                resourceAccessors = ReadResourceAccessor();
+
+                if (resourceAccessors == null)
+                {
+                    ThrowHelper.ThrowFormatException();
+
+                    return default;
+                }
+            }
+
+            if (_ComposerChunkData == null)
+            {
+                _ = ReadComposerChunk();
+
+                if (_ComposerChunkData == null)
+                {
+                    ThrowHelper.ThrowFormatException();
+
+                    return default;
+                }
+            }
+
+            if (_ChunkIndexMap == null)
+            {
+                ThrowHelper.ThrowFormatException();
+
+                return default;
+            }
+
+            if (resourceAccessors.Any() == false)
+            {
+                return new VgoResourceDataCollection();
+            }
+
+            VgoChunkTypeID resourceChunkTypeId = _ComposerChunkData.Value.ResourceChunkTypeId;
+
+            if (resourceChunkTypeId == VgoChunkTypeID.REPb)
+            {
+                VgoIndexChunkDataElement resourceChunkInfo = GetIndexChunkDataElement(resourceChunkTypeId, _ChunkIndexMap);
+
+                lock (_VgoStreamLockObject)
+                {
+                    _VgoStream.Seek(resourceChunkInfo.ByteOffset, SeekOrigin.Begin);
+
+                    uint typeId = _VgoBinaryReader.ReadUInt32();
+
+                    if (typeId != (uint)resourceChunkInfo.ChunkTypeId)
+                    {
+                        ThrowHelper.ThrowFormatException($"[{resourceChunkInfo.ChunkTypeId}] Chunk.TypeId: {resourceChunkInfo.ChunkTypeId}");
+                    }
+
+                    uint chunkDataLength = _VgoBinaryReader.ReadUInt32();
+
+                    if (chunkDataLength == 0)
+                    {
+                        ThrowHelper.ThrowFormatException($"[{resourceChunkInfo.ChunkTypeId}] Chunk.DataLength: {chunkDataLength}");
+                    }
+
+                    var vgoResourceDataCollection = new VgoResourceDataCollection();
+
+                    int resourceChunkDataOffset = (int)resourceChunkInfo.ByteOffset + 8;
+
+                    for (int resourceAccessorIndex = 0; resourceAccessorIndex < resourceAccessors.Count; resourceAccessorIndex++)
+                    {
+                        VgoResourceAccessor resourceAccessor = resourceAccessors[resourceAccessorIndex];
+
+                        try
+                        {
+                            _VgoStream.Seek(resourceChunkDataOffset + resourceAccessor.byteOffset, SeekOrigin.Begin);
+
+                            byte[] resourceData = _VgoStream.ReadBytes(resourceAccessor.byteLength);
+
+                            var vgoResourceData = new VgoResourceData(resourceAccessorIndex, resourceAccessor, resourceData);
+
+                            vgoResourceDataCollection.Add(vgoResourceData);
+                        }
+                        catch
+                        {
+                            var vgoResourceData = new VgoResourceData(resourceAccessorIndex, resourceAccessor);
+
+                            vgoResourceDataCollection.Add(vgoResourceData);
+                        }
+                    }
+
+                    return vgoResourceDataCollection;
+                }
+            }
+            else if (
+                resourceChunkTypeId == VgoChunkTypeID.REPJ ||
+                resourceChunkTypeId == VgoChunkTypeID.REPB)
+            {
+                byte[] resourceChunkData = ReadResource();
+
+                var vgoResourceDataCollection = new VgoResourceDataCollection();
+
+                for (int resourceAccessorIndex = 0; resourceAccessorIndex < resourceAccessors.Count; resourceAccessorIndex++)
+                {
+                    VgoResourceAccessor resourceAccessor = resourceAccessors[resourceAccessorIndex];
+
+                    try
+                    {
+                        byte[] resourceData = new byte[resourceAccessor.byteLength];
+
+                        Array.Copy(
+                            sourceArray: resourceChunkData,
+                            sourceIndex: 0,
+                            destinationArray: resourceData,
+                            destinationIndex: resourceAccessor.byteOffset,
+                            length: resourceAccessor.byteLength
+                        );
+
+                        var vgoResourceData = new VgoResourceData(resourceAccessorIndex, resourceAccessor, resourceData);
+
+                        vgoResourceDataCollection.Add(vgoResourceData);
+                    }
+                    catch
+                    {
+                        var vgoResourceData = new VgoResourceData(resourceAccessorIndex, resourceAccessor);
+
+                        vgoResourceDataCollection.Add(vgoResourceData);
+                    }
+                }
+
+                return vgoResourceDataCollection;
+            }
+            else
+            {
+                ThrowHelper.ThrowFormatException($"[COMP] ResourceChunkTypeId: {resourceChunkTypeId}");
+
+                return default;
+            }
+        }
+
+        /// <summary>
+        /// Read resource chunk.
+        /// </summary>
+        /// <param name="resourceAccessors">List of resource accessor.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>The resource chunk data.</returns>
+        public virtual async Task<VgoResourceDataCollection?> ReadSegmentResourceAsync(List<VgoResourceAccessor>? resourceAccessors, CancellationToken cancellationToken)
+        {
+            if (resourceAccessors == null)
+            {
+                resourceAccessors = ReadResourceAccessor();
+
+                if (resourceAccessors == null)
+                {
+                    ThrowHelper.ThrowFormatException();
+
+                    return default;
+                }
+            }
+
+            if (_ComposerChunkData == null)
+            {
+                _ = ReadComposerChunk();
+
+                if (_ComposerChunkData == null)
+                {
+                    ThrowHelper.ThrowFormatException();
+
+                    return default;
+                }
+            }
+
+            if (_ChunkIndexMap == null)
+            {
+                ThrowHelper.ThrowFormatException();
+
+                return default;
+            }
+
+            if (resourceAccessors.Any() == false)
+            {
+                return new VgoResourceDataCollection();
+            }
+
+            VgoChunkTypeID resourceChunkTypeId = _ComposerChunkData.Value.ResourceChunkTypeId;
+
+            if (resourceChunkTypeId == VgoChunkTypeID.REPb)
+            {
+                VgoIndexChunkDataElement resourceChunkInfo = GetIndexChunkDataElement(resourceChunkTypeId, _ChunkIndexMap);
+
+                //lock (_VgoStreamLockObject)
+                {
+                    _VgoStream.Seek(resourceChunkInfo.ByteOffset, SeekOrigin.Begin);
+
+                    uint typeId = _VgoBinaryReader.ReadUInt32();
+
+                    if (typeId != (uint)resourceChunkInfo.ChunkTypeId)
+                    {
+                        ThrowHelper.ThrowFormatException($"[{resourceChunkInfo.ChunkTypeId}] Chunk.TypeId: {resourceChunkInfo.ChunkTypeId}");
+                    }
+
+                    uint chunkDataLength = _VgoBinaryReader.ReadUInt32();
+
+                    if (chunkDataLength == 0)
+                    {
+                        ThrowHelper.ThrowFormatException($"[{resourceChunkInfo.ChunkTypeId}] Chunk.DataLength: {chunkDataLength}");
+                    }
+
+                    var vgoResourceDataCollection = new VgoResourceDataCollection();
+
+                    int resourceChunkDataOffset = (int)resourceChunkInfo.ByteOffset + 8;
+
+                    for (int resourceAccessorIndex = 0; resourceAccessorIndex < resourceAccessors.Count; resourceAccessorIndex++)
+                    {
+                        VgoResourceAccessor resourceAccessor = resourceAccessors[resourceAccessorIndex];
+
+                        try
+                        {
+                            _VgoStream.Seek(resourceChunkDataOffset + resourceAccessor.byteOffset, SeekOrigin.Begin);
+
+                            byte[] resourceData = await _VgoStream.ReadBytesAsync(resourceAccessor.byteLength, cancellationToken);
+
+                            var vgoResourceData = new VgoResourceData(resourceAccessorIndex, resourceAccessor, resourceData);
+
+                            vgoResourceDataCollection.Add(vgoResourceData);
+                        }
+                        catch
+                        {
+                            var vgoResourceData = new VgoResourceData(resourceAccessorIndex, resourceAccessor);
+
+                            vgoResourceDataCollection.Add(vgoResourceData);
+                        }
+                    }
+
+                    return vgoResourceDataCollection;
+                }
+            }
+            else if (
+                resourceChunkTypeId == VgoChunkTypeID.REPJ ||
+                resourceChunkTypeId == VgoChunkTypeID.REPB)
+            {
+                byte[] resourceChunkData = ReadResource();
+
+                var vgoResourceDataCollection = new VgoResourceDataCollection();
+
+                for (int resourceAccessorIndex = 0; resourceAccessorIndex < resourceAccessors.Count; resourceAccessorIndex++)
+                {
+                    VgoResourceAccessor resourceAccessor = resourceAccessors[resourceAccessorIndex];
+
+                    try
+                    {
+                        byte[] resourceData = new byte[resourceAccessor.byteLength];
+
+                        Array.Copy(
+                            sourceArray: resourceChunkData,
+                            sourceIndex: 0,
+                            destinationArray: resourceData,
+                            destinationIndex: resourceAccessor.byteOffset,
+                            length: resourceAccessor.byteLength
+                        );
+
+                        var vgoResourceData = new VgoResourceData(resourceAccessorIndex, resourceAccessor, resourceData);
+
+                        vgoResourceDataCollection.Add(vgoResourceData);
+                    }
+                    catch
+                    {
+                        var vgoResourceData = new VgoResourceData(resourceAccessorIndex, resourceAccessor);
+
+                        vgoResourceDataCollection.Add(vgoResourceData);
+                    }
+                }
+
+                return vgoResourceDataCollection;
+            }
+            else
+            {
+                ThrowHelper.ThrowFormatException($"[COMP] ResourceChunkTypeId: {resourceChunkTypeId}");
+
+                return default;
             }
         }
 

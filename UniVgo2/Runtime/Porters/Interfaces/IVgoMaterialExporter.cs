@@ -1,6 +1,6 @@
 ﻿// ----------------------------------------------------------------------
 // @Namespace : UniVgo2.Porters
-// @Class     : IVgoMaterialExporter
+// @Interface : IVgoMaterialExporter
 // ----------------------------------------------------------------------
 #nullable enable
 namespace UniVgo2.Porters

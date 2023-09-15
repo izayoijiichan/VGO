@@ -13,7 +13,7 @@ The contents described in this manual are for the following versions.
 |No|item|value|
 |:---:|:---|:---:|
 |1|Unity version|2022.3|
-|2|UniVGO version|2.5.15|
+|2|UniVGO version|2.5.18|
 |3|VGO spec version|2.5|
 
 ### Supported Unity components
@@ -486,26 +486,25 @@ If you write your own script, write as follows.
     using UnityEngine;
     using UniVgo2;
 
-    public class RuntimeLoadBehaviour : MonoBehaviour
+    public class RuntimeLoader : MonoBehaviour
     {
+        [SerializeField]
+        private string _FilePath = string.Empty;
+
         private readonly VgoImporter _VgoImporter = new();
 
-        private IDisposable _VgoModelAssetDisposer;
+        private IVgoModelAsset? _VgoModelAsset;
 
         private void Start()
         {
-            VgoModelAsset vgoModelAsset = _VgoImporter.Load(filePath);
+            _VgoModelAsset = _VgoImporter.Load(_FilePath);
 
-            //_VgoImporter.ReflectSkybox(Camera.main, vgoModelAsset);
-
-            vgoModelAsset.ReflectSkybox(Camera.main);
-
-            _VgoModelAssetDisposer = vgoModelAsset;
+            _VgoModelAsset.ReflectSkybox(Camera.main);
         }
 
         private void OnDestroy()
         {
-            _VgoModelAssetDisposer?.Dispose();
+            _VgoModelAsset?.Dispose();
         }
     }
 ~~~
@@ -524,7 +523,7 @@ or the VGO (avatar or world) that others have set to be available in the linked 
 https://vgohub.azurewebsites.net
 
 ___
-Last updated: 18 August, 2023  
+Last updated: 16 September, 2023  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

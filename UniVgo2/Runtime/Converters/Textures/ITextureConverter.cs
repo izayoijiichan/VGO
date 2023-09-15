@@ -1,6 +1,6 @@
 ﻿// ----------------------------------------------------------------------
 // @Namespace : UniVgo2.Converters
-// @Class     : ITextureConverter
+// @Interface : ITextureConverter
 // ----------------------------------------------------------------------
 #nullable enable
 namespace UniVgo2.Converters
