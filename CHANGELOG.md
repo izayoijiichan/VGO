@@ -1,5 +1,10 @@
 # Change Log
 
+## [2.5.19] - 2023-11-08
+
+- Features
+  - lilToon shader version 1.4.1 is now supported.
+
 ## [2.5.18] - 2023-09-16
 
 - Improvements

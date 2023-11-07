@@ -221,6 +221,11 @@ namespace UniVgo2.Porters
 
             ExportLilTextureProperties(vgoStorage, vgoMaterial, material, shaderType, renderingMode, isOutline: isOutline);
 
+            // Tags
+            ExportTag(vgoMaterial, material, Tag.RenderType);
+            ExportTag(vgoMaterial, material, Tag.Queue);
+
+            // Keywords
             ExportKeywords(vgoMaterial, material);
 
             return vgoMaterial;
