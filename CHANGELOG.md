@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.5.20] - 2024-01-20
+
+- Features
+  - Unity 2023.2 is now supported.
+  - lilToon shader version 1.7.2 is now supported.
+
 ## [2.5.19] - 2023-11-08
 
 - Features

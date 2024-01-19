@@ -412,6 +412,18 @@ namespace UniVgo2.Porters
                 }
             }
 
+            // Rim Shade
+            if (lilToonVersion >= 39)  // v1.6.0
+            {
+                if (shaderType == LilShaderType.Normal)
+                {
+                    if (material.GetSafeBool(LilToonShader.PropertyName.UseRimShade))
+                    {
+                        base.ExportTextureProperty(vgoStorage, vgoMaterial, material, LilToonShader.PropertyName.RimShadeMask, VgoTextureMapType.Default, VgoColorSpaceType.Srgb);
+                    }
+                }
+            }
+
             // Reflection
             if (shaderType == LilShaderType.Normal)
             {

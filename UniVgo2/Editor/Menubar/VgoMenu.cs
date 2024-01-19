@@ -80,8 +80,14 @@ namespace UniVgo2.Editor
 
 #if IZAYOI_LILTOON_SHADER_UTILITY_1_0_OR_NEWER
             sb.Append(", ").Append("IZAYOI_LILTOON_SHADER_UTILITY_1_0_OR_NEWER");
-#elif IZAYOI_LILTOON_SHADER_UTILITY_1_4
-            sb.Append(", ").Append("IZAYOI_LILTOON_SHADER_UTILITY_1_4");
+#elif IZAYOI_LILTOON_SHADER_UTILITY_1_4_OR_NEWER
+            sb.Append(", ").Append("IZAYOI_LILTOON_SHADER_UTILITY_1_4_OR_NEWER");
+#elif IZAYOI_LILTOON_SHADER_UTILITY_1_5_OR_NEWER
+            sb.Append(", ").Append("IZAYOI_LILTOON_SHADER_UTILITY_1_5_OR_NEWER");
+#elif IZAYOI_LILTOON_SHADER_UTILITY_1_6
+            sb.Append(", ").Append("IZAYOI_LILTOON_SHADER_UTILITY_1_6");
+#elif IZAYOI_LILTOON_SHADER_UTILITY_1_7_OR_NEWER
+            sb.Append(", ").Append("IZAYOI_LILTOON_SHADER_UTILITY_1_7_OR_NEWER");
 #endif
 
 #if IZAYOI_UNISHADERS_1_0_OR_NEWER
@@ -120,6 +126,12 @@ namespace UniVgo2.Editor
             sb.Append(", ").Append("LILTOON_1_3_0_OR_NEWER");
 #elif LILTOON_1_4_0_OR_NEWER
             sb.Append(", ").Append("LILTOON_1_4_0_OR_NEWER");
+#elif LILTOON_1_5_0_OR_NEWER
+            sb.Append(", ").Append("LILTOON_1_5_0_OR_NEWER");
+#elif LILTOON_1_6_0_OR_NEWER
+            sb.Append(", ").Append("LILTOON_1_6_0_OR_NEWER");
+#elif LILTOON_1_7_0_OR_NEWER
+            sb.Append(", ").Append("LILTOON_1_7_0_OR_NEWER");
 #endif
 
 #if CYSHARP_UNITASK_2_OR_NEWER

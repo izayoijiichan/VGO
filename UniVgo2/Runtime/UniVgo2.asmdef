@@ -74,6 +74,21 @@
             "define": "LILTOON_1_4_0_OR_NEWER"
         },
         {
+            "name": "jp.lilxyzw.liltoon",
+            "expression": "[1.5,1.6)",
+            "define": "LILTOON_1_5_0_OR_NEWER"
+        },
+        {
+            "name": "jp.lilxyzw.liltoon",
+            "expression": "[1.6,1.7)",
+            "define": "LILTOON_1_6_0_OR_NEWER"
+        },
+        {
+            "name": "jp.lilxyzw.liltoon",
+            "expression": "[1.7,1.8)",
+            "define": "LILTOON_1_7_0_OR_NEWER"
+        },
+        {
             "name": "org.nuget.sixlabors.imagesharp",
             "expression": "[2.0,3.0)",
             "define": "SIXLABORS_IMAGESHARP_2_OR_NEWER"

@@ -18,8 +18,9 @@ ___
 |Unity 2022.2|○|○|○|未確認|未確認|○|
 |Unity 2022.3|○|○|○|未確認|未確認|○|
 |Unity 2023.1|○|○|○|○|未確認|○|
+|Unity 2023.2|○|○|○|未確認|未確認|未確認|
 
-2023年8月の時点では `Unity 2023.1` の `Windows`、`.NET Standard 2.1` 環境にて開発＆確認を行っています。
+2024年1月の時点では `Unity 2023.2` の `Windows`、`.NET Standard 2.1` 環境にて開発＆確認を行っています。
 
 ### 必要パッケージ
 
@@ -41,10 +42,10 @@ Unity 2021.1 以下のバージョンを使用する場合
 |:---|:---:|:---:|:---:|:---:|:---:|
 |com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|13.0.2|3.2.1|2023年5月2日|
 |com.vrmc.vrmshaders|vrm-c|GitHub||0.105.0|2022年10月7日|
-|com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub||1.4.1|2023年11月8日|
+|com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub||1.7.0|2024年1月18日|
 |com.izayoi.unishaders|IzayoiJiichan|GitHub||1.6.1|2023年8月1日|
 |com.izayoi.vgospringbone|IzayoiJiichan|GitHub||1.1.2|2022年8月24日|
-|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.19|2023年11月8日|
+|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.20|2024年1月20日|
 
 #### 追加パッケージ
 
@@ -52,7 +53,7 @@ Unity 2021.1 以下のバージョンを使用する場合
 
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|備考|
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
-|jp.lilxyzw.liltoon|lilxyzw|GitHub||1.4.1|2023年9月4日||
+|jp.lilxyzw.liltoon|lilxyzw|GitHub||1.7.2|2024年1月18日||
 |org.nuget.sixlabors.imagesharp|SixLabors|Unity NuGet||2.1.5|2023年8月14日|for WebP|
 |com.unity.render-pipelines.universal|Unity Technologies|Unity Registry||14.0.0|2021年11月17日|URP only|
 |com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||14.0.0|2021年11月17日|HDRP only|
@@ -141,9 +142,9 @@ UniVGOを使用するために、以下の設定を追加してください。
 ```json
 {
   "dependencies": {
-    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.4.1",
+    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.7.0",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.6.1",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.19",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.20",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.ugui": "1.0.0",
@@ -159,7 +160,7 @@ lilToonを使用する場合、"jp.lilxyzw.liltoon" の行を追加してくだ�
 ```json
 {
   "dependencies": {
-    "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.4.1",
+    "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.7.2",
   }
 }
 ```
@@ -273,20 +274,24 @@ ___
 
 |UniVRM|UniVGO|min Unity|
 |:---:|:---:|:---:|
-|0.100.0|2.5.19|2020.3|
-|0.101.0|2.5.19|2020.3|
-|0.102.0|2.5.19|2020.3|
-|0.103.2|2.5.19|2020.3|
-|0.104.2|2.5.19|2020.3|
-|0.105.0|2.5.19|2020.3|
-|0.106.0|2.5.19|2020.3|
-|0.107.2|2.5.19|2020.3|
-|0.108.0|2.5.19|2020.3|
-|0.109.0|2.5.19|2020.3|
-|0.110.0|2.5.19|2020.3|
-|0.111.0|2.5.19|2020.3|
-|0.112.0|2.5.19|2021.3|
-|0.113.0|2.5.19|2021.3|
+|0.100.0|2.5.20|2020.3|
+|0.101.0|2.5.20|2020.3|
+|0.102.0|2.5.20|2020.3|
+|0.103.2|2.5.20|2020.3|
+|0.104.2|2.5.20|2020.3|
+|0.105.0|2.5.20|2020.3|
+|0.106.0|2.5.20|2020.3|
+|0.107.2|2.5.20|2020.3|
+|0.108.0|2.5.20|2020.3|
+|0.109.0|2.5.20|2020.3|
+|0.110.0|2.5.20|2020.3|
+|0.111.0|2.5.20|2020.3|
+|0.112.0|2.5.20|2021.3|
+|0.113.0|2.5.20|2021.3|
+|0.114.0|2.5.20|2021.3|
+|0.115.0|2.5.20|2021.3|
+|0.116.0|2.5.20|2021.3|
+|0.117.0|2.5.20|2021.3|
 
 `<Project>/Packages/package.json` に以下の記述を行います。  
 
@@ -317,7 +322,7 @@ https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 |2022.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2022.3.brp.univrm)|
 
 ___
-最終更新日：2023年11月8日  
+最終更新日：2024年1月20日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -23,7 +23,6 @@ namespace UniVgo2.Converters
             var vgoLight = new VgoLight()
             {
                 enabled = light.enabled,
-                type = (NewtonVgo.LightType)light.type,
                 color = light.color.linear.ToVgoColor4(),
                 intensity = light.intensity,
                 bounceIntensity = light.bounceIntensity,
@@ -31,29 +30,53 @@ namespace UniVgo2.Converters
                 cullingMask = light.cullingMask,
             };
 
-            // Lightmap Bake Type
-#if UNITY_EDITOR
-            vgoLight.lightmapBakeType = (NewtonVgo.LightmapBakeType)light.lightmapBakeType;
-#else
-            switch (vgoLight.type)
+            // Type and Shape
+#if UNITY_2023_2_OR_NEWER
+            switch (light.type)
             {
-                case NewtonVgo.LightType.Spot:
-                case NewtonVgo.LightType.Directional:
-                case NewtonVgo.LightType.Point:
-                    vgoLight.lightmapBakeType = NewtonVgo.LightmapBakeType.Realtime;
+                case UnityEngine.LightType.Spot:
+                    vgoLight.type = NewtonVgo.LightType.Spot;
+                    vgoLight.shape = NewtonVgo.LightShape.Cone;
                     break;
-                case NewtonVgo.LightType.Rectangle:
-                case NewtonVgo.LightType.Disc:
-                    vgoLight.lightmapBakeType = NewtonVgo.LightmapBakeType.Baked;
+                case UnityEngine.LightType.Directional:
+                    vgoLight.type = NewtonVgo.LightType.Directional;
+                    break;
+                case UnityEngine.LightType.Point:
+                    vgoLight.type = NewtonVgo.LightType.Point;
+                    break;
+                case UnityEngine.LightType.Rectangle:
+                    vgoLight.type = NewtonVgo.LightType.Rectangle;
+                    break;
+                case UnityEngine.LightType.Disc:
+                    vgoLight.type = NewtonVgo.LightType.Disc;
+                    break;
+                case UnityEngine.LightType.Pyramid:
+                    vgoLight.type = NewtonVgo.LightType.Spot;
+                    vgoLight.shape = NewtonVgo.LightShape.Pyramid;
+                    break;
+                case UnityEngine.LightType.Box:
+                    vgoLight.type = NewtonVgo.LightType.Spot;
+                    vgoLight.shape = NewtonVgo.LightShape.Box;
+                    break;
+                case UnityEngine.LightType.Tube:
+                    vgoLight.type = NewtonVgo.LightType.Spot;
+                    //vgoLight.shape = NewtonVgo.LightShape.Tube;
                     break;
                 default:
                     break;
             }
+#else
+            vgoLight.type = (NewtonVgo.LightType)light.type;
+
+            if (light.type == UnityEngine.LightType.Spot)
+            {
+                vgoLight.shape = (NewtonVgo.LightShape)light.shape;
+            }
 #endif
+
             switch (light.type)
             {
                 case UnityEngine.LightType.Spot:
-                    vgoLight.shape = (NewtonVgo.LightShape)light.shape;
                     vgoLight.range = light.range;
                     vgoLight.spotAngle = light.spotAngle;
                     break;
@@ -68,9 +91,44 @@ namespace UniVgo2.Converters
                     vgoLight.areaRadius = light.areaSize.x;
                     break;
 #endif
+#if UNITY_2023_2_OR_NEWER
+                case UnityEngine.LightType.Pyramid:
+                case UnityEngine.LightType.Box:
+                case UnityEngine.LightType.Tube:
+                    vgoLight.range = light.range;
+                    vgoLight.spotAngle = light.spotAngle;
+                    break;
+#endif
                 default:
                     break;
             }
+
+            // Lightmap Bake Type
+#if UNITY_EDITOR
+            vgoLight.lightmapBakeType = (NewtonVgo.LightmapBakeType)light.lightmapBakeType;
+#else
+            switch (light.type)
+            {
+                case UnityEngine.LightType.Spot:
+                case UnityEngine.LightType.Directional:
+                case UnityEngine.LightType.Point:
+                    vgoLight.lightmapBakeType = NewtonVgo.LightmapBakeType.Realtime;
+                    break;
+                case UnityEngine.LightType.Rectangle:
+                case UnityEngine.LightType.Disc:
+                    vgoLight.lightmapBakeType = NewtonVgo.LightmapBakeType.Baked;
+                    break;
+#if UNITY_2023_2_OR_NEWER
+                case UnityEngine.LightType.Pyramid:
+                case UnityEngine.LightType.Box:
+                case UnityEngine.LightType.Tube:
+                    vgoLight.lightmapBakeType = NewtonVgo.LightmapBakeType.Realtime;
+                    break;
+#endif
+                default:
+                    break;
+            }
+#endif
 
             vgoLight.shadows = (NewtonVgo.LightShadows)light.shadows;
 
@@ -90,6 +148,13 @@ namespace UniVgo2.Converters
                         case UnityEngine.LightType.Directional:
                             vgoLight.shadowAngle = light.shadowAngle;
                             break;
+#if UNITY_2023_2_OR_NEWER
+                        case UnityEngine.LightType.Pyramid:
+                        case UnityEngine.LightType.Box:
+                        case UnityEngine.LightType.Tube:
+                            vgoLight.shadowRadius = light.shadowRadius;
+                            break;
+#endif
                         default:
                             break;
                     }
@@ -162,38 +227,64 @@ namespace UniVgo2.Converters
             }
 
             light.enabled = vgoLight.enabled;
-            light.type = (UnityEngine.LightType)vgoLight.type;
             light.color = vgoLight.color.GetValueOrDefault(Color4.White).ToUnityColor().gamma;
             light.intensity = vgoLight.intensity;
             light.bounceIntensity = vgoLight.bounceIntensity;
             light.renderMode = (UnityEngine.LightRenderMode)vgoLight.renderMode;
             light.cullingMask = vgoLight.cullingMask;
 
-#if UNITY_EDITOR
-            light.lightmapBakeType = (UnityEngine.LightmapBakeType)vgoLight.lightmapBakeType;
-#endif
-
             switch (vgoLight.type)
             {
                 case NewtonVgo.LightType.Spot:
+#if UNITY_2023_2_OR_NEWER
+                    switch (vgoLight.shape)
+                    {
+                        case NewtonVgo.LightShape.Cone:
+                            light.type = UnityEngine.LightType.Spot;
+                            break;
+                        case NewtonVgo.LightShape.Pyramid:
+                            light.type = UnityEngine.LightType.Pyramid;
+                            break;
+                        case NewtonVgo.LightShape.Box:
+                            light.type = UnityEngine.LightType.Box;
+                            break;
+                        default:
+                            break;
+                    }
+#else
+                    light.type = UnityEngine.LightType.Spot;
                     light.shape = (UnityEngine.LightShape)vgoLight.shape;
+#endif
                     light.range = vgoLight.range;
                     light.spotAngle = vgoLight.spotAngle;
                     break;
                 case NewtonVgo.LightType.Point:
+                    light.type = UnityEngine.LightType.Point;
                     light.range = vgoLight.range;
                     break;
-#if UNITY_EDITOR
                 case NewtonVgo.LightType.Rectangle:
+                    light.type = UnityEngine.LightType.Rectangle;
+#if UNITY_2023_2_OR_NEWER && !UNITY_EDITOR  // Unity 2023.2 or higher && Runtime
+                    //
+#else
                     light.areaSize = vgoLight.areaSize.GetValueOrDefault(System.Numerics.Vector2.Zero).ToUnityVector2();
+#endif
                     break;
                 case NewtonVgo.LightType.Disc:
+                    light.type = UnityEngine.LightType.Disc;
+#if UNITY_2023_2_OR_NEWER && !UNITY_EDITOR  // Unity 2023.2 or higher && Runtime
+                    //
+#else
                     light.areaSize = new Vector2(vgoLight.areaRadius, 1.0f);
-                    break;
 #endif
+                    break;
                 default:
                     break;
             }
+
+#if UNITY_EDITOR
+            light.lightmapBakeType = (UnityEngine.LightmapBakeType)vgoLight.lightmapBakeType;
+#endif
 
             light.shadows = (UnityEngine.LightShadows)vgoLight.shadows;
 

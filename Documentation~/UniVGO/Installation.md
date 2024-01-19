@@ -18,8 +18,9 @@ ___
 |Unity 2022.2|OK|OK|OK|unconfirmed|unconfirmed|OK|
 |Unity 2022.3|OK|OK|OK|unconfirmed|unconfirmed|OK|
 |Unity 2023.1|OK|OK|OK|OK|unconfirmed|OK|
+|Unity 2023.2|OK|OK|OK|unconfirmed|unconfirmed|unconfirmed|
 
-As of August of 2023, we are developing and confirming in `Unity 2023.1`, `Windows`, `.NET Standard 2.1` environment.
+As of January of 2024, we are developing and confirming in `Unity 2023.2`, `Windows`, `.NET Standard 2.1` environment.
 
 ### Required package
 
@@ -41,10 +42,10 @@ This package is required for any Unity version.
 |:---|:---:|:---:|:---:|:---:|:---:|
 |com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|13.0.2|3.2.1|2 May, 2023|
 |com.vrmc.vrmshaders|vrm-c|GitHub||0.105.0|7 Oct, 2022|
-|com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub||1.4.1|8 Nov, 2023|
+|com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub||1.7.0|18 Jan, 2024|
 |com.izayoi.unishaders|IzayoiJiichan|GitHub||1.6.1|1 Aug, 2023|
 |com.izayoi.vgospringbone|IzayoiJiichan|GitHub||1.1.2|24 Aug, 2022|
-|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.19|8 Nov, 2023|
+|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.20|20 Jan, 2024|
 
 #### Additional Packages
 
@@ -52,7 +53,7 @@ Add if necessary.
 
 |package name|owner|Repository|specification version|program version|release date|remarks|
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
-|jp.lilxyzw.liltoon|lilxyzw|GitHub||1.4.1|4 Sep, 2023||
+|jp.lilxyzw.liltoon|lilxyzw|GitHub||1.7.2|18 Jan, 2024||
 |org.nuget.sixlabors.imagesharp|SixLabors|Unity NuGet||2.1.5|14 Aug, 2023|for WebP|
 |com.unity.render-pipelines.universal|Unity Technologies|Unity Registry||14.0.0|17 Nov, 2021|URP only|
 |com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||14.0.0|17 Nov, 2021|HDRP only|
@@ -140,9 +141,9 @@ To use UniVGO, add the following settings.
 ```json
 {
   "dependencies": {
-    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.4.1",
+    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.7.0",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.6.1",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.19",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.20",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.ugui": "1.0.0",
@@ -158,7 +159,7 @@ If you want to use lilToon, append the line "jp.lilxyzw.liltoon".
 ```json
 {
   "dependencies": {
-    "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.4.1",
+    "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.7.2",
   }
 }
 ```
@@ -270,20 +271,24 @@ The version combinations are as follows.
 
 |UniVRM|UniVGO|min Unity|
 |:---:|:---:|:---:|
-|0.100.0|2.5.19|2020.3|
-|0.101.0|2.5.19|2020.3|
-|0.102.0|2.5.19|2020.3|
-|0.103.2|2.5.19|2020.3|
-|0.104.2|2.5.19|2020.3|
-|0.105.0|2.5.19|2020.3|
-|0.106.0|2.5.19|2020.3|
-|0.107.2|2.5.19|2020.3|
-|0.108.0|2.5.19|2020.3|
-|0.109.0|2.5.19|2020.3|
-|0.110.0|2.5.19|2020.3|
-|0.111.0|2.5.19|2020.3|
-|0.112.0|2.5.19|2021.3|
-|0.113.0|2.5.19|2021.3|
+|0.100.0|2.5.20|2020.3|
+|0.101.0|2.5.20|2020.3|
+|0.102.0|2.5.20|2020.3|
+|0.103.2|2.5.20|2020.3|
+|0.104.2|2.5.20|2020.3|
+|0.105.0|2.5.20|2020.3|
+|0.106.0|2.5.20|2020.3|
+|0.107.2|2.5.20|2020.3|
+|0.108.0|2.5.20|2020.3|
+|0.109.0|2.5.20|2020.3|
+|0.110.0|2.5.20|2020.3|
+|0.111.0|2.5.20|2020.3|
+|0.112.0|2.5.20|2021.3|
+|0.113.0|2.5.20|2021.3|
+|0.114.0|2.5.20|2021.3|
+|0.115.0|2.5.20|2021.3|
+|0.116.0|2.5.20|2021.3|
+|0.117.0|2.5.20|2021.3|
 
 Write the following in `<Project> /Packages/package.json`.
 
@@ -313,7 +318,7 @@ https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 |2022.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2022.3.brp.univrm)|
 
 ___
-Last updated: 8 November, 2023  
+Last updated: 20 January, 2024  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*
