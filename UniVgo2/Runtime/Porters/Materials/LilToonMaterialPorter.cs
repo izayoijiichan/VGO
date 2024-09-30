@@ -5,8 +5,10 @@
 #nullable enable
 namespace UniVgo2.Porters
 {
+#if IZAYOI_LILTOON_UTILITY_1_0_OR_NEWER
     using LilToonShader;
     using LilToonShader.Extensions;
+#endif
     using NewtonVgo;
     using System;
     using System.Collections.Generic;
@@ -38,6 +40,7 @@ namespace UniVgo2.Porters
         {
             switch (material.shader.name)
             {
+#if IZAYOI_LILTOON_UTILITY_1_0_OR_NEWER
                 // Opaque
                 case ShaderName.Lil_LilToon:
                     return CreateVgoMaterialFromLilToon(material, vgoStorage, LilShaderType.Normal, LilRenderingMode.Opaque);
@@ -177,6 +180,7 @@ namespace UniVgo2.Porters
 
                 case ShaderName.Lil_LilToonPassDummy:
                 case ShaderName.Lil_LilToonOtherBaker:
+#endif
                 default:
 #if NET_STANDARD_2_1
                     ThrowHelper.ThrowNotSupportedException(material.shader.name);
@@ -186,6 +190,12 @@ namespace UniVgo2.Porters
 #endif
             }
         }
+
+        #endregion
+
+#if IZAYOI_LILTOON_UTILITY_1_0_OR_NEWER
+
+        #region Protected Methods (Export)
 
         /// <summary>
         /// Create a vgo material from a lilToon material.
@@ -577,6 +587,7 @@ namespace UniVgo2.Porters
         }
 
         #endregion
+#endif
 
         #region Public Methods (Import)
 
@@ -589,6 +600,7 @@ namespace UniVgo2.Porters
         /// <returns>A lilToon material.</returns>
         public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
         {
+#if IZAYOI_LILTOON_UTILITY_1_0_OR_NEWER
             if ((shader.name.Contains("lilToon") == false) &&
                 (shader.name.StartsWith("Hidden/ltspass") == false))
             {
@@ -602,6 +614,14 @@ namespace UniVgo2.Porters
             Material material = base.CreateMaterialAsset(vgoMaterial, shader, allTexture2dList);
 
             return material;
+#else
+#if NET_STANDARD_2_1
+            ThrowHelper.ThrowNotSupportedException(vgoMaterial.shaderName ?? string.Empty);
+            return default;
+#else
+            throw new NotSupportedException(vgoMaterial.shaderName ?? string.Empty);
+#endif
+#endif
         }
 
         #endregion

@@ -3,12 +3,21 @@
 // @Class     : MToonDefinitionExtensions
 // ----------------------------------------------------------------------
 #nullable enable
+#if UNIVGO_ENABLE_MTOON_0_0 && UNIVGO_ENABLE_MTOON_1_0
 namespace UniVgo2
 {
+#if UNIVGO_ENABLE_MTOON_0_0
     using MToon;
+#endif
     using NewtonVgo;
     using UnityEngine;
+#if UNIVGO_ENABLE_MTOON_1_0
+#if VRMC_UNIVRM1_0_125_OR_NEWER
+    using VRM10.MToon10;
+#else
     using VRMShaders.VRM10.MToon10.Runtime;
+#endif
+#endif
 
     /// <summary>
     /// MToon 0.x Definition Extensions
@@ -161,3 +170,4 @@ namespace UniVgo2
         }
     }
 }
+#endif

@@ -2,7 +2,7 @@
   "name": "com.izayoi.univgo",
   "displayName": "UniVGO",
   "description": "UniVGO is a package that can handle VGO files in Unity.",
-  "version": "2.5.20",
+  "version": "2.5.21",
   "type": "tool",
   "category": "",
   "keywords": [
@@ -25,7 +25,7 @@
     "unity3d-plugin",
     "vgo"
   ],
-  "unity": "2020.3",
+  "unity": "2021.3",
   "author": {
     "name" : "Izayoi Jiichan"
   },
@@ -34,11 +34,13 @@
     "url": "git+https://github.com/izayoijiichan/VGO.git"
   },
   "dependencies": {
-    "com.izayoi.liltoon.shader.utility": "1.7.0",
     "com.izayoi.unishaders": "1.6.1",
     "com.izayoi.vgospringbone": "1.1.2",
+    "com.unity.modules.animation": "1.0.0",
+    "com.unity.modules.cloth": "1.0.0",
     "com.unity.modules.imageconversion": "1.0.0",
-    "com.unity.nuget.newtonsoft-json": "3.0.0",
-    "com.vrmc.vrmshaders": "0.79.0"
+    "com.unity.modules.particlesystem": "1.0.0",
+    "com.unity.modules.physics": "1.0.0",
+    "com.unity.nuget.newtonsoft-json": "3.0.0"
   }
 }

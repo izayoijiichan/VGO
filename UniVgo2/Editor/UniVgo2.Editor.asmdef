@@ -25,11 +25,6 @@
         },
         {
             "name": "com.izayoi.liltoon.shader.utility",
-            "expression": "[1.0.0,1.0.2]",
-            "define": "IZAYOI_LILTOON_SHADER_UTILITY_1_0_OR_NEWER"
-        },
-        {
-            "name": "com.izayoi.liltoon.shader.utility",
             "expression": "[1.4.0,1.4.1]",
             "define": "IZAYOI_LILTOON_SHADER_UTILITY_1_4_OR_NEWER"
         },
@@ -94,6 +89,21 @@
             "define": "IZAYOI_VGOSPRINGBONE_1_1_OR_NEWER"
         },
         {
+            "name": "com.vrmc.gltf",
+            "expression": "[0.125.0,1.0)",
+            "define": "VRMC_GLTF_0_125_OR_NEWER"
+        },
+        {
+            "name": "com.vrmc.univrm",
+            "expression": "[0.125.0,1.0)",
+            "define": "VRMC_UNIVRM0_0_125_OR_NEWER"
+        },
+        {
+            "name": "com.vrmc.vrm",
+            "expression": "[0.125.0,1.0)",
+            "define": "VRMC_UNIVRM1_0_125_OR_NEWER"
+        },
+        {
             "name": "com.vrmc.vrmshaders",
             "expression": "[0.72.0,0.79.0]",
             "define": "VRMC_VRMSHADERS_0_72_OR_NEWER"
@@ -110,7 +120,7 @@
         },
         {
             "name": "com.vrmc.vrmshaders",
-            "expression": "[0.104,1.0)",
+            "expression": "[0.104,0.124.2]",
             "define": "VRMC_VRMSHADERS_0_104_OR_NEWER"
         },
         {

@@ -23,8 +23,13 @@ namespace UniVgo2.Converters
             return new VgoRigidbody()
             {
                 mass = rigidbody.mass,
+#if UNITY_6000_0_OR_NEWER
+                drag = rigidbody.linearDamping,
+                angularDrag = rigidbody.angularDamping,
+#else
                 drag = rigidbody.drag,
                 angularDrag = rigidbody.angularDrag,
+#endif
                 useGravity = rigidbody.useGravity,
                 isKinematic = rigidbody.isKinematic,
                 interpolation = (NewtonVgo.RigidbodyInterpolation)rigidbody.interpolation,
@@ -41,8 +46,13 @@ namespace UniVgo2.Converters
         public static void SetComponentValue(Rigidbody rigidbody, in VgoRigidbody vgoRigidbody)
         {
             rigidbody.mass = vgoRigidbody.mass;
+#if UNITY_6000_0_OR_NEWER
+            rigidbody.linearDamping = vgoRigidbody.drag;
+            rigidbody.angularDamping = vgoRigidbody.angularDrag;
+#else
             rigidbody.drag = vgoRigidbody.drag;
             rigidbody.angularDrag = vgoRigidbody.angularDrag;
+#endif
             rigidbody.useGravity = vgoRigidbody.useGravity;
             rigidbody.isKinematic = vgoRigidbody.isKinematic;
             rigidbody.interpolation = (UnityEngine.RigidbodyInterpolation)vgoRigidbody.interpolation;

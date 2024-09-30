@@ -19,8 +19,9 @@ ___
 |Unity 2022.3|OK|OK|OK|unconfirmed|unconfirmed|OK|
 |Unity 2023.1|OK|OK|OK|OK|unconfirmed|OK|
 |Unity 2023.2|OK|OK|OK|unconfirmed|unconfirmed|unconfirmed|
+|Unity 6000.0|OK|OK|OK|unconfirmed|unconfirmed|unconfirmed|
 
-As of January of 2024, we are developing and confirming in `Unity 2023.2`, `Windows`, `.NET Standard 2.1` environment.
+As of October of 2024, we are developing and confirming in `Unity 6000.0`, `Windows`, `.NET Standard 2.1` environment.
 
 ### Required package
 
@@ -41,11 +42,9 @@ This package is required for any Unity version.
 |package name|owner|Repository|specification version|program version|release date|
 |:---|:---:|:---:|:---:|:---:|:---:|
 |com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|13.0.2|3.2.1|2 May, 2023|
-|com.vrmc.vrmshaders|vrm-c|GitHub||0.105.0|7 Oct, 2022|
-|com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub||1.7.0|18 Jan, 2024|
 |com.izayoi.unishaders|IzayoiJiichan|GitHub||1.6.1|1 Aug, 2023|
 |com.izayoi.vgospringbone|IzayoiJiichan|GitHub||1.1.2|24 Aug, 2022|
-|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.20|20 Jan, 2024|
+|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.1|1 Oct, 2024|
 
 #### Additional Packages
 
@@ -53,7 +52,9 @@ Add if necessary.
 
 |package name|owner|Repository|specification version|program version|release date|remarks|
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
-|jp.lilxyzw.liltoon|lilxyzw|GitHub||1.7.2|18 Jan, 2024||
+|com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub||1.7.0|18 Jan, 2024||
+|jp.lilxyzw.liltoon|lilxyzw|GitHub||1.7.3|8 Aug, 2024||
+|com.vrmc.vrmshaders|vrm-c|GitHub||0.124.2|23 Jul, 2024||
 |org.nuget.sixlabors.imagesharp|SixLabors|Unity NuGet||2.1.5|14 Aug, 2023|for WebP|
 |com.unity.render-pipelines.universal|Unity Technologies|Unity Registry||14.0.0|17 Nov, 2021|URP only|
 |com.unity.render-pipelines.high-definition|Unity Technologies|Unity Registry||14.0.0|17 Nov, 2021|HDRP only|
@@ -80,7 +81,7 @@ Download the UniVGO sample project.
 
 #### 2. Install Unity Editor
 
-Install Unity Editor `2021.1.28f1`, `2021.2.0f1`, `2021.3.0f1`, `2022.1.0f1`, `2022.2.0f1`, or `2022.3.0f1` on Unity Hub.
+Install Unity Editor on Unity Hub.
 
 If you don't see the version you're looking for in Unity Hub, install it via the [Unity Download Archive](https://unity3d.com/jp/get-unity/download/archive).
 
@@ -141,13 +142,10 @@ To use UniVGO, add the following settings.
 ```json
 {
   "dependencies": {
-    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.7.0",
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.6.1",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.20",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.21",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
-    "com.unity.ugui": "1.0.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.105.0",
   }
 }
 ```
@@ -159,10 +157,72 @@ If you want to use lilToon, append the line "jp.lilxyzw.liltoon".
 ```json
 {
   "dependencies": {
-    "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.7.2",
+    "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.7.0",
+    "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.7.3",
   }
 }
 ```
+
+If you use UniUnlit, add the following line.
+
+```json
+{
+  "dependencies": {
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.124.2",
+  }
+}
+```
+
+If you are using UniVRM 0.125 or higher, add the following instead of the above.
+
+```json
+{
+  "dependencies": {
+    "com.vrmc.gltf": "https://github.com/vrm-c/UniVRM.git?path=/Assets/UniGLTF#v0.125.0",
+  }
+}
+```
+
+If you use MToon 0.x, add the following line.
+
+```json
+{
+  "dependencies": {
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.124.2",
+  }
+}
+```
+
+If you are using UniVRM 0.125 or higher, add the following instead of the above.
+
+```json
+{
+  "dependencies": {
+    "com.vrmc.univrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM#v0.125.0",
+  }
+}
+```
+
+If you use MToon 1.0, add the following line.
+
+```json
+{
+  "dependencies": {
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.124.2",
+  }
+}
+```
+
+If you are using UniVRM 0.125 or higher, add the following instead of the above.
+
+```json
+{
+  "dependencies": {
+    "com.vrmc.vrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM10#v0.125.0",
+  }
+}
+```
+
 If you are using Unity 2021.2 or higher and you want to use WebP, append the line "org.nuget.sixlabors.imagesharp".
 
 ```json
@@ -194,6 +254,8 @@ If you want to use URP, append the line "com.unity.render-pipelines.universal".
 - [Universal RP 12.1 for Unity 2021.3](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@12.1/changelog/CHANGELOG.html)
 - [Universal RP 14.0 for Unity 2022.3](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@14.0/changelog/CHANGELOG.html)
 - [Universal RP 15.0 for Unity 2023.1](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@15.0/changelog/CHANGELOG.html)
+- [Universal RP 16.0 for Unity 2023.2](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@16.0/changelog/CHANGELOG.html)
+- [Universal RP 17.0 for Unity 6000.0](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@17.0/changelog/CHANGELOG.html)
 
 If you want to use HDRP, append the line "com.unity.render-pipelines.high-definition".
 
@@ -209,6 +271,8 @@ If you want to use HDRP, append the line "com.unity.render-pipelines.high-defini
 - [High Definition RP 12.1 for Unity 2021.3](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@12.1/changelog/CHANGELOG.html)
 - [High Definition RP 14.0 for Unity 2022.3](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@14.0/changelog/CHANGELOG.html)
 - [High Definition RP 15.0 for Unity 2023.1](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@15.0/changelog/CHANGELOG.html)
+- [High Definition RP 16.0 for Unity 2023.2](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@16.0/changelog/CHANGELOG.html)
+- [High Definition RP 17.0 for Unity 6000.0](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@17.0/changelog/CHANGELOG.html)
 
 ### Confirmation of installation completion
 
@@ -271,24 +335,32 @@ The version combinations are as follows.
 
 |UniVRM|UniVGO|min Unity|
 |:---:|:---:|:---:|
-|0.100.0|2.5.20|2020.3|
-|0.101.0|2.5.20|2020.3|
-|0.102.0|2.5.20|2020.3|
-|0.103.2|2.5.20|2020.3|
-|0.104.2|2.5.20|2020.3|
-|0.105.0|2.5.20|2020.3|
-|0.106.0|2.5.20|2020.3|
-|0.107.2|2.5.20|2020.3|
-|0.108.0|2.5.20|2020.3|
-|0.109.0|2.5.20|2020.3|
-|0.110.0|2.5.20|2020.3|
-|0.111.0|2.5.20|2020.3|
-|0.112.0|2.5.20|2021.3|
-|0.113.0|2.5.20|2021.3|
-|0.114.0|2.5.20|2021.3|
-|0.115.0|2.5.20|2021.3|
-|0.116.0|2.5.20|2021.3|
-|0.117.0|2.5.20|2021.3|
+|0.100.0|2.5.21|2020.3|
+|0.101.0|2.5.21|2020.3|
+|0.102.0|2.5.21|2020.3|
+|0.103.2|2.5.21|2020.3|
+|0.104.2|2.5.21|2020.3|
+|0.105.0|2.5.21|2020.3|
+|0.106.0|2.5.21|2020.3|
+|0.107.2|2.5.21|2020.3|
+|0.108.0|2.5.21|2020.3|
+|0.109.0|2.5.21|2020.3|
+|0.110.0|2.5.21|2020.3|
+|0.111.0|2.5.21|2020.3|
+|0.112.0|2.5.21|2021.3|
+|0.113.0|2.5.21|2021.3|
+|0.114.0|2.5.21|2021.3|
+|0.115.0|2.5.21|2021.3|
+|0.116.0|2.5.21|2021.3|
+|0.117.0|2.5.21|2021.3|
+|0.118.0|2.5.21|2021.3|
+|0.119.0|2.5.21|2021.3|
+|0.120.0|2.5.21|2021.3|
+|0.121.0|2.5.21|2021.3|
+|0.122.0|2.5.21|2021.3|
+|0.123.0|2.5.21|2021.3|
+|0.124.2|2.5.21|2021.3|
+|0.125.0|2.5.21|2021.3|
 
 Write the following in `<Project> /Packages/package.json`.
 
@@ -296,10 +368,24 @@ Write the following in `<Project> /Packages/package.json`.
 {
   "dependencies": {
     ...
-    "com.vrmc.gltf": "https://github.com/vrm-c/UniVRM.git?path=/Assets/UniGLTF#v0.105.0",
-    "com.vrmc.univrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM#v0.105.0",
-    "com.vrmc.vrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM10#v0.105.0",
-    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.105.0",
+    "com.vrmc.gltf": "https://github.com/vrm-c/UniVRM.git?path=/Assets/UniGLTF#v0.124.2",
+    "com.vrmc.univrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM#v0.124.2",
+    "com.vrmc.vrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM10#v0.124.2",
+    "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.124.2",
+    ...
+  }
+}
+```
+
+If you are using UniVRM 0.125 or higher, add the following instead of the above.
+
+```json
+{
+  "dependencies": {
+    ...
+    "com.vrmc.gltf": "https://github.com/vrm-c/UniVRM.git?path=/Assets/UniGLTF#v0.125.0",
+    "com.vrmc.univrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM#v0.125.0",
+    "com.vrmc.vrm": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRM10#v0.125.0",
     ...
   }
 }
@@ -318,7 +404,7 @@ https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 |2022.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2022.3.brp.univrm)|
 
 ___
-Last updated: 20 January, 2024  
+Last updated: 1 October, 2024  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

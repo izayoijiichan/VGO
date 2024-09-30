@@ -137,7 +137,11 @@ namespace UniVgo2.Porters
         /// <returns>Type of render pipeline.</returns>
         protected virtual RenderPipelineType GetRenderPipelineType()
         {
+#if UNITY_6000_0_OR_NEWER
+            RenderPipelineAsset renderPipelineAsset = GraphicsSettings.defaultRenderPipeline;
+#else
             RenderPipelineAsset renderPipelineAsset = GraphicsSettings.renderPipelineAsset;
+#endif
 
             if (renderPipelineAsset == null)
             {

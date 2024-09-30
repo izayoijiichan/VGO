@@ -66,7 +66,16 @@ namespace UniVgo2.Porters
                 ThrowHelper.ThrowArgumentException($"shader.name: {shader.name}");
             }
 
+#if UNIVGO_ENABLE_MTOON_1_0
             return CreateMaterialAssetInternal(vgoMaterial, shader, allTexture2dList);
+#else
+#if NET_STANDARD_2_1
+            ThrowHelper.ThrowNotSupportedException(vgoMaterial.shaderName);
+            return default;
+#else
+            throw new NotSupportedException(vgoMaterial.shaderName);
+#endif
+#endif
         }
 
         #endregion

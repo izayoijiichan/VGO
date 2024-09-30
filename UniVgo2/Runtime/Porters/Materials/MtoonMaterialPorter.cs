@@ -5,11 +5,19 @@
 #nullable enable
 namespace UniVgo2.Porters
 {
+#if UNIVGO_ENABLE_MTOON_0_0
     using MToon;
+#endif
     using NewtonVgo;
     using System.Collections.Generic;
     using UnityEngine;
+#if UNIVGO_ENABLE_MTOON_1_0
+#if VRMC_UNIVRM1_0_125_OR_NEWER
+    using VRM10.MToon10;
+#else
     using VRMShaders.VRM10.MToon10.Runtime;
+#endif
+#endif
 
     /// <summary>
     /// MToon Material Porter
@@ -35,6 +43,7 @@ namespace UniVgo2.Porters
         /// <returns>A vgo material.</returns>
         public override VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage)
         {
+#if UNIVGO_ENABLE_MTOON_0_0
             //MToonDefinition definition = MToon.Utils.GetMToonParametersFromMaterial(material);
 
             var vgoMaterial = new VgoMaterial()
@@ -114,6 +123,14 @@ namespace UniVgo2.Porters
             ExportKeywords(vgoMaterial, material);
 
             return vgoMaterial;
+#else
+#if NET_STANDARD_2_1
+            ThrowHelper.ThrowNotSupportedException(material.shader.name);
+            return default;
+#else
+            throw new NotSupportedException(material.shader.name);
+#endif
+#endif
         }
 
         #endregion
@@ -134,16 +151,19 @@ namespace UniVgo2.Porters
                 ThrowHelper.ThrowArgumentException($"vgoMaterial.shaderName: {vgoMaterial.shaderName}");
             }
 
+#if UNIVGO_ENABLE_MTOON_0_0 && UNIVGO_ENABLE_MTOON_1_0
             if ((shader.name == ShaderName.VRM_MToon10) || (shader.name == ShaderName.VRM_URP_MToon10))
             {
                 return CreateMaterialAssetAsMtoon10(vgoMaterial, shader, allTexture2dList);
             }
+#endif
 
             if (shader.name != ShaderName.VRM_MToon)
             {
                 ThrowHelper.ThrowArgumentException($"shader.name: {shader.name}");
             }
 
+#if UNIVGO_ENABLE_MTOON_0_0
             var material = new Material(shader)
             {
                 name = vgoMaterial.name
@@ -159,10 +179,19 @@ namespace UniVgo2.Porters
             MToon.Utils.SetMToonParametersToMaterial(material, mtoonParameter);
 
             return material;
+#else
+#if NET_STANDARD_2_1
+            ThrowHelper.ThrowNotSupportedException(vgoMaterial.shaderName);
+            return default;
+#else
+            throw new NotSupportedException(vgoMaterial.shaderName);
+#endif
+#endif
         }
 
         #endregion
 
+#if UNIVGO_ENABLE_MTOON_0_0 && UNIVGO_ENABLE_MTOON_1_0
         #region Protected Methods (Import)
 
         /// <summary>
@@ -433,5 +462,6 @@ namespace UniVgo2.Porters
         }
 
         #endregion
+#endif
     }
 }

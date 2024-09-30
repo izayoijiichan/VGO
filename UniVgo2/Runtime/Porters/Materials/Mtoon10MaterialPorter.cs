@@ -8,7 +8,13 @@ namespace UniVgo2.Porters
     using NewtonVgo;
     using System.Collections.Generic;
     using UnityEngine;
+#if UNIVGO_ENABLE_MTOON_1_0
+#if VRMC_UNIVRM1_0_125_OR_NEWER
+    using VRM10.MToon10;
+#else
     using VRMShaders.VRM10.MToon10.Runtime;
+#endif
+#endif
 
     /// <summary>
     /// MToon 1.0 Material Porter
@@ -34,6 +40,7 @@ namespace UniVgo2.Porters
         /// <returns>A vgo material.</returns>
         public override VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage)
         {
+#if UNIVGO_ENABLE_MTOON_1_0
             var mtoonContext = new MToon10Context(material);
 
             mtoonContext.Validate();
@@ -149,10 +156,19 @@ namespace UniVgo2.Porters
             ExportKeywords(vgoMaterial, material);
 
             return vgoMaterial;
+#else
+#if NET_STANDARD_2_1
+            ThrowHelper.ThrowNotSupportedException(material.shader.name);
+            return default;
+#else
+            throw new NotSupportedException(material.shader.name);
+#endif
+#endif
         }
 
         #endregion
 
+#if UNIVGO_ENABLE_MTOON_1_0
         #region Protected Methods (Export)
 
         /// <summary>
@@ -205,6 +221,7 @@ namespace UniVgo2.Porters
         }
 
         #endregion
+#endif
 
         #region Public Methods (Import)
 
@@ -222,21 +239,33 @@ namespace UniVgo2.Porters
                 ThrowHelper.ThrowArgumentException($"vgoMaterial.shaderName: {vgoMaterial.shaderName}");
             }
 
+#if UNIVGO_ENABLE_MTOON_1_0
             if (shader.name == ShaderName.VRM_URP_MToon10)
             {
                 return CreateMaterialAssetAsUrp(vgoMaterial, shader, allTexture2dList);
             }
+#endif
 
             if (shader.name != ShaderName.VRM_MToon10)
             {
                 ThrowHelper.ThrowArgumentException($"shader.name: {shader.name}");
             }
 
+#if UNIVGO_ENABLE_MTOON_1_0
             return CreateMaterialAssetInternal(vgoMaterial, shader, allTexture2dList);
+#else
+#if NET_STANDARD_2_1
+            ThrowHelper.ThrowNotSupportedException(vgoMaterial.shaderName);
+            return default;
+#else
+            throw new NotSupportedException(vgoMaterial.shaderName);
+#endif
+#endif
         }
 
         #endregion
 
+#if UNIVGO_ENABLE_MTOON_1_0
         #region Protected Methods (Import)
 
         /// <summary>
@@ -450,5 +479,6 @@ namespace UniVgo2.Porters
         }
 
         #endregion
+#endif
     }
 }

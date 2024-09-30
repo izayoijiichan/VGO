@@ -44,7 +44,11 @@ namespace UniVgo2.Editor
 
             sb.AppendLine($"UniVGO version: {VgoVersion.VERSION}");
 
-#if UNITY_2023_1_OR_NEWER
+#if UNITY_6000_0_OR_NEWER
+            sb.Append("UNITY_6000_0_OR_NEWER");
+#elif UNITY_2023_2_OR_NEWER
+            sb.Append("UNITY_2023_2_OR_NEWER");
+#elif UNITY_2023_1_OR_NEWER
             sb.Append("UNITY_2023_1_OR_NEWER");
 #elif UNITY_2022_3_OR_NEWER
             sb.Append("UNITY_2022_3_OR_NEWER");
@@ -110,6 +114,18 @@ namespace UniVgo2.Editor
             sb.Append(", ").Append("IZAYOI_VGOSPRINGBONE_1_0");
 #elif IZAYOI_VGOSPRINGBONE_1_1_OR_NEWER
             sb.Append(", ").Append("IZAYOI_VGOSPRINGBONE_1_1_OR_NEWER");
+#endif
+
+#if VRMC_GLTF_0_125_OR_NEWER
+            sb.Append(", ").Append("VRMC_GLTF_0_125_OR_NEWER");
+#endif
+
+#if VRMC_UNIVRM0_0_125_OR_NEWER
+            sb.Append(", ").Append("VRMC_UNIVRM0_0_125_OR_NEWER");
+#endif
+
+#if VRMC_UNIVRM1_0_125_OR_NEWER
+            sb.Append(", ").Append("VRMC_UNIVRM1_0_125_OR_NEWER");
 #endif
 
 #if VRMC_VRMSHADERS_0_79_OR_NEWER

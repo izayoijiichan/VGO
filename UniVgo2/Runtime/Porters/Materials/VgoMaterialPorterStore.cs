@@ -330,13 +330,22 @@ namespace UniVgo2.Porters
             {
                 if (renderPipelineType == RenderPipelineType.URP)
                 {
+#if ENABLE_UNITY_URP_SHADER
                     porter = UrpMaterialPorter;
+#endif
                 }
                 else if (renderPipelineType == RenderPipelineType.HDRP)
                 {
+#if ENABLE_UNITY_HDRP_SHADER
                     porter = HdrpMaterialPorter;
+#endif
                 }
                 else  // BRP
+                {
+                    porter = StandardMaterialPorter;
+                }
+
+                if (porter == default)
                 {
                     porter = StandardMaterialPorter;
                 }
@@ -360,13 +369,22 @@ namespace UniVgo2.Porters
             {
                 if (renderPipelineType == RenderPipelineType.URP)
                 {
+#if ENABLE_UNITY_URP_SHADER
                     porter = UrpMaterialPorter;
+#endif
                 }
                 else if (renderPipelineType == RenderPipelineType.HDRP)
                 {
+#if ENABLE_UNITY_HDRP_SHADER
                     porter = HdrpMaterialPorter;
+#endif
                 }
                 else  // BRP
+                {
+                    porter = StandardMaterialPorter;
+                }
+
+                if (porter == default)
                 {
                     porter = StandardMaterialPorter;
                 }
@@ -392,28 +410,34 @@ namespace UniVgo2.Porters
                         case ShaderName.VRM_UnlitCutout:
                         case ShaderName.VRM_UnlitTransparent:
                         case ShaderName.VRM_UnlitTransparentZWrite:
+#if UNIVGO_ENABLE_UNIGLTF_UNIUNLIT
                             porter = UnlitMaterialPorter;
+#else
+                            porter = StandardMaterialPorter;
+#endif
                             break;
                         case ShaderName.Particles_Standard_Surface:
                         case ShaderName.Particles_Standard_Unlit:
                             porter = ParticleMaterialPorter;
                             break;
                         case ShaderName.VRM_MToon:
+#if UNIVGO_ENABLE_MTOON_0_0
                             porter = MtoonMaterialPorter;
+#else
+                            porter = StandardMaterialPorter;
+#endif
                             break;
                         case ShaderName.VRM_MToon10:
+#if UNIVGO_ENABLE_MTOON_1_0
                             porter = Mtoon10MaterialPorter;
+#else
+                            porter = StandardMaterialPorter;
+#endif
                             break;
                         default:
                             break;
                     }
                 }
-
-                // @test
-                //if (vgoMaterial.shaderName == ShaderName.VRM_MToon)
-                //{
-                //    porter = MtoonMaterialPorter;
-                //}
             }
 
             return porter;

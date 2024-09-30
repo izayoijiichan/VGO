@@ -3,6 +3,7 @@
 // @Class     : VgoMaterialUrpUnlitDefinitionExtensions
 // ----------------------------------------------------------------------
 #nullable enable
+#if UNIVGO_ENABLE_UNIGLTF_UNIUNLIT
 namespace UniVgo2
 {
     using NewtonVgo;
@@ -11,7 +12,9 @@ namespace UniVgo2
     using UnityEngine;
     using UniUrpShader;
 
-#if VRMC_VRMSHADERS_0_104_OR_NEWER
+#if VRMC_GLTF_0_125_OR_NEWER
+    //
+#elif VRMC_VRMSHADERS_0_104_OR_NEWER
     //
 #elif VRMC_VRMSHADERS_0_85_OR_NEWER
     //
@@ -20,7 +23,7 @@ namespace UniVgo2
 #elif VRMC_VRMSHADERS_0_72_OR_NEWER
     using UniUnlitUtil = UniGLTF.UniUnlit.Utils;
 #else
-    using UniUnlitUtil = UniGLTF.UniUnlit.Utils;
+    //
 #endif
 
     /// <summary>
@@ -122,3 +125,4 @@ namespace UniVgo2
         }
     }
 }
+#endif

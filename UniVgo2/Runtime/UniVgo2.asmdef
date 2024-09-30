@@ -20,6 +20,8 @@
         "MToon",
         "VRMShaders.GLTF.UniUnlit.Runtime",
         "VRMShaders.VRM10.MToon10.Runtime",
+        "UniGLTF.UniUnlit",
+        "VRM10.MToon10",
         "UniTask",
         "VgoSpringBone"
     ],
@@ -39,6 +41,51 @@
             "define": "CYSHARP_UNITASK_2_OR_NEWER"
         },
         {
+            "name": "com.izayoi.liltoon.shader.utility",
+            "expression": "[1.0,2.0)",
+            "define": "IZAYOI_LILTOON_UTILITY_1_0_OR_NEWER"
+        },
+        {
+            "name": "com.unity.render-pipelines.high-definition",
+            "expression": "1.0",
+            "define": "ENABLE_UNITY_HDRP_SHADER"
+        },
+        {
+            "name": "com.unity.render-pipelines.universal",
+            "expression": "1.0",
+            "define": "ENABLE_UNITY_URP_SHADER"
+        },
+        {
+            "name": "com.vrmc.gltf",
+            "expression": "[0.125.0,1.0)",
+            "define": "VRMC_GLTF_0_125_OR_NEWER"
+        },
+        {
+            "name": "com.vrmc.gltf",
+            "expression": "[0.125.0,1.0)",
+            "define": "UNIVGO_ENABLE_UNIGLTF_UNIUNLIT"
+        },
+        {
+            "name": "com.vrmc.univrm",
+            "expression": "[0.125.0,1.0)",
+            "define": "VRMC_UNIVRM0_0_125_OR_NEWER"
+        },
+        {
+            "name": "com.vrmc.univrm",
+            "expression": "[0.125.0,1.0)",
+            "define": "UNIVGO_ENABLE_MTOON_0_0"
+        },
+        {
+            "name": "com.vrmc.vrm",
+            "expression": "[0.125.0,1.0)",
+            "define": "VRMC_UNIVRM1_0_125_OR_NEWER"
+        },
+        {
+            "name": "com.vrmc.vrm",
+            "expression": "[0.125.0,1.0)",
+            "define": "UNIVGO_ENABLE_MTOON_1_0"
+        },
+        {
             "name": "com.vrmc.vrmshaders",
             "expression": "[0.72.0,0.79.0]",
             "define": "VRMC_VRMSHADERS_0_72_OR_NEWER"
@@ -55,8 +102,23 @@
         },
         {
             "name": "com.vrmc.vrmshaders",
-            "expression": "[0.104,1.0)",
+            "expression": "[0.104,0.124.2]",
             "define": "VRMC_VRMSHADERS_0_104_OR_NEWER"
+        },
+        {
+            "name": "com.vrmc.vrmshaders",
+            "expression": "[0.79.0,1.0)",
+            "define": "UNIVGO_ENABLE_MTOON_0_0"
+        },
+        {
+            "name": "com.vrmc.vrmshaders",
+            "expression": "[0.79.0,1.0)",
+            "define": "UNIVGO_ENABLE_MTOON_1_0"
+        },
+        {
+            "name": "com.vrmc.vrmshaders",
+            "expression": "[0.79.0,1.0)",
+            "define": "UNIVGO_ENABLE_UNIGLTF_UNIUNLIT"
         },
         {
             "name": "jp.lilxyzw.liltoon",

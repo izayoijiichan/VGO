@@ -3,6 +3,7 @@
 // @Class     : UniGltfUnlitDefinition
 // ----------------------------------------------------------------------
 #nullable enable
+#if UNIVGO_ENABLE_UNIGLTF_UNIUNLIT
 namespace UniVgo2
 {
     using UniGLTF.UniUnlit;
@@ -47,3 +48,4 @@ namespace UniVgo2
         public bool ZWrite { get; set; }
     }
 }
+#endif

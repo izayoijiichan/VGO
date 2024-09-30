@@ -3,6 +3,7 @@
 // @Class     : VgoMaterialMToon0xDefinitionExtensions
 // ----------------------------------------------------------------------
 #nullable enable
+#if UNIVGO_ENABLE_MTOON_0_0
 namespace UniVgo2
 {
     using MToon;
@@ -133,3 +134,4 @@ namespace UniVgo2
         }
     }
 }
+#endif

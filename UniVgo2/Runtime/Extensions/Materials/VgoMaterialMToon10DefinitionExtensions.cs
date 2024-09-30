@@ -3,12 +3,17 @@
 // @Class     : VgoMaterialMToon10DefinitionExtensions
 // ----------------------------------------------------------------------
 #nullable enable
+#if UNIVGO_ENABLE_MTOON_1_0
 namespace UniVgo2
 {
     using NewtonVgo;
     using System.Collections.Generic;
     using UnityEngine;
+#if VRMC_UNIVRM1_0_125_OR_NEWER
+    using VRM10.MToon10;
+#else
     using VRMShaders.VRM10.MToon10.Runtime;
+#endif
 
     /// <summary>
     /// Vgo Material MToon 1.0 Definition Extensions
@@ -210,3 +215,4 @@ namespace UniVgo2
         #endregion
     }
 }
+#endif

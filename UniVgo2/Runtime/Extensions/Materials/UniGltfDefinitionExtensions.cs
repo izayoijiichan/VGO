@@ -3,6 +3,7 @@
 // @Class     : UniGltfUnlitDefinitionExtensions
 // ----------------------------------------------------------------------
 #nullable enable
+#if UNIVGO_ENABLE_UNIGLTF_UNIUNLIT
 namespace UniVgo2
 {
     using UniUrpShader;
@@ -65,3 +66,4 @@ namespace UniVgo2
         }
     }
 }
+#endif

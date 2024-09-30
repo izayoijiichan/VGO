@@ -3,11 +3,18 @@
 // @Class     : MToon10Definition
 // ----------------------------------------------------------------------
 #nullable enable
+#if UNIVGO_ENABLE_MTOON_1_0
 namespace UniVgo2
 {
     using UnityEngine;
     using UnityEngine.Rendering;
+#if UNIVGO_ENABLE_MTOON_1_0
+#if VRMC_UNIVRM1_0_125_OR_NEWER
+    using VRM10.MToon10;
+#else
     using VRMShaders.VRM10.MToon10.Runtime;
+#endif
+#endif
 
     /// <summary>
     /// MToon 1.0 Definition
@@ -144,3 +151,4 @@ namespace UniVgo2
         public int EditorEditMode { get; set; }
     }
 }
+#endif

@@ -43,8 +43,8 @@ VGO is a new type of 3D data format.
 ### UniVGO
 
 [![UniVGO](https://img.shields.io/github/v/release/izayoijiichan/VGO?label=UniVGO)](https://github.com/izayoijiichan/VGO/releases)
-![Unity](https://img.shields.io/badge/Unity-2020%7e2023-2196F3.svg?logo=unity&style=flat)
-![C#](https://img.shields.io/badge/C%23-8.0%7e9.0-058E0C.svg?logo=csharp&style=flat)
+![Unity](https://img.shields.io/badge/Unity-2021%7e6000-2196F3.svg?logo=unity&style=flat)
+![C#](https://img.shields.io/badge/C%23-9.0-058E0C.svg?logo=csharp&style=flat)
 
 A tool for creating\/exporting\/importing\/loading VGO file.
 
@@ -88,7 +88,7 @@ You can easily run-time load a VGO file by writing a few scripts.
 [Wiki](https://github.com/izayoijiichan/VGO/wiki)
 
 ___
-Last updated: 16 September, 2023  
+Last updated: 1 October, 2024  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

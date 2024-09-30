@@ -7,11 +7,15 @@ namespace UniVgo2.Porters
 {
     using NewtonVgo;
     using System.Collections.Generic;
+#if UNIVGO_ENABLE_UNIGLTF_UNIUNLIT
     using UniGLTF.UniUnlit;
+#endif
     using UniShader.Shared;
     using UnityEngine;
 
-#if VRMC_VRMSHADERS_0_104_OR_NEWER
+#if VRMC_GLTF_0_125_OR_NEWER
+    //
+#elif VRMC_VRMSHADERS_0_104_OR_NEWER
     //
 #elif VRMC_VRMSHADERS_0_85_OR_NEWER
     //
@@ -20,7 +24,7 @@ namespace UniVgo2.Porters
 #elif VRMC_VRMSHADERS_0_72_OR_NEWER
     using UniUnlitUtil = UniGLTF.UniUnlit.Utils;
 #else
-    using UniUnlitUtil = UniGLTF.UniUnlit.Utils;
+    //
 #endif
 
     /// <summary>
@@ -47,6 +51,7 @@ namespace UniVgo2.Porters
         /// <returns>vgo material</returns>
         public override VgoMaterial CreateVgoMaterial(in Material material, in IVgoStorage vgoStorage)
         {
+#if UNIVGO_ENABLE_UNIGLTF_UNIUNLIT
             VgoMaterial vgoMaterial = new VgoMaterial()
             {
                 name = material.name,
@@ -81,6 +86,14 @@ namespace UniVgo2.Porters
             }
 
             return vgoMaterial;
+#else
+#if NET_STANDARD_2_1
+            ThrowHelper.ThrowNotSupportedException(material.shader.name);
+            return default;
+#else
+            throw new NotSupportedException(material.shader.name);
+#endif
+#endif
         }
 
         #endregion
@@ -96,6 +109,7 @@ namespace UniVgo2.Porters
         /// <returns>A unlit material.</returns>
         public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
         {
+#if UNIVGO_ENABLE_UNIGLTF_UNIUNLIT
             if (shader.name == ShaderName.URP_Unlit)
             {
                 return CreateMaterialAssetAsUrp(vgoMaterial, shader, allTexture2dList);
@@ -137,10 +151,19 @@ namespace UniVgo2.Porters
             }
 
             return base.CreateMaterialAsset(vgoMaterial, shader, allTexture2dList);
+#else
+#if NET_STANDARD_2_1
+            ThrowHelper.ThrowNotSupportedException(vgoMaterial.shaderName ?? string.Empty);
+            return default;
+#else
+            throw new NotSupportedException(vgoMaterial.shaderName ?? string.Empty);
+#endif
+#endif
         }
 
         #endregion
 
+#if UNIVGO_ENABLE_UNIGLTF_UNIUNLIT
         #region Protected Methods (Import) BRP to URP
 
         /// <summary>
@@ -152,6 +175,7 @@ namespace UniVgo2.Porters
         /// <returns>A URP unlit material.</returns>
         protected virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, Shader shader, in List<Texture2D?> allTexture2dList)
         {
+#if ENABLE_UNITY_URP_SHADER
             var material = new Material(shader)
             {
                 name = vgoMaterial.name
@@ -168,8 +192,17 @@ namespace UniVgo2.Porters
             }
 
             return material;
+#else
+#if NET_STANDARD_2_1
+            ThrowHelper.ThrowNotSupportedException(vgoMaterial.shaderName ?? string.Empty);
+            return default;
+#else
+            throw new NotSupportedException(vgoMaterial.shaderName ?? string.Empty);
+#endif
+#endif
         }
 
         #endregion
+#endif
     }
 }

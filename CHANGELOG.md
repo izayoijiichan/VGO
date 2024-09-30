@@ -1,5 +1,24 @@
 # Change Log
 
+## [2.5.21] - 2024-10-01
+
+- Features
+  - Unity 6000.0 is now supported.
+  - The following packages are optional.
+    - `com.izayoi.liltoon.shader.utility`
+    - `com.vrmc.vrmshaders`
+- Changes
+  - The source of `UniUnlit`, `MToon` and `MToon10` shaders varies depending on the package version.
+    - UniGLTF/UniUnlit
+      - `com.vrmc.vrmshaders` 0.112.0 to 0.124.2
+      - `com.vrmc.gltf` 0.125.0 or higher
+    - MToon 0.x
+      - `com.vrmc.vrmshaders` 0.112.0 to 0.124.2
+      - `com.vrmc.univrm` 0.125.0 or higher
+    - MToon 1.0
+      - `com.vrmc.vrmshaders` 0.112.0 to 0.124.2
+      - `com.vrmc.vrm` 0.125.0 or higher
+
 ## [2.5.20] - 2024-01-20
 
 - Features

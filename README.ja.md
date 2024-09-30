@@ -43,8 +43,8 @@ VGOとは、新しい形の3Dデータフォーマットです。
 ### UniVGO
 
 [![UniVGO](https://img.shields.io/github/v/release/izayoijiichan/VGO?label=UniVGO)](https://github.com/izayoijiichan/VGO/releases)
-![Unity](https://img.shields.io/badge/Unity-2020%7e2023-2196F3.svg?logo=unity&style=flat)
-![C#](https://img.shields.io/badge/C%23-8.0%7e9.0-058E0C.svg?logo=csharp&style=flat)
+![Unity](https://img.shields.io/badge/Unity-2021%7e6000-2196F3.svg?logo=unity&style=flat)
+![C#](https://img.shields.io/badge/C%23-9.0-058E0C.svg?logo=csharp&style=flat)
 
 VGOファイルを生成／出力／取り込み／ロードするためのツールです。
 
@@ -88,7 +88,7 @@ VGOファイルをアセット内に配置するだけで簡単に取り込み�
 [Wiki](https://github.com/izayoijiichan/VGO/wiki)
 
 ___
-最終更新日：2023年9月16日  
+最終更新日：2024年10月1日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*
