@@ -142,9 +142,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A MToon shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A MToon material.</returns>
-        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture?> allTextureList)
         {
             if (vgoMaterial.shaderName != ShaderName.VRM_MToon)
             {
@@ -154,7 +154,7 @@ namespace UniVgo2.Porters
 #if UNIVGO_ENABLE_MTOON_0_0 && UNIVGO_ENABLE_MTOON_1_0
             if ((shader.name == ShaderName.VRM_MToon10) || (shader.name == ShaderName.VRM_URP_MToon10))
             {
-                return CreateMaterialAssetAsMtoon10(vgoMaterial, shader, allTexture2dList);
+                return CreateMaterialAssetAsMtoon10(vgoMaterial, shader, allTextureList);
             }
 #endif
 
@@ -174,7 +174,7 @@ namespace UniVgo2.Porters
                 material.renderQueue = vgoMaterial.renderQueue;
             }
 
-            MToonDefinition mtoonParameter = vgoMaterial.ToMToon0xDefinition(allTexture2dList);
+            MToonDefinition mtoonParameter = vgoMaterial.ToMToon0xDefinition(allTextureList);
 
             MToon.Utils.SetMToonParametersToMaterial(material, mtoonParameter);
 
@@ -199,19 +199,19 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A MToon 1.0 shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A MToon 1.0 material.</returns>
         /// <remarks>
         /// Migrate from MToon 0.x setting to MToon 1.0 material.
         /// </remarks>
-        protected virtual Material CreateMaterialAssetAsMtoon10(in VgoMaterial vgoMaterial, Shader shader, in List<Texture2D?> allTexture2dList)
+        protected virtual Material CreateMaterialAssetAsMtoon10(in VgoMaterial vgoMaterial, Shader shader, in List<Texture?> allTextureList)
         {
             var material = new Material(shader)
             {
                 name = vgoMaterial.name
             };
 
-            MToonDefinition mtoon0x = vgoMaterial.ToMToon0xDefinition(allTexture2dList);
+            MToonDefinition mtoon0x = vgoMaterial.ToMToon0xDefinition(allTextureList);
 
             MToon10Definition mtoon10 = mtoon0x.ToMToon10Definition(destructiveMigration: true);
 

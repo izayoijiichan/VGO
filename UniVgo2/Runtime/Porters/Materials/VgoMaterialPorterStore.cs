@@ -28,6 +28,13 @@ namespace UniVgo2.Porters
         protected LilToonMaterialPorter LilToonMaterialPorter
             => _LilToonMaterialPorter ??= new LilToonMaterialPorter();
 
+        /// <summary>NOVA Material Porter</summary>
+        protected NovaMaterialPorter? _NovaMaterialPorter;
+
+        /// <summary>NOVA Material Porter</summary>
+        protected NovaMaterialPorter NovaMaterialPorter
+            => _NovaMaterialPorter ??= new NovaMaterialPorter();
+
         /// <summary>MToon Material Porter</summary>
         protected MtoonMaterialPorter? _MtoonMaterialPorter;
 
@@ -301,6 +308,13 @@ namespace UniVgo2.Porters
                 case ShaderName.Lil_LilToonPassLiteCutout:
                 case ShaderName.Lil_LilToonPassLiteTransparent:
                     return LilToonMaterialPorter;
+
+                case ShaderName.Nova_Particles_Distortion:
+                case ShaderName.Nova_Particles_UberLit:
+                case ShaderName.Nova_Particles_UberUnlit:
+                case ShaderName.Nova_UIParticles_UberLit:
+                case ShaderName.Nova_UIParticles_UberUnlit:
+                    return NovaMaterialPorter;
 
                 case ShaderName.VRM_MToon:
                     return MtoonMaterialPorter;

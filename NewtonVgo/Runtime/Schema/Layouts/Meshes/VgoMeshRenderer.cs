@@ -46,8 +46,13 @@ namespace NewtonVgo
         public VgoBlendShapeKind? blendShapeKind;
 
         /// <summary>List of the blend shape preset.</summary>
+        //[Obsolete("typo")]
         [JsonProperty("blendShapePesets")]
         public List<VgoMeshBlendShapePreset>? blendShapePesets;
+
+        /// <summary>List of the blend shape preset.</summary>
+        [JsonProperty("blendShapePresets")]
+        public List<VgoMeshBlendShapePreset>? blendShapePresets;
 
         /// <summary>
         /// Returns a string that represents the current object.

@@ -47,8 +47,9 @@ namespace UniVgo2.Converters
         /// Get import texture.
         /// </summary>
         /// <param name="source">The source texture.</param>
+        /// <param name="colorSpaceType"></param>
         /// <returns></returns>
-        public Texture2D GetImportTexture(in Texture2D source)
+        public Texture GetImportTexture(in Texture source, in VgoColorSpaceType colorSpaceType)
         {
             if (Encoder == null)
             {
@@ -57,7 +58,7 @@ namespace UniVgo2.Converters
 
             var converter = new Material(Encoder);
 
-            Texture2D copyTexture = CopyTexture2d(source, VgoColorSpaceType.Linear, converter);
+            Texture copyTexture = CopyTexture(source, colorSpaceType, converter);
 
             if (Application.isEditor)
             {
@@ -75,8 +76,9 @@ namespace UniVgo2.Converters
         /// Get export texture.
         /// </summary>
         /// <param name="source">The source texture.</param>
+        /// <param name="colorSpaceType"></param>
         /// <returns></returns>
-        public Texture2D GetExportTexture(in Texture2D source)
+        public Texture GetExportTexture(in Texture source, in VgoColorSpaceType colorSpaceType)
         {
             Shader? exporter = Exporter;
 
@@ -92,7 +94,7 @@ namespace UniVgo2.Converters
 
             var converter = new Material(exporter);
 
-            Texture2D copyTexture = CopyTexture2d(source, VgoColorSpaceType.Linear, converter);
+            Texture copyTexture = CopyTexture(source, colorSpaceType, converter);
 
             if (Application.isEditor)
             {

@@ -915,6 +915,50 @@ namespace UniVgo2
 
         #endregion
 
+        #region Fields & Properties (NOVA)
+
+        /// <summary>Nova/Particles/Distortion</summary>
+        protected Shader? _NovaParticlesDistortion;
+
+        /// <summary>Nova/Particles/Distortion</summary>
+        protected Shader NovaParticlesDistortion
+            => _NovaParticlesDistortion
+            ??= Shader.Find(ShaderName.Nova_Particles_Distortion);
+
+        /// <summary>Nova/Particles/Uber Lit</summary>
+        protected Shader? _NovaParticlesUberLit;
+
+        /// <summary>Nova/Particles/Uber Lit</summary>
+        protected Shader NovaParticlesUberLit
+            => _NovaParticlesUberLit
+            ??= Shader.Find(ShaderName.Nova_Particles_UberLit);
+
+        /// <summary>Nova/Particles/Uber Unlit</summary>
+        protected Shader? _NovaParticlesUberUnlit;
+
+        /// <summary>Nova/Particles/Uber Unlit</summary>
+        protected Shader NovaParticlesUberUnlit
+            => _NovaParticlesUberUnlit
+            ??= Shader.Find(ShaderName.Nova_Particles_UberUnlit);
+
+        /// <summary>Nova/UI Particles/Uber Lit</summary>
+        protected Shader? _NovaUIParticlesUberLit;
+
+        /// <summary>Nova/UI Particles/Uber Lit</summary>
+        protected Shader NovaUIParticlesUberLit
+            => _NovaUIParticlesUberLit
+            ??= Shader.Find(ShaderName.Nova_UIParticles_UberLit);
+
+        /// <summary>Nova/UI Particles/Uber Unlit</summary>
+        protected Shader? _NovaUIParticlesUberUnlit;
+
+        /// <summary>Nova/UI Particles/Uber Unlit</summary>
+        protected Shader NovaUIParticlesUberUnlit
+            => _NovaUIParticlesUberUnlit
+            ??= Shader.Find(ShaderName.Nova_UIParticles_UberUnlit);
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -1204,6 +1248,21 @@ namespace UniVgo2
                 case ShaderName.VRM_URP_MToon10:
                     return VrmUrpMtoon10;
 
+                case ShaderName.Nova_Particles_Distortion:
+                    return NovaParticlesDistortion;
+
+                case ShaderName.Nova_Particles_UberLit:
+                    return NovaParticlesUberLit;
+
+                case ShaderName.Nova_Particles_UberUnlit:
+                    return NovaParticlesUberUnlit;
+
+                case ShaderName.Nova_UIParticles_UberLit:
+                    return NovaUIParticlesUberLit;
+
+                case ShaderName.Nova_UIParticles_UberUnlit:
+                    return NovaUIParticlesUberUnlit;
+
                 default:
                     return default;
             }
@@ -1333,12 +1392,6 @@ namespace UniVgo2
                             break;
                     }
                 }
-
-                // @test
-                //if (vgoMaterial.shaderName == ShaderName.VRM_MToon)
-                //{
-                //    shader = VrmMtoon10;
-                //}
             }
 
             return shader;

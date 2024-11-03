@@ -24,9 +24,9 @@ namespace UniVgo2
         /// Convert vgo material to MToon 1.0 definition.
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A MToon 1.0 definition.</returns>
-        public static MToon10Definition ToMToon10Definition(this VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList)
+        public static MToon10Definition ToMToon10Definition(this VgoMaterial vgoMaterial, in List<Texture?> allTextureList)
         {
             if ((vgoMaterial.shaderName != ShaderName.VRM_MToon10) &&
                 (vgoMaterial.shaderName != ShaderName.VRM_URP_MToon10))
@@ -45,15 +45,15 @@ namespace UniVgo2
 
                 // Color
                 BaseColorFactor = vgoMaterial.GetColorOrDefault(MToon10Prop.BaseColorFactor, Color.white).gamma,
-                BaseColorTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.BaseColorTexture, allTexture2dList),
+                BaseColorTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.BaseColorTexture, allTextureList) as Texture2D,
                 BaseColorTextureScale = vgoMaterial.GetTextureScaleOrDefault(MToon10Prop.BaseColorTexture, Vector2.one),
                 BaseColorTextureOffset = vgoMaterial.GetTextureOffsetOrDefault(MToon10Prop.BaseColorTexture, Vector2.zero),
                 ShadeColorFactor = vgoMaterial.GetColorOrDefault(MToon10Prop.ShadeColorFactor, Color.white).gamma,
-                ShadeColorTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.ShadeColorTexture, allTexture2dList),
-                NormalTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.NormalTexture, allTexture2dList),
+                ShadeColorTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.ShadeColorTexture, allTextureList) as Texture2D,
+                NormalTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.NormalTexture, allTextureList) as Texture2D,
                 NormalTextureScale = vgoMaterial.GetSafeFloat(MToon10Prop.NormalTextureScale, 0.0f, float.MaxValue, 1.0f),
                 ShadingShiftFactor = vgoMaterial.GetSafeFloat(MToon10Prop.ShadingShiftFactor, -1.0f, 1.0f, -0.05f),
-                ShadingShiftTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.ShadingShiftTexture, allTexture2dList),
+                ShadingShiftTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.ShadingShiftTexture, allTextureList) as Texture2D,
                 ShadingShiftTextureScale = vgoMaterial.GetSafeFloat(MToon10Prop.ShadingShiftTextureScale, 0.0f, float.MaxValue, 1.0f),
                 ShadingToonyFactor = vgoMaterial.GetSafeFloat(MToon10Prop.ShadingToonyFactor, 0.0f, 1.0f, 0.95f),
 
@@ -62,28 +62,28 @@ namespace UniVgo2
 
                 // Emission
                 EmissiveFactor = vgoMaterial.GetColorOrDefault(MToon10Prop.EmissiveFactor, Color.black).gamma,
-                EmissiveTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.EmissiveTexture, allTexture2dList),
+                EmissiveTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.EmissiveTexture, allTextureList) as Texture2D,
 
                 // Rim Lighting
 #if VRMC_VRMSHADERS_0_104_OR_NEWER
                 MatcapColorFactor = vgoMaterial.GetColorOrDefault(MToon10Prop.MatcapColorFactor, Color.black).gamma,
 #endif
-                MatcapTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.MatcapTexture, allTexture2dList),
+                MatcapTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.MatcapTexture, allTextureList) as Texture2D,
                 ParametricRimColorFactor = vgoMaterial.GetColorOrDefault(MToon10Prop.ParametricRimColorFactor, Color.black).gamma,
                 ParametricRimFresnelPowerFactor = vgoMaterial.GetSafeFloat(MToon10Prop.ParametricRimFresnelPowerFactor, 0.0f, 100.0f, 5.0f),
                 ParametricRimLiftFactor = vgoMaterial.GetSafeFloat(MToon10Prop.ParametricRimLiftFactor, 0.0f, 1.0f),
-                RimMultiplyTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.RimMultiplyTexture, allTexture2dList),
+                RimMultiplyTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.RimMultiplyTexture, allTextureList) as Texture2D,
                 RimLightingMixFactor = vgoMaterial.GetSafeFloat(MToon10Prop.RimLightingMixFactor, 0.0f, 1.0f, 1.0f),
 
                 // Outline
                 OutlineWidthMode = vgoMaterial.GetEnumOrDefault<MToon10OutlineMode>(MToon10Prop.OutlineWidthMode, MToon10OutlineMode.None),
                 OutlineWidthFactor = vgoMaterial.GetSafeFloat(MToon10Prop.OutlineWidthFactor, 0.0f, 0.05f),
-                OutlineWidthMultiplyTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.OutlineWidthMultiplyTexture, allTexture2dList),
+                OutlineWidthMultiplyTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.OutlineWidthMultiplyTexture, allTextureList) as Texture2D,
                 OutlineColorFactor = vgoMaterial.GetColorOrDefault(MToon10Prop.OutlineColorFactor, Color.black).gamma,
                 OutlineLightingMixFactor = vgoMaterial.GetSafeFloat(MToon10Prop.OutlineLightingMixFactor, 0.0f, 1.0f, 1.0f),
 
                 // UV Animation
-                UvAnimationMaskTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.UvAnimationMaskTexture, allTexture2dList),
+                UvAnimationMaskTexture = vgoMaterial.GetTextureOrDefault(MToon10Prop.UvAnimationMaskTexture, allTextureList) as Texture2D,
                 UvAnimationScrollXSpeedFactor = vgoMaterial.GetSafeFloat(MToon10Prop.UvAnimationScrollXSpeedFactor, 0.0f, float.MaxValue, 0.0f),
                 UvAnimationScrollYSpeedFactor = vgoMaterial.GetSafeFloat(MToon10Prop.UvAnimationScrollYSpeedFactor, 0.0f, float.MaxValue, 0.0f),
                 UvAnimationRotationSpeedFactor = vgoMaterial.GetSafeFloat(MToon10Prop.UvAnimationRotationSpeedFactor, 0.0f, float.MaxValue, 0.0f),
@@ -166,19 +166,19 @@ namespace UniVgo2
         /// </summary>
         /// <param name="self">A vgo material.</param>
         /// <param name="property">A material property.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns></returns>
-        private static Texture2D? GetTextureOrDefault(this VgoMaterial self, in MToon10Prop property, in List<Texture2D?> allTexture2dList)
+        private static Texture? GetTextureOrDefault(this VgoMaterial self, in MToon10Prop property, in List<Texture?> allTextureList)
         {
             string propertyName = property.ToUnityShaderLabName();
 
-            Texture2D? texture = null;
+            Texture? texture = null;
 
             int textureIndex = self.GetTextureIndexOrDefault(propertyName);
 
             if (textureIndex >= 0)
             {
-                texture = allTexture2dList.GetNullableValueOrDefault(textureIndex);
+                texture = allTextureList.GetNullableValueOrDefault(textureIndex);
             }
 
             return texture;

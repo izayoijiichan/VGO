@@ -105,19 +105,19 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A unlit shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A unlit material.</returns>
-        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture?> allTextureList)
         {
 #if UNIVGO_ENABLE_UNIGLTF_UNIUNLIT
             if (shader.name == ShaderName.URP_Unlit)
             {
-                return CreateMaterialAssetAsUrp(vgoMaterial, shader, allTexture2dList);
+                return CreateMaterialAssetAsUrp(vgoMaterial, shader, allTextureList);
             }
 
             if (vgoMaterial.shaderName == ShaderName.UniGLTF_UniUnlit)
             {
-                UniGltfUnlitDefinition vgoMaterialParameter = vgoMaterial.ToUniGltfUnlitDefinition(allTexture2dList);
+                UniGltfUnlitDefinition vgoMaterialParameter = vgoMaterial.ToUniGltfUnlitDefinition(allTextureList);
 
                 var material = new Material(shader)
                 {
@@ -150,7 +150,7 @@ namespace UniVgo2.Porters
                 return material;
             }
 
-            return base.CreateMaterialAsset(vgoMaterial, shader, allTexture2dList);
+            return base.CreateMaterialAsset(vgoMaterial, shader, allTextureList);
 #else
 #if NET_STANDARD_2_1
             ThrowHelper.ThrowNotSupportedException(vgoMaterial.shaderName ?? string.Empty);
@@ -171,9 +171,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A URP unlit shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A URP unlit material.</returns>
-        protected virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, Shader shader, in List<Texture2D?> allTexture2dList)
+        protected virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, Shader shader, in List<Texture?> allTextureList)
         {
 #if ENABLE_UNITY_URP_SHADER
             var material = new Material(shader)
@@ -181,7 +181,7 @@ namespace UniVgo2.Porters
                 name = vgoMaterial.name
             };
 
-            UniUrpShader.UrpUnlitDefinition urpUnlitMaterialParameter = vgoMaterial.ToUrpUnlitDefinition(allTexture2dList);
+            UniUrpShader.UrpUnlitDefinition urpUnlitMaterialParameter = vgoMaterial.ToUrpUnlitDefinition(allTextureList);
 
             UniUrpShader.Utils.SetParametersToMaterial(material, urpUnlitMaterialParameter);
 

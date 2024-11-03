@@ -1,0 +1,60 @@
+{
+    "$id": "vgo.ps.customData",
+    "type": "object",
+    "enabled": {
+        "type": "boolean"
+    },
+    "stream": {
+        "anyOf": [
+            {
+                "enum": [ 0 ],
+                "description": "Custom1",
+                "type": "integer"
+            },
+            {
+                "enum": [ 1 ],
+                "description": "Custom2",
+                "type": "integer"
+            }
+        ]
+    },
+    "mode": {
+        "anyOf": [
+            {
+                "enum": [ 0 ],
+                "description": "Disabled",
+                "type": "integer"
+            },
+            {
+                "enum": [ 1 ],
+                "description": "Vector",
+                "type": "integer"
+            },
+            {
+                "enum": [ 2 ],
+                "description": "Color",
+                "type": "integer"
+            }
+        ]
+    },
+    "vector": {
+        "type": [
+            "array",
+            "null"
+        ],
+        "items": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        }
+    },
+    "color": {
+        "$id": "vgo.ps.minMaxGradient",
+        "type": [
+            "object",
+            "null"
+        ]
+    }    
+}

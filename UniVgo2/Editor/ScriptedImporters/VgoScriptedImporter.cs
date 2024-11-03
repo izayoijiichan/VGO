@@ -206,11 +206,11 @@ namespace UniVgo2.Editor
                     }
 
                     // Texture
-                    if (modelAsset.Texture2dList != null)
+                    if (modelAsset.TextureList != null)
                     {
                         Dictionary<SourceAssetIdentifier, Texture2D> externalObjects = GetExternalUnityObjects<Texture2D>();
 
-                        foreach (Texture2D? texture in modelAsset.Texture2dList)
+                        foreach (Texture2D? texture in modelAsset.TextureList)
                         {
                             if (texture == null)
                             {
@@ -538,8 +538,8 @@ namespace UniVgo2.Editor
                 if (modelAsset.Layout != null &&
                     modelAsset.Layout.textures != null &&
                     modelAsset.Layout.textures.Any() &&
-                    modelAsset.Texture2dList != null &&
-                    modelAsset.Texture2dList.Any())
+                    modelAsset.TextureList != null &&
+                    modelAsset.TextureList.Any())
                 {
                     for (int textureIndex = 0; textureIndex < modelAsset.Layout.textures.Count; textureIndex++)
                     {
@@ -550,9 +550,9 @@ namespace UniVgo2.Editor
                             continue;
                         }
 
-                        Texture2D? texture2d = modelAsset.Texture2dList[textureIndex];
+                        Texture? texture = modelAsset.TextureList[textureIndex];
 
-                        if (texture2d == null)
+                        if (!(texture is Texture2D texture2d))
                         {
                             continue;
                         }

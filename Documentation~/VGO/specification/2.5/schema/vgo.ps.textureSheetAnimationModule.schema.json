@@ -1,4 +1,143 @@
 {
     "$id": "vgo.ps.textureSheetAnimationModule",
-    "type": "object"
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "mode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Grid",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Gradient",
+                    "type": "integer"
+                }
+            ]
+        },
+        "numTilesX": {
+            "type": "integer"
+        },
+        "numTilesY": {
+            "type": "integer"
+        },
+        "animation": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "WholeSheet",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "SingleRow",
+                    "type": "integer"
+                }
+            ]
+        },
+        "rowMode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Custom",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Random",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "MeshIndex",
+                    "type": "integer"
+                }
+            ]
+        },
+        "rowIndex": {
+            "type": "integer"
+        },
+        "timeMode": {
+            "anyOf": [
+                {
+                    "enum": [ 0 ],
+                    "description": "Lifetime",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 1 ],
+                    "description": "Speed",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "FPS",
+                    "type": "integer"
+                }
+            ]
+        },
+        "frameOverTime": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "frameOverTimeMultiplier": {
+            "type": "number"
+        },
+        "speedRange": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "number"
+            }
+        },
+        "fps": {
+            "type": "number"
+        },
+        "startFrame": {
+            "$id": "vgo.ps.minMaxCurve",
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "startFrameMultiplier": {
+            "type": "number"
+        },
+        "cycleCount": {
+            "type": "integer"
+        },
+        "uvChannelMask": {
+            "anyOf": [
+                {
+                    "enum": [ 1 ],
+                    "description": "UV0",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 2 ],
+                    "description": "UV1",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 4 ],
+                    "description": "UV2",
+                    "type": "integer"
+                },
+                {
+                    "enum": [ 8 ],
+                    "description": "UV3",
+                    "type": "integer"
+                }
+            ]
+        }
+    }
 }

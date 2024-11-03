@@ -29,21 +29,21 @@ namespace UniVgo2.Porters
         /// Create texture assets.
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
-        /// <returns>List of unity texture2D.</returns>
-        List<Texture2D?> CreateTextureAssets(in IVgoStorage vgoStorage);
+        /// <returns>List of unity texture.</returns>
+        List<Texture?> CreateTextureAssets(in IVgoStorage vgoStorage);
 
         /// <summary>
         /// Create texture assets.
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-        /// <returns>List of unity texture2D.</returns>
+        /// <returns>List of unity texture.</returns>
 #if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
-        Awaitable<List<Texture2D?>> CreateTextureAssetsAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken);
+        Awaitable<List<Texture?>> CreateTextureAssetsAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken);
 #elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
-        UniTask<List<Texture2D?>> CreateTextureAssetsAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken);
+        UniTask<List<Texture?>> CreateTextureAssetsAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken);
 #else
-        Task<List<Texture2D?>> CreateTextureAssetsAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken);
+        Task<List<Texture?>> CreateTextureAssetsAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken);
 #endif
 
         /// <summary>
@@ -51,13 +51,13 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-        /// <returns>List of unity texture2D.</returns>
+        /// <returns>List of unity texture.</returns>
 #if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
-        Awaitable<List<Texture2D?>> CreateTextureAssetsParallelAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken);
+        Awaitable<List<Texture?>> CreateTextureAssetsParallelAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken);
 #elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
-        UniTask<List<Texture2D?>> CreateTextureAssetsParallelAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken);
+        UniTask<List<Texture?>> CreateTextureAssetsParallelAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken);
 #else
-        Task<List<Texture2D?>> CreateTextureAssetsParallelAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken);
+        Task<List<Texture?>> CreateTextureAssetsParallelAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken);
 #endif
 
         #endregion

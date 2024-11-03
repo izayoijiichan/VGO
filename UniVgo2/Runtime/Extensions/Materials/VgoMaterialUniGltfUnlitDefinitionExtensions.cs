@@ -34,9 +34,9 @@ namespace UniVgo2
         /// Convert vgo material to UniGLTF unlit definition.
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A UniGLTF unlit definition.</returns>
-        public static UniGltfUnlitDefinition ToUniGltfUnlitDefinition(this VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList)
+        public static UniGltfUnlitDefinition ToUniGltfUnlitDefinition(this VgoMaterial vgoMaterial, in List<Texture?> allTextureList)
         {
             if (vgoMaterial.shaderName != ShaderName.UniGLTF_UniUnlit)
             {
@@ -60,7 +60,7 @@ namespace UniVgo2
 
             int mainTextureIndex = vgoMaterial.GetTextureIndexOrDefault(UniUnlitUtil.PropNameMainTex);
 
-            uniGltfUnlitDefinition.MainTex = allTexture2dList.GetNullableValueOrDefault(mainTextureIndex);
+            uniGltfUnlitDefinition.MainTex = allTextureList.GetNullableValueOrDefault(mainTextureIndex) as Texture2D;
 
             return uniGltfUnlitDefinition;
         }

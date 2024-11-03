@@ -30,9 +30,9 @@ namespace UniVgo2.Porters
         /// Create a material.
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
-        /// <param name="texture2dList">List of Texture2D.</param>
+        /// <param name="textureList">List of Texture.</param>
         /// <returns>A unity material.</returns>
-        Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in List<Texture2D?> texture2dList);
+        Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in List<Texture?> textureList);
 
         #endregion
     }

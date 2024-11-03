@@ -52,9 +52,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A URP MToon 1.0 shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A URP MToon 1.0 material.</returns>
-        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture?> allTextureList)
         {
             if (vgoMaterial.shaderName != ShaderName.VRM_URP_MToon10)
             {
@@ -67,7 +67,7 @@ namespace UniVgo2.Porters
             }
 
 #if UNIVGO_ENABLE_MTOON_1_0
-            return CreateMaterialAssetInternal(vgoMaterial, shader, allTexture2dList);
+            return CreateMaterialAssetInternal(vgoMaterial, shader, allTextureList);
 #else
 #if NET_STANDARD_2_1
             ThrowHelper.ThrowNotSupportedException(vgoMaterial.shaderName);

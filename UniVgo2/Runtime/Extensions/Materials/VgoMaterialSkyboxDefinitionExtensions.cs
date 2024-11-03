@@ -19,9 +19,9 @@ namespace UniVgo2
         /// Convert vgo material to skybox 6 sided definition.
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A skybox 6 sided definition.</returns>
-        public static Skybox6SidedDefinition ToSkybox6SidedDefinition(this VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList)
+        public static Skybox6SidedDefinition ToSkybox6SidedDefinition(this VgoMaterial vgoMaterial, in List<Texture?> allTextureList)
         {
             if (vgoMaterial.shaderName != ShaderName.Skybox_6_Sided)
             {
@@ -33,12 +33,12 @@ namespace UniVgo2
                 Tint = vgoMaterial.GetColorOrDefault(Property.Tint, Color.white).gamma,
                 Exposure = vgoMaterial.GetSafeFloat(Property.Exposure, PropertyRange.Exposure),
                 Rotation = vgoMaterial.GetSafeInt(Property.Rotation, PropertyRange.Rotation),
-                FrontTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.FrontTex)),
-                BackTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BackTex)),
-                LeftTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.LeftTex)),
-                RightTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.RightTex)),
-                UpTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.UpTex)),
-                DownTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.DownTex)),
+                FrontTex = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.FrontTex)) as Texture2D,
+                BackTex = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BackTex)) as Texture2D,
+                LeftTex = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.LeftTex)) as Texture2D,
+                RightTex = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.RightTex)) as Texture2D,
+                UpTex = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.UpTex)) as Texture2D,
+                DownTex = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.DownTex)) as Texture2D,
             };
         }
 
@@ -67,9 +67,9 @@ namespace UniVgo2
         /// Convert vgo material to skybox panoramic definition.
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A skybox panoramic definition.</returns>
-        public static SkyboxPanoramicDefinition ToSkyboxPanoramicDefinition(this VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList)
+        public static SkyboxPanoramicDefinition ToSkyboxPanoramicDefinition(this VgoMaterial vgoMaterial, in List<Texture?> allTextureList)
         {
             if (vgoMaterial.shaderName != ShaderName.Skybox_Panoramic)
             {
@@ -81,7 +81,7 @@ namespace UniVgo2
                 Tint = vgoMaterial.GetColorOrDefault(Property.Tint, Color.white).gamma,
                 Exposure = vgoMaterial.GetSafeFloat(Property.Exposure, PropertyRange.Exposure),
                 Rotation = vgoMaterial.GetSafeInt(Property.Rotation, PropertyRange.Rotation),
-                MainTex = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MainTex)),
+                MainTex = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MainTex)) as Texture2D,
                 Mapping = (Mapping)vgoMaterial.GetIntOrDefault(Property.Mapping),
                 ImageType = (UniSkyboxShader.ImageType)vgoMaterial.GetIntOrDefault(Property.ImageType),
                 MirrorOnBack = vgoMaterial.GetIntOrDefault(Property.MirrorOnBack) == 1,

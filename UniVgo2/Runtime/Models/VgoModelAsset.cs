@@ -40,8 +40,8 @@ namespace UniVgo2
         /// <summary>List of unity mesh and renderer.</summary>
         private List<MeshAsset>? _MeshAssetList = null;
 
-        /// <summary>List of unity texture2D.</summary>
-        private List<Texture2D?>? _Texture2dList = null;
+        /// <summary>List of unity texture.</summary>
+        private List<Texture?>? _TextureList = null;
 
         /// <summary>List of scriptable object.</summary>
         private readonly List<ScriptableObject> _ScriptableObjectList = new List<ScriptableObject>();
@@ -77,8 +77,8 @@ namespace UniVgo2
         /// <summary>List of unity mesh and renderer.</summary>
         public List<MeshAsset>? MeshAssetList { get => _MeshAssetList; set => _MeshAssetList = value; }
 
-        /// <summary>List of unity texture2D.</summary>
-        public List<Texture2D?>? Texture2dList { get => _Texture2dList; set => _Texture2dList = value; }
+        /// <summary>List of unity texture.</summary>
+        public List<Texture?>? TextureList { get => _TextureList; set => _TextureList = value; }
 
         /// <summary>List of scriptable object.</summary>
         public List<ScriptableObject> ScriptableObjectList => _ScriptableObjectList;
@@ -436,9 +436,9 @@ namespace UniVgo2
             {
                 foreach (var x in MeshAssetList) { yield return x?.Mesh; }
             }
-            if (Texture2dList != null)
+            if (TextureList != null)
             {
-                foreach (var x in Texture2dList) { yield return x; }
+                foreach (var x in TextureList) { yield return x; }
             }
             if (SpringBoneColliderGroupArray != null)
             {

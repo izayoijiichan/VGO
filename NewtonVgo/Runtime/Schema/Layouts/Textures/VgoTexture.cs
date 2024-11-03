@@ -29,6 +29,21 @@ namespace NewtonVgo
         [DefaultValue(-1)]
         public int source = -1;
 
+        ///// <summary>The texture width.</summary>
+        //[JsonProperty("width", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        //[DefaultValue(-1)]
+        //public int width = -1;
+
+        ///// <summary>The texture height.</summary>
+        //[JsonProperty("height", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        //[DefaultValue(-1)]
+        //public int height = -1;
+
+        ///// <summary>The texture depth.</summary>
+        //[JsonProperty("depth", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        //[DefaultValue(-1)]
+        //public int depth = -1;
+
         /// <summary>Dimensionality type of the texture.</summary>
         [JsonProperty("dimensionType", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [DefaultValue(TextureDimension.None)]

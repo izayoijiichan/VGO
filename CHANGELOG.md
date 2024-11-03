@@ -1,5 +1,16 @@
 # Change Log
 
+## [2.5.22] - 2024-11-04
+
+- Features
+  - The following Particle System modules are now available.
+    - `TextureSheetAnimation`
+    - `CustomData`
+  - NOVA shader version 2.4.0 is now supported.
+    - `jp.co.cyberagent.novas`
+    - `com.izayoi.nova.shader.utility`
+    - However, `Texture2DAarray` and `Texture3D` are not supported.
+
 ## [2.5.21] - 2024-10-01
 
 - Features

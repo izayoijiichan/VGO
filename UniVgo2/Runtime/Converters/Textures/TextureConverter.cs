@@ -33,9 +33,9 @@ namespace UniVgo2.Converters
         /// <param name="metallicRoughness">The metallic roughness.</param>
         /// <returns></returns>
 #if UNITY_2021_2_OR_NEWER
-        public virtual Texture2D GetImportTexture(in Texture2D source, in VgoTextureMapType textureMapType, in float metallicRoughness = -1.0f)
+        public virtual Texture GetImportTexture(in Texture source, in VgoTextureMapType textureMapType, in float metallicRoughness = -1.0f)
 #else
-        public virtual Texture2D GetImportTexture(in Texture2D source, in VgoTextureMapType textureMapType, float metallicRoughness = -1.0f)
+        public virtual Texture GetImportTexture(in Texture source, in VgoTextureMapType textureMapType, float metallicRoughness = -1.0f)
 #endif
         {
             if (textureMapType == VgoTextureMapType.NormalMap)
@@ -44,13 +44,13 @@ namespace UniVgo2.Converters
 
                 // @notice no conversion.
                 // Unity's normal map is same with glTF's.
-                return CopyTexture2d(source, VgoColorSpaceType.Linear, converter: null);
+                return CopyTexture(source, VgoColorSpaceType.Linear, converter: null);
             }
             else if (
                 (textureMapType == VgoTextureMapType.OcclusionMap) ||
                 (textureMapType == VgoTextureMapType.MetallicRoughnessMap))
             {
-                return _OrmMapConverter.GetImportTexture(source, metallicRoughness);
+                return _OrmMapConverter.GetImportTexture(source, VgoColorSpaceType.Linear, metallicRoughness);
             }
             else
             {
@@ -67,24 +67,24 @@ namespace UniVgo2.Converters
         /// <param name="metallicSmoothness">The metallic smoothness.</param>
         /// <returns></returns>
 #if UNITY_2021_2_OR_NEWER
-        public virtual Texture2D GetExportTexture(in Texture2D source, in VgoTextureMapType textureMapType, in VgoColorSpaceType colorSpaceType, in float metallicSmoothness = -1.0f)
+        public virtual Texture GetExportTexture(in Texture source, in VgoTextureMapType textureMapType, in VgoColorSpaceType colorSpaceType, in float metallicSmoothness = -1.0f)
 #else
-        public virtual Texture2D GetExportTexture(in Texture2D source, in VgoTextureMapType textureMapType, in VgoColorSpaceType colorSpaceType, float metallicSmoothness = -1.0f)
+        public virtual Texture GetExportTexture(in Texture source, in VgoTextureMapType textureMapType, in VgoColorSpaceType colorSpaceType, float metallicSmoothness = -1.0f)
 #endif
         {
             if (textureMapType == VgoTextureMapType.NormalMap)
             {
-                return _NormalMapConverter.GetExportTexture(source);
+                return _NormalMapConverter.GetExportTexture(source, colorSpaceType);
             }
             else if (
                 (textureMapType == VgoTextureMapType.OcclusionMap) ||
                 (textureMapType == VgoTextureMapType.MetallicRoughnessMap))
             {
-                return _OrmMapConverter.GetExportTexture(source, metallicSmoothness);
+                return _OrmMapConverter.GetExportTexture(source, colorSpaceType, metallicSmoothness);
             }
             else
             {
-                return CopyTexture2d(source, colorSpaceType);
+                return CopyTexture(source, colorSpaceType);
             }
         }
 

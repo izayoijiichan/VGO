@@ -398,7 +398,7 @@ namespace UniVgo2.Porters
         /// <param name="tagName">A tag name.</param>
         /// <param name="searchFallbacks">
         /// If searchFallbacks is true then this function will look for tag in all subshaders and all fallbacks.
-        /// If seachFallbacks is false then only the currently used subshader will be queried for the tag.
+        /// If searchFallbacks is false then only the currently used subshader will be queried for the tag.
         /// </param>
         /// <param name="defaultValue">If the material's shader does not define the tag, defaultValue is returned.</param>
         /// <returns></returns>
@@ -563,9 +563,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A unity material.</returns>
-        public virtual Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
+        public virtual Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture?> allTextureList)
         {
             var material = new Material(shader)
             {
@@ -591,7 +591,7 @@ namespace UniVgo2.Porters
 
             ImportColorProperties(material, vgoMaterial);
 
-            ImportTextureProperties(material, vgoMaterial, allTexture2dList);
+            ImportTextureProperties(material, vgoMaterial, allTextureList);
 
             return material;
         }
@@ -864,8 +864,8 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="material">A unity material.</param>
         /// <param name="vgoMaterial">A vgo material.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
-        protected virtual void ImportTextureProperties(Material material, in VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList)
+        /// <param name="allTextureList">List of all texture.</param>
+        protected virtual void ImportTextureProperties(Material material, in VgoMaterial vgoMaterial, in List<Texture?> allTextureList)
         {
             if (vgoMaterial.textureIndexProperties != null)
             {
@@ -878,14 +878,14 @@ namespace UniVgo2.Porters
 
                     try
                     {
-                        //if (allTexture2dList.TryGetValue(textureIndex, out Texture2D texture))
+                        //if (allTextureList.TryGetValue(textureIndex, out Texture texture))
                         //{
                         //    material.SetTexture(propertyName, texture);
                         //}
 
-                        if (textureIndex.IsInRangeOf(allTexture2dList))
+                        if (textureIndex.IsInRangeOf(allTextureList))
                         {
-                            material.SetTexture(propertyName, allTexture2dList[textureIndex]);
+                            material.SetTexture(propertyName, allTextureList[textureIndex]);
                         }
                     }
                     catch

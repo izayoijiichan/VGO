@@ -10,6 +10,7 @@
     "references": [
         "NewtonVgo",
         "LilToonShader.Utility",
+        "NovaShader.Utility",
         "UniShader.Shared",
         "UniShader.Standard.Utility",
         "UniShader.Standard.Particle.Utility",
@@ -44,6 +45,11 @@
             "name": "com.izayoi.liltoon.shader.utility",
             "expression": "[1.0,2.0)",
             "define": "IZAYOI_LILTOON_UTILITY_1_0_OR_NEWER"
+        },
+        {
+            "name": "com.izayoi.nova.shader.utility",
+            "expression": "2.0",
+            "define": "IZAYOI_NOVA_SHADER_UTILITY_2_0_OR_NEWER"
         },
         {
             "name": "com.unity.render-pipelines.high-definition",
@@ -119,6 +125,11 @@
             "name": "com.vrmc.vrmshaders",
             "expression": "[0.79.0,1.0)",
             "define": "UNIVGO_ENABLE_UNIGLTF_UNIUNLIT"
+        },
+        {
+            "name": "jp.co.cyberagent.nova",
+            "expression": "2.0",
+            "define": "NOVA_SHADER_2_0_OR_NEWER"
         },
         {
             "name": "jp.lilxyzw.liltoon",

@@ -44,7 +44,7 @@ Unity 2021.1 以下のバージョンを使用する場合
 |com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|13.0.2|3.2.1|2023年5月2日|
 |com.izayoi.unishaders|IzayoiJiichan|GitHub||1.6.1|2023年8月1日|
 |com.izayoi.vgospringbone|IzayoiJiichan|GitHub||1.1.2|2022年8月24日|
-|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.21|2024年10月1日|
+|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.22|2024年11月4日|
 
 #### 追加パッケージ
 
@@ -53,6 +53,8 @@ Unity 2021.1 以下のバージョンを使用する場合
 |パッケージ名|所有者|リポジトリー|仕様バージョン|プログラム バージョン|リリース日|備考|
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
 |com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub||1.7.0|2024年1月18日||
+|com.izayoi.nova.shader.utility|IzayoiJiichan|GitHub||2.4.0|2024年11月4日||
+|jp.co.cyberagent.nova|Cyber Agent|GitHub||2.4.0|2024年10月11日||
 |jp.lilxyzw.liltoon|lilxyzw|GitHub||1.7.3|2024年8月8日||
 |com.vrmc.vrmshaders|vrm-c|GitHub||0.124.2|2024年7月23日||
 |org.nuget.sixlabors.imagesharp|SixLabors|Unity NuGet||2.1.5|2023年8月14日|for WebP|
@@ -144,7 +146,7 @@ UniVGOを使用するために、以下の設定を追加してください。
 {
   "dependencies": {
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.6.1",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.21",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.22",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
   }
@@ -160,6 +162,17 @@ lilToon を使用する場合、以下の行を追加してください。
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.7.0",
     "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.7.3",
+  }
+}
+```
+
+NOVA shader を使用する場合、以下の行を追加してください。
+
+```json
+{
+  "dependencies": {
+    "com.izayoi.nova.shader.utility": "https://github.com/izayoijiichan/NovaShaderUtility.git#v2.4.0",
+    "jp.co.cyberagent.nova": "https://github.com/CyberAgentGameEntertainment/NovaShader.git?path=Assets/Nova#2.4.0",
   }
 }
 ```
@@ -224,7 +237,7 @@ UniVRM 0.125 以上の場合は上記の代わりに以下を追加してくだ�
 }
 ```
 
-WUnity 2021.2 以上のバージョンを使用していて、WebPを使用する場合、"org.nuget.sixlabors.imagesharp" の行を追加してください。
+Unity 2021.2 以上のバージョンを使用していて、WebPを使用する場合、"org.nuget.sixlabors.imagesharp" の行を追加してください。
 
 ```json
 {
@@ -311,6 +324,8 @@ ___
 |MToon|MToon シェーダー ユーティリティー|*|*|
 |MToon.Editor|MToon シェーダー ユーティリティー|-|-|
 |NewtonVgo|Newton.JSON向け VGOプログラム|*|*|
+|NOVA|NOVA シェーダー ユーティリティー|*|*|
+|NOVA.Editor|NOVA シェーダー ユーティリティー|-|-|
 |ShaderProperty.Runtime|シェーダーのプロパティー情報|*|*|
 |UniShader.Hdrp.Utility|HDRP シェーダー ユーティリティー|*|*|
 |UniShader.Shared|Unity シェーダー 共有 ユーティリティー|*|*|
@@ -337,32 +352,32 @@ ___
 
 |UniVRM|UniVGO|min Unity|
 |:---:|:---:|:---:|
-|0.100.0|2.5.21|2020.3|
-|0.101.0|2.5.21|2020.3|
-|0.102.0|2.5.21|2020.3|
-|0.103.2|2.5.21|2020.3|
-|0.104.2|2.5.21|2020.3|
-|0.105.0|2.5.21|2020.3|
-|0.106.0|2.5.21|2020.3|
-|0.107.2|2.5.21|2020.3|
-|0.108.0|2.5.21|2020.3|
-|0.109.0|2.5.21|2020.3|
-|0.110.0|2.5.21|2020.3|
-|0.111.0|2.5.21|2020.3|
-|0.112.0|2.5.21|2021.3|
-|0.113.0|2.5.21|2021.3|
-|0.114.0|2.5.21|2021.3|
-|0.115.0|2.5.21|2021.3|
-|0.116.0|2.5.21|2021.3|
-|0.117.0|2.5.21|2021.3|
-|0.118.0|2.5.21|2021.3|
-|0.119.0|2.5.21|2021.3|
-|0.120.0|2.5.21|2021.3|
-|0.121.0|2.5.21|2021.3|
-|0.122.0|2.5.21|2021.3|
-|0.123.0|2.5.21|2021.3|
-|0.124.2|2.5.21|2021.3|
-|0.125.0|2.5.21|2021.3|
+|0.100.0|2.5.22|2020.3|
+|0.101.0|2.5.22|2020.3|
+|0.102.0|2.5.22|2020.3|
+|0.103.2|2.5.22|2020.3|
+|0.104.2|2.5.22|2020.3|
+|0.105.0|2.5.22|2020.3|
+|0.106.0|2.5.22|2020.3|
+|0.107.2|2.5.22|2020.3|
+|0.108.0|2.5.22|2020.3|
+|0.109.0|2.5.22|2020.3|
+|0.110.0|2.5.22|2020.3|
+|0.111.0|2.5.22|2020.3|
+|0.112.0|2.5.22|2021.3|
+|0.113.0|2.5.22|2021.3|
+|0.114.0|2.5.22|2021.3|
+|0.115.0|2.5.22|2021.3|
+|0.116.0|2.5.22|2021.3|
+|0.117.0|2.5.22|2021.3|
+|0.118.0|2.5.22|2021.3|
+|0.119.0|2.5.22|2021.3|
+|0.120.0|2.5.22|2021.3|
+|0.121.0|2.5.22|2021.3|
+|0.122.0|2.5.22|2021.3|
+|0.123.0|2.5.22|2021.3|
+|0.124.2|2.5.22|2021.3|
+|0.125.0|2.5.22|2021.3|
 
 `<Project>/Packages/package.json` に以下の記述を行います。  
 
@@ -406,7 +421,7 @@ https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 |2022.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2022.3.brp.univrm)|
 
 ___
-最終更新日：2024年10月1日  
+最終更新日：2024年11月4日  
 編集者：十六夜おじいちゃん
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -118,9 +118,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A standard shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A standard material.</returns>
-        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture?> allTextureList)
         {
             // Accept all shaders
             //if (vgoMaterial.shaderName != UniVgo2.ShaderName.Standard)
@@ -130,7 +130,7 @@ namespace UniVgo2.Porters
 
             if (shader.name == UniVgo2.ShaderName.URP_Lit)
             {
-                return CreateMaterialAssetAsUrp(vgoMaterial, shader, allTexture2dList);
+                return CreateMaterialAssetAsUrp(vgoMaterial, shader, allTextureList);
             }
 
             var material = new Material(shader)
@@ -138,7 +138,7 @@ namespace UniVgo2.Porters
                 name = vgoMaterial.name
             };
 
-            StandardDefinition standardDefinition = vgoMaterial.ToStandardDefinition(allTexture2dList);
+            StandardDefinition standardDefinition = vgoMaterial.ToStandardDefinition(allTextureList);
 
             UniStandardShader.Utils.SetParametersToMaterial(material, standardDefinition);
 
@@ -159,9 +159,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A URP lit shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A URP lit material.</returns>
-        protected virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, Shader shader, in List<Texture2D?> allTexture2dList)
+        protected virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, Shader shader, in List<Texture?> allTextureList)
         {
             if (shader.name != UniVgo2.ShaderName.URP_Lit)
             {
@@ -178,7 +178,7 @@ namespace UniVgo2.Porters
                 material.renderQueue = vgoMaterial.renderQueue;
             }
 
-            StandardDefinition brpStandardDefinition = vgoMaterial.ToStandardDefinition(allTexture2dList);
+            StandardDefinition brpStandardDefinition = vgoMaterial.ToStandardDefinition(allTextureList);
 
             UniUrpShader.UrpLitDefinition urpLitDefinition = brpStandardDefinition.ToUrpLitDefinition();
 

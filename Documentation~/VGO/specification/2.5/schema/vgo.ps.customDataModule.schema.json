@@ -1,4 +1,17 @@
 {
     "$id": "vgo.ps.customDataModule",
-    "type": "object"
+    "type": "object",
+    "enabled": {
+        "type": "boolean"
+    },
+    "customData": {
+        "type": [
+            "array",
+            "null"
+        ],
+        "items": {
+            "$id": "vgo.ps.customData",
+            "type": "object"
+        }
+    }
 }

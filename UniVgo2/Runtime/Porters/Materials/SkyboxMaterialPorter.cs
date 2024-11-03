@@ -121,9 +121,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A skybox shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A skybox material.</returns>
-        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture?> allTextureList)
         {
             var material = new Material(shader)
             {
@@ -141,7 +141,7 @@ namespace UniVgo2.Porters
             {
                 case ShaderName.Skybox_6_Sided:
                     {
-                        var skyboxParameter = vgoMaterial.ToSkybox6SidedDefinition(allTexture2dList);
+                        var skyboxParameter = vgoMaterial.ToSkybox6SidedDefinition(allTextureList);
 
                         UniSkyboxShader.Utils.SetParametersToMaterial(material, skyboxParameter);
                     }
@@ -157,7 +157,7 @@ namespace UniVgo2.Porters
 
                 case ShaderName.Skybox_Panoramic:
                     {
-                        var skyboxParameter = vgoMaterial.ToSkyboxPanoramicDefinition(allTexture2dList);
+                        var skyboxParameter = vgoMaterial.ToSkyboxPanoramicDefinition(allTextureList);
 
                         UniSkyboxShader.Utils.SetParametersToMaterial(material, skyboxParameter);
                     }

@@ -90,9 +90,9 @@ namespace UniVgo2.Porters
         /// Create a material.
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
-        /// <param name="texture2dList">List of Texture2D.</param>
+        /// <param name="textureList">List of Texture.</param>
         /// <returns>A unity material.</returns>
-        public virtual Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in List<Texture2D?> texture2dList)
+        public virtual Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in List<Texture?> textureList)
         {
             if (MaterialPorterStore == null)
             {
@@ -118,7 +118,7 @@ namespace UniVgo2.Porters
             //IMaterialPorter materialPorter = MaterialPorterStore.GetPorterOrStandard(shader.name, RenderPipelineType);
             IMaterialPorter materialPorter = MaterialPorterStore.GetPorterOrStandard(shader.name, vgoMaterial, RenderPipelineType);
 
-            Material material = materialPorter.CreateMaterialAsset(vgoMaterial, shader, texture2dList);
+            Material material = materialPorter.CreateMaterialAsset(vgoMaterial, shader, textureList);
 
 #if UNITY_EDITOR
             material.hideFlags = HideFlags.DontUnloadUnusedAsset;

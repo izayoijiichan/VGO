@@ -94,6 +94,10 @@ namespace UniVgo2.Editor
             sb.Append(", ").Append("IZAYOI_LILTOON_SHADER_UTILITY_1_7_OR_NEWER");
 #endif
 
+#if IZAYOI_NOVA_SHADER_UTILITY_2_4_OR_NEWER
+            sb.Append(", ").Append("IZAYOI_NOVA_SHADER_UTILITY_2_4_OR_NEWER");
+#endif
+
 #if IZAYOI_UNISHADERS_1_0_OR_NEWER
             sb.Append(", ").Append("IZAYOI_UNISHADERS_1_0_OR_NEWER");
 #elif IZAYOI_UNISHADERS_1_1
@@ -148,6 +152,30 @@ namespace UniVgo2.Editor
             sb.Append(", ").Append("LILTOON_1_6_0_OR_NEWER");
 #elif LILTOON_1_7_0_OR_NEWER
             sb.Append(", ").Append("LILTOON_1_7_0_OR_NEWER");
+#endif
+
+#if NOVA_SHADER_2_4_OR_NEWER
+            sb.Append(", ").Append("NOVA_SHADER_2_4_OR_NEWER");
+#elif NOVA_SHADER_2_3_OR_NEWER
+            sb.Append(", ").Append("NOVA_SHADER_2_3_OR_NEWER");
+#elif NOVA_SHADER_2_2_OR_NEWER
+            sb.Append(", ").Append("NOVA_SHADER_2_2_OR_NEWER");
+#elif NOVA_SHADER_2_1_OR_NEWER
+            sb.Append(", ").Append("NOVA_SHADER_2_1_OR_NEWER");
+#elif NOVA_SHADER_2_0_OR_NEWER
+            sb.Append(", ").Append("NOVA_SHADER_2_0_OR_NEWER");
+#elif NOVA_SHADER_1_5_OR_NEWER
+            sb.Append(", ").Append("NOVA_SHADER_1_5_OR_NEWER");
+#elif NOVA_SHADER_1_4_OR_NEWER
+            sb.Append(", ").Append("NOVA_SHADER_1_4_OR_NEWER");
+#elif NOVA_SHADER_1_3_OR_NEWER
+            sb.Append(", ").Append("NOVA_SHADER_1_3_OR_NEWER");
+#elif NOVA_SHADER_1_2_OR_NEWER
+            sb.Append(", ").Append("NOVA_SHADER_1_2_OR_NEWER");
+#elif NOVA_SHADER_1_1_OR_NEWER
+            sb.Append(", ").Append("NOVA_SHADER_1_1_OR_NEWER");
+#elif NOVA_SHADER_1_0_OR_NEWER
+            sb.Append(", ").Append("NOVA_SHADER_1_0_OR_NEWER");
 #endif
 
 #if CYSHARP_UNITASK_2_OR_NEWER

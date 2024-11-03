@@ -557,7 +557,7 @@ namespace UniVgo2
                             if (vgoBlendShapeComponent.BlendShapeConfiguration != null)
                             {
                                 vgoMeshRenderer.blendShapeKind = vgoBlendShapeComponent.BlendShapeConfiguration.Kind;
-                                vgoMeshRenderer.blendShapePesets = vgoBlendShapeComponent.BlendShapeConfiguration.Presets;
+                                vgoMeshRenderer.blendShapePresets = vgoBlendShapeComponent.BlendShapeConfiguration.Presets;
                             }
                         }
 

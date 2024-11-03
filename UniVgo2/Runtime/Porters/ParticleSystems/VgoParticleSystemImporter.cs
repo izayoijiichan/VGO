@@ -28,14 +28,16 @@ namespace UniVgo2.Porters
         /// <param name="vgoParticleSystem"></param>
         /// <param name="geometryCoordinate"></param>
         /// <param name="materialList"></param>
-        /// <param name="texture2dList"></param>
+        /// <param name="textureList"></param>
+        /// <param name="forceSetRuntimeDuration"></param>
         /// <returns>Returns ParticleSystem component.</returns>
         public virtual ParticleSystem AddComponent(
             GameObject go,
             in VgoParticleSystem vgoParticleSystem,
             in VgoGeometryCoordinate geometryCoordinate,
             in IList<Material?>? materialList,
-            in IList<Texture2D?>? texture2dList)
+            in IList<Texture?>? textureList,
+            in bool forceSetRuntimeDuration)
         {
             if (go.TryGetComponentEx<ParticleSystem>(out var particleSystem) == false)
             {
@@ -49,7 +51,7 @@ namespace UniVgo2.Porters
 
             if (vgoParticleSystem.main != null)
             {
-                SetModuleValue(particleSystem, vgoParticleSystem.main, geometryCoordinate);
+                SetModuleValue(particleSystem, vgoParticleSystem.main, geometryCoordinate, forceSetRuntimeDuration);
             }
             if (vgoParticleSystem.emission != null)
             {
@@ -57,7 +59,7 @@ namespace UniVgo2.Porters
             }
             if (vgoParticleSystem.shape != null)
             {
-                SetModuleValue(particleSystem, vgoParticleSystem.shape, texture2dList, geometryCoordinate);
+                SetModuleValue(particleSystem, vgoParticleSystem.shape, textureList, geometryCoordinate);
             }
             if (vgoParticleSystem.velocityOverLifetime != null)
             {
@@ -110,7 +112,10 @@ namespace UniVgo2.Porters
             //SetModuleValue(particleSystem, vgoParticleSystem.Collision);
             //SetModuleValue(particleSystem, vgoParticleSystem.Trigger);
             //SetModuleValue(particleSystem, vgoParticleSystem.SubEmitters);
-            //SetModuleValue(particleSystem, vgoParticleSystem.TextureSheetAnimation);
+            if (vgoParticleSystem.textureSheetAnimation != null)
+            {
+                SetModuleValue(particleSystem, vgoParticleSystem.textureSheetAnimation);
+            }
             if (vgoParticleSystem.lights != null)
             {
                 SetModuleValue(particleSystem, vgoParticleSystem.lights);
@@ -119,7 +124,10 @@ namespace UniVgo2.Porters
             {
                 SetModuleValue(particleSystem, vgoParticleSystem.trails);
             }
-            //SetModuleValue(particleSystem, vgoParticleSystem.CustomData);
+            if (vgoParticleSystem.customData != null)
+            {
+                SetModuleValue(particleSystem, vgoParticleSystem.customData);
+            }
 
             if (vgoParticleSystem.renderer != null)
             {
@@ -147,7 +155,8 @@ namespace UniVgo2.Porters
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
         /// <param name="geometryCoordinate"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_MainModule vgoModule, in VgoGeometryCoordinate geometryCoordinate)
+        /// <param name="forceSetRuntimeDuration"></param>
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_MainModule vgoModule, in VgoGeometryCoordinate geometryCoordinate, in bool forceSetRuntimeDuration)
         {
             if (vgoModule == null)
             {
@@ -156,8 +165,24 @@ namespace UniVgo2.Porters
 
             MainModule module = particleSystem.main;
 
-            // @notice
-            if (Application.isPlaying == false)
+            if (Application.isPlaying)
+            {
+                if (module.duration != vgoModule.duration)
+                {
+                    if (forceSetRuntimeDuration)
+                    {
+                        try
+                        {
+                            module.duration = vgoModule.duration;
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.LogException(ex);
+                        }
+                    }
+                }
+            }
+            else
             {
                 module.duration = vgoModule.duration;
             }
@@ -270,9 +295,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
-        /// <param name="texture2dList"></param>
+        /// <param name="textureList"></param>
         /// <param name="geometryCoordinate"></param>
-        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_ShapeModule vgoModule, in IList<Texture2D?>? texture2dList, in VgoGeometryCoordinate geometryCoordinate)
+        protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_ShapeModule vgoModule, in IList<Texture?>? textureList, in VgoGeometryCoordinate geometryCoordinate)
         {
             if (vgoModule == null)
             {
@@ -312,11 +337,13 @@ namespace UniVgo2.Porters
             //module.sprite;
             //module.spriteRenderer;
             module.normalOffset = vgoModule.normalOffset;
-            if ((texture2dList != null) && (-1 < vgoModule.textureIndex) && (vgoModule.textureIndex < texture2dList.Count))
+            if ((textureList != null) && (-1 < vgoModule.textureIndex) && (vgoModule.textureIndex < textureList.Count))
             {
-                if (texture2dList[vgoModule.textureIndex] != null)
+                Texture? texture = textureList[vgoModule.textureIndex];
+
+                if (texture is Texture2D texture2D)
                 {
-                    module.texture = texture2dList[vgoModule.textureIndex];
+                    module.texture = texture2D;
                 }
             }
             module.textureClipChannel = (UnityEngine.ParticleSystemShapeTextureChannel)vgoModule.textureClipChannel;
@@ -421,7 +448,7 @@ namespace UniVgo2.Porters
         }
 
         /// <summary>
-        /// Set ParticleSystem inhelitVelocity field value.
+        /// Set ParticleSystem inheritVelocity field value.
         /// </summary>
         /// <param name="particleSystem"></param>
         /// <param name="vgoModule"></param>
@@ -761,7 +788,47 @@ namespace UniVgo2.Porters
         /// <param name="vgoModule"></param>
         protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_TextureSheetAnimationModule vgoModule)
         {
-            ThrowHelper.ThrowNotImplementedException();
+            if (vgoModule == null)
+            {
+                return;
+            }
+
+            TextureSheetAnimationModule module = particleSystem.textureSheetAnimation;
+
+            module.enabled = vgoModule.enabled;
+
+            module.mode = (UnityEngine.ParticleSystemAnimationMode)vgoModule.mode;
+
+            module.numTilesX = vgoModule.numTilesX;
+            module.numTilesY = vgoModule.numTilesY;
+
+            module.animation = (UnityEngine.ParticleSystemAnimationType)vgoModule.animation;
+
+            module.rowMode = (UnityEngine.ParticleSystemAnimationRowMode)vgoModule.rowMode;
+            module.rowIndex = vgoModule.rowIndex;
+
+            module.timeMode = (UnityEngine.ParticleSystemAnimationTimeMode)vgoModule.timeMode;
+
+            if (vgoModule.timeMode == NewtonVgo.ParticleSystemAnimationTimeMode.Lifetime)
+            {
+                module.frameOverTime = VgoParticleSystemMinMaxCurveConverter.CreateMinMaxCurve(vgoModule.frameOverTime);
+                module.frameOverTimeMultiplier = vgoModule.frameOverTimeMultiplier;
+            }
+            else if (vgoModule.timeMode == NewtonVgo.ParticleSystemAnimationTimeMode.Speed)
+            {
+                module.speedRange = vgoModule.speedRange.GetValueOrDefault().ToUnityVector2();
+            }
+            else if (vgoModule.timeMode == NewtonVgo.ParticleSystemAnimationTimeMode.FPS)
+            {
+                module.fps = vgoModule.fps;
+            }
+
+            module.startFrame = VgoParticleSystemMinMaxCurveConverter.CreateMinMaxCurve(vgoModule.startFrame);
+            module.startFrameMultiplier = vgoModule.startFrameMultiplier;
+
+            module.cycleCount = vgoModule.cycleCount;
+
+            module.uvChannelMask = (UnityEngine.Rendering.UVChannelFlags)vgoModule.uvChannelMask;
         }
 
         /// <summary>
@@ -860,7 +927,81 @@ namespace UniVgo2.Porters
         /// <param name="vgoModule"></param>
         protected virtual void SetModuleValue(ParticleSystem particleSystem, in VGO_PS_CustomDataModule vgoModule)
         {
-            ThrowHelper.ThrowNotImplementedException();
+            if (vgoModule == null)
+            {
+                return;
+            }
+
+            CustomDataModule module = particleSystem.customData;
+
+            module.enabled = vgoModule.enabled;
+
+            if (vgoModule.customData == null || vgoModule.customData.Length == 0)
+            {
+                return;
+            }
+
+            for (int customDataIndex = 0; customDataIndex < vgoModule.customData.Length; customDataIndex++)
+            {
+                VGO_PS_CustomData vgoCustomData = vgoModule.customData[customDataIndex];
+
+                UnityEngine.ParticleSystemCustomData stream;
+
+                if (vgoCustomData.stream == NewtonVgo.ParticleSystemCustomData.Custom1)
+                {
+                    stream = UnityEngine.ParticleSystemCustomData.Custom1;
+                }
+                else if (vgoCustomData.stream == NewtonVgo.ParticleSystemCustomData.Custom2)
+                {
+                    stream = UnityEngine.ParticleSystemCustomData.Custom2;
+                }
+                else
+                {
+                    continue;
+                }
+
+                module.SetMode(stream, (UnityEngine.ParticleSystemCustomDataMode)vgoCustomData.mode);
+
+                if (vgoCustomData.mode == NewtonVgo.ParticleSystemCustomDataMode.Disabled)
+                {
+                    module.SetVectorComponentCount(stream, 0);
+
+                    continue;
+                }
+
+                if (vgoCustomData.mode == NewtonVgo.ParticleSystemCustomDataMode.Vector)
+                {
+                    if (vgoCustomData.vector == null || vgoCustomData.vector.Length == 0)
+                    {
+                        module.SetVectorComponentCount(stream, 0);
+
+                        continue;
+                    }
+
+                    module.SetVectorComponentCount(stream, vgoCustomData.vector.Length);
+
+                    // X, Y, Z, W
+                    for (int componentIndex = 0; componentIndex < vgoCustomData.vector.Length; componentIndex++)
+                    {
+                        VGO_PS_MinMaxCurve? vgoComponentCurve = vgoCustomData.vector[componentIndex];
+
+                        MinMaxCurve componentCurve = VgoParticleSystemMinMaxCurveConverter.CreateMinMaxCurve(vgoComponentCurve);
+
+                        module.SetVector(stream, componentIndex, componentCurve);
+                    }
+                }
+                else
+                {
+                    module.SetVectorComponentCount(stream, 0);
+                }
+
+                if (vgoCustomData.mode == NewtonVgo.ParticleSystemCustomDataMode.Color)
+                {
+                    MinMaxGradient colorGradient = VgoParticleSystemMinMaxGradientConverter.CreateMinMaxGradient(vgoCustomData.color);
+
+                    module.SetColor(stream, colorGradient);
+                }
+            }
         }
 
         #endregion

@@ -17,9 +17,9 @@ namespace UniVgo2
         public const int MINOR = 5;
 
         /// <summary>Patch</summary>
-        public const int PATCH = 21;
+        public const int PATCH = 22;
 
         /// <summary>Version</summary>
-        public const string VERSION = "2.5.21";
+        public const string VERSION = "2.5.22";
     }
 }

@@ -49,8 +49,9 @@ namespace NewtonVgo
 
         /// <summary>List of the blend shape preset.</summary>
         /// <remarks>This property is used only in spec version between 2.0 and 2.4.</remarks>
-        [JsonProperty("blendShapePesets")]
-        public List<VgoMeshBlendShapePreset>? blendShapePesets;
+        [JsonProperty("blendShapePesets")]  // typo
+        //[JsonProperty("blendShapePresets")]
+        public List<VgoMeshBlendShapePreset>? blendShapePresets;
 
         /// <summary>Whether this primitive has a vertex color.</summary>
         [JsonIgnore]

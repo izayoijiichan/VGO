@@ -363,7 +363,25 @@ namespace UniVgo2
 
         /// <summary>VRM10/Universal Render Pipeline/MToon10</summary>
         public const string VRM_URP_MToon10 = "VRM10/Universal Render Pipeline/MToon10";
-       
+
+        #endregion
+
+        #region NOVA
+
+        /// <summary>Nova/Particles/Distortion</summary>
+        public const string Nova_Particles_Distortion = "Nova/Particles/Distortion";
+
+        /// <summary>Nova/Particles/Uber Lit</summary>
+        public const string Nova_Particles_UberLit = "Nova/Particles/UberLit";
+
+        /// <summary>Nova/Particles/Uber Unlit</summary>
+        public const string Nova_Particles_UberUnlit = "Nova/Particles/UberUnlit";
+
+        /// <summary>Nova/UI Particles/Uber Lit</summary>
+        public const string Nova_UIParticles_UberLit = "Nova/UIParticles/UberLit";
+
+        /// <summary>Nova/UI Particles/Uber Unlit</summary>
+        public const string Nova_UIParticles_UberUnlit = "Nova/UIParticles/UberUnlit";
 
         #endregion
     }

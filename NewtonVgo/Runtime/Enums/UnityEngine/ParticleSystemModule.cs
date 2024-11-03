@@ -100,6 +100,27 @@ namespace NewtonVgo
         TwoConstants = 3,
     }
 
+    /// <summary>The particle custom data.</summary>
+    public enum ParticleSystemCustomData
+    {
+        /// <summary>The first stream of custom per-particle data.</summary>
+        Custom1 = 0,
+        /// <summary>The second stream of custom per-particle data.</summary>
+        Custom2 = 1,
+    }
+   
+
+    /// <summary>The particle custom data mode.</summary>
+    public enum ParticleSystemCustomDataMode
+    {
+        /// <summary>Don't generate any data.</summary>
+        Disabled = 0,
+        /// <summary>Generate data using ParticleSystem.MinMaxCurve.</summary>
+        Vector = 1,
+        /// <summary>Generate data using ParticleSystem.MinMaxGradient.</summary>
+        Color = 2,
+    }
+
     /// <summary>Control how a Particle System calculates its velocity.</summary>
     public enum ParticleSystemEmitterVelocityMode
     {

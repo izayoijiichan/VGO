@@ -18,9 +18,9 @@ namespace UniVgo2
         /// Convert vgo material to standard vertex color definition.
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A standard vertex color definition.</returns>
-        public static StandardVColorDefinition ToStandardVColorDefinition(this VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList)
+        public static StandardVColorDefinition ToStandardVColorDefinition(this VgoMaterial vgoMaterial, in List<Texture?> allTextureList)
         {
             if (vgoMaterial.shaderName != ShaderName.UniGLTF_StandardVColor)
             {
@@ -39,7 +39,7 @@ namespace UniVgo2
 
             int mainTextureIndex = vgoMaterial.GetTextureIndexOrDefault(UniStandardShader.Property.MainTex);
 
-            standardVColorDefinition.MainTex = allTexture2dList.GetNullableValueOrDefault(mainTextureIndex);
+            standardVColorDefinition.MainTex = allTextureList.GetNullableValueOrDefault(mainTextureIndex) as Texture2D;
 
             return standardVColorDefinition;
         }

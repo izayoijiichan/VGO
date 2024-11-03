@@ -44,7 +44,7 @@ This package is required for any Unity version.
 |com.unity.nuget.newtonsoft-json|Unity Technologies|Nuget|13.0.2|3.2.1|2 May, 2023|
 |com.izayoi.unishaders|IzayoiJiichan|GitHub||1.6.1|1 Aug, 2023|
 |com.izayoi.vgospringbone|IzayoiJiichan|GitHub||1.1.2|24 Aug, 2022|
-|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.1|1 Oct, 2024|
+|com.izayoi.univgo|IzayoiJiichan|GitHub|VGO 2.5|2.5.22|4 Nov, 2024|
 
 #### Additional Packages
 
@@ -53,6 +53,8 @@ Add if necessary.
 |package name|owner|Repository|specification version|program version|release date|remarks|
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
 |com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub||1.7.0|18 Jan, 2024||
+|com.izayoi.nova.shader.utility|IzayoiJiichan|GitHub||2.4.0|4 Nov, 2024||
+|jp.co.cyberagent.nova|Cyber Agent|GitHub||2.4.0|11, Oct, 2024||
 |jp.lilxyzw.liltoon|lilxyzw|GitHub||1.7.3|8 Aug, 2024||
 |com.vrmc.vrmshaders|vrm-c|GitHub||0.124.2|23 Jul, 2024||
 |org.nuget.sixlabors.imagesharp|SixLabors|Unity NuGet||2.1.5|14 Aug, 2023|for WebP|
@@ -143,7 +145,7 @@ To use UniVGO, add the following settings.
 {
   "dependencies": {
     "com.izayoi.unishaders": "https://github.com/izayoijiichan/UniShaders.git#v1.6.1",
-    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.21",
+    "com.izayoi.univgo": "https://github.com/izayoijiican/VGO.git#v2.5.22",
     "com.izayoi.vgospringbone": "https://github.com/izayoijiichan/VgoSpringBone.git#v1.1.2",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
   }
@@ -152,13 +154,24 @@ To use UniVGO, add the following settings.
 
 #### 2-3. Addtional Packages
 
-If you want to use lilToon, append the line "jp.lilxyzw.liltoon".
+If you want to use lilToon, add the following line.
 
 ```json
 {
   "dependencies": {
     "com.izayoi.liltoon.shader.utility": "https://github.com/izayoijiichan/lilToonShaderUtility.git#v1.7.0",
     "jp.lilxyzw.liltoon": "https://github.com/lilxyzw/lilToon.git?path=Assets/lilToon#1.7.3",
+  }
+}
+```
+
+If you want to use NOVA shader, add the following line.
+
+```json
+{
+  "dependencies": {
+    "com.izayoi.nova.shader.utility": "https://github.com/izayoijiichan/NovaShaderUtility.git#v2.4.0",
+    "jp.co.cyberagent.nova": "https://github.com/CyberAgentGameEntertainment/NovaShader.git?path=Assets/Nova#2.4.0",
   }
 }
 ```
@@ -309,6 +322,8 @@ When the package is installed in the project, the script is automatically compil
 |MToon|MToon shader utility|*|*|
 |MToon.Editor|MToon shader utility|-|*|
 |NewtonVgo|for Newton.JSON vgo program|*|*|
+|NOVA|NOVA shader utility|*|*|
+|NOVA.Editor|NOVA shader utility|-|*|
 |ShaderProperty.Runtime|Shader property information|*|*|
 |UniShader.Hdrp.Utility|HDRP shader utility|*|*|
 |UniShader.Shared|Unity shader shared utility|*|*|
@@ -335,32 +350,32 @@ The version combinations are as follows.
 
 |UniVRM|UniVGO|min Unity|
 |:---:|:---:|:---:|
-|0.100.0|2.5.21|2020.3|
-|0.101.0|2.5.21|2020.3|
-|0.102.0|2.5.21|2020.3|
-|0.103.2|2.5.21|2020.3|
-|0.104.2|2.5.21|2020.3|
-|0.105.0|2.5.21|2020.3|
-|0.106.0|2.5.21|2020.3|
-|0.107.2|2.5.21|2020.3|
-|0.108.0|2.5.21|2020.3|
-|0.109.0|2.5.21|2020.3|
-|0.110.0|2.5.21|2020.3|
-|0.111.0|2.5.21|2020.3|
-|0.112.0|2.5.21|2021.3|
-|0.113.0|2.5.21|2021.3|
-|0.114.0|2.5.21|2021.3|
-|0.115.0|2.5.21|2021.3|
-|0.116.0|2.5.21|2021.3|
-|0.117.0|2.5.21|2021.3|
-|0.118.0|2.5.21|2021.3|
-|0.119.0|2.5.21|2021.3|
-|0.120.0|2.5.21|2021.3|
-|0.121.0|2.5.21|2021.3|
-|0.122.0|2.5.21|2021.3|
-|0.123.0|2.5.21|2021.3|
-|0.124.2|2.5.21|2021.3|
-|0.125.0|2.5.21|2021.3|
+|0.100.0|2.5.22|2020.3|
+|0.101.0|2.5.22|2020.3|
+|0.102.0|2.5.22|2020.3|
+|0.103.2|2.5.22|2020.3|
+|0.104.2|2.5.22|2020.3|
+|0.105.0|2.5.22|2020.3|
+|0.106.0|2.5.22|2020.3|
+|0.107.2|2.5.22|2020.3|
+|0.108.0|2.5.22|2020.3|
+|0.109.0|2.5.22|2020.3|
+|0.110.0|2.5.22|2020.3|
+|0.111.0|2.5.22|2020.3|
+|0.112.0|2.5.22|2021.3|
+|0.113.0|2.5.22|2021.3|
+|0.114.0|2.5.22|2021.3|
+|0.115.0|2.5.22|2021.3|
+|0.116.0|2.5.22|2021.3|
+|0.117.0|2.5.22|2021.3|
+|0.118.0|2.5.22|2021.3|
+|0.119.0|2.5.22|2021.3|
+|0.120.0|2.5.22|2021.3|
+|0.121.0|2.5.22|2021.3|
+|0.122.0|2.5.22|2021.3|
+|0.123.0|2.5.22|2021.3|
+|0.124.2|2.5.22|2021.3|
+|0.125.0|2.5.22|2021.3|
 
 Write the following in `<Project> /Packages/package.json`.
 
@@ -404,7 +419,7 @@ https://github.com/izayoijiichan/VGO/wiki/How-to-use-UniVRM-and-UniVGO-together
 |2022.3.0f1|BRP|UniVGO + UniVRM|[Link](https://github.com/izayoijiichan/univgo2.sample.unity.project/tree/unity2022.3.brp.univrm)|
 
 ___
-Last updated: 1 October, 2024  
+Last updated: 4 November, 2024  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

@@ -171,7 +171,7 @@ namespace UniVgo2.Porters
                     if (blendShapeConfig != null)
                     {
                         vgoMesh.blendShapeKind = blendShapeConfig.Kind;
-                        vgoMesh.blendShapePesets = blendShapeConfig.Presets;
+                        vgoMesh.blendShapePresets = blendShapeConfig.Presets;
                     }
                 }
             }

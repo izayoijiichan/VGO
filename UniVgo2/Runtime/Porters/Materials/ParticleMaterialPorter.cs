@@ -131,9 +131,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A particle shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A particle material.</returns>
-        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture?> allTextureList)
         {
             if ((vgoMaterial.shaderName != UniVgo2.ShaderName.Particles_Standard_Surface) &&
                 (vgoMaterial.shaderName != UniVgo2.ShaderName.Particles_Standard_Unlit))
@@ -144,7 +144,7 @@ namespace UniVgo2.Porters
             if ((shader.name == UniVgo2.ShaderName.URP_Particles_Lit) ||
                 (shader.name == UniVgo2.ShaderName.URP_Particles_Unlit))
             {
-                return CreateMaterialAssetAsUrp(vgoMaterial, shader, allTexture2dList);
+                return CreateMaterialAssetAsUrp(vgoMaterial, shader, allTextureList);
             }
 
             if ((shader.name != UniVgo2.ShaderName.Particles_Standard_Surface) &&
@@ -158,7 +158,7 @@ namespace UniVgo2.Porters
                 name = vgoMaterial.name
             };
 
-            ParticleDefinition particleDefinition = vgoMaterial.ToBrpParticleDefinition(allTexture2dList);
+            ParticleDefinition particleDefinition = vgoMaterial.ToBrpParticleDefinition(allTextureList);
 
             UniParticleShader.Utils.SetParametersToMaterial(material, particleDefinition);
 
@@ -174,9 +174,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A URP Particle shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A URP Particle material.</returns>
-        protected virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, Shader shader, in List<Texture2D?> allTexture2dList)
+        protected virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, Shader shader, in List<Texture?> allTextureList)
         {
             var material = new Material(shader)
             {
@@ -188,7 +188,7 @@ namespace UniVgo2.Porters
                 material.renderQueue = vgoMaterial.renderQueue;
             }
 
-            ParticleDefinition brpParticleDefinition = vgoMaterial.ToBrpParticleDefinition(allTexture2dList);
+            ParticleDefinition brpParticleDefinition = vgoMaterial.ToBrpParticleDefinition(allTextureList);
 
             UniUrpParticleShader.UrpParticleDefinition urpParticleDefinition = brpParticleDefinition.ToUrpParticleDefinition();
 

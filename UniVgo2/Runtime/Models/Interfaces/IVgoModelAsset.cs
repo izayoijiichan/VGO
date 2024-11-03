@@ -35,8 +35,8 @@ namespace UniVgo2
         /// <summary>List of unity mesh and renderer.</summary>
         List<MeshAsset>? MeshAssetList { get; set; }
 
-        /// <summary>List of unity texture2D.</summary>
-        List<Texture2D?>? Texture2dList { get; set; }
+        /// <summary>List of unity texture.</summary>
+        List<Texture?>? TextureList { get; set; }
 
         /// <summary>List of scriptable object.</summary>
         List<ScriptableObject> ScriptableObjectList { get; }

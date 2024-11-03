@@ -80,17 +80,14 @@ namespace UniVgo2.Porters
                 return -1;
             }
 
-            if (!(texture is Texture2D srcTexture2d))
-            {
-                return -1;
-            }
+            Texture srcTexture = texture;
 
             if (vgoStorage.Layout.textures == null)
             {
                 vgoStorage.Layout.textures = new List<VgoTexture?>();
             }
 
-            int srcTextureInstanceId = srcTexture2d.GetInstanceID();
+            int srcTextureInstanceId = srcTexture.GetInstanceID();
 
             VgoTexture? vgoTexture = vgoStorage.Layout.textures
                 .FirstOrDefault(x => x?.id == srcTextureInstanceId);
@@ -102,14 +99,57 @@ namespace UniVgo2.Porters
 
             float metallicSmoothness = (metallicRoughness == -1.0f) ? -1.0f : (1.0f - metallicRoughness);
 
-            Texture2D convertedTexture2d = _TextureConverter.GetExportTexture(srcTexture2d, textureMapType, colorSpaceType, metallicSmoothness);
+            Texture convertedTexture = _TextureConverter.GetExportTexture(srcTexture, textureMapType, colorSpaceType, metallicSmoothness);
 
-            int width = convertedTexture2d.width;
+            int width = convertedTexture.width;
 
-            int height = convertedTexture2d.height;
+            int height = convertedTexture.height;
 
             string mimeType;
             byte[] imageBytes;
+            byte[] textureData;
+            //int depth = 0;
+
+            if (convertedTexture is Texture2D convertedTexture2d)
+            {
+                textureData = convertedTexture2d.GetRawTextureData();
+            }
+            else if (convertedTexture is Texture2DArray convertedTexture2dArray)
+            {
+                //depth = convertedTexture2dArray.depth;
+
+                // @notice
+                var elementDataList = new List<byte[]>(convertedTexture2dArray.depth);
+
+                for (int elementIndex = 0; elementIndex < convertedTexture2dArray.depth; elementIndex++)
+                {
+                    byte[] elementData = convertedTexture2dArray.GetPixelData<byte>(mipLevel: 0, elementIndex).ToArray();
+
+                    elementDataList.Add(elementData);
+                }
+
+                textureData = new byte[elementDataList.Sum(e => e.Length)];
+
+                int offset = 0;
+
+                foreach (byte[] elementData in elementDataList)
+                {
+                    Buffer.BlockCopy(elementData, 0, textureData, offset, elementData.Length);
+
+                    offset += elementData.Length;
+                }
+            }
+            else if (convertedTexture is Texture3D convertedTexture3d)
+            {
+                //depth = convertedTexture3d.depth;
+
+                // @notice
+                textureData = convertedTexture3d.GetPixelData<byte>(mipLevel: 0).ToArray();
+            }
+            else
+            {
+                return -1;
+            }
 
             if (TextureType == ImageType.WebP)
             {
@@ -119,19 +159,17 @@ namespace UniVgo2.Porters
 
                 try
                 {
-                    byte[] textureData = convertedTexture2d.GetRawTextureData();
-
-                    byte[]? pngBytes = ImageConversion.EncodeArrayToPNG(textureData, convertedTexture2d.graphicsFormat, (uint)width, (uint)height);
+                    byte[]? pngBytes = ImageConversion.EncodeArrayToPNG(textureData, convertedTexture.graphicsFormat, (uint)width, (uint)height);
 
                     if (pngBytes == null)
                     {
-                        ThrowHelper.ThrowBadImageFormatException(srcTexture2d.name);
+                        ThrowHelper.ThrowBadImageFormatException(srcTexture.name);
 
                         return -1;
                     }
 
                     // @heavy
-                    webpBytes = ImageConverter.ConvertToWebp(pngBytes, ImageType.PNG, srcTexture2d.name, flipVertical: false);
+                    webpBytes = ImageConverter.ConvertToWebp(pngBytes, ImageType.PNG, srcTexture.name, flipVertical: false);
                 }
                 catch (Exception ex)
                 {
@@ -151,9 +189,7 @@ namespace UniVgo2.Porters
             {
                 mimeType = MimeType.Image_Jpeg;
 
-                byte[] textureData = convertedTexture2d.GetRawTextureData();
-
-                byte[]? jpgBytes = ImageConversion.EncodeArrayToJPG(textureData, convertedTexture2d.graphicsFormat, (uint)width, (uint)height, quality: 100);
+                byte[]? jpgBytes = ImageConversion.EncodeArrayToJPG(textureData, convertedTexture.graphicsFormat, (uint)width, (uint)height, quality: 100);
 
                 if (jpgBytes == null)
                 {
@@ -166,9 +202,7 @@ namespace UniVgo2.Porters
             {
                 mimeType = MimeType.Image_Png;
 
-                byte[] textureData = convertedTexture2d.GetRawTextureData();
-
-                byte[]? pngBytes = ImageConversion.EncodeArrayToPNG(textureData, convertedTexture2d.graphicsFormat, (uint)width, (uint)height);
+                byte[]? pngBytes = ImageConversion.EncodeArrayToPNG(textureData, convertedTexture.graphicsFormat, (uint)width, (uint)height);
 
                 if (pngBytes == null)
                 {
@@ -183,16 +217,19 @@ namespace UniVgo2.Porters
             vgoTexture = new VgoTexture
             {
                 id = srcTextureInstanceId,
-                name = convertedTexture2d.name,
+                name = convertedTexture.name,
                 source = accessorIndex,
-                dimensionType = (TextureDimension)srcTexture2d.dimension,
+                //width = convertedTexture.width,
+                //height = convertedTexture.height,
+                //depth = depth,
+                dimensionType = (TextureDimension)srcTexture.dimension,
                 mapType = textureMapType,
                 colorSpace = colorSpaceType,
                 mimeType = mimeType,
-                filterMode = (NewtonVgo.FilterMode)srcTexture2d.filterMode,
-                wrapMode = (NewtonVgo.TextureWrapMode)srcTexture2d.wrapMode,
-                wrapModeU = (NewtonVgo.TextureWrapMode)srcTexture2d.wrapModeU,
-                wrapModeV = (NewtonVgo.TextureWrapMode)srcTexture2d.wrapModeV,
+                filterMode = (NewtonVgo.FilterMode)srcTexture.filterMode,
+                wrapMode = (NewtonVgo.TextureWrapMode)srcTexture.wrapMode,
+                wrapModeU = (NewtonVgo.TextureWrapMode)srcTexture.wrapModeU,
+                wrapModeV = (NewtonVgo.TextureWrapMode)srcTexture.wrapModeV,
                 metallicRoughness = metallicRoughness,
             };
 

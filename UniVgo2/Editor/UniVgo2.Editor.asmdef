@@ -44,6 +44,11 @@
             "define": "IZAYOI_LILTOON_SHADER_UTILITY_1_7_OR_NEWER"
         },
         {
+            "name": "com.izayoi.nova.shader.utility",
+            "expression": "2.4",
+            "define": "IZAYOI_NOVA_SHADER_UTILITY_2_4_OR_NEWER"
+        },
+        {
             "name": "com.izayoi.unishaders",
             "expression": "[1.0.0,1.0.1]",
             "define": "IZAYOI_UNISHADERS_1_0_OR_NEWER"
@@ -122,6 +127,61 @@
             "name": "com.vrmc.vrmshaders",
             "expression": "[0.104,0.124.2]",
             "define": "VRMC_VRMSHADERS_0_104_OR_NEWER"
+        },
+        {
+            "name": "jp.co.cyberagent.nova",
+            "expression": "[1.0,2.0)",
+            "define": "NOVA_SHADER_1_0_OR_NEWER"
+        },
+        {
+            "name": "jp.co.cyberagent.nova",
+            "expression": "[1.1,2.0)",
+            "define": "NOVA_SHADER_1_1_OR_NEWER"
+        },
+        {
+            "name": "jp.co.cyberagent.nova",
+            "expression": "[1.2,2.0)",
+            "define": "NOVA_SHADER_1_2_OR_NEWER"
+        },
+        {
+            "name": "jp.co.cyberagent.nova",
+            "expression": "[1.3,2.0)",
+            "define": "NOVA_SHADER_1_3_OR_NEWER"
+        },
+        {
+            "name": "jp.co.cyberagent.nova",
+            "expression": "[1.4,2.0)",
+            "define": "NOVA_SHADER_1_4_OR_NEWER"
+        },
+        {
+            "name": "jp.co.cyberagent.nova",
+            "expression": "[1.5,2.0)",
+            "define": "NOVA_SHADER_1_5_OR_NEWER"
+        },
+        {
+            "name": "jp.co.cyberagent.nova",
+            "expression": "2.0",
+            "define": "NOVA_SHADER_2_0_OR_NEWER"
+        },
+        {
+            "name": "jp.co.cyberagent.nova",
+            "expression": "2.1",
+            "define": "NOVA_SHADER_2_1_OR_NEWER"
+        },
+        {
+            "name": "jp.co.cyberagent.nova",
+            "expression": "2.2",
+            "define": "NOVA_SHADER_2_2_OR_NEWER"
+        },
+        {
+            "name": "jp.co.cyberagent.nova",
+            "expression": "2.3",
+            "define": "NOVA_SHADER_2_3_OR_NEWER"
+        },
+        {
+            "name": "jp.co.cyberagent.nova",
+            "expression": "2.4",
+            "define": "NOVA_SHADER_2_4_OR_NEWER"
         },
         {
             "name": "jp.lilxyzw.liltoon",

@@ -20,9 +20,9 @@ namespace UniVgo2
         /// Convert vgo material to URP particle definition.
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A URP particle definition.</returns>
-        public static UrpParticleDefinition ToUrpParticleDefinition(this VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList)
+        public static UrpParticleDefinition ToUrpParticleDefinition(this VgoMaterial vgoMaterial, in List<Texture?> allTextureList)
         {
             if ((vgoMaterial.shaderName != ShaderName.URP_Particles_Lit) &&
                 (vgoMaterial.shaderName != ShaderName.URP_Particles_Unlit))
@@ -100,13 +100,13 @@ namespace UniVgo2
 
             // Textures
             urpParticleDefinition.BaseMap
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BaseMap));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BaseMap)) as Texture2D;
             urpParticleDefinition.MetallicGlossMap
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MetallicGlossMap));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MetallicGlossMap)) as Texture2D;
             urpParticleDefinition.BumpMap
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BumpMap));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BumpMap)) as Texture2D;
             urpParticleDefinition.EmissionMap
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.EmissionMap));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.EmissionMap)) as Texture2D;
 
             return urpParticleDefinition;
         }

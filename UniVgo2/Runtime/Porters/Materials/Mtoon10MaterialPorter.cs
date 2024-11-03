@@ -230,9 +230,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A MToon 1.0 shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A MToon 1.0 material.</returns>
-        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture?> allTextureList)
         {
             if (vgoMaterial.shaderName != ShaderName.VRM_MToon10)
             {
@@ -242,7 +242,7 @@ namespace UniVgo2.Porters
 #if UNIVGO_ENABLE_MTOON_1_0
             if (shader.name == ShaderName.VRM_URP_MToon10)
             {
-                return CreateMaterialAssetAsUrp(vgoMaterial, shader, allTexture2dList);
+                return CreateMaterialAssetAsUrp(vgoMaterial, shader, allTextureList);
             }
 #endif
 
@@ -252,7 +252,7 @@ namespace UniVgo2.Porters
             }
 
 #if UNIVGO_ENABLE_MTOON_1_0
-            return CreateMaterialAssetInternal(vgoMaterial, shader, allTexture2dList);
+            return CreateMaterialAssetInternal(vgoMaterial, shader, allTextureList);
 #else
 #if NET_STANDARD_2_1
             ThrowHelper.ThrowNotSupportedException(vgoMaterial.shaderName);
@@ -273,11 +273,11 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A MToon 1.0 shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A MToon 1.0 material.</returns>
-        protected virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
+        protected virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture?> allTextureList)
         {
-            return CreateMaterialAssetInternal(vgoMaterial, shader, allTexture2dList);
+            return CreateMaterialAssetInternal(vgoMaterial, shader, allTextureList);
         }
 
         /// <summary>
@@ -285,11 +285,11 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A MToon 1.0 shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A MToon 1.0 material.</returns>
-        protected virtual Material CreateMaterialAssetInternal(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
+        protected virtual Material CreateMaterialAssetInternal(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture?> allTextureList)
         {
-            MToon10Definition mtoon10 = vgoMaterial.ToMToon10Definition(allTexture2dList);
+            MToon10Definition mtoon10 = vgoMaterial.ToMToon10Definition(allTextureList);
 
             var material = new Material(shader)
             {
@@ -318,20 +318,20 @@ namespace UniVgo2.Porters
             {
                 // Base (Main)
                 SetColor(material, MToon10Prop.BaseColorFactor, mtoon10.BaseColorFactor);
-                SetTexture(material, vgoMaterial, allTexture2dList, MToon10Prop.BaseColorTexture);
+                SetTexture(material, vgoMaterial, allTextureList, MToon10Prop.BaseColorTexture);
 
                 // Shade
                 SetColor(material, MToon10Prop.ShadeColorFactor, mtoon10.ShadeColorFactor);
-                SetTexture(material, vgoMaterial, allTexture2dList, MToon10Prop.ShadeColorTexture);
+                SetTexture(material, vgoMaterial, allTextureList, MToon10Prop.ShadeColorTexture);
 
                 // Normal (Bump)
-                SetTexture(material, vgoMaterial, allTexture2dList, MToon10Prop.NormalTexture);
+                SetTexture(material, vgoMaterial, allTextureList, MToon10Prop.NormalTexture);
                 SetSafeValue(material, MToon10Prop.NormalTextureScale, mtoon10.NormalTextureScale);
 
                 // Shading Shift
                 SetSafeValue(material, MToon10Prop.ShadingShiftFactor, mtoon10.ShadingShiftFactor);
 
-                SetTexture(material, vgoMaterial, allTexture2dList, MToon10Prop.ShadingShiftTexture);
+                SetTexture(material, vgoMaterial, allTextureList, MToon10Prop.ShadingShiftTexture);
                 SetSafeValue(material, MToon10Prop.ShadingShiftTextureScale, mtoon10.ShadingShiftTextureScale);
 
                 // Shading Toony
@@ -345,20 +345,20 @@ namespace UniVgo2.Porters
 
             // Emission
             {
-                SetTexture(material, vgoMaterial, allTexture2dList, MToon10Prop.EmissiveTexture);
+                SetTexture(material, vgoMaterial, allTextureList, MToon10Prop.EmissiveTexture);
                 SetColor(material, MToon10Prop.EmissiveFactor, mtoon10.EmissiveFactor);
             }
 
             // Rim Lighting
             {
-                SetTexture(material, vgoMaterial, allTexture2dList, MToon10Prop.RimMultiplyTexture);
+                SetTexture(material, vgoMaterial, allTextureList, MToon10Prop.RimMultiplyTexture);
                 SetSafeValue(material, MToon10Prop.RimLightingMixFactor, mtoon10.RimLightingMixFactor);
 
                 // Mat Cap
 #if VRMC_VRMSHADERS_0_104_OR_NEWER
                 SetColor(material, MToon10Prop.MatcapColorFactor, mtoon10.MatcapColorFactor);
 #endif
-                SetTexture(material, vgoMaterial, allTexture2dList, MToon10Prop.MatcapTexture);
+                SetTexture(material, vgoMaterial, allTextureList, MToon10Prop.MatcapTexture);
 
                 // Parametric Rim
                 SetColor(material, MToon10Prop.ParametricRimColorFactor, mtoon10.ParametricRimColorFactor);
@@ -370,14 +370,14 @@ namespace UniVgo2.Porters
             {
                 SetSafeValue(material, MToon10Prop.OutlineWidthMode, (int)mtoon10.OutlineWidthMode);
                 SetSafeValue(material, MToon10Prop.OutlineWidthFactor, mtoon10.OutlineWidthFactor);
-                SetTexture(material, vgoMaterial, allTexture2dList, MToon10Prop.OutlineWidthMultiplyTexture);
+                SetTexture(material, vgoMaterial, allTextureList, MToon10Prop.OutlineWidthMultiplyTexture);
                 SetColor(material, MToon10Prop.OutlineColorFactor, mtoon10.OutlineColorFactor);
                 SetSafeValue(material, MToon10Prop.OutlineLightingMixFactor, mtoon10.OutlineLightingMixFactor);
             }
 
             // UV Animation
             {
-                SetTexture(material, vgoMaterial, allTexture2dList, MToon10Prop.UvAnimationMaskTexture);
+                SetTexture(material, vgoMaterial, allTextureList, MToon10Prop.UvAnimationMaskTexture);
                 SetSafeValue(material, MToon10Prop.UvAnimationScrollXSpeedFactor, mtoon10.UvAnimationScrollXSpeedFactor);
                 SetSafeValue(material, MToon10Prop.UvAnimationScrollYSpeedFactor, mtoon10.UvAnimationScrollYSpeedFactor);
                 SetSafeValue(material, MToon10Prop.UvAnimationRotationSpeedFactor, mtoon10.UvAnimationRotationSpeedFactor);
@@ -443,9 +443,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="material">A material.</param>
         /// <param name="vgoMaterial">A vgo material.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <param name="property">A material property.</param>
-        protected virtual void SetTexture(Material material, in VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList, in MToon10Prop property)
+        protected virtual void SetTexture(Material material, in VgoMaterial vgoMaterial, in List<Texture?> allTextureList, in MToon10Prop property)
         {
             string propertyName = property.ToUnityShaderLabName();
 
@@ -456,11 +456,11 @@ namespace UniVgo2.Porters
 
             int textureIndex = vgoMaterial.GetTextureIndexOrDefault(propertyName);
 
-            Texture2D? texture2d = allTexture2dList.GetNullableValueOrDefault(textureIndex);
+            Texture? texture = allTextureList.GetNullableValueOrDefault(textureIndex);
 
-            if (texture2d != null)
+            if (texture != null)
             {
-                material.SetTexture(propertyName, texture2d);
+                material.SetTexture(propertyName, texture);
             }
 
             Vector2? textureOffset = vgoMaterial.GetTextureOffsetOrNull(propertyName);

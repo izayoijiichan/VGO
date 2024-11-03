@@ -202,9 +202,9 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A URP shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A URP material.</returns>
-        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture?> allTextureList)
         {
             switch (vgoMaterial.shaderName)
             {
@@ -224,7 +224,7 @@ namespace UniVgo2.Porters
 
             }
 
-            Material material = base.CreateMaterialAsset(vgoMaterial, shader, allTexture2dList);
+            Material material = base.CreateMaterialAsset(vgoMaterial, shader, allTextureList);
 
             SurfaceType? surfaceType = null;
             BlendMode? blendMode = null;

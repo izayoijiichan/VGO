@@ -54,10 +54,10 @@ namespace UniVgo2.Porters
                 //Collision = CreateVgoModule(particleSystem.collision),
                 //Trigger = CreateVgoModule(particleSystem.trigger),
                 //SubEmitters = CreateVgoModule(particleSystem.subEmitters),
-                //TextureSheetAnimation = CreateVgoModule(particleSystem.textureSheetAnimation),
+                textureSheetAnimation = CreateVgoModule(particleSystem.textureSheetAnimation),
                 lights = CreateVgoModule(particleSystem.lights),
                 trails = CreateVgoModule(particleSystem.trails),
-                //CustomData = CreateVgoModule(particleSystem.customData),
+                customData = CreateVgoModule(particleSystem.customData),
                 renderer = CreateVgoPsRenderer(particleSystemRenderer, vgoStorage.GeometryCoordinate, vgoStorage.Layout),
             };
 
@@ -677,13 +677,28 @@ namespace UniVgo2.Porters
         /// <returns></returns>
         protected virtual VGO_PS_TextureSheetAnimationModule CreateVgoModule(in TextureSheetAnimationModule module)
         {
-#if NET_STANDARD_2_1
-            ThrowHelper.ThrowNotImplementedException();
+            // @todo sprites (texture)
+            //int spriteCount = module.spriteCount;
 
-            return default;
-#else
-            throw new NotImplementedException();
-#endif
+            return new VGO_PS_TextureSheetAnimationModule()
+            {
+                enabled = module.enabled,
+                mode = (NewtonVgo.ParticleSystemAnimationMode)module.mode,
+                numTilesX = module.numTilesX,
+                numTilesY = module.numTilesY,
+                animation = (NewtonVgo.ParticleSystemAnimationType)module.animation,
+                rowMode = (NewtonVgo.ParticleSystemAnimationRowMode)module.rowMode,
+                rowIndex = module.rowIndex,
+                timeMode = (NewtonVgo.ParticleSystemAnimationTimeMode)module.timeMode,
+                frameOverTime = VgoParticleSystemMinMaxCurveConverter.CreateFrom(module.frameOverTime),
+                frameOverTimeMultiplier = module.frameOverTimeMultiplier,
+                speedRange = module.speedRange.ToNumericsVector2(),
+                fps = module.fps,
+                startFrame = VgoParticleSystemMinMaxCurveConverter.CreateFrom(module.startFrame),
+                startFrameMultiplier = module.startFrameMultiplier,
+                cycleCount = module.cycleCount,
+                uvChannelMask = (UVChannelFlags)module.uvChannelMask,
+            };
         }
 
         /// <summary>
@@ -726,13 +741,7 @@ namespace UniVgo2.Porters
         /// <returns></returns>
         protected virtual VGO_PS_CustomDataModule CreateVgoModule(in CustomDataModule module)
         {
-#if NET_STANDARD_2_1
-            ThrowHelper.ThrowNotImplementedException();
-
-            return default;
-#else
-            throw new NotImplementedException();
-#endif
+            return VgoParticleSystemCustomDataConverter.CreateFrom(module);
         }
 
         /// <summary>

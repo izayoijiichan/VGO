@@ -66,15 +66,15 @@ namespace UniVgo2.Porters
         /// Create texture assets.
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
-        /// <returns>List of unity texture2D.</returns>
-        public virtual List<Texture2D?> CreateTextureAssets(in IVgoStorage vgoStorage)
+        /// <returns>List of unity texture.</returns>
+        public virtual List<Texture?> CreateTextureAssets(in IVgoStorage vgoStorage)
         {
             if ((vgoStorage.Layout.textures == null) || (vgoStorage.Layout.textures.Any() == false))
             {
-                return new List<Texture2D?>(0);
+                return new List<Texture?>(0);
             }
 
-            var texture2dList = new List<Texture2D?>(vgoStorage.Layout.textures.Count);
+            var textureList = new List<Texture?>(vgoStorage.Layout.textures.Count);
 
             for (int textureIndex = 0; textureIndex < vgoStorage.Layout.textures.Count; textureIndex++)
             {
@@ -82,26 +82,26 @@ namespace UniVgo2.Porters
 
                 if (vgoTexture is null)
                 {
-                    texture2dList.Add(null);
+                    textureList.Add(null);
 
                     continue;
                 }
 
                 try
                 {
-                    Texture2D? texture2d = CreateTexture2d(vgoTexture, vgoStorage);
+                    Texture? texture = CreateTexture(vgoTexture, vgoStorage);
 
-                    texture2dList.Add(texture2d);
+                    textureList.Add(texture);
                 }
                 catch (Exception ex)
                 {
                     Debug.LogException(ex);
 
-                    texture2dList.Add(null);
+                    textureList.Add(null);
                 }
             }
 
-            return texture2dList;
+            return textureList;
         }
 
         /// <summary>
@@ -109,21 +109,21 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-        /// <returns>List of unity texture2D.</returns>
+        /// <returns>List of unity texture.</returns>
 #if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
-        public virtual async Awaitable<List<Texture2D?>> CreateTextureAssetsAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken)
+        public virtual async Awaitable<List<Texture?>> CreateTextureAssetsAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken)
 #elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
-        public virtual async UniTask<List<Texture2D?>> CreateTextureAssetsAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken)
+        public virtual async UniTask<List<Texture?>> CreateTextureAssetsAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken)
 #else
-        public virtual async Task<List<Texture2D?>> CreateTextureAssetsAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken)
+        public virtual async Task<List<Texture?>> CreateTextureAssetsAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken)
 #endif
         {
             if ((vgoStorage.Layout.textures == null) || (vgoStorage.Layout.textures.Any() == false))
             {
-                return new List<Texture2D?>(0);
+                return new List<Texture?>(0);
             }
 
-            var texture2dList = new List<Texture2D?>(vgoStorage.Layout.textures.Count);
+            var textureList = new List<Texture?>(vgoStorage.Layout.textures.Count);
 
             for (int textureIndex = 0; textureIndex < vgoStorage.Layout.textures.Count; textureIndex++)
             {
@@ -133,16 +133,16 @@ namespace UniVgo2.Porters
 
                 if (vgoTexture is null)
                 {
-                    texture2dList.Add(null);
+                    textureList.Add(null);
 
                     continue;
                 }
 
                 try
                 {
-                    Texture2D? texture2d = await CreateTexture2dAsync(vgoTexture, vgoStorage, cancellationToken);
+                    Texture? texture = await CreateTextureAsync(vgoTexture, vgoStorage, cancellationToken);
 
-                    texture2dList.Add(texture2d);
+                    textureList.Add(texture);
                 }
                 catch (OperationCanceledException)
                 {
@@ -152,11 +152,11 @@ namespace UniVgo2.Porters
                 {
                     Debug.LogException(ex);
 
-                    texture2dList.Add(null);
+                    textureList.Add(null);
                 }
             }
 
-            return texture2dList;
+            return textureList;
         }
 
         /// <summary>
@@ -164,25 +164,25 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-        /// <returns>List of unity texture2D.</returns>
+        /// <returns>List of unity texture.</returns>
 #if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
-        public virtual async Awaitable<List<Texture2D?>> CreateTextureAssetsParallelAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken)
+        public virtual async Awaitable<List<Texture?>> CreateTextureAssetsParallelAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken)
 #elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
-        public virtual async UniTask<List<Texture2D?>> CreateTextureAssetsParallelAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken)
+        public virtual async UniTask<List<Texture?>> CreateTextureAssetsParallelAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken)
 #else
-        public virtual async Task<List<Texture2D?>> CreateTextureAssetsParallelAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken)
+        public virtual async Task<List<Texture?>> CreateTextureAssetsParallelAsync(IVgoStorage vgoStorage, CancellationToken cancellationToken)
 #endif
         {
             if ((vgoStorage.Layout.textures == null) || (vgoStorage.Layout.textures.Any() == false))
             {
-                return new List<Texture2D?>(0);
+                return new List<Texture?>(0);
             }
 
             List<ImageInfo?> imageInfoListForWebp = await CreateImageInfoListForWebpParallelAsync(vgoStorage, cancellationToken);
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            var texture2dList = new List<Texture2D?>(vgoStorage.Layout.textures.Count);
+            var textureList = new List<Texture?>(vgoStorage.Layout.textures.Count);
 
             for (int textureIndex = 0; textureIndex < vgoStorage.Layout.textures.Count; textureIndex++)
             {
@@ -192,7 +192,7 @@ namespace UniVgo2.Porters
 
                 if (vgoTexture is null)
                 {
-                    texture2dList.Add(null);
+                    textureList.Add(null);
 
                     continue;
                 }
@@ -204,20 +204,20 @@ namespace UniVgo2.Porters
                         if (imageInfoListForWebp.TryGetValue(textureIndex, out ImageInfo? imageInfo) == false ||
                             imageInfo == null)
                         {
-                            texture2dList.Add(null);
+                            textureList.Add(null);
 
                             continue;
                         }
 
-                        Texture2D? texture2D = CreateTexture2dInternal1(vgoTexture, imageInfo);
+                        Texture? texture = CreateTextureInternal1(vgoTexture, imageInfo);
 
-                        texture2dList.Add(texture2D);
+                        textureList.Add(texture);
                     }
                     else
                     {
-                        Texture2D? texture2d = await CreateTexture2dAsync(vgoTexture, vgoStorage, cancellationToken);
+                        Texture? texture = await CreateTextureAsync(vgoTexture, vgoStorage, cancellationToken);
 
-                        texture2dList.Add(texture2d);
+                        textureList.Add(texture);
                     }
                 }
                 catch (OperationCanceledException)
@@ -228,11 +228,11 @@ namespace UniVgo2.Porters
                 {
                     Debug.LogException(ex);
 
-                    texture2dList.Add(null);
+                    textureList.Add(null);
                 }
             }
 
-            return texture2dList;
+            return textureList;
         }
 
         #endregion
@@ -240,12 +240,12 @@ namespace UniVgo2.Porters
         #region Protected Methods
 
         /// <summary>
-        /// Create a unity texture 2D.
+        /// Create a unity texture.
         /// </summary>
         /// <param name="vgoTexture">A vgo texture.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
-        /// <returns>A unity texture 2D.</returns>
-        protected virtual Texture2D? CreateTexture2d(in VgoTexture vgoTexture, in IVgoStorage vgoStorage)
+        /// <returns>A unity texture.</returns>
+        protected virtual Texture? CreateTexture(in VgoTexture vgoTexture, in IVgoStorage vgoStorage)
         {
             if (vgoStorage.ResourceAccessors is null)
             {
@@ -259,12 +259,12 @@ namespace UniVgo2.Porters
                 return null;
             }
 
-            if (vgoTexture.dimensionType != TextureDimension.Tex2D)
-            {
-                Debug.LogError($"{nameof(VgoTexture)}.{nameof(vgoTexture.dimensionType)}: {vgoTexture.dimensionType}");
+            //if (vgoTexture.dimensionType != TextureDimension.Tex2D)
+            //{
+            //    Debug.LogError($"{nameof(VgoTexture)}.{nameof(vgoTexture.dimensionType)}: {vgoTexture.dimensionType}");
 
-                return null;
-            }
+            //    return null;
+            //}
 
             byte[] imageBytes = vgoStorage.GetResourceDataAsByteArray(vgoTexture.source);
 
@@ -283,34 +283,61 @@ namespace UniVgo2.Porters
                     return null;
                 }
 
-                return CreateTexture2dInternal1(vgoTexture, imageInfo);
+                return CreateTextureInternal1(vgoTexture, imageInfo);
             }
             else
             {
-                var srcTexture2d = new Texture2D(width: 2, height: 2, TextureFormat.ARGB32, mipChain: false, linear: vgoTexture.IsLinear)
+                if (vgoTexture.dimensionType == TextureDimension.Tex2D)
                 {
-                    name = vgoTexture.name
-                };
+                    var srcTexture2d = new Texture2D(width: 2, height: 2, TextureFormat.ARGB32, mipChain: false, linear: vgoTexture.IsLinear)
+                    {
+                        name = vgoTexture.name
+                    };
 
-                ImageConversion.LoadImage(srcTexture2d, imageBytes);
+                    ImageConversion.LoadImage(srcTexture2d, imageBytes);
 
-                return CreateTexture2dInternal2(vgoTexture, srcTexture2d);
+                    return CreateTextureInternal2(vgoTexture, srcTexture2d);
+                }
+                else if (vgoTexture.dimensionType == TextureDimension.Tex2DArray)
+                {
+                    //var srcTexture2dArray = new Texture2DArray(vgoTexture.width, vgoTexture.height, vgoTexture.depth, TextureFormat.ARGB32, mipChain: false, linear: vgoTexture.IsLinear)
+                    //{
+                    //    name = vgoTexture.name
+                    //};
+
+                    //ImageConversion.LoadImage(srcTexture2dArray, imageBytes);
+
+                    //return CreateTextureInternal2(vgoTexture, srcTexture2dArray);
+                }
+                else if (vgoTexture.dimensionType == TextureDimension.Tex3D)
+                {
+                    //var srcTexture3d = new Texture3D(vgoTexture.width, vgoTexture.height, vgoTexture.depth, TextureFormat.ARGB32, mipChain: false)
+                    //{
+                    //    name = vgoTexture.name
+                    //};
+
+                    //ImageConversion.LoadImage(srcTexture3d, imageBytes);
+
+                    //return CreateTextureInternal2(vgoTexture, srcTexture3d);
+                }
+
+                return null;
             }
         }
 
         /// <summary>
-        /// Create a unity texture 2D.
+        /// Create a unity texture.
         /// </summary>
         /// <param name="vgoTexture">A vgo texture.</param>
         /// <param name="vgoStorage">A vgo storage.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-        /// <returns>A unity texture 2D.</returns>
+        /// <returns>A unity texture.</returns>
 #if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
-        protected virtual async Awaitable<Texture2D?> CreateTexture2dAsync(VgoTexture vgoTexture, IVgoStorage vgoStorage, CancellationToken cancellationToken)
+        protected virtual async Awaitable<Texture?> CreateTextureAsync(VgoTexture vgoTexture, IVgoStorage vgoStorage, CancellationToken cancellationToken)
 #elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
-        protected virtual async UniTask<Texture2D?> CreateTexture2dAsync(VgoTexture vgoTexture, IVgoStorage vgoStorage, CancellationToken cancellationToken)
+        protected virtual async UniTask<Texture?> CreateTextureAsync(VgoTexture vgoTexture, IVgoStorage vgoStorage, CancellationToken cancellationToken)
 #else
-        protected virtual async Task<Texture2D?> CreateTexture2dAsync(VgoTexture vgoTexture, IVgoStorage vgoStorage, CancellationToken cancellationToken)
+        protected virtual async Task<Texture?> CreateTextureAsync(VgoTexture vgoTexture, IVgoStorage vgoStorage, CancellationToken cancellationToken)
 #endif
         {
             if (vgoTexture.mimeType == MimeType.Image_WebP)
@@ -333,63 +360,131 @@ namespace UniVgo2.Porters
                     return null;
                 }
 
-                return CreateTexture2dInternal1(vgoTexture, imageInfo);
+                return CreateTextureInternal1(vgoTexture, imageInfo);
             }
             else
             {
                 // @notice sync
-                Texture2D? texture2D = CreateTexture2d(vgoTexture, vgoStorage);
+                Texture? texture = CreateTexture(vgoTexture, vgoStorage);
 
 #if UNITY_2023_1_OR_NEWER && UNIVGO_USE_UNITY_AWAITABLE
                 //await Awaitable.NextFrameAsync(cancellationToken);
 
-                return texture2D;
+                return texture;
 #elif CYSHARP_UNITASK_2_OR_NEWER && UNIVGO_USE_UNITASK
-                return await UniTask.FromResult(texture2D);
+                return await UniTask.FromResult(texture);
 #else
-                return await Task.FromResult(texture2D);
+                return await Task.FromResult(texture);
 #endif
             }
         }
 
         /// <summary>
-        /// Create a unity texture 2D.
+        /// Create a unity texture.
         /// </summary>
         /// <param name="vgoTexture">A vgo texture.</param>
         /// <param name="imageInfo">An image info.</param>
-        /// <returns>A unity texture 2D.</returns>
-        protected virtual Texture2D? CreateTexture2dInternal1(in VgoTexture vgoTexture, in ImageInfo imageInfo)
+        /// <returns>A unity texture.</returns>
+        protected virtual Texture? CreateTextureInternal1(in VgoTexture vgoTexture, in ImageInfo imageInfo)
         {
-            var srcTexture2d = new Texture2D(imageInfo.Width, imageInfo.Height, TextureFormat.ARGB32, mipChain: false, linear: vgoTexture.IsLinear)
+            if (vgoTexture.dimensionType == TextureDimension.Tex2D)
             {
-                name = vgoTexture.name
-            };
+                var srcTexture2d = new Texture2D(imageInfo.Width, imageInfo.Height, TextureFormat.ARGB32, mipChain: false, linear: vgoTexture.IsLinear)
+                {
+                    name = vgoTexture.name
+                };
 
-            srcTexture2d.SetPixels32(imageInfo.Pixels);
+                srcTexture2d.SetPixels32(imageInfo.Pixels);
 
-            srcTexture2d.Apply();
+                srcTexture2d.Apply();
 
-            return CreateTexture2dInternal2(vgoTexture, srcTexture2d);
+                return CreateTextureInternal2(vgoTexture, srcTexture2d);
+            }
+            else if (vgoTexture.dimensionType == TextureDimension.Tex2DArray)
+            {
+                //var srcTexture2dArray = new Texture2DArray(imageInfo.Width, imageInfo.Height, vgoTexture.depth, TextureFormat.ARGB32, mipChain: false, linear: vgoTexture.IsLinear)
+                //{
+                //    name = vgoTexture.name
+                //};
+
+                //for (int elementIndex = 0; elementIndex < vgoTexture.depth; elementIndex++)
+                //{
+                //    //srcTexture2dArray.SetPixels32(imageInfo.Pixels, elementIndex);
+
+                //    srcTexture2dArray.Apply();
+                //}
+
+                //return CreateTextureInternal2(vgoTexture, srcTexture2dArray);
+            }
+            else if (vgoTexture.dimensionType == TextureDimension.Tex3D)
+            {
+                //var srcTexture3d = new Texture3D(imageInfo.Width, imageInfo.Height, vgoTexture.depth, TextureFormat.ARGB32, mipChain: false)
+                //{
+                //    name = vgoTexture.name
+                //};
+
+                //srcTexture3d.SetPixels32(imageInfo.Pixels);
+
+                //srcTexture3d.Apply();
+
+                //return CreateTextureInternal2(vgoTexture, srcTexture3d);
+            }
+
+            return null;
         }
 
         /// <summary>
-        /// Create a unity texture 2D.
+        /// Create a unity texture.
         /// </summary>
         /// <param name="vgoTexture">A vgo texture.</param>
-        /// <param name="srcTexture2d"></param>
-        /// <returns>A unity texture 2D.</returns>
-        protected virtual Texture2D? CreateTexture2dInternal2(in VgoTexture vgoTexture, in Texture2D srcTexture2d)
+        /// <param name="srcTexture"></param>
+        /// <returns>A unity texture.</returns>
+        protected virtual Texture? CreateTextureInternal2(in VgoTexture vgoTexture, in Texture srcTexture)
         {
-            Texture2D texture2D = _TextureConverter.GetImportTexture(srcTexture2d, vgoTexture.mapType, vgoTexture.metallicRoughness);
+            if (srcTexture is Texture2D)
+            {
+                // OK
+            }
+            else if (srcTexture is Texture2DArray)
+            {
+                // OK
+            }
+            else if (srcTexture is Texture3D)
+            {
+                // OK
+            }
+            else
+            {
+                return null;
+            }
 
-            texture2D.filterMode = (UnityEngine.FilterMode)vgoTexture.filterMode;
-            texture2D.wrapMode = (UnityEngine.TextureWrapMode)vgoTexture.wrapMode;
-            texture2D.wrapModeU = (UnityEngine.TextureWrapMode)vgoTexture.wrapModeU;
-            texture2D.wrapModeV = (UnityEngine.TextureWrapMode)vgoTexture.wrapModeV;
+            Texture texture = _TextureConverter.GetImportTexture(srcTexture, vgoTexture.mapType, vgoTexture.metallicRoughness);
 
-            texture2D.Apply();
+            texture.filterMode = (UnityEngine.FilterMode)vgoTexture.filterMode;
+            texture.wrapMode = (UnityEngine.TextureWrapMode)vgoTexture.wrapMode;
+            texture.wrapModeU = (UnityEngine.TextureWrapMode)vgoTexture.wrapModeU;
+            texture.wrapModeV = (UnityEngine.TextureWrapMode)vgoTexture.wrapModeV;
 
-            return texture2D;
+            if (texture is Texture2D texture2D)
+            {
+                texture2D.Apply();
+
+                return texture2D;
+            }
+            else if (texture is Texture2DArray texture2DArray)
+            {
+                texture2DArray.Apply();
+
+                return texture2DArray;
+            }
+            else if (texture is Texture3D texture3D)
+            {
+                texture3D.Apply();
+
+                return texture3D;
+            }
+
+            return null;
         }
 
         #endregion
@@ -479,7 +574,7 @@ namespace UniVgo2.Porters
 
             for (int textureIndex = 0; textureIndex < vgoStorage.Layout.textures.Count; textureIndex++)
             {
-                int index = textureIndex;  // @impotant
+                int index = textureIndex;  // @important
 
                 Task createImageInfoTask = Task.Run(async () =>
                 {

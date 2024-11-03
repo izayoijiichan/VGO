@@ -39,11 +39,11 @@ namespace UniVgo2
 
             vgoModelAsset.Layout = vgoStorage.Layout;
 
-            // UnityEngine.Texture2D
-            vgoModelAsset.Texture2dList = _TextureImporter.CreateTextureAssets(vgoStorage);
+            // UnityEngine.Texture
+            vgoModelAsset.TextureList = _TextureImporter.CreateTextureAssets(vgoStorage);
 
             // UnityEngine.Material
-            vgoModelAsset.MaterialList = CreateMaterialAssets(vgoStorage, vgoModelAsset.Texture2dList);
+            vgoModelAsset.MaterialList = CreateMaterialAssets(vgoStorage, vgoModelAsset.TextureList);
 
             // UnityEngine.Mesh
             if (vgoStorage.IsSpecVersion_2_4_orLower)
@@ -61,7 +61,7 @@ namespace UniVgo2
             // UnityEngine.VgoSpringBoneColliderGroup
             vgoModelAsset.SpringBoneColliderGroupArray = CreateSpringBoneColliderGroupArray(vgoStorage.Layout);
 
-            // UnityEngine.GameObejct
+            // UnityEngine.GameObject
             List<Transform> nodes = CreateNodes(vgoStorage);
 
             CreateNodeHierarchy(nodes, vgoStorage.Layout);
@@ -98,13 +98,13 @@ namespace UniVgo2
 
             vgoModelAsset.Layout = vgoStorage.Layout;
 
-            // UnityEngine.Texture2D
-            //vgoModelAsset.Texture2dList = _TextureImporter.CreateTextureAssets(vgoStorage);
-            //vgoModelAsset.Texture2dList = await _TextureImporter.CreateTextureAssetsAsync(vgoStorage, cancellationToken);
-            vgoModelAsset.Texture2dList = await _TextureImporter.CreateTextureAssetsParallelAsync(vgoStorage, cancellationToken);
+            // UnityEngine.Texture
+            //vgoModelAsset.TextureList = _TextureImporter.CreateTextureAssets(vgoStorage);
+            //vgoModelAsset.TextureList = await _TextureImporter.CreateTextureAssetsAsync(vgoStorage, cancellationToken);
+            vgoModelAsset.TextureList = await _TextureImporter.CreateTextureAssetsParallelAsync(vgoStorage, cancellationToken);
 
             // UnityEngine.Material
-            vgoModelAsset.MaterialList = CreateMaterialAssets(vgoStorage, vgoModelAsset.Texture2dList);
+            vgoModelAsset.MaterialList = CreateMaterialAssets(vgoStorage, vgoModelAsset.TextureList);
 
             // UnityEngine.Mesh
             if (vgoStorage.IsSpecVersion_2_4_orLower)
@@ -126,7 +126,7 @@ namespace UniVgo2
             // UnityEngine.VgoSpringBoneColliderGroup
             vgoModelAsset.SpringBoneColliderGroupArray = CreateSpringBoneColliderGroupArray(vgoStorage.Layout);
 
-            // UnityEngine.GameObejct
+            // UnityEngine.GameObject
             List<Transform> nodes = CreateNodes(vgoStorage);
 
             CreateNodeHierarchy(nodes, vgoStorage.Layout);
@@ -168,11 +168,11 @@ namespace UniVgo2
 
             vgoModelAsset.Layout = vgoStorage.Layout;
 
-            // UnityEngine.Texture2D
-            vgoModelAsset.Texture2dList = _TextureImporter.CreateTextureAssets(vgoStorage);
+            // UnityEngine.Texture
+            vgoModelAsset.TextureList = _TextureImporter.CreateTextureAssets(vgoStorage);
 
             // UnityEngine.Material
-            vgoModelAsset.MaterialList = CreateMaterialAssets(vgoStorage, vgoModelAsset.Texture2dList);
+            vgoModelAsset.MaterialList = CreateMaterialAssets(vgoStorage, vgoModelAsset.TextureList);
 
             return vgoModelAsset;
         }
@@ -195,13 +195,13 @@ namespace UniVgo2
 
             vgoModelAsset.Layout = vgoStorage.Layout;
 
-            // UnityEngine.Texture2D
-            //vgoModelAsset.Texture2dList = _TextureImporter.CreateTextureAssets(vgoStorage);
-            //vgoModelAsset.Texture2dList = await _TextureImporter.CreateTextureAssetsAsync(vgoStorage, cancellationToken);
-            vgoModelAsset.Texture2dList = await _TextureImporter.CreateTextureAssetsParallelAsync(vgoStorage, cancellationToken);
+            // UnityEngine.Texture
+            //vgoModelAsset.TextureList = _TextureImporter.CreateTextureAssets(vgoStorage);
+            //vgoModelAsset.TextureList = await _TextureImporter.CreateTextureAssetsAsync(vgoStorage, cancellationToken);
+            vgoModelAsset.TextureList = await _TextureImporter.CreateTextureAssetsParallelAsync(vgoStorage, cancellationToken);
 
             // UnityEngine.Material
-            vgoModelAsset.MaterialList = CreateMaterialAssets(vgoStorage, vgoModelAsset.Texture2dList);
+            vgoModelAsset.MaterialList = CreateMaterialAssets(vgoStorage, vgoModelAsset.TextureList);
 
             return vgoModelAsset;
         }
@@ -214,9 +214,9 @@ namespace UniVgo2
         /// Create material assets.
         /// </summary>
         /// <param name="vgoStorage">A vgo storage.</param>
-        /// <param name="texture2dList">List of unity texture 2D.</param>
+        /// <param name="textureList">List of unity texture.</param>
         /// <returns>List of unity material.</returns>
-        protected virtual List<Material?> CreateMaterialAssets(in IVgoStorage vgoStorage, in List<Texture2D?> texture2dList)
+        protected virtual List<Material?> CreateMaterialAssets(in IVgoStorage vgoStorage, in List<Texture?> textureList)
         {
             var materialList = new List<Material?>();
 
@@ -232,12 +232,21 @@ namespace UniVgo2
                 if (vgoMaterial is null)
                 {
                     materialList.Add(null);
+
+                    continue;
                 }
-                else
+
+                try
                 {
-                    Material material = _MaterialImporter.CreateMaterialAsset(vgoMaterial, texture2dList);
+                    Material material = _MaterialImporter.CreateMaterialAsset(vgoMaterial, textureList);
 
                     materialList.Add(material);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogException(ex);
+
+                    materialList.Add(null);
                 }
             }
 
@@ -440,13 +449,13 @@ namespace UniVgo2
 
             vgoModelAsset.ColliderList = CreateUnityColliderList(nodes);
 
-            // UnigyEngine.Cloth
+            // UnityEngine.Cloth
             for (int nodeIndex = 0; nodeIndex < vgoStorage.Layout.nodes.Count; nodeIndex++)
             {
                 SetupNodeCloth(nodes, nodeIndex, vgoStorage, vgoModelAsset.ColliderList);
             }
 
-            // UnigyEngine.VgoSpringBone
+            // UnityEngine.VgoSpringBone
             for (int nodeIndex = 0; nodeIndex < vgoStorage.Layout.nodes.Count; nodeIndex++)
             {
                 SetupNodeSpringBone(nodes, nodeIndex, vgoStorage.Layout, vgoStorage.GeometryCoordinate, vgoModelAsset);
@@ -667,7 +676,13 @@ namespace UniVgo2
                     vgoLayout.particles.TryGetValue(vgoNode.particle, out var vgoParticleSystem) &&
                     vgoParticleSystem != null)
                 {
-                    _ParticleSystemImporter.AddComponent(go, vgoParticleSystem, geometryCoordinate, vgoModelAsset.MaterialList, vgoModelAsset.Texture2dList);
+                    _ParticleSystemImporter.AddComponent(
+                        go,
+                        vgoParticleSystem,
+                        geometryCoordinate,
+                        vgoModelAsset.MaterialList,
+                        vgoModelAsset.TextureList,
+                        _Option.ForceSetRuntimeParticleDuration);
                 }
             }
             catch (Exception ex)
@@ -1102,7 +1117,13 @@ namespace UniVgo2
                     blendShapeConfiguration.Blinks = meshAsset.BlendShapeConfig.Blinks;
                     blendShapeConfiguration.Visemes = meshAsset.BlendShapeConfig.Visemes;
 
-                    if (vgoMeshRenderer.blendShapePesets != null &&
+                    if (vgoMeshRenderer.blendShapePresets != null &&
+                        vgoMeshRenderer.blendShapePresets.Any())
+                    {
+                        blendShapeConfiguration.Presets.AddRange(vgoMeshRenderer.blendShapePresets);
+                    }
+                    else if (
+                        vgoMeshRenderer.blendShapePesets != null &&
                         vgoMeshRenderer.blendShapePesets.Any())
                     {
                         blendShapeConfiguration.Presets.AddRange(vgoMeshRenderer.blendShapePesets);

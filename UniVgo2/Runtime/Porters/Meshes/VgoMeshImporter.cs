@@ -398,7 +398,7 @@ namespace UniVgo2.Porters
 
             for (int meshIndex = 0; meshIndex < vgoStorage.Layout.meshes.Count; meshIndex++)
             {
-                int index = meshIndex;  // @impotant
+                int index = meshIndex;  // @important
 
                 Task createMeshContextTask = Task.Run(() =>
                 {
@@ -493,9 +493,9 @@ namespace UniVgo2.Porters
                 {
                     blendShapeConfig.Kind = vgoMesh.blendShapeKind;
 
-                    if (vgoMesh.blendShapePesets != null)
+                    if (vgoMesh.blendShapePresets != null)
                     {
-                        blendShapeConfig.Presets = vgoMesh.blendShapePesets;
+                        blendShapeConfig.Presets = vgoMesh.blendShapePresets;
                     }
                 }
             }

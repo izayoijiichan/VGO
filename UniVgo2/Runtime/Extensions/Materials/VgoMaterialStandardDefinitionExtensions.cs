@@ -19,9 +19,9 @@ namespace UniVgo2
         /// Convert vgo material to standard definition.
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A standard definition.</returns>
-        public static StandardDefinition ToStandardDefinition(this VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList)
+        public static StandardDefinition ToStandardDefinition(this VgoMaterial vgoMaterial, in List<Texture?> allTextureList)
         {
             // @notice Accept any shader.
             //if (vgoMaterial.shaderName != UniStandardShader.ShaderName.Standard)
@@ -83,23 +83,23 @@ namespace UniVgo2
 
             // Textures
             standardDefinition.MainTex
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MainTex));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MainTex)) as Texture2D;
             standardDefinition.MetallicGlossMap
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MetallicGlossMap));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MetallicGlossMap)) as Texture2D;
             standardDefinition.BumpMap
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BumpMap));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BumpMap)) as Texture2D;
             standardDefinition.ParallaxMap
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.ParallaxMap));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.ParallaxMap)) as Texture2D;
             standardDefinition.OcclusionMap
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.OcclusionMap));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.OcclusionMap)) as Texture2D;
             standardDefinition.EmissionMap
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.EmissionMap));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.EmissionMap)) as Texture2D;
             standardDefinition.DetailMask
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.DetailMask));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.DetailMask)) as Texture2D;
             standardDefinition.DetailAlbedoMap
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.DetailAlbedoMap));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.DetailAlbedoMap)) as Texture2D;
             standardDefinition.DetailNormalMap
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.DetailNormalMap));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.DetailNormalMap)) as Texture2D;
 
             standardDefinition.MainTexScale
                 = vgoMaterial.GetTextureScaleOrDefault(Property.MainTex, Vector2.one);

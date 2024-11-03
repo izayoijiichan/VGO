@@ -64,13 +64,13 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A standard shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A standard vertex color material.</returns>
-        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture2D?> allTexture2dList)
+        public override Material CreateMaterialAsset(in VgoMaterial vgoMaterial, in Shader shader, in List<Texture?> allTextureList)
         {
             if (shader.name == ShaderName.URP_Lit)
             {
-                return CreateMaterialAssetAsUrp(vgoMaterial, shader, allTexture2dList);
+                return CreateMaterialAssetAsUrp(vgoMaterial, shader, allTextureList);
             }
 
             if (vgoMaterial.shaderName != ShaderName.UniGLTF_StandardVColor)
@@ -83,7 +83,7 @@ namespace UniVgo2.Porters
                 ThrowHelper.ThrowArgumentException($"shader.name: {shader.name}");
             }
 
-            StandardVColorDefinition vgoMaterialParameter = vgoMaterial.ToStandardVColorDefinition(allTexture2dList);
+            StandardVColorDefinition vgoMaterialParameter = vgoMaterial.ToStandardVColorDefinition(allTextureList);
 
             var material = new Material(shader)
             {
@@ -117,19 +117,19 @@ namespace UniVgo2.Porters
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
         /// <param name="shader">A URP lit shader.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A URP lit material.</returns>
         /// <remarks>
         /// @notice Universal Render Pipeline/Lit shader is not support vertex color.
         /// </remarks>
-        protected virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, Shader shader, in List<Texture2D?> allTexture2dList)
+        protected virtual Material CreateMaterialAssetAsUrp(in VgoMaterial vgoMaterial, Shader shader, in List<Texture?> allTextureList)
         {
             var material = new Material(shader)
             {
                 name = vgoMaterial.name
             };
 
-            StandardVColorDefinition standardVColorDefinition = vgoMaterial.ToStandardVColorDefinition(allTexture2dList);
+            StandardVColorDefinition standardVColorDefinition = vgoMaterial.ToStandardVColorDefinition(allTextureList);
 
             UniUrpShader.UrpLitDefinition urpLitDefinition = standardVColorDefinition.ToUrpLitDefinition();
 

@@ -40,6 +40,7 @@ ___
 |com.unity.nuget.newtonsoft-json|Unity Technologies|NuGet|[link](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.0)|
 |com.vrmc.vrmshaders|vrm-c|GitHub|[link](https://github.com/vrm-c/UniVRM/tree/master/Assets/VRMShaders)|
 |com.izayoi.liltoon.shader.utility|IzayoiJiichan|GitHub|[link](https://github.com/izayoijiichan/lilToonShaderUtility.git)|
+|com.izayoi.nova.shader.utility|IzayoiJiichan|GitHub|[link](https://github.com/izayoijiichan/NovaShaderUtility.git)|
 |com.izayoi.unishaders|IzayoiJiichan|GitHub|[link](https://github.com/izayoijiichan/UniShaders.git)|
 |com.izayoi.vgospringbone|IzayoiJiichan|GitHub|[link](https://github.com/izayoijiichan/VgoSpringBone.git)|
 
@@ -61,7 +62,7 @@ and other related people.
 I would like to take this opportunity to thank you.
 
 ___
-Last updated: 24 August, 2023  
+Last updated: 4 November, 2024  
 Editor: Izayoi Jiichan
 
 *Copyright (C) 2020 Izayoi Jiichan. All Rights Reserved.*

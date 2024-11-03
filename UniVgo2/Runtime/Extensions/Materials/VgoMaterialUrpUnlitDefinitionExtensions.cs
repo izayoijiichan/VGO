@@ -35,7 +35,7 @@ namespace UniVgo2
         /// Convert vgo material to URP unlit definition.
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A URP unlit definition.</returns>
         /// <remarks>
         /// ShaderName.UniGLTF_UniUnlit
@@ -48,11 +48,11 @@ namespace UniVgo2
         /// ShaderName.VRM_UnlitTransparent
         /// ShaderName.VRM_UnlitTransparentZWrite
         /// </remarks>
-        public static UrpUnlitDefinition ToUrpUnlitDefinition(this VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList)
+        public static UrpUnlitDefinition ToUrpUnlitDefinition(this VgoMaterial vgoMaterial, in List<Texture?> allTextureList)
         {
             if (vgoMaterial.shaderName == ShaderName.UniGLTF_UniUnlit)
             {
-                UniGltfUnlitDefinition brpUnlitDefinition = vgoMaterial.ToUniGltfUnlitDefinition(allTexture2dList);
+                UniGltfUnlitDefinition brpUnlitDefinition = vgoMaterial.ToUniGltfUnlitDefinition(allTextureList);
 
                 UrpUnlitDefinition urpUnlitDefinition = brpUnlitDefinition.ToUrpUnlitDefinition();
 
@@ -116,7 +116,7 @@ namespace UniVgo2
 
                 int mainTextureIndex = vgoMaterial.GetTextureIndexOrDefault(UniUnlitUtil.PropNameMainTex);
 
-                urpUnlitDefinition.BaseMap = allTexture2dList.GetNullableValueOrDefault(mainTextureIndex);
+                urpUnlitDefinition.BaseMap = allTextureList.GetNullableValueOrDefault(mainTextureIndex) as Texture2D;
                 urpUnlitDefinition.BaseMapScale = vgoMaterial.GetTextureScaleOrDefault(UniUnlitUtil.PropNameMainTex, Vector2.one);
                 urpUnlitDefinition.BaseMapOffset = vgoMaterial.GetTextureOffsetOrDefault(UniUnlitUtil.PropNameMainTex, Vector2.zero);
 

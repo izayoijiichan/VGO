@@ -20,9 +20,9 @@ namespace UniVgo2
         /// Convert vgo material to BRP particle definition.
         /// </summary>
         /// <param name="vgoMaterial">A vgo material.</param>
-        /// <param name="allTexture2dList">List of all texture 2D.</param>
+        /// <param name="allTextureList">List of all texture.</param>
         /// <returns>A BRP particle definition.</returns>
-        public static ParticleDefinition ToBrpParticleDefinition(this VgoMaterial vgoMaterial, in List<Texture2D?> allTexture2dList)
+        public static ParticleDefinition ToBrpParticleDefinition(this VgoMaterial vgoMaterial, in List<Texture?> allTextureList)
         {
             if ((vgoMaterial.shaderName != ShaderName.Particles_Standard_Surface) &&
                 (vgoMaterial.shaderName != ShaderName.Particles_Standard_Unlit))
@@ -91,15 +91,15 @@ namespace UniVgo2
 
             // Textures
             particleDefinition.MainTex
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MainTex));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MainTex)) as Texture2D;
             particleDefinition.MetallicGlossMap
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MetallicGlossMap));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.MetallicGlossMap)) as Texture2D;
             particleDefinition.BumpMap
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BumpMap));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.BumpMap)) as Texture2D;
             particleDefinition.EmissionMap
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.EmissionMap));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.EmissionMap)) as Texture2D;
             particleDefinition.GrabTexture
-                = allTexture2dList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.GrabTexture));
+                = allTextureList.GetNullableValueOrDefault(vgoMaterial.GetTextureIndexOrDefault(Property.GrabTexture)) as Texture2D;
 
             particleDefinition.MainTexScale
                 = new Vector2(particleDefinition.MainTexSt.x, particleDefinition.MainTexSt.y);

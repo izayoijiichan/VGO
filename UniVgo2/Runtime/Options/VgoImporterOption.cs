@@ -18,5 +18,8 @@ namespace UniVgo2
 
         /// <summary>Whether update skinned mesh renderer when off screen.</summary>
         public bool UpdateWhenOffscreen { get; set; } = false;
+
+        /// <summary>Whether to force the particle system duration in Runtime.</summary>
+        public bool ForceSetRuntimeParticleDuration { get; set; } = false;
     }
 }

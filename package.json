@@ -2,7 +2,7 @@
   "name": "com.izayoi.univgo",
   "displayName": "UniVGO",
   "description": "UniVGO is a package that can handle VGO files in Unity.",
-  "version": "2.5.21",
+  "version": "2.5.22",
   "type": "tool",
   "category": "",
   "keywords": [
@@ -20,6 +20,7 @@
     "particle",
     "skybox",
     "liltoon",
+    "nova",
     "unity",
     "unity3d",
     "unity3d-plugin",

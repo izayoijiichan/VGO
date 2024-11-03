@@ -156,15 +156,16 @@ namespace NewtonVgo
     }
 
     /// <summary>A flag representing each UV channel.</summary>
+    [Flags]
     public enum UVChannelFlags
     {
         /// <summary>First UV channel.</summary>
-        UV0 = 0,
+        UV0 = 1,
         /// <summary>Second UV channel.</summary>
-        UV1 = 1,
+        UV1 = 2,
         /// <summary>Third UV channel.</summary>
-        UV2 = 2,
+        UV2 = 4,
         /// <summary>Fourth UV channel.</summary>
-        UV3 = 3,
+        UV3 = 8,
     }
 }
